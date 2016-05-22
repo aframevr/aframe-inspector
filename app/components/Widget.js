@@ -6,9 +6,17 @@
  * @param  {string|number} value    New value
  */
 function handleEntityChange (entity, componentName, propertyName, value) {
-  //console.log(entity, componentName, propertyName, value);
-  if (propertyName) {
-    if (!value) {
+
+  function isSingleProperty (schema) {
+    if ('type' in schema) {
+      return typeof schema.type === 'string';
+    }
+    return 'default' in schema;
+  }
+  var isSingle = isSingleProperty(AFRAME.components[componentName].schema);
+
+  if (propertyName && !isSingle) {
+    if (value === null || value === undefined) {
       var parameters = entity.getAttribute(componentName);
       delete parameters[propertyName];
       entity.setAttribute(componentName, parameters);
@@ -16,7 +24,7 @@ function handleEntityChange (entity, componentName, propertyName, value) {
       entity.setAttribute(componentName, propertyName, value);
     }
   } else {
-    if (!value) {
+    if (value === null || value === undefined) {
       entity.removeAttribute(componentName);
     } else {
       entity.setAttribute(componentName, value);

@@ -23,7 +23,7 @@ function Attributes (editor) {
    * @param  {string|number} value    New value
    */
   function handleEntityChange (entity, componentName, propertyName, value) {
-    console.info(entity, componentName, propertyName, value);
+    console.info("change entity", entity, componentName, propertyName, value);
     if (propertyName) {
       if (!value) {
         var parameters = entity.getAttribute(componentName);

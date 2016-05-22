@@ -16,7 +16,7 @@ var InputWidget = React.createClass({
     }
   },
   render: function() {
-    return <input type="text" value={this.state.value}
+    return <input type="text" className="string" value={this.state.value}
       onChange={this.update}/>;
   }
 });

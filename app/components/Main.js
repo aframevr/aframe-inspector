@@ -24,7 +24,7 @@ export default class AttributesSidebar extends React.Component {
 
 var AttributesPanel = React.createClass({
   getInitialState: function() {
-    return {entity: null, id: 'greenBox'};
+    return {entity: null};
   },
   refresh: function() {
     this.forceUpdate();
@@ -33,12 +33,10 @@ var AttributesPanel = React.createClass({
     this.refresh();
     Events.on('entitySelected', function(entity){
       this.setState({entity: entity});
-      if (entity !== null)
+      if (entity !== null) {
         entity.addEventListener('componentchanged', this.refresh);
+      }
     }.bind(this));
-
-    Events.emit('entitySelected',{});
-    //window.addEventListener('componentchanged', this.refresh);
   },
   componentWillUnmount: function() {
     //window.removeEventListener('resize', this.refresh);
@@ -47,7 +45,6 @@ var AttributesPanel = React.createClass({
     return (<Attributes name={this.state.id} entity={this.state.entity}/>)
   }
 });
-
 
 var Main = React.createClass({
   render: function() {

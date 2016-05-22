@@ -26,7 +26,7 @@ var NumberWidget = React.createClass({
     this.onMouseDownValue = 0;
     this.prevPointer = [ 0, 0 ];
 
-    this.setValue(this.props.value); // <-- ??
+    this.setValue(this.props.value);
 
     this.onBlur();
     var input = this.refs.input;
@@ -76,7 +76,10 @@ var NumberWidget = React.createClass({
       if (value > this.props.max)
         value = this.props.max;
 
-     this.setState({value: value, displayValue: value.toFixed(this.props.precision)});
+      if (this.props.precision === 0) {
+        value = parseInt(value);
+      }
+      this.setState({value: value, displayValue: value.toFixed(this.props.precision)});
      handleEntityChange(this.props.entity, this.props.componentname, this.props.name, value);
     }
   },
@@ -101,19 +104,12 @@ var NumberWidget = React.createClass({
   },
   _onFocus: function() {
     this.setState({class: 'focused'});
-
-    //this.toggleClass('focused', true);
-//      this._updateInputWidth();
-//      this._updateInputValue();
   },
   onKeyUp: function(event) {
     this.setValue(this.refs.input.value);
-    //this.debounce('io-input-resize', this._updateImmediateValue, 1);
   },
   onBlur: function() {
     this.setState({class: ''});
-    //this.setValue(this.immediatevalue);
-    //this.scrollLeft = 0;
   },
   focus: function() {
     if (this.refs) {
@@ -127,7 +123,7 @@ var NumberWidget = React.createClass({
   },
   render: function() {
     return (
-        <input ref="input" className="number" type="text" value={this.state.value} onKeyDown={this.onKeyDown} onChange={this.update}/>
+        <input ref="input" className="number" type="text" value={this.state.value.toFixed(this.props.precision)} onKeyDown={this.onKeyDown} onChange={this.update}/>
         );
   }
 });

@@ -1,0 +1,18 @@
+<% _.forEach(colorSet, function(group, groupName) {
+  if (typeof group === 'object') {
+    _.forEach(group, function(hex, shade) {
+%>.color-<%= groupName %>-<%= shade %> { color: <%= hex %>; }
+.bg-<%= groupName %>-<%= shade %> { background-color: <%= hex %>; }
+.border-<%= groupName %>-<%= shade %> { border-color: <%= hex %>; }
+.fill-<%= groupName %>-<%= shade %> { fill: <%= hex %>; }
+.stroke-<%= groupName %>-<%= shade %> { stroke: <%= hex %>; }
+<% });
+  } else {
+%>.color-<%= groupName %> { color: <%= group %>; }
+.bg-<%= groupName %> { background-color: <%= group %>; }
+.border-<%= groupName %> { border-color: <%= group %>; }
+.fill-<%= groupName %> { fill: <%= group %>; }
+.stroke-<%= groupName %> { stroke: <%= group %>; }
+<% } %>
+
+<% }); %>

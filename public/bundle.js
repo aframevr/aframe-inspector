@@ -61,8 +61,8 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(33);
 	var Attributes = __webpack_require__(168);
-	var Events = __webpack_require__(176);
-	var Editor = __webpack_require__(178);
+	var Events = __webpack_require__(177);
+	var Editor = __webpack_require__(179);
 
 	var AttributesSidebar = function (_React$Component) {
 	  _inherits(AttributesSidebar, _React$Component);
@@ -102,7 +102,7 @@
 	  displayName: 'AttributesPanel',
 
 	  getInitialState: function getInitialState() {
-	    return { entity: null, id: 'greenBox' };
+	    return { entity: null };
 	  },
 	  refresh: function refresh() {
 	    this.forceUpdate();
@@ -111,11 +111,10 @@
 	    this.refresh();
 	    Events.on('entitySelected', function (entity) {
 	      this.setState({ entity: entity });
-	      if (entity !== null) entity.addEventListener('componentchanged', this.refresh);
+	      if (entity !== null) {
+	        entity.addEventListener('componentchanged', this.refresh);
+	      }
 	    }.bind(this));
-
-	    Events.emit('entitySelected', {});
-	    //window.addEventListener('componentchanged', this.refresh);
 	  },
 	  componentWillUnmount: function componentWillUnmount() {
 	    //window.removeEventListener('resize', this.refresh);
@@ -20308,12 +20307,16 @@
 
 	'use strict';
 
+	var _ColorWidget = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./ColorWidget\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
 	var React = __webpack_require__(1);
-	var handleEntityChange = __webpack_require__(171);
-	var NumberWidget = __webpack_require__(172);
-	var InputWidget = __webpack_require__(173);
-	var BooleanWidget = __webpack_require__(174);
-	var SelectWidget = __webpack_require__(175);
+	var handleEntityChange = __webpack_require__(172);
+	var NumberWidget = __webpack_require__(173);
+	var InputWidget = __webpack_require__(174);
+	var BooleanWidget = __webpack_require__(175);
+	var SelectWidget = __webpack_require__(176);
+
+	//var ColorWidget = require('./ColorWidget');
 
 	var AttributeRow = React.createClass({
 	  displayName: 'AttributeRow',
@@ -20325,6 +20328,10 @@
 	      widget = React.createElement(SelectWidget, { name: this.props.name, componentname: this.props.componentname, entity: this.props.entity, value: this.props.data, options: this.props.schema.oneOf });
 	    } else if (this.props.schema.type === "number") {
 	      widget = React.createElement(NumberWidget, { name: this.props.name, componentname: this.props.componentname, entity: this.props.entity, value: this.props.data });
+	    } else if (this.props.schema.type === "color") {
+	      widget = React.createElement(_ColorWidget.ColorWidget, { name: this.props.name, componentname: this.props.componentname, entity: this.props.entity, value: this.props.data });
+	    } else if (this.props.schema.type === "int") {
+	      widget = React.createElement(NumberWidget, { name: this.props.name, componentname: this.props.componentname, entity: this.props.entity, value: this.props.data, precision: 0 });
 	    } else if (this.props.schema.type === "boolean") {
 	      widget = React.createElement(BooleanWidget, { name: this.props.name, componentname: this.props.componentname, entity: this.props.entity, value: this.props.data });
 	    }
@@ -20364,7 +20371,8 @@
 	module.exports = AttributeRow;
 
 /***/ },
-/* 171 */
+/* 171 */,
+/* 172 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -20398,13 +20406,13 @@
 	module.exports = handleEntityChange;
 
 /***/ },
-/* 172 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var handleEntityChange = __webpack_require__(171);
+	var handleEntityChange = __webpack_require__(172);
 
 	var NumberWidget = React.createClass({
 	  displayName: 'NumberWidget',
@@ -20433,7 +20441,7 @@
 	    this.onMouseDownValue = 0;
 	    this.prevPointer = [0, 0];
 
-	    this.setValue(this.props.value); // <-- ??
+	    this.setValue(this.props.value);
 
 	    this.onBlur();
 	    var input = this.refs.input;
@@ -20481,6 +20489,9 @@
 	      if (value < this.props.min) value = this.props.min;
 	      if (value > this.props.max) value = this.props.max;
 
+	      if (this.props.precision === 0) {
+	        value = parseInt(value);
+	      }
 	      this.setState({ value: value, displayValue: value.toFixed(this.props.precision) });
 	      handleEntityChange(this.props.entity, this.props.componentname, this.props.name, value);
 	    }
@@ -20506,19 +20517,12 @@
 	  },
 	  _onFocus: function _onFocus() {
 	    this.setState({ class: 'focused' });
-
-	    //this.toggleClass('focused', true);
-	    //      this._updateInputWidth();
-	    //      this._updateInputValue();
 	  },
 	  onKeyUp: function onKeyUp(event) {
 	    this.setValue(this.refs.input.value);
-	    //this.debounce('io-input-resize', this._updateImmediateValue, 1);
 	  },
 	  onBlur: function onBlur() {
 	    this.setState({ class: '' });
-	    //this.setValue(this.immediatevalue);
-	    //this.scrollLeft = 0;
 	  },
 	  focus: function focus() {
 	    if (this.refs) {
@@ -20531,20 +20535,20 @@
 	    if (event.keyCode === 13) this.refs.input.blur();
 	  },
 	  render: function render() {
-	    return React.createElement('input', { ref: 'input', className: 'number', type: 'text', value: this.state.value, onKeyDown: this.onKeyDown, onChange: this.update });
+	    return React.createElement('input', { ref: 'input', className: 'number', type: 'text', value: this.state.value.toFixed(this.props.precision), onKeyDown: this.onKeyDown, onChange: this.update });
 	  }
 	});
 
 	module.exports = NumberWidget;
 
 /***/ },
-/* 173 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var handleEntityChange = __webpack_require__(171);
+	var handleEntityChange = __webpack_require__(172);
 
 	var InputWidget = React.createClass({
 	  displayName: 'InputWidget',
@@ -20563,7 +20567,7 @@
 	    }
 	  },
 	  render: function render() {
-	    return React.createElement('input', { type: 'text', value: this.state.value,
+	    return React.createElement('input', { type: 'text', className: 'string', value: this.state.value,
 	      onChange: this.update });
 	  }
 	});
@@ -20571,13 +20575,13 @@
 	module.exports = InputWidget;
 
 /***/ },
-/* 174 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var handleEntityChange = __webpack_require__(171);
+	var handleEntityChange = __webpack_require__(172);
 
 	var BooleanWidget = React.createClass({
 	  displayName: 'BooleanWidget',
@@ -20627,13 +20631,13 @@
 	module.exports = BooleanWidget;
 
 /***/ },
-/* 175 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var handleEntityChange = __webpack_require__(171);
+	var handleEntityChange = __webpack_require__(172);
 
 	var SelectWidget = React.createClass({
 	  displayName: 'SelectWidget',
@@ -20669,12 +20673,12 @@
 	module.exports = SelectWidget;
 
 /***/ },
-/* 176 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Emitter = __webpack_require__(177).EventEmitter;
+	var Emitter = __webpack_require__(178).EventEmitter;
 	var emitter = new Emitter();
 	emitter.setMaxListeners(0);
 
@@ -20698,7 +20702,7 @@
 	module.exports = new Events();
 
 /***/ },
-/* 177 */
+/* 178 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -21002,7 +21006,7 @@
 
 
 /***/ },
-/* 178 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21014,11 +21018,11 @@
 	var Events = require('./events.js');
 	*/
 
-	var Events = __webpack_require__(176);
+	var Events = __webpack_require__(177);
 	//var Panels = require('./panels');
-	var Viewport = __webpack_require__(179);
-	var ComponentLoader = __webpack_require__(182);
-	var ShaderLoader = __webpack_require__(183);
+	var Viewport = __webpack_require__(180);
+	var ComponentLoader = __webpack_require__(183);
+	var ShaderLoader = __webpack_require__(184);
 
 	function Editor() {
 	  window.aframeCore = window.aframeCore || window.AFRAME.aframeCore || window.AFRAME;
@@ -21260,15 +21264,15 @@
 	//module.exports = new Editor();
 
 /***/ },
-/* 179 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	/* global aframeEditor THREE CustomEvent */
-	var TransformControls = __webpack_require__(180);
-	var EditorControls = __webpack_require__(181);
-	var Events = __webpack_require__(176);
+	var TransformControls = __webpack_require__(181);
+	var EditorControls = __webpack_require__(182);
+	var Events = __webpack_require__(177);
 
 	function getNumber(value) {
 	  return parseFloat(value.toFixed(2));
@@ -21595,7 +21599,7 @@
 	module.exports = Viewport;
 
 /***/ },
-/* 180 */
+/* 181 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -22575,7 +22579,7 @@
 	})();
 
 /***/ },
-/* 181 */
+/* 182 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -22888,7 +22892,7 @@
 	THREE.EditorControls.prototype.constructor = THREE.EditorControls;
 
 /***/ },
-/* 182 */
+/* 183 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -22941,7 +22945,7 @@
 	module.exports = ComponentLoader;
 
 /***/ },
-/* 183 */
+/* 184 */
 /***/ function(module, exports) {
 
 	'use strict';

@@ -31,6 +31,10 @@
         color: #fff;
       }
 
+      input.string {
+        outline: none;
+      }
+
       input.number {
         color: #20b1fb;
         font-size: 12px;
@@ -40,6 +44,7 @@
         outline: none;
         background-color: transparent;
       }
+      input.string:focus,
       input.number:focus {
         border: 1px solid #20b1fb;
         cursor: auto;
@@ -65,7 +70,7 @@
   </head>
   <body>
     <div id="app"></div>
-    <a-scene>
+    <a-scene debug="true">
       <a-assets>
         <a-mixin id="spin" attribute="rotation" to="0 360 0" repeat="indefinite" easing="linear" dur="9600"></a-mixin>
         <a-mixin id="blue" material="color: #4CC3D9"></a-mixin>

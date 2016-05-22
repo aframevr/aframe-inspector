@@ -1,0 +1,9 @@
+<% _.forEach(colorSet, function(group, groupName) {
+  if (typeof group === 'object') {
+    _.forEach(group, function(hex, shade) {
+%>@md-<%= groupName %>-<%= shade %>: <%= hex %>;
+<%  });
+  } else {
+%>@md-<%= groupName %>: <%= group %>;
+<% } %>
+<% }); %>
