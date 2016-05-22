@@ -1,0 +1,10 @@
+/* Toolbar */
+.editor-tools {
+  position: absolute;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.editor-tools button {
+  float: left;
+}

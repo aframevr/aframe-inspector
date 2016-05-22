@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Cube</title>
+    <meta name="description" content="Cube">
+    <script src="../node_modules/aframe/build/aframe.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
+    <style>
+      body {
+        background-color: #aaa;
+        font-family: 'Roboto', sans-serif;
+        font-size: 12px;
+      }
+      .attributes {
+        background-color: #323232;
+        color: #bcbcbc;
+      }
+      #app {
+        color: #fff;
+        z-index: 1000;
+        position: fixed;
+      }
+      #app b{
+        color: #ff9;
+      }
+
+      input {
+        background-color: transparent;
+        border: 1px solid #555;
+        color: #fff;
+      }
+
+      input.number {
+        color: #20b1fb;
+        font-size: 12px;
+        border: 0px;
+        padding: 2px;
+        cursor: col-resize;
+        outline: none;
+        background-color: transparent;
+      }
+      input.number:focus {
+        border: 1px solid #20b1fb;
+        cursor: auto;
+        color: #fff;
+      }
+
+      .attributes .row {
+        min-height: 20px;
+        margin-bottom: 10px;
+      }
+      .attributes * {
+        vertical-align: middle;
+      }
+
+      .attributes .row .text {
+        cursor: default;
+        display: inline-block;
+        vertical-align: middle;
+        width: 120px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <a-scene>
+      <a-assets>
+        <a-mixin id="spin" attribute="rotation" to="0 360 0" repeat="indefinite" easing="linear" dur="9600"></a-mixin>
+        <a-mixin id="blue" material="color: #4CC3D9"></a-mixin>
+        <a-mixin id="cube" geometry="primitive: box; depth: 1; height: 1; width: 1"></a-mixin>
+        <a-mixin id="cylinder" geometry="primitive: cylinder; height: 0.3; radius: 0.75; segmentsRadial: 6"></a-mixin>
+        <a-mixin id="green" material="color: #7BC8A4"></a-mixin>
+        <a-mixin id="orange" material="color: #F16745"></a-mixin>
+        <a-mixin id="purple" material="color: #93648D"></a-mixin>
+        <a-mixin id="short" scale="1 0.5 1"></a-mixin>
+        <a-mixin id="yellow" material="color: #FFC65D"></a-mixin>
+        <img id="crateimg" src="assets/textures/crate.gif">
+        <img id="floorimg" src="assets/textures/grasslight-big.jpg">
+
+      </a-assets>
+      <a-entity position="0 1 8">
+        <a-entity camera look-controls wasd-controls>
+          <a-entity visible="true" position="0 0 -2" geometry="primitive: ring; radiusOuter: 0.016; radiusInner: 0.01" material="color: #ff9; shader: flat; transparent: true; opacity: 0.5" scale="2 2 2" raycaster="">
+              </a-entity>
+        </a-entity>
+      </a-entity>
+      <a-entity mixin="short orange cube" position="-5 2 0"></a-entity>
+      <a-entity mixin="short yellow cube" position="5 2 0">
+<!--        <a-event name="click" target="#target" scale="1.5 1.5 1.5"></a-event>
+        <a-event name="click" scale="1.5 1.5 1.5"></a-event>-->
+      </a-entity>
+
+      <a-box src="assets/textures/brick_bump.jpg" position="-5 5 -2" width="1" color="#F16745"></a-box>
+      <a-box id="box" position="0 2 0" height="2" color="#FFC65D"></a-box>
+      <a-entity id="yellowSphere" geometry="primitive: sphere" material="color:#ff0;metalness:0.0;roughness:1.0" position="-2 2 -2"></a-entity>
+      <a-entity id="redBox" geometry="primitive: box" material="color:#f00" position="-4 1 0">
+        <a-animation mixin="spin"></a-animation>
+      </a-entity>
+      <a-entity id="crate" geometry="primitive: box" material="src:#crateimg" position="3 4 0"></a-entity>
+      <a-entity id="greenBox" geometry="primitive: box" material="color:#0f0" position="4 2 4"></a-entity>
+      <a-entity id="spotLight" light="type: point" position="0 3 3"></a-entity>
+      <a-entity id="floor" geometry="primitive: cylinder; height: .2; radius: 12;"
+                material="src:#floorimg;color: #fafafa; metalness: .2; repeat: 50 20; roughness: .1"
+                position="0 0 0"></a-entity>
+<!--                material="src:#floorimg;color: #fafafa; metalness: .2; repeat: 50 20; roughness: .1"-->
+
+    <a-entity id="floor" geometry="primitive: cylinder; height: 2; radius: 5;"
+          material="src:#floorimg;color: #fafafa; metalness: .2; repeat: 4 4; roughness: .1"
+          position="0 0 0"></a-entity>
+
+    </a-scene>
+    <script src="bundle.js"></script>
+  </body>
+</html>
