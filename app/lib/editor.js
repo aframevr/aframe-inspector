@@ -14,6 +14,7 @@ var ShaderLoader = require('./shaderloader.js');
 function Editor () {
   window.aframeCore = window.aframeCore || window.AFRAME.aframeCore || window.AFRAME;
 
+  this.enabled = false;
   // Detect if the scene is already loaded
   if (document.readyState === 'complete' || document.readyState === 'loaded') {
     this.onDomLoaded();
@@ -40,14 +41,26 @@ Editor.prototype = {
 
   onSceneLoaded: function () {
     this.container = document.querySelector('.a-canvas');
-    this.defaultCameraEl = document.querySelector('[camera]');
-    this.initUI();
+    this.currentCameraEl = document.querySelector('[camera]');
+
+    this.editorCameraEl = document.createElement('a-entity');
+    this.editorCameraEl.isEditor = true;
+    this.editorCameraEl.addEventListener('loaded', function(entity) {
+      this.DEFAULT_CAMERA = this.editorCameraEl.getObject3D('camera');
+      this.initUI();
+    }.bind(this));
+    this.editorCameraEl.setAttribute('camera', {far: 10000, fov: 50, near: 1, active: true});
+    document.querySelector('a-scene').appendChild(this.editorCameraEl);
   },
 
   initUI: function () {
+/*
     this.DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, 1, 1, 10000);
-    this.DEFAULT_CAMERA.name = 'Camera';
+    this.DEFAULT_CAMERA.name = 'EditorCamera';
     this.DEFAULT_CAMERA.position.set(20, 10, 20);
+*/
+
+    this.DEFAULT_CAMERA.position.set(20,10,20);
     this.DEFAULT_CAMERA.lookAt(new THREE.Vector3());
     this.DEFAULT_CAMERA.updateMatrixWorld();
 
@@ -82,7 +95,7 @@ Editor.prototype = {
 
     this.scene.add(this.sceneHelpers);
 
-    Events.emit('editorModeChanged', true);
+    this.enable();
   },
 /*
   removeObject: function (object) {
@@ -250,15 +263,17 @@ Editor.prototype = {
   },
 
   enable: function () {
-    this.panels.sidebar.show();
-    this.panels.menubar.show();
+//    this.panels.sidebar.show();
+//    this.panels.menubar.show();
+    this.enabled = true;
     Events.emit('editorModeChanged', true);
-    //this.sceneEl.pause();
+    this.sceneEl.pause();
   },
 
   disable: function () {
-    this.panels.sidebar.hide();
-    this.panels.menubar.hide();
+//    this.panels.sidebar.hide();
+//    this.panels.menubar.hide();
+    this.enabled = false;
     Events.emit('editorModeChanged', false);
     this.sceneEl.play();
   // @todo Removelisteners
@@ -267,7 +282,9 @@ Editor.prototype = {
   addObject: function (object) {
     var scope = this;
     object.traverse(function (child) {
-      scope.addHelper(child);
+      if (!child.el.isEditor) {
+        scope.addHelper(child);
+      }
     });
 
     Events.emit('objectAdded', object);

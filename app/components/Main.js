@@ -8,7 +8,7 @@ var Editor = require('../lib/editor');
 
 import "../css/main.css";
 import "../css/dark.css";
-
+/*
 // Megahack to include font-awesome
 // -------------
 var link = document.createElement('link');
@@ -25,7 +25,7 @@ link.type = 'text/css';
 link.rel = 'stylesheet';
 link.media = 'screen,print';
 document.getElementsByTagName('head')[0].appendChild(link);
-
+*/
 
 export default class AttributesSidebar extends React.Component {
 
@@ -78,7 +78,11 @@ var Main = React.createClass({
   },
   toggleEditor: function() {
     this.setState({editorEnabled: !this.state.editorEnabled}, function(){
-      Events.emit('editorModeChanged', this.state.editorEnabled);
+      if (this.state.editorEnabled)
+        editor.enable();
+      else
+        editor.disable();
+      //Events.emit('editorModeChanged', this.state.editorEnabled);
     });
   },
   componentDidMount: function() {

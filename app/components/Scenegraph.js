@@ -54,7 +54,7 @@ var Scenegraph = React.createClass({
         var child = children[i];
 
         // filter out all entities added by editor and the canvas added by aframe-core
-        if (!child.dataset.isEditor && child.isEntity) {
+        if (!child.dataset.isEditor && child.isEntity && !child.isEditor) {
           var extra = '';
 
           var icons = {'camera': 'fa-video-camera', 'light': 'fa-lightbulb-o', 'geometry': 'fa-cube', 'material': 'fa-picture-o'};

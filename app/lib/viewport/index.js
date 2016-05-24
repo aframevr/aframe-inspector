@@ -12,6 +12,17 @@ function Viewport (editor) {
     dom: editor.container
   };
 
+  var prevActivedCameraEl = editor.currentCameraEl;
+  editor.sceneEl.addEventListener('camera-set-active', function(event){
+    if (editor.enabled) {
+      // If we're in edit mode, just save the current active camera for later and activate again the editorCamera
+      if (event.detail.cameraEl !== editor.editorCameraEl) {
+        prevActivedCameraEl = event.detail.cameraEl;
+      }
+      editor.editorCameraEl.setAttribute('camera', 'active', 'true');
+    }
+  });
+
   // helpers
   var sceneHelpers = editor.sceneHelpers;
   var objects = [];
@@ -19,10 +30,19 @@ function Viewport (editor) {
   var grid = new THREE.GridHelper(30, 1);
   sceneHelpers.add(grid);
 
-  var camera = editor.camera;
+/*
+  var camera = new THREE.PerspectiveCamera(50, 1, 1, 10000);
+  camera.name = 'EditorCamera';
+  camera.position.set(20, 10, 20);
+  camera.lookAt(new THREE.Vector3());
+  camera.updateMatrixWorld();
+/*
   var cameraEl = document.createElement('a-entity');
   cameraEl.setObject3D('camera', camera);
   cameraEl.load();
+*/
+//  var camera = editor.camera;
+  var camera = editor.editorCameraEl.getObject3D('camera');
 
   var selectionBox = new THREE.BoxHelper();
   selectionBox.material.depthTest = false;
@@ -314,11 +334,16 @@ function Viewport (editor) {
     grid.visible = showGrid;
   });
   Events.on('editorModeChanged', function (active) {
+
     if (active) {
-      editor.sceneEl.systems.camera.setActiveCamera(cameraEl);
+      //editor.currentCameraEl.setAttribute('camera', 'active', 'false');
+      editor.editorCameraEl.setAttribute('camera', 'active', 'true');
+      //editor.sceneEl.systems.camera.setActiveCamera(cameraEl);
+//      editor.editorCameraEl.setAttribute('camera','active','true');
       document.querySelector('.a-enter-vr,.rs-base').style.display = 'none';
     } else {
-      editor.defaultCameraEl.setAttribute('camera', 'active', 'true');
+      prevActivedCameraEl.setAttribute('camera', 'active', 'true');
+      prevActivedCameraEl.play();
       document.querySelector('.a-enter-vr,.rs-base').style.display = 'block';
     }
   });
