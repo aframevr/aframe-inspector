@@ -19,15 +19,15 @@
 		background-color: #1faaf2;
 		color: #fff;
 	}
-
-.Panel.Collapsible.collapsed .Static .Button {
+/*
+collapsible.collapsed .static .button {
 	border-left-color: #444;
 }
 
-.Panel.Collapsible:not(.collapsed) .Static .Button {
+collapsible:not(.collapsed) .static .button {
 	border-top-color: #444;
 }
-
+*/
 
 input {
 	background-color: transparent;

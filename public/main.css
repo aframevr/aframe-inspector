@@ -31,7 +31,10 @@ textarea {
 
 textarea, input { outline: none; } /* osx */
 
+#sidebar,
+#sidebar-left,
 .Panel {
+	cursor: default;
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	-ms-user-select: none;
@@ -41,11 +44,11 @@ textarea, input { outline: none; } /* osx */
 	user-select: none;
 }
 
-	.Panel.Collapsible .Static {
+	.collapsible .static {
 		margin: 0;
 	}
 
-	.Panel.Collapsible .Static .Button {
+	.collapsible .static .button {
 		float: left;
 		margin-right: 6px;
 		width: 0;
@@ -53,17 +56,17 @@ textarea, input { outline: none; } /* osx */
 		border: 6px solid transparent;
 	}
 
-	.Panel.Collapsible.collapsed .Static .Button {
+	.collapsible.collapsed .static .button {
 		margin-top: 2px;
-		border-left-color: #bbb;
+		border-left-color: #1faaf2;
 	}
 
-	.Panel.Collapsible:not(.collapsed) .Static .Button {
+	.collapsible:not(.collapsed) .static .button {
 		margin-top: 6px;
-		border-top-color: #bbb;
+		border-top-color: #1faaf2;
 	}
 
-	.Panel.Collapsible.collapsed .Content {
+	.collapsible.collapsed .content {
 		display: none;
 	}
 
