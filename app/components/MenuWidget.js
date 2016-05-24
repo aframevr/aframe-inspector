@@ -24,7 +24,7 @@ var MenuWidget = React.createClass({
         </div>
       </div>
       <div className="menu">
-        <div className="title">File</div>
+        <div className="title">Scene</div>
         <div className="options">
           <div className="option">Save HTML</div>
           <div className="option" id="copy-scene">Copy to clipboard</div>

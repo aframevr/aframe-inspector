@@ -118,6 +118,7 @@ input.number:focus {
 		}
 
 		#menubar .menu .options {
+			z-index: 1500;
 			position: absolute;
 			display: none;
 			padding: 5px 0;
@@ -281,4 +282,24 @@ input.color {
 	border: 0px;
 	padding: 2px;
 	background-color: transparent !important;
+}
+
+.Outliner .fa {
+	color: #aaa;
+}
+
+.Outliner .active .fa {
+	color: #fff;
+}
+
+#outliner .Entity {
+  color: #8888ee;
+}
+
+#outliner .Template {
+  color: #88ee88;
+}
+
+#outliner .Animation {
+  color: #ee8888;
 }

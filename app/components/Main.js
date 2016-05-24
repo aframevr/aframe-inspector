@@ -6,6 +6,17 @@ var Scenegraph = require('./Scenegraph');
 var Events = require('../lib/Events.js');
 var Editor = require('../lib/editor');
 
+// Megahack to include font-awesome
+// -------------
+var link = document.createElement('link');
+link.href = 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css';
+link.type = 'text/css';
+link.rel = 'stylesheet';
+link.media = 'screen,print';
+document.getElementsByTagName('head')[0].appendChild(link);
+// ------------
+
+
 export default class AttributesSidebar extends React.Component {
 
   constructor(props) {
