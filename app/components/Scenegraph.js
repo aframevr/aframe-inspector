@@ -162,13 +162,6 @@ div.addEventListener( 'click', function ( event ) {
 
         }
 
-{
-  Object.keys(children).filter(function(key){return children[key].isEntity; }).map(function(key, idx) {
-    var element = children[key];
-    var name = (element.id || element.tagName).toLowerCase();
-    return <div key={idx}>{name}</div>
-  }.bind(this))
-}
             <div draggable="false" className="option">
               <span className="type PerspectiveCamera"></span> Camera
             </div>

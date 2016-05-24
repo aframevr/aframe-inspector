@@ -27,6 +27,7 @@ function Viewport (editor) {
   var selectionBox = new THREE.BoxHelper();
   selectionBox.material.depthTest = false;
   selectionBox.material.transparent = true;
+  selectionBox.material.color.set(0x1faaf2);
   selectionBox.visible = false;
   sceneHelpers.add(selectionBox);
 
