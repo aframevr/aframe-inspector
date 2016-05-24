@@ -167,6 +167,10 @@ Editor.prototype = {
       this.sceneHelpers.visible = this.editorActive;
     }.bind(this));
 
+    Events.on('createNewEntity', function(definition){
+      this.createNewEntity(definition);
+    }.bind(this));
+
 /*
     window.addEventListener('resize', Events.emit('windowResize'), false);
 
@@ -217,7 +221,29 @@ Editor.prototype = {
     document.querySelector('a-scene').innerHTML = '';
     Events.emit('editorCleared');
   },
+  /**
+   * Helper function to add a new entity with a list of components
+   * @param  {object} definition Entity definition to add:
+   *                             {element: 'a-entity', components: {geometry: 'primitive:box'}}
+   * @return {Element}            Entity created
+   */
+  createNewEntity: function (definition) {
+    var entity = document.createElement(definition.element);
 
+    // load default attributes
+    for (var attr in definition.components) {
+      entity.setAttribute(attr, definition.components[attr]);
+    }
+
+    // Ensure the components are loaded before update the UI
+    entity.addEventListener('loaded', function () {
+      editor.addEntity(entity);
+    });
+
+    editor.sceneEl.appendChild(entity);
+
+    return entity;
+  },
   addEntity: function (entity) {
     this.addObject(entity.object3D);
     this.selectEntity(entity);
