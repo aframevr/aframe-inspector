@@ -23,6 +23,11 @@ var Scenegraph = React.createClass({
   update: function(e) {
     this.setValue(e.target.value);
   },
+  componentDidMount: function() {
+    Events.on('entitySelected', function(entity){
+      this.setState({value: entity});
+    }.bind(this));
+  },
   componentWillReceiveProps: function(newProps) {
     // This will be triggered typically when the element is changed directly with element.setAttribute
     if (newProps.value != this.state.value) {
@@ -94,9 +99,9 @@ var Scenegraph = React.createClass({
 
     return <div className="Outliner" tabindex="0" id="outliner">
       {
-        options.map(function(option) {
+        options.map(function(option, idx) {
           var className = 'option' + (option.value === this.state.value ? ' active' : '');
-  		    return <div className={className} value={option.value} dangerouslySetInnerHTML={{__html:option.html}} onClick={this.setValue.bind(this, option.value)}></div>
+  		    return <div key={idx} className={className} value={option.value} dangerouslySetInnerHTML={{__html:option.html}} onClick={this.setValue.bind(this, option.value)}></div>
   	    }.bind(this))
       }
     </div>

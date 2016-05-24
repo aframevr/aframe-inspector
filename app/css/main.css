@@ -190,3 +190,17 @@ textarea, input { outline: none; } /* osx */
 #outliner .Script:after {
 	content: '{...}' /* ❮/❯ */
 }
+
+.toggle-edit {
+	background-color: #ed3160;
+	position: fixed;
+	right: 3px;
+	top: 3px;
+	padding: 6px 20px;
+	color: #fff;
+	text-decoration: none;
+}
+
+.toggle-edit:hover {
+	background-color: rgb(228,43,90);
+}

@@ -162,14 +162,12 @@ Editor.prototype = {
       this.selectEntity(entity, false);
     }.bind(this));
 
-/*
-    // Find better name :)
-    this.signals = Events;
-    Events.emit('editorModeChanged');//.add(function (active) {
+    Events.on('editorModeChanged', function(active){
       this.editorActive = active;
       this.sceneHelpers.visible = this.editorActive;
     }.bind(this));
 
+/*
     window.addEventListener('resize', Events.emit('windowResize'), false);
 
     Events.emit('showModal');//.add(function (content) {

@@ -73,19 +73,43 @@ var AttributesPanel = React.createClass({
 });
 
 var Main = React.createClass({
+  getInitialState: function() {
+    return {editorEnabled: true};
+  },
+  toggleEditor: function() {
+    this.setState({editorEnabled: !this.state.editorEnabled}, function(){
+      Events.emit('editorModeChanged', this.state.editorEnabled);
+    });
+  },
+  componentDidMount: function() {
+/*
+    var scene = document.querySelector('a-scene');
+    Events.on('editorModeChanged', function(active){
+      if (active)
+        scene.pause();
+      else
+        scene.play();
+      this.setState({editorEnabled: active});
+    }.bind(this));
+*/
+  },
   render: function() {
     var scene = document.querySelector('a-scene');
+    var toggleText = this.state.editorEnabled;
     return (
       <div>
-        <Menu/>
-        <div id="sidebar-left">
-          <div className="tab">SCENEGRAPH</div>
-          <Scenegraph scene={scene}/>
+        <div id="editor" className={this.state.editorEnabled ? '' : 'hidden'}>
+          <Menu/>
+          <div id="sidebar-left">
+            <div className="tab">SCENEGRAPH</div>
+            <Scenegraph scene={scene}/>
+          </div>
+          <div id="sidebar">
+            <div className="tab">ATTRIBUTES</div>
+            <AttributesSidebar/>
+          </div>
         </div>
-        <div id="sidebar">
-          <div className="tab">ATTRIBUTES</div>
-          <AttributesSidebar/>
-        </div>
+        <a href="#" className="toggle-edit" onClick={this.toggleEditor}>{this.state.editorEnabled?'Exit':'Edit'}</a>
       </div>
     )
   }

@@ -391,3 +391,7 @@ span.value {
 	vertical-align: middle;
 	width: 120px;
 }
+
+.hidden {
+	visibility: hidden;
+}

@@ -301,7 +301,6 @@ function Viewport (editor) {
   Events.on('helperAdded', function (object) {
     objects.push(object.getObjectByName('picker'));
   });
-
   Events.on('helperRemoved', function (object) {
     objects.splice(objects.indexOf(object.getObjectByName('picker')), 1);
   });
@@ -310,11 +309,9 @@ function Viewport (editor) {
     camera.updateProjectionMatrix();
     // renderer.setSize(container.dom.offsetWidth, container.dom.offsetHeight);
   });
-
   Events.on('showGridChanged', function (showGrid) {
     grid.visible = showGrid;
   });
-
   Events.on('editorModeChanged', function (active) {
     if (active) {
       editor.sceneEl.systems.camera.setActiveCamera(cameraEl);
