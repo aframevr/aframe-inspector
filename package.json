@@ -9,9 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "css-loader": "^0.23.1",
     "material-ui": "^0.15.0",
     "react": "^15.0.2",
-    "react-dom": "^15.0.2"
+    "react-dom": "^15.0.2",
+    "style-loader": "^0.13.1"
   },
   "devDependencies": {
     "babel-core": "^6.9.0",

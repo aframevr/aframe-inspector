@@ -6,6 +6,9 @@ var Scenegraph = require('./Scenegraph');
 var Events = require('../lib/Events.js');
 var Editor = require('../lib/editor');
 
+import "../css/main.css";
+import "../css/dark.css";
+
 // Megahack to include font-awesome
 // -------------
 var link = document.createElement('link');
