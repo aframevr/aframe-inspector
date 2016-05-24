@@ -1,13 +1,13 @@
 ﻿.Outliner {
 	color: #868686;
-	background: #222;
+	background: #2b2b2b;
 	padding: 0;
 	width: 100%;
-	height: 140px;
 	font-size: 12px;
 	cursor: default;
 	overflow: auto;
 	outline: none;
+	border-top: 1px solid #111;
 }
 
 	.Outliner .option {
@@ -16,7 +16,8 @@
 	}
 
 	.Outliner .option.active {
-		background-color: #153C5E;
+		background-color: #1faaf2;
+		color: #fff;
 	}
 
 .Panel.Collapsible.collapsed .Static .Button {
@@ -27,17 +28,36 @@
 	border-top-color: #444;
 }
 
-input.Number {
-	color: #2A75B7!important;
+
+input {
+	background-color: transparent;
+	border: 1px solid #555;
+	color: #fff;
+}
+
+input.string {
+	outline: none;
+}
+
+input.number {
+	color: #20b1fb !important;
 	font-size: 12px;
 	border: 0px;
 	padding: 2px;
 	cursor: col-resize;
+	outline: none;
+	background-color: transparent !important;
+}
+input.string:focus,
+input.number:focus {
+	border: 1px solid #20b1fb;
+	cursor: auto;
+	color: #fff;
 }
 
 #viewport {
 	position: absolute;
-	top: 32px;
+	top: 33px;
 	left: 0;
 	right: 330px;
 	bottom: 32px;
@@ -50,7 +70,7 @@ input.Number {
 
 #script {
 	position: absolute;
-	top: 32px;
+	top: 33px;
 	left: 0;
 	right: 330px;
 	bottom: 32px;
@@ -59,7 +79,7 @@ input.Number {
 
 #player {
 	position: absolute;
-	top: 32px;
+	top: 33px;
 	left: 0;
 	right: 330px;
 	bottom: 32px;
@@ -69,11 +89,12 @@ input.Number {
 	position: absolute;
 	width: 100%;
 	height: 32px;
-	background: #111;
+	background: #323232;
 	padding: 0;
 	margin: 0;
 	right: 0;
 	top: 0;
+	border-bottom: 1px solid #111;
 }
 
 	#menubar .menu {
@@ -93,7 +114,7 @@ input.Number {
 			display: inline-block;
 			color: #888;
 			margin: 0;
-			padding: 8px;
+			padding: 9px;
 		}
 
 		#menubar .menu .options {
@@ -135,13 +156,25 @@ input.Number {
 			margin: 0 !important;
 		}
 
+#sidebar-left {
+	position: absolute;
+	left: 0;
+	top: 33px;
+	bottom: 0;
+	width: 160px;
+	overflow: auto;
+	background: #2b2b2b;
+}
+
+
+
 #sidebar {
 	position: absolute;
 	right: 0;
-	top: 32px;
+	top: 33px;
 	bottom: 0;
 	width: 330px;
-	background-color: #111;
+	background: #2b2b2b;
 	overflow: auto;
 }
 
@@ -214,3 +247,38 @@ input.Number {
 	#toolbar button {
 		margin-right: 6px;
 	}
+
+
+
+
+
+
+
+
+
+
+.aframe-logo {
+	background-color: #424242;
+	margin-right: 10px;
+}
+
+.aframe-logo span {
+	text-weight: bold;
+}
+
+.tab {
+	color: #1faaf2;
+	text-align: center;
+	background-color: #323232;
+	padding: 10px;
+	border-top: 2px solid #1faaf2;
+	font-size: 11px;
+}
+
+input.color {
+	width: 64px;
+	height: 17px;
+	border: 0px;
+	padding: 2px;
+	background-color: transparent !important;
+}

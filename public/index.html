@@ -6,51 +6,85 @@
     <meta name="description" content="Cube">
     <script src="../node_modules/aframe/build/aframe.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
+    <link href='main.css' rel='stylesheet' type='text/css'>
+    <link href='dark.css' rel='stylesheet' type='text/css'>
+
     <style>
       body {
-        background-color: #aaa;
+        background-color: #191919;
         font-family: 'Roboto', sans-serif;
         font-size: 12px;
+        color: #fff;
       }
       .attributes {
         background-color: #323232;
         color: #bcbcbc;
       }
       #app {
-        color: #fff;
         z-index: 1000;
-        position: fixed;
       }
       #app b{
         color: #ff9;
       }
 
-      input {
-        background-color: transparent;
-        border: 1px solid #555;
-        color: #fff;
+      div.vec3 {
+        display: inline;
+      }
+      .vec3 input.number {
+        width: 50px;
       }
 
-      input.string {
-        outline: none;
+
+      .collapsible {
       }
 
-      input.number {
-        color: #20b1fb;
+      .collapsible .static span {
+        float: left;
+      }
+      .collapsible .static {
+        vertical-align: middle;
+        background-color: #323232;
+        color: #FFF;
+        padding: 10px;
+        border-top: 1px solid #262626;
+        border-bottom: 1px solid #262626;
+      }
+      .collapsible .menu {
+        text-align:right;
+      }
+      .collapsible .menu:after {
+        content: '\2807';
         font-size: 12px;
-        border: 0px;
-        padding: 2px;
-        cursor: col-resize;
-        outline: none;
-        background-color: transparent;
+        color: #1faaf2;
+        text-align:right;
       }
-      input.string:focus,
-      input.number:focus {
-        border: 1px solid #20b1fb;
-        cursor: auto;
-        color: #fff;
+      .collapsible .static .button {
+        margin-top: 2px;
+        width: 0;
+        height: 0;
+        float: left;
+        margin-right: 10px;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid #1faaf2;
+
+/*
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid #1faaf2;
+*/
+      }
+      .collapsible.collapsed .static .button {
       }
 
+      .collapsible .content {
+        background-color: #2b2b2b;
+        padding: 10px;
+      }
+
+      span.value {
+          color: #fff;
+      }
       .attributes .row {
         min-height: 20px;
         margin-bottom: 10px;
@@ -69,7 +103,6 @@
     </style>
   </head>
   <body>
-    <div id="app"></div>
     <a-scene debug="true">
       <a-assets>
         <a-mixin id="spin" attribute="rotation" to="0 360 0" repeat="indefinite" easing="linear" dur="9600"></a-mixin>
@@ -117,5 +150,6 @@
 
     </a-scene>
     <script src="bundle.js"></script>
+    <div id="app"></div>
   </body>
 </html>

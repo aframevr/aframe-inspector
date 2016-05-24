@@ -1,6 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Attributes = require('./Attributes');
+var Menu = require('./MenuWidget');
+var Scenegraph = require('./Scenegraph');
 var Events = require('../lib/Events.js');
 var Editor = require('../lib/editor');
 
@@ -24,7 +26,7 @@ export default class AttributesSidebar extends React.Component {
 
 var AttributesPanel = React.createClass({
   getInitialState: function() {
-    return {entity: null};
+    return {entity: this.props.entity};
   },
   refresh: function() {
     this.forceUpdate();
@@ -38,19 +40,31 @@ var AttributesPanel = React.createClass({
       }
     }.bind(this));
   },
-  componentWillUnmount: function() {
-    //window.removeEventListener('resize', this.refresh);
+  componentWillReceiveProps: function(newProps) {
+  // This will be triggered typically when the element is changed directly with element.setAttribute
+    if (newProps.entity != this.state.entity) {
+      this.setState({entity: newProps.entity});
+    }
   },
   render: function() {
-    return (<Attributes name={this.state.id} entity={this.state.entity}/>)
+    return (<Attributes entity={this.state.entity}/>)
   }
 });
 
 var Main = React.createClass({
   render: function() {
+    var scene = document.querySelector('a-scene');
     return (
       <div>
-        <AttributesSidebar/>
+        <Menu/>
+        <div id="sidebar-left">
+          <div className="tab">SCENEGRAPH</div>
+          <Scenegraph scene={scene}/>
+        </div>
+        <div id="sidebar">
+          <div className="tab">ATTRIBUTES</div>
+          <AttributesSidebar/>
+        </div>
       </div>
     )
   }

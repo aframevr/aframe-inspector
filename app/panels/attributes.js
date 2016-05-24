@@ -15,32 +15,6 @@ function Attributes (editor) {
   var ignoreComponentsChange = false;
   var commonComponents = ['position', 'rotation', 'scale', 'visible'];
 
-  /**
-   * Update the entity component value
-   * @param  {Element} entity   Entity to modify
-   * @param  {string} component     Name of the component
-   * @param  {string} property Property name
-   * @param  {string|number} value    New value
-   */
-  function handleEntityChange (entity, componentName, propertyName, value) {
-    console.info("change entity", entity, componentName, propertyName, value);
-    if (propertyName) {
-      if (!value) {
-        var parameters = entity.getAttribute(componentName);
-        delete parameters[propertyName];
-        entity.setAttribute(componentName, parameters);
-      } else {
-        entity.setAttribute(componentName, propertyName, value);
-      }
-    } else {
-      if (!value) {
-        entity.removeAttribute(componentName);
-      } else {
-        entity.setAttribute(componentName, value);
-      }
-    }
-  }
-
   function generateMixinsPanel () {
     var container = new UI.CollapsiblePanel();
 
@@ -70,50 +44,6 @@ function Attributes (editor) {
       window.alert('This button should create a mixin based on the current entity components values');
     });
     container.add(newMixin);
-
-    return container;
-  }
-
-  /**
-   * Generates a container with the common attributes and components for each entity:
-   *   - type
-   *   - ID
-   *   - position
-   *   - rotation
-   *   - scale
-   *   - visible
-   * @return {UI.CollapsiblePanel} Panel containing all the widgets
-   */
-  function generateCommonComponentsPanel () {
-    var container = new UI.CollapsiblePanel();
-
-    container.addStatic(new UI.Text('Common attributes').setTextTransform('uppercase'));
-    container.add(new UI.Break());
-
-    // type
-    var objectTypeRow = new UI.Row();
-    objectType = new UI.Text();
-
-    objectTypeRow.add(new UI.Text('Type').setWidth('90px'));
-    objectTypeRow.add(objectType);
-
-    container.add(objectTypeRow);
-
-    // ID
-    var objectIdRow = new UI.Row();
-    objectId = new UI.Input().setWidth('150px').setFontSize('12px').onChange(function () {
-      handleEntityChange(editor.selected.el, 'id', null, objectId.getValue());
-      editor.signals.sceneGraphChanged.dispatch();
-    });
-
-    objectIdRow.add(new UI.Text('ID').setWidth('90px'));
-    objectIdRow.add(objectId);
-    container.add(objectIdRow);
-
-    // Add the parameter rows for the common components
-    for (var i = 0; i < commonComponents.length; i++) {
-      container.add(getPropertyRow(commonComponents[i], null, aframeCore.components[commonComponents[i]].schema));
-    }
 
     return container;
   }
@@ -376,37 +306,6 @@ function Attributes (editor) {
   // Empty row used to append the panels from each component
   objectCustomRow = new UI.Row();
   container.add(objectCustomRow);
-
-  // Signal dispatchers
-  editor.signals.entitySelected.add(function (entity) {
-    if (entity) {
-      container.show();
-      generateComponentsPanels(entity);
-      updateUI(entity);
-    } else {
-      container.hide();
-    }
-  });
-  editor.signals.componentChanged.add(function (evt) {
-    var entity = evt.detail.target;
-
-
-    /*
-    if (evt.detail.newData.shader && evt.detail.newData.shader !== evt.detail.oldData.shader) {
-      aframeEditor.editor.shaderLoader.addShaderToScene(evt.detail.newData.shader, function () {
-        entity.components.material.update(evt.detail.oldData);
-        generateComponentsPanels(editor.selected.el);
-        ignoreComponentsChange = false;
-        updateUI(entity);
-        editor.signals.objectChanged.dispatch(entity.object3D);
-      });
-      return;
-    }
-    */
-
-    updateUI(entity);
-    editor.signals.objectChanged.dispatch(entity.object3D);
-  });
 
   editor.signals.generateComponentsPanels.add(function () {
     generateComponentsPanels(editor.selected.el);

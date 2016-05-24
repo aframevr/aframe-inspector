@@ -53,7 +53,7 @@ Editor.prototype = {
 
     this.camera = this.DEFAULT_CAMERA;
 
-    //this.initEvents();
+    this.initEvents();
 
     this.selected = null;
     //this.dialogs = new Dialogs(this);
@@ -146,7 +146,7 @@ Editor.prototype = {
     }
   },
 
-  selectEntity: function (entity) {
+  selectEntity: function (entity, emit) {
     this.selectedEntity = entity;
     if (entity) {
       this.select(entity.object3D);
@@ -154,10 +154,15 @@ Editor.prototype = {
       this.select(null);
     }
 
-    Events.emit('entitySelected', entity);
+    if (emit === undefined)
+      Events.emit('entitySelected', entity);
   },
-/*
   initEvents: function () {
+    Events.on('entitySelected', function(entity){
+      this.selectEntity(entity, false);
+    }.bind(this));
+
+/*
     // Find better name :)
     this.signals = Events;
     Events.emit('editorModeChanged');//.add(function (active) {
@@ -184,8 +189,8 @@ Editor.prototype = {
           }
         }.bind(this));
     }
-  },
 */
+  },
   selectById: function (id) {
     if (id === this.camera.id) {
       this.select(this.camera);

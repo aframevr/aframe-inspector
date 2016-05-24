@@ -1,3 +1,5 @@
+var Events = require('../lib/Events.js');
+
 /**
  * Update the entity component value
  * @param  {Element} entity   Entity to modify
@@ -30,6 +32,7 @@ function handleEntityChange (entity, componentName, propertyName, value) {
       entity.setAttribute(componentName, value);
     }
   }
+  Events.emit('objectChanged', entity);
 }
 
 module.exports = handleEntityChange;

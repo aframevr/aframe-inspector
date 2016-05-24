@@ -1,122 +1,33 @@
-'use strict'
+var React = require('react');
+var handleEntityChange = require('./Widget');
 
-import React from 'react'
-import ReactCSS from 'reactcss'
-
-'use strict'
-
-import React from 'react'
-import { ChromePicker } from 'react-color'
-
-class ButtonExample extends React.Component {
-  state = {
-    displayColorPicker: false,
-  };
-
-  handleClick = () => {
-    this.setState({ displayColorPicker: !this.state.displayColorPicker })
-  };
-
-  handleClose = () => {
-    this.setState({ displayColorPicker: false })
-  };
-
-  render() {
-    const popover = {
-      position: 'absolute',
-      zIndex: '2',
-    }
-    const cover = {
-      position: 'fixed',
-      top: '0',
-      right: '0',
-      bottom: '0',
-      left: '0',
-    }
-    return (
-      <div>
-        <button onClick={ this.handleClick }>Pick Color</button>
-        { this.state.displayColorPicker ? <div style={ popover }>
-          <div style={ cover } onClick={ this.handleClose }/>
-          <ChromePicker />
-        </div> : null }
-      </div>
-    )
-  }
-}
-
-export default ButtonExample
-
-/*
-import { SketchPicker } from 'react-color'
-
-export default class ColorWidget extends ReactCSS.Component {
-  state = {
-    displayColorPicker: false,
-    color: {
-      r: '241',
-      g: '112',
-      b: '19',
-      a: '1',
-    },
-  };
-  classes() {
+var ColorWidget = React.createClass({
+  getInitialState: function() {
+    return {value: this.props.value || ''};
+  },/*
+  propTypes: {
+    value: React.PropTypes.string
+  },*/
+  getDefaultProps: function() {
     return {
-      'default': {
-        color: {
-          width: '36px',
-          height: '14px',
-          borderRadius: '2px',
-          background: `rgba(${ this.state.color.r }, ${ this.state.color.g }, ${ this.state.color.b }, ${ this.state.color.a })`,
-        },
-        swatch: {
-          padding: '5px',
-          background: '#fff',
-          borderRadius: '1px',
-          boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
-          display: 'inline-block',
-          cursor: 'pointer',
-        },
-        popover: {
-          position: 'absolute',
-          zIndex: '2',
-        },
-        cover: {
-          position: 'fixed',
-          top: '0',
-          right: '0',
-          bottom: '0',
-          left: '0',
-        },
-      },
+      value: ''
+    };
+  },
+  update: function(e) {
+    var value = e.target.value;
+    this.setState({value: value});
+    if (this.props.onChange)
+      this.props.onChange(this.props.entity, this.props.componentname, this.props.name, value);
+  },
+  componentWillReceiveProps: function(newProps) {
+    // This will be triggered typically when the element is changed directly with element.setAttribute
+    if (newProps.value != this.state.value) {
+      this.setState({value: newProps.value});
     }
+  },
+  render: function() {
+    return <input type='color' className="color" value={this.state.value} onChange={this.update}/>;
   }
+});
 
-  handleClick = () => {
-    this.setState({ displayColorPicker: !this.state.displayColorPicker })
-  };
-
-  handleClose = () => {
-    this.setState({ displayColorPicker: false })
-  };
-
-  handleChange = (color) => {
-    this.setState({ color: color.rgb })
-  };
-
-  render() {
-    return (
-      <div>
-        <div is="swatch" onClick={ this.handleClick }>
-          <div is="color" />
-        </div>
-        { this.state.displayColorPicker ? <div is="popover">
-          <div is="cover" onClick={ this.handleClose }/>
-          <SketchPicker color={ this.state.color } onChange={ this.handleChange } />
-        </div> : null }
-
-      </div>
-    )
-  }
-}
-*/
+module.exports = ColorWidget;

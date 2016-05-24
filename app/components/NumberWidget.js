@@ -80,12 +80,13 @@ var NumberWidget = React.createClass({
         value = parseInt(value);
       }
       this.setState({value: value, displayValue: value.toFixed(this.props.precision)});
-     handleEntityChange(this.props.entity, this.props.componentname, this.props.name, value);
+
+      if (this.props.onChange)
+        this.props.onChange(this.props.entity, this.props.componentname, this.props.name, value);
     }
   },
   update: function(e) {
-    this.setState({value: e.target.value});
-    handleEntityChange(this.props.entity, this.props.componentname, this.props.name, e.target.value);
+    this.setValue(e.target.value);
   },
   componentWillReceiveProps: function(newProps) {
     // This will be triggered typically when the element is changed directly with element.setAttribute

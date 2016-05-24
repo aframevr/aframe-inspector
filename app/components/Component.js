@@ -5,12 +5,15 @@ var Component = React.createClass({
   render: function() {
     var componentData = this.props.component;
 
-    return <div><h3>Component {this.props.name}</h3>
-    {
-      Object.keys(componentData.schema).map(function(key) {
-		    return <AttributeRow key={key} name={key} schema={componentData.schema[key]} data={componentData.data[key]} componentname={this.props.name} entity={this.props.entity} />
-	    }.bind(this))
-    }
+    return <div className="collapsible">
+      <div className="static"><div className="button"></div><span>{this.props.name.toUpperCase()}</span><div className="menu"></div></div>
+      <div className="content">
+      {
+        Object.keys(componentData.schema).map(function(key) {
+  		    return <AttributeRow key={key} name={key} schema={componentData.schema[key]} data={componentData.data[key]} componentname={this.props.name} entity={this.props.entity} />
+  	    }.bind(this))
+      }
+      </div>
     </div>;
   }
 });
