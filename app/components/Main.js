@@ -57,7 +57,9 @@ var AttributesPanel = React.createClass({
     Events.on('entitySelected', function(entity){
       this.setState({entity: entity});
       if (entity !== null) {
-        entity.addEventListener('componentchanged', this.refresh);
+        entity.addEventListener('componentchanged', function(e){
+          //Events.emit('componentChanged', e);
+        });
       }
     }.bind(this));
   },

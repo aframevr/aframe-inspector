@@ -13,6 +13,12 @@ var BooleanWidget = React.createClass({
       value: false
     };
   },
+  componentWillReceiveProps: function(newProps) {
+    // This will be triggered typically when the element is changed directly with element.setAttribute
+    if (newProps.value != this.state.value) {
+      this.setState({value: newProps.value});
+    }
+  },
   change: function(e) {
     var value = e.target.checked;
     this.setState({value: value});

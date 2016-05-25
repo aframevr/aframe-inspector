@@ -12,6 +12,7 @@ var Component = require('./Component');
 var AttributeRow = require('./AttributeRow');
 var handleEntityChange = require('./Widget');
 var InputWidget = require('./InputWidget');
+var Events = require('../lib/Events.js');
 
 function isSingleProperty (schema) {
   if ('type' in schema) {
@@ -21,7 +22,10 @@ function isSingleProperty (schema) {
 }
 
 function changeId(entity, componentName, propertyName, value) {
-  entity.id = value;
+  if (entity.id !== value) {
+    entity.id = value;
+    Events.emit('entityIdChanged', entity);
+  }
 }
 
 var CommonComponent = React.createClass({

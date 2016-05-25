@@ -27,6 +27,12 @@ var Scenegraph = React.createClass({
     Events.on('entitySelected', function(entity){
       this.setState({value: entity});
     }.bind(this));
+    Events.on('entityIdChanged', function(e) {
+      this.forceUpdate();
+    }.bind(this));
+    Events.on('componentChanged', function(e){
+      console.log(e);
+    });
   },
   componentWillReceiveProps: function(newProps) {
     // This will be triggered typically when the element is changed directly with element.setAttribute

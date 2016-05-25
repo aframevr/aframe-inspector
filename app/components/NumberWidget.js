@@ -3,7 +3,7 @@ var handleEntityChange = require('./Widget');
 
 var NumberWidget = React.createClass({
   getInitialState: function() {
-    return {value: this.props.value, disabled: false, displayValue: this.props.value.toFixed(this.props.precision)};
+    return {value: this.props.value, displayValue: this.props.value.toFixed(this.props.precision)};
   },
   propTypes: {
     min: React.PropTypes.number,
@@ -31,7 +31,7 @@ var NumberWidget = React.createClass({
     this.onBlur();
     var input = this.refs.input;
     input.addEventListener('mousedown', this._onMouseDown, false);
-    input.addEventListener('change', this.onChange, false);
+    //input.addEventListener('change', this.onChange, false);
     input.addEventListener('focus', this.onFocus, false);
     input.addEventListener('blur', this.onBlur, false);
   },
@@ -65,10 +65,9 @@ var NumberWidget = React.createClass({
     }
   },
   setValue: function(value) {
-    if (this.state.disabled) return;
     if (value === this.state.value) return;
 
-    if ( value !== undefined ) {
+    if (value !== undefined) {
 
       value = parseFloat(value);
       if (value < this.props.min)
@@ -84,9 +83,6 @@ var NumberWidget = React.createClass({
       if (this.props.onChange)
         this.props.onChange(this.props.entity, this.props.componentname, this.props.name, value);
     }
-  },
-  update: function(e) {
-    this.setValue(e.target.value);
   },
   componentWillReceiveProps: function(newProps) {
     // This will be triggered typically when the element is changed directly with element.setAttribute
@@ -106,10 +102,8 @@ var NumberWidget = React.createClass({
   _onFocus: function() {
     this.setState({class: 'focused'});
   },
-  onKeyUp: function(event) {
-    this.setValue(this.refs.input.value);
-  },
   onBlur: function() {
+    this.setValue(parseFloat(this.refs.input.value));
     this.setState({class: ''});
   },
   focus: function() {
@@ -118,13 +112,16 @@ var NumberWidget = React.createClass({
       this.refs.select();
     }
   },
+  nada: function(e) {
+    this.setState({displayValue: this.refs.input.value});
+  },
   onKeyDown: function(event) {
     event.stopPropagation();
     if ( event.keyCode === 13 ) this.refs.input.blur();
   },
   render: function() {
     return (
-        <input ref="input" className="number" type="text" value={this.state.value.toFixed(this.props.precision)} onKeyDown={this.onKeyDown} onChange={this.update}/>
+        <input ref="input" className="number" type="text" value={this.state.displayValue} onKeyDown={this.onKeyDown} onChange={this.nada}/>
         );
   }
 });

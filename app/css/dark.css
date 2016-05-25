@@ -183,29 +183,29 @@ input.number:focus {
 		vertical-align: middle;
 	}
 
-	#sidebar input,
-	#sidebar textarea,
-	#sidebar select {
+	input,
+	textarea,
+	select {
 		background: #222;
 		border: 1px solid transparent;
 		color: #888;
 	}
 
-	#sidebar .Panel {
+	.Panel {
 		color: #888;
 		padding: 10px;
 		border-top: 1px solid #222;
 	}
 
-	#sidebar .Panel.collapsed {
+	.Panel.collapsed {
 		margin-bottom: 0;
 	}
 
-	#sidebar .Panel.Material canvas {
+	.Panel.Material canvas {
 		border: solid 1px #5A5A5A;
 	}
 
-	#sidebar .Row {
+	.Row {
 		min-height: 20px;
 		margin-bottom: 10px;
 	}
