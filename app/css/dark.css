@@ -402,3 +402,11 @@ span.value {
 	border: 1px solid #111;
 	background-color: #333;
 }
+
+.texture .fa {
+	padding-right: 5px;
+}
+
+.texture input:button {
+	cursor: hand;
+}

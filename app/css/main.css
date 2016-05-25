@@ -125,10 +125,11 @@ textarea, input { outline: none; } /* osx */
 	top:-2px;
 	padding: 0 2px;
 	color: #ddd;
+	margin-right: 5px;
 }
 
 #outliner .type:after {
-	content: '\220E';
+	content: '■'; /*'\220E';*/
 }
 
 #outliner .Scene {

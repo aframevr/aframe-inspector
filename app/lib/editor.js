@@ -267,7 +267,7 @@ Editor.prototype = {
 //    this.panels.menubar.show();
     this.enabled = true;
     Events.emit('editorModeChanged', true);
-    //this.sceneEl.pause();
+    this.sceneEl.pause();
   },
 
   disable: function () {
@@ -275,14 +275,14 @@ Editor.prototype = {
 //    this.panels.menubar.hide();
     this.enabled = false;
     Events.emit('editorModeChanged', false);
-    //this.sceneEl.play();
+    this.sceneEl.play();
   // @todo Removelisteners
   },
 
   addObject: function (object) {
     var scope = this;
     object.traverse(function (child) {
-      if (!child.el.isEditor) {
+      if (!child.el || !child.el.isEditor) {
         scope.addHelper(child);
       }
     });

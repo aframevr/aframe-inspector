@@ -14,10 +14,15 @@ var AttributeRow = React.createClass({
     var componentData = this.props.component;
     var widget;
 
+    var map = false;
+    if (this.props.componentname === 'material' && (this.props.name === 'envMap' || this.props.name === 'src')) {
+      map =  true;
+    }
+
     if (this.props.schema.oneOf && this.props.schema.oneOf.length>0) {
       widget = <SelectWidget onChange={handleEntityChange} name={this.props.name} componentname={this.props.componentname} entity={this.props.entity} value={this.props.data} options={this.props.schema.oneOf}/>;
     }
-    else if (this.props.schema.type === "map") {
+    else if (this.props.schema.type === "map" || map) {
       widget = <TextureWidget onChange={handleEntityChange} name={this.props.name} componentname={this.props.componentname} entity={this.props.entity} value={this.props.data}/>;
     }
     else if (this.props.schema.type === "number") {

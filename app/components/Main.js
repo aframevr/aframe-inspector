@@ -8,7 +8,7 @@ var Editor = require('../lib/editor');
 
 import "../css/main.css";
 import "../css/dark.css";
-/*
+
 // Megahack to include font-awesome
 // -------------
 var link = document.createElement('link');
@@ -25,7 +25,6 @@ link.type = 'text/css';
 link.rel = 'stylesheet';
 link.media = 'screen,print';
 document.getElementsByTagName('head')[0].appendChild(link);
-*/
 
 export default class AttributesSidebar extends React.Component {
 
