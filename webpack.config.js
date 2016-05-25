@@ -1,4 +1,5 @@
 module.exports = {
+  devtool: 'eval',
   entry: "./app/components/Main.js",
   output: {
     filename: "public/bundle.js"
