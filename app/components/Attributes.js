@@ -69,7 +69,7 @@ var Attributes = React.createClass({
     return <div className="attributes">
         <CommonComponent entity={entity}/>
     {
-    	Object.keys(components).filter(function(key){return ['visible','position','scale','rotation'].indexOf(key)==-1;}).map(function(key) {
+    	Object.keys(components).filter(function(key){return ['visible','position','scale','rotation'].indexOf(key)==-1;}).sort().map(function(key) {
         return <Component entity={entity} key={key} name={key} component={components[key]}/>
 	    })}
     </div>;

@@ -395,3 +395,10 @@ span.value {
 .hidden {
 	visibility: hidden;
 }
+
+.texture canvas {
+	cursor: pointer;
+	margin-right: 5px;
+	border: 1px solid #111;
+	background-color: #333;
+}

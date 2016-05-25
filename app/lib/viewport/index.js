@@ -343,7 +343,6 @@ function Viewport (editor) {
       document.querySelector('.a-enter-vr,.rs-base').style.display = 'none';
     } else {
       prevActivedCameraEl.setAttribute('camera', 'active', 'true');
-      prevActivedCameraEl.play();
       document.querySelector('.a-enter-vr,.rs-base').style.display = 'block';
     }
   });

@@ -27,7 +27,7 @@ var BooleanWidget = React.createClass({
   },
   render: function() {
     return (
-        <input ref="input" type="checkbox" checked={this.state.value} onChange={this.change}/>
+        <input ref="input" type="checkbox" checked={this.state.value} value={this.state.value} onChange={this.change}/>
     );
   }
 });

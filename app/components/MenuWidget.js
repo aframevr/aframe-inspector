@@ -110,13 +110,7 @@ var MenuWidget = React.createClass({
       <div className="menu">
         <div className="title">Edit</div>
       </div>
-      <div className="menu">
-        <div className="title">Assets</div>
-      </div>
       <CreateMenu/>
-      <div className="menu">
-        <div className="title">Components</div>
-      </div>
     </div>;
   }
 });

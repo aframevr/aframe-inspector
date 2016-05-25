@@ -6,6 +6,7 @@ var BooleanWidget = require('./BooleanWidget');
 var SelectWidget = require('./SelectWidget');
 var Vec3Widget = require('./Vec3Widget');
 var ColorWidget = require('./ColorWidget');
+var TextureWidget = require('./TextureWidget');
 var handleEntityChange = require('./Widget');
 
 var AttributeRow = React.createClass({
@@ -15,6 +16,9 @@ var AttributeRow = React.createClass({
 
     if (this.props.schema.oneOf && this.props.schema.oneOf.length>0) {
       widget = <SelectWidget onChange={handleEntityChange} name={this.props.name} componentname={this.props.componentname} entity={this.props.entity} value={this.props.data} options={this.props.schema.oneOf}/>;
+    }
+    else if (this.props.schema.type === "map") {
+      widget = <TextureWidget onChange={handleEntityChange} name={this.props.name} componentname={this.props.componentname} entity={this.props.entity} value={this.props.data}/>;
     }
     else if (this.props.schema.type === "number") {
       var min = this.props.schema.hasOwnProperty('min') ? this.props.schema.min : -Infinity;
@@ -35,6 +39,7 @@ var AttributeRow = React.createClass({
     }
     else {
       widget = <InputWidget onChange={handleEntityChange} name={this.props.name} componentname={this.props.componentname} entity={this.props.entity} value={this.props.data}/>;
+      //widget = <TextureWidget onChange={handleEntityChange} name={this.props.name} componentname={this.props.componentname} entity={this.props.entity} value={this.props.data}/>;
     }
     var title = "type: " +this.props.schema.type+ " value: " + JSON.stringify(this.props.data);
     return <div className="row">
