@@ -64,8 +64,6 @@ var TextureWidget = React.createClass({
       context.clearRect( 0, 0, canvas.width, canvas.height );
     }
 
-    console.info("-->",this.props.entity, this.props.componentname, this.props.name, value);
-
     this.setState({value: value, valueType: className});
     if (this.props.onChange)
       this.props.onChange(this.props.entity, this.props.componentname, this.props.name, value);

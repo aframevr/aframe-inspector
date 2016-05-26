@@ -27,7 +27,6 @@ link.media = 'screen,print';
 document.getElementsByTagName('head')[0].appendChild(link);
 
 export default class AttributesSidebar extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {open: false};
@@ -36,11 +35,7 @@ export default class AttributesSidebar extends React.Component {
     this.setState({open: !this.state.open});
   }
   render() {
-    return (
-      <div>
-        <AttributesPanel/>
-      </div>
-    );
+    return <AttributesPanel/>
   }
 }
 
