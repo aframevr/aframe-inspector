@@ -117,6 +117,16 @@ var MenuWidget = React.createClass({
     if (this.props.onChange)
       this.props.onChange(this.props.entity, this.props.componentname, this.props.name, value);
   },
+  componentDidMount: function() {
+    var clipboard = new Clipboard('[data-action="copy-to-clipboard"]', {
+      text: function (trigger) {
+        return Exporter.generateHtml();
+      }
+    });
+    clipboard.on('error', function(e) {
+        console.error('Error while copying to clipboard:', e.action, e.trigger);
+    });
+  },
   componentWillReceiveProps: function(newProps) {
     // This will be triggered typically when the element is changed directly with element.setAttribute
   /*  if (newProps.value != this.state.value) {
@@ -125,14 +135,7 @@ var MenuWidget = React.createClass({
 */
   },
   copyToClipboard: function() {
-    console.log(Exporter.generateHtml());
-    var clipboard = new Clipboard('#copy-scene', {
-      text: function (trigger) {
-        console.log("!!!!!");
-        return Exporter.generateHtml();
-      }
-    });
-    console.log(clipboard);
+    //console.log(Exporter.generateHtml());
   },
   render: function() {
     return <div className="Panel" id="menubar">
@@ -149,7 +152,7 @@ var MenuWidget = React.createClass({
         <div className="title">Scene</div>
         <div className="options">
           <div className="option">Save HTML</div>
-          <div className="option" onClick={this.copyToClipboard}>Copy to clipboard</div>
+          <div className="option" data-action="copy-to-clipboard">Copy to clipboard</div>
         </div>
       </div>
       <div className="menu">
