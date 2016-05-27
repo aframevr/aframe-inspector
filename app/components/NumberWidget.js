@@ -69,15 +69,18 @@ var NumberWidget = React.createClass({
 
     if (value !== undefined) {
 
-      value = parseFloat(value);
+      if (this.props.precision === 0) {
+        value = parseInt(value);
+      } else {
+        value = parseFloat(value);
+      }
+
       if (value < this.props.min)
         value = this.props.min;
       if (value > this.props.max)
         value = this.props.max;
-
-      if (this.props.precision === 0) {
-        value = parseInt(value);
-      }
+      console.log('1',value,this.props.min);
+      console.log('2',value);
       this.setState({value: value, displayValue: value.toFixed(this.props.precision)});
 
       if (this.props.onChange)

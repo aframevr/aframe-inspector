@@ -137,6 +137,22 @@ var MenuWidget = React.createClass({
   copyToClipboard: function() {
     //console.log(Exporter.generateHtml());
   },
+  saveToHTML: function () {
+    var link = document.createElement('a');
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    function save (blob, filename) {
+      link.href = URL.createObjectURL(blob);
+      link.download = filename || 'data.json';
+      link.click();
+      // URL.revokeObjectURL(url); breaks Firefox...
+    }
+    function saveString (text, filename) {
+      save(new Blob([ text ], { type: 'text/plain' }), filename);
+    }
+
+    saveString(Exporter.generateHtml(), 'ascene.html');
+  },
   render: function() {
     return <div className="Panel" id="menubar">
       {
@@ -151,7 +167,7 @@ var MenuWidget = React.createClass({
       <div className="menu">
         <div className="title">Scene</div>
         <div className="options">
-          <div className="option">Save HTML</div>
+          <div className="option" onClick={this.saveToHTML}>Save HTML</div>
           <div className="option" data-action="copy-to-clipboard">Copy to clipboard</div>
         </div>
       </div>
