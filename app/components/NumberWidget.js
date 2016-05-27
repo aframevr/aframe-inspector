@@ -31,7 +31,7 @@ var NumberWidget = React.createClass({
     this.onBlur();
     var input = this.refs.input;
     input.addEventListener('mousedown', this._onMouseDown, false);
-    //input.addEventListener('change', this.onChange, false);
+    input.addEventListener('change', this.onChange, false);
     input.addEventListener('focus', this.onFocus, false);
     input.addEventListener('blur', this.onBlur, false);
   },
@@ -86,8 +86,9 @@ var NumberWidget = React.createClass({
   },
   componentWillReceiveProps: function(newProps) {
     // This will be triggered typically when the element is changed directly with element.setAttribute
+    console.log(newProps);
     if (newProps.value != this.state.value) {
-      this.setState({value: newProps.value});
+      this.setState({value: newProps.value, displayValue: newProps.value.toFixed(this.props.precision)});
     }
   },
   onChange: function( event ) {
