@@ -54,6 +54,11 @@ var AttributesPanel = React.createClass({
         entity.addEventListener('componentchanged', this.refresh);
       }
     }.bind(this));
+    document.addEventListener('componentremoved', function(e){
+      if (this.state.entity === e.detail.target) {
+        this.refresh();
+      }
+    }.bind(this));
   },
   componentWillReceiveProps: function(newProps) {
   // This will be triggered typically when the element is changed directly with element.setAttribute

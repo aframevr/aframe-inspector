@@ -79,8 +79,6 @@ var NumberWidget = React.createClass({
         value = this.props.min;
       if (value > this.props.max)
         value = this.props.max;
-      console.log('1',value,this.props.min);
-      console.log('2',value);
       this.setState({value: value, displayValue: value.toFixed(this.props.precision)});
 
       if (this.props.onChange)
@@ -89,7 +87,6 @@ var NumberWidget = React.createClass({
   },
   componentWillReceiveProps: function(newProps) {
     // This will be triggered typically when the element is changed directly with element.setAttribute
-    console.log(newProps);
     if (newProps.value != this.state.value) {
       this.setState({value: newProps.value, displayValue: newProps.value.toFixed(this.props.precision)});
     }

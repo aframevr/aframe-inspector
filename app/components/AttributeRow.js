@@ -39,7 +39,6 @@ var AttributeRow = React.createClass({
     else if (this.props.schema.type === "int") {
       var min = this.props.schema.hasOwnProperty('min') ? this.props.schema.min : -Infinity;
       var max = this.props.schema.hasOwnProperty('max') ? this.props.schema.max : Infinity;
-      console.log(this.props.name, this.props.schema, min,max);
       widget = <NumberWidget onChange={handleEntityChange} min={min} max={max} name={this.props.name} componentname={this.props.componentname} entity={this.props.entity} value={this.props.data} precision={0}/>;
     }
     else if (this.props.schema.type === "boolean") {

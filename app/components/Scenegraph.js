@@ -24,6 +24,9 @@ var Scenegraph = React.createClass({
     this.setValue(e.target.value);
   },
   componentDidMount: function() {
+    document.addEventListener('componentremoved', function(e){
+      this.forceUpdate();
+    }.bind(this));
     Events.on('entitySelected', function(entity){
       this.setState({value: entity});
     }.bind(this));
