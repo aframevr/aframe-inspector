@@ -96,6 +96,15 @@ var Main = React.createClass({
     }.bind(this));
 */
   },
+  deleteEntity: function() {
+    if (editor.selectedEntity) {
+      editor.selectedEntity.parentNode.removeChild(editor.selectedEntity);
+      editor.selectEntity(null);
+      //this.refresh();
+    }
+
+    return false;
+  },
   render: function() {
     var scene = document.querySelector('a-scene');
     var toggleText = this.state.editorEnabled;
@@ -106,6 +115,9 @@ var Main = React.createClass({
           <div id="sidebar-left">
             <div className="tab">SCENEGRAPH</div>
             <Scenegraph scene={scene}/>
+            <div className="scenegraph-bottom">
+              <button onClick={this.deleteEntity}><i className="fa fa-trash-o"></i></button>
+            </div>
           </div>
           <div id="sidebar">
             <div className="tab">ATTRIBUTES</div>

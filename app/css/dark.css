@@ -410,3 +410,18 @@ span.value {
 .texture input:button {
 	cursor: hand;
 }
+
+.scenegraph-bottom {
+	background-color: #323232;
+	bottom: 10;
+	/*position: absolute;*/
+	height: 40px;
+	z-index: 100;
+	border-top: 1px solid #111;
+	left: 0;
+}
+
+.scenegraph-bottom a {
+	color: #fff;
+	font-size: 16px;
+}
