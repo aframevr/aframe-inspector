@@ -3,7 +3,6 @@ var AttributeRow = require('./AttributeRow');
 
 var Component = React.createClass({
   deleteComponent: function(e) {
-    console.log(this.props.name, this.props.entity);
     this.props.entity.removeAttribute(this.props.name);
   },
   render: function() {
