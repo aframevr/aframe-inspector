@@ -64,8 +64,6 @@ var TextureWidget = React.createClass({
       context.clearRect( 0, 0, canvas.width, canvas.height );
     }
 
-    console.info("-->",this.props.entity, this.props.componentname, this.props.name, value);
-
     this.setState({value: value, valueType: className});
     if (this.props.onChange)
       this.props.onChange(this.props.entity, this.props.componentname, this.props.name, value);
@@ -75,7 +73,6 @@ var TextureWidget = React.createClass({
     var canvas = document.createElement('canvas');
     canvas.width = 32;
     canvas.height = 16;
-    console.log(canvas);
 
     var context = canvas.getContext( '2d' );
 
@@ -102,7 +99,6 @@ var TextureWidget = React.createClass({
 
     var url = AFRAME.utils.srcLoader.parseUrl(this.state.value);
     var texture = getTextureFromSrc(this.state.value);
-    console.log("!!!",  this.state.value, url, texture);
 
     var className = 'hidden';
     if (texture) {
@@ -111,7 +107,6 @@ var TextureWidget = React.createClass({
     } else {
       context.clearRect( 0, 0, canvas.width, canvas.height );
     }
-    console.log(canvas.toDataURL("image/jpeg"));
     //return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEUAAAD///+l2Z/dAAAAM0lEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC';
     return canvas.toDataURL("image/jpeg");
   },

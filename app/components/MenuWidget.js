@@ -117,6 +117,16 @@ var MenuWidget = React.createClass({
     if (this.props.onChange)
       this.props.onChange(this.props.entity, this.props.componentname, this.props.name, value);
   },
+  componentDidMount: function() {
+    var clipboard = new Clipboard('[data-action="copy-to-clipboard"]', {
+      text: function (trigger) {
+        return Exporter.generateHtml();
+      }
+    });
+    clipboard.on('error', function(e) {
+        console.error('Error while copying to clipboard:', e.action, e.trigger);
+    });
+  },
   componentWillReceiveProps: function(newProps) {
     // This will be triggered typically when the element is changed directly with element.setAttribute
   /*  if (newProps.value != this.state.value) {
@@ -125,14 +135,23 @@ var MenuWidget = React.createClass({
 */
   },
   copyToClipboard: function() {
-    console.log(Exporter.generateHtml());
-    var clipboard = new Clipboard('#copy-scene', {
-      text: function (trigger) {
-        console.log("!!!!!");
-        return Exporter.generateHtml();
-      }
-    });
-    console.log(clipboard);
+    //console.log(Exporter.generateHtml());
+  },
+  saveToHTML: function () {
+    var link = document.createElement('a');
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    function save (blob, filename) {
+      link.href = URL.createObjectURL(blob);
+      link.download = filename || 'data.json';
+      link.click();
+      // URL.revokeObjectURL(url); breaks Firefox...
+    }
+    function saveString (text, filename) {
+      save(new Blob([ text ], { type: 'text/plain' }), filename);
+    }
+
+    saveString(Exporter.generateHtml(), 'ascene.html');
   },
   render: function() {
     return <div className="Panel" id="menubar">
@@ -148,8 +167,8 @@ var MenuWidget = React.createClass({
       <div className="menu">
         <div className="title">Scene</div>
         <div className="options">
-          <div className="option">Save HTML</div>
-          <div className="option" onClick={this.copyToClipboard}>Copy to clipboard</div>
+          <div className="option" onClick={this.saveToHTML}>Save HTML</div>
+          <div className="option" data-action="copy-to-clipboard">Copy to clipboard</div>
         </div>
       </div>
       <div className="menu">

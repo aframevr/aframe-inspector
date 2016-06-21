@@ -31,7 +31,7 @@ var NumberWidget = React.createClass({
     this.onBlur();
     var input = this.refs.input;
     input.addEventListener('mousedown', this._onMouseDown, false);
-    //input.addEventListener('change', this.onChange, false);
+    input.addEventListener('change', this.onChange, false);
     input.addEventListener('focus', this.onFocus, false);
     input.addEventListener('blur', this.onBlur, false);
   },
@@ -68,16 +68,17 @@ var NumberWidget = React.createClass({
     if (value === this.state.value) return;
 
     if (value !== undefined) {
+      console.log("ASDF");
+      if (this.props.precision === 0) {
+        value = parseInt(value);
+      } else {
+        value = parseFloat(value);
+      }
 
-      value = parseFloat(value);
       if (value < this.props.min)
         value = this.props.min;
       if (value > this.props.max)
         value = this.props.max;
-
-      if (this.props.precision === 0) {
-        value = parseInt(value);
-      }
       this.setState({value: value, displayValue: value.toFixed(this.props.precision)});
 
       if (this.props.onChange)
@@ -87,7 +88,7 @@ var NumberWidget = React.createClass({
   componentWillReceiveProps: function(newProps) {
     // This will be triggered typically when the element is changed directly with element.setAttribute
     if (newProps.value != this.state.value) {
-      this.setState({value: newProps.value});
+      this.setState({value: newProps.value, displayValue: newProps.value.toFixed(this.props.precision)});
     }
   },
   onChange: function( event ) {
@@ -117,7 +118,11 @@ var NumberWidget = React.createClass({
   },
   onKeyDown: function(event) {
     event.stopPropagation();
-    if ( event.keyCode === 13 ) this.refs.input.blur();
+    if ( event.keyCode === 13 ) {
+      console.log(">>>",this.refs.input.value);
+      this.setValue(parseFloat(this.refs.input.value));
+      this.refs.input.blur();
+    }
   },
   render: function() {
     return (

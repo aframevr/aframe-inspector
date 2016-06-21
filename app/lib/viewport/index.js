@@ -30,18 +30,6 @@ function Viewport (editor) {
   var grid = new THREE.GridHelper(30, 1);
   sceneHelpers.add(grid);
 
-/*
-  var camera = new THREE.PerspectiveCamera(50, 1, 1, 10000);
-  camera.name = 'EditorCamera';
-  camera.position.set(20, 10, 20);
-  camera.lookAt(new THREE.Vector3());
-  camera.updateMatrixWorld();
-/*
-  var cameraEl = document.createElement('a-entity');
-  cameraEl.setObject3D('camera', camera);
-  cameraEl.load();
-*/
-//  var camera = editor.camera;
   var camera = editor.editorCameraEl.getObject3D('camera');
 
   var selectionBox = new THREE.BoxHelper();
@@ -302,9 +290,10 @@ function Viewport (editor) {
       if (object.geometry && object.geometry.vertices && object.geometry.vertices.length > 0) {
         selectionBox.update(object);
       }
-      transformControls.update();
+      //transformControls.update();
     }
 
+    transformControls.update();
     if (object instanceof THREE.PerspectiveCamera) {
       object.updateProjectionMatrix();
     }
@@ -312,6 +301,9 @@ function Viewport (editor) {
     if (editor.helpers[ object.id ] !== undefined) {
       editor.helpers[ object.id ].update();
     }
+  });
+  Events.on('componentChanged', function(e){
+
   });
 
   Events.on('objectRemoved', function (object) {
