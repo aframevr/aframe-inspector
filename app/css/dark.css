@@ -342,6 +342,7 @@ div.vec3 {
 	padding: 10px;
 	border-top: 1px solid #262626;
 	border-bottom: 1px solid #262626;
+	height: 16px;
 }
 .collapsible .menu {
 	text-align:right;
@@ -351,6 +352,7 @@ div.vec3 {
 	font-size: 12px;
 	color: #1faaf2;
 	text-align:right;
+	padding: 5px;
 }
 .collapsible .static .button {
 	margin-top: 2px;
@@ -421,7 +423,226 @@ span.value {
 	left: 0;
 }
 
-.scenegraph-bottom a {
+a.button {
 	color: #fff;
 	font-size: 16px;
+	text-decoration: none;
+	margin-left: 10px;
+}
+
+a.button:hover {
+	color: #1faaf2;
+}
+
+.scenegraph-bottom a {
+	float: right;
+	margin: 10px;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+	float: right;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+	left:auto;
+ 	right:0;
+ 	margin-right:-10px;
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 130px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: #888;
+	background-color: #222;
+  padding: 6px 8px;
+  text-decoration: none;
+  display: block;
+
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+	color: #fff;
+	background-color: #08f;
+}
+
+.dropdown-content a.disabled {
+	color: #555;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+}
+
+
+
+
+/* The Modal (background) */
+.modal {
+    /*display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #232323;
+    margin: auto;
+    padding: 0;
+    /*border: 1px solid #888;*/
+    width: 889px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.2s;
+    animation-name: animatetop;
+    animation-duration: 0.2s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #08f;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    /*background-color: #5cb85c;*/
+    color: white;
+}
+
+.modal-body {
+	/*padding: 2px 16px;*/
+	padding: 16px;
+	overflow: auto;
+}
+
+.modal-footer {
+    padding: 2px 16px;
+    /*background-color: #5cb85c;*/
+    color: white;
+}
+/*-----------------------------------*/
+/*-----------------------------------*/
+/*-----------------------------------*/
+.gallery {
+	padding: 0px;
+	overflow:auto;
+	margin: 0 auto;
+}
+
+.gallery li {
+	width: 155px;
+	margin: 8px;
+	float: left;
+	overflow: hidden;
+	display: inline-block;
+	-webkit-box-shadow: 3px 3px 8px -2px rgba(0,0,0,0.63);
+	-moz-box-shadow: 3px 3px 8px -2px rgba(0,0,0,0.63);
+	box-shadow: 3px 3px 8px -2px rgba(0,0,0,0.63);
+	cursor: pointer;
+}
+
+.gallery li:hover {
+	-webkit-box-shadow: 0px 0px 4px 3px rgba(29,138,190,0.63);
+	-moz-box-shadow: 0px 0px 4px 3px rgba(29,138,190,0.63);
+	box-shadow: 0px 0px 4px 3px rgba(29,138,190,0.63);
+}
+
+.gallery li .detail {
+	background-color: #323232;
+	padding: 10px;
+}
+
+.gallery li:hover .detail {
+	background-color: #444;
+}
+
+.gallery li .detail span {
+	color: #BBB !important;
+}
+
+.gallery li .detail span.title {
+	color: #666 !important;
+}
+
+
+// TABS
+.tabs {
+  margin: 25px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+}
+.tabs__labels {
+  margin: 0;
+  padding: 0;
+	text-align: center;
+	font-size: 14px;
+	/*padding: 10px;*/
+}
+.tabs__labels li {
+  display: inline-block;
+	width: 33.3%;
+}
+.tabs__labels li a {
+  padding: 8px 12px;
+  display: block;
+  color: #AAA;
+  text-decoration: none;
+	padding: 15px;
+  /*border-bottom: 2px solid #f5f5f5;*/
+}
+.tabs__labels li a.active {
+	border-bottom: 2px solid #1eaaf1;
+	color: #1eaaf1;
+	background-color: #333;
+}
+
+.tabs__content {
+/*  padding: 25px;*/
+	background-color: #2b2b2b;
+	overflow:auto;
+	min-height: 100px;
 }

@@ -1,10 +1,11 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Attributes = require('./Attributes');
 var Menu = require('./MenuWidget');
 var Scenegraph = require('./Scenegraph');
 var Events = require('../lib/Events.js');
 var Editor = require('../lib/editor');
+import ModalTextures from './ModalTextures';
+import AttributesSidebar from './AttributesSidebar';
 
 import "../css/main.css";
 import "../css/dark.css";
@@ -26,54 +27,10 @@ link.rel = 'stylesheet';
 link.media = 'screen,print';
 document.getElementsByTagName('head')[0].appendChild(link);
 
-export default class AttributesSidebar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {open: false};
-  }
-  handleToggle(){
-    this.setState({open: !this.state.open});
-  }
-  render() {
-    return <AttributesPanel/>
-  }
-}
-
-var AttributesPanel = React.createClass({
-  getInitialState: function() {
-    return {entity: this.props.entity};
-  },
-  refresh: function() {
-    this.forceUpdate();
-  },
-  componentDidMount: function() {
-    this.refresh();
-    Events.on('entitySelected', function(entity){
-      this.setState({entity: entity});
-      if (entity !== null) {
-        entity.addEventListener('componentchanged', this.refresh);
-      }
-    }.bind(this));
-    document.addEventListener('componentremoved', function(e){
-      if (this.state.entity === e.detail.target) {
-        this.refresh();
-      }
-    }.bind(this));
-  },
-  componentWillReceiveProps: function(newProps) {
-  // This will be triggered typically when the element is changed directly with element.setAttribute
-    if (newProps.entity != this.state.entity) {
-      this.setState({entity: newProps.entity});
-    }
-  },
-  render: function() {
-    return (<Attributes entity={this.state.entity}/>)
-  }
-});
 
 var Main = React.createClass({
   getInitialState: function() {
-    return {editorEnabled: true};
+    return {editorEnabled: true, isModalTexturesOpen: false};
   },
   toggleEditor: function() {
     this.setState({editorEnabled: !this.state.editorEnabled}, function(){
@@ -85,6 +42,9 @@ var Main = React.createClass({
     });
   },
   componentDidMount: function() {
+    Events.on('openTexturesModal', function(textureOnClose){
+      this.setState({isModalTexturesOpen: true, textureOnClose: textureOnClose});
+    }.bind(this));
 /*
     var scene = document.querySelector('a-scene');
     Events.on('editorModeChanged', function(active){
@@ -105,18 +65,23 @@ var Main = React.createClass({
 
     return false;
   },
+  openModal: function() {
+    this.setState({isModalTexturesOpen: true});
+  },
   render: function() {
     var scene = document.querySelector('a-scene');
     var toggleText = this.state.editorEnabled;
+    var textureDialogOpened = this.state.isModalTexturesOpen;
     return (
       <div>
         <div id="editor" className={this.state.editorEnabled ? '' : 'hidden'}>
+          <ModalTextures ref="modaltextures" isOpen={textureDialogOpened} onClose={this.state.textureOnClose}/>
           <Menu/>
           <div id="sidebar-left">
             <div className="tab">SCENEGRAPH</div>
             <Scenegraph scene={scene}/>
             <div className="scenegraph-bottom">
-              <button onClick={this.deleteEntity}><i className="fa fa-trash-o"></i></button>
+              <a href="#" onClick={this.deleteEntity} className="button fa fa-trash-o"></a>
             </div>
           </div>
           <div id="sidebar">

@@ -68,7 +68,6 @@ var NumberWidget = React.createClass({
     if (value === this.state.value) return;
 
     if (value !== undefined) {
-      console.log("ASDF");
       if (this.props.precision === 0) {
         value = parseInt(value);
       } else {
@@ -119,7 +118,6 @@ var NumberWidget = React.createClass({
   onKeyDown: function(event) {
     event.stopPropagation();
     if ( event.keyCode === 13 ) {
-      console.log(">>>",this.refs.input.value);
       this.setValue(parseFloat(this.refs.input.value));
       this.refs.input.blur();
     }

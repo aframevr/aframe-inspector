@@ -55,7 +55,7 @@ var AddComponent = React.createClass({
                     }.bind(this))
                   }
                   </select>
-                  <button onClick={this.addComponent}>Add</button>
+                  <a href="#" className="button fa fa-plus-circle" onClick={this.addComponent}></a>
                 </span>
               </div>
             </div>
@@ -100,7 +100,6 @@ var Attributes = React.createClass({
 
     var entity = this.props.entity;
     var components = entity ? this.props.entity.components : {};
-
     return <div className="attributes">
         <CommonComponent entity={entity}/>
         <AddComponent entity={entity}/>
