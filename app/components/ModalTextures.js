@@ -1,21 +1,9 @@
 import React from 'react';
 import Modal from './Modal';
 
-
 function getFilename(url) {
   return url.split('/').pop();
 }
-
-/*function getFilename(url) {
-  if (url) {
-    var m = url.toString().match(/.*\/(.+?)\./);
-    if (m && m.length > 1) {
-       return m[1];
-    }
-  }
-  return '';
-}
-*/
 
 var Tabs = React.createClass({
 	displayName: 'Tabs',
@@ -120,6 +108,9 @@ export default class ModalTextures extends React.Component {
   componentWillReceiveProps(newProps) {
     if (this.state.isOpen !== newProps.isOpen) {
       this.state.isOpen = newProps.isOpen;
+      if (this.state.isOpen) {
+        this.generateFromAssets();
+      }
     }
   }
   onClose(value) {
@@ -133,26 +124,37 @@ export default class ModalTextures extends React.Component {
       this.setState({isOpen: false});
     }
   }
-  componentDidMount() {
+  generateFromSamples() {
     var self = this;
-
-    Array.prototype.slice.call(document.querySelectorAll('a-assets img')).map((asset) => {
-      var image = new Image();
-      image.addEventListener('load', function() {
-        self.state.assetsImages.push({id: asset.id, src: image.src, width: image.width, height: image.height, name: asset.id});
-        self.setState({assetsImages: self.state.assetsImages});
-      });
-      image.src = asset.src;
-    });
-
     this.samplesImages.map((imageData) => {
       var image = new Image();
       image.addEventListener('load', function() {
-        self.state.samplesImages.push({id: imageData.name, src: image.src, width: image.width, height: image.height, name: imageData.name});
+        self.state.samplesImages.push({id: imageData.name, src: image.src, width: image.width, height: image.height, name: imageData.name, type: 'sample', value: 'url(' + image.src + ')'});
         self.setState({samplesImages: self.state.samplesImages});
       });
       image.src = imageData.src;
     });
+  }
+  generateFromAssets() {
+    this.setState({assetsImages: []});
+
+    var self = this;
+    Array.prototype.slice.call(document.querySelectorAll('a-assets img')).map((asset) => {
+      var image = new Image();
+      image.addEventListener('load', function() {
+        self.state.assetsImages.push({id: asset.id, src: image.src, width: image.width, height: image.height, name: asset.id, type: 'asset', value: '#' + asset.id});
+        self.setState({assetsImages: self.state.assetsImages});
+      });
+      image.src = asset.src;
+    });
+  }
+  generateFromTextureCache() {
+
+  }
+  componentDidMount() {
+    this.generateFromSamples();
+    this.generateFromAssets();
+    this.generateFromTextureCache();
 
     /*
     Object.keys(editor.sceneEl.systems.material.textureCache).map((hash) => {
@@ -173,11 +175,10 @@ export default class ModalTextures extends React.Component {
     let samples = this.textures;
     //let alreadyLoaded = editor.sceneEl.systems.material.textureCache;
     let loadedTextures = this.state.loadedTextures;
-    console.log(">>>>",this.state.assetsImages);
 
     //title="Textures" isOpen={this.state.isOpen} onClose={this.onClose.bind(this)}>
     return <Modal
-          title="Textures" isOpen={true} onClose={this.onClose.bind(this)}>
+          title="Textures" isOpen={this.state.isOpen} onClose={this.onClose.bind(this)}>
           <Tabs selected={0}>
             <Pane label="ADD NEW">
               <div>ADD NEW TEXTURE</div>
@@ -186,7 +187,6 @@ export default class ModalTextures extends React.Component {
               <ul className="gallery">
                 {
                   this.state.assetsImages.map(function(image) {
-                    console.log(image);
                     let textureClick = this.selectTexture.bind(this, image);
                      return (
                        <li key={image.id} onClick={textureClick}>
@@ -204,7 +204,6 @@ export default class ModalTextures extends React.Component {
                 {
                   loadedTextures.map(function(texture) {
                     var image = texture.image;
-                    console.log(texture);
                     let textureClick = this.selectTexture.bind(this, texture);
                      return (
                        <li key={texture.uuid} onClick={textureClick}>
