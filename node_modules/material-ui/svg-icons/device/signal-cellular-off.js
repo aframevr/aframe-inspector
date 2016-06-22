@@ -27,5 +27,6 @@ var DeviceSignalCellularOff = function DeviceSignalCellularOff(props) {
 };
 DeviceSignalCellularOff = (0, _pure2.default)(DeviceSignalCellularOff);
 DeviceSignalCellularOff.displayName = 'DeviceSignalCellularOff';
+DeviceSignalCellularOff.muiName = 'SvgIcon';
 
 exports.default = DeviceSignalCellularOff;

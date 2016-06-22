@@ -27,5 +27,6 @@ var EditorFormatClear = function EditorFormatClear(props) {
 };
 EditorFormatClear = (0, _pure2.default)(EditorFormatClear);
 EditorFormatClear.displayName = 'EditorFormatClear';
+EditorFormatClear.muiName = 'SvgIcon';
 
 exports.default = EditorFormatClear;

@@ -27,5 +27,6 @@ var NotificationDoNotDisturb = function NotificationDoNotDisturb(props) {
 };
 NotificationDoNotDisturb = (0, _pure2.default)(NotificationDoNotDisturb);
 NotificationDoNotDisturb.displayName = 'NotificationDoNotDisturb';
+NotificationDoNotDisturb.muiName = 'SvgIcon';
 
 exports.default = NotificationDoNotDisturb;

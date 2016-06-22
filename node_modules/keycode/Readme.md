@@ -75,7 +75,7 @@ break pause/break
 caps caps lock
 escape esc
 pgup page up
-pgdn page up
+pgdn page down
 ins insert
 del delete
 spc space

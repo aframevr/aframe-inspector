@@ -27,5 +27,6 @@ var ActionTouchApp = function ActionTouchApp(props) {
 };
 ActionTouchApp = (0, _pure2.default)(ActionTouchApp);
 ActionTouchApp.displayName = 'ActionTouchApp';
+ActionTouchApp.muiName = 'SvgIcon';
 
 exports.default = ActionTouchApp;

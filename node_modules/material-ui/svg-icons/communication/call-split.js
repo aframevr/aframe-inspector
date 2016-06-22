@@ -27,5 +27,6 @@ var CommunicationCallSplit = function CommunicationCallSplit(props) {
 };
 CommunicationCallSplit = (0, _pure2.default)(CommunicationCallSplit);
 CommunicationCallSplit.displayName = 'CommunicationCallSplit';
+CommunicationCallSplit.muiName = 'SvgIcon';
 
 exports.default = CommunicationCallSplit;

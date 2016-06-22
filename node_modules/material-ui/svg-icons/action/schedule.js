@@ -27,5 +27,6 @@ var ActionSchedule = function ActionSchedule(props) {
 };
 ActionSchedule = (0, _pure2.default)(ActionSchedule);
 ActionSchedule.displayName = 'ActionSchedule';
+ActionSchedule.muiName = 'SvgIcon';
 
 exports.default = ActionSchedule;

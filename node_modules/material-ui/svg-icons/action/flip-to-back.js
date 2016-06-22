@@ -27,5 +27,6 @@ var ActionFlipToBack = function ActionFlipToBack(props) {
 };
 ActionFlipToBack = (0, _pure2.default)(ActionFlipToBack);
 ActionFlipToBack.displayName = 'ActionFlipToBack';
+ActionFlipToBack.muiName = 'SvgIcon';
 
 exports.default = ActionFlipToBack;

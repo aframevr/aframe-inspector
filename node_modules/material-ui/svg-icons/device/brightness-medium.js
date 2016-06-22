@@ -27,5 +27,6 @@ var DeviceBrightnessMedium = function DeviceBrightnessMedium(props) {
 };
 DeviceBrightnessMedium = (0, _pure2.default)(DeviceBrightnessMedium);
 DeviceBrightnessMedium.displayName = 'DeviceBrightnessMedium';
+DeviceBrightnessMedium.muiName = 'SvgIcon';
 
 exports.default = DeviceBrightnessMedium;

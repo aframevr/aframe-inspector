@@ -27,5 +27,6 @@ var ContentAdd = function ContentAdd(props) {
 };
 ContentAdd = (0, _pure2.default)(ContentAdd);
 ContentAdd.displayName = 'ContentAdd';
+ContentAdd.muiName = 'SvgIcon';
 
 exports.default = ContentAdd;

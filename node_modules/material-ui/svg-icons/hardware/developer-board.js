@@ -27,5 +27,6 @@ var HardwareDeveloperBoard = function HardwareDeveloperBoard(props) {
 };
 HardwareDeveloperBoard = (0, _pure2.default)(HardwareDeveloperBoard);
 HardwareDeveloperBoard.displayName = 'HardwareDeveloperBoard';
+HardwareDeveloperBoard.muiName = 'SvgIcon';
 
 exports.default = HardwareDeveloperBoard;

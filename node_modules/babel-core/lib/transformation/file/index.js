@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 exports.File = undefined;
@@ -31,96 +31,78 @@ var _inherits2 = require("babel-runtime/helpers/inherits");
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var /*istanbul ignore next*/_babelHelpers = require("babel-helpers");
+var _babelHelpers = require("babel-helpers");
 
-/*istanbul ignore next*/
 var _babelHelpers2 = _interopRequireDefault(_babelHelpers);
 
-var /*istanbul ignore next*/_metadata = require("./metadata");
+var _metadata = require("./metadata");
 
-/*istanbul ignore next*/
 var metadataVisitor = _interopRequireWildcard(_metadata);
 
-var /*istanbul ignore next*/_convertSourceMap = require("convert-source-map");
+var _convertSourceMap = require("convert-source-map");
 
-/*istanbul ignore next*/
 var _convertSourceMap2 = _interopRequireDefault(_convertSourceMap);
 
-var /*istanbul ignore next*/_optionManager = require("./options/option-manager");
+var _optionManager = require("./options/option-manager");
 
-/*istanbul ignore next*/
 var _optionManager2 = _interopRequireDefault(_optionManager);
 
-var /*istanbul ignore next*/_pluginPass = require("../plugin-pass");
+var _pluginPass = require("../plugin-pass");
 
-/*istanbul ignore next*/
 var _pluginPass2 = _interopRequireDefault(_pluginPass);
 
-var /*istanbul ignore next*/_shebangRegex = require("shebang-regex");
+var _shebangRegex = require("shebang-regex");
 
-/*istanbul ignore next*/
 var _shebangRegex2 = _interopRequireDefault(_shebangRegex);
 
-var /*istanbul ignore next*/_babelTraverse = require("babel-traverse");
+var _babelTraverse = require("babel-traverse");
 
-/*istanbul ignore next*/
 var _babelTraverse2 = _interopRequireDefault(_babelTraverse);
 
-var /*istanbul ignore next*/_sourceMap = require("source-map");
+var _sourceMap = require("source-map");
 
-/*istanbul ignore next*/
 var _sourceMap2 = _interopRequireDefault(_sourceMap);
 
-var /*istanbul ignore next*/_babelGenerator = require("babel-generator");
+var _babelGenerator = require("babel-generator");
 
-/*istanbul ignore next*/
 var _babelGenerator2 = _interopRequireDefault(_babelGenerator);
 
-var /*istanbul ignore next*/_babelCodeFrame = require("babel-code-frame");
+var _babelCodeFrame = require("babel-code-frame");
 
-/*istanbul ignore next*/
 var _babelCodeFrame2 = _interopRequireDefault(_babelCodeFrame);
 
-var /*istanbul ignore next*/_defaults = require("lodash/defaults");
+var _defaults = require("lodash/defaults");
 
-/*istanbul ignore next*/
 var _defaults2 = _interopRequireDefault(_defaults);
 
-var /*istanbul ignore next*/_logger = require("./logger");
+var _logger = require("./logger");
 
-/*istanbul ignore next*/
 var _logger2 = _interopRequireDefault(_logger);
 
-var /*istanbul ignore next*/_store = require("../../store");
+var _store = require("../../store");
 
-/*istanbul ignore next*/
 var _store2 = _interopRequireDefault(_store);
 
-var /*istanbul ignore next*/_babylon = require("babylon");
+var _babylon = require("babylon");
 
-var /*istanbul ignore next*/_util = require("../../util");
+var _util = require("../../util");
 
-/*istanbul ignore next*/
 var util = _interopRequireWildcard(_util);
 
-var /*istanbul ignore next*/_path = require("path");
+var _path = require("path");
 
-/*istanbul ignore next*/
 var _path2 = _interopRequireDefault(_path);
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-var /*istanbul ignore next*/_blockHoist = require("../internal-plugins/block-hoist");
+var _blockHoist = require("../internal-plugins/block-hoist");
 
-/*istanbul ignore next*/
 var _blockHoist2 = _interopRequireDefault(_blockHoist);
 
-var /*istanbul ignore next*/_shadowFunctions = require("../internal-plugins/shadow-functions");
+var _shadowFunctions = require("../internal-plugins/shadow-functions");
 
-/*istanbul ignore next*/
 var _shadowFunctions2 = _interopRequireDefault(_shadowFunctions);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -130,9 +112,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* global BabelFileResult, BabelParserOptions, BabelFileMetadata */
 /* eslint max-len: 0 */
 
-var INTERNAL_PLUGINS = [[/*istanbul ignore next*/_blockHoist2.default], [/*istanbul ignore next*/_shadowFunctions2.default]];
+var INTERNAL_PLUGINS = [[_blockHoist2.default], [_shadowFunctions2.default]];
 
-var errorVisitor = { /*istanbul ignore next*/
+var errorVisitor = {
   enter: function enter(path, state) {
     var loc = path.node.loc;
     if (loc) {
@@ -142,49 +124,48 @@ var errorVisitor = { /*istanbul ignore next*/
   }
 };
 
-/*istanbul ignore next*/
 var File = function (_Store) {
   (0, _inherits3.default)(File, _Store);
 
-  function /*istanbul ignore next*/File() {
-    /*istanbul ignore next*/var opts = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-    /*istanbul ignore next*/var pipeline = arguments[1];
-    /*istanbul ignore next*/(0, _classCallCheck3.default)(this, File);
+  function File() {
+    var opts = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+    var pipeline = arguments[1];
+    (0, _classCallCheck3.default)(this, File);
 
-    var _this = (0, _possibleConstructorReturn3.default)(this, /*istanbul ignore next*/_Store.call( /*istanbul ignore next*/this));
+    var _this = (0, _possibleConstructorReturn3.default)(this, _Store.call(this));
 
-    /*istanbul ignore next*/_this.pipeline = pipeline;
+    _this.pipeline = pipeline;
 
-    /*istanbul ignore next*/_this.log = new /*istanbul ignore next*/_logger2.default(_this, opts.filename || "unknown");
-    /*istanbul ignore next*/_this.opts = /*istanbul ignore next*/_this.initOptions(opts);
+    _this.log = new _logger2.default(_this, opts.filename || "unknown");
+    _this.opts = _this.initOptions(opts);
 
-    /*istanbul ignore next*/_this.parserOpts = {
-      highlightCode: /*istanbul ignore next*/_this.opts.highlightCode,
-      nonStandard: /*istanbul ignore next*/_this.opts.nonStandard,
-      sourceType: /*istanbul ignore next*/_this.opts.sourceType,
-      filename: /*istanbul ignore next*/_this.opts.filename,
+    _this.parserOpts = {
+      highlightCode: _this.opts.highlightCode,
+      nonStandard: _this.opts.nonStandard,
+      sourceType: _this.opts.sourceType,
+      filename: _this.opts.filename,
       plugins: []
     };
 
-    /*istanbul ignore next*/_this.pluginVisitors = [];
-    /*istanbul ignore next*/_this.pluginPasses = [];
+    _this.pluginVisitors = [];
+    _this.pluginPasses = [];
 
     // Plugins for top-level options.
-    /*istanbul ignore next*/_this.buildPluginsForOptions( /*istanbul ignore next*/_this.opts);
+    _this.buildPluginsForOptions(_this.opts);
 
     // If we are in the "pass per preset" mode, build
     // also plugins for each preset.
-    if ( /*istanbul ignore next*/_this.opts.passPerPreset) {
+    if (_this.opts.passPerPreset) {
       // All the "per preset" options are inherited from the main options.
-      /*istanbul ignore next*/_this.perPresetOpts = [];
-      /*istanbul ignore next*/_this.opts.presets.forEach(function (presetOpts) {
-        var perPresetOpts = /*istanbul ignore next*/(0, _assign2.default)( /*istanbul ignore next*/(0, _create2.default)( /*istanbul ignore next*/_this.opts), presetOpts);
-        /*istanbul ignore next*/_this.perPresetOpts.push(perPresetOpts);
-        /*istanbul ignore next*/_this.buildPluginsForOptions(perPresetOpts);
+      _this.perPresetOpts = [];
+      _this.opts.presets.forEach(function (presetOpts) {
+        var perPresetOpts = (0, _assign2.default)((0, _create2.default)(_this.opts), presetOpts);
+        _this.perPresetOpts.push(perPresetOpts);
+        _this.buildPluginsForOptions(perPresetOpts);
       });
     }
 
-    /*istanbul ignore next*/_this.metadata = {
+    _this.metadata = {
       usedHelpers: [],
       marked: [],
       modules: {
@@ -196,26 +177,25 @@ var File = function (_Store) {
       }
     };
 
-    /*istanbul ignore next*/_this.dynamicImportTypes = {};
-    /*istanbul ignore next*/_this.dynamicImportIds = {};
-    /*istanbul ignore next*/_this.dynamicImports = [];
-    /*istanbul ignore next*/_this.declarations = {};
-    /*istanbul ignore next*/_this.usedHelpers = {};
+    _this.dynamicImportTypes = {};
+    _this.dynamicImportIds = {};
+    _this.dynamicImports = [];
+    _this.declarations = {};
+    _this.usedHelpers = {};
 
-    /*istanbul ignore next*/_this.path = null;
-    /*istanbul ignore next*/_this.ast = {};
+    _this.path = null;
+    _this.ast = {};
 
-    /*istanbul ignore next*/_this.code = "";
-    /*istanbul ignore next*/_this.shebang = "";
+    _this.code = "";
+    _this.shebang = "";
 
-    /*istanbul ignore next*/_this.hub = new /*istanbul ignore next*/_babelTraverse.Hub(_this);
-    /*istanbul ignore next*/return _this;
+    _this.hub = new _babelTraverse.Hub(_this);
+    return _this;
   }
 
   File.prototype.getMetadata = function getMetadata() {
     var has = false;
-    for ( /*istanbul ignore next*/var _iterator = this.ast.program.body, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
-      /*istanbul ignore next*/
+    for (var _iterator = this.ast.program.body, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
       var _ref;
 
       if (_isArray) {
@@ -240,7 +220,7 @@ var File = function (_Store) {
   };
 
   File.prototype.initOptions = function initOptions(opts) {
-    opts = new /*istanbul ignore next*/_optionManager2.default(this.log, this.pipeline).init(opts);
+    opts = new _optionManager2.default(this.log, this.pipeline).init(opts);
 
     if (opts.inputSourceMap) {
       opts.sourceMaps = true;
@@ -250,27 +230,27 @@ var File = function (_Store) {
       opts.moduleIds = true;
     }
 
-    opts.basename = /*istanbul ignore next*/_path2.default.basename(opts.filename, /*istanbul ignore next*/_path2.default.extname(opts.filename));
+    opts.basename = _path2.default.basename(opts.filename, _path2.default.extname(opts.filename));
 
     opts.ignore = util.arrayify(opts.ignore, util.regexify);
 
     if (opts.only) opts.only = util.arrayify(opts.only, util.regexify);
 
-    /*istanbul ignore next*/(0, _defaults2.default)(opts, {
+    (0, _defaults2.default)(opts, {
       moduleRoot: opts.sourceRoot
     });
 
-    /*istanbul ignore next*/(0, _defaults2.default)(opts, {
+    (0, _defaults2.default)(opts, {
       sourceRoot: opts.moduleRoot
     });
 
-    /*istanbul ignore next*/(0, _defaults2.default)(opts, {
+    (0, _defaults2.default)(opts, {
       filenameRelative: opts.filename
     });
 
-    var basenameRelative = /*istanbul ignore next*/_path2.default.basename(opts.filenameRelative);
+    var basenameRelative = _path2.default.basename(opts.filenameRelative);
 
-    /*istanbul ignore next*/(0, _defaults2.default)(opts, {
+    (0, _defaults2.default)(opts, {
       sourceFileName: basenameRelative,
       sourceMapTarget: basenameRelative
     });
@@ -288,8 +268,7 @@ var File = function (_Store) {
     var currentPluginPasses = [];
 
     // init plugins!
-    for ( /*istanbul ignore next*/var _iterator2 = plugins, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
-      /*istanbul ignore next*/
+    for (var _iterator2 = plugins, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
       var _ref2;
 
       if (_isArray2) {
@@ -302,11 +281,11 @@ var File = function (_Store) {
       }
 
       var ref = _ref2;
-      /*istanbul ignore next*/var plugin = ref[0];
-      /*istanbul ignore next*/var pluginOpts = ref[1]; // todo: fix - can't embed in loop head because of flow bug
+      var plugin = ref[0];
+      var pluginOpts = ref[1]; // todo: fix - can't embed in loop head because of flow bug
 
       currentPluginVisitors.push(plugin.visitor);
-      currentPluginPasses.push(new /*istanbul ignore next*/_pluginPass2.default(this, plugin, pluginOpts));
+      currentPluginPasses.push(new _pluginPass2.default(this, plugin, pluginOpts));
 
       if (plugin.manipulateOptions) {
         plugin.manipulateOptions(opts, this.parserOpts, this);
@@ -368,9 +347,9 @@ var File = function (_Store) {
   };
 
   File.prototype.addImport = function addImport(source, imported) {
-    /*istanbul ignore next*/var name = arguments.length <= 2 || arguments[2] === undefined ? imported : arguments[2];
+    var name = arguments.length <= 2 || arguments[2] === undefined ? imported : arguments[2];
 
-    var alias = /*istanbul ignore next*/source + ":" + imported;
+    var alias = source + ":" + imported;
     var id = this.dynamicImportIds[alias];
 
     if (!id) {
@@ -414,7 +393,7 @@ var File = function (_Store) {
       return t.memberExpression(runtime, t.identifier(name));
     }
 
-    var ref = /*istanbul ignore next*/(0, _babelHelpers2.default)(name);
+    var ref = (0, _babelHelpers2.default)(name);
     var uid = this.declarations[name] = this.scope.generateUidIdentifier(name);
 
     if (t.isFunctionExpression(ref) && !ref.id) {
@@ -441,7 +420,7 @@ var File = function (_Store) {
     var stringIds = raw.elements.map(function (string) {
       return string.value;
     });
-    var name = /*istanbul ignore next*/helperName + "_" + raw.elements.length + "_" + stringIds.join(",");
+    var name = helperName + "_" + raw.elements.length + "_" + stringIds.join(",");
 
     var declar = this.declarations[name];
     if (declar) return declar;
@@ -460,7 +439,7 @@ var File = function (_Store) {
   };
 
   File.prototype.buildCodeFrameError = function buildCodeFrameError(node, msg) {
-    /*istanbul ignore next*/var Error = arguments.length <= 2 || arguments[2] === undefined ? SyntaxError : arguments[2];
+    var Error = arguments.length <= 2 || arguments[2] === undefined ? SyntaxError : arguments[2];
 
     var loc = node && (node.loc || node._loc);
 
@@ -469,7 +448,7 @@ var File = function (_Store) {
     if (loc) {
       err.loc = loc.start;
     } else {
-      /*istanbul ignore next*/(0, _babelTraverse2.default)(node, errorVisitor, this.scope, err);
+      (0, _babelTraverse2.default)(node, errorVisitor, this.scope, err);
 
       err.message += " (This is an error on an internal node. Probably an internal error";
 
@@ -487,12 +466,11 @@ var File = function (_Store) {
     var inputMap = this.opts.inputSourceMap;
 
     if (inputMap) {
-      /*istanbul ignore next*/
       var _ret = function () {
-        var inputMapConsumer = new /*istanbul ignore next*/_sourceMap2.default.SourceMapConsumer(inputMap);
-        var outputMapConsumer = new /*istanbul ignore next*/_sourceMap2.default.SourceMapConsumer(map);
+        var inputMapConsumer = new _sourceMap2.default.SourceMapConsumer(inputMap);
+        var outputMapConsumer = new _sourceMap2.default.SourceMapConsumer(map);
 
-        var mergedGenerator = new /*istanbul ignore next*/_sourceMap2.default.SourceMapGenerator({
+        var mergedGenerator = new _sourceMap2.default.SourceMapGenerator({
           file: inputMapConsumer.file,
           sourceRoot: inputMapConsumer.sourceRoot
         });
@@ -523,13 +501,12 @@ var File = function (_Store) {
 
         var mergedMap = mergedGenerator.toJSON();
         inputMap.mappings = mergedMap.mappings;
-        return (/*istanbul ignore next*/{
-            v: inputMap
-          }
-        );
+        return {
+          v: inputMap
+        };
       }();
 
-      /*istanbul ignore next*/if ((typeof _ret === "undefined" ? "undefined" : (0, _typeof3.default)(_ret)) === "object") return _ret.v;
+      if ((typeof _ret === "undefined" ? "undefined" : (0, _typeof3.default)(_ret)) === "object") return _ret.v;
     } else {
       return map;
     }
@@ -537,13 +514,13 @@ var File = function (_Store) {
 
   File.prototype.parse = function parse(code) {
     this.log.debug("Parse start");
-    var ast = /*istanbul ignore next*/(0, _babylon.parse)(code, this.parserOpts);
+    var ast = (0, _babylon.parse)(code, this.parserOpts);
     this.log.debug("Parse stop");
     return ast;
   };
 
   File.prototype._addAst = function _addAst(ast) {
-    this.path = /*istanbul ignore next*/_babelTraverse.NodePath.get({
+    this.path = _babelTraverse.NodePath.get({
       hub: this.hub,
       parentPath: null,
       parent: ast,
@@ -568,7 +545,7 @@ var File = function (_Store) {
       var pluginPasses = this.pluginPasses[i];
       this.call("pre", pluginPasses);
       this.log.debug("Start transform traverse");
-      /*istanbul ignore next*/(0, _babelTraverse2.default)(this.ast, /*istanbul ignore next*/_babelTraverse2.default.visitors.merge(this.pluginVisitors[i], pluginPasses), this.scope);
+      (0, _babelTraverse2.default)(this.ast, _babelTraverse2.default.visitors.merge(this.pluginVisitors[i], pluginPasses), this.scope);
       this.log.debug("End transform traverse");
       this.call("post", pluginPasses);
     }
@@ -592,11 +569,11 @@ var File = function (_Store) {
         err._babel = true;
       }
 
-      var message = err.message = /*istanbul ignore next*/this.opts.filename + ": " + err.message;
+      var message = err.message = this.opts.filename + ": " + err.message;
 
       var loc = err.loc;
       if (loc) {
-        err.codeFrame = /*istanbul ignore next*/(0, _babelCodeFrame2.default)(code, loc.line, loc.column + 1, this.opts);
+        err.codeFrame = (0, _babelCodeFrame2.default)(code, loc.line, loc.column + 1, this.opts);
         message += "\n" + err.codeFrame;
       }
 
@@ -633,8 +610,7 @@ var File = function (_Store) {
   };
 
   File.prototype.call = function call(key, pluginPasses) {
-    for ( /*istanbul ignore next*/var _iterator3 = pluginPasses, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3);;) {
-      /*istanbul ignore next*/
+    for (var _iterator3 = pluginPasses, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3);;) {
       var _ref3;
 
       if (_isArray3) {
@@ -658,10 +634,10 @@ var File = function (_Store) {
     var opts = this.opts;
 
     if (opts.inputSourceMap !== false) {
-      var inputMap = /*istanbul ignore next*/_convertSourceMap2.default.fromSource(code);
+      var inputMap = _convertSourceMap2.default.fromSource(code);
       if (inputMap) {
         opts.inputSourceMap = inputMap.toObject();
-        code = /*istanbul ignore next*/_convertSourceMap2.default.removeComments(code);
+        code = _convertSourceMap2.default.removeComments(code);
       }
     }
 
@@ -669,18 +645,18 @@ var File = function (_Store) {
   };
 
   File.prototype.parseShebang = function parseShebang() {
-    var shebangMatch = /*istanbul ignore next*/_shebangRegex2.default.exec(this.code);
+    var shebangMatch = _shebangRegex2.default.exec(this.code);
     if (shebangMatch) {
       this.shebang = shebangMatch[0];
-      this.code = this.code.replace( /*istanbul ignore next*/_shebangRegex2.default, "");
+      this.code = this.code.replace(_shebangRegex2.default, "");
     }
   };
 
   File.prototype.makeResult = function makeResult(_ref4) {
-    /*istanbul ignore next*/var code = _ref4.code;
-    /*istanbul ignore next*/var map = _ref4.map;
-    /*istanbul ignore next*/var ast = _ref4.ast;
-    /*istanbul ignore next*/var ignored = _ref4.ignored;
+    var code = _ref4.code;
+    var map = _ref4.map;
+    var ast = _ref4.ast;
+    var ignored = _ref4.ignored;
 
     var result = {
       metadata: null,
@@ -715,7 +691,7 @@ var File = function (_Store) {
 
     this.log.debug("Generation start");
 
-    var _result = /*istanbul ignore next*/(0, _babelGenerator2.default)(ast, opts, this.code);
+    var _result = (0, _babelGenerator2.default)(ast, opts, this.code);
     result.code = _result.code;
     result.map = _result.map;
 
@@ -723,7 +699,7 @@ var File = function (_Store) {
 
     if (this.shebang) {
       // add back shebang
-      result.code = /*istanbul ignore next*/this.shebang + "\n" + result.code;
+      result.code = this.shebang + "\n" + result.code;
     }
 
     if (result.map) {
@@ -731,7 +707,7 @@ var File = function (_Store) {
     }
 
     if (opts.sourceMaps === "inline" || opts.sourceMaps === "both") {
-      result.code += "\n" + /*istanbul ignore next*/_convertSourceMap2.default.fromObject(result.map).toComment();
+      result.code += "\n" + _convertSourceMap2.default.fromObject(result.map).toComment();
     }
 
     if (opts.sourceMaps === "inline") {
@@ -744,5 +720,5 @@ var File = function (_Store) {
   return File;
 }(_store2.default);
 
-/*istanbul ignore next*/exports.default = File;
-/*istanbul ignore next*/exports.File = File;
+exports.default = File;
+exports.File = File;

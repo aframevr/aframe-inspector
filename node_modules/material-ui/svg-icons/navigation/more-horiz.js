@@ -27,5 +27,6 @@ var NavigationMoreHoriz = function NavigationMoreHoriz(props) {
 };
 NavigationMoreHoriz = (0, _pure2.default)(NavigationMoreHoriz);
 NavigationMoreHoriz.displayName = 'NavigationMoreHoriz';
+NavigationMoreHoriz.muiName = 'SvgIcon';
 
 exports.default = NavigationMoreHoriz;

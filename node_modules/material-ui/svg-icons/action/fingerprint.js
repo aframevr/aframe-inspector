@@ -27,5 +27,6 @@ var ActionFingerprint = function ActionFingerprint(props) {
 };
 ActionFingerprint = (0, _pure2.default)(ActionFingerprint);
 ActionFingerprint.displayName = 'ActionFingerprint';
+ActionFingerprint.muiName = 'SvgIcon';
 
 exports.default = ActionFingerprint;

@@ -27,5 +27,6 @@ var ImagePortrait = function ImagePortrait(props) {
 };
 ImagePortrait = (0, _pure2.default)(ImagePortrait);
 ImagePortrait.displayName = 'ImagePortrait';
+ImagePortrait.muiName = 'SvgIcon';
 
 exports.default = ImagePortrait;

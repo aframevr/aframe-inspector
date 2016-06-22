@@ -27,5 +27,6 @@ var MapsDirectionsBike = function MapsDirectionsBike(props) {
 };
 MapsDirectionsBike = (0, _pure2.default)(MapsDirectionsBike);
 MapsDirectionsBike.displayName = 'MapsDirectionsBike';
+MapsDirectionsBike.muiName = 'SvgIcon';
 
 exports.default = MapsDirectionsBike;

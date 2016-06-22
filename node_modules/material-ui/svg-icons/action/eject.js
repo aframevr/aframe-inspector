@@ -27,5 +27,6 @@ var ActionEject = function ActionEject(props) {
 };
 ActionEject = (0, _pure2.default)(ActionEject);
 ActionEject.displayName = 'ActionEject';
+ActionEject.muiName = 'SvgIcon';
 
 exports.default = ActionEject;

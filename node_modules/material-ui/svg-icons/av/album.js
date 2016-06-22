@@ -27,5 +27,6 @@ var AvAlbum = function AvAlbum(props) {
 };
 AvAlbum = (0, _pure2.default)(AvAlbum);
 AvAlbum.displayName = 'AvAlbum';
+AvAlbum.muiName = 'SvgIcon';
 
 exports.default = AvAlbum;

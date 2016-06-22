@@ -27,5 +27,6 @@ var ActionPermMedia = function ActionPermMedia(props) {
 };
 ActionPermMedia = (0, _pure2.default)(ActionPermMedia);
 ActionPermMedia.displayName = 'ActionPermMedia';
+ActionPermMedia.muiName = 'SvgIcon';
 
 exports.default = ActionPermMedia;

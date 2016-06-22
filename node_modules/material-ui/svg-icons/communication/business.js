@@ -27,5 +27,6 @@ var CommunicationBusiness = function CommunicationBusiness(props) {
 };
 CommunicationBusiness = (0, _pure2.default)(CommunicationBusiness);
 CommunicationBusiness.displayName = 'CommunicationBusiness';
+CommunicationBusiness.muiName = 'SvgIcon';
 
 exports.default = CommunicationBusiness;

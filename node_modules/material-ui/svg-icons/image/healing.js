@@ -27,5 +27,6 @@ var ImageHealing = function ImageHealing(props) {
 };
 ImageHealing = (0, _pure2.default)(ImageHealing);
 ImageHealing.displayName = 'ImageHealing';
+ImageHealing.muiName = 'SvgIcon';
 
 exports.default = ImageHealing;

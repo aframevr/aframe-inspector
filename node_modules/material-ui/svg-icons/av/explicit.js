@@ -27,5 +27,6 @@ var AvExplicit = function AvExplicit(props) {
 };
 AvExplicit = (0, _pure2.default)(AvExplicit);
 AvExplicit.displayName = 'AvExplicit';
+AvExplicit.muiName = 'SvgIcon';
 
 exports.default = AvExplicit;

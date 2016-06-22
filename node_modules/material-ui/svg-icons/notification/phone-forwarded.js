@@ -27,5 +27,6 @@ var NotificationPhoneForwarded = function NotificationPhoneForwarded(props) {
 };
 NotificationPhoneForwarded = (0, _pure2.default)(NotificationPhoneForwarded);
 NotificationPhoneForwarded.displayName = 'NotificationPhoneForwarded';
+NotificationPhoneForwarded.muiName = 'SvgIcon';
 
 exports.default = NotificationPhoneForwarded;

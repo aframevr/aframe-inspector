@@ -27,5 +27,6 @@ var ActionAllOut = function ActionAllOut(props) {
 };
 ActionAllOut = (0, _pure2.default)(ActionAllOut);
 ActionAllOut.displayName = 'ActionAllOut';
+ActionAllOut.muiName = 'SvgIcon';
 
 exports.default = ActionAllOut;

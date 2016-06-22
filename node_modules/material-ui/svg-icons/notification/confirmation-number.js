@@ -27,5 +27,6 @@ var NotificationConfirmationNumber = function NotificationConfirmationNumber(pro
 };
 NotificationConfirmationNumber = (0, _pure2.default)(NotificationConfirmationNumber);
 NotificationConfirmationNumber.displayName = 'NotificationConfirmationNumber';
+NotificationConfirmationNumber.muiName = 'SvgIcon';
 
 exports.default = NotificationConfirmationNumber;

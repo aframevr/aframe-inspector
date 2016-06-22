@@ -28,5 +28,6 @@ var ActionRecordVoiceOver = function ActionRecordVoiceOver(props) {
 };
 ActionRecordVoiceOver = (0, _pure2.default)(ActionRecordVoiceOver);
 ActionRecordVoiceOver.displayName = 'ActionRecordVoiceOver';
+ActionRecordVoiceOver.muiName = 'SvgIcon';
 
 exports.default = ActionRecordVoiceOver;

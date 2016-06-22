@@ -27,5 +27,6 @@ var ImageHdrWeak = function ImageHdrWeak(props) {
 };
 ImageHdrWeak = (0, _pure2.default)(ImageHdrWeak);
 ImageHdrWeak.displayName = 'ImageHdrWeak';
+ImageHdrWeak.muiName = 'SvgIcon';
 
 exports.default = ImageHdrWeak;

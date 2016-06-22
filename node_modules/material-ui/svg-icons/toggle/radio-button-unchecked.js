@@ -27,5 +27,6 @@ var ToggleRadioButtonUnchecked = function ToggleRadioButtonUnchecked(props) {
 };
 ToggleRadioButtonUnchecked = (0, _pure2.default)(ToggleRadioButtonUnchecked);
 ToggleRadioButtonUnchecked.displayName = 'ToggleRadioButtonUnchecked';
+ToggleRadioButtonUnchecked.muiName = 'SvgIcon';
 
 exports.default = ToggleRadioButtonUnchecked;

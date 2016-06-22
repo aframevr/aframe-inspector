@@ -27,5 +27,6 @@ var HardwareDeviceHub = function HardwareDeviceHub(props) {
 };
 HardwareDeviceHub = (0, _pure2.default)(HardwareDeviceHub);
 HardwareDeviceHub.displayName = 'HardwareDeviceHub';
+HardwareDeviceHub.muiName = 'SvgIcon';
 
 exports.default = HardwareDeviceHub;

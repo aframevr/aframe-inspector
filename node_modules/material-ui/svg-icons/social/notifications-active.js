@@ -27,5 +27,6 @@ var SocialNotificationsActive = function SocialNotificationsActive(props) {
 };
 SocialNotificationsActive = (0, _pure2.default)(SocialNotificationsActive);
 SocialNotificationsActive.displayName = 'SocialNotificationsActive';
+SocialNotificationsActive.muiName = 'SvgIcon';
 
 exports.default = SocialNotificationsActive;

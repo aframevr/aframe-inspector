@@ -27,5 +27,6 @@ var ImageSwitchVideo = function ImageSwitchVideo(props) {
 };
 ImageSwitchVideo = (0, _pure2.default)(ImageSwitchVideo);
 ImageSwitchVideo.displayName = 'ImageSwitchVideo';
+ImageSwitchVideo.muiName = 'SvgIcon';
 
 exports.default = ImageSwitchVideo;

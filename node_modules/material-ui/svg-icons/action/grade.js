@@ -27,5 +27,6 @@ var ActionGrade = function ActionGrade(props) {
 };
 ActionGrade = (0, _pure2.default)(ActionGrade);
 ActionGrade.displayName = 'ActionGrade';
+ActionGrade.muiName = 'SvgIcon';
 
 exports.default = ActionGrade;

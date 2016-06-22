@@ -27,5 +27,6 @@ var ActionNoteAdd = function ActionNoteAdd(props) {
 };
 ActionNoteAdd = (0, _pure2.default)(ActionNoteAdd);
 ActionNoteAdd.displayName = 'ActionNoteAdd';
+ActionNoteAdd.muiName = 'SvgIcon';
 
 exports.default = ActionNoteAdd;

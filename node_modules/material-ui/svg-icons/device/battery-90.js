@@ -28,5 +28,6 @@ var DeviceBattery90 = function DeviceBattery90(props) {
 };
 DeviceBattery90 = (0, _pure2.default)(DeviceBattery90);
 DeviceBattery90.displayName = 'DeviceBattery90';
+DeviceBattery90.muiName = 'SvgIcon';
 
 exports.default = DeviceBattery90;

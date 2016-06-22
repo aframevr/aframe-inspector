@@ -27,5 +27,6 @@ var ActionFlightLand = function ActionFlightLand(props) {
 };
 ActionFlightLand = (0, _pure2.default)(ActionFlightLand);
 ActionFlightLand.displayName = 'ActionFlightLand';
+ActionFlightLand.muiName = 'SvgIcon';
 
 exports.default = ActionFlightLand;

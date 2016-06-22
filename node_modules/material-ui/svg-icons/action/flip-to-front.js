@@ -27,5 +27,6 @@ var ActionFlipToFront = function ActionFlipToFront(props) {
 };
 ActionFlipToFront = (0, _pure2.default)(ActionFlipToFront);
 ActionFlipToFront.displayName = 'ActionFlipToFront';
+ActionFlipToFront.muiName = 'SvgIcon';
 
 exports.default = ActionFlipToFront;

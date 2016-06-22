@@ -27,5 +27,6 @@ var ActionCardMembership = function ActionCardMembership(props) {
 };
 ActionCardMembership = (0, _pure2.default)(ActionCardMembership);
 ActionCardMembership.displayName = 'ActionCardMembership';
+ActionCardMembership.muiName = 'SvgIcon';
 
 exports.default = ActionCardMembership;

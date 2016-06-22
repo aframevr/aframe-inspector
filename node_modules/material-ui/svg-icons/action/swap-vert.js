@@ -27,5 +27,6 @@ var ActionSwapVert = function ActionSwapVert(props) {
 };
 ActionSwapVert = (0, _pure2.default)(ActionSwapVert);
 ActionSwapVert.displayName = 'ActionSwapVert';
+ActionSwapVert.muiName = 'SvgIcon';
 
 exports.default = ActionSwapVert;

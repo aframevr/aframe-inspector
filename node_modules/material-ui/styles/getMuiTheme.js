@@ -5,9 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = getMuiTheme;
 
-var _lodash = require('lodash.merge');
+var _merge = require('lodash/merge');
 
-var _lodash2 = _interopRequireDefault(_lodash);
+var _merge2 = _interopRequireDefault(_merge);
 
 var _colorManipulator = require('../utils/colorManipulator');
 
@@ -56,7 +56,7 @@ function getMuiTheme(muiTheme) {
     more[_key - 1] = arguments[_key];
   }
 
-  muiTheme = _lodash2.default.apply(undefined, [{
+  muiTheme = _merge2.default.apply(undefined, [{
     zIndex: _zIndex2.default,
     isRtl: false,
     userAgent: undefined
@@ -69,7 +69,7 @@ function getMuiTheme(muiTheme) {
 
   var baseTheme = { spacing: spacing, fontFamily: fontFamily, palette: palette };
 
-  muiTheme = (0, _lodash2.default)({
+  muiTheme = (0, _merge2.default)({
     appBar: {
       color: palette.primary1Color,
       textColor: palette.alternateTextColor,
@@ -79,8 +79,7 @@ function getMuiTheme(muiTheme) {
     },
     avatar: {
       color: palette.canvasColor,
-      backgroundColor: (0, _colorManipulator.emphasize)(palette.canvasColor, 0.26),
-      borderColor: 'rgba(128, 128, 128, 0.15)'
+      backgroundColor: (0, _colorManipulator.emphasize)(palette.canvasColor, 0.26)
     },
     badge: {
       color: palette.alternateTextColor,
@@ -117,6 +116,14 @@ function getMuiTheme(muiTheme) {
       disabledColor: palette.disabledColor,
       labelColor: palette.textColor,
       labelDisabledColor: palette.disabledColor
+    },
+    chip: {
+      backgroundColor: (0, _colorManipulator.emphasize)(palette.canvasColor, 0.12),
+      deleteIconColor: (0, _colorManipulator.fade)(palette.textColor, 0.26),
+      textColor: (0, _colorManipulator.fade)(palette.textColor, 0.87),
+      fontSize: 14,
+      fontWeight: _typography2.default.fontWeightNormal,
+      shadow: '0 1px 6px ' + (0, _colorManipulator.fade)(palette.shadowColor, 0.12) + ',\n        0 1px 4px ' + (0, _colorManipulator.fade)(palette.shadowColor, 0.12)
     },
     datePicker: {
       color: palette.primary1Color,
@@ -167,7 +174,7 @@ function getMuiTheme(muiTheme) {
     inkBar: {
       backgroundColor: palette.accent1Color
     },
-    navDrawer: {
+    drawer: {
       width: spacing.desktopKeylineIncrement * 4,
       color: palette.canvasColor
     },
@@ -223,6 +230,7 @@ function getMuiTheme(muiTheme) {
       secondaryTextColor: palette.alternateTextColor,
       disabledColor: (0, _colorManipulator.darken)(palette.alternateTextColor, 0.1),
       disabledTextColor: (0, _colorManipulator.fade)(palette.textColor, 0.3),
+      fontSize: _typography2.default.fontStyleButtonFontSize,
       fontWeight: _typography2.default.fontWeightMedium
     },
     refreshIndicator: {

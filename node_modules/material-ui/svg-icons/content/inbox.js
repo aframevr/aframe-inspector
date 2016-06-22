@@ -27,5 +27,6 @@ var ContentInbox = function ContentInbox(props) {
 };
 ContentInbox = (0, _pure2.default)(ContentInbox);
 ContentInbox.displayName = 'ContentInbox';
+ContentInbox.muiName = 'SvgIcon';
 
 exports.default = ContentInbox;

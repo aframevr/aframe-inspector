@@ -393,7 +393,7 @@ var EnhancedSwitch = function (_Component) {
         'div',
         { ref: 'root', className: className, style: prepareStyles((0, _simpleAssign2.default)(styles.root, style)) },
         _react2.default.createElement(_reactEventListener2.default, {
-          elementName: 'window',
+          target: 'window',
           onKeyDown: this.handleKeyDown,
           onKeyUp: this.handleKeyUp
         }),

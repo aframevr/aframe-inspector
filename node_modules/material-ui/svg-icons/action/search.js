@@ -27,5 +27,6 @@ var ActionSearch = function ActionSearch(props) {
 };
 ActionSearch = (0, _pure2.default)(ActionSearch);
 ActionSearch.displayName = 'ActionSearch';
+ActionSearch.muiName = 'SvgIcon';
 
 exports.default = ActionSearch;

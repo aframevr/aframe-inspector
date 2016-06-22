@@ -27,5 +27,6 @@ var ContentSend = function ContentSend(props) {
 };
 ContentSend = (0, _pure2.default)(ContentSend);
 ContentSend.displayName = 'ContentSend';
+ContentSend.muiName = 'SvgIcon';
 
 exports.default = ContentSend;

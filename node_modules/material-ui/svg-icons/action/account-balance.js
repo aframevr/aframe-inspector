@@ -27,5 +27,6 @@ var ActionAccountBalance = function ActionAccountBalance(props) {
 };
 ActionAccountBalance = (0, _pure2.default)(ActionAccountBalance);
 ActionAccountBalance.displayName = 'ActionAccountBalance';
+ActionAccountBalance.muiName = 'SvgIcon';
 
 exports.default = ActionAccountBalance;

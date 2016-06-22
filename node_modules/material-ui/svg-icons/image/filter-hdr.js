@@ -27,5 +27,6 @@ var ImageFilterHdr = function ImageFilterHdr(props) {
 };
 ImageFilterHdr = (0, _pure2.default)(ImageFilterHdr);
 ImageFilterHdr.displayName = 'ImageFilterHdr';
+ImageFilterHdr.muiName = 'SvgIcon';
 
 exports.default = ImageFilterHdr;

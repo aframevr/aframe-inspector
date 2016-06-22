@@ -27,5 +27,6 @@ var ContentClear = function ContentClear(props) {
 };
 ContentClear = (0, _pure2.default)(ContentClear);
 ContentClear.displayName = 'ContentClear';
+ContentClear.muiName = 'SvgIcon';
 
 exports.default = ContentClear;

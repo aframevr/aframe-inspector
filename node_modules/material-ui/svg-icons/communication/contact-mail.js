@@ -27,5 +27,6 @@ var CommunicationContactMail = function CommunicationContactMail(props) {
 };
 CommunicationContactMail = (0, _pure2.default)(CommunicationContactMail);
 CommunicationContactMail.displayName = 'CommunicationContactMail';
+CommunicationContactMail.muiName = 'SvgIcon';
 
 exports.default = CommunicationContactMail;

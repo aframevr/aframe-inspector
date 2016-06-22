@@ -27,5 +27,6 @@ var AvMovie = function AvMovie(props) {
 };
 AvMovie = (0, _pure2.default)(AvMovie);
 AvMovie.displayName = 'AvMovie';
+AvMovie.muiName = 'SvgIcon';
 
 exports.default = AvMovie;

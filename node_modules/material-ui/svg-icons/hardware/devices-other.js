@@ -27,5 +27,6 @@ var HardwareDevicesOther = function HardwareDevicesOther(props) {
 };
 HardwareDevicesOther = (0, _pure2.default)(HardwareDevicesOther);
 HardwareDevicesOther.displayName = 'HardwareDevicesOther';
+HardwareDevicesOther.muiName = 'SvgIcon';
 
 exports.default = HardwareDevicesOther;

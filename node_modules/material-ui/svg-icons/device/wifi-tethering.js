@@ -27,5 +27,6 @@ var DeviceWifiTethering = function DeviceWifiTethering(props) {
 };
 DeviceWifiTethering = (0, _pure2.default)(DeviceWifiTethering);
 DeviceWifiTethering.displayName = 'DeviceWifiTethering';
+DeviceWifiTethering.muiName = 'SvgIcon';
 
 exports.default = DeviceWifiTethering;

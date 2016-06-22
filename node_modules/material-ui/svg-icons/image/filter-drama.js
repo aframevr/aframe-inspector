@@ -27,5 +27,6 @@ var ImageFilterDrama = function ImageFilterDrama(props) {
 };
 ImageFilterDrama = (0, _pure2.default)(ImageFilterDrama);
 ImageFilterDrama.displayName = 'ImageFilterDrama';
+ImageFilterDrama.muiName = 'SvgIcon';
 
 exports.default = ImageFilterDrama;

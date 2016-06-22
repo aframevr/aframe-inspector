@@ -27,5 +27,6 @@ var NotificationAirlineSeatFlatAngled = function NotificationAirlineSeatFlatAngl
 };
 NotificationAirlineSeatFlatAngled = (0, _pure2.default)(NotificationAirlineSeatFlatAngled);
 NotificationAirlineSeatFlatAngled.displayName = 'NotificationAirlineSeatFlatAngled';
+NotificationAirlineSeatFlatAngled.muiName = 'SvgIcon';
 
 exports.default = NotificationAirlineSeatFlatAngled;

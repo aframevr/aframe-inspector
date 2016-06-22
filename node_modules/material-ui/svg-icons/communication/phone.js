@@ -27,5 +27,6 @@ var CommunicationPhone = function CommunicationPhone(props) {
 };
 CommunicationPhone = (0, _pure2.default)(CommunicationPhone);
 CommunicationPhone.displayName = 'CommunicationPhone';
+CommunicationPhone.muiName = 'SvgIcon';
 
 exports.default = CommunicationPhone;

@@ -27,5 +27,6 @@ var ContentUnarchive = function ContentUnarchive(props) {
 };
 ContentUnarchive = (0, _pure2.default)(ContentUnarchive);
 ContentUnarchive.displayName = 'ContentUnarchive';
+ContentUnarchive.muiName = 'SvgIcon';
 
 exports.default = ContentUnarchive;

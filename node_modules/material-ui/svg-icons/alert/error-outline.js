@@ -27,5 +27,6 @@ var AlertErrorOutline = function AlertErrorOutline(props) {
 };
 AlertErrorOutline = (0, _pure2.default)(AlertErrorOutline);
 AlertErrorOutline.displayName = 'AlertErrorOutline';
+AlertErrorOutline.muiName = 'SvgIcon';
 
 exports.default = AlertErrorOutline;

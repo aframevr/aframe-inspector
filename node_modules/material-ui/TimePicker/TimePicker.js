@@ -70,13 +70,19 @@ var TimePicker = function (_Component) {
       if (_this.props.onChange) _this.props.onChange(null, time);
     }, _this.handleFocusInput = function (event) {
       event.target.blur();
-      if (_this.props.onFocus) _this.props.onFocus(event);
+      if (_this.props.onFocus) {
+        _this.props.onFocus(event);
+      }
     }, _this.handleTouchTapInput = function (event) {
       event.preventDefault();
 
-      if (!_this.props.disabled) _this.openDialog();
+      if (!_this.props.disabled) {
+        _this.openDialog();
+      }
 
-      if (_this.props.onTouchTap) _this.props.onTouchTap(event);
+      if (_this.props.onTouchTap) {
+        _this.props.onTouchTap(event);
+      }
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -153,6 +159,8 @@ var TimePicker = function (_Component) {
       var _props = this.props;
       var autoOk = _props.autoOk;
       var cancelLabel = _props.cancelLabel;
+      var dialogBodyStyle = _props.dialogBodyStyle;
+      var dialogStyle = _props.dialogStyle;
       var format = _props.format;
       var okLabel = _props.okLabel;
       var onFocus = _props.onFocus;
@@ -165,7 +173,7 @@ var TimePicker = function (_Component) {
       var style = _props.style;
       var textFieldStyle = _props.textFieldStyle;
 
-      var other = _objectWithoutProperties(_props, ['autoOk', 'cancelLabel', 'format', 'okLabel', 'onFocus', 'onTouchTap', 'onShow', 'onDismiss', 'pedantic', 'style', 'textFieldStyle']);
+      var other = _objectWithoutProperties(_props, ['autoOk', 'cancelLabel', 'dialogBodyStyle', 'dialogStyle', 'format', 'okLabel', 'onFocus', 'onTouchTap', 'onShow', 'onDismiss', 'pedantic', 'style', 'textFieldStyle']);
 
       var prepareStyles = this.context.muiTheme.prepareStyles;
       var time = this.state.time;
@@ -183,6 +191,7 @@ var TimePicker = function (_Component) {
         })),
         _react2.default.createElement(_TimePickerDialog2.default, {
           ref: 'dialogWindow',
+          bodyStyle: dialogBodyStyle,
           initialTime: this.state.dialogTime,
           onAccept: this.handleAcceptDialog,
           onShow: onShow,
@@ -190,7 +199,8 @@ var TimePicker = function (_Component) {
           format: format,
           okLabel: okLabel,
           cancelLabel: cancelLabel,
-          autoOk: autoOk
+          autoOk: autoOk,
+          style: dialogStyle
         })
       );
     }
@@ -212,6 +222,14 @@ TimePicker.propTypes = {
    * The initial time value of the TimePicker.
    */
   defaultTime: _react.PropTypes.object,
+  /**
+   * Override the inline-styles of TimePickerDialog's body element.
+   */
+  dialogBodyStyle: _react.PropTypes.object,
+  /**
+   * Override the inline-styles of TimePickerDialog's root element.
+   */
+  dialogStyle: _react.PropTypes.object,
   /**
    * If true, the TimePicker is disabled.
    */
@@ -266,7 +284,6 @@ TimePicker.propTypes = {
    * Sets the time for the Time Picker programmatically.
    */
   value: _react.PropTypes.object
-
 };
 TimePicker.defaultProps = {
   defaultTime: null,

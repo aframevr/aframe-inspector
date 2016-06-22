@@ -27,5 +27,6 @@ var ImageAssistant = function ImageAssistant(props) {
 };
 ImageAssistant = (0, _pure2.default)(ImageAssistant);
 ImageAssistant.displayName = 'ImageAssistant';
+ImageAssistant.muiName = 'SvgIcon';
 
 exports.default = ImageAssistant;

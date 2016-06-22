@@ -27,5 +27,6 @@ var ActionFlightTakeoff = function ActionFlightTakeoff(props) {
 };
 ActionFlightTakeoff = (0, _pure2.default)(ActionFlightTakeoff);
 ActionFlightTakeoff.displayName = 'ActionFlightTakeoff';
+ActionFlightTakeoff.muiName = 'SvgIcon';
 
 exports.default = ActionFlightTakeoff;

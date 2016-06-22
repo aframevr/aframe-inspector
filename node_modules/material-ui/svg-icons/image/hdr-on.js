@@ -27,5 +27,6 @@ var ImageHdrOn = function ImageHdrOn(props) {
 };
 ImageHdrOn = (0, _pure2.default)(ImageHdrOn);
 ImageHdrOn.displayName = 'ImageHdrOn';
+ImageHdrOn.muiName = 'SvgIcon';
 
 exports.default = ImageHdrOn;

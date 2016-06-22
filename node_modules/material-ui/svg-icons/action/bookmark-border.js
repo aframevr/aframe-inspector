@@ -27,5 +27,6 @@ var ActionBookmarkBorder = function ActionBookmarkBorder(props) {
 };
 ActionBookmarkBorder = (0, _pure2.default)(ActionBookmarkBorder);
 ActionBookmarkBorder.displayName = 'ActionBookmarkBorder';
+ActionBookmarkBorder.muiName = 'SvgIcon';
 
 exports.default = ActionBookmarkBorder;

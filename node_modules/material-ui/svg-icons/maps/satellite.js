@@ -27,5 +27,6 @@ var MapsSatellite = function MapsSatellite(props) {
 };
 MapsSatellite = (0, _pure2.default)(MapsSatellite);
 MapsSatellite.displayName = 'MapsSatellite';
+MapsSatellite.muiName = 'SvgIcon';
 
 exports.default = MapsSatellite;

@@ -28,5 +28,6 @@ var PlacesPool = function PlacesPool(props) {
 };
 PlacesPool = (0, _pure2.default)(PlacesPool);
 PlacesPool.displayName = 'PlacesPool';
+PlacesPool.muiName = 'SvgIcon';
 
 exports.default = PlacesPool;

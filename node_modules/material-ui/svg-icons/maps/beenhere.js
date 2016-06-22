@@ -27,5 +27,6 @@ var MapsBeenhere = function MapsBeenhere(props) {
 };
 MapsBeenhere = (0, _pure2.default)(MapsBeenhere);
 MapsBeenhere.displayName = 'MapsBeenhere';
+MapsBeenhere.muiName = 'SvgIcon';
 
 exports.default = MapsBeenhere;

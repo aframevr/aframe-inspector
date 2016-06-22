@@ -27,5 +27,6 @@ var NotificationOndemandVideo = function NotificationOndemandVideo(props) {
 };
 NotificationOndemandVideo = (0, _pure2.default)(NotificationOndemandVideo);
 NotificationOndemandVideo.displayName = 'NotificationOndemandVideo';
+NotificationOndemandVideo.muiName = 'SvgIcon';
 
 exports.default = NotificationOndemandVideo;

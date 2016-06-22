@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -18,34 +18,28 @@ var _inherits2 = require("babel-runtime/helpers/inherits");
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var /*istanbul ignore next*/_optionManager = require("./file/options/option-manager");
+var _optionManager = require("./file/options/option-manager");
 
-/*istanbul ignore next*/
 var _optionManager2 = _interopRequireDefault(_optionManager);
 
-var /*istanbul ignore next*/_babelMessages = require("babel-messages");
+var _babelMessages = require("babel-messages");
 
-/*istanbul ignore next*/
 var messages = _interopRequireWildcard(_babelMessages);
 
-var /*istanbul ignore next*/_store = require("../store");
+var _store = require("../store");
 
-/*istanbul ignore next*/
 var _store2 = _interopRequireDefault(_store);
 
-var /*istanbul ignore next*/_babelTraverse = require("babel-traverse");
+var _babelTraverse = require("babel-traverse");
 
-/*istanbul ignore next*/
 var _babelTraverse2 = _interopRequireDefault(_babelTraverse);
 
-var /*istanbul ignore next*/_assign = require("lodash/assign");
+var _assign = require("lodash/assign");
 
-/*istanbul ignore next*/
 var _assign2 = _interopRequireDefault(_assign);
 
-var /*istanbul ignore next*/_clone = require("lodash/clone");
+var _clone = require("lodash/clone");
 
-/*istanbul ignore next*/
 var _clone2 = _interopRequireDefault(_clone);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -56,24 +50,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var GLOBAL_VISITOR_PROPS = ["enter", "exit"];
 
-/*istanbul ignore next*/
 var Plugin = function (_Store) {
   (0, _inherits3.default)(Plugin, _Store);
 
-  function /*istanbul ignore next*/Plugin(plugin, key) {
-    /*istanbul ignore next*/(0, _classCallCheck3.default)(this, Plugin);
+  function Plugin(plugin, key) {
+    (0, _classCallCheck3.default)(this, Plugin);
 
-    var _this = (0, _possibleConstructorReturn3.default)(this, /*istanbul ignore next*/_Store.call( /*istanbul ignore next*/this));
+    var _this = (0, _possibleConstructorReturn3.default)(this, _Store.call(this));
 
-    /*istanbul ignore next*/_this.initialized = false;
-    /*istanbul ignore next*/_this.raw = /*istanbul ignore next*/(0, _assign2.default)({}, plugin);
-    /*istanbul ignore next*/_this.key = key;
+    _this.initialized = false;
+    _this.raw = (0, _assign2.default)({}, plugin);
+    _this.key = key;
 
-    /*istanbul ignore next*/_this.manipulateOptions = /*istanbul ignore next*/_this.take("manipulateOptions");
-    /*istanbul ignore next*/_this.post = /*istanbul ignore next*/_this.take("post");
-    /*istanbul ignore next*/_this.pre = /*istanbul ignore next*/_this.take("pre");
-    /*istanbul ignore next*/_this.visitor = /*istanbul ignore next*/_this.normaliseVisitor( /*istanbul ignore next*/(0, _clone2.default)( /*istanbul ignore next*/_this.take("visitor")) || {});
-    /*istanbul ignore next*/return _this;
+    _this.manipulateOptions = _this.take("manipulateOptions");
+    _this.post = _this.take("post");
+    _this.pre = _this.take("pre");
+    _this.visitor = _this.normaliseVisitor((0, _clone2.default)(_this.take("visitor")) || {});
+    return _this;
   }
 
   Plugin.prototype.take = function take(key) {
@@ -89,14 +82,13 @@ var Plugin = function (_Store) {
     var fns = [target[key], this[key]];
 
     return function () {
-      var val = /*istanbul ignore next*/void 0;
-      /*istanbul ignore next*/
+      var val = void 0;
+
       for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
       }
 
-      for ( /*istanbul ignore next*/var _iterator = fns, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
-        /*istanbul ignore next*/
+      for (var _iterator = fns, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
         var _ref;
 
         if (_isArray) {
@@ -123,12 +115,12 @@ var Plugin = function (_Store) {
     var inherits = this.take("inherits");
     if (!inherits) return;
 
-    inherits = /*istanbul ignore next*/_optionManager2.default.normalisePlugin(inherits, loc, "inherits");
+    inherits = _optionManager2.default.normalisePlugin(inherits, loc, "inherits");
 
     this.manipulateOptions = this.chain(inherits, "manipulateOptions");
     this.post = this.chain(inherits, "post");
     this.pre = this.chain(inherits, "pre");
-    this.visitor = /*istanbul ignore next*/_babelTraverse2.default.visitors.merge([inherits.visitor, this.visitor]);
+    this.visitor = _babelTraverse2.default.visitors.merge([inherits.visitor, this.visitor]);
   };
 
   /**
@@ -148,8 +140,7 @@ var Plugin = function (_Store) {
   };
 
   Plugin.prototype.normaliseVisitor = function normaliseVisitor(visitor) {
-    for ( /*istanbul ignore next*/var _iterator2 = GLOBAL_VISITOR_PROPS, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
-      /*istanbul ignore next*/
+    for (var _iterator2 = GLOBAL_VISITOR_PROPS, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
       var _ref2;
 
       if (_isArray2) {
@@ -168,12 +159,12 @@ var Plugin = function (_Store) {
       }
     }
 
-    /*istanbul ignore next*/_babelTraverse2.default.explode(visitor);
+    _babelTraverse2.default.explode(visitor);
     return visitor;
   };
 
   return Plugin;
 }(_store2.default);
 
-/*istanbul ignore next*/exports.default = Plugin;
-/*istanbul ignore next*/module.exports = exports["default"];
+exports.default = Plugin;
+module.exports = exports["default"];

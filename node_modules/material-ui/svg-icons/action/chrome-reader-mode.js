@@ -27,5 +27,6 @@ var ActionChromeReaderMode = function ActionChromeReaderMode(props) {
 };
 ActionChromeReaderMode = (0, _pure2.default)(ActionChromeReaderMode);
 ActionChromeReaderMode.displayName = 'ActionChromeReaderMode';
+ActionChromeReaderMode.muiName = 'SvgIcon';
 
 exports.default = ActionChromeReaderMode;

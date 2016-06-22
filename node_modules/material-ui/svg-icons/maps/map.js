@@ -27,5 +27,6 @@ var MapsMap = function MapsMap(props) {
 };
 MapsMap = (0, _pure2.default)(MapsMap);
 MapsMap.displayName = 'MapsMap';
+MapsMap.muiName = 'SvgIcon';
 
 exports.default = MapsMap;

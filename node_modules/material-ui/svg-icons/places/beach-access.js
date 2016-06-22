@@ -27,5 +27,6 @@ var PlacesBeachAccess = function PlacesBeachAccess(props) {
 };
 PlacesBeachAccess = (0, _pure2.default)(PlacesBeachAccess);
 PlacesBeachAccess.displayName = 'PlacesBeachAccess';
+PlacesBeachAccess.muiName = 'SvgIcon';
 
 exports.default = PlacesBeachAccess;

@@ -27,5 +27,6 @@ var ActionMotorcycle = function ActionMotorcycle(props) {
 };
 ActionMotorcycle = (0, _pure2.default)(ActionMotorcycle);
 ActionMotorcycle.displayName = 'ActionMotorcycle';
+ActionMotorcycle.muiName = 'SvgIcon';
 
 exports.default = ActionMotorcycle;

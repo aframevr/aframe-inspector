@@ -27,5 +27,6 @@ var EditorDragHandle = function EditorDragHandle(props) {
 };
 EditorDragHandle = (0, _pure2.default)(EditorDragHandle);
 EditorDragHandle.displayName = 'EditorDragHandle';
+EditorDragHandle.muiName = 'SvgIcon';
 
 exports.default = EditorDragHandle;

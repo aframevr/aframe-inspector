@@ -27,5 +27,6 @@ var AvMicOff = function AvMicOff(props) {
 };
 AvMicOff = (0, _pure2.default)(AvMicOff);
 AvMicOff.displayName = 'AvMicOff';
+AvMicOff.muiName = 'SvgIcon';
 
 exports.default = AvMicOff;

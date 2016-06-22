@@ -27,5 +27,6 @@ var ImageMusicNote = function ImageMusicNote(props) {
 };
 ImageMusicNote = (0, _pure2.default)(ImageMusicNote);
 ImageMusicNote.displayName = 'ImageMusicNote';
+ImageMusicNote.muiName = 'SvgIcon';
 
 exports.default = ImageMusicNote;

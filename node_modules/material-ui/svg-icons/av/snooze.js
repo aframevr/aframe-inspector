@@ -27,5 +27,6 @@ var AvSnooze = function AvSnooze(props) {
 };
 AvSnooze = (0, _pure2.default)(AvSnooze);
 AvSnooze.displayName = 'AvSnooze';
+AvSnooze.muiName = 'SvgIcon';
 
 exports.default = AvSnooze;

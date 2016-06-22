@@ -29,5 +29,6 @@ var EditorBubbleChart = function EditorBubbleChart(props) {
 };
 EditorBubbleChart = (0, _pure2.default)(EditorBubbleChart);
 EditorBubbleChart.displayName = 'EditorBubbleChart';
+EditorBubbleChart.muiName = 'SvgIcon';
 
 exports.default = EditorBubbleChart;

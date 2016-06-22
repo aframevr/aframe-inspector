@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -13,8 +13,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 
 var Whitespace = function () {
-  function /*istanbul ignore next*/Whitespace(tokens) {
-    /*istanbul ignore next*/(0, _classCallCheck3.default)(this, Whitespace);
+  function Whitespace(tokens) {
+    (0, _classCallCheck3.default)(this, Whitespace);
 
     this.tokens = tokens;
     this.used = {};
@@ -25,15 +25,15 @@ var Whitespace = function () {
    */
 
   Whitespace.prototype.getNewlinesBefore = function getNewlinesBefore(node) {
-    var startToken = /*istanbul ignore next*/void 0;
-    var endToken = /*istanbul ignore next*/void 0;
+    var startToken = void 0;
+    var endToken = void 0;
     var tokens = this.tokens;
 
-    var index = this._findToken(function (token) /*istanbul ignore next*/{
+    var index = this._findToken(function (token) {
       return token.start - node.start;
     }, 0, tokens.length);
     if (index >= 0) {
-      while (index && node.start === tokens[index - 1].start) /*istanbul ignore next*/{
+      while (index && node.start === tokens[index - 1].start) {
         --index;
       }startToken = tokens[index - 1];
       endToken = tokens[index];
@@ -47,15 +47,15 @@ var Whitespace = function () {
    */
 
   Whitespace.prototype.getNewlinesAfter = function getNewlinesAfter(node) {
-    var startToken = /*istanbul ignore next*/void 0;
-    var endToken = /*istanbul ignore next*/void 0;
+    var startToken = void 0;
+    var endToken = void 0;
     var tokens = this.tokens;
 
-    var index = this._findToken(function (token) /*istanbul ignore next*/{
+    var index = this._findToken(function (token) {
       return token.end - node.end;
     }, 0, tokens.length);
     if (index >= 0) {
-      while (index && node.end === tokens[index - 1].end) /*istanbul ignore next*/{
+      while (index && node.end === tokens[index - 1].end) {
         --index;
       }startToken = tokens[index];
       endToken = tokens[index + 1];
@@ -117,5 +117,5 @@ var Whitespace = function () {
   return Whitespace;
 }();
 
-/*istanbul ignore next*/exports.default = Whitespace;
-/*istanbul ignore next*/module.exports = exports["default"];
+exports.default = Whitespace;
+module.exports = exports["default"];

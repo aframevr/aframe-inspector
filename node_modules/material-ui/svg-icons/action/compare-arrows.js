@@ -27,5 +27,6 @@ var ActionCompareArrows = function ActionCompareArrows(props) {
 };
 ActionCompareArrows = (0, _pure2.default)(ActionCompareArrows);
 ActionCompareArrows.displayName = 'ActionCompareArrows';
+ActionCompareArrows.muiName = 'SvgIcon';
 
 exports.default = ActionCompareArrows;

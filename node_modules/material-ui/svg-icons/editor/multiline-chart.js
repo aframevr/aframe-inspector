@@ -27,5 +27,6 @@ var EditorMultilineChart = function EditorMultilineChart(props) {
 };
 EditorMultilineChart = (0, _pure2.default)(EditorMultilineChart);
 EditorMultilineChart.displayName = 'EditorMultilineChart';
+EditorMultilineChart.muiName = 'SvgIcon';
 
 exports.default = EditorMultilineChart;

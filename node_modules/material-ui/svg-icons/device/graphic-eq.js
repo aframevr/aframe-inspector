@@ -27,5 +27,6 @@ var DeviceGraphicEq = function DeviceGraphicEq(props) {
 };
 DeviceGraphicEq = (0, _pure2.default)(DeviceGraphicEq);
 DeviceGraphicEq.displayName = 'DeviceGraphicEq';
+DeviceGraphicEq.muiName = 'SvgIcon';
 
 exports.default = DeviceGraphicEq;

@@ -27,5 +27,6 @@ var DeviceBrightnessLow = function DeviceBrightnessLow(props) {
 };
 DeviceBrightnessLow = (0, _pure2.default)(DeviceBrightnessLow);
 DeviceBrightnessLow.displayName = 'DeviceBrightnessLow';
+DeviceBrightnessLow.muiName = 'SvgIcon';
 
 exports.default = DeviceBrightnessLow;

@@ -27,5 +27,6 @@ var ActionViewWeek = function ActionViewWeek(props) {
 };
 ActionViewWeek = (0, _pure2.default)(ActionViewWeek);
 ActionViewWeek.displayName = 'ActionViewWeek';
+ActionViewWeek.muiName = 'SvgIcon';
 
 exports.default = ActionViewWeek;

@@ -27,5 +27,6 @@ var NotificationSdCard = function NotificationSdCard(props) {
 };
 NotificationSdCard = (0, _pure2.default)(NotificationSdCard);
 NotificationSdCard.displayName = 'NotificationSdCard';
+NotificationSdCard.muiName = 'SvgIcon';
 
 exports.default = NotificationSdCard;

@@ -27,5 +27,6 @@ var CommunicationPortableWifiOff = function CommunicationPortableWifiOff(props) 
 };
 CommunicationPortableWifiOff = (0, _pure2.default)(CommunicationPortableWifiOff);
 CommunicationPortableWifiOff.displayName = 'CommunicationPortableWifiOff';
+CommunicationPortableWifiOff.muiName = 'SvgIcon';
 
 exports.default = CommunicationPortableWifiOff;

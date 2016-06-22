@@ -27,5 +27,6 @@ var AvPlayArrow = function AvPlayArrow(props) {
 };
 AvPlayArrow = (0, _pure2.default)(AvPlayArrow);
 AvPlayArrow.displayName = 'AvPlayArrow';
+AvPlayArrow.muiName = 'SvgIcon';
 
 exports.default = AvPlayArrow;

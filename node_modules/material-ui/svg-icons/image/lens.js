@@ -27,5 +27,6 @@ var ImageLens = function ImageLens(props) {
 };
 ImageLens = (0, _pure2.default)(ImageLens);
 ImageLens.displayName = 'ImageLens';
+ImageLens.muiName = 'SvgIcon';
 
 exports.default = ImageLens;

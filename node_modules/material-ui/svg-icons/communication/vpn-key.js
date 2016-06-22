@@ -27,5 +27,6 @@ var CommunicationVpnKey = function CommunicationVpnKey(props) {
 };
 CommunicationVpnKey = (0, _pure2.default)(CommunicationVpnKey);
 CommunicationVpnKey.displayName = 'CommunicationVpnKey';
+CommunicationVpnKey.muiName = 'SvgIcon';
 
 exports.default = CommunicationVpnKey;

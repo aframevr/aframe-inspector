@@ -172,5 +172,5 @@ function monthDiff(d1, d2) {
 }
 
 function yearDiff(d1, d2) {
-  return ~ ~(monthDiff(d1, d2) / 12);
+  return ~~(monthDiff(d1, d2) / 12);
 }

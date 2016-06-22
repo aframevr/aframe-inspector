@@ -27,5 +27,6 @@ var ActionAccountCircle = function ActionAccountCircle(props) {
 };
 ActionAccountCircle = (0, _pure2.default)(ActionAccountCircle);
 ActionAccountCircle.displayName = 'ActionAccountCircle';
+ActionAccountCircle.muiName = 'SvgIcon';
 
 exports.default = ActionAccountCircle;

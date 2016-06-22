@@ -27,5 +27,6 @@ var CommunicationStayPrimaryPortrait = function CommunicationStayPrimaryPortrait
 };
 CommunicationStayPrimaryPortrait = (0, _pure2.default)(CommunicationStayPrimaryPortrait);
 CommunicationStayPrimaryPortrait.displayName = 'CommunicationStayPrimaryPortrait';
+CommunicationStayPrimaryPortrait.muiName = 'SvgIcon';
 
 exports.default = CommunicationStayPrimaryPortrait;

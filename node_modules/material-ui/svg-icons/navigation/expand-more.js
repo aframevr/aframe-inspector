@@ -27,5 +27,6 @@ var NavigationExpandMore = function NavigationExpandMore(props) {
 };
 NavigationExpandMore = (0, _pure2.default)(NavigationExpandMore);
 NavigationExpandMore.displayName = 'NavigationExpandMore';
+NavigationExpandMore.muiName = 'SvgIcon';
 
 exports.default = NavigationExpandMore;

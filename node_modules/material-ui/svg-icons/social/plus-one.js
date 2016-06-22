@@ -27,5 +27,6 @@ var SocialPlusOne = function SocialPlusOne(props) {
 };
 SocialPlusOne = (0, _pure2.default)(SocialPlusOne);
 SocialPlusOne.displayName = 'SocialPlusOne';
+SocialPlusOne.muiName = 'SvgIcon';
 
 exports.default = SocialPlusOne;

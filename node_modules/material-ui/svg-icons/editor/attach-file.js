@@ -27,5 +27,6 @@ var EditorAttachFile = function EditorAttachFile(props) {
 };
 EditorAttachFile = (0, _pure2.default)(EditorAttachFile);
 EditorAttachFile.displayName = 'EditorAttachFile';
+EditorAttachFile.muiName = 'SvgIcon';
 
 exports.default = EditorAttachFile;

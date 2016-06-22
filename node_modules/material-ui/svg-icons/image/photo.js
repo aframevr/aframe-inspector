@@ -27,5 +27,6 @@ var ImagePhoto = function ImagePhoto(props) {
 };
 ImagePhoto = (0, _pure2.default)(ImagePhoto);
 ImagePhoto.displayName = 'ImagePhoto';
+ImagePhoto.muiName = 'SvgIcon';
 
 exports.default = ImagePhoto;

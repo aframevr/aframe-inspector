@@ -27,5 +27,6 @@ var MapsLocalConvenienceStore = function MapsLocalConvenienceStore(props) {
 };
 MapsLocalConvenienceStore = (0, _pure2.default)(MapsLocalConvenienceStore);
 MapsLocalConvenienceStore.displayName = 'MapsLocalConvenienceStore';
+MapsLocalConvenienceStore.muiName = 'SvgIcon';
 
 exports.default = MapsLocalConvenienceStore;

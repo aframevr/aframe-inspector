@@ -27,5 +27,6 @@ var ActionTrendingUp = function ActionTrendingUp(props) {
 };
 ActionTrendingUp = (0, _pure2.default)(ActionTrendingUp);
 ActionTrendingUp.displayName = 'ActionTrendingUp';
+ActionTrendingUp.muiName = 'SvgIcon';
 
 exports.default = ActionTrendingUp;

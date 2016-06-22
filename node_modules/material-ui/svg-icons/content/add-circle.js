@@ -27,5 +27,6 @@ var ContentAddCircle = function ContentAddCircle(props) {
 };
 ContentAddCircle = (0, _pure2.default)(ContentAddCircle);
 ContentAddCircle.displayName = 'ContentAddCircle';
+ContentAddCircle.muiName = 'SvgIcon';
 
 exports.default = ContentAddCircle;

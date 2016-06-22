@@ -27,5 +27,6 @@ var ActionOfflinePin = function ActionOfflinePin(props) {
 };
 ActionOfflinePin = (0, _pure2.default)(ActionOfflinePin);
 ActionOfflinePin.displayName = 'ActionOfflinePin';
+ActionOfflinePin.muiName = 'SvgIcon';
 
 exports.default = ActionOfflinePin;

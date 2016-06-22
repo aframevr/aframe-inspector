@@ -27,5 +27,6 @@ var EditorFormatBold = function EditorFormatBold(props) {
 };
 EditorFormatBold = (0, _pure2.default)(EditorFormatBold);
 EditorFormatBold.displayName = 'EditorFormatBold';
+EditorFormatBold.muiName = 'SvgIcon';
 
 exports.default = EditorFormatBold;

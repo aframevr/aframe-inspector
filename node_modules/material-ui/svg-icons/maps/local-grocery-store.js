@@ -27,5 +27,6 @@ var MapsLocalGroceryStore = function MapsLocalGroceryStore(props) {
 };
 MapsLocalGroceryStore = (0, _pure2.default)(MapsLocalGroceryStore);
 MapsLocalGroceryStore.displayName = 'MapsLocalGroceryStore';
+MapsLocalGroceryStore.muiName = 'SvgIcon';
 
 exports.default = MapsLocalGroceryStore;

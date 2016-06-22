@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -14,9 +14,8 @@ var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var /*istanbul ignore next*/_sourceMap = require("source-map");
+var _sourceMap = require("source-map");
 
-/*istanbul ignore next*/
 var _sourceMap2 = _interopRequireDefault(_sourceMap);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -26,8 +25,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 
 var SourceMap = function () {
-  function /*istanbul ignore next*/SourceMap(position, opts, code) {
-    /*istanbul ignore next*/
+  function SourceMap(position, opts, code) {
     var _this = this;
 
     (0, _classCallCheck3.default)(this, SourceMap);
@@ -37,16 +35,16 @@ var SourceMap = function () {
     this.last = { generated: {}, original: {} };
 
     if (opts.sourceMaps) {
-      this.map = new /*istanbul ignore next*/_sourceMap2.default.SourceMapGenerator({
+      this.map = new _sourceMap2.default.SourceMapGenerator({
         file: opts.sourceMapTarget,
         sourceRoot: opts.sourceRoot
       });
 
       if (typeof code === "string") {
         this.map.setSourceContent(opts.sourceFileName, code);
-      } else if ( /*istanbul ignore next*/(typeof code === "undefined" ? "undefined" : (0, _typeof3.default)(code)) === "object") {
-        /*istanbul ignore next*/(0, _keys2.default)(code).forEach(function (sourceFileName) {
-          /*istanbul ignore next*/_this.map.setSourceContent(sourceFileName, code[sourceFileName]);
+      } else if ((typeof code === "undefined" ? "undefined" : (0, _typeof3.default)(code)) === "object") {
+        (0, _keys2.default)(code).forEach(function (sourceFileName) {
+          _this.map.setSourceContent(sourceFileName, code[sourceFileName]);
         });
       }
     } else {
@@ -107,5 +105,5 @@ var SourceMap = function () {
   return SourceMap;
 }();
 
-/*istanbul ignore next*/exports.default = SourceMap;
-/*istanbul ignore next*/module.exports = exports["default"];
+exports.default = SourceMap;
+module.exports = exports["default"];

@@ -27,5 +27,6 @@ var ImageSlideshow = function ImageSlideshow(props) {
 };
 ImageSlideshow = (0, _pure2.default)(ImageSlideshow);
 ImageSlideshow.displayName = 'ImageSlideshow';
+ImageSlideshow.muiName = 'SvgIcon';
 
 exports.default = ImageSlideshow;

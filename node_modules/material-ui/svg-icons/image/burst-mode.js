@@ -27,5 +27,6 @@ var ImageBurstMode = function ImageBurstMode(props) {
 };
 ImageBurstMode = (0, _pure2.default)(ImageBurstMode);
 ImageBurstMode.displayName = 'ImageBurstMode';
+ImageBurstMode.muiName = 'SvgIcon';
 
 exports.default = ImageBurstMode;

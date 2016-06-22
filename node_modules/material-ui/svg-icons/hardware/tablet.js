@@ -27,5 +27,6 @@ var HardwareTablet = function HardwareTablet(props) {
 };
 HardwareTablet = (0, _pure2.default)(HardwareTablet);
 HardwareTablet.displayName = 'HardwareTablet';
+HardwareTablet.muiName = 'SvgIcon';
 
 exports.default = HardwareTablet;

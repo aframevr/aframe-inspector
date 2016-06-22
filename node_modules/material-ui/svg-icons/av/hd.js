@@ -27,5 +27,6 @@ var AvHd = function AvHd(props) {
 };
 AvHd = (0, _pure2.default)(AvHd);
 AvHd.displayName = 'AvHd';
+AvHd.muiName = 'SvgIcon';
 
 exports.default = AvHd;

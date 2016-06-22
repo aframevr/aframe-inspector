@@ -27,5 +27,6 @@ var ContentSelectAll = function ContentSelectAll(props) {
 };
 ContentSelectAll = (0, _pure2.default)(ContentSelectAll);
 ContentSelectAll.displayName = 'ContentSelectAll';
+ContentSelectAll.muiName = 'SvgIcon';
 
 exports.default = ContentSelectAll;

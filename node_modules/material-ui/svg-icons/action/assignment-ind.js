@@ -27,5 +27,6 @@ var ActionAssignmentInd = function ActionAssignmentInd(props) {
 };
 ActionAssignmentInd = (0, _pure2.default)(ActionAssignmentInd);
 ActionAssignmentInd.displayName = 'ActionAssignmentInd';
+ActionAssignmentInd.muiName = 'SvgIcon';
 
 exports.default = ActionAssignmentInd;

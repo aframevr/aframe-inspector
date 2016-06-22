@@ -27,5 +27,6 @@ var AvHighQuality = function AvHighQuality(props) {
 };
 AvHighQuality = (0, _pure2.default)(AvHighQuality);
 AvHighQuality.displayName = 'AvHighQuality';
+AvHighQuality.muiName = 'SvgIcon';
 
 exports.default = AvHighQuality;

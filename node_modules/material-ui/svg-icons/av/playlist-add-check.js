@@ -27,5 +27,6 @@ var AvPlaylistAddCheck = function AvPlaylistAddCheck(props) {
 };
 AvPlaylistAddCheck = (0, _pure2.default)(AvPlaylistAddCheck);
 AvPlaylistAddCheck.displayName = 'AvPlaylistAddCheck';
+AvPlaylistAddCheck.muiName = 'SvgIcon';
 
 exports.default = AvPlaylistAddCheck;

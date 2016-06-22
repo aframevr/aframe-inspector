@@ -27,5 +27,6 @@ var FileFolderOpen = function FileFolderOpen(props) {
 };
 FileFolderOpen = (0, _pure2.default)(FileFolderOpen);
 FileFolderOpen.displayName = 'FileFolderOpen';
+FileFolderOpen.muiName = 'SvgIcon';
 
 exports.default = FileFolderOpen;

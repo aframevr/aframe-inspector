@@ -27,5 +27,6 @@ var AvGames = function AvGames(props) {
 };
 AvGames = (0, _pure2.default)(AvGames);
 AvGames.displayName = 'AvGames';
+AvGames.muiName = 'SvgIcon';
 
 exports.default = AvGames;

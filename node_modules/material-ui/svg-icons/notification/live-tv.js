@@ -27,5 +27,6 @@ var NotificationLiveTv = function NotificationLiveTv(props) {
 };
 NotificationLiveTv = (0, _pure2.default)(NotificationLiveTv);
 NotificationLiveTv.displayName = 'NotificationLiveTv';
+NotificationLiveTv.muiName = 'SvgIcon';
 
 exports.default = NotificationLiveTv;

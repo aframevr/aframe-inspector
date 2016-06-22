@@ -27,5 +27,6 @@ var HardwarePhonelink = function HardwarePhonelink(props) {
 };
 HardwarePhonelink = (0, _pure2.default)(HardwarePhonelink);
 HardwarePhonelink.displayName = 'HardwarePhonelink';
+HardwarePhonelink.muiName = 'SvgIcon';
 
 exports.default = HardwarePhonelink;

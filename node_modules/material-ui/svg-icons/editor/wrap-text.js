@@ -27,5 +27,6 @@ var EditorWrapText = function EditorWrapText(props) {
 };
 EditorWrapText = (0, _pure2.default)(EditorWrapText);
 EditorWrapText.displayName = 'EditorWrapText';
+EditorWrapText.muiName = 'SvgIcon';
 
 exports.default = EditorWrapText;

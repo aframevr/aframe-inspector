@@ -27,5 +27,6 @@ var ActionSettingsBrightness = function ActionSettingsBrightness(props) {
 };
 ActionSettingsBrightness = (0, _pure2.default)(ActionSettingsBrightness);
 ActionSettingsBrightness.displayName = 'ActionSettingsBrightness';
+ActionSettingsBrightness.muiName = 'SvgIcon';
 
 exports.default = ActionSettingsBrightness;

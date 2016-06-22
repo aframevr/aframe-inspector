@@ -27,5 +27,6 @@ var NavigationFullscreen = function NavigationFullscreen(props) {
 };
 NavigationFullscreen = (0, _pure2.default)(NavigationFullscreen);
 NavigationFullscreen.displayName = 'NavigationFullscreen';
+NavigationFullscreen.muiName = 'SvgIcon';
 
 exports.default = NavigationFullscreen;

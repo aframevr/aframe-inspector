@@ -27,5 +27,6 @@ var ImageHdrStrong = function ImageHdrStrong(props) {
 };
 ImageHdrStrong = (0, _pure2.default)(ImageHdrStrong);
 ImageHdrStrong.displayName = 'ImageHdrStrong';
+ImageHdrStrong.muiName = 'SvgIcon';
 
 exports.default = ImageHdrStrong;

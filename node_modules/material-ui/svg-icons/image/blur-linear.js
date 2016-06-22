@@ -27,5 +27,6 @@ var ImageBlurLinear = function ImageBlurLinear(props) {
 };
 ImageBlurLinear = (0, _pure2.default)(ImageBlurLinear);
 ImageBlurLinear.displayName = 'ImageBlurLinear';
+ImageBlurLinear.muiName = 'SvgIcon';
 
 exports.default = ImageBlurLinear;

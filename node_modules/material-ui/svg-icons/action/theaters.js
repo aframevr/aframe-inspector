@@ -27,5 +27,6 @@ var ActionTheaters = function ActionTheaters(props) {
 };
 ActionTheaters = (0, _pure2.default)(ActionTheaters);
 ActionTheaters.displayName = 'ActionTheaters';
+ActionTheaters.muiName = 'SvgIcon';
 
 exports.default = ActionTheaters;

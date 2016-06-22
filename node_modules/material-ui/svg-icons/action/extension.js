@@ -27,5 +27,6 @@ var ActionExtension = function ActionExtension(props) {
 };
 ActionExtension = (0, _pure2.default)(ActionExtension);
 ActionExtension.displayName = 'ActionExtension';
+ActionExtension.muiName = 'SvgIcon';
 
 exports.default = ActionExtension;

@@ -27,5 +27,6 @@ var ActionGif = function ActionGif(props) {
 };
 ActionGif = (0, _pure2.default)(ActionGif);
 ActionGif.displayName = 'ActionGif';
+ActionGif.muiName = 'SvgIcon';
 
 exports.default = ActionGif;

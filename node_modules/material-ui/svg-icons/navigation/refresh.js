@@ -27,5 +27,6 @@ var NavigationRefresh = function NavigationRefresh(props) {
 };
 NavigationRefresh = (0, _pure2.default)(NavigationRefresh);
 NavigationRefresh.displayName = 'NavigationRefresh';
+NavigationRefresh.muiName = 'SvgIcon';
 
 exports.default = NavigationRefresh;

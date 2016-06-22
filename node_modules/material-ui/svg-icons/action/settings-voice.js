@@ -27,5 +27,6 @@ var ActionSettingsVoice = function ActionSettingsVoice(props) {
 };
 ActionSettingsVoice = (0, _pure2.default)(ActionSettingsVoice);
 ActionSettingsVoice.displayName = 'ActionSettingsVoice';
+ActionSettingsVoice.muiName = 'SvgIcon';
 
 exports.default = ActionSettingsVoice;

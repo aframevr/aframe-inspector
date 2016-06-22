@@ -27,5 +27,6 @@ var AvPlaylistPlay = function AvPlaylistPlay(props) {
 };
 AvPlaylistPlay = (0, _pure2.default)(AvPlaylistPlay);
 AvPlaylistPlay.displayName = 'AvPlaylistPlay';
+AvPlaylistPlay.muiName = 'SvgIcon';
 
 exports.default = AvPlaylistPlay;

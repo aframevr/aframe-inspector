@@ -27,5 +27,6 @@ var ActionExitToApp = function ActionExitToApp(props) {
 };
 ActionExitToApp = (0, _pure2.default)(ActionExitToApp);
 ActionExitToApp.displayName = 'ActionExitToApp';
+ActionExitToApp.muiName = 'SvgIcon';
 
 exports.default = ActionExitToApp;

@@ -27,5 +27,6 @@ var MapsLocalPostOffice = function MapsLocalPostOffice(props) {
 };
 MapsLocalPostOffice = (0, _pure2.default)(MapsLocalPostOffice);
 MapsLocalPostOffice.displayName = 'MapsLocalPostOffice';
+MapsLocalPostOffice.muiName = 'SvgIcon';
 
 exports.default = MapsLocalPostOffice;

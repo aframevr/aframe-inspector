@@ -27,5 +27,6 @@ var MapsLocalPharmacy = function MapsLocalPharmacy(props) {
 };
 MapsLocalPharmacy = (0, _pure2.default)(MapsLocalPharmacy);
 MapsLocalPharmacy.displayName = 'MapsLocalPharmacy';
+MapsLocalPharmacy.muiName = 'SvgIcon';
 
 exports.default = MapsLocalPharmacy;

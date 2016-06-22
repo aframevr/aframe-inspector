@@ -27,5 +27,6 @@ var ActionSettingsOverscan = function ActionSettingsOverscan(props) {
 };
 ActionSettingsOverscan = (0, _pure2.default)(ActionSettingsOverscan);
 ActionSettingsOverscan.displayName = 'ActionSettingsOverscan';
+ActionSettingsOverscan.muiName = 'SvgIcon';
 
 exports.default = ActionSettingsOverscan;

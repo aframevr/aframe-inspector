@@ -27,5 +27,6 @@ var ActionInvertColors = function ActionInvertColors(props) {
 };
 ActionInvertColors = (0, _pure2.default)(ActionInvertColors);
 ActionInvertColors.displayName = 'ActionInvertColors';
+ActionInvertColors.muiName = 'SvgIcon';
 
 exports.default = ActionInvertColors;

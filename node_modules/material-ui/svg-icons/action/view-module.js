@@ -27,5 +27,6 @@ var ActionViewModule = function ActionViewModule(props) {
 };
 ActionViewModule = (0, _pure2.default)(ActionViewModule);
 ActionViewModule.displayName = 'ActionViewModule';
+ActionViewModule.muiName = 'SvgIcon';
 
 exports.default = ActionViewModule;

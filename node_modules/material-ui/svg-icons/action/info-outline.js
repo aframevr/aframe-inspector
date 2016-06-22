@@ -27,5 +27,6 @@ var ActionInfoOutline = function ActionInfoOutline(props) {
 };
 ActionInfoOutline = (0, _pure2.default)(ActionInfoOutline);
 ActionInfoOutline.displayName = 'ActionInfoOutline';
+ActionInfoOutline.muiName = 'SvgIcon';
 
 exports.default = ActionInfoOutline;

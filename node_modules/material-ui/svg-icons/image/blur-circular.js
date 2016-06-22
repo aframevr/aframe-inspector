@@ -27,5 +27,6 @@ var ImageBlurCircular = function ImageBlurCircular(props) {
 };
 ImageBlurCircular = (0, _pure2.default)(ImageBlurCircular);
 ImageBlurCircular.displayName = 'ImageBlurCircular';
+ImageBlurCircular.muiName = 'SvgIcon';
 
 exports.default = ImageBlurCircular;

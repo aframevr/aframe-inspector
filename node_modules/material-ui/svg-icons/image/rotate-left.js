@@ -27,5 +27,6 @@ var ImageRotateLeft = function ImageRotateLeft(props) {
 };
 ImageRotateLeft = (0, _pure2.default)(ImageRotateLeft);
 ImageRotateLeft.displayName = 'ImageRotateLeft';
+ImageRotateLeft.muiName = 'SvgIcon';
 
 exports.default = ImageRotateLeft;

@@ -27,5 +27,6 @@ var ImagePictureAsPdf = function ImagePictureAsPdf(props) {
 };
 ImagePictureAsPdf = (0, _pure2.default)(ImagePictureAsPdf);
 ImagePictureAsPdf.displayName = 'ImagePictureAsPdf';
+ImagePictureAsPdf.muiName = 'SvgIcon';
 
 exports.default = ImagePictureAsPdf;

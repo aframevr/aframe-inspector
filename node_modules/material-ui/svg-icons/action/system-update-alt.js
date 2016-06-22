@@ -27,5 +27,6 @@ var ActionSystemUpdateAlt = function ActionSystemUpdateAlt(props) {
 };
 ActionSystemUpdateAlt = (0, _pure2.default)(ActionSystemUpdateAlt);
 ActionSystemUpdateAlt.displayName = 'ActionSystemUpdateAlt';
+ActionSystemUpdateAlt.muiName = 'SvgIcon';
 
 exports.default = ActionSystemUpdateAlt;

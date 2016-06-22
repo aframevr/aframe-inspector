@@ -27,5 +27,6 @@ var HardwareKeyboardTab = function HardwareKeyboardTab(props) {
 };
 HardwareKeyboardTab = (0, _pure2.default)(HardwareKeyboardTab);
 HardwareKeyboardTab.displayName = 'HardwareKeyboardTab';
+HardwareKeyboardTab.muiName = 'SvgIcon';
 
 exports.default = HardwareKeyboardTab;

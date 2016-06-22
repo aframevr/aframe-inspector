@@ -27,5 +27,6 @@ var HardwareKeyboard = function HardwareKeyboard(props) {
 };
 HardwareKeyboard = (0, _pure2.default)(HardwareKeyboard);
 HardwareKeyboard.displayName = 'HardwareKeyboard';
+HardwareKeyboard.muiName = 'SvgIcon';
 
 exports.default = HardwareKeyboard;

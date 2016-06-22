@@ -27,5 +27,6 @@ var NotificationVpnLock = function NotificationVpnLock(props) {
 };
 NotificationVpnLock = (0, _pure2.default)(NotificationVpnLock);
 NotificationVpnLock.displayName = 'NotificationVpnLock';
+NotificationVpnLock.muiName = 'SvgIcon';
 
 exports.default = NotificationVpnLock;

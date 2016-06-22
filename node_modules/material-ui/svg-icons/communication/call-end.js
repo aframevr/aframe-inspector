@@ -27,5 +27,6 @@ var CommunicationCallEnd = function CommunicationCallEnd(props) {
 };
 CommunicationCallEnd = (0, _pure2.default)(CommunicationCallEnd);
 CommunicationCallEnd.displayName = 'CommunicationCallEnd';
+CommunicationCallEnd.muiName = 'SvgIcon';
 
 exports.default = CommunicationCallEnd;

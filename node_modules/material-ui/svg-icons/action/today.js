@@ -27,5 +27,6 @@ var ActionToday = function ActionToday(props) {
 };
 ActionToday = (0, _pure2.default)(ActionToday);
 ActionToday.displayName = 'ActionToday';
+ActionToday.muiName = 'SvgIcon';
 
 exports.default = ActionToday;

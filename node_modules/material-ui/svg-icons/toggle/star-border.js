@@ -27,5 +27,6 @@ var ToggleStarBorder = function ToggleStarBorder(props) {
 };
 ToggleStarBorder = (0, _pure2.default)(ToggleStarBorder);
 ToggleStarBorder.displayName = 'ToggleStarBorder';
+ToggleStarBorder.muiName = 'SvgIcon';
 
 exports.default = ToggleStarBorder;

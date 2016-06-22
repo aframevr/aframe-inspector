@@ -27,5 +27,6 @@ var DeviceAirplanemodeInactive = function DeviceAirplanemodeInactive(props) {
 };
 DeviceAirplanemodeInactive = (0, _pure2.default)(DeviceAirplanemodeInactive);
 DeviceAirplanemodeInactive.displayName = 'DeviceAirplanemodeInactive';
+DeviceAirplanemodeInactive.muiName = 'SvgIcon';
 
 exports.default = DeviceAirplanemodeInactive;

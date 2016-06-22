@@ -27,5 +27,6 @@ var HardwareLaptopChromebook = function HardwareLaptopChromebook(props) {
 };
 HardwareLaptopChromebook = (0, _pure2.default)(HardwareLaptopChromebook);
 HardwareLaptopChromebook.displayName = 'HardwareLaptopChromebook';
+HardwareLaptopChromebook.muiName = 'SvgIcon';
 
 exports.default = HardwareLaptopChromebook;

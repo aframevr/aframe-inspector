@@ -27,5 +27,6 @@ var NotificationAirlineSeatReclineExtra = function NotificationAirlineSeatReclin
 };
 NotificationAirlineSeatReclineExtra = (0, _pure2.default)(NotificationAirlineSeatReclineExtra);
 NotificationAirlineSeatReclineExtra.displayName = 'NotificationAirlineSeatReclineExtra';
+NotificationAirlineSeatReclineExtra.muiName = 'SvgIcon';
 
 exports.default = NotificationAirlineSeatReclineExtra;

@@ -27,5 +27,6 @@ var EditorFormatStrikethrough = function EditorFormatStrikethrough(props) {
 };
 EditorFormatStrikethrough = (0, _pure2.default)(EditorFormatStrikethrough);
 EditorFormatStrikethrough.displayName = 'EditorFormatStrikethrough';
+EditorFormatStrikethrough.muiName = 'SvgIcon';
 
 exports.default = EditorFormatStrikethrough;

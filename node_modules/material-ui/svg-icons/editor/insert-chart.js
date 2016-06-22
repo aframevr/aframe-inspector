@@ -27,5 +27,6 @@ var EditorInsertChart = function EditorInsertChart(props) {
 };
 EditorInsertChart = (0, _pure2.default)(EditorInsertChart);
 EditorInsertChart.displayName = 'EditorInsertChart';
+EditorInsertChart.muiName = 'SvgIcon';
 
 exports.default = EditorInsertChart;

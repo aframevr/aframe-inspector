@@ -27,5 +27,6 @@ var EditorMoneyOff = function EditorMoneyOff(props) {
 };
 EditorMoneyOff = (0, _pure2.default)(EditorMoneyOff);
 EditorMoneyOff.displayName = 'EditorMoneyOff';
+EditorMoneyOff.muiName = 'SvgIcon';
 
 exports.default = EditorMoneyOff;

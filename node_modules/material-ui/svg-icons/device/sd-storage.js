@@ -27,5 +27,6 @@ var DeviceSdStorage = function DeviceSdStorage(props) {
 };
 DeviceSdStorage = (0, _pure2.default)(DeviceSdStorage);
 DeviceSdStorage.displayName = 'DeviceSdStorage';
+DeviceSdStorage.muiName = 'SvgIcon';
 
 exports.default = DeviceSdStorage;

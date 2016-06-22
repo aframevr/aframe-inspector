@@ -27,5 +27,6 @@ var ActionBugReport = function ActionBugReport(props) {
 };
 ActionBugReport = (0, _pure2.default)(ActionBugReport);
 ActionBugReport.displayName = 'ActionBugReport';
+ActionBugReport.muiName = 'SvgIcon';
 
 exports.default = ActionBugReport;

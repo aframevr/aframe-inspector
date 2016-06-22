@@ -27,5 +27,6 @@ var ImageVignette = function ImageVignette(props) {
 };
 ImageVignette = (0, _pure2.default)(ImageVignette);
 ImageVignette.displayName = 'ImageVignette';
+ImageVignette.muiName = 'SvgIcon';
 
 exports.default = ImageVignette;

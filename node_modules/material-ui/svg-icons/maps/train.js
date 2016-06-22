@@ -27,5 +27,6 @@ var MapsTrain = function MapsTrain(props) {
 };
 MapsTrain = (0, _pure2.default)(MapsTrain);
 MapsTrain.displayName = 'MapsTrain';
+MapsTrain.muiName = 'SvgIcon';
 
 exports.default = MapsTrain;

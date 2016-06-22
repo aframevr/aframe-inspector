@@ -27,5 +27,6 @@ var ActionPolymer = function ActionPolymer(props) {
 };
 ActionPolymer = (0, _pure2.default)(ActionPolymer);
 ActionPolymer.displayName = 'ActionPolymer';
+ActionPolymer.muiName = 'SvgIcon';
 
 exports.default = ActionPolymer;

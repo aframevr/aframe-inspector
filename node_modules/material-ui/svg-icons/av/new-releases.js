@@ -27,5 +27,6 @@ var AvNewReleases = function AvNewReleases(props) {
 };
 AvNewReleases = (0, _pure2.default)(AvNewReleases);
 AvNewReleases.displayName = 'AvNewReleases';
+AvNewReleases.muiName = 'SvgIcon';
 
 exports.default = AvNewReleases;

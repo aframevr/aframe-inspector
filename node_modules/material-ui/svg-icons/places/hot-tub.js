@@ -28,5 +28,6 @@ var PlacesHotTub = function PlacesHotTub(props) {
 };
 PlacesHotTub = (0, _pure2.default)(PlacesHotTub);
 PlacesHotTub.displayName = 'PlacesHotTub';
+PlacesHotTub.muiName = 'SvgIcon';
 
 exports.default = PlacesHotTub;

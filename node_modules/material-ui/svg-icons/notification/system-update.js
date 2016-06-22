@@ -27,5 +27,6 @@ var NotificationSystemUpdate = function NotificationSystemUpdate(props) {
 };
 NotificationSystemUpdate = (0, _pure2.default)(NotificationSystemUpdate);
 NotificationSystemUpdate.displayName = 'NotificationSystemUpdate';
+NotificationSystemUpdate.muiName = 'SvgIcon';
 
 exports.default = NotificationSystemUpdate;

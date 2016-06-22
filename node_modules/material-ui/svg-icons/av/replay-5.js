@@ -27,5 +27,6 @@ var AvReplay5 = function AvReplay5(props) {
 };
 AvReplay5 = (0, _pure2.default)(AvReplay5);
 AvReplay5.displayName = 'AvReplay5';
+AvReplay5.muiName = 'SvgIcon';
 
 exports.default = AvReplay5;

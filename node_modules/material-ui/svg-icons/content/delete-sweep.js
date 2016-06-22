@@ -27,5 +27,6 @@ var ContentDeleteSweep = function ContentDeleteSweep(props) {
 };
 ContentDeleteSweep = (0, _pure2.default)(ContentDeleteSweep);
 ContentDeleteSweep.displayName = 'ContentDeleteSweep';
+ContentDeleteSweep.muiName = 'SvgIcon';
 
 exports.default = ContentDeleteSweep;

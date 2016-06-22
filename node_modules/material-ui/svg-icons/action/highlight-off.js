@@ -27,5 +27,6 @@ var ActionHighlightOff = function ActionHighlightOff(props) {
 };
 ActionHighlightOff = (0, _pure2.default)(ActionHighlightOff);
 ActionHighlightOff.displayName = 'ActionHighlightOff';
+ActionHighlightOff.muiName = 'SvgIcon';
 
 exports.default = ActionHighlightOff;

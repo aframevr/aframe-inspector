@@ -27,5 +27,6 @@ var MapsDirectionsTransit = function MapsDirectionsTransit(props) {
 };
 MapsDirectionsTransit = (0, _pure2.default)(MapsDirectionsTransit);
 MapsDirectionsTransit.displayName = 'MapsDirectionsTransit';
+MapsDirectionsTransit.muiName = 'SvgIcon';
 
 exports.default = MapsDirectionsTransit;

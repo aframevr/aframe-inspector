@@ -27,5 +27,6 @@ var AvVideoLibrary = function AvVideoLibrary(props) {
 };
 AvVideoLibrary = (0, _pure2.default)(AvVideoLibrary);
 AvVideoLibrary.displayName = 'AvVideoLibrary';
+AvVideoLibrary.muiName = 'SvgIcon';
 
 exports.default = AvVideoLibrary;

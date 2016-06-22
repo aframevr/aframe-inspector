@@ -27,5 +27,6 @@ var NotificationDiscFull = function NotificationDiscFull(props) {
 };
 NotificationDiscFull = (0, _pure2.default)(NotificationDiscFull);
 NotificationDiscFull.displayName = 'NotificationDiscFull';
+NotificationDiscFull.muiName = 'SvgIcon';
 
 exports.default = NotificationDiscFull;

@@ -27,5 +27,6 @@ var ContentFilterList = function ContentFilterList(props) {
 };
 ContentFilterList = (0, _pure2.default)(ContentFilterList);
 ContentFilterList.displayName = 'ContentFilterList';
+ContentFilterList.muiName = 'SvgIcon';
 
 exports.default = ContentFilterList;

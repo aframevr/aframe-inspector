@@ -11,15 +11,18 @@
  */
 'use strict';
 
+var _assign = require('object-assign');
+
+var _extends = _assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var EventConstants = require('./EventConstants');
 var EventPluginHub = require('./EventPluginHub');
 var EventPluginRegistry = require('./EventPluginRegistry');
 var ReactEventEmitterMixin = require('./ReactEventEmitterMixin');
 var ReactNativeComponentTree = require('./ReactNativeComponentTree');
 var ReactNativeTagHandles = require('./ReactNativeTagHandles');
 var ReactUpdates = require('./ReactUpdates');
-var EventConstants = require('./EventConstants');
 
-var merge = require('merge');
 var warning = require('fbjs/lib/warning');
 
 var topLevelTypes = EventConstants.topLevelTypes;
@@ -88,7 +91,7 @@ var removeTouchesAtIndices = function (touches, indices) {
  *
  * @internal
  */
-var ReactNativeEventEmitter = merge(ReactEventEmitterMixin, {
+var ReactNativeEventEmitter = _extends({}, ReactEventEmitterMixin, {
 
   registrationNames: EventPluginRegistry.registrationNameModules,
 

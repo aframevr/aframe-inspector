@@ -27,5 +27,6 @@ var NotificationDoNotDisturbAlt = function NotificationDoNotDisturbAlt(props) {
 };
 NotificationDoNotDisturbAlt = (0, _pure2.default)(NotificationDoNotDisturbAlt);
 NotificationDoNotDisturbAlt.displayName = 'NotificationDoNotDisturbAlt';
+NotificationDoNotDisturbAlt.muiName = 'SvgIcon';
 
 exports.default = NotificationDoNotDisturbAlt;

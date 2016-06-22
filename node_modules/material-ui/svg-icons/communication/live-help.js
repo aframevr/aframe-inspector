@@ -27,5 +27,6 @@ var CommunicationLiveHelp = function CommunicationLiveHelp(props) {
 };
 CommunicationLiveHelp = (0, _pure2.default)(CommunicationLiveHelp);
 CommunicationLiveHelp.displayName = 'CommunicationLiveHelp';
+CommunicationLiveHelp.muiName = 'SvgIcon';
 
 exports.default = CommunicationLiveHelp;

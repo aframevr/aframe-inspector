@@ -27,5 +27,6 @@ var HardwareKeyboardArrowUp = function HardwareKeyboardArrowUp(props) {
 };
 HardwareKeyboardArrowUp = (0, _pure2.default)(HardwareKeyboardArrowUp);
 HardwareKeyboardArrowUp.displayName = 'HardwareKeyboardArrowUp';
+HardwareKeyboardArrowUp.muiName = 'SvgIcon';
 
 exports.default = HardwareKeyboardArrowUp;

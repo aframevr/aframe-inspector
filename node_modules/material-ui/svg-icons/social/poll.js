@@ -27,5 +27,6 @@ var SocialPoll = function SocialPoll(props) {
 };
 SocialPoll = (0, _pure2.default)(SocialPoll);
 SocialPoll.displayName = 'SocialPoll';
+SocialPoll.muiName = 'SvgIcon';
 
 exports.default = SocialPoll;

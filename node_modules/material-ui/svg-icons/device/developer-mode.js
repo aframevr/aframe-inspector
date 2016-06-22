@@ -27,5 +27,6 @@ var DeviceDeveloperMode = function DeviceDeveloperMode(props) {
 };
 DeviceDeveloperMode = (0, _pure2.default)(DeviceDeveloperMode);
 DeviceDeveloperMode.displayName = 'DeviceDeveloperMode';
+DeviceDeveloperMode.muiName = 'SvgIcon';
 
 exports.default = DeviceDeveloperMode;

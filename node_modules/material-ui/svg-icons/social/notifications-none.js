@@ -27,5 +27,6 @@ var SocialNotificationsNone = function SocialNotificationsNone(props) {
 };
 SocialNotificationsNone = (0, _pure2.default)(SocialNotificationsNone);
 SocialNotificationsNone.displayName = 'SocialNotificationsNone';
+SocialNotificationsNone.muiName = 'SvgIcon';
 
 exports.default = SocialNotificationsNone;

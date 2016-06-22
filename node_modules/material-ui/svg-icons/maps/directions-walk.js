@@ -27,5 +27,6 @@ var MapsDirectionsWalk = function MapsDirectionsWalk(props) {
 };
 MapsDirectionsWalk = (0, _pure2.default)(MapsDirectionsWalk);
 MapsDirectionsWalk.displayName = 'MapsDirectionsWalk';
+MapsDirectionsWalk.muiName = 'SvgIcon';
 
 exports.default = MapsDirectionsWalk;

@@ -27,5 +27,6 @@ var ActionSettings = function ActionSettings(props) {
 };
 ActionSettings = (0, _pure2.default)(ActionSettings);
 ActionSettings.displayName = 'ActionSettings';
+ActionSettings.muiName = 'SvgIcon';
 
 exports.default = ActionSettings;

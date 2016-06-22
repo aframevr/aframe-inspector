@@ -28,5 +28,6 @@ var EditorBorderColor = function EditorBorderColor(props) {
 };
 EditorBorderColor = (0, _pure2.default)(EditorBorderColor);
 EditorBorderColor.displayName = 'EditorBorderColor';
+EditorBorderColor.muiName = 'SvgIcon';
 
 exports.default = EditorBorderColor;

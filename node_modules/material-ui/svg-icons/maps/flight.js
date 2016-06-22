@@ -28,5 +28,6 @@ var MapsFlight = function MapsFlight(props) {
 };
 MapsFlight = (0, _pure2.default)(MapsFlight);
 MapsFlight.displayName = 'MapsFlight';
+MapsFlight.muiName = 'SvgIcon';
 
 exports.default = MapsFlight;

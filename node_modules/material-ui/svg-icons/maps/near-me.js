@@ -27,5 +27,6 @@ var MapsNearMe = function MapsNearMe(props) {
 };
 MapsNearMe = (0, _pure2.default)(MapsNearMe);
 MapsNearMe.displayName = 'MapsNearMe';
+MapsNearMe.muiName = 'SvgIcon';
 
 exports.default = MapsNearMe;

@@ -27,5 +27,6 @@ var MapsLocalTaxi = function MapsLocalTaxi(props) {
 };
 MapsLocalTaxi = (0, _pure2.default)(MapsLocalTaxi);
 MapsLocalTaxi.displayName = 'MapsLocalTaxi';
+MapsLocalTaxi.muiName = 'SvgIcon';
 
 exports.default = MapsLocalTaxi;

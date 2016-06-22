@@ -27,5 +27,6 @@ var NavigationChevronRight = function NavigationChevronRight(props) {
 };
 NavigationChevronRight = (0, _pure2.default)(NavigationChevronRight);
 NavigationChevronRight.displayName = 'NavigationChevronRight';
+NavigationChevronRight.muiName = 'SvgIcon';
 
 exports.default = NavigationChevronRight;

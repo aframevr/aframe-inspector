@@ -27,5 +27,6 @@ var ImageControlPointDuplicate = function ImageControlPointDuplicate(props) {
 };
 ImageControlPointDuplicate = (0, _pure2.default)(ImageControlPointDuplicate);
 ImageControlPointDuplicate.displayName = 'ImageControlPointDuplicate';
+ImageControlPointDuplicate.muiName = 'SvgIcon';
 
 exports.default = ImageControlPointDuplicate;

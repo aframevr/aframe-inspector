@@ -45,18 +45,19 @@ var ExpandTransition = function (_Component) {
 
   _createClass(ExpandTransition, [{
     key: 'renderChildren',
-    value: function renderChildren(children, loading) {
-      var _this2 = this;
-
-      if (loading) {
-        return [];
-      }
+    value: function renderChildren(children) {
+      var _props = this.props;
+      var enterDelay = _props.enterDelay;
+      var transitionDelay = _props.transitionDelay;
+      var transitionDuration = _props.transitionDuration;
 
       return _react2.default.Children.map(children, function (child) {
         return _react2.default.createElement(
           _ExpandTransitionChild2.default,
           {
-            enterDelay: _this2.props.enterDelay,
+            enterDelay: enterDelay,
+            transitionDelay: transitionDelay,
+            transitionDuration: transitionDuration,
             key: child.key
           },
           child
@@ -66,13 +67,18 @@ var ExpandTransition = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _props = this.props;
-      var children = _props.children;
-      var loading = _props.loading;
-      var open = _props.open;
-      var style = _props.style;
+      var _props2 = this.props;
+      var children = _props2.children;
+      var enterDelay = _props2.enterDelay;
+      var // eslint-disable-line no-unused-vars
+      loading = _props2.loading;
+      var open = _props2.open;
+      var style = _props2.style;
+      var transitionDelay = _props2.transitionDelay;
+      var // eslint-disable-line no-unused-vars
+      transitionDuration = _props2.transitionDuration;
 
-      var other = _objectWithoutProperties(_props, ['children', 'loading', 'open', 'style']);
+      var other = _objectWithoutProperties(_props2, ['children', 'enterDelay', 'loading', 'open', 'style', 'transitionDelay', 'transitionDuration']);
 
       var prepareStyles = this.context.muiTheme.prepareStyles;
 
@@ -83,7 +89,7 @@ var ExpandTransition = function (_Component) {
         height: '100%'
       }, style);
 
-      var newChildren = this.renderChildren(children, loading);
+      var newChildren = loading ? [] : this.renderChildren(children);
 
       return _react2.default.createElement(
         _reactAddonsTransitionGroup2.default,
@@ -104,10 +110,14 @@ ExpandTransition.propTypes = {
   enterDelay: _react.PropTypes.number,
   loading: _react.PropTypes.bool,
   open: _react.PropTypes.bool,
-  style: _react.PropTypes.object
+  style: _react.PropTypes.object,
+  transitionDelay: _react.PropTypes.number,
+  transitionDuration: _react.PropTypes.number
 };
 ExpandTransition.defaultProps = {
   enterDelay: 0,
+  transitionDelay: 0,
+  transitionDuration: 450,
   loading: false,
   open: false
 };

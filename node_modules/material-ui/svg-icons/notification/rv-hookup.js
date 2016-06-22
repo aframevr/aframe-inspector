@@ -27,5 +27,6 @@ var NotificationRvHookup = function NotificationRvHookup(props) {
 };
 NotificationRvHookup = (0, _pure2.default)(NotificationRvHookup);
 NotificationRvHookup.displayName = 'NotificationRvHookup';
+NotificationRvHookup.muiName = 'SvgIcon';
 
 exports.default = NotificationRvHookup;

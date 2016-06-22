@@ -27,5 +27,6 @@ var CommunicationComment = function CommunicationComment(props) {
 };
 CommunicationComment = (0, _pure2.default)(CommunicationComment);
 CommunicationComment.displayName = 'CommunicationComment';
+CommunicationComment.muiName = 'SvgIcon';
 
 exports.default = CommunicationComment;

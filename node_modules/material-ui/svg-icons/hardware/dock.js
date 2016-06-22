@@ -27,5 +27,6 @@ var HardwareDock = function HardwareDock(props) {
 };
 HardwareDock = (0, _pure2.default)(HardwareDock);
 HardwareDock.displayName = 'HardwareDock';
+HardwareDock.muiName = 'SvgIcon';
 
 exports.default = HardwareDock;

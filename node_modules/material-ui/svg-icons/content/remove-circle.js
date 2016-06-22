@@ -27,5 +27,6 @@ var ContentRemoveCircle = function ContentRemoveCircle(props) {
 };
 ContentRemoveCircle = (0, _pure2.default)(ContentRemoveCircle);
 ContentRemoveCircle.displayName = 'ContentRemoveCircle';
+ContentRemoveCircle.muiName = 'SvgIcon';
 
 exports.default = ContentRemoveCircle;

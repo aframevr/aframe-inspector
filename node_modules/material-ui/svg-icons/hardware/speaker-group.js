@@ -29,5 +29,6 @@ var HardwareSpeakerGroup = function HardwareSpeakerGroup(props) {
 };
 HardwareSpeakerGroup = (0, _pure2.default)(HardwareSpeakerGroup);
 HardwareSpeakerGroup.displayName = 'HardwareSpeakerGroup';
+HardwareSpeakerGroup.muiName = 'SvgIcon';
 
 exports.default = HardwareSpeakerGroup;

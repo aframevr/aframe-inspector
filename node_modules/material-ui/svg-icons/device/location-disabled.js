@@ -27,5 +27,6 @@ var DeviceLocationDisabled = function DeviceLocationDisabled(props) {
 };
 DeviceLocationDisabled = (0, _pure2.default)(DeviceLocationDisabled);
 DeviceLocationDisabled.displayName = 'DeviceLocationDisabled';
+DeviceLocationDisabled.muiName = 'SvgIcon';
 
 exports.default = DeviceLocationDisabled;

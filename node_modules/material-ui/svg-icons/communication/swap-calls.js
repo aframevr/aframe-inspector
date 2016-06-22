@@ -27,5 +27,6 @@ var CommunicationSwapCalls = function CommunicationSwapCalls(props) {
 };
 CommunicationSwapCalls = (0, _pure2.default)(CommunicationSwapCalls);
 CommunicationSwapCalls.displayName = 'CommunicationSwapCalls';
+CommunicationSwapCalls.muiName = 'SvgIcon';
 
 exports.default = CommunicationSwapCalls;

@@ -27,5 +27,6 @@ var ContentReport = function ContentReport(props) {
 };
 ContentReport = (0, _pure2.default)(ContentReport);
 ContentReport.displayName = 'ContentReport';
+ContentReport.muiName = 'SvgIcon';
 
 exports.default = ContentReport;

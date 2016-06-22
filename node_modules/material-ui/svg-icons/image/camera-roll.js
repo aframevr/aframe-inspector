@@ -27,5 +27,6 @@ var ImageCameraRoll = function ImageCameraRoll(props) {
 };
 ImageCameraRoll = (0, _pure2.default)(ImageCameraRoll);
 ImageCameraRoll.displayName = 'ImageCameraRoll';
+ImageCameraRoll.muiName = 'SvgIcon';
 
 exports.default = ImageCameraRoll;

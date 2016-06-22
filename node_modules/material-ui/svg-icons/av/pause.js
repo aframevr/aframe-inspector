@@ -27,5 +27,6 @@ var AvPause = function AvPause(props) {
 };
 AvPause = (0, _pure2.default)(AvPause);
 AvPause.displayName = 'AvPause';
+AvPause.muiName = 'SvgIcon';
 
 exports.default = AvPause;

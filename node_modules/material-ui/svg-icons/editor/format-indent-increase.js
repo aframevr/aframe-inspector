@@ -27,5 +27,6 @@ var EditorFormatIndentIncrease = function EditorFormatIndentIncrease(props) {
 };
 EditorFormatIndentIncrease = (0, _pure2.default)(EditorFormatIndentIncrease);
 EditorFormatIndentIncrease.displayName = 'EditorFormatIndentIncrease';
+EditorFormatIndentIncrease.muiName = 'SvgIcon';
 
 exports.default = EditorFormatIndentIncrease;

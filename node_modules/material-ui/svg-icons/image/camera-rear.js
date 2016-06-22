@@ -27,5 +27,6 @@ var ImageCameraRear = function ImageCameraRear(props) {
 };
 ImageCameraRear = (0, _pure2.default)(ImageCameraRear);
 ImageCameraRear.displayName = 'ImageCameraRear';
+ImageCameraRear.muiName = 'SvgIcon';
 
 exports.default = ImageCameraRear;

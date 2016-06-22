@@ -27,5 +27,6 @@ var ImageRemoveRedEye = function ImageRemoveRedEye(props) {
 };
 ImageRemoveRedEye = (0, _pure2.default)(ImageRemoveRedEye);
 ImageRemoveRedEye.displayName = 'ImageRemoveRedEye';
+ImageRemoveRedEye.muiName = 'SvgIcon';
 
 exports.default = ImageRemoveRedEye;

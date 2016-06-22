@@ -27,5 +27,6 @@ var ImageTimelapse = function ImageTimelapse(props) {
 };
 ImageTimelapse = (0, _pure2.default)(ImageTimelapse);
 ImageTimelapse.displayName = 'ImageTimelapse';
+ImageTimelapse.muiName = 'SvgIcon';
 
 exports.default = ImageTimelapse;

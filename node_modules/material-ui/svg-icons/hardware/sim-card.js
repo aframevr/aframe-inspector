@@ -27,5 +27,6 @@ var HardwareSimCard = function HardwareSimCard(props) {
 };
 HardwareSimCard = (0, _pure2.default)(HardwareSimCard);
 HardwareSimCard.displayName = 'HardwareSimCard';
+HardwareSimCard.muiName = 'SvgIcon';
 
 exports.default = HardwareSimCard;

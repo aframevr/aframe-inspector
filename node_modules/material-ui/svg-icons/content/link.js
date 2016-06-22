@@ -27,5 +27,6 @@ var ContentLink = function ContentLink(props) {
 };
 ContentLink = (0, _pure2.default)(ContentLink);
 ContentLink.displayName = 'ContentLink';
+ContentLink.muiName = 'SvgIcon';
 
 exports.default = ContentLink;

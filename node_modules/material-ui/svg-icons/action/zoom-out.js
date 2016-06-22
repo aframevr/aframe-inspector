@@ -27,5 +27,6 @@ var ActionZoomOut = function ActionZoomOut(props) {
 };
 ActionZoomOut = (0, _pure2.default)(ActionZoomOut);
 ActionZoomOut.displayName = 'ActionZoomOut';
+ActionZoomOut.muiName = 'SvgIcon';
 
 exports.default = ActionZoomOut;

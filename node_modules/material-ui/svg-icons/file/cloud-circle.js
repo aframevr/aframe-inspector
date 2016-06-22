@@ -27,5 +27,6 @@ var FileCloudCircle = function FileCloudCircle(props) {
 };
 FileCloudCircle = (0, _pure2.default)(FileCloudCircle);
 FileCloudCircle.displayName = 'FileCloudCircle';
+FileCloudCircle.muiName = 'SvgIcon';
 
 exports.default = FileCloudCircle;

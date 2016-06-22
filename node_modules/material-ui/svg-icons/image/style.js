@@ -27,5 +27,6 @@ var ImageStyle = function ImageStyle(props) {
 };
 ImageStyle = (0, _pure2.default)(ImageStyle);
 ImageStyle.displayName = 'ImageStyle';
+ImageStyle.muiName = 'SvgIcon';
 
 exports.default = ImageStyle;

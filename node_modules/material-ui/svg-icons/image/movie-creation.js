@@ -27,5 +27,6 @@ var ImageMovieCreation = function ImageMovieCreation(props) {
 };
 ImageMovieCreation = (0, _pure2.default)(ImageMovieCreation);
 ImageMovieCreation.displayName = 'ImageMovieCreation';
+ImageMovieCreation.muiName = 'SvgIcon';
 
 exports.default = ImageMovieCreation;

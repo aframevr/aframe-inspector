@@ -27,5 +27,6 @@ var DeviceAccessTime = function DeviceAccessTime(props) {
 };
 DeviceAccessTime = (0, _pure2.default)(DeviceAccessTime);
 DeviceAccessTime.displayName = 'DeviceAccessTime';
+DeviceAccessTime.muiName = 'SvgIcon';
 
 exports.default = DeviceAccessTime;

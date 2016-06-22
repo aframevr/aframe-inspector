@@ -27,5 +27,6 @@ var ImageTimer = function ImageTimer(props) {
 };
 ImageTimer = (0, _pure2.default)(ImageTimer);
 ImageTimer.displayName = 'ImageTimer';
+ImageTimer.muiName = 'SvgIcon';
 
 exports.default = ImageTimer;

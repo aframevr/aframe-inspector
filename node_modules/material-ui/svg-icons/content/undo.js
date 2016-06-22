@@ -27,5 +27,6 @@ var ContentUndo = function ContentUndo(props) {
 };
 ContentUndo = (0, _pure2.default)(ContentUndo);
 ContentUndo.displayName = 'ContentUndo';
+ContentUndo.muiName = 'SvgIcon';
 
 exports.default = ContentUndo;

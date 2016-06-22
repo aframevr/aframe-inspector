@@ -27,5 +27,6 @@ var AvFeaturedPlayList = function AvFeaturedPlayList(props) {
 };
 AvFeaturedPlayList = (0, _pure2.default)(AvFeaturedPlayList);
 AvFeaturedPlayList.displayName = 'AvFeaturedPlayList';
+AvFeaturedPlayList.muiName = 'SvgIcon';
 
 exports.default = AvFeaturedPlayList;

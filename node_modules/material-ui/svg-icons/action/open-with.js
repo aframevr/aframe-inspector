@@ -27,5 +27,6 @@ var ActionOpenWith = function ActionOpenWith(props) {
 };
 ActionOpenWith = (0, _pure2.default)(ActionOpenWith);
 ActionOpenWith.displayName = 'ActionOpenWith';
+ActionOpenWith.muiName = 'SvgIcon';
 
 exports.default = ActionOpenWith;

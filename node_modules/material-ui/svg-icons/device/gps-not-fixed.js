@@ -27,5 +27,6 @@ var DeviceGpsNotFixed = function DeviceGpsNotFixed(props) {
 };
 DeviceGpsNotFixed = (0, _pure2.default)(DeviceGpsNotFixed);
 DeviceGpsNotFixed.displayName = 'DeviceGpsNotFixed';
+DeviceGpsNotFixed.muiName = 'SvgIcon';
 
 exports.default = DeviceGpsNotFixed;

@@ -27,5 +27,6 @@ var PlacesAcUnit = function PlacesAcUnit(props) {
 };
 PlacesAcUnit = (0, _pure2.default)(PlacesAcUnit);
 PlacesAcUnit.displayName = 'PlacesAcUnit';
+PlacesAcUnit.muiName = 'SvgIcon';
 
 exports.default = PlacesAcUnit;

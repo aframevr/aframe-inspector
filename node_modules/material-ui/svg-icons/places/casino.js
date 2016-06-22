@@ -27,5 +27,6 @@ var PlacesCasino = function PlacesCasino(props) {
 };
 PlacesCasino = (0, _pure2.default)(PlacesCasino);
 PlacesCasino.displayName = 'PlacesCasino';
+PlacesCasino.muiName = 'SvgIcon';
 
 exports.default = PlacesCasino;

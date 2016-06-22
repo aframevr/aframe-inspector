@@ -27,5 +27,6 @@ var EditorBorderStyle = function EditorBorderStyle(props) {
 };
 EditorBorderStyle = (0, _pure2.default)(EditorBorderStyle);
 EditorBorderStyle.displayName = 'EditorBorderStyle';
+EditorBorderStyle.muiName = 'SvgIcon';
 
 exports.default = EditorBorderStyle;

@@ -27,5 +27,6 @@ var MapsNavigation = function MapsNavigation(props) {
 };
 MapsNavigation = (0, _pure2.default)(MapsNavigation);
 MapsNavigation.displayName = 'MapsNavigation';
+MapsNavigation.muiName = 'SvgIcon';
 
 exports.default = MapsNavigation;

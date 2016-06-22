@@ -27,5 +27,6 @@ var ImageRotate90DegreesCcw = function ImageRotate90DegreesCcw(props) {
 };
 ImageRotate90DegreesCcw = (0, _pure2.default)(ImageRotate90DegreesCcw);
 ImageRotate90DegreesCcw.displayName = 'ImageRotate90DegreesCcw';
+ImageRotate90DegreesCcw.muiName = 'SvgIcon';
 
 exports.default = ImageRotate90DegreesCcw;

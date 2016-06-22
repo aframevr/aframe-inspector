@@ -27,5 +27,6 @@ var MapsLocalPlay = function MapsLocalPlay(props) {
 };
 MapsLocalPlay = (0, _pure2.default)(MapsLocalPlay);
 MapsLocalPlay.displayName = 'MapsLocalPlay';
+MapsLocalPlay.muiName = 'SvgIcon';
 
 exports.default = MapsLocalPlay;

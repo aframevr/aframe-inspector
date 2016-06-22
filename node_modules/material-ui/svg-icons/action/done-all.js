@@ -27,5 +27,6 @@ var ActionDoneAll = function ActionDoneAll(props) {
 };
 ActionDoneAll = (0, _pure2.default)(ActionDoneAll);
 ActionDoneAll.displayName = 'ActionDoneAll';
+ActionDoneAll.muiName = 'SvgIcon';
 
 exports.default = ActionDoneAll;

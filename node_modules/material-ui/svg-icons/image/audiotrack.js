@@ -27,5 +27,6 @@ var ImageAudiotrack = function ImageAudiotrack(props) {
 };
 ImageAudiotrack = (0, _pure2.default)(ImageAudiotrack);
 ImageAudiotrack.displayName = 'ImageAudiotrack';
+ImageAudiotrack.muiName = 'SvgIcon';
 
 exports.default = ImageAudiotrack;

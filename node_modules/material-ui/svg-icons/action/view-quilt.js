@@ -27,5 +27,6 @@ var ActionViewQuilt = function ActionViewQuilt(props) {
 };
 ActionViewQuilt = (0, _pure2.default)(ActionViewQuilt);
 ActionViewQuilt.displayName = 'ActionViewQuilt';
+ActionViewQuilt.muiName = 'SvgIcon';
 
 exports.default = ActionViewQuilt;

@@ -27,5 +27,6 @@ var ActionLabel = function ActionLabel(props) {
 };
 ActionLabel = (0, _pure2.default)(ActionLabel);
 ActionLabel.displayName = 'ActionLabel';
+ActionLabel.muiName = 'SvgIcon';
 
 exports.default = ActionLabel;

@@ -27,5 +27,6 @@ var AvSubtitles = function AvSubtitles(props) {
 };
 AvSubtitles = (0, _pure2.default)(AvSubtitles);
 AvSubtitles.displayName = 'AvSubtitles';
+AvSubtitles.muiName = 'SvgIcon';
 
 exports.default = AvSubtitles;

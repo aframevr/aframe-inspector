@@ -27,5 +27,6 @@ var NotificationNetworkCheck = function NotificationNetworkCheck(props) {
 };
 NotificationNetworkCheck = (0, _pure2.default)(NotificationNetworkCheck);
 NotificationNetworkCheck.displayName = 'NotificationNetworkCheck';
+NotificationNetworkCheck.muiName = 'SvgIcon';
 
 exports.default = NotificationNetworkCheck;

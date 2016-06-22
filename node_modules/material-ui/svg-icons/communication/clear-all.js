@@ -27,5 +27,6 @@ var CommunicationClearAll = function CommunicationClearAll(props) {
 };
 CommunicationClearAll = (0, _pure2.default)(CommunicationClearAll);
 CommunicationClearAll.displayName = 'CommunicationClearAll';
+CommunicationClearAll.muiName = 'SvgIcon';
 
 exports.default = CommunicationClearAll;

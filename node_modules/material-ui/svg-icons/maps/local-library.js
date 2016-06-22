@@ -27,5 +27,6 @@ var MapsLocalLibrary = function MapsLocalLibrary(props) {
 };
 MapsLocalLibrary = (0, _pure2.default)(MapsLocalLibrary);
 MapsLocalLibrary.displayName = 'MapsLocalLibrary';
+MapsLocalLibrary.muiName = 'SvgIcon';
 
 exports.default = MapsLocalLibrary;

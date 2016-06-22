@@ -28,5 +28,6 @@ var MapsLocalSee = function MapsLocalSee(props) {
 };
 MapsLocalSee = (0, _pure2.default)(MapsLocalSee);
 MapsLocalSee.displayName = 'MapsLocalSee';
+MapsLocalSee.muiName = 'SvgIcon';
 
 exports.default = MapsLocalSee;

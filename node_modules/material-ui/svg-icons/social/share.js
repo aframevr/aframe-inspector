@@ -27,5 +27,6 @@ var SocialShare = function SocialShare(props) {
 };
 SocialShare = (0, _pure2.default)(SocialShare);
 SocialShare.displayName = 'SocialShare';
+SocialShare.muiName = 'SvgIcon';
 
 exports.default = SocialShare;

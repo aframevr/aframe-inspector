@@ -29,5 +29,6 @@ var DeviceSignalWifi1BarLock = function DeviceSignalWifi1BarLock(props) {
 };
 DeviceSignalWifi1BarLock = (0, _pure2.default)(DeviceSignalWifi1BarLock);
 DeviceSignalWifi1BarLock.displayName = 'DeviceSignalWifi1BarLock';
+DeviceSignalWifi1BarLock.muiName = 'SvgIcon';
 
 exports.default = DeviceSignalWifi1BarLock;

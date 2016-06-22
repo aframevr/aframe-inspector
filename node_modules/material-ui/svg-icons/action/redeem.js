@@ -27,5 +27,6 @@ var ActionRedeem = function ActionRedeem(props) {
 };
 ActionRedeem = (0, _pure2.default)(ActionRedeem);
 ActionRedeem.displayName = 'ActionRedeem';
+ActionRedeem.muiName = 'SvgIcon';
 
 exports.default = ActionRedeem;

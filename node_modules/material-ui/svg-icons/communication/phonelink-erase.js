@@ -27,5 +27,6 @@ var CommunicationPhonelinkErase = function CommunicationPhonelinkErase(props) {
 };
 CommunicationPhonelinkErase = (0, _pure2.default)(CommunicationPhonelinkErase);
 CommunicationPhonelinkErase.displayName = 'CommunicationPhonelinkErase';
+CommunicationPhonelinkErase.muiName = 'SvgIcon';
 
 exports.default = CommunicationPhonelinkErase;

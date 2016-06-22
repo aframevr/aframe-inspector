@@ -27,5 +27,6 @@ var MapsStoreMallDirectory = function MapsStoreMallDirectory(props) {
 };
 MapsStoreMallDirectory = (0, _pure2.default)(MapsStoreMallDirectory);
 MapsStoreMallDirectory.displayName = 'MapsStoreMallDirectory';
+MapsStoreMallDirectory.muiName = 'SvgIcon';
 
 exports.default = MapsStoreMallDirectory;

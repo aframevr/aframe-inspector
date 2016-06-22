@@ -27,5 +27,6 @@ var ActionTranslate = function ActionTranslate(props) {
 };
 ActionTranslate = (0, _pure2.default)(ActionTranslate);
 ActionTranslate.displayName = 'ActionTranslate';
+ActionTranslate.muiName = 'SvgIcon';
 
 exports.default = ActionTranslate;

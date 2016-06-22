@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -6,28 +6,25 @@ var _symbol = require("babel-runtime/core-js/symbol");
 
 var _symbol2 = _interopRequireDefault(_symbol);
 
-var /*istanbul ignore next*/_plugin = require("../plugin");
+var _plugin = require("../plugin");
 
-/*istanbul ignore next*/
 var _plugin2 = _interopRequireDefault(_plugin);
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-/*istanbul ignore next*/
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var SUPER_THIS_BOUND = /*istanbul ignore next*/(0, _symbol2.default)("super this bound");
+var SUPER_THIS_BOUND = (0, _symbol2.default)("super this bound");
 
-var superVisitor = { /*istanbul ignore next*/
+var superVisitor = {
   CallExpression: function CallExpression(path) {
     if (!path.get("callee").isSuper()) return;
 
-    /*istanbul ignore next*/var node = path.node;
+    var node = path.node;
 
     if (node[SUPER_THIS_BOUND]) return;
     node[SUPER_THIS_BOUND] = true;
@@ -36,12 +33,12 @@ var superVisitor = { /*istanbul ignore next*/
   }
 };
 
-/*istanbul ignore next*/exports.default = new /*istanbul ignore next*/_plugin2.default({
-  visitor: { /*istanbul ignore next*/
+exports.default = new _plugin2.default({
+  visitor: {
     ThisExpression: function ThisExpression(path) {
       remap(path, "this");
     },
-    /*istanbul ignore next*/ReferencedIdentifier: function ReferencedIdentifier(path) {
+    ReferencedIdentifier: function ReferencedIdentifier(path) {
       if (path.node.name === "arguments") {
         remap(path, "arguments");
       }
@@ -65,7 +62,7 @@ function remap(path, key) {
 
   var shadowFunction = path.node._shadowedFunctionLiteral;
 
-  var currentFunction = /*istanbul ignore next*/void 0;
+  var currentFunction = void 0;
   var passedShadowFunction = false;
 
   var fnPath = path.findParent(function (path) {
@@ -96,7 +93,7 @@ function remap(path, key) {
     // If the shadow wasn't found, take the closest function as a backup.
     // This is a bit of a hack, but it will allow the parameter transforms to work properly
     // without introducing yet another shadow-controlling flag.
-    fnPath = path.findParent(function (p) /*istanbul ignore next*/{
+    fnPath = path.findParent(function (p) {
       return p.isProgram() || p.isFunction();
     });
   }
@@ -115,7 +112,12 @@ function remap(path, key) {
 
   fnPath.setData(key, id);
 
-  if (key === "this" && fnPath.isMethod({ kind: "constructor" })) {
+  var classPath = fnPath.findParent(function (p) {
+    return p.isClass();
+  });
+  var hasSuperClass = !!(classPath && classPath.node && classPath.node.superClass);
+
+  if (key === "this" && fnPath.isMethod({ kind: "constructor" }) && hasSuperClass) {
     fnPath.scope.push({ id: id });
 
     fnPath.traverse(superVisitor, { id: id });
@@ -127,4 +129,4 @@ function remap(path, key) {
 
   return path.replaceWith(id);
 }
-/*istanbul ignore next*/module.exports = exports["default"];
+module.exports = exports["default"];

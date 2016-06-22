@@ -27,5 +27,6 @@ var PlacesAirportShuttle = function PlacesAirportShuttle(props) {
 };
 PlacesAirportShuttle = (0, _pure2.default)(PlacesAirportShuttle);
 PlacesAirportShuttle.displayName = 'PlacesAirportShuttle';
+PlacesAirportShuttle.muiName = 'SvgIcon';
 
 exports.default = PlacesAirportShuttle;

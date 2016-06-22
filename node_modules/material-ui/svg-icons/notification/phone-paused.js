@@ -27,5 +27,6 @@ var NotificationPhonePaused = function NotificationPhonePaused(props) {
 };
 NotificationPhonePaused = (0, _pure2.default)(NotificationPhonePaused);
 NotificationPhonePaused.displayName = 'NotificationPhonePaused';
+NotificationPhonePaused.muiName = 'SvgIcon';
 
 exports.default = NotificationPhonePaused;

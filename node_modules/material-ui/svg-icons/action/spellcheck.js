@@ -27,5 +27,6 @@ var ActionSpellcheck = function ActionSpellcheck(props) {
 };
 ActionSpellcheck = (0, _pure2.default)(ActionSpellcheck);
 ActionSpellcheck.displayName = 'ActionSpellcheck';
+ActionSpellcheck.muiName = 'SvgIcon';
 
 exports.default = ActionSpellcheck;

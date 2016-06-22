@@ -27,5 +27,6 @@ var NotificationSyncDisabled = function NotificationSyncDisabled(props) {
 };
 NotificationSyncDisabled = (0, _pure2.default)(NotificationSyncDisabled);
 NotificationSyncDisabled.displayName = 'NotificationSyncDisabled';
+NotificationSyncDisabled.muiName = 'SvgIcon';
 
 exports.default = NotificationSyncDisabled;

@@ -27,5 +27,6 @@ var ImageCenterFocusStrong = function ImageCenterFocusStrong(props) {
 };
 ImageCenterFocusStrong = (0, _pure2.default)(ImageCenterFocusStrong);
 ImageCenterFocusStrong.displayName = 'ImageCenterFocusStrong';
+ImageCenterFocusStrong.muiName = 'SvgIcon';
 
 exports.default = ImageCenterFocusStrong;

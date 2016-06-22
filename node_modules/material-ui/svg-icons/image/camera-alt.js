@@ -28,5 +28,6 @@ var ImageCameraAlt = function ImageCameraAlt(props) {
 };
 ImageCameraAlt = (0, _pure2.default)(ImageCameraAlt);
 ImageCameraAlt.displayName = 'ImageCameraAlt';
+ImageCameraAlt.muiName = 'SvgIcon';
 
 exports.default = ImageCameraAlt;

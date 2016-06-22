@@ -27,5 +27,6 @@ var ActionDns = function ActionDns(props) {
 };
 ActionDns = (0, _pure2.default)(ActionDns);
 ActionDns.displayName = 'ActionDns';
+ActionDns.muiName = 'SvgIcon';
 
 exports.default = ActionDns;

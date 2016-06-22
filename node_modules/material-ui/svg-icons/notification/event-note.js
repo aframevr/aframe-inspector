@@ -27,5 +27,6 @@ var NotificationEventNote = function NotificationEventNote(props) {
 };
 NotificationEventNote = (0, _pure2.default)(NotificationEventNote);
 NotificationEventNote.displayName = 'NotificationEventNote';
+NotificationEventNote.muiName = 'SvgIcon';
 
 exports.default = NotificationEventNote;

@@ -1,27 +1,25 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 exports.AwaitExpression = exports.FunctionTypeAnnotation = undefined;
 exports.NullableTypeAnnotation = NullableTypeAnnotation;
-/*istanbul ignore next*/exports.UpdateExpression = UpdateExpression;
-/*istanbul ignore next*/exports.ObjectExpression = ObjectExpression;
-/*istanbul ignore next*/exports.Binary = Binary;
-/*istanbul ignore next*/exports.BinaryExpression = BinaryExpression;
-/*istanbul ignore next*/exports.SequenceExpression = SequenceExpression;
-/*istanbul ignore next*/exports.YieldExpression = YieldExpression;
-/*istanbul ignore next*/exports.ClassExpression = ClassExpression;
-/*istanbul ignore next*/exports.UnaryLike = UnaryLike;
-/*istanbul ignore next*/exports.FunctionExpression = FunctionExpression;
-/*istanbul ignore next*/exports.ArrowFunctionExpression = ArrowFunctionExpression;
-/*istanbul ignore next*/exports.ConditionalExpression = ConditionalExpression;
-/*istanbul ignore next*/exports.AssignmentExpression = AssignmentExpression;
+exports.UpdateExpression = UpdateExpression;
+exports.ObjectExpression = ObjectExpression;
+exports.Binary = Binary;
+exports.BinaryExpression = BinaryExpression;
+exports.SequenceExpression = SequenceExpression;
+exports.YieldExpression = YieldExpression;
+exports.ClassExpression = ClassExpression;
+exports.UnaryLike = UnaryLike;
+exports.FunctionExpression = FunctionExpression;
+exports.ArrowFunctionExpression = ArrowFunctionExpression;
+exports.ConditionalExpression = ConditionalExpression;
+exports.AssignmentExpression = AssignmentExpression;
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-/*istanbul ignore next*/
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var PRECEDENCE = {
@@ -55,7 +53,7 @@ function NullableTypeAnnotation(node, parent) {
   return t.isArrayTypeAnnotation(parent);
 }
 
-/*istanbul ignore next*/exports.FunctionTypeAnnotation = NullableTypeAnnotation;
+exports.FunctionTypeAnnotation = NullableTypeAnnotation;
 function UpdateExpression(node, parent) {
   if (t.isMemberExpression(parent) && parent.object === node) {
     // (foo++).test()
@@ -164,7 +162,7 @@ function YieldExpression(node, parent) {
   return t.isBinary(parent) || t.isUnaryLike(parent) || t.isCallExpression(parent) || t.isMemberExpression(parent) || t.isNewExpression(parent);
 }
 
-/*istanbul ignore next*/exports.AwaitExpression = YieldExpression;
+exports.AwaitExpression = YieldExpression;
 function ClassExpression(node, parent, printStack) {
   return isFirstInStatement(printStack, { considerDefaultExports: true });
 }
@@ -222,21 +220,19 @@ function AssignmentExpression(node) {
   if (t.isObjectPattern(node.left)) {
     return true;
   } else {
-    return (/*istanbul ignore next*/ConditionalExpression.apply( /*istanbul ignore next*/undefined, arguments)
-    );
+    return ConditionalExpression.apply(undefined, arguments);
   }
 }
 
 // Walk up the print stack to deterimine if our node can come first
 // in statement.
 function isFirstInStatement(printStack) {
-  /*istanbul ignore next*/
   var _ref = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-  /*istanbul ignore next*/var _ref$considerArrow = _ref.considerArrow;
-  /*istanbul ignore next*/var considerArrow = _ref$considerArrow === undefined ? false : _ref$considerArrow;
-  /*istanbul ignore next*/var _ref$considerDefaultE = _ref.considerDefaultExports;
-  /*istanbul ignore next*/var considerDefaultExports = _ref$considerDefaultE === undefined ? false : _ref$considerDefaultE;
+  var _ref$considerArrow = _ref.considerArrow;
+  var considerArrow = _ref$considerArrow === undefined ? false : _ref$considerArrow;
+  var _ref$considerDefaultE = _ref.considerDefaultExports;
+  var considerDefaultExports = _ref$considerDefaultE === undefined ? false : _ref$considerDefaultE;
 
   var i = printStack.length - 1;
   var node = printStack[i];

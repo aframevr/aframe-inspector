@@ -27,5 +27,6 @@ var ActionViewList = function ActionViewList(props) {
 };
 ActionViewList = (0, _pure2.default)(ActionViewList);
 ActionViewList.displayName = 'ActionViewList';
+ActionViewList.muiName = 'SvgIcon';
 
 exports.default = ActionViewList;

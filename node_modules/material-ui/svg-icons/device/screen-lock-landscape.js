@@ -27,5 +27,6 @@ var DeviceScreenLockLandscape = function DeviceScreenLockLandscape(props) {
 };
 DeviceScreenLockLandscape = (0, _pure2.default)(DeviceScreenLockLandscape);
 DeviceScreenLockLandscape.displayName = 'DeviceScreenLockLandscape';
+DeviceScreenLockLandscape.muiName = 'SvgIcon';
 
 exports.default = DeviceScreenLockLandscape;

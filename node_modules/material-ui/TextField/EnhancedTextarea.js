@@ -170,7 +170,7 @@ var EnhancedTextarea = function (_Component) {
       return _react2.default.createElement(
         'div',
         { style: prepareStyles(rootStyles) },
-        _react2.default.createElement(_reactEventListener2.default, { elementName: 'window', onResize: this.handleResize }),
+        _react2.default.createElement(_reactEventListener2.default, { target: 'window', onResize: this.handleResize }),
         _react2.default.createElement('textarea', {
           ref: 'shadow',
           style: prepareStyles(shadowStyles),

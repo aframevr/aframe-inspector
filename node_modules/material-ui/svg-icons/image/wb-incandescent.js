@@ -27,5 +27,6 @@ var ImageWbIncandescent = function ImageWbIncandescent(props) {
 };
 ImageWbIncandescent = (0, _pure2.default)(ImageWbIncandescent);
 ImageWbIncandescent.displayName = 'ImageWbIncandescent';
+ImageWbIncandescent.muiName = 'SvgIcon';
 
 exports.default = ImageWbIncandescent;

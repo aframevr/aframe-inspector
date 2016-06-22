@@ -28,5 +28,6 @@ var DeviceBatteryCharging60 = function DeviceBatteryCharging60(props) {
 };
 DeviceBatteryCharging60 = (0, _pure2.default)(DeviceBatteryCharging60);
 DeviceBatteryCharging60.displayName = 'DeviceBatteryCharging60';
+DeviceBatteryCharging60.muiName = 'SvgIcon';
 
 exports.default = DeviceBatteryCharging60;

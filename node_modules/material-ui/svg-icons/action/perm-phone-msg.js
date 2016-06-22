@@ -27,5 +27,6 @@ var ActionPermPhoneMsg = function ActionPermPhoneMsg(props) {
 };
 ActionPermPhoneMsg = (0, _pure2.default)(ActionPermPhoneMsg);
 ActionPermPhoneMsg.displayName = 'ActionPermPhoneMsg';
+ActionPermPhoneMsg.muiName = 'SvgIcon';
 
 exports.default = ActionPermPhoneMsg;

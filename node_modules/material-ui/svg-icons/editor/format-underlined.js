@@ -27,5 +27,6 @@ var EditorFormatUnderlined = function EditorFormatUnderlined(props) {
 };
 EditorFormatUnderlined = (0, _pure2.default)(EditorFormatUnderlined);
 EditorFormatUnderlined.displayName = 'EditorFormatUnderlined';
+EditorFormatUnderlined.muiName = 'SvgIcon';
 
 exports.default = EditorFormatUnderlined;

@@ -8,6 +8,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _simpleAssign = require('simple-assign');
+
+var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -77,11 +81,6 @@ var TimePickerDialog = function (_Component) {
   }
 
   _createClass(TimePickerDialog, [{
-    key: 'getTheme',
-    value: function getTheme() {
-      return this.context.muiTheme.timePicker;
-    }
-  }, {
     key: 'show',
     value: function show() {
       if (this.props.onShow && !this.state.open) this.props.onShow();
@@ -101,6 +100,7 @@ var TimePickerDialog = function (_Component) {
     key: 'render',
     value: function render() {
       var _props = this.props;
+      var bodyStyle = _props.bodyStyle;
       var initialTime = _props.initialTime;
       var onAccept = _props.onAccept;
       var // eslint-disable-line no-unused-vars
@@ -108,13 +108,14 @@ var TimePickerDialog = function (_Component) {
       var autoOk = _props.autoOk;
       var okLabel = _props.okLabel;
       var cancelLabel = _props.cancelLabel;
+      var style = _props.style;
 
-      var other = _objectWithoutProperties(_props, ['initialTime', 'onAccept', 'format', 'autoOk', 'okLabel', 'cancelLabel']);
+      var other = _objectWithoutProperties(_props, ['bodyStyle', 'initialTime', 'onAccept', 'format', 'autoOk', 'okLabel', 'cancelLabel', 'style']);
 
       var styles = {
         root: {
           fontSize: 14,
-          color: this.getTheme().clockColor
+          color: this.context.muiTheme.timePicker.clockColor
         },
         dialogContent: {
           width: 280
@@ -142,16 +143,15 @@ var TimePickerDialog = function (_Component) {
       return _react2.default.createElement(
         _Dialog2.default,
         _extends({}, other, {
-          ref: 'dialogWindow',
-          style: styles.root,
-          bodyStyle: styles.body,
+          style: (0, _simpleAssign2.default)(styles.root, style),
+          bodyStyle: (0, _simpleAssign2.default)(styles.body, bodyStyle),
           actions: actions,
           contentStyle: styles.dialogContent,
           repositionOnUpdate: false,
           open: open,
           onRequestClose: this.handleRequestClose
         }),
-        open && _react2.default.createElement(_reactEventListener2.default, { elementName: 'window', onKeyUp: this.handleKeyUp }),
+        open && _react2.default.createElement(_reactEventListener2.default, { target: 'window', onKeyUp: this.handleKeyUp }),
         open && _react2.default.createElement(_Clock2.default, {
           ref: 'clock',
           format: format,
@@ -167,13 +167,15 @@ var TimePickerDialog = function (_Component) {
 
 TimePickerDialog.propTypes = {
   autoOk: _react.PropTypes.bool,
+  bodyStyle: _react.PropTypes.object,
   cancelLabel: _react.PropTypes.node,
   format: _react.PropTypes.oneOf(['ampm', '24hr']),
   initialTime: _react.PropTypes.object,
   okLabel: _react.PropTypes.node,
   onAccept: _react.PropTypes.func,
   onDismiss: _react.PropTypes.func,
-  onShow: _react.PropTypes.func
+  onShow: _react.PropTypes.func,
+  style: _react.PropTypes.object
 };
 TimePickerDialog.defaultProps = {
   okLabel: 'OK',

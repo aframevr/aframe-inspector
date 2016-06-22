@@ -27,5 +27,6 @@ var MapsLocalCarWash = function MapsLocalCarWash(props) {
 };
 MapsLocalCarWash = (0, _pure2.default)(MapsLocalCarWash);
 MapsLocalCarWash.displayName = 'MapsLocalCarWash';
+MapsLocalCarWash.muiName = 'SvgIcon';
 
 exports.default = MapsLocalCarWash;

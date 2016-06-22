@@ -27,5 +27,6 @@ var ImageNaturePeople = function ImageNaturePeople(props) {
 };
 ImageNaturePeople = (0, _pure2.default)(ImageNaturePeople);
 ImageNaturePeople.displayName = 'ImageNaturePeople';
+ImageNaturePeople.muiName = 'SvgIcon';
 
 exports.default = ImageNaturePeople;

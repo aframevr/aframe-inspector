@@ -48,7 +48,7 @@ var MuiThemeProvider = function (_Component) {
 
 MuiThemeProvider.propTypes = {
   children: _react.PropTypes.element,
-  muiTheme: _react.PropTypes.object.isRequired
+  muiTheme: _react.PropTypes.object
 };
 MuiThemeProvider.childContextTypes = {
   muiTheme: _react.PropTypes.object.isRequired

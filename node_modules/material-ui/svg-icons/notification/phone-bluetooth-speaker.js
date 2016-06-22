@@ -27,5 +27,6 @@ var NotificationPhoneBluetoothSpeaker = function NotificationPhoneBluetoothSpeak
 };
 NotificationPhoneBluetoothSpeaker = (0, _pure2.default)(NotificationPhoneBluetoothSpeaker);
 NotificationPhoneBluetoothSpeaker.displayName = 'NotificationPhoneBluetoothSpeaker';
+NotificationPhoneBluetoothSpeaker.muiName = 'SvgIcon';
 
 exports.default = NotificationPhoneBluetoothSpeaker;

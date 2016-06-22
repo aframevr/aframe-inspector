@@ -27,5 +27,6 @@ var NavigationApps = function NavigationApps(props) {
 };
 NavigationApps = (0, _pure2.default)(NavigationApps);
 NavigationApps.displayName = 'NavigationApps';
+NavigationApps.muiName = 'SvgIcon';
 
 exports.default = NavigationApps;

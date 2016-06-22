@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 exports.transformFromAst = exports.transform = exports.analyse = exports.Pipeline = exports.OptionManager = exports.traverse = exports.types = exports.messages = exports.util = exports.version = exports.template = exports.buildExternalHelpers = exports.options = exports.File = undefined;
@@ -11,7 +11,7 @@ Object.defineProperty(exports, "File", {
     return _interopRequireDefault(_file).default;
   }
 });
-/*istanbul ignore next*/
+
 var _config = require("../transformation/file/options/config");
 
 Object.defineProperty(exports, "options", {
@@ -20,7 +20,7 @@ Object.defineProperty(exports, "options", {
     return _interopRequireDefault(_config).default;
   }
 });
-/*istanbul ignore next*/
+
 var _buildExternalHelpers = require("../tools/build-external-helpers");
 
 Object.defineProperty(exports, "buildExternalHelpers", {
@@ -29,7 +29,7 @@ Object.defineProperty(exports, "buildExternalHelpers", {
     return _interopRequireDefault(_buildExternalHelpers).default;
   }
 });
-/*istanbul ignore next*/
+
 var _babelTemplate = require("babel-template");
 
 Object.defineProperty(exports, "template", {
@@ -38,7 +38,7 @@ Object.defineProperty(exports, "template", {
     return _interopRequireDefault(_babelTemplate).default;
   }
 });
-/*istanbul ignore next*/
+
 var _package = require("../../package");
 
 Object.defineProperty(exports, "version", {
@@ -47,48 +47,40 @@ Object.defineProperty(exports, "version", {
     return _package.version;
   }
 });
-/*istanbul ignore next*/exports.Plugin = Plugin;
-/*istanbul ignore next*/exports.transformFile = transformFile;
-/*istanbul ignore next*/exports.transformFileSync = transformFileSync;
+exports.Plugin = Plugin;
+exports.transformFile = transformFile;
+exports.transformFileSync = transformFileSync;
 
-var /*istanbul ignore next*/_isFunction = require("lodash/isFunction");
+var _isFunction = require("lodash/isFunction");
 
-/*istanbul ignore next*/
 var _isFunction2 = _interopRequireDefault(_isFunction);
 
-var /*istanbul ignore next*/_fs = require("fs");
+var _fs = require("fs");
 
-/*istanbul ignore next*/
 var _fs2 = _interopRequireDefault(_fs);
 
-var /*istanbul ignore next*/_util = require("../util");
+var _util = require("../util");
 
-/*istanbul ignore next*/
 var util = _interopRequireWildcard(_util);
 
-var /*istanbul ignore next*/_babelMessages = require("babel-messages");
+var _babelMessages = require("babel-messages");
 
-/*istanbul ignore next*/
 var messages = _interopRequireWildcard(_babelMessages);
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-var /*istanbul ignore next*/_babelTraverse = require("babel-traverse");
+var _babelTraverse = require("babel-traverse");
 
-/*istanbul ignore next*/
 var _babelTraverse2 = _interopRequireDefault(_babelTraverse);
 
-var /*istanbul ignore next*/_optionManager = require("../transformation/file/options/option-manager");
+var _optionManager = require("../transformation/file/options/option-manager");
 
-/*istanbul ignore next*/
 var _optionManager2 = _interopRequireDefault(_optionManager);
 
-var /*istanbul ignore next*/_pipeline = require("../transformation/pipeline");
+var _pipeline = require("../transformation/pipeline");
 
-/*istanbul ignore next*/
 var _pipeline2 = _interopRequireDefault(_pipeline);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -98,36 +90,36 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 
 exports.util = util;
-/*istanbul ignore next*/exports.messages = messages;
-/*istanbul ignore next*/exports.types = t;
-/*istanbul ignore next*/exports.traverse = _babelTraverse2.default;
-/*istanbul ignore next*/exports.OptionManager = _optionManager2.default;
+exports.messages = messages;
+exports.types = t;
+exports.traverse = _babelTraverse2.default;
+exports.OptionManager = _optionManager2.default;
 function Plugin(alias) {
-  throw new Error( /*istanbul ignore next*/"The (" + alias + ") Babel 5 plugin is being run with Babel 6.");
+  throw new Error("The (" + alias + ") Babel 5 plugin is being run with Babel 6.");
 }
 
 //
 
-/*istanbul ignore next*/exports.Pipeline = _pipeline2.default;
+exports.Pipeline = _pipeline2.default;
 
 
-var pipeline = new /*istanbul ignore next*/_pipeline2.default();
-var analyse = /*istanbul ignore next*/exports.analyse = pipeline.analyse.bind(pipeline);
-var transform = /*istanbul ignore next*/exports.transform = pipeline.transform.bind(pipeline);
-var transformFromAst = /*istanbul ignore next*/exports.transformFromAst = pipeline.transformFromAst.bind(pipeline);
+var pipeline = new _pipeline2.default();
+var analyse = exports.analyse = pipeline.analyse.bind(pipeline);
+var transform = exports.transform = pipeline.transform.bind(pipeline);
+var transformFromAst = exports.transformFromAst = pipeline.transformFromAst.bind(pipeline);
 
 //
 
 function transformFile(filename, opts, callback) {
-  if ( /*istanbul ignore next*/(0, _isFunction2.default)(opts)) {
+  if ((0, _isFunction2.default)(opts)) {
     callback = opts;
     opts = {};
   }
 
   opts.filename = filename;
 
-  /*istanbul ignore next*/_fs2.default.readFile(filename, function (err, code) {
-    var result = /*istanbul ignore next*/void 0;
+  _fs2.default.readFile(filename, function (err, code) {
+    var result = void 0;
 
     if (!err) {
       try {
@@ -146,8 +138,8 @@ function transformFile(filename, opts, callback) {
 }
 
 function transformFileSync(filename) {
-  /*istanbul ignore next*/var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+  var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
   opts.filename = filename;
-  return transform( /*istanbul ignore next*/_fs2.default.readFileSync(filename, "utf8"), opts);
+  return transform(_fs2.default.readFileSync(filename, "utf8"), opts);
 }

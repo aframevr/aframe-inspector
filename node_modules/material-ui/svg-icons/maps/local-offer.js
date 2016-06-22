@@ -27,5 +27,6 @@ var MapsLocalOffer = function MapsLocalOffer(props) {
 };
 MapsLocalOffer = (0, _pure2.default)(MapsLocalOffer);
 MapsLocalOffer.displayName = 'MapsLocalOffer';
+MapsLocalOffer.muiName = 'SvgIcon';
 
 exports.default = MapsLocalOffer;

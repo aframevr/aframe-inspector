@@ -27,5 +27,6 @@ var AvVideoLabel = function AvVideoLabel(props) {
 };
 AvVideoLabel = (0, _pure2.default)(AvVideoLabel);
 AvVideoLabel.displayName = 'AvVideoLabel';
+AvVideoLabel.muiName = 'SvgIcon';
 
 exports.default = AvVideoLabel;

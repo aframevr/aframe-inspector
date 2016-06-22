@@ -27,5 +27,6 @@ var HardwareKeyboardVoice = function HardwareKeyboardVoice(props) {
 };
 HardwareKeyboardVoice = (0, _pure2.default)(HardwareKeyboardVoice);
 HardwareKeyboardVoice.displayName = 'HardwareKeyboardVoice';
+HardwareKeyboardVoice.muiName = 'SvgIcon';
 
 exports.default = HardwareKeyboardVoice;

@@ -27,5 +27,6 @@ var FileFolderShared = function FileFolderShared(props) {
 };
 FileFolderShared = (0, _pure2.default)(FileFolderShared);
 FileFolderShared.displayName = 'FileFolderShared';
+FileFolderShared.muiName = 'SvgIcon';
 
 exports.default = FileFolderShared;

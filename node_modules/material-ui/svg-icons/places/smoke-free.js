@@ -27,5 +27,6 @@ var PlacesSmokeFree = function PlacesSmokeFree(props) {
 };
 PlacesSmokeFree = (0, _pure2.default)(PlacesSmokeFree);
 PlacesSmokeFree.displayName = 'PlacesSmokeFree';
+PlacesSmokeFree.muiName = 'SvgIcon';
 
 exports.default = PlacesSmokeFree;

@@ -27,5 +27,6 @@ var NotificationAirlineSeatFlat = function NotificationAirlineSeatFlat(props) {
 };
 NotificationAirlineSeatFlat = (0, _pure2.default)(NotificationAirlineSeatFlat);
 NotificationAirlineSeatFlat.displayName = 'NotificationAirlineSeatFlat';
+NotificationAirlineSeatFlat.muiName = 'SvgIcon';
 
 exports.default = NotificationAirlineSeatFlat;

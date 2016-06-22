@@ -27,5 +27,6 @@ var ImageControlPoint = function ImageControlPoint(props) {
 };
 ImageControlPoint = (0, _pure2.default)(ImageControlPoint);
 ImageControlPoint.displayName = 'ImageControlPoint';
+ImageControlPoint.muiName = 'SvgIcon';
 
 exports.default = ImageControlPoint;

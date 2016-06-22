@@ -27,5 +27,6 @@ var ActionClass = function ActionClass(props) {
 };
 ActionClass = (0, _pure2.default)(ActionClass);
 ActionClass.displayName = 'ActionClass';
+ActionClass.muiName = 'SvgIcon';
 
 exports.default = ActionClass;

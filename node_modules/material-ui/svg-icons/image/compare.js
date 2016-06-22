@@ -27,5 +27,6 @@ var ImageCompare = function ImageCompare(props) {
 };
 ImageCompare = (0, _pure2.default)(ImageCompare);
 ImageCompare.displayName = 'ImageCompare';
+ImageCompare.muiName = 'SvgIcon';
 
 exports.default = ImageCompare;

@@ -27,5 +27,6 @@ var AvFiberManualRecord = function AvFiberManualRecord(props) {
 };
 AvFiberManualRecord = (0, _pure2.default)(AvFiberManualRecord);
 AvFiberManualRecord.displayName = 'AvFiberManualRecord';
+AvFiberManualRecord.muiName = 'SvgIcon';
 
 exports.default = AvFiberManualRecord;

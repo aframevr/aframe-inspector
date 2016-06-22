@@ -27,5 +27,6 @@ var NotificationEventAvailable = function NotificationEventAvailable(props) {
 };
 NotificationEventAvailable = (0, _pure2.default)(NotificationEventAvailable);
 NotificationEventAvailable.displayName = 'NotificationEventAvailable';
+NotificationEventAvailable.muiName = 'SvgIcon';
 
 exports.default = NotificationEventAvailable;

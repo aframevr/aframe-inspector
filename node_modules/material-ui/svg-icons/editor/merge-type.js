@@ -27,5 +27,6 @@ var EditorMergeType = function EditorMergeType(props) {
 };
 EditorMergeType = (0, _pure2.default)(EditorMergeType);
 EditorMergeType.displayName = 'EditorMergeType';
+EditorMergeType.muiName = 'SvgIcon';
 
 exports.default = EditorMergeType;

@@ -27,5 +27,6 @@ var ActionDateRange = function ActionDateRange(props) {
 };
 ActionDateRange = (0, _pure2.default)(ActionDateRange);
 ActionDateRange.displayName = 'ActionDateRange';
+ActionDateRange.muiName = 'SvgIcon';
 
 exports.default = ActionDateRange;

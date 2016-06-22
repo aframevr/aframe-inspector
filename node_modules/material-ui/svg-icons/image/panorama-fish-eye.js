@@ -27,5 +27,6 @@ var ImagePanoramaFishEye = function ImagePanoramaFishEye(props) {
 };
 ImagePanoramaFishEye = (0, _pure2.default)(ImagePanoramaFishEye);
 ImagePanoramaFishEye.displayName = 'ImagePanoramaFishEye';
+ImagePanoramaFishEye.muiName = 'SvgIcon';
 
 exports.default = ImagePanoramaFishEye;

@@ -27,5 +27,6 @@ var NavigationArrowDropDownCircle = function NavigationArrowDropDownCircle(props
 };
 NavigationArrowDropDownCircle = (0, _pure2.default)(NavigationArrowDropDownCircle);
 NavigationArrowDropDownCircle.displayName = 'NavigationArrowDropDownCircle';
+NavigationArrowDropDownCircle.muiName = 'SvgIcon';
 
 exports.default = NavigationArrowDropDownCircle;

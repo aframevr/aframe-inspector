@@ -27,5 +27,6 @@ var ImagePhotoLibrary = function ImagePhotoLibrary(props) {
 };
 ImagePhotoLibrary = (0, _pure2.default)(ImagePhotoLibrary);
 ImagePhotoLibrary.displayName = 'ImagePhotoLibrary';
+ImagePhotoLibrary.muiName = 'SvgIcon';
 
 exports.default = ImagePhotoLibrary;

@@ -27,5 +27,6 @@ var CommunicationScreenShare = function CommunicationScreenShare(props) {
 };
 CommunicationScreenShare = (0, _pure2.default)(CommunicationScreenShare);
 CommunicationScreenShare.displayName = 'CommunicationScreenShare';
+CommunicationScreenShare.muiName = 'SvgIcon';
 
 exports.default = CommunicationScreenShare;

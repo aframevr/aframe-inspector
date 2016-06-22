@@ -27,5 +27,6 @@ var ActionTrendingDown = function ActionTrendingDown(props) {
 };
 ActionTrendingDown = (0, _pure2.default)(ActionTrendingDown);
 ActionTrendingDown.displayName = 'ActionTrendingDown';
+ActionTrendingDown.muiName = 'SvgIcon';
 
 exports.default = ActionTrendingDown;

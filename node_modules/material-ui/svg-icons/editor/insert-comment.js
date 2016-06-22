@@ -27,5 +27,6 @@ var EditorInsertComment = function EditorInsertComment(props) {
 };
 EditorInsertComment = (0, _pure2.default)(EditorInsertComment);
 EditorInsertComment.displayName = 'EditorInsertComment';
+EditorInsertComment.muiName = 'SvgIcon';
 
 exports.default = EditorInsertComment;

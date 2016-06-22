@@ -27,5 +27,6 @@ var ImageCropSquare = function ImageCropSquare(props) {
 };
 ImageCropSquare = (0, _pure2.default)(ImageCropSquare);
 ImageCropSquare.displayName = 'ImageCropSquare';
+ImageCropSquare.muiName = 'SvgIcon';
 
 exports.default = ImageCropSquare;

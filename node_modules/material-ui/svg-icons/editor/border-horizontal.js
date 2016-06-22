@@ -27,5 +27,6 @@ var EditorBorderHorizontal = function EditorBorderHorizontal(props) {
 };
 EditorBorderHorizontal = (0, _pure2.default)(EditorBorderHorizontal);
 EditorBorderHorizontal.displayName = 'EditorBorderHorizontal';
+EditorBorderHorizontal.muiName = 'SvgIcon';
 
 exports.default = EditorBorderHorizontal;

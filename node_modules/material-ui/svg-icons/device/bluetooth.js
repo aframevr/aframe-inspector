@@ -27,5 +27,6 @@ var DeviceBluetooth = function DeviceBluetooth(props) {
 };
 DeviceBluetooth = (0, _pure2.default)(DeviceBluetooth);
 DeviceBluetooth.displayName = 'DeviceBluetooth';
+DeviceBluetooth.muiName = 'SvgIcon';
 
 exports.default = DeviceBluetooth;

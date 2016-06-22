@@ -27,5 +27,6 @@ var SocialSchool = function SocialSchool(props) {
 };
 SocialSchool = (0, _pure2.default)(SocialSchool);
 SocialSchool.displayName = 'SocialSchool';
+SocialSchool.muiName = 'SvgIcon';
 
 exports.default = SocialSchool;

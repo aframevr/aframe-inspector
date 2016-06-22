@@ -27,5 +27,6 @@ var ContentContentCopy = function ContentContentCopy(props) {
 };
 ContentContentCopy = (0, _pure2.default)(ContentContentCopy);
 ContentContentCopy.displayName = 'ContentContentCopy';
+ContentContentCopy.muiName = 'SvgIcon';
 
 exports.default = ContentContentCopy;

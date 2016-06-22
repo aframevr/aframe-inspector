@@ -27,5 +27,6 @@ var ContentMoveToInbox = function ContentMoveToInbox(props) {
 };
 ContentMoveToInbox = (0, _pure2.default)(ContentMoveToInbox);
 ContentMoveToInbox.displayName = 'ContentMoveToInbox';
+ContentMoveToInbox.muiName = 'SvgIcon';
 
 exports.default = ContentMoveToInbox;

@@ -27,5 +27,6 @@ var FileCreateNewFolder = function FileCreateNewFolder(props) {
 };
 FileCreateNewFolder = (0, _pure2.default)(FileCreateNewFolder);
 FileCreateNewFolder.displayName = 'FileCreateNewFolder';
+FileCreateNewFolder.muiName = 'SvgIcon';
 
 exports.default = FileCreateNewFolder;

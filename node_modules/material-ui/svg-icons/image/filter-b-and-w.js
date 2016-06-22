@@ -27,5 +27,6 @@ var ImageFilterBAndW = function ImageFilterBAndW(props) {
 };
 ImageFilterBAndW = (0, _pure2.default)(ImageFilterBAndW);
 ImageFilterBAndW.displayName = 'ImageFilterBAndW';
+ImageFilterBAndW.muiName = 'SvgIcon';
 
 exports.default = ImageFilterBAndW;

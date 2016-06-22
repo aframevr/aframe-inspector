@@ -27,5 +27,6 @@ var AvPauseCircleOutline = function AvPauseCircleOutline(props) {
 };
 AvPauseCircleOutline = (0, _pure2.default)(AvPauseCircleOutline);
 AvPauseCircleOutline.displayName = 'AvPauseCircleOutline';
+AvPauseCircleOutline.muiName = 'SvgIcon';
 
 exports.default = AvPauseCircleOutline;

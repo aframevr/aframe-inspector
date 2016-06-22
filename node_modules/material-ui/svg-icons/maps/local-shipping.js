@@ -27,5 +27,6 @@ var MapsLocalShipping = function MapsLocalShipping(props) {
 };
 MapsLocalShipping = (0, _pure2.default)(MapsLocalShipping);
 MapsLocalShipping.displayName = 'MapsLocalShipping';
+MapsLocalShipping.muiName = 'SvgIcon';
 
 exports.default = MapsLocalShipping;

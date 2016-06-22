@@ -27,5 +27,6 @@ var FileCloudQueue = function FileCloudQueue(props) {
 };
 FileCloudQueue = (0, _pure2.default)(FileCloudQueue);
 FileCloudQueue.displayName = 'FileCloudQueue';
+FileCloudQueue.muiName = 'SvgIcon';
 
 exports.default = FileCloudQueue;

@@ -27,5 +27,6 @@ var AvRemoveFromQueue = function AvRemoveFromQueue(props) {
 };
 AvRemoveFromQueue = (0, _pure2.default)(AvRemoveFromQueue);
 AvRemoveFromQueue.displayName = 'AvRemoveFromQueue';
+AvRemoveFromQueue.muiName = 'SvgIcon';
 
 exports.default = AvRemoveFromQueue;

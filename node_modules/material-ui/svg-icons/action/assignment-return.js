@@ -27,5 +27,6 @@ var ActionAssignmentReturn = function ActionAssignmentReturn(props) {
 };
 ActionAssignmentReturn = (0, _pure2.default)(ActionAssignmentReturn);
 ActionAssignmentReturn.displayName = 'ActionAssignmentReturn';
+ActionAssignmentReturn.muiName = 'SvgIcon';
 
 exports.default = ActionAssignmentReturn;

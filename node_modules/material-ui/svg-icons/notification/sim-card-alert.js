@@ -27,5 +27,6 @@ var NotificationSimCardAlert = function NotificationSimCardAlert(props) {
 };
 NotificationSimCardAlert = (0, _pure2.default)(NotificationSimCardAlert);
 NotificationSimCardAlert.displayName = 'NotificationSimCardAlert';
+NotificationSimCardAlert.muiName = 'SvgIcon';
 
 exports.default = NotificationSimCardAlert;

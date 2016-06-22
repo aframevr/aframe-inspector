@@ -27,5 +27,6 @@ var EditorFormatItalic = function EditorFormatItalic(props) {
 };
 EditorFormatItalic = (0, _pure2.default)(EditorFormatItalic);
 EditorFormatItalic.displayName = 'EditorFormatItalic';
+EditorFormatItalic.muiName = 'SvgIcon';
 
 exports.default = EditorFormatItalic;

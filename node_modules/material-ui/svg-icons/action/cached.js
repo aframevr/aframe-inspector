@@ -27,5 +27,6 @@ var ActionCached = function ActionCached(props) {
 };
 ActionCached = (0, _pure2.default)(ActionCached);
 ActionCached.displayName = 'ActionCached';
+ActionCached.muiName = 'SvgIcon';
 
 exports.default = ActionCached;

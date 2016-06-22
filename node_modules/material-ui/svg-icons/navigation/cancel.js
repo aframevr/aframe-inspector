@@ -27,5 +27,6 @@ var NavigationCancel = function NavigationCancel(props) {
 };
 NavigationCancel = (0, _pure2.default)(NavigationCancel);
 NavigationCancel.displayName = 'NavigationCancel';
+NavigationCancel.muiName = 'SvgIcon';
 
 exports.default = NavigationCancel;

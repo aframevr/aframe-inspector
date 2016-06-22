@@ -127,7 +127,6 @@ Stepper.propTypes = {
 };
 Stepper.defaultProps = {
   orientation: 'horizontal',
-  activeStep: 0,
   linear: true
 };
 Stepper.contextTypes = { muiTheme: _react.PropTypes.object.isRequired };

@@ -27,5 +27,6 @@ var MapsLocalActivity = function MapsLocalActivity(props) {
 };
 MapsLocalActivity = (0, _pure2.default)(MapsLocalActivity);
 MapsLocalActivity.displayName = 'MapsLocalActivity';
+MapsLocalActivity.muiName = 'SvgIcon';
 
 exports.default = MapsLocalActivity;

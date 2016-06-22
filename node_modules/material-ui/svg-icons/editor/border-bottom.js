@@ -27,5 +27,6 @@ var EditorBorderBottom = function EditorBorderBottom(props) {
 };
 EditorBorderBottom = (0, _pure2.default)(EditorBorderBottom);
 EditorBorderBottom.displayName = 'EditorBorderBottom';
+EditorBorderBottom.muiName = 'SvgIcon';
 
 exports.default = EditorBorderBottom;

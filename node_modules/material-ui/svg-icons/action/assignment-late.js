@@ -27,5 +27,6 @@ var ActionAssignmentLate = function ActionAssignmentLate(props) {
 };
 ActionAssignmentLate = (0, _pure2.default)(ActionAssignmentLate);
 ActionAssignmentLate.displayName = 'ActionAssignmentLate';
+ActionAssignmentLate.muiName = 'SvgIcon';
 
 exports.default = ActionAssignmentLate;

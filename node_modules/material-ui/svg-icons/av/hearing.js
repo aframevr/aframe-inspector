@@ -27,5 +27,6 @@ var AvHearing = function AvHearing(props) {
 };
 AvHearing = (0, _pure2.default)(AvHearing);
 AvHearing.displayName = 'AvHearing';
+AvHearing.muiName = 'SvgIcon';
 
 exports.default = AvHearing;

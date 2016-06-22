@@ -1,20 +1,18 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
-var /*istanbul ignore next*/_plugin = require("../plugin");
+var _plugin = require("../plugin");
 
-/*istanbul ignore next*/
 var _plugin2 = _interopRequireDefault(_plugin);
 
-var /*istanbul ignore next*/_sortBy = require("lodash/sortBy");
+var _sortBy = require("lodash/sortBy");
 
-/*istanbul ignore next*/
 var _sortBy2 = _interopRequireDefault(_sortBy);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = new /*istanbul ignore next*/_plugin2.default({
+exports.default = new _plugin2.default({
   /**
    * [Please add a description.]
    *
@@ -27,9 +25,9 @@ exports.default = new /*istanbul ignore next*/_plugin2.default({
    */
 
   visitor: {
-    Block: { /*istanbul ignore next*/
+    Block: {
       exit: function exit(_ref) {
-        /*istanbul ignore next*/var node = _ref.node;
+        var node = _ref.node;
 
         var hasChange = false;
         for (var i = 0; i < node.body.length; i++) {
@@ -41,7 +39,7 @@ exports.default = new /*istanbul ignore next*/_plugin2.default({
         }
         if (!hasChange) return;
 
-        node.body = /*istanbul ignore next*/(0, _sortBy2.default)(node.body, function (bodyNode) {
+        node.body = (0, _sortBy2.default)(node.body, function (bodyNode) {
           var priority = bodyNode && bodyNode._blockHoist;
           if (priority == null) priority = 1;
           if (priority === true) priority = 2;
@@ -53,4 +51,4 @@ exports.default = new /*istanbul ignore next*/_plugin2.default({
     }
   }
 });
-/*istanbul ignore next*/module.exports = exports["default"];
+module.exports = exports["default"];

@@ -27,5 +27,6 @@ var ActionSettingsBluetooth = function ActionSettingsBluetooth(props) {
 };
 ActionSettingsBluetooth = (0, _pure2.default)(ActionSettingsBluetooth);
 ActionSettingsBluetooth.displayName = 'ActionSettingsBluetooth';
+ActionSettingsBluetooth.muiName = 'SvgIcon';
 
 exports.default = ActionSettingsBluetooth;

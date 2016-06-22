@@ -10,8 +10,6 @@ var _react = require('react');
 
 var _reactDom = require('react-dom');
 
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _dom = require('../utils/dom');
 
 var _dom2 = _interopRequireDefault(_dom);
@@ -96,7 +94,7 @@ var RenderToLayer = function (_Component) {
         window.removeEventListener('click', this.onClickAway);
       }
 
-      _reactDom2.default.unmountComponentAtNode(this.layer);
+      (0, _reactDom.unmountComponentAtNode)(this.layer);
       document.body.removeChild(this.layer);
       this.layer = null;
     }
@@ -132,18 +130,15 @@ var RenderToLayer = function (_Component) {
           }
         }
 
-        // By calling this method in componentDidMount() and
-        // componentDidUpdate(), you're effectively creating a "wormhole" that
-        // funnels React's hierarchical updates through to a DOM node on an
-        // entirely different part of the page.
+        /**
+         * By calling this method in componentDidMount() and
+         * componentDidUpdate(), you're effectively creating a "wormhole" that
+         * funnels React's hierarchical updates through to a DOM node on an
+         * entirely different part of the page.
+         */
 
         var layerElement = render();
-
-        if (layerElement === null) {
-          this.layerElement = _reactDom2.default.unstable_renderSubtreeIntoContainer(this, null, this.layer);
-        } else {
-          this.layerElement = _reactDom2.default.unstable_renderSubtreeIntoContainer(this, layerElement, this.layer);
-        }
+        this.layerElement = (0, _reactDom.unstable_renderSubtreeIntoContainer)(this, layerElement, this.layer);
       } else {
         this.unrenderLayer();
       }

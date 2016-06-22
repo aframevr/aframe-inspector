@@ -27,5 +27,6 @@ var ImageImageAspectRatio = function ImageImageAspectRatio(props) {
 };
 ImageImageAspectRatio = (0, _pure2.default)(ImageImageAspectRatio);
 ImageImageAspectRatio.displayName = 'ImageImageAspectRatio';
+ImageImageAspectRatio.muiName = 'SvgIcon';
 
 exports.default = ImageImageAspectRatio;

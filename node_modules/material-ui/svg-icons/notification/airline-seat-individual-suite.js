@@ -27,5 +27,6 @@ var NotificationAirlineSeatIndividualSuite = function NotificationAirlineSeatInd
 };
 NotificationAirlineSeatIndividualSuite = (0, _pure2.default)(NotificationAirlineSeatIndividualSuite);
 NotificationAirlineSeatIndividualSuite.displayName = 'NotificationAirlineSeatIndividualSuite';
+NotificationAirlineSeatIndividualSuite.muiName = 'SvgIcon';
 
 exports.default = NotificationAirlineSeatIndividualSuite;

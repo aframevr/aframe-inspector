@@ -27,5 +27,6 @@ var NavigationMoreVert = function NavigationMoreVert(props) {
 };
 NavigationMoreVert = (0, _pure2.default)(NavigationMoreVert);
 NavigationMoreVert.displayName = 'NavigationMoreVert';
+NavigationMoreVert.muiName = 'SvgIcon';
 
 exports.default = NavigationMoreVert;

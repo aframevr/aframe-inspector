@@ -27,5 +27,6 @@ var ContentAddCircleOutline = function ContentAddCircleOutline(props) {
 };
 ContentAddCircleOutline = (0, _pure2.default)(ContentAddCircleOutline);
 ContentAddCircleOutline.displayName = 'ContentAddCircleOutline';
+ContentAddCircleOutline.muiName = 'SvgIcon';
 
 exports.default = ContentAddCircleOutline;

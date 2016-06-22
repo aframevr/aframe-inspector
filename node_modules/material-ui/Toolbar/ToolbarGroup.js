@@ -68,12 +68,8 @@ function getStyles(props, context) {
     icon: {
       root: {
         cursor: 'pointer',
-        color: toolbar.iconColor,
         lineHeight: toolbar.height + 'px',
         paddingLeft: baseTheme.spacing.desktopGutter
-      },
-      hover: {
-        color: toolbar.hoverColor
       }
     },
     span: {
@@ -95,14 +91,6 @@ var ToolbarGroup = function (_Component) {
   }
 
   _createClass(ToolbarGroup, [{
-    key: 'handleMouseEnterFontIcon',
-    value: function handleMouseEnterFontIcon(style) {
-      return function (event) {
-        event.target.style.zIndex = style.hover.zIndex;
-        event.target.style.color = style.hover.color;
-      };
-    }
-  }, {
     key: 'handleMouseLeaveFontIcon',
     value: function handleMouseLeaveFontIcon(style) {
       return function (event) {
@@ -148,8 +136,8 @@ var ToolbarGroup = function (_Component) {
           case 'FontIcon':
             return _react2.default.cloneElement(currentChild, {
               style: (0, _simpleAssign2.default)({}, styles.icon.root, currentChild.props.style),
-              onMouseEnter: _this2.handleMouseEnterFontIcon(styles.icon),
-              onMouseLeave: _this2.handleMouseLeaveFontIcon(styles.icon)
+              color: currentChild.props.color || _this2.context.muiTheme.toolbar.iconColor,
+              hoverColor: currentChild.props.hoverColor || _this2.context.muiTheme.toolbar.hoverColor
             });
           case 'ToolbarSeparator':
           case 'ToolbarTitle':

@@ -27,5 +27,6 @@ var ActionShop = function ActionShop(props) {
 };
 ActionShop = (0, _pure2.default)(ActionShop);
 ActionShop.displayName = 'ActionShop';
+ActionShop.muiName = 'SvgIcon';
 
 exports.default = ActionShop;

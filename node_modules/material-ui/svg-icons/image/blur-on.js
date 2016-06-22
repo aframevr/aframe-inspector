@@ -27,5 +27,6 @@ var ImageBlurOn = function ImageBlurOn(props) {
 };
 ImageBlurOn = (0, _pure2.default)(ImageBlurOn);
 ImageBlurOn.displayName = 'ImageBlurOn';
+ImageBlurOn.muiName = 'SvgIcon';
 
 exports.default = ImageBlurOn;

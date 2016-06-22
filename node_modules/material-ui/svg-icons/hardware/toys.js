@@ -27,5 +27,6 @@ var HardwareToys = function HardwareToys(props) {
 };
 HardwareToys = (0, _pure2.default)(HardwareToys);
 HardwareToys.displayName = 'HardwareToys';
+HardwareToys.muiName = 'SvgIcon';
 
 exports.default = HardwareToys;

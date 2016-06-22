@@ -27,5 +27,6 @@ var ImageBrightness1 = function ImageBrightness1(props) {
 };
 ImageBrightness1 = (0, _pure2.default)(ImageBrightness1);
 ImageBrightness1.displayName = 'ImageBrightness1';
+ImageBrightness1.muiName = 'SvgIcon';
 
 exports.default = ImageBrightness1;

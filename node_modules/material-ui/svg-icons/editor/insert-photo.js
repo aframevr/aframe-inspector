@@ -27,5 +27,6 @@ var EditorInsertPhoto = function EditorInsertPhoto(props) {
 };
 EditorInsertPhoto = (0, _pure2.default)(EditorInsertPhoto);
 EditorInsertPhoto.displayName = 'EditorInsertPhoto';
+EditorInsertPhoto.muiName = 'SvgIcon';
 
 exports.default = EditorInsertPhoto;

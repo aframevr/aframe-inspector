@@ -30,7 +30,6 @@ function getStyles(props, context) {
   var backgroundColor = props.backgroundColor;
   var color = props.color;
   var size = props.size;
-  var src = props.src;
   var avatar = context.muiTheme.avatar;
 
 
@@ -39,9 +38,9 @@ function getStyles(props, context) {
       color: color || avatar.color,
       backgroundColor: backgroundColor || avatar.backgroundColor,
       userSelect: 'none',
-      display: 'inline-block',
-      textAlign: 'center',
-      lineHeight: size + 'px',
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
       fontSize: size / 2,
       borderRadius: '50%',
       height: size,
@@ -55,17 +54,6 @@ function getStyles(props, context) {
       margin: size * 0.2
     }
   };
-
-  if (src && avatar.borderColor) {
-    (0, _simpleAssign2.default)(styles.root, {
-      background: 'url(' + src + ')',
-      backgroundSize: size,
-      backgroundOrigin: 'border-box',
-      border: 'solid 1px ' + avatar.borderColor,
-      height: size - 2,
-      width: size - 2
-    });
-  }
 
   return styles;
 }
@@ -95,8 +83,10 @@ var Avatar = function (_Component) {
       var styles = getStyles(this.props, this.context);
 
       if (src) {
-        return _react2.default.createElement('div', _extends({}, other, {
-          style: prepareStyles((0, _simpleAssign2.default)(styles.root, style)),
+        return _react2.default.createElement('img', _extends({
+          style: prepareStyles((0, _simpleAssign2.default)(styles.root, style))
+        }, other, {
+          src: src,
           className: className
         }));
       } else {
@@ -119,6 +109,7 @@ var Avatar = function (_Component) {
   return Avatar;
 }(_react.Component);
 
+Avatar.muiName = 'Avatar';
 Avatar.propTypes = {
   /**
    * The backgroundColor of the avatar. Does not apply to image avatars.

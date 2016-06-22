@@ -27,5 +27,6 @@ var HardwareCastConnected = function HardwareCastConnected(props) {
 };
 HardwareCastConnected = (0, _pure2.default)(HardwareCastConnected);
 HardwareCastConnected.displayName = 'HardwareCastConnected';
+HardwareCastConnected.muiName = 'SvgIcon';
 
 exports.default = HardwareCastConnected;

@@ -27,5 +27,6 @@ var NotificationPhoneLocked = function NotificationPhoneLocked(props) {
 };
 NotificationPhoneLocked = (0, _pure2.default)(NotificationPhoneLocked);
 NotificationPhoneLocked.displayName = 'NotificationPhoneLocked';
+NotificationPhoneLocked.muiName = 'SvgIcon';
 
 exports.default = NotificationPhoneLocked;

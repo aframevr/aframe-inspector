@@ -27,5 +27,6 @@ var ImageFlare = function ImageFlare(props) {
 };
 ImageFlare = (0, _pure2.default)(ImageFlare);
 ImageFlare.displayName = 'ImageFlare';
+ImageFlare.muiName = 'SvgIcon';
 
 exports.default = ImageFlare;

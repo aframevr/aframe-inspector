@@ -27,5 +27,6 @@ var ActionOpenInNew = function ActionOpenInNew(props) {
 };
 ActionOpenInNew = (0, _pure2.default)(ActionOpenInNew);
 ActionOpenInNew.displayName = 'ActionOpenInNew';
+ActionOpenInNew.muiName = 'SvgIcon';
 
 exports.default = ActionOpenInNew;

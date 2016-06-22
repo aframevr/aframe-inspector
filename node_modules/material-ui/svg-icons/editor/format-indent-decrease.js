@@ -27,5 +27,6 @@ var EditorFormatIndentDecrease = function EditorFormatIndentDecrease(props) {
 };
 EditorFormatIndentDecrease = (0, _pure2.default)(EditorFormatIndentDecrease);
 EditorFormatIndentDecrease.displayName = 'EditorFormatIndentDecrease';
+EditorFormatIndentDecrease.muiName = 'SvgIcon';
 
 exports.default = EditorFormatIndentDecrease;

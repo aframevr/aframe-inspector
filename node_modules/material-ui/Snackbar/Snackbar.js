@@ -112,7 +112,7 @@ var Snackbar = function (_Component) {
     value: function componentWillReceiveProps(nextProps) {
       var _this2 = this;
 
-      if (this.state.open && nextProps.open === this.props.open && (nextProps.message !== this.props.message || nextProps.action !== this.props.action)) {
+      if (this.props.open && nextProps.open && (nextProps.message !== this.props.message || nextProps.action !== this.props.action)) {
         this.setState({
           open: false
         });

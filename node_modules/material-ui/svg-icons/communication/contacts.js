@@ -27,5 +27,6 @@ var CommunicationContacts = function CommunicationContacts(props) {
 };
 CommunicationContacts = (0, _pure2.default)(CommunicationContacts);
 CommunicationContacts.displayName = 'CommunicationContacts';
+CommunicationContacts.muiName = 'SvgIcon';
 
 exports.default = CommunicationContacts;

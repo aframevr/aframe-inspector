@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -11,27 +11,23 @@ var _keys = require("babel-runtime/core-js/object/keys");
 var _keys2 = _interopRequireDefault(_keys);
 
 exports.isUserWhitespacable = isUserWhitespacable;
-/*istanbul ignore next*/exports.needsWhitespace = needsWhitespace;
-/*istanbul ignore next*/exports.needsWhitespaceBefore = needsWhitespaceBefore;
-/*istanbul ignore next*/exports.needsWhitespaceAfter = needsWhitespaceAfter;
-/*istanbul ignore next*/exports.needsParens = needsParens;
+exports.needsWhitespace = needsWhitespace;
+exports.needsWhitespaceBefore = needsWhitespaceBefore;
+exports.needsWhitespaceAfter = needsWhitespaceAfter;
+exports.needsParens = needsParens;
 
-var /*istanbul ignore next*/_whitespace = require("./whitespace");
+var _whitespace = require("./whitespace");
 
-/*istanbul ignore next*/
 var _whitespace2 = _interopRequireDefault(_whitespace);
 
-var /*istanbul ignore next*/_parentheses = require("./parentheses");
+var _parentheses = require("./parentheses");
 
-/*istanbul ignore next*/
 var parens = _interopRequireWildcard(_parentheses);
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-/*istanbul ignore next*/
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -48,8 +44,7 @@ function expandAliases(obj) {
     } : func;
   }
 
-  for ( /*istanbul ignore next*/var _iterator = /*istanbul ignore next*/(0, _keys2.default)(obj), _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
-    /*istanbul ignore next*/
+  for (var _iterator = (0, _keys2.default)(obj), _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
     var _ref;
 
     if (_isArray) {
@@ -66,8 +61,7 @@ function expandAliases(obj) {
 
     var aliases = t.FLIPPED_ALIAS_KEYS[type];
     if (aliases) {
-      for ( /*istanbul ignore next*/var _iterator2 = aliases, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
-        /*istanbul ignore next*/
+      for (var _iterator2 = aliases, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
         var _ref2;
 
         if (_isArray2) {
@@ -94,8 +88,8 @@ function expandAliases(obj) {
 // Rather than using `t.is` on each object property, we pre-expand any type aliases
 // into concrete types so that the 'find' call below can be as fast as possible.
 var expandedParens = expandAliases(parens);
-var expandedWhitespaceNodes = expandAliases( /*istanbul ignore next*/_whitespace2.default.nodes);
-var expandedWhitespaceList = expandAliases( /*istanbul ignore next*/_whitespace2.default.list);
+var expandedWhitespaceNodes = expandAliases(_whitespace2.default.nodes);
+var expandedWhitespaceList = expandAliases(_whitespace2.default.list);
 
 function find(obj, node, parent, printStack) {
   var fn = obj[node.type];

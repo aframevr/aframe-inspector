@@ -27,5 +27,6 @@ var ActionVisibility = function ActionVisibility(props) {
 };
 ActionVisibility = (0, _pure2.default)(ActionVisibility);
 ActionVisibility.displayName = 'ActionVisibility';
+ActionVisibility.muiName = 'SvgIcon';
 
 exports.default = ActionVisibility;

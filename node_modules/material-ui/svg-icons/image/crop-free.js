@@ -27,5 +27,6 @@ var ImageCropFree = function ImageCropFree(props) {
 };
 ImageCropFree = (0, _pure2.default)(ImageCropFree);
 ImageCropFree.displayName = 'ImageCropFree';
+ImageCropFree.muiName = 'SvgIcon';
 
 exports.default = ImageCropFree;

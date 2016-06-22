@@ -27,5 +27,6 @@ var AvMusicVideo = function AvMusicVideo(props) {
 };
 AvMusicVideo = (0, _pure2.default)(AvMusicVideo);
 AvMusicVideo.displayName = 'AvMusicVideo';
+AvMusicVideo.muiName = 'SvgIcon';
 
 exports.default = AvMusicVideo;

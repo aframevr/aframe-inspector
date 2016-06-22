@@ -27,5 +27,6 @@ var EditorTextFields = function EditorTextFields(props) {
 };
 EditorTextFields = (0, _pure2.default)(EditorTextFields);
 EditorTextFields.displayName = 'EditorTextFields';
+EditorTextFields.muiName = 'SvgIcon';
 
 exports.default = EditorTextFields;

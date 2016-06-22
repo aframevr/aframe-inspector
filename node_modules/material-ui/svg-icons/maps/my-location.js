@@ -27,5 +27,6 @@ var MapsMyLocation = function MapsMyLocation(props) {
 };
 MapsMyLocation = (0, _pure2.default)(MapsMyLocation);
 MapsMyLocation.displayName = 'MapsMyLocation';
+MapsMyLocation.muiName = 'SvgIcon';
 
 exports.default = MapsMyLocation;

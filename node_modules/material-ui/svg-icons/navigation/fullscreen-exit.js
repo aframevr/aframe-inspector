@@ -27,5 +27,6 @@ var NavigationFullscreenExit = function NavigationFullscreenExit(props) {
 };
 NavigationFullscreenExit = (0, _pure2.default)(NavigationFullscreenExit);
 NavigationFullscreenExit.displayName = 'NavigationFullscreenExit';
+NavigationFullscreenExit.muiName = 'SvgIcon';
 
 exports.default = NavigationFullscreenExit;

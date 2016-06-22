@@ -27,5 +27,6 @@ var AvFastForward = function AvFastForward(props) {
 };
 AvFastForward = (0, _pure2.default)(AvFastForward);
 AvFastForward.displayName = 'AvFastForward';
+AvFastForward.muiName = 'SvgIcon';
 
 exports.default = AvFastForward;

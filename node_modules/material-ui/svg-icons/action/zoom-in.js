@@ -27,5 +27,6 @@ var ActionZoomIn = function ActionZoomIn(props) {
 };
 ActionZoomIn = (0, _pure2.default)(ActionZoomIn);
 ActionZoomIn.displayName = 'ActionZoomIn';
+ActionZoomIn.muiName = 'SvgIcon';
 
 exports.default = ActionZoomIn;

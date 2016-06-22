@@ -27,5 +27,6 @@ var ActionThumbDown = function ActionThumbDown(props) {
 };
 ActionThumbDown = (0, _pure2.default)(ActionThumbDown);
 ActionThumbDown.displayName = 'ActionThumbDown';
+ActionThumbDown.muiName = 'SvgIcon';
 
 exports.default = ActionThumbDown;

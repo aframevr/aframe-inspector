@@ -27,5 +27,6 @@ var ActionOpacity = function ActionOpacity(props) {
 };
 ActionOpacity = (0, _pure2.default)(ActionOpacity);
 ActionOpacity.displayName = 'ActionOpacity';
+ActionOpacity.muiName = 'SvgIcon';
 
 exports.default = ActionOpacity;

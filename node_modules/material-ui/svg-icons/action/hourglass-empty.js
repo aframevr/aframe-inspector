@@ -27,5 +27,6 @@ var ActionHourglassEmpty = function ActionHourglassEmpty(props) {
 };
 ActionHourglassEmpty = (0, _pure2.default)(ActionHourglassEmpty);
 ActionHourglassEmpty.displayName = 'ActionHourglassEmpty';
+ActionHourglassEmpty.muiName = 'SvgIcon';
 
 exports.default = ActionHourglassEmpty;

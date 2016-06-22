@@ -27,5 +27,6 @@ var MapsLocalPizza = function MapsLocalPizza(props) {
 };
 MapsLocalPizza = (0, _pure2.default)(MapsLocalPizza);
 MapsLocalPizza.displayName = 'MapsLocalPizza';
+MapsLocalPizza.muiName = 'SvgIcon';
 
 exports.default = MapsLocalPizza;

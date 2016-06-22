@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -23,13 +23,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Store = function (_Map) {
   (0, _inherits3.default)(Store, _Map);
 
-  function /*istanbul ignore next*/Store() {
-    /*istanbul ignore next*/(0, _classCallCheck3.default)(this, Store);
+  function Store() {
+    (0, _classCallCheck3.default)(this, Store);
 
-    var _this = (0, _possibleConstructorReturn3.default)(this, /*istanbul ignore next*/_Map.call( /*istanbul ignore next*/this));
+    var _this = (0, _possibleConstructorReturn3.default)(this, _Map.call(this));
 
-    /*istanbul ignore next*/_this.dynamicData = {};
-    /*istanbul ignore next*/return _this;
+    _this.dynamicData = {};
+    return _this;
   }
 
   Store.prototype.setDynamic = function setDynamic(key, fn) {
@@ -38,8 +38,7 @@ var Store = function (_Map) {
 
   Store.prototype.get = function get(key) {
     if (this.has(key)) {
-      return (/*istanbul ignore next*/_Map.prototype.get. /*istanbul ignore next*/call( /*istanbul ignore next*/this, key)
-      );
+      return _Map.prototype.get.call(this, key);
     } else {
       if (Object.prototype.hasOwnProperty.call(this.dynamicData, key)) {
         var val = this.dynamicData[key]();
@@ -52,5 +51,5 @@ var Store = function (_Map) {
   return Store;
 }(_map2.default);
 
-/*istanbul ignore next*/exports.default = Store;
-/*istanbul ignore next*/module.exports = exports["default"];
+exports.default = Store;
+module.exports = exports["default"];

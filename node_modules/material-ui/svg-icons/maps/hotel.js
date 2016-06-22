@@ -27,5 +27,6 @@ var MapsHotel = function MapsHotel(props) {
 };
 MapsHotel = (0, _pure2.default)(MapsHotel);
 MapsHotel.displayName = 'MapsHotel';
+MapsHotel.muiName = 'SvgIcon';
 
 exports.default = MapsHotel;

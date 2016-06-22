@@ -27,5 +27,6 @@ var ActionViewCarousel = function ActionViewCarousel(props) {
 };
 ActionViewCarousel = (0, _pure2.default)(ActionViewCarousel);
 ActionViewCarousel.displayName = 'ActionViewCarousel';
+ActionViewCarousel.muiName = 'SvgIcon';
 
 exports.default = ActionViewCarousel;

@@ -27,5 +27,6 @@ var EditorModeEdit = function EditorModeEdit(props) {
 };
 EditorModeEdit = (0, _pure2.default)(EditorModeEdit);
 EditorModeEdit.displayName = 'EditorModeEdit';
+EditorModeEdit.muiName = 'SvgIcon';
 
 exports.default = EditorModeEdit;

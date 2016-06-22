@@ -27,5 +27,6 @@ var DeviceLocationSearching = function DeviceLocationSearching(props) {
 };
 DeviceLocationSearching = (0, _pure2.default)(DeviceLocationSearching);
 DeviceLocationSearching.displayName = 'DeviceLocationSearching';
+DeviceLocationSearching.muiName = 'SvgIcon';
 
 exports.default = DeviceLocationSearching;

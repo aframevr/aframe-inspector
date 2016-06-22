@@ -27,5 +27,6 @@ var ActionMarkunreadMailbox = function ActionMarkunreadMailbox(props) {
 };
 ActionMarkunreadMailbox = (0, _pure2.default)(ActionMarkunreadMailbox);
 ActionMarkunreadMailbox.displayName = 'ActionMarkunreadMailbox';
+ActionMarkunreadMailbox.muiName = 'SvgIcon';
 
 exports.default = ActionMarkunreadMailbox;

@@ -27,5 +27,6 @@ var EditorVerticalAlignTop = function EditorVerticalAlignTop(props) {
 };
 EditorVerticalAlignTop = (0, _pure2.default)(EditorVerticalAlignTop);
 EditorVerticalAlignTop.displayName = 'EditorVerticalAlignTop';
+EditorVerticalAlignTop.muiName = 'SvgIcon';
 
 exports.default = EditorVerticalAlignTop;

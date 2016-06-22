@@ -27,5 +27,6 @@ var MapsLocalAtm = function MapsLocalAtm(props) {
 };
 MapsLocalAtm = (0, _pure2.default)(MapsLocalAtm);
 MapsLocalAtm.displayName = 'MapsLocalAtm';
+MapsLocalAtm.muiName = 'SvgIcon';
 
 exports.default = MapsLocalAtm;

@@ -10,11 +10,12 @@
   "license": "ISC",
   "dependencies": {
     "aframe": "^0.2.0",
-    "clipboard": "^1.5.10",
+    "babel-core": "^6.10.4",
+    "clipboard": "^1.5.12",
     "css-loader": "^0.23.1",
-    "material-ui": "^0.15.0",
-    "react": "^15.0.2",
-    "react-dom": "^15.0.2",
+    "material-ui": "^0.15.1",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
     "react-tabs": "^0.6.0",
     "style-loader": "^0.13.1"
   },

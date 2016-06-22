@@ -27,5 +27,6 @@ var DeviceWidgets = function DeviceWidgets(props) {
 };
 DeviceWidgets = (0, _pure2.default)(DeviceWidgets);
 DeviceWidgets.displayName = 'DeviceWidgets';
+DeviceWidgets.muiName = 'SvgIcon';
 
 exports.default = DeviceWidgets;

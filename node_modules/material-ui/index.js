@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ToolbarTitle = exports.ToolbarSeparator = exports.ToolbarGroup = exports.Toolbar = exports.Toggle = exports.TimePicker = exports.TextField = exports.TableRowColumn = exports.TableRow = exports.TableHeaderColumn = exports.TableHeader = exports.TableFooter = exports.TableBody = exports.Table = exports.Tab = exports.Tabs = exports.Snackbar = exports.Stepper = exports.StepLabel = exports.StepContent = exports.StepButton = exports.Step = exports.SvgIcon = exports.Subheader = exports.Slider = exports.SelectField = exports.RefreshIndicator = exports.RaisedButton = exports.RadioButtonGroup = exports.RadioButton = exports.Popover = exports.Paper = exports.MenuItem = exports.Menu = exports.MakeSelectable = exports.ListItem = exports.List = exports.LinearProgress = exports.IconMenu = exports.IconButton = exports.GridTile = exports.GridList = exports.FontIcon = exports.FloatingActionButton = exports.FlatButton = exports.DropDownMenu = exports.Drawer = exports.Divider = exports.Dialog = exports.DatePicker = exports.CircularProgress = exports.Checkbox = exports.CardText = exports.CardTitle = exports.CardMedia = exports.CardHeader = exports.CardActions = exports.Card = exports.Badge = exports.Avatar = exports.AutoComplete = exports.AppBar = undefined;
+exports.ToolbarTitle = exports.ToolbarSeparator = exports.ToolbarGroup = exports.Toolbar = exports.Toggle = exports.TimePicker = exports.TextField = exports.TableRowColumn = exports.TableRow = exports.TableHeaderColumn = exports.TableHeader = exports.TableFooter = exports.TableBody = exports.Table = exports.Tab = exports.Tabs = exports.Snackbar = exports.Stepper = exports.StepLabel = exports.StepContent = exports.StepButton = exports.Step = exports.SvgIcon = exports.Subheader = exports.Slider = exports.SelectField = exports.RefreshIndicator = exports.RaisedButton = exports.RadioButtonGroup = exports.RadioButton = exports.Popover = exports.Paper = exports.MuiThemeProvider = exports.MenuItem = exports.Menu = exports.MakeSelectable = exports.ListItem = exports.List = exports.LinearProgress = exports.IconMenu = exports.IconButton = exports.GridTile = exports.GridList = exports.FontIcon = exports.FloatingActionButton = exports.FlatButton = exports.DropDownMenu = exports.Drawer = exports.Divider = exports.Dialog = exports.DatePicker = exports.CircularProgress = exports.Checkbox = exports.CardText = exports.CardTitle = exports.CardMedia = exports.CardHeader = exports.CardActions = exports.Card = exports.Badge = exports.Avatar = exports.AutoComplete = exports.AppBar = undefined;
 
 var _AppBar2 = require('./AppBar');
 
@@ -124,6 +124,10 @@ var _Menu3 = _interopRequireDefault(_Menu2);
 var _MenuItem2 = require('./MenuItem');
 
 var _MenuItem3 = _interopRequireDefault(_MenuItem2);
+
+var _MuiThemeProvider2 = require('./styles/MuiThemeProvider');
+
+var _MuiThemeProvider3 = _interopRequireDefault(_MuiThemeProvider2);
 
 var _Paper2 = require('./Paper');
 
@@ -285,6 +289,7 @@ exports.ListItem = _ListItem3.default;
 exports.MakeSelectable = _MakeSelectable3.default;
 exports.Menu = _Menu3.default;
 exports.MenuItem = _MenuItem3.default;
+exports.MuiThemeProvider = _MuiThemeProvider3.default;
 exports.Paper = _Paper3.default;
 exports.Popover = _Popover3.default;
 exports.RadioButton = _RadioButton3.default;

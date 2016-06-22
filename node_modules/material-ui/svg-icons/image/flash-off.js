@@ -27,5 +27,6 @@ var ImageFlashOff = function ImageFlashOff(props) {
 };
 ImageFlashOff = (0, _pure2.default)(ImageFlashOff);
 ImageFlashOff.displayName = 'ImageFlashOff';
+ImageFlashOff.muiName = 'SvgIcon';
 
 exports.default = ImageFlashOff;

@@ -27,5 +27,6 @@ var HardwareGamepad = function HardwareGamepad(props) {
 };
 HardwareGamepad = (0, _pure2.default)(HardwareGamepad);
 HardwareGamepad.displayName = 'HardwareGamepad';
+HardwareGamepad.muiName = 'SvgIcon';
 
 exports.default = HardwareGamepad;

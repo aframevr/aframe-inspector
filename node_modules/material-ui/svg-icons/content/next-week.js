@@ -27,5 +27,6 @@ var ContentNextWeek = function ContentNextWeek(props) {
 };
 ContentNextWeek = (0, _pure2.default)(ContentNextWeek);
 ContentNextWeek.displayName = 'ContentNextWeek';
+ContentNextWeek.muiName = 'SvgIcon';
 
 exports.default = ContentNextWeek;

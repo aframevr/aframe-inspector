@@ -27,5 +27,6 @@ var ActionRestorePage = function ActionRestorePage(props) {
 };
 ActionRestorePage = (0, _pure2.default)(ActionRestorePage);
 ActionRestorePage.displayName = 'ActionRestorePage';
+ActionRestorePage.muiName = 'SvgIcon';
 
 exports.default = ActionRestorePage;

@@ -27,5 +27,6 @@ var HardwarePhonelinkOff = function HardwarePhonelinkOff(props) {
 };
 HardwarePhonelinkOff = (0, _pure2.default)(HardwarePhonelinkOff);
 HardwarePhonelinkOff.displayName = 'HardwarePhonelinkOff';
+HardwarePhonelinkOff.muiName = 'SvgIcon';
 
 exports.default = HardwarePhonelinkOff;

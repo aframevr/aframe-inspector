@@ -27,5 +27,6 @@ var MapsEvStation = function MapsEvStation(props) {
 };
 MapsEvStation = (0, _pure2.default)(MapsEvStation);
 MapsEvStation.displayName = 'MapsEvStation';
+MapsEvStation.muiName = 'SvgIcon';
 
 exports.default = MapsEvStation;

@@ -27,5 +27,6 @@ var CommunicationPhonelinkLock = function CommunicationPhonelinkLock(props) {
 };
 CommunicationPhonelinkLock = (0, _pure2.default)(CommunicationPhonelinkLock);
 CommunicationPhonelinkLock.displayName = 'CommunicationPhonelinkLock';
+CommunicationPhonelinkLock.muiName = 'SvgIcon';
 
 exports.default = CommunicationPhonelinkLock;

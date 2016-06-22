@@ -27,5 +27,6 @@ var ImageLoupe = function ImageLoupe(props) {
 };
 ImageLoupe = (0, _pure2.default)(ImageLoupe);
 ImageLoupe.displayName = 'ImageLoupe';
+ImageLoupe.muiName = 'SvgIcon';
 
 exports.default = ImageLoupe;

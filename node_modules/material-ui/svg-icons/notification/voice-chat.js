@@ -27,5 +27,6 @@ var NotificationVoiceChat = function NotificationVoiceChat(props) {
 };
 NotificationVoiceChat = (0, _pure2.default)(NotificationVoiceChat);
 NotificationVoiceChat.displayName = 'NotificationVoiceChat';
+NotificationVoiceChat.muiName = 'SvgIcon';
 
 exports.default = NotificationVoiceChat;

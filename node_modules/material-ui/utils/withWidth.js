@@ -33,6 +33,10 @@ var LARGE = exports.LARGE = 3;
 
 function withWidth() {
   var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+  var _options$largeWidth = options.largeWidth;
+  var largeWidth = _options$largeWidth === undefined ? 992 : _options$largeWidth;
+  var _options$mediumWidth = options.mediumWidth;
+  var mediumWidth = _options$mediumWidth === undefined ? 768 : _options$mediumWidth;
   var _options$resizeInterv = options.resizeInterval;
   var resizeInterval = _options$resizeInterv === undefined ? 166 : _options$resizeInterv;
 
@@ -82,9 +86,9 @@ function withWidth() {
           var innerWidth = window.innerWidth;
           var width = void 0;
 
-          if (innerWidth >= 992) {
+          if (innerWidth >= largeWidth) {
             width = LARGE;
-          } else if (innerWidth >= 768) {
+          } else if (innerWidth >= mediumWidth) {
             width = MEDIUM;
           } else {
             // innerWidth < 768
@@ -102,7 +106,7 @@ function withWidth() {
         value: function render() {
           return _react2.default.createElement(
             _reactEventListener2.default,
-            { elementName: 'window', onResize: this.handleResize },
+            { target: 'window', onResize: this.handleResize },
             _react2.default.createElement(MyComponent, _extends({}, this.props, {
               width: this.state.width
             }))

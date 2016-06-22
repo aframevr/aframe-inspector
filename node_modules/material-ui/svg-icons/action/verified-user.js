@@ -27,5 +27,6 @@ var ActionVerifiedUser = function ActionVerifiedUser(props) {
 };
 ActionVerifiedUser = (0, _pure2.default)(ActionVerifiedUser);
 ActionVerifiedUser.displayName = 'ActionVerifiedUser';
+ActionVerifiedUser.muiName = 'SvgIcon';
 
 exports.default = ActionVerifiedUser;

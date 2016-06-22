@@ -27,5 +27,6 @@ var CommunicationImportContacts = function CommunicationImportContacts(props) {
 };
 CommunicationImportContacts = (0, _pure2.default)(CommunicationImportContacts);
 CommunicationImportContacts.displayName = 'CommunicationImportContacts';
+CommunicationImportContacts.muiName = 'SvgIcon';
 
 exports.default = CommunicationImportContacts;

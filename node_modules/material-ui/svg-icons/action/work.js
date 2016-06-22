@@ -27,5 +27,6 @@ var ActionWork = function ActionWork(props) {
 };
 ActionWork = (0, _pure2.default)(ActionWork);
 ActionWork.displayName = 'ActionWork';
+ActionWork.muiName = 'SvgIcon';
 
 exports.default = ActionWork;

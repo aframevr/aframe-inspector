@@ -27,5 +27,6 @@ var SocialLocationCity = function SocialLocationCity(props) {
 };
 SocialLocationCity = (0, _pure2.default)(SocialLocationCity);
 SocialLocationCity.displayName = 'SocialLocationCity';
+SocialLocationCity.muiName = 'SvgIcon';
 
 exports.default = SocialLocationCity;

@@ -34,6 +34,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+function ExpandTransition(props) {
+  return _react2.default.createElement(_ExpandTransition2.default, props);
+}
+
 var getStyles = function getStyles(props, context) {
   var styles = {
     root: {
@@ -70,8 +74,10 @@ var StepContent = function (_Component) {
       var last = _props.last;
       var // eslint-disable-line no-unused-vars
       style = _props.style;
+      var transition = _props.transition;
+      var transitionDuration = _props.transitionDuration;
 
-      var other = _objectWithoutProperties(_props, ['active', 'children', 'last', 'style']);
+      var other = _objectWithoutProperties(_props, ['active', 'children', 'last', 'style', 'transition', 'transitionDuration']);
 
       var _context = this.context;
       var stepper = _context.stepper;
@@ -84,19 +90,20 @@ var StepContent = function (_Component) {
       }
 
       var styles = getStyles(this.props, this.context);
+      var transitionProps = {
+        enterDelay: transitionDuration,
+        transitionDuration: transitionDuration,
+        open: active
+      };
 
       return _react2.default.createElement(
         'div',
         _extends({ style: prepareStyles((0, _simpleAssign2.default)(styles.root, style)) }, other),
-        _react2.default.createElement(
-          _ExpandTransition2.default,
-          { enterDelay: 450, open: active },
-          _react2.default.createElement(
-            'div',
-            { style: { overflow: 'hidden' } },
-            children
-          )
-        )
+        _react2.default.createElement(transition, transitionProps, _react2.default.createElement(
+          'div',
+          { style: { overflow: 'hidden' } },
+          children
+        ))
       );
     }
   }]);
@@ -120,7 +127,19 @@ StepContent.propTypes = {
   /**
    * Override the inline-style of the root element.
    */
-  style: _react.PropTypes.object
+  style: _react.PropTypes.object,
+  /**
+   * ReactTransitionGroup component.
+   */
+  transition: _react.PropTypes.func,
+  /**
+   * Adjust the duration of the content expand transition. Passed as a prop to the transition component.
+   */
+  transitionDuration: _react.PropTypes.number
+};
+StepContent.defaultProps = {
+  transition: ExpandTransition,
+  transitionDuration: 450
 };
 StepContent.contextTypes = {
   muiTheme: _react.PropTypes.object.isRequired,

@@ -27,5 +27,6 @@ var ActionRowing = function ActionRowing(props) {
 };
 ActionRowing = (0, _pure2.default)(ActionRowing);
 ActionRowing.displayName = 'ActionRowing';
+ActionRowing.muiName = 'SvgIcon';
 
 exports.default = ActionRowing;

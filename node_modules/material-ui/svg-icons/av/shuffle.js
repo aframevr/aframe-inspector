@@ -27,5 +27,6 @@ var AvShuffle = function AvShuffle(props) {
 };
 AvShuffle = (0, _pure2.default)(AvShuffle);
 AvShuffle.displayName = 'AvShuffle';
+AvShuffle.muiName = 'SvgIcon';
 
 exports.default = AvShuffle;

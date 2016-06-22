@@ -27,5 +27,6 @@ var ContentMail = function ContentMail(props) {
 };
 ContentMail = (0, _pure2.default)(ContentMail);
 ContentMail.displayName = 'ContentMail';
+ContentMail.muiName = 'SvgIcon';
 
 exports.default = ContentMail;

@@ -27,5 +27,6 @@ var ActionStore = function ActionStore(props) {
 };
 ActionStore = (0, _pure2.default)(ActionStore);
 ActionStore.displayName = 'ActionStore';
+ActionStore.muiName = 'SvgIcon';
 
 exports.default = ActionStore;

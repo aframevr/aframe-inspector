@@ -1,123 +1,123 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 exports.transformFileSync = exports.transformFile = exports.transformFromAst = exports.transform = exports.analyse = exports.Pipeline = exports.Plugin = exports.OptionManager = exports.traverse = exports.types = exports.messages = exports.util = exports.version = exports.template = exports.buildExternalHelpers = exports.options = exports.File = undefined;
 
-var /*istanbul ignore next*/_node = require("./node");
+var _node = require("./node");
 
-/*istanbul ignore next*/Object.defineProperty(exports, "File", {
+Object.defineProperty(exports, "File", {
   enumerable: true,
   get: function get() {
     return _node.File;
   }
 });
-/*istanbul ignore next*/Object.defineProperty(exports, "options", {
+Object.defineProperty(exports, "options", {
   enumerable: true,
   get: function get() {
     return _node.options;
   }
 });
-/*istanbul ignore next*/Object.defineProperty(exports, "buildExternalHelpers", {
+Object.defineProperty(exports, "buildExternalHelpers", {
   enumerable: true,
   get: function get() {
     return _node.buildExternalHelpers;
   }
 });
-/*istanbul ignore next*/Object.defineProperty(exports, "template", {
+Object.defineProperty(exports, "template", {
   enumerable: true,
   get: function get() {
     return _node.template;
   }
 });
-/*istanbul ignore next*/Object.defineProperty(exports, "version", {
+Object.defineProperty(exports, "version", {
   enumerable: true,
   get: function get() {
     return _node.version;
   }
 });
-/*istanbul ignore next*/Object.defineProperty(exports, "util", {
+Object.defineProperty(exports, "util", {
   enumerable: true,
   get: function get() {
     return _node.util;
   }
 });
-/*istanbul ignore next*/Object.defineProperty(exports, "messages", {
+Object.defineProperty(exports, "messages", {
   enumerable: true,
   get: function get() {
     return _node.messages;
   }
 });
-/*istanbul ignore next*/Object.defineProperty(exports, "types", {
+Object.defineProperty(exports, "types", {
   enumerable: true,
   get: function get() {
     return _node.types;
   }
 });
-/*istanbul ignore next*/Object.defineProperty(exports, "traverse", {
+Object.defineProperty(exports, "traverse", {
   enumerable: true,
   get: function get() {
     return _node.traverse;
   }
 });
-/*istanbul ignore next*/Object.defineProperty(exports, "OptionManager", {
+Object.defineProperty(exports, "OptionManager", {
   enumerable: true,
   get: function get() {
     return _node.OptionManager;
   }
 });
-/*istanbul ignore next*/Object.defineProperty(exports, "Plugin", {
+Object.defineProperty(exports, "Plugin", {
   enumerable: true,
   get: function get() {
     return _node.Plugin;
   }
 });
-/*istanbul ignore next*/Object.defineProperty(exports, "Pipeline", {
+Object.defineProperty(exports, "Pipeline", {
   enumerable: true,
   get: function get() {
     return _node.Pipeline;
   }
 });
-/*istanbul ignore next*/Object.defineProperty(exports, "analyse", {
+Object.defineProperty(exports, "analyse", {
   enumerable: true,
   get: function get() {
     return _node.analyse;
   }
 });
-/*istanbul ignore next*/Object.defineProperty(exports, "transform", {
+Object.defineProperty(exports, "transform", {
   enumerable: true,
   get: function get() {
     return _node.transform;
   }
 });
-/*istanbul ignore next*/Object.defineProperty(exports, "transformFromAst", {
+Object.defineProperty(exports, "transformFromAst", {
   enumerable: true,
   get: function get() {
     return _node.transformFromAst;
   }
 });
-/*istanbul ignore next*/Object.defineProperty(exports, "transformFile", {
+Object.defineProperty(exports, "transformFile", {
   enumerable: true,
   get: function get() {
     return _node.transformFile;
   }
 });
-/*istanbul ignore next*/Object.defineProperty(exports, "transformFileSync", {
+Object.defineProperty(exports, "transformFileSync", {
   enumerable: true,
   get: function get() {
     return _node.transformFileSync;
   }
 });
-/*istanbul ignore next*/exports.run = run;
-/*istanbul ignore next*/exports.load = load;
+exports.run = run;
+exports.load = load;
 function run(code) {
-  /*istanbul ignore next*/var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+  var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-  return new Function( /*istanbul ignore next*/(0, _node.transform)(code, opts).code)();
+  return new Function((0, _node.transform)(code, opts).code)();
 }
 
 function load(url, callback) {
-  /*istanbul ignore next*/var opts = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
-  /*istanbul ignore next*/var hold = arguments[3];
+  var opts = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+  var hold = arguments[3];
 
   opts.filename = opts.filename || url;
 
@@ -134,7 +134,7 @@ function load(url, callback) {
       if (!hold) run(param);
       if (callback) callback(param);
     } else {
-      throw new Error( /*istanbul ignore next*/"Could not load " + url);
+      throw new Error("Could not load " + url);
     }
   };
 

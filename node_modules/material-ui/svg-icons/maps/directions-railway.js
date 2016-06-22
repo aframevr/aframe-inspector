@@ -27,5 +27,6 @@ var MapsDirectionsRailway = function MapsDirectionsRailway(props) {
 };
 MapsDirectionsRailway = (0, _pure2.default)(MapsDirectionsRailway);
 MapsDirectionsRailway.displayName = 'MapsDirectionsRailway';
+MapsDirectionsRailway.muiName = 'SvgIcon';
 
 exports.default = MapsDirectionsRailway;

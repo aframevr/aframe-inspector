@@ -27,5 +27,6 @@ var NavigationFirstPage = function NavigationFirstPage(props) {
 };
 NavigationFirstPage = (0, _pure2.default)(NavigationFirstPage);
 NavigationFirstPage.displayName = 'NavigationFirstPage';
+NavigationFirstPage.muiName = 'SvgIcon';
 
 exports.default = NavigationFirstPage;

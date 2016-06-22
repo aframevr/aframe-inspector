@@ -27,5 +27,6 @@ var AvArtTrack = function AvArtTrack(props) {
 };
 AvArtTrack = (0, _pure2.default)(AvArtTrack);
 AvArtTrack.displayName = 'AvArtTrack';
+AvArtTrack.muiName = 'SvgIcon';
 
 exports.default = AvArtTrack;

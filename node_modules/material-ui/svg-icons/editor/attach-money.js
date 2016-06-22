@@ -27,5 +27,6 @@ var EditorAttachMoney = function EditorAttachMoney(props) {
 };
 EditorAttachMoney = (0, _pure2.default)(EditorAttachMoney);
 EditorAttachMoney.displayName = 'EditorAttachMoney';
+EditorAttachMoney.muiName = 'SvgIcon';
 
 exports.default = EditorAttachMoney;

@@ -27,5 +27,6 @@ var DeviceScreenRotation = function DeviceScreenRotation(props) {
 };
 DeviceScreenRotation = (0, _pure2.default)(DeviceScreenRotation);
 DeviceScreenRotation.displayName = 'DeviceScreenRotation';
+DeviceScreenRotation.muiName = 'SvgIcon';
 
 exports.default = DeviceScreenRotation;

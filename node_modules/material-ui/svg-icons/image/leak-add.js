@@ -27,5 +27,6 @@ var ImageLeakAdd = function ImageLeakAdd(props) {
 };
 ImageLeakAdd = (0, _pure2.default)(ImageLeakAdd);
 ImageLeakAdd.displayName = 'ImageLeakAdd';
+ImageLeakAdd.muiName = 'SvgIcon';
 
 exports.default = ImageLeakAdd;

@@ -27,5 +27,6 @@ var HardwareLaptopMac = function HardwareLaptopMac(props) {
 };
 HardwareLaptopMac = (0, _pure2.default)(HardwareLaptopMac);
 HardwareLaptopMac.displayName = 'HardwareLaptopMac';
+HardwareLaptopMac.muiName = 'SvgIcon';
 
 exports.default = HardwareLaptopMac;

@@ -32,9 +32,9 @@ var _Paper = require('../Paper');
 
 var _Paper2 = _interopRequireDefault(_Paper);
 
-var _lodash = require('lodash.throttle');
+var _throttle = require('lodash/throttle');
 
-var _lodash2 = _interopRequireDefault(_lodash);
+var _throttle2 = _interopRequireDefault(_throttle);
 
 var _PopoverAnimationDefault = require('./PopoverAnimationDefault');
 
@@ -135,8 +135,8 @@ var Popover = function (_Component) {
       targetEl.style.maxHeight = window.innerHeight + 'px';
     };
 
-    _this.handleResize = (0, _lodash2.default)(_this.setPlacement, 100);
-    _this.handleScroll = (0, _lodash2.default)(_this.setPlacement.bind(_this, true), 100);
+    _this.handleResize = (0, _throttle2.default)(_this.setPlacement, 100);
+    _this.handleScroll = (0, _throttle2.default)(_this.setPlacement.bind(_this, true), 50);
 
     _this.state = {
       open: props.open,
@@ -232,7 +232,7 @@ var Popover = function (_Component) {
   }, {
     key: 'autoCloseWhenOffScreen',
     value: function autoCloseWhenOffScreen(anchorPosition) {
-      if (anchorPosition.top < 0 || anchorPosition.top > window.innerHeight || anchorPosition.left < 0 || anchorPosition.left > window.innerWith) {
+      if (anchorPosition.top < 0 || anchorPosition.top > window.innerHeight || anchorPosition.left < 0 || anchorPosition.left > window.innerWidth) {
         this.requestClose('offScreen');
       }
     }
@@ -317,7 +317,7 @@ var Popover = function (_Component) {
         'div',
         { style: { display: 'none' } },
         _react2.default.createElement(_reactEventListener2.default, {
-          elementName: 'window',
+          target: 'window',
           onScroll: this.handleScroll,
           onResize: this.handleResize
         }),

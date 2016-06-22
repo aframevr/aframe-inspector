@@ -27,5 +27,6 @@ var NotificationVibration = function NotificationVibration(props) {
 };
 NotificationVibration = (0, _pure2.default)(NotificationVibration);
 NotificationVibration.displayName = 'NotificationVibration';
+NotificationVibration.muiName = 'SvgIcon';
 
 exports.default = NotificationVibration;

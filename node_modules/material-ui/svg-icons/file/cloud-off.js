@@ -27,5 +27,6 @@ var FileCloudOff = function FileCloudOff(props) {
 };
 FileCloudOff = (0, _pure2.default)(FileCloudOff);
 FileCloudOff.displayName = 'FileCloudOff';
+FileCloudOff.muiName = 'SvgIcon';
 
 exports.default = FileCloudOff;

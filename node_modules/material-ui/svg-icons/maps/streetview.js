@@ -29,5 +29,6 @@ var MapsStreetview = function MapsStreetview(props) {
 };
 MapsStreetview = (0, _pure2.default)(MapsStreetview);
 MapsStreetview.displayName = 'MapsStreetview';
+MapsStreetview.muiName = 'SvgIcon';
 
 exports.default = MapsStreetview;

@@ -27,5 +27,6 @@ var ActionVisibilityOff = function ActionVisibilityOff(props) {
 };
 ActionVisibilityOff = (0, _pure2.default)(ActionVisibilityOff);
 ActionVisibilityOff.displayName = 'ActionVisibilityOff';
+ActionVisibilityOff.muiName = 'SvgIcon';
 
 exports.default = ActionVisibilityOff;

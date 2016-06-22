@@ -27,5 +27,6 @@ var AvVideoCall = function AvVideoCall(props) {
 };
 AvVideoCall = (0, _pure2.default)(AvVideoCall);
 AvVideoCall.displayName = 'AvVideoCall';
+AvVideoCall.muiName = 'SvgIcon';
 
 exports.default = AvVideoCall;

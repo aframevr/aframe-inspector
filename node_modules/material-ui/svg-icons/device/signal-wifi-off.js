@@ -27,5 +27,6 @@ var DeviceSignalWifiOff = function DeviceSignalWifiOff(props) {
 };
 DeviceSignalWifiOff = (0, _pure2.default)(DeviceSignalWifiOff);
 DeviceSignalWifiOff.displayName = 'DeviceSignalWifiOff';
+DeviceSignalWifiOff.muiName = 'SvgIcon';
 
 exports.default = DeviceSignalWifiOff;

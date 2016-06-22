@@ -27,5 +27,6 @@ var EditorShowChart = function EditorShowChart(props) {
 };
 EditorShowChart = (0, _pure2.default)(EditorShowChart);
 EditorShowChart.displayName = 'EditorShowChart';
+EditorShowChart.muiName = 'SvgIcon';
 
 exports.default = EditorShowChart;

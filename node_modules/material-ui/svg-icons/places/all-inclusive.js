@@ -27,5 +27,6 @@ var PlacesAllInclusive = function PlacesAllInclusive(props) {
 };
 PlacesAllInclusive = (0, _pure2.default)(PlacesAllInclusive);
 PlacesAllInclusive.displayName = 'PlacesAllInclusive';
+PlacesAllInclusive.muiName = 'SvgIcon';
 
 exports.default = PlacesAllInclusive;

@@ -27,5 +27,6 @@ var ActionViewArray = function ActionViewArray(props) {
 };
 ActionViewArray = (0, _pure2.default)(ActionViewArray);
 ActionViewArray.displayName = 'ActionViewArray';
+ActionViewArray.muiName = 'SvgIcon';
 
 exports.default = ActionViewArray;

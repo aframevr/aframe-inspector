@@ -27,5 +27,6 @@ var CommunicationStayPrimaryLandscape = function CommunicationStayPrimaryLandsca
 };
 CommunicationStayPrimaryLandscape = (0, _pure2.default)(CommunicationStayPrimaryLandscape);
 CommunicationStayPrimaryLandscape.displayName = 'CommunicationStayPrimaryLandscape';
+CommunicationStayPrimaryLandscape.muiName = 'SvgIcon';
 
 exports.default = CommunicationStayPrimaryLandscape;

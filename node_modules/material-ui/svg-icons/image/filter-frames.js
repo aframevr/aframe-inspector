@@ -27,5 +27,6 @@ var ImageFilterFrames = function ImageFilterFrames(props) {
 };
 ImageFilterFrames = (0, _pure2.default)(ImageFilterFrames);
 ImageFilterFrames.displayName = 'ImageFilterFrames';
+ImageFilterFrames.muiName = 'SvgIcon';
 
 exports.default = ImageFilterFrames;

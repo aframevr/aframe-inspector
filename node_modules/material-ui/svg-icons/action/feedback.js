@@ -27,5 +27,6 @@ var ActionFeedback = function ActionFeedback(props) {
 };
 ActionFeedback = (0, _pure2.default)(ActionFeedback);
 ActionFeedback.displayName = 'ActionFeedback';
+ActionFeedback.muiName = 'SvgIcon';
 
 exports.default = ActionFeedback;

@@ -27,5 +27,6 @@ var SocialWhatshot = function SocialWhatshot(props) {
 };
 SocialWhatshot = (0, _pure2.default)(SocialWhatshot);
 SocialWhatshot.displayName = 'SocialWhatshot';
+SocialWhatshot.muiName = 'SvgIcon';
 
 exports.default = SocialWhatshot;

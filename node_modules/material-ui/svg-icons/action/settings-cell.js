@@ -27,5 +27,6 @@ var ActionSettingsCell = function ActionSettingsCell(props) {
 };
 ActionSettingsCell = (0, _pure2.default)(ActionSettingsCell);
 ActionSettingsCell.displayName = 'ActionSettingsCell';
+ActionSettingsCell.muiName = 'SvgIcon';
 
 exports.default = ActionSettingsCell;

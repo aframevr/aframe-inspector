@@ -27,5 +27,6 @@ var NavigationSubdirectoryArrowRight = function NavigationSubdirectoryArrowRight
 };
 NavigationSubdirectoryArrowRight = (0, _pure2.default)(NavigationSubdirectoryArrowRight);
 NavigationSubdirectoryArrowRight.displayName = 'NavigationSubdirectoryArrowRight';
+NavigationSubdirectoryArrowRight.muiName = 'SvgIcon';
 
 exports.default = NavigationSubdirectoryArrowRight;

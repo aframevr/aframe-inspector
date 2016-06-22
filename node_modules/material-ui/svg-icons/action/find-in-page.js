@@ -27,5 +27,6 @@ var ActionFindInPage = function ActionFindInPage(props) {
 };
 ActionFindInPage = (0, _pure2.default)(ActionFindInPage);
 ActionFindInPage.displayName = 'ActionFindInPage';
+ActionFindInPage.muiName = 'SvgIcon';
 
 exports.default = ActionFindInPage;

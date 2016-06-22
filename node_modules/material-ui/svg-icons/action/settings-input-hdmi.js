@@ -27,5 +27,6 @@ var ActionSettingsInputHdmi = function ActionSettingsInputHdmi(props) {
 };
 ActionSettingsInputHdmi = (0, _pure2.default)(ActionSettingsInputHdmi);
 ActionSettingsInputHdmi.displayName = 'ActionSettingsInputHdmi';
+ActionSettingsInputHdmi.muiName = 'SvgIcon';
 
 exports.default = ActionSettingsInputHdmi;

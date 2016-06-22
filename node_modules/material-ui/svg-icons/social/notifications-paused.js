@@ -27,5 +27,6 @@ var SocialNotificationsPaused = function SocialNotificationsPaused(props) {
 };
 SocialNotificationsPaused = (0, _pure2.default)(SocialNotificationsPaused);
 SocialNotificationsPaused.displayName = 'SocialNotificationsPaused';
+SocialNotificationsPaused.muiName = 'SvgIcon';
 
 exports.default = SocialNotificationsPaused;

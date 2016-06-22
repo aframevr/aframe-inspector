@@ -27,5 +27,6 @@ var ImageExposurePlus2 = function ImageExposurePlus2(props) {
 };
 ImageExposurePlus2 = (0, _pure2.default)(ImageExposurePlus2);
 ImageExposurePlus2.displayName = 'ImageExposurePlus2';
+ImageExposurePlus2.muiName = 'SvgIcon';
 
 exports.default = ImageExposurePlus2;

@@ -27,5 +27,6 @@ var PlacesRoomService = function PlacesRoomService(props) {
 };
 PlacesRoomService = (0, _pure2.default)(PlacesRoomService);
 PlacesRoomService.displayName = 'PlacesRoomService';
+PlacesRoomService.muiName = 'SvgIcon';
 
 exports.default = PlacesRoomService;

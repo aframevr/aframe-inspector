@@ -27,5 +27,6 @@ var ImageLooks3 = function ImageLooks3(props) {
 };
 ImageLooks3 = (0, _pure2.default)(ImageLooks3);
 ImageLooks3.displayName = 'ImageLooks3';
+ImageLooks3.muiName = 'SvgIcon';
 
 exports.default = ImageLooks3;

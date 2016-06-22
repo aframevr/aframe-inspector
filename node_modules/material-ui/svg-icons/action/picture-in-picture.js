@@ -27,5 +27,6 @@ var ActionPictureInPicture = function ActionPictureInPicture(props) {
 };
 ActionPictureInPicture = (0, _pure2.default)(ActionPictureInPicture);
 ActionPictureInPicture.displayName = 'ActionPictureInPicture';
+ActionPictureInPicture.muiName = 'SvgIcon';
 
 exports.default = ActionPictureInPicture;

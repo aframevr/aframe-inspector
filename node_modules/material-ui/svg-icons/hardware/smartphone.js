@@ -27,5 +27,6 @@ var HardwareSmartphone = function HardwareSmartphone(props) {
 };
 HardwareSmartphone = (0, _pure2.default)(HardwareSmartphone);
 HardwareSmartphone.displayName = 'HardwareSmartphone';
+HardwareSmartphone.muiName = 'SvgIcon';
 
 exports.default = HardwareSmartphone;

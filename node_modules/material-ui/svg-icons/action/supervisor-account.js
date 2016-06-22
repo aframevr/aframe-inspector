@@ -27,5 +27,6 @@ var ActionSupervisorAccount = function ActionSupervisorAccount(props) {
 };
 ActionSupervisorAccount = (0, _pure2.default)(ActionSupervisorAccount);
 ActionSupervisorAccount.displayName = 'ActionSupervisorAccount';
+ActionSupervisorAccount.muiName = 'SvgIcon';
 
 exports.default = ActionSupervisorAccount;

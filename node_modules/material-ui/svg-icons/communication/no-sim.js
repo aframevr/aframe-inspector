@@ -27,5 +27,6 @@ var CommunicationNoSim = function CommunicationNoSim(props) {
 };
 CommunicationNoSim = (0, _pure2.default)(CommunicationNoSim);
 CommunicationNoSim.displayName = 'CommunicationNoSim';
+CommunicationNoSim.muiName = 'SvgIcon';
 
 exports.default = CommunicationNoSim;

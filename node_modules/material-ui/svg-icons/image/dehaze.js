@@ -27,5 +27,6 @@ var ImageDehaze = function ImageDehaze(props) {
 };
 ImageDehaze = (0, _pure2.default)(ImageDehaze);
 ImageDehaze.displayName = 'ImageDehaze';
+ImageDehaze.muiName = 'SvgIcon';
 
 exports.default = ImageDehaze;

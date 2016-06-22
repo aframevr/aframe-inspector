@@ -27,5 +27,6 @@ var ActionCameraEnhance = function ActionCameraEnhance(props) {
 };
 ActionCameraEnhance = (0, _pure2.default)(ActionCameraEnhance);
 ActionCameraEnhance.displayName = 'ActionCameraEnhance';
+ActionCameraEnhance.muiName = 'SvgIcon';
 
 exports.default = ActionCameraEnhance;

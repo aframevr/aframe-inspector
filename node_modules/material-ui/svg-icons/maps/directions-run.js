@@ -27,5 +27,6 @@ var MapsDirectionsRun = function MapsDirectionsRun(props) {
 };
 MapsDirectionsRun = (0, _pure2.default)(MapsDirectionsRun);
 MapsDirectionsRun.displayName = 'MapsDirectionsRun';
+MapsDirectionsRun.muiName = 'SvgIcon';
 
 exports.default = MapsDirectionsRun;

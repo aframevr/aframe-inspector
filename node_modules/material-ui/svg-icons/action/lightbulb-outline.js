@@ -27,5 +27,6 @@ var ActionLightbulbOutline = function ActionLightbulbOutline(props) {
 };
 ActionLightbulbOutline = (0, _pure2.default)(ActionLightbulbOutline);
 ActionLightbulbOutline.displayName = 'ActionLightbulbOutline';
+ActionLightbulbOutline.muiName = 'SvgIcon';
 
 exports.default = ActionLightbulbOutline;

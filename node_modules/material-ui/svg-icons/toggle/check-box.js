@@ -27,5 +27,6 @@ var ToggleCheckBox = function ToggleCheckBox(props) {
 };
 ToggleCheckBox = (0, _pure2.default)(ToggleCheckBox);
 ToggleCheckBox.displayName = 'ToggleCheckBox';
+ToggleCheckBox.muiName = 'SvgIcon';
 
 exports.default = ToggleCheckBox;

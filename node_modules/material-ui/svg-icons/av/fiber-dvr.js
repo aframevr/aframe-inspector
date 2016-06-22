@@ -27,5 +27,6 @@ var AvFiberDvr = function AvFiberDvr(props) {
 };
 AvFiberDvr = (0, _pure2.default)(AvFiberDvr);
 AvFiberDvr.displayName = 'AvFiberDvr';
+AvFiberDvr.muiName = 'SvgIcon';
 
 exports.default = AvFiberDvr;

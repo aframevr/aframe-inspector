@@ -27,5 +27,6 @@ var ActionInfo = function ActionInfo(props) {
 };
 ActionInfo = (0, _pure2.default)(ActionInfo);
 ActionInfo.displayName = 'ActionInfo';
+ActionInfo.muiName = 'SvgIcon';
 
 exports.default = ActionInfo;

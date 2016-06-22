@@ -27,5 +27,6 @@ var HardwareWatch = function HardwareWatch(props) {
 };
 HardwareWatch = (0, _pure2.default)(HardwareWatch);
 HardwareWatch.displayName = 'HardwareWatch';
+HardwareWatch.muiName = 'SvgIcon';
 
 exports.default = HardwareWatch;

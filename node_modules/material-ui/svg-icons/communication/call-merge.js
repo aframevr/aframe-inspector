@@ -27,5 +27,6 @@ var CommunicationCallMerge = function CommunicationCallMerge(props) {
 };
 CommunicationCallMerge = (0, _pure2.default)(CommunicationCallMerge);
 CommunicationCallMerge.displayName = 'CommunicationCallMerge';
+CommunicationCallMerge.muiName = 'SvgIcon';
 
 exports.default = CommunicationCallMerge;

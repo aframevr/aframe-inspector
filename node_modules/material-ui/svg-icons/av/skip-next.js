@@ -27,5 +27,6 @@ var AvSkipNext = function AvSkipNext(props) {
 };
 AvSkipNext = (0, _pure2.default)(AvSkipNext);
 AvSkipNext.displayName = 'AvSkipNext';
+AvSkipNext.muiName = 'SvgIcon';
 
 exports.default = AvSkipNext;

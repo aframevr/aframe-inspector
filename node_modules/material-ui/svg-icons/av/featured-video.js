@@ -27,5 +27,6 @@ var AvFeaturedVideo = function AvFeaturedVideo(props) {
 };
 AvFeaturedVideo = (0, _pure2.default)(AvFeaturedVideo);
 AvFeaturedVideo.displayName = 'AvFeaturedVideo';
+AvFeaturedVideo.muiName = 'SvgIcon';
 
 exports.default = AvFeaturedVideo;

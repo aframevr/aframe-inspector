@@ -27,5 +27,6 @@ var ActionHome = function ActionHome(props) {
 };
 ActionHome = (0, _pure2.default)(ActionHome);
 ActionHome.displayName = 'ActionHome';
+ActionHome.muiName = 'SvgIcon';
 
 exports.default = ActionHome;

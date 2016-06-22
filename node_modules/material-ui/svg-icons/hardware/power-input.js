@@ -27,5 +27,6 @@ var HardwarePowerInput = function HardwarePowerInput(props) {
 };
 HardwarePowerInput = (0, _pure2.default)(HardwarePowerInput);
 HardwarePowerInput.displayName = 'HardwarePowerInput';
+HardwarePowerInput.muiName = 'SvgIcon';
 
 exports.default = HardwarePowerInput;

@@ -27,5 +27,6 @@ var ActionTabUnselected = function ActionTabUnselected(props) {
 };
 ActionTabUnselected = (0, _pure2.default)(ActionTabUnselected);
 ActionTabUnselected.displayName = 'ActionTabUnselected';
+ActionTabUnselected.muiName = 'SvgIcon';
 
 exports.default = ActionTabUnselected;

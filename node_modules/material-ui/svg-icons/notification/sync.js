@@ -27,5 +27,6 @@ var NotificationSync = function NotificationSync(props) {
 };
 NotificationSync = (0, _pure2.default)(NotificationSync);
 NotificationSync.displayName = 'NotificationSync';
+NotificationSync.muiName = 'SvgIcon';
 
 exports.default = NotificationSync;

@@ -27,5 +27,6 @@ var ActionTab = function ActionTab(props) {
 };
 ActionTab = (0, _pure2.default)(ActionTab);
 ActionTab.displayName = 'ActionTab';
+ActionTab.muiName = 'SvgIcon';
 
 exports.default = ActionTab;

@@ -27,5 +27,6 @@ var ActionAlarmAdd = function ActionAlarmAdd(props) {
 };
 ActionAlarmAdd = (0, _pure2.default)(ActionAlarmAdd);
 ActionAlarmAdd.displayName = 'ActionAlarmAdd';
+ActionAlarmAdd.muiName = 'SvgIcon';
 
 exports.default = ActionAlarmAdd;

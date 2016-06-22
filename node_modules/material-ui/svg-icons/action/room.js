@@ -27,5 +27,6 @@ var ActionRoom = function ActionRoom(props) {
 };
 ActionRoom = (0, _pure2.default)(ActionRoom);
 ActionRoom.displayName = 'ActionRoom';
+ActionRoom.muiName = 'SvgIcon';
 
 exports.default = ActionRoom;

@@ -27,5 +27,6 @@ var AvQueue = function AvQueue(props) {
 };
 AvQueue = (0, _pure2.default)(AvQueue);
 AvQueue.displayName = 'AvQueue';
+AvQueue.muiName = 'SvgIcon';
 
 exports.default = AvQueue;

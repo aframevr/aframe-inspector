@@ -27,5 +27,6 @@ var MapsLocalMall = function MapsLocalMall(props) {
 };
 MapsLocalMall = (0, _pure2.default)(MapsLocalMall);
 MapsLocalMall.displayName = 'MapsLocalMall';
+MapsLocalMall.muiName = 'SvgIcon';
 
 exports.default = MapsLocalMall;

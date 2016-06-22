@@ -27,5 +27,6 @@ var AlertAddAlert = function AlertAddAlert(props) {
 };
 AlertAddAlert = (0, _pure2.default)(AlertAddAlert);
 AlertAddAlert.displayName = 'AlertAddAlert';
+AlertAddAlert.muiName = 'SvgIcon';
 
 exports.default = AlertAddAlert;

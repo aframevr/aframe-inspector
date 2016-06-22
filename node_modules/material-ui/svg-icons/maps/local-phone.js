@@ -27,5 +27,6 @@ var MapsLocalPhone = function MapsLocalPhone(props) {
 };
 MapsLocalPhone = (0, _pure2.default)(MapsLocalPhone);
 MapsLocalPhone.displayName = 'MapsLocalPhone';
+MapsLocalPhone.muiName = 'SvgIcon';
 
 exports.default = MapsLocalPhone;

@@ -27,5 +27,6 @@ var ImageNature = function ImageNature(props) {
 };
 ImageNature = (0, _pure2.default)(ImageNature);
 ImageNature.displayName = 'ImageNature';
+ImageNature.muiName = 'SvgIcon';
 
 exports.default = ImageNature;

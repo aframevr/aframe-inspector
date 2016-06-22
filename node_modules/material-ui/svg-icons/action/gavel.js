@@ -27,5 +27,6 @@ var ActionGavel = function ActionGavel(props) {
 };
 ActionGavel = (0, _pure2.default)(ActionGavel);
 ActionGavel.displayName = 'ActionGavel';
+ActionGavel.muiName = 'SvgIcon';
 
 exports.default = ActionGavel;

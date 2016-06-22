@@ -27,5 +27,6 @@ var ImageViewCompact = function ImageViewCompact(props) {
 };
 ImageViewCompact = (0, _pure2.default)(ImageViewCompact);
 ImageViewCompact.displayName = 'ImageViewCompact';
+ImageViewCompact.muiName = 'SvgIcon';
 
 exports.default = ImageViewCompact;

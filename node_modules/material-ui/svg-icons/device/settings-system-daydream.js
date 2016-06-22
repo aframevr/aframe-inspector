@@ -27,5 +27,6 @@ var DeviceSettingsSystemDaydream = function DeviceSettingsSystemDaydream(props) 
 };
 DeviceSettingsSystemDaydream = (0, _pure2.default)(DeviceSettingsSystemDaydream);
 DeviceSettingsSystemDaydream.displayName = 'DeviceSettingsSystemDaydream';
+DeviceSettingsSystemDaydream.muiName = 'SvgIcon';
 
 exports.default = DeviceSettingsSystemDaydream;

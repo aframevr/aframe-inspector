@@ -27,5 +27,6 @@ var AlertError = function AlertError(props) {
 };
 AlertError = (0, _pure2.default)(AlertError);
 AlertError.displayName = 'AlertError';
+AlertError.muiName = 'SvgIcon';
 
 exports.default = AlertError;

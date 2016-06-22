@@ -27,5 +27,6 @@ var ActionTimeline = function ActionTimeline(props) {
 };
 ActionTimeline = (0, _pure2.default)(ActionTimeline);
 ActionTimeline.displayName = 'ActionTimeline';
+ActionTimeline.muiName = 'SvgIcon';
 
 exports.default = ActionTimeline;

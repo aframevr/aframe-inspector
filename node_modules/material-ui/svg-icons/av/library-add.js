@@ -27,5 +27,6 @@ var AvLibraryAdd = function AvLibraryAdd(props) {
 };
 AvLibraryAdd = (0, _pure2.default)(AvLibraryAdd);
 AvLibraryAdd.displayName = 'AvLibraryAdd';
+AvLibraryAdd.muiName = 'SvgIcon';
 
 exports.default = AvLibraryAdd;

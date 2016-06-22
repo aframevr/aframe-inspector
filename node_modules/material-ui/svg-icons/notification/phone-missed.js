@@ -27,5 +27,6 @@ var NotificationPhoneMissed = function NotificationPhoneMissed(props) {
 };
 NotificationPhoneMissed = (0, _pure2.default)(NotificationPhoneMissed);
 NotificationPhoneMissed.displayName = 'NotificationPhoneMissed';
+NotificationPhoneMissed.muiName = 'SvgIcon';
 
 exports.default = NotificationPhoneMissed;

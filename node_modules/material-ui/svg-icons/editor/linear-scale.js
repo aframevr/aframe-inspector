@@ -27,5 +27,6 @@ var EditorLinearScale = function EditorLinearScale(props) {
 };
 EditorLinearScale = (0, _pure2.default)(EditorLinearScale);
 EditorLinearScale.displayName = 'EditorLinearScale';
+EditorLinearScale.muiName = 'SvgIcon';
 
 exports.default = EditorLinearScale;

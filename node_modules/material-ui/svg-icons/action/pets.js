@@ -31,5 +31,6 @@ var ActionPets = function ActionPets(props) {
 };
 ActionPets = (0, _pure2.default)(ActionPets);
 ActionPets.displayName = 'ActionPets';
+ActionPets.muiName = 'SvgIcon';
 
 exports.default = ActionPets;

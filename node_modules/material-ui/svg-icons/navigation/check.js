@@ -27,5 +27,6 @@ var NavigationCheck = function NavigationCheck(props) {
 };
 NavigationCheck = (0, _pure2.default)(NavigationCheck);
 NavigationCheck.displayName = 'NavigationCheck';
+NavigationCheck.muiName = 'SvgIcon';
 
 exports.default = NavigationCheck;

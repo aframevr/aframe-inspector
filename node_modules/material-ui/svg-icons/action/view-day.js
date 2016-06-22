@@ -27,5 +27,6 @@ var ActionViewDay = function ActionViewDay(props) {
 };
 ActionViewDay = (0, _pure2.default)(ActionViewDay);
 ActionViewDay.displayName = 'ActionViewDay';
+ActionViewDay.muiName = 'SvgIcon';
 
 exports.default = ActionViewDay;

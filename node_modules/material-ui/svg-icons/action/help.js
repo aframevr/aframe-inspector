@@ -27,5 +27,6 @@ var ActionHelp = function ActionHelp(props) {
 };
 ActionHelp = (0, _pure2.default)(ActionHelp);
 ActionHelp.displayName = 'ActionHelp';
+ActionHelp.muiName = 'SvgIcon';
 
 exports.default = ActionHelp;

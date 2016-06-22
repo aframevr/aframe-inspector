@@ -27,5 +27,6 @@ var ContentContentCut = function ContentContentCut(props) {
 };
 ContentContentCut = (0, _pure2.default)(ContentContentCut);
 ContentContentCut.displayName = 'ContentContentCut';
+ContentContentCut.muiName = 'SvgIcon';
 
 exports.default = ContentContentCut;

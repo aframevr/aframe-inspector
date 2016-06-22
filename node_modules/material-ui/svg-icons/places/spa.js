@@ -28,5 +28,6 @@ var PlacesSpa = function PlacesSpa(props) {
 };
 PlacesSpa = (0, _pure2.default)(PlacesSpa);
 PlacesSpa.displayName = 'PlacesSpa';
+PlacesSpa.muiName = 'SvgIcon';
 
 exports.default = PlacesSpa;

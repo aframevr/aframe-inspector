@@ -27,5 +27,6 @@ var ActionToc = function ActionToc(props) {
 };
 ActionToc = (0, _pure2.default)(ActionToc);
 ActionToc.displayName = 'ActionToc';
+ActionToc.muiName = 'SvgIcon';
 
 exports.default = ActionToc;

@@ -27,5 +27,6 @@ var ActionLockOutline = function ActionLockOutline(props) {
 };
 ActionLockOutline = (0, _pure2.default)(ActionLockOutline);
 ActionLockOutline.displayName = 'ActionLockOutline';
+ActionLockOutline.muiName = 'SvgIcon';
 
 exports.default = ActionLockOutline;

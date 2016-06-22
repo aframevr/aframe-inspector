@@ -27,5 +27,6 @@ var ActionViewStream = function ActionViewStream(props) {
 };
 ActionViewStream = (0, _pure2.default)(ActionViewStream);
 ActionViewStream.displayName = 'ActionViewStream';
+ActionViewStream.muiName = 'SvgIcon';
 
 exports.default = ActionViewStream;

@@ -27,5 +27,6 @@ var MapsLocalDrink = function MapsLocalDrink(props) {
 };
 MapsLocalDrink = (0, _pure2.default)(MapsLocalDrink);
 MapsLocalDrink.displayName = 'MapsLocalDrink';
+MapsLocalDrink.muiName = 'SvgIcon';
 
 exports.default = MapsLocalDrink;

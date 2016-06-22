@@ -27,5 +27,6 @@ var ImageFilter4 = function ImageFilter4(props) {
 };
 ImageFilter4 = (0, _pure2.default)(ImageFilter4);
 ImageFilter4.displayName = 'ImageFilter4';
+ImageFilter4.muiName = 'SvgIcon';
 
 exports.default = ImageFilter4;

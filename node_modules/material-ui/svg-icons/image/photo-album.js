@@ -27,5 +27,6 @@ var ImagePhotoAlbum = function ImagePhotoAlbum(props) {
 };
 ImagePhotoAlbum = (0, _pure2.default)(ImagePhotoAlbum);
 ImagePhotoAlbum.displayName = 'ImagePhotoAlbum';
+ImagePhotoAlbum.muiName = 'SvgIcon';
 
 exports.default = ImagePhotoAlbum;

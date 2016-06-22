@@ -27,5 +27,6 @@ var HardwareHeadset = function HardwareHeadset(props) {
 };
 HardwareHeadset = (0, _pure2.default)(HardwareHeadset);
 HardwareHeadset.displayName = 'HardwareHeadset';
+HardwareHeadset.muiName = 'SvgIcon';
 
 exports.default = HardwareHeadset;

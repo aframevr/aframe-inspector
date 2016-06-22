@@ -27,5 +27,6 @@ var DeviceSignalWifi4Bar = function DeviceSignalWifi4Bar(props) {
 };
 DeviceSignalWifi4Bar = (0, _pure2.default)(DeviceSignalWifi4Bar);
 DeviceSignalWifi4Bar.displayName = 'DeviceSignalWifi4Bar';
+DeviceSignalWifi4Bar.muiName = 'SvgIcon';
 
 exports.default = DeviceSignalWifi4Bar;

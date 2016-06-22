@@ -27,5 +27,6 @@ var ActionSettingsBackupRestore = function ActionSettingsBackupRestore(props) {
 };
 ActionSettingsBackupRestore = (0, _pure2.default)(ActionSettingsBackupRestore);
 ActionSettingsBackupRestore.displayName = 'ActionSettingsBackupRestore';
+ActionSettingsBackupRestore.muiName = 'SvgIcon';
 
 exports.default = ActionSettingsBackupRestore;

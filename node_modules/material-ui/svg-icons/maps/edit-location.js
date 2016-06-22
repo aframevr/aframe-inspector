@@ -27,5 +27,6 @@ var MapsEditLocation = function MapsEditLocation(props) {
 };
 MapsEditLocation = (0, _pure2.default)(MapsEditLocation);
 MapsEditLocation.displayName = 'MapsEditLocation';
+MapsEditLocation.muiName = 'SvgIcon';
 
 exports.default = MapsEditLocation;

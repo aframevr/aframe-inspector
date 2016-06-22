@@ -27,5 +27,6 @@ var ContentFlag = function ContentFlag(props) {
 };
 ContentFlag = (0, _pure2.default)(ContentFlag);
 ContentFlag.displayName = 'ContentFlag';
+ContentFlag.muiName = 'SvgIcon';
 
 exports.default = ContentFlag;

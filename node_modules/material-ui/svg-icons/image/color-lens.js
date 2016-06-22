@@ -27,5 +27,6 @@ var ImageColorLens = function ImageColorLens(props) {
 };
 ImageColorLens = (0, _pure2.default)(ImageColorLens);
 ImageColorLens.displayName = 'ImageColorLens';
+ImageColorLens.muiName = 'SvgIcon';
 
 exports.default = ImageColorLens;

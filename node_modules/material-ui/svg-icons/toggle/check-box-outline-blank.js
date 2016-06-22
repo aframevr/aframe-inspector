@@ -27,5 +27,6 @@ var ToggleCheckBoxOutlineBlank = function ToggleCheckBoxOutlineBlank(props) {
 };
 ToggleCheckBoxOutlineBlank = (0, _pure2.default)(ToggleCheckBoxOutlineBlank);
 ToggleCheckBoxOutlineBlank.displayName = 'ToggleCheckBoxOutlineBlank';
+ToggleCheckBoxOutlineBlank.muiName = 'SvgIcon';
 
 exports.default = ToggleCheckBoxOutlineBlank;

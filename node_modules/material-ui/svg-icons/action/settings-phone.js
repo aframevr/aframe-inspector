@@ -27,5 +27,6 @@ var ActionSettingsPhone = function ActionSettingsPhone(props) {
 };
 ActionSettingsPhone = (0, _pure2.default)(ActionSettingsPhone);
 ActionSettingsPhone.displayName = 'ActionSettingsPhone';
+ActionSettingsPhone.muiName = 'SvgIcon';
 
 exports.default = ActionSettingsPhone;

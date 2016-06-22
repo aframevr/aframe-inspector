@@ -27,5 +27,6 @@ var ImageTune = function ImageTune(props) {
 };
 ImageTune = (0, _pure2.default)(ImageTune);
 ImageTune.displayName = 'ImageTune';
+ImageTune.muiName = 'SvgIcon';
 
 exports.default = ImageTune;

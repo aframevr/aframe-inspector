@@ -27,5 +27,6 @@ var AvForward5 = function AvForward5(props) {
 };
 AvForward5 = (0, _pure2.default)(AvForward5);
 AvForward5.displayName = 'AvForward5';
+AvForward5.muiName = 'SvgIcon';
 
 exports.default = AvForward5;

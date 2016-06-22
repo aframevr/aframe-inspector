@@ -27,5 +27,6 @@ var DeviceWifiLock = function DeviceWifiLock(props) {
 };
 DeviceWifiLock = (0, _pure2.default)(DeviceWifiLock);
 DeviceWifiLock.displayName = 'DeviceWifiLock';
+DeviceWifiLock.muiName = 'SvgIcon';
 
 exports.default = DeviceWifiLock;

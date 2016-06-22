@@ -27,5 +27,6 @@ var ImageStraighten = function ImageStraighten(props) {
 };
 ImageStraighten = (0, _pure2.default)(ImageStraighten);
 ImageStraighten.displayName = 'ImageStraighten';
+ImageStraighten.muiName = 'SvgIcon';
 
 exports.default = ImageStraighten;

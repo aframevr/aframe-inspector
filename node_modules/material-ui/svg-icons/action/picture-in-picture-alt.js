@@ -27,5 +27,6 @@ var ActionPictureInPictureAlt = function ActionPictureInPictureAlt(props) {
 };
 ActionPictureInPictureAlt = (0, _pure2.default)(ActionPictureInPictureAlt);
 ActionPictureInPictureAlt.displayName = 'ActionPictureInPictureAlt';
+ActionPictureInPictureAlt.muiName = 'SvgIcon';
 
 exports.default = ActionPictureInPictureAlt;

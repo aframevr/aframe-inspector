@@ -27,5 +27,6 @@ var HardwareKeyboardHide = function HardwareKeyboardHide(props) {
 };
 HardwareKeyboardHide = (0, _pure2.default)(HardwareKeyboardHide);
 HardwareKeyboardHide.displayName = 'HardwareKeyboardHide';
+HardwareKeyboardHide.muiName = 'SvgIcon';
 
 exports.default = HardwareKeyboardHide;

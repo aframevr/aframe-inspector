@@ -27,5 +27,6 @@ var EditorFormatListNumbered = function EditorFormatListNumbered(props) {
 };
 EditorFormatListNumbered = (0, _pure2.default)(EditorFormatListNumbered);
 EditorFormatListNumbered.displayName = 'EditorFormatListNumbered';
+EditorFormatListNumbered.muiName = 'SvgIcon';
 
 exports.default = EditorFormatListNumbered;

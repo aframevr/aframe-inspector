@@ -30,11 +30,9 @@ var _CircleRipple = require('./CircleRipple');
 
 var _CircleRipple2 = _interopRequireDefault(_CircleRipple);
 
-var _reactAddonsUpdate = require('react-addons-update');
-
-var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -42,15 +40,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function push(array, obj) {
-  var newObj = Array.isArray(obj) ? obj : [obj];
-  return (0, _reactAddonsUpdate2.default)(array, { $push: newObj });
-}
+function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); }
 
-function shift(array) {
-  // Remove the first element in the array using React immutability helpers
-  return (0, _reactAddonsUpdate2.default)(array, { $splice: [[0, 1]] });
-}
+// Remove the first element of the array
+var shift = function shift(_ref) {
+  var _ref2 = _toArray(_ref);
+
+  var newArray = _ref2.slice(1);
+
+  return newArray;
+};
 
 var TouchRipple = function (_Component) {
   _inherits(TouchRipple, _Component);
@@ -115,7 +114,7 @@ var TouchRipple = function (_Component) {
         var abortedRipple = _react2.default.cloneElement(ripple, { aborted: true });
         // Remove the old ripple and replace it with the new updated one
         currentRipples = shift(currentRipples);
-        currentRipples = push(currentRipples, abortedRipple);
+        currentRipples = [].concat(_toConsumableArray(currentRipples), [abortedRipple]);
         _this.setState({ ripples: currentRipples }, function () {
           // Call end after we've set the ripple to abort otherwise the setState
           // in end() merges with this and the ripple abort fails
@@ -149,13 +148,13 @@ var TouchRipple = function (_Component) {
       var ripples = this.state.ripples;
 
       // Add a ripple to the ripples array
-      ripples = push(ripples, _react2.default.createElement(_CircleRipple2.default, {
+      ripples = [].concat(_toConsumableArray(ripples), [_react2.default.createElement(_CircleRipple2.default, {
         key: this.state.nextKey,
         style: !this.props.centerRipple ? this.getRippleStyle(event) : {},
         color: this.props.color || theme.color,
         opacity: this.props.opacity,
         touchGenerated: isRippleTouchGenerated
-      }));
+      })]);
 
       this.ignoreNextMouseDown = isRippleTouchGenerated;
       this.setState({

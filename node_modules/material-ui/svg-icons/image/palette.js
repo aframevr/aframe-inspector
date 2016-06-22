@@ -27,5 +27,6 @@ var ImagePalette = function ImagePalette(props) {
 };
 ImagePalette = (0, _pure2.default)(ImagePalette);
 ImagePalette.displayName = 'ImagePalette';
+ImagePalette.muiName = 'SvgIcon';
 
 exports.default = ImagePalette;

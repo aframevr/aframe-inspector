@@ -27,5 +27,6 @@ var ActionAndroid = function ActionAndroid(props) {
 };
 ActionAndroid = (0, _pure2.default)(ActionAndroid);
 ActionAndroid.displayName = 'ActionAndroid';
+ActionAndroid.muiName = 'SvgIcon';
 
 exports.default = ActionAndroid;

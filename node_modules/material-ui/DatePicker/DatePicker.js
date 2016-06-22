@@ -62,16 +62,24 @@ var DatePicker = function (_Component) {
           date: date
         });
       }
-      if (_this.props.onChange) _this.props.onChange(null, date);
+      if (_this.props.onChange) {
+        _this.props.onChange(null, date);
+      }
     }, _this.handleFocus = function (event) {
       event.target.blur();
-      if (_this.props.onFocus) _this.props.onFocus(event);
+      if (_this.props.onFocus) {
+        _this.props.onFocus(event);
+      }
     }, _this.handleTouchTap = function (event) {
-      if (_this.props.onTouchTap) _this.props.onTouchTap(event);
+      if (_this.props.onTouchTap) {
+        _this.props.onTouchTap(event);
+      }
 
-      if (!_this.props.disabled) setTimeout(function () {
-        _this.openDialog();
-      }, 0);
+      if (!_this.props.disabled) {
+        setTimeout(function () {
+          _this.openDialog();
+        }, 0);
+      }
     }, _this.formatDate = function (date) {
       if (_this.props.locale) {
         var DateTimeFormat = _this.props.DateTimeFormat || _dateUtils.dateTimeFormat;
@@ -164,6 +172,7 @@ var DatePicker = function (_Component) {
       var DateTimeFormat = _props.DateTimeFormat;
       var autoOk = _props.autoOk;
       var cancelLabel = _props.cancelLabel;
+      var className = _props.className;
       var container = _props.container;
       var defaultDate = _props.defaultDate;
       var // eslint-disable-line no-unused-vars
@@ -185,7 +194,7 @@ var DatePicker = function (_Component) {
       var textFieldStyle = _props.textFieldStyle;
       var wordings = _props.wordings;
 
-      var other = _objectWithoutProperties(_props, ['DateTimeFormat', 'autoOk', 'cancelLabel', 'container', 'defaultDate', 'disableYearSelection', 'firstDayOfWeek', 'locale', 'maxDate', 'minDate', 'mode', 'okLabel', 'onDismiss', 'onFocus', 'onShow', 'onTouchTap', 'shouldDisableDate', 'style', 'textFieldStyle', 'wordings']);
+      var other = _objectWithoutProperties(_props, ['DateTimeFormat', 'autoOk', 'cancelLabel', 'className', 'container', 'defaultDate', 'disableYearSelection', 'firstDayOfWeek', 'locale', 'maxDate', 'minDate', 'mode', 'okLabel', 'onDismiss', 'onFocus', 'onShow', 'onTouchTap', 'shouldDisableDate', 'style', 'textFieldStyle', 'wordings']);
 
       var prepareStyles = this.context.muiTheme.prepareStyles;
 
@@ -193,7 +202,7 @@ var DatePicker = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { style: prepareStyles((0, _simpleAssign2.default)({}, style)) },
+        { className: className, style: prepareStyles((0, _simpleAssign2.default)({}, style)) },
         _react2.default.createElement(_TextField2.default, _extends({}, other, {
           onFocus: this.handleFocus,
           onTouchTap: this.handleTouchTap,
@@ -246,6 +255,10 @@ DatePicker.propTypes = {
    * Override the default text of the 'Cancel' button.
    */
   cancelLabel: _react.PropTypes.node,
+  /**
+   * The css class name of the root element.
+   */
+  className: _react.PropTypes.string,
   /**
    * Used to control how the Date Picker will be displayed when the input field is focused.
    * `dialog` (default) displays the DatePicker as a dialog with a modal.
@@ -350,7 +363,7 @@ DatePicker.propTypes = {
   /**
    * Sets the date for the Date Picker programmatically.
    */
-  value: _react.PropTypes.any,
+  value: _react.PropTypes.object,
   /**
    * Wordings used inside the button of the dialog.
    */

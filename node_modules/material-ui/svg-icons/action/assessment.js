@@ -27,5 +27,6 @@ var ActionAssessment = function ActionAssessment(props) {
 };
 ActionAssessment = (0, _pure2.default)(ActionAssessment);
 ActionAssessment.displayName = 'ActionAssessment';
+ActionAssessment.muiName = 'SvgIcon';
 
 exports.default = ActionAssessment;

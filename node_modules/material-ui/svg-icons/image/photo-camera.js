@@ -28,5 +28,6 @@ var ImagePhotoCamera = function ImagePhotoCamera(props) {
 };
 ImagePhotoCamera = (0, _pure2.default)(ImagePhotoCamera);
 ImagePhotoCamera.displayName = 'ImagePhotoCamera';
+ImagePhotoCamera.muiName = 'SvgIcon';
 
 exports.default = ImagePhotoCamera;

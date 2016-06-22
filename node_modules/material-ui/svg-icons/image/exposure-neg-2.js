@@ -27,5 +27,6 @@ var ImageExposureNeg2 = function ImageExposureNeg2(props) {
 };
 ImageExposureNeg2 = (0, _pure2.default)(ImageExposureNeg2);
 ImageExposureNeg2.displayName = 'ImageExposureNeg2';
+ImageExposureNeg2.muiName = 'SvgIcon';
 
 exports.default = ImageExposureNeg2;

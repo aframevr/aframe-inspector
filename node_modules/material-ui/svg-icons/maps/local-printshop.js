@@ -27,5 +27,6 @@ var MapsLocalPrintshop = function MapsLocalPrintshop(props) {
 };
 MapsLocalPrintshop = (0, _pure2.default)(MapsLocalPrintshop);
 MapsLocalPrintshop.displayName = 'MapsLocalPrintshop';
+MapsLocalPrintshop.muiName = 'SvgIcon';
 
 exports.default = MapsLocalPrintshop;

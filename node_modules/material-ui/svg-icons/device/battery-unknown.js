@@ -27,5 +27,6 @@ var DeviceBatteryUnknown = function DeviceBatteryUnknown(props) {
 };
 DeviceBatteryUnknown = (0, _pure2.default)(DeviceBatteryUnknown);
 DeviceBatteryUnknown.displayName = 'DeviceBatteryUnknown';
+DeviceBatteryUnknown.muiName = 'SvgIcon';
 
 exports.default = DeviceBatteryUnknown;

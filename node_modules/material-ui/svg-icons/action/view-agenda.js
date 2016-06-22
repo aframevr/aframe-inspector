@@ -27,5 +27,6 @@ var ActionViewAgenda = function ActionViewAgenda(props) {
 };
 ActionViewAgenda = (0, _pure2.default)(ActionViewAgenda);
 ActionViewAgenda.displayName = 'ActionViewAgenda';
+ActionViewAgenda.muiName = 'SvgIcon';
 
 exports.default = ActionViewAgenda;

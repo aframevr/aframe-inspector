@@ -27,5 +27,6 @@ var MapsTransferWithinAStation = function MapsTransferWithinAStation(props) {
 };
 MapsTransferWithinAStation = (0, _pure2.default)(MapsTransferWithinAStation);
 MapsTransferWithinAStation.displayName = 'MapsTransferWithinAStation';
+MapsTransferWithinAStation.muiName = 'SvgIcon';
 
 exports.default = MapsTransferWithinAStation;

@@ -27,5 +27,6 @@ var CommunicationRingVolume = function CommunicationRingVolume(props) {
 };
 CommunicationRingVolume = (0, _pure2.default)(CommunicationRingVolume);
 CommunicationRingVolume.displayName = 'CommunicationRingVolume';
+CommunicationRingVolume.muiName = 'SvgIcon';
 
 exports.default = CommunicationRingVolume;

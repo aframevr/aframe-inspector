@@ -27,5 +27,6 @@ var ActionFavorite = function ActionFavorite(props) {
 };
 ActionFavorite = (0, _pure2.default)(ActionFavorite);
 ActionFavorite.displayName = 'ActionFavorite';
+ActionFavorite.muiName = 'SvgIcon';
 
 exports.default = ActionFavorite;

@@ -27,5 +27,6 @@ var ImageFilter9 = function ImageFilter9(props) {
 };
 ImageFilter9 = (0, _pure2.default)(ImageFilter9);
 ImageFilter9.displayName = 'ImageFilter9';
+ImageFilter9.muiName = 'SvgIcon';
 
 exports.default = ImageFilter9;

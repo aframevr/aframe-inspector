@@ -28,5 +28,6 @@ var NotificationPriorityHigh = function NotificationPriorityHigh(props) {
 };
 NotificationPriorityHigh = (0, _pure2.default)(NotificationPriorityHigh);
 NotificationPriorityHigh.displayName = 'NotificationPriorityHigh';
+NotificationPriorityHigh.muiName = 'SvgIcon';
 
 exports.default = NotificationPriorityHigh;

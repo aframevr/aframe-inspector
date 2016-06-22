@@ -27,5 +27,6 @@ var HardwareKeyboardCapslock = function HardwareKeyboardCapslock(props) {
 };
 HardwareKeyboardCapslock = (0, _pure2.default)(HardwareKeyboardCapslock);
 HardwareKeyboardCapslock.displayName = 'HardwareKeyboardCapslock';
+HardwareKeyboardCapslock.muiName = 'SvgIcon';
 
 exports.default = HardwareKeyboardCapslock;

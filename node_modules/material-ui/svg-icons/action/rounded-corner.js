@@ -27,5 +27,6 @@ var ActionRoundedCorner = function ActionRoundedCorner(props) {
 };
 ActionRoundedCorner = (0, _pure2.default)(ActionRoundedCorner);
 ActionRoundedCorner.displayName = 'ActionRoundedCorner';
+ActionRoundedCorner.muiName = 'SvgIcon';
 
 exports.default = ActionRoundedCorner;

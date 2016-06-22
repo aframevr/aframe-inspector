@@ -27,5 +27,6 @@ var EditorInsertEmoticon = function EditorInsertEmoticon(props) {
 };
 EditorInsertEmoticon = (0, _pure2.default)(EditorInsertEmoticon);
 EditorInsertEmoticon.displayName = 'EditorInsertEmoticon';
+EditorInsertEmoticon.muiName = 'SvgIcon';
 
 exports.default = EditorInsertEmoticon;

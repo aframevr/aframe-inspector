@@ -27,5 +27,6 @@ var NotificationEventBusy = function NotificationEventBusy(props) {
 };
 NotificationEventBusy = (0, _pure2.default)(NotificationEventBusy);
 NotificationEventBusy.displayName = 'NotificationEventBusy';
+NotificationEventBusy.muiName = 'SvgIcon';
 
 exports.default = NotificationEventBusy;

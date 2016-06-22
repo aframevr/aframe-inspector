@@ -32,5 +32,6 @@ var AvFiberSmartRecord = function AvFiberSmartRecord(props) {
 };
 AvFiberSmartRecord = (0, _pure2.default)(AvFiberSmartRecord);
 AvFiberSmartRecord.displayName = 'AvFiberSmartRecord';
+AvFiberSmartRecord.muiName = 'SvgIcon';
 
 exports.default = AvFiberSmartRecord;

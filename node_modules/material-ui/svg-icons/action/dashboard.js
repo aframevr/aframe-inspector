@@ -27,5 +27,6 @@ var ActionDashboard = function ActionDashboard(props) {
 };
 ActionDashboard = (0, _pure2.default)(ActionDashboard);
 ActionDashboard.displayName = 'ActionDashboard';
+ActionDashboard.muiName = 'SvgIcon';
 
 exports.default = ActionDashboard;

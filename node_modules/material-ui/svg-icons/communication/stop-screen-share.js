@@ -27,5 +27,6 @@ var CommunicationStopScreenShare = function CommunicationStopScreenShare(props) 
 };
 CommunicationStopScreenShare = (0, _pure2.default)(CommunicationStopScreenShare);
 CommunicationStopScreenShare.displayName = 'CommunicationStopScreenShare';
+CommunicationStopScreenShare.muiName = 'SvgIcon';
 
 exports.default = CommunicationStopScreenShare;

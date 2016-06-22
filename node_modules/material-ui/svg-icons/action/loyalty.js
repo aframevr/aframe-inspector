@@ -27,5 +27,6 @@ var ActionLoyalty = function ActionLoyalty(props) {
 };
 ActionLoyalty = (0, _pure2.default)(ActionLoyalty);
 ActionLoyalty.displayName = 'ActionLoyalty';
+ActionLoyalty.muiName = 'SvgIcon';
 
 exports.default = ActionLoyalty;

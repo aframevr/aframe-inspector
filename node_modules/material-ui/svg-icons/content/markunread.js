@@ -27,5 +27,6 @@ var ContentMarkunread = function ContentMarkunread(props) {
 };
 ContentMarkunread = (0, _pure2.default)(ContentMarkunread);
 ContentMarkunread.displayName = 'ContentMarkunread';
+ContentMarkunread.muiName = 'SvgIcon';
 
 exports.default = ContentMarkunread;

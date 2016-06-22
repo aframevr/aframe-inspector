@@ -27,5 +27,6 @@ var ContentTextFormat = function ContentTextFormat(props) {
 };
 ContentTextFormat = (0, _pure2.default)(ContentTextFormat);
 ContentTextFormat.displayName = 'ContentTextFormat';
+ContentTextFormat.muiName = 'SvgIcon';
 
 exports.default = ContentTextFormat;

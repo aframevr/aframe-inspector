@@ -27,5 +27,6 @@ var ActionLineStyle = function ActionLineStyle(props) {
 };
 ActionLineStyle = (0, _pure2.default)(ActionLineStyle);
 ActionLineStyle.displayName = 'ActionLineStyle';
+ActionLineStyle.muiName = 'SvgIcon';
 
 exports.default = ActionLineStyle;

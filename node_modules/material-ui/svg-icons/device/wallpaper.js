@@ -27,5 +27,6 @@ var DeviceWallpaper = function DeviceWallpaper(props) {
 };
 DeviceWallpaper = (0, _pure2.default)(DeviceWallpaper);
 DeviceWallpaper.displayName = 'DeviceWallpaper';
+DeviceWallpaper.muiName = 'SvgIcon';
 
 exports.default = DeviceWallpaper;

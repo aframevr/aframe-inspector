@@ -27,5 +27,6 @@ var ImageGradient = function ImageGradient(props) {
 };
 ImageGradient = (0, _pure2.default)(ImageGradient);
 ImageGradient.displayName = 'ImageGradient';
+ImageGradient.muiName = 'SvgIcon';
 
 exports.default = ImageGradient;

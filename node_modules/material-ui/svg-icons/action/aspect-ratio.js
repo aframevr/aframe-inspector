@@ -27,5 +27,6 @@ var ActionAspectRatio = function ActionAspectRatio(props) {
 };
 ActionAspectRatio = (0, _pure2.default)(ActionAspectRatio);
 ActionAspectRatio.displayName = 'ActionAspectRatio';
+ActionAspectRatio.muiName = 'SvgIcon';
 
 exports.default = ActionAspectRatio;

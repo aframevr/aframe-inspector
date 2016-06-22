@@ -27,5 +27,6 @@ var HardwareTabletMac = function HardwareTabletMac(props) {
 };
 HardwareTabletMac = (0, _pure2.default)(HardwareTabletMac);
 HardwareTabletMac.displayName = 'HardwareTabletMac';
+HardwareTabletMac.muiName = 'SvgIcon';
 
 exports.default = HardwareTabletMac;

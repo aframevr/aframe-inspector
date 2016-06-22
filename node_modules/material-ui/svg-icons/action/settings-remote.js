@@ -27,5 +27,6 @@ var ActionSettingsRemote = function ActionSettingsRemote(props) {
 };
 ActionSettingsRemote = (0, _pure2.default)(ActionSettingsRemote);
 ActionSettingsRemote.displayName = 'ActionSettingsRemote';
+ActionSettingsRemote.muiName = 'SvgIcon';
 
 exports.default = ActionSettingsRemote;

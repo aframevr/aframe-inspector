@@ -27,5 +27,6 @@ var MapsPinDrop = function MapsPinDrop(props) {
 };
 MapsPinDrop = (0, _pure2.default)(MapsPinDrop);
 MapsPinDrop.displayName = 'MapsPinDrop';
+MapsPinDrop.muiName = 'SvgIcon';
 
 exports.default = MapsPinDrop;

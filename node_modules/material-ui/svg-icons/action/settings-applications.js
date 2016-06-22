@@ -27,5 +27,6 @@ var ActionSettingsApplications = function ActionSettingsApplications(props) {
 };
 ActionSettingsApplications = (0, _pure2.default)(ActionSettingsApplications);
 ActionSettingsApplications.displayName = 'ActionSettingsApplications';
+ActionSettingsApplications.muiName = 'SvgIcon';
 
 exports.default = ActionSettingsApplications;

@@ -20,10 +20,6 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactAddonsUpdate = require('react-addons-update');
-
-var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
-
 var _shallowEqual = require('recompose/shallowEqual');
 
 var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
@@ -60,9 +56,13 @@ var _warning = require('warning');
 
 var _warning2 = _interopRequireDefault(_warning);
 
+var _menuUtils = require('./menuUtils');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -141,6 +141,8 @@ var Menu = function (_Component) {
       isKeyboardFocused: props.initiallyKeyboardFocused,
       keyWidth: props.desktop ? 64 : 56
     };
+
+    _this.hotKeyHolder = new _menuUtils.HotKeyHolder();
     return _this;
   }
 
@@ -164,8 +166,8 @@ var Menu = function (_Component) {
     }
   }, {
     key: 'shouldComponentUpdate',
-    value: function shouldComponentUpdate(nextProps, nextState) {
-      return !(0, _shallowEqual2.default)(this.props, nextProps) || !(0, _shallowEqual2.default)(this.state, nextState);
+    value: function shouldComponentUpdate(nextProps, nextState, nextContext) {
+      return !(0, _shallowEqual2.default)(this.props, nextProps) || !(0, _shallowEqual2.default)(this.state, nextState) || !(0, _shallowEqual2.default)(this.context, nextContext);
     }
   }, {
     key: 'componentDidUpdate',
@@ -317,6 +319,26 @@ var Menu = function (_Component) {
       return selectedIndex;
     }
   }, {
+    key: 'setFocusIndexStartsWith',
+    value: function setFocusIndexStartsWith(keys) {
+      var foundIndex = -1;
+      _react2.default.Children.forEach(this.props.children, function (child, index) {
+        if (foundIndex >= 0) {
+          return;
+        }
+        var primaryText = child.props.primaryText;
+
+        if (typeof primaryText === 'string' && new RegExp('^' + keys, 'i').test(primaryText)) {
+          foundIndex = index;
+        }
+      });
+      if (foundIndex >= 0) {
+        this.setFocusIndex(foundIndex, true);
+        return true;
+      }
+      return false;
+    }
+  }, {
     key: 'handleMenuItemTouchTap',
     value: function handleMenuItemTouchTap(event, item, index) {
       var children = this.props.children;
@@ -330,7 +352,16 @@ var Menu = function (_Component) {
 
       if (multiple) {
         var itemIndex = menuValue.indexOf(itemValue);
-        var newMenuValue = itemIndex === -1 ? (0, _reactAddonsUpdate2.default)(menuValue, { $push: [itemValue] }) : (0, _reactAddonsUpdate2.default)(menuValue, { $splice: [[itemIndex, 1]] });
+
+        var _menuValue = _toArray(menuValue);
+
+        var newMenuValue = _menuValue;
+
+        if (itemIndex === -1) {
+          newMenuValue.push(itemValue);
+        } else {
+          newMenuValue.splice(itemIndex, 1);
+        }
 
         valueLink.requestChange(event, newMenuValue);
       } else if (!multiple && itemValue !== menuValue) {
@@ -658,7 +689,8 @@ var _initialiseProps = function _initialiseProps() {
 
   this.handleKeyDown = function (event) {
     var filteredChildren = _this5.getFilteredChildren(_this5.props.children);
-    switch ((0, _keycode2.default)(event)) {
+    var key = (0, _keycode2.default)(event);
+    switch (key) {
       case 'down':
         event.preventDefault();
         _this5.incrementKeyboardFocusIndex(filteredChildren);
@@ -678,6 +710,13 @@ var _initialiseProps = function _initialiseProps() {
         event.preventDefault();
         _this5.decrementKeyboardFocusIndex();
         break;
+      default:
+        if (key.length === 1) {
+          var hotKeys = _this5.hotKeyHolder.append(key);
+          if (_this5.setFocusIndexStartsWith(hotKeys)) {
+            event.preventDefault();
+          }
+        }
     }
     _this5.props.onKeyDown(event);
   };

@@ -27,5 +27,6 @@ var EditorShortText = function EditorShortText(props) {
 };
 EditorShortText = (0, _pure2.default)(EditorShortText);
 EditorShortText.displayName = 'EditorShortText';
+EditorShortText.muiName = 'SvgIcon';
 
 exports.default = EditorShortText;

@@ -27,5 +27,6 @@ var AvFastRewind = function AvFastRewind(props) {
 };
 AvFastRewind = (0, _pure2.default)(AvFastRewind);
 AvFastRewind.displayName = 'AvFastRewind';
+AvFastRewind.muiName = 'SvgIcon';
 
 exports.default = AvFastRewind;

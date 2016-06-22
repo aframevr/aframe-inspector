@@ -27,5 +27,6 @@ var ImageTonality = function ImageTonality(props) {
 };
 ImageTonality = (0, _pure2.default)(ImageTonality);
 ImageTonality.displayName = 'ImageTonality';
+ImageTonality.muiName = 'SvgIcon';
 
 exports.default = ImageTonality;

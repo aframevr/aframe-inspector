@@ -27,5 +27,6 @@ var ImageCrop169 = function ImageCrop169(props) {
 };
 ImageCrop169 = (0, _pure2.default)(ImageCrop169);
 ImageCrop169.displayName = 'ImageCrop169';
+ImageCrop169.muiName = 'SvgIcon';
 
 exports.default = ImageCrop169;

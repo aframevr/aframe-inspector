@@ -27,5 +27,6 @@ var ActionGetApp = function ActionGetApp(props) {
 };
 ActionGetApp = (0, _pure2.default)(ActionGetApp);
 ActionGetApp.displayName = 'ActionGetApp';
+ActionGetApp.muiName = 'SvgIcon';
 
 exports.default = ActionGetApp;

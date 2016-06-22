@@ -367,7 +367,7 @@ var DialogInline = function (_Component2) {
         'div',
         { className: className, style: prepareStyles(styles.root) },
         open && _react2.default.createElement(_reactEventListener2.default, {
-          elementName: 'window',
+          target: 'window',
           onKeyUp: this.handleKeyUp,
           onResize: this.handleResize
         }),

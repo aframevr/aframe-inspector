@@ -27,5 +27,6 @@ var ActionExplore = function ActionExplore(props) {
 };
 ActionExplore = (0, _pure2.default)(ActionExplore);
 ActionExplore.displayName = 'ActionExplore';
+ActionExplore.muiName = 'SvgIcon';
 
 exports.default = ActionExplore;

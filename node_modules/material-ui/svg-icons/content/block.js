@@ -27,5 +27,6 @@ var ContentBlock = function ContentBlock(props) {
 };
 ContentBlock = (0, _pure2.default)(ContentBlock);
 ContentBlock.displayName = 'ContentBlock';
+ContentBlock.muiName = 'SvgIcon';
 
 exports.default = ContentBlock;

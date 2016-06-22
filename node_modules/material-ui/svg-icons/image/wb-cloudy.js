@@ -27,5 +27,6 @@ var ImageWbCloudy = function ImageWbCloudy(props) {
 };
 ImageWbCloudy = (0, _pure2.default)(ImageWbCloudy);
 ImageWbCloudy.displayName = 'ImageWbCloudy';
+ImageWbCloudy.muiName = 'SvgIcon';
 
 exports.default = ImageWbCloudy;

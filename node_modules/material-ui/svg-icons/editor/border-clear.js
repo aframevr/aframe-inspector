@@ -27,5 +27,6 @@ var EditorBorderClear = function EditorBorderClear(props) {
 };
 EditorBorderClear = (0, _pure2.default)(EditorBorderClear);
 EditorBorderClear.displayName = 'EditorBorderClear';
+EditorBorderClear.muiName = 'SvgIcon';
 
 exports.default = EditorBorderClear;

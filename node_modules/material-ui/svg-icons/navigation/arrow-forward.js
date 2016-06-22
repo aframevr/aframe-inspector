@@ -27,5 +27,6 @@ var NavigationArrowForward = function NavigationArrowForward(props) {
 };
 NavigationArrowForward = (0, _pure2.default)(NavigationArrowForward);
 NavigationArrowForward.displayName = 'NavigationArrowForward';
+NavigationArrowForward.muiName = 'SvgIcon';
 
 exports.default = NavigationArrowForward;

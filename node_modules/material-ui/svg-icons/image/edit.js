@@ -27,5 +27,6 @@ var ImageEdit = function ImageEdit(props) {
 };
 ImageEdit = (0, _pure2.default)(ImageEdit);
 ImageEdit.displayName = 'ImageEdit';
+ImageEdit.muiName = 'SvgIcon';
 
 exports.default = ImageEdit;

@@ -27,5 +27,6 @@ var ActionThreeDRotation = function ActionThreeDRotation(props) {
 };
 ActionThreeDRotation = (0, _pure2.default)(ActionThreeDRotation);
 ActionThreeDRotation.displayName = 'ActionThreeDRotation';
+ActionThreeDRotation.muiName = 'SvgIcon';
 
 exports.default = ActionThreeDRotation;

@@ -27,5 +27,6 @@ var PlacesFreeBreakfast = function PlacesFreeBreakfast(props) {
 };
 PlacesFreeBreakfast = (0, _pure2.default)(PlacesFreeBreakfast);
 PlacesFreeBreakfast.displayName = 'PlacesFreeBreakfast';
+PlacesFreeBreakfast.muiName = 'SvgIcon';
 
 exports.default = PlacesFreeBreakfast;

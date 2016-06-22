@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -13,8 +13,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 
 var Position = function () {
-  function /*istanbul ignore next*/Position() {
-    /*istanbul ignore next*/(0, _classCallCheck3.default)(this, Position);
+  function Position() {
+    (0, _classCallCheck3.default)(this, Position);
 
     this.line = 1;
     this.column = 0;
@@ -52,5 +52,5 @@ var Position = function () {
   return Position;
 }();
 
-/*istanbul ignore next*/exports.default = Position;
-/*istanbul ignore next*/module.exports = exports["default"];
+exports.default = Position;
+module.exports = exports["default"];

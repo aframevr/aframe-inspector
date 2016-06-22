@@ -27,5 +27,6 @@ var AvRadio = function AvRadio(props) {
 };
 AvRadio = (0, _pure2.default)(AvRadio);
 AvRadio.displayName = 'AvRadio';
+AvRadio.muiName = 'SvgIcon';
 
 exports.default = AvRadio;

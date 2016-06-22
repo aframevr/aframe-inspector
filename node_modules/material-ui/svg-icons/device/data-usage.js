@@ -27,5 +27,6 @@ var DeviceDataUsage = function DeviceDataUsage(props) {
 };
 DeviceDataUsage = (0, _pure2.default)(DeviceDataUsage);
 DeviceDataUsage.displayName = 'DeviceDataUsage';
+DeviceDataUsage.muiName = 'SvgIcon';
 
 exports.default = DeviceDataUsage;

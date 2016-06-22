@@ -27,5 +27,6 @@ var MapsTraffic = function MapsTraffic(props) {
 };
 MapsTraffic = (0, _pure2.default)(MapsTraffic);
 MapsTraffic.displayName = 'MapsTraffic';
+MapsTraffic.muiName = 'SvgIcon';
 
 exports.default = MapsTraffic;

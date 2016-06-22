@@ -27,5 +27,6 @@ var ImageFlashOn = function ImageFlashOn(props) {
 };
 ImageFlashOn = (0, _pure2.default)(ImageFlashOn);
 ImageFlashOn.displayName = 'ImageFlashOn';
+ImageFlashOn.muiName = 'SvgIcon';
 
 exports.default = ImageFlashOn;

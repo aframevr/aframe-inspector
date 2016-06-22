@@ -27,5 +27,6 @@ var AvSlowMotionVideo = function AvSlowMotionVideo(props) {
 };
 AvSlowMotionVideo = (0, _pure2.default)(AvSlowMotionVideo);
 AvSlowMotionVideo.displayName = 'AvSlowMotionVideo';
+AvSlowMotionVideo.muiName = 'SvgIcon';
 
 exports.default = AvSlowMotionVideo;

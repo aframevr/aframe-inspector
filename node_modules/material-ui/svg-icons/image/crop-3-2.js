@@ -27,5 +27,6 @@ var ImageCrop32 = function ImageCrop32(props) {
 };
 ImageCrop32 = (0, _pure2.default)(ImageCrop32);
 ImageCrop32.displayName = 'ImageCrop32';
+ImageCrop32.muiName = 'SvgIcon';
 
 exports.default = ImageCrop32;

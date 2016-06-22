@@ -27,5 +27,6 @@ var HardwareTv = function HardwareTv(props) {
 };
 HardwareTv = (0, _pure2.default)(HardwareTv);
 HardwareTv.displayName = 'HardwareTv';
+HardwareTv.muiName = 'SvgIcon';
 
 exports.default = HardwareTv;

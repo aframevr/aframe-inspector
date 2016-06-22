@@ -27,5 +27,6 @@ var EditorInsertDriveFile = function EditorInsertDriveFile(props) {
 };
 EditorInsertDriveFile = (0, _pure2.default)(EditorInsertDriveFile);
 EditorInsertDriveFile.displayName = 'EditorInsertDriveFile';
+EditorInsertDriveFile.muiName = 'SvgIcon';
 
 exports.default = EditorInsertDriveFile;

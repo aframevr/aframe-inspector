@@ -27,5 +27,6 @@ var FileFileDownload = function FileFileDownload(props) {
 };
 FileFileDownload = (0, _pure2.default)(FileFileDownload);
 FileFileDownload.displayName = 'FileFileDownload';
+FileFileDownload.muiName = 'SvgIcon';
 
 exports.default = FileFileDownload;

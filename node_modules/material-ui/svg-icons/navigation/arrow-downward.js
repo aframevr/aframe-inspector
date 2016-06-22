@@ -27,5 +27,6 @@ var NavigationArrowDownward = function NavigationArrowDownward(props) {
 };
 NavigationArrowDownward = (0, _pure2.default)(NavigationArrowDownward);
 NavigationArrowDownward.displayName = 'NavigationArrowDownward';
+NavigationArrowDownward.muiName = 'SvgIcon';
 
 exports.default = NavigationArrowDownward;

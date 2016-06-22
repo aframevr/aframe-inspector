@@ -27,5 +27,6 @@ var ActionLineWeight = function ActionLineWeight(props) {
 };
 ActionLineWeight = (0, _pure2.default)(ActionLineWeight);
 ActionLineWeight.displayName = 'ActionLineWeight';
+ActionLineWeight.muiName = 'SvgIcon';
 
 exports.default = ActionLineWeight;

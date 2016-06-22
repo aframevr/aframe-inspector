@@ -27,5 +27,6 @@ var ImagePanorama = function ImagePanorama(props) {
 };
 ImagePanorama = (0, _pure2.default)(ImagePanorama);
 ImagePanorama.displayName = 'ImagePanorama';
+ImagePanorama.muiName = 'SvgIcon';
 
 exports.default = ImagePanorama;

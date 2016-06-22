@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -6,30 +6,28 @@ var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var /*istanbul ignore next*/_node = require("debug/node");
+var _node = require("debug/node");
 
-/*istanbul ignore next*/
 var _node2 = _interopRequireDefault(_node);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var verboseDebug = /*istanbul ignore next*/(0, _node2.default)("babel:verbose");
-var generalDebug = /*istanbul ignore next*/(0, _node2.default)("babel");
+var verboseDebug = (0, _node2.default)("babel:verbose");
+var generalDebug = (0, _node2.default)("babel");
 
 var seenDeprecatedMessages = [];
 
-/*istanbul ignore next*/
 var Logger = function () {
-  function /*istanbul ignore next*/Logger(file, filename) {
-    /*istanbul ignore next*/(0, _classCallCheck3.default)(this, Logger);
+  function Logger(file, filename) {
+    (0, _classCallCheck3.default)(this, Logger);
 
     this.filename = filename;
     this.file = file;
   }
 
   Logger.prototype._buildMessage = function _buildMessage(msg) {
-    var parts = /*istanbul ignore next*/"[BABEL] " + this.filename;
-    if (msg) parts += /*istanbul ignore next*/": " + msg;
+    var parts = "[BABEL] " + this.filename;
+    if (msg) parts += ": " + msg;
     return parts;
   };
 
@@ -38,7 +36,7 @@ var Logger = function () {
   };
 
   Logger.prototype.error = function error(msg) {
-    /*istanbul ignore next*/var Constructor = arguments.length <= 1 || arguments[1] === undefined ? Error : arguments[1];
+    var Constructor = arguments.length <= 1 || arguments[1] === undefined ? Error : arguments[1];
 
     throw new Constructor(this._buildMessage(msg));
   };
@@ -72,5 +70,5 @@ var Logger = function () {
   return Logger;
 }();
 
-/*istanbul ignore next*/exports.default = Logger;
-/*istanbul ignore next*/module.exports = exports["default"];
+exports.default = Logger;
+module.exports = exports["default"];

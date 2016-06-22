@@ -27,5 +27,6 @@ var ActionPermDataSetting = function ActionPermDataSetting(props) {
 };
 ActionPermDataSetting = (0, _pure2.default)(ActionPermDataSetting);
 ActionPermDataSetting.displayName = 'ActionPermDataSetting';
+ActionPermDataSetting.muiName = 'SvgIcon';
 
 exports.default = ActionPermDataSetting;

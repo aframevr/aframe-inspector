@@ -27,5 +27,6 @@ var ActionPermContactCalendar = function ActionPermContactCalendar(props) {
 };
 ActionPermContactCalendar = (0, _pure2.default)(ActionPermContactCalendar);
 ActionPermContactCalendar.displayName = 'ActionPermContactCalendar';
+ActionPermContactCalendar.muiName = 'SvgIcon';
 
 exports.default = ActionPermContactCalendar;

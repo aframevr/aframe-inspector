@@ -27,5 +27,6 @@ var NotificationAdb = function NotificationAdb(props) {
 };
 NotificationAdb = (0, _pure2.default)(NotificationAdb);
 NotificationAdb.displayName = 'NotificationAdb';
+NotificationAdb.muiName = 'SvgIcon';
 
 exports.default = NotificationAdb;

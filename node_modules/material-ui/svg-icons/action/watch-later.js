@@ -27,5 +27,6 @@ var ActionWatchLater = function ActionWatchLater(props) {
 };
 ActionWatchLater = (0, _pure2.default)(ActionWatchLater);
 ActionWatchLater.displayName = 'ActionWatchLater';
+ActionWatchLater.muiName = 'SvgIcon';
 
 exports.default = ActionWatchLater;

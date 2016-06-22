@@ -27,5 +27,6 @@ var DeviceGpsOff = function DeviceGpsOff(props) {
 };
 DeviceGpsOff = (0, _pure2.default)(DeviceGpsOff);
 DeviceGpsOff.displayName = 'DeviceGpsOff';
+DeviceGpsOff.muiName = 'SvgIcon';
 
 exports.default = DeviceGpsOff;

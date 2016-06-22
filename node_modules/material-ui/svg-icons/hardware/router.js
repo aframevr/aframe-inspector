@@ -27,5 +27,6 @@ var HardwareRouter = function HardwareRouter(props) {
 };
 HardwareRouter = (0, _pure2.default)(HardwareRouter);
 HardwareRouter.displayName = 'HardwareRouter';
+HardwareRouter.muiName = 'SvgIcon';
 
 exports.default = HardwareRouter;

@@ -27,5 +27,6 @@ var PlacesRvHookup = function PlacesRvHookup(props) {
 };
 PlacesRvHookup = (0, _pure2.default)(PlacesRvHookup);
 PlacesRvHookup.displayName = 'PlacesRvHookup';
+PlacesRvHookup.muiName = 'SvgIcon';
 
 exports.default = PlacesRvHookup;

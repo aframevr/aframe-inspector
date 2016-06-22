@@ -27,5 +27,6 @@ var ImageViewComfy = function ImageViewComfy(props) {
 };
 ImageViewComfy = (0, _pure2.default)(ImageViewComfy);
 ImageViewComfy.displayName = 'ImageViewComfy';
+ImageViewComfy.muiName = 'SvgIcon';
 
 exports.default = ImageViewComfy;

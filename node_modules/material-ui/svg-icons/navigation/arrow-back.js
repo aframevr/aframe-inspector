@@ -27,5 +27,6 @@ var NavigationArrowBack = function NavigationArrowBack(props) {
 };
 NavigationArrowBack = (0, _pure2.default)(NavigationArrowBack);
 NavigationArrowBack.displayName = 'NavigationArrowBack';
+NavigationArrowBack.muiName = 'SvgIcon';
 
 exports.default = NavigationArrowBack;

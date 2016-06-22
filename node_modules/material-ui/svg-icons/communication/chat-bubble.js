@@ -27,5 +27,6 @@ var CommunicationChatBubble = function CommunicationChatBubble(props) {
 };
 CommunicationChatBubble = (0, _pure2.default)(CommunicationChatBubble);
 CommunicationChatBubble.displayName = 'CommunicationChatBubble';
+CommunicationChatBubble.muiName = 'SvgIcon';
 
 exports.default = CommunicationChatBubble;

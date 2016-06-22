@@ -27,5 +27,6 @@ var EditorModeComment = function EditorModeComment(props) {
 };
 EditorModeComment = (0, _pure2.default)(EditorModeComment);
 EditorModeComment.displayName = 'EditorModeComment';
+EditorModeComment.muiName = 'SvgIcon';
 
 exports.default = EditorModeComment;

@@ -27,5 +27,6 @@ var MapsRestaurantMenu = function MapsRestaurantMenu(props) {
 };
 MapsRestaurantMenu = (0, _pure2.default)(MapsRestaurantMenu);
 MapsRestaurantMenu.displayName = 'MapsRestaurantMenu';
+MapsRestaurantMenu.muiName = 'SvgIcon';
 
 exports.default = MapsRestaurantMenu;

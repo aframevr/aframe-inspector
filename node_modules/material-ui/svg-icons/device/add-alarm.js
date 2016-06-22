@@ -27,5 +27,6 @@ var DeviceAddAlarm = function DeviceAddAlarm(props) {
 };
 DeviceAddAlarm = (0, _pure2.default)(DeviceAddAlarm);
 DeviceAddAlarm.displayName = 'DeviceAddAlarm';
+DeviceAddAlarm.muiName = 'SvgIcon';
 
 exports.default = DeviceAddAlarm;

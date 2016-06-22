@@ -27,5 +27,6 @@ var SocialDomain = function SocialDomain(props) {
 };
 SocialDomain = (0, _pure2.default)(SocialDomain);
 SocialDomain.displayName = 'SocialDomain';
+SocialDomain.muiName = 'SvgIcon';
 
 exports.default = SocialDomain;

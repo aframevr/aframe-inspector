@@ -27,5 +27,6 @@ var ImageMonochromePhotos = function ImageMonochromePhotos(props) {
 };
 ImageMonochromePhotos = (0, _pure2.default)(ImageMonochromePhotos);
 ImageMonochromePhotos.displayName = 'ImageMonochromePhotos';
+ImageMonochromePhotos.muiName = 'SvgIcon';
 
 exports.default = ImageMonochromePhotos;

@@ -27,5 +27,6 @@ var ImageAdjust = function ImageAdjust(props) {
 };
 ImageAdjust = (0, _pure2.default)(ImageAdjust);
 ImageAdjust.displayName = 'ImageAdjust';
+ImageAdjust.muiName = 'SvgIcon';
 
 exports.default = ImageAdjust;

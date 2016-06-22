@@ -27,5 +27,6 @@ var NotificationPersonalVideo = function NotificationPersonalVideo(props) {
 };
 NotificationPersonalVideo = (0, _pure2.default)(NotificationPersonalVideo);
 NotificationPersonalVideo.displayName = 'NotificationPersonalVideo';
+NotificationPersonalVideo.muiName = 'SvgIcon';
 
 exports.default = NotificationPersonalVideo;

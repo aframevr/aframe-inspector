@@ -71,13 +71,13 @@ var Tabs = function (_Component) {
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Tabs)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = { selectedIndex: 0 }, _this.handleTabTouchTap = function (value, event, tab) {
       var valueLink = _this.getValueLink(_this.props);
-      var tabIndex = tab.props.tabIndex;
+      var index = tab.props.index;
 
-      if (valueLink.value && valueLink.value !== value || _this.state.selectedIndex !== tabIndex) {
+      if (valueLink.value && valueLink.value !== value || _this.state.selectedIndex !== index) {
         valueLink.requestChange(value, event, tab);
       }
 
-      _this.setState({ selectedIndex: tabIndex });
+      _this.setState({ selectedIndex: index });
 
       if (tab.props.onActive) {
         tab.props.onActive(tab);
@@ -198,8 +198,8 @@ var Tabs = function (_Component) {
 
         return _react2.default.cloneElement(tab, {
           key: index,
+          index: index,
           selected: _this2.getSelected(tab, index),
-          tabIndex: index,
           width: width + '%',
           onTouchTap: _this2.handleTabTouchTap
         });

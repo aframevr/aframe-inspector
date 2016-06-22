@@ -27,5 +27,6 @@ var MapsLocalHospital = function MapsLocalHospital(props) {
 };
 MapsLocalHospital = (0, _pure2.default)(MapsLocalHospital);
 MapsLocalHospital.displayName = 'MapsLocalHospital';
+MapsLocalHospital.muiName = 'SvgIcon';
 
 exports.default = MapsLocalHospital;

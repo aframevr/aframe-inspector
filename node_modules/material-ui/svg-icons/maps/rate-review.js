@@ -27,5 +27,6 @@ var MapsRateReview = function MapsRateReview(props) {
 };
 MapsRateReview = (0, _pure2.default)(MapsRateReview);
 MapsRateReview.displayName = 'MapsRateReview';
+MapsRateReview.muiName = 'SvgIcon';
 
 exports.default = MapsRateReview;

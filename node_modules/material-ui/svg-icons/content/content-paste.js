@@ -27,5 +27,6 @@ var ContentContentPaste = function ContentContentPaste(props) {
 };
 ContentContentPaste = (0, _pure2.default)(ContentContentPaste);
 ContentContentPaste.displayName = 'ContentContentPaste';
+ContentContentPaste.muiName = 'SvgIcon';
 
 exports.default = ContentContentPaste;

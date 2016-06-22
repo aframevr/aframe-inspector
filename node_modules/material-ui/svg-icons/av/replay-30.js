@@ -27,5 +27,6 @@ var AvReplay30 = function AvReplay30(props) {
 };
 AvReplay30 = (0, _pure2.default)(AvReplay30);
 AvReplay30.displayName = 'AvReplay30';
+AvReplay30.muiName = 'SvgIcon';
 
 exports.default = AvReplay30;

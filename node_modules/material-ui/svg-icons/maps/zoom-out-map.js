@@ -27,5 +27,6 @@ var MapsZoomOutMap = function MapsZoomOutMap(props) {
 };
 MapsZoomOutMap = (0, _pure2.default)(MapsZoomOutMap);
 MapsZoomOutMap.displayName = 'MapsZoomOutMap';
+MapsZoomOutMap.muiName = 'SvgIcon';
 
 exports.default = MapsZoomOutMap;

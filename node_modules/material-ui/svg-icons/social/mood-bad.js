@@ -27,5 +27,6 @@ var SocialMoodBad = function SocialMoodBad(props) {
 };
 SocialMoodBad = (0, _pure2.default)(SocialMoodBad);
 SocialMoodBad.displayName = 'SocialMoodBad';
+SocialMoodBad.muiName = 'SvgIcon';
 
 exports.default = SocialMoodBad;

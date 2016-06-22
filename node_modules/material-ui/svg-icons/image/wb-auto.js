@@ -27,5 +27,6 @@ var ImageWbAuto = function ImageWbAuto(props) {
 };
 ImageWbAuto = (0, _pure2.default)(ImageWbAuto);
 ImageWbAuto.displayName = 'ImageWbAuto';
+ImageWbAuto.muiName = 'SvgIcon';
 
 exports.default = ImageWbAuto;

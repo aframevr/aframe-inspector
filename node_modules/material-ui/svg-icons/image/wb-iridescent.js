@@ -27,5 +27,6 @@ var ImageWbIridescent = function ImageWbIridescent(props) {
 };
 ImageWbIridescent = (0, _pure2.default)(ImageWbIridescent);
 ImageWbIridescent.displayName = 'ImageWbIridescent';
+ImageWbIridescent.muiName = 'SvgIcon';
 
 exports.default = ImageWbIridescent;

@@ -27,5 +27,6 @@ var HardwareSecurity = function HardwareSecurity(props) {
 };
 HardwareSecurity = (0, _pure2.default)(HardwareSecurity);
 HardwareSecurity.displayName = 'HardwareSecurity';
+HardwareSecurity.muiName = 'SvgIcon';
 
 exports.default = HardwareSecurity;

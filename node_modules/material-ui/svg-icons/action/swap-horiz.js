@@ -27,5 +27,6 @@ var ActionSwapHoriz = function ActionSwapHoriz(props) {
 };
 ActionSwapHoriz = (0, _pure2.default)(ActionSwapHoriz);
 ActionSwapHoriz.displayName = 'ActionSwapHoriz';
+ActionSwapHoriz.muiName = 'SvgIcon';
 
 exports.default = ActionSwapHoriz;

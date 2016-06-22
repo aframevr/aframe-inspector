@@ -27,5 +27,6 @@ var MapsLocalLaundryService = function MapsLocalLaundryService(props) {
 };
 MapsLocalLaundryService = (0, _pure2.default)(MapsLocalLaundryService);
 MapsLocalLaundryService.displayName = 'MapsLocalLaundryService';
+MapsLocalLaundryService.muiName = 'SvgIcon';
 
 exports.default = MapsLocalLaundryService;

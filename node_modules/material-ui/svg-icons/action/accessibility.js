@@ -27,5 +27,6 @@ var ActionAccessibility = function ActionAccessibility(props) {
 };
 ActionAccessibility = (0, _pure2.default)(ActionAccessibility);
 ActionAccessibility.displayName = 'ActionAccessibility';
+ActionAccessibility.muiName = 'SvgIcon';
 
 exports.default = ActionAccessibility;

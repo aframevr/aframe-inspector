@@ -27,5 +27,6 @@ var AvNotInterested = function AvNotInterested(props) {
 };
 AvNotInterested = (0, _pure2.default)(AvNotInterested);
 AvNotInterested.displayName = 'AvNotInterested';
+AvNotInterested.muiName = 'SvgIcon';
 
 exports.default = AvNotInterested;

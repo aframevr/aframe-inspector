@@ -27,5 +27,6 @@ var AvQueueMusic = function AvQueueMusic(props) {
 };
 AvQueueMusic = (0, _pure2.default)(AvQueueMusic);
 AvQueueMusic.displayName = 'AvQueueMusic';
+AvQueueMusic.muiName = 'SvgIcon';
 
 exports.default = AvQueueMusic;

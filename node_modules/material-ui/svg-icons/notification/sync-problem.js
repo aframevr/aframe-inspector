@@ -27,5 +27,6 @@ var NotificationSyncProblem = function NotificationSyncProblem(props) {
 };
 NotificationSyncProblem = (0, _pure2.default)(NotificationSyncProblem);
 NotificationSyncProblem.displayName = 'NotificationSyncProblem';
+NotificationSyncProblem.muiName = 'SvgIcon';
 
 exports.default = NotificationSyncProblem;

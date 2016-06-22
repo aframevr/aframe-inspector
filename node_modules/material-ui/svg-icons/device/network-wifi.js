@@ -28,5 +28,6 @@ var DeviceNetworkWifi = function DeviceNetworkWifi(props) {
 };
 DeviceNetworkWifi = (0, _pure2.default)(DeviceNetworkWifi);
 DeviceNetworkWifi.displayName = 'DeviceNetworkWifi';
+DeviceNetworkWifi.muiName = 'SvgIcon';
 
 exports.default = DeviceNetworkWifi;

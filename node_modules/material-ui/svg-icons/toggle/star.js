@@ -27,5 +27,6 @@ var ToggleStar = function ToggleStar(props) {
 };
 ToggleStar = (0, _pure2.default)(ToggleStar);
 ToggleStar.displayName = 'ToggleStar';
+ToggleStar.muiName = 'SvgIcon';
 
 exports.default = ToggleStar;

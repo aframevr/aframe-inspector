@@ -1,26 +1,21 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
-var /*istanbul ignore next*/_isBoolean = require("lodash/isBoolean");
+var _isBoolean = require("lodash/isBoolean");
 
-/*istanbul ignore next*/
 var _isBoolean2 = _interopRequireDefault(_isBoolean);
 
-var /*istanbul ignore next*/_each = require("lodash/each");
+var _each = require("lodash/each");
 
-/*istanbul ignore next*/
 var _each2 = _interopRequireDefault(_each);
 
-var /*istanbul ignore next*/_map = require("lodash/map");
+var _map = require("lodash/map");
 
-/*istanbul ignore next*/
 var _map2 = _interopRequireDefault(_map);
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-/*istanbul ignore next*/
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -34,7 +29,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 
 function crawl(node) {
-  /*istanbul ignore next*/var state = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+  var state = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
   if (t.isMemberExpression(node)) {
     crawl(node.object, state);
@@ -80,7 +75,7 @@ function isType(node) {
  * Tests for node types that need whitespace.
  */
 
-exports.nodes = { /*istanbul ignore next*/
+exports.nodes = {
 
   /**
    * Test if AssignmentExpression needs whitespace.
@@ -95,7 +90,7 @@ exports.nodes = { /*istanbul ignore next*/
       };
     }
   },
-  /*istanbul ignore next*/
+
 
   /**
    * Test if SwitchCase needs whitespace.
@@ -106,7 +101,7 @@ exports.nodes = { /*istanbul ignore next*/
       before: node.consequent.length || parent.cases[0] === node
     };
   },
-  /*istanbul ignore next*/
+
 
   /**
    * Test if LogicalExpression needs whitespace.
@@ -119,7 +114,7 @@ exports.nodes = { /*istanbul ignore next*/
       };
     }
   },
-  /*istanbul ignore next*/
+
 
   /**
    * Test if Literal needs whitespace.
@@ -132,7 +127,7 @@ exports.nodes = { /*istanbul ignore next*/
       };
     }
   },
-  /*istanbul ignore next*/
+
 
   /**
    * Test if CallExpression needs whitespace.
@@ -146,7 +141,7 @@ exports.nodes = { /*istanbul ignore next*/
       };
     }
   },
-  /*istanbul ignore next*/
+
 
   /**
    * Test if VariableDeclaration needs whitespace.
@@ -170,7 +165,7 @@ exports.nodes = { /*istanbul ignore next*/
       }
     }
   },
-  /*istanbul ignore next*/
+
 
   /**
    * Test if IfStatement needs whitespace.
@@ -202,17 +197,16 @@ exports.nodes.ObjectProperty = exports.nodes.ObjectMethod = exports.nodes.Spread
  * Returns lists from node types that need whitespace.
  */
 
-exports.list = { /*istanbul ignore next*/
+exports.list = {
 
   /**
    * Return VariableDeclaration declarations init properties.
    */
 
   VariableDeclaration: function VariableDeclaration(node) {
-    return (/*istanbul ignore next*/(0, _map2.default)(node.declarations, "init")
-    );
+    return (0, _map2.default)(node.declarations, "init");
   },
-  /*istanbul ignore next*/
+
 
   /**
    * Return VariableDeclaration elements.
@@ -221,7 +215,7 @@ exports.list = { /*istanbul ignore next*/
   ArrayExpression: function ArrayExpression(node) {
     return node.elements;
   },
-  /*istanbul ignore next*/
+
 
   /**
    * Return VariableDeclaration properties.
@@ -236,7 +230,7 @@ exports.list = { /*istanbul ignore next*/
  * Add whitespace tests for nodes and their aliases.
  */
 
-/*istanbul ignore next*/(0, _each2.default)({
+(0, _each2.default)({
   Function: true,
   Class: true,
   Loop: true,
@@ -244,11 +238,11 @@ exports.list = { /*istanbul ignore next*/
   SwitchStatement: true,
   TryStatement: true
 }, function (amounts, type) {
-  if ( /*istanbul ignore next*/(0, _isBoolean2.default)(amounts)) {
+  if ((0, _isBoolean2.default)(amounts)) {
     amounts = { after: amounts, before: amounts };
   }
 
-  /*istanbul ignore next*/(0, _each2.default)([type].concat(t.FLIPPED_ALIAS_KEYS[type] || []), function (type) {
+  (0, _each2.default)([type].concat(t.FLIPPED_ALIAS_KEYS[type] || []), function (type) {
     exports.nodes[type] = function () {
       return amounts;
     };

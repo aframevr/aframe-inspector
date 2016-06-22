@@ -27,5 +27,6 @@ var ActionLaunch = function ActionLaunch(props) {
 };
 ActionLaunch = (0, _pure2.default)(ActionLaunch);
 ActionLaunch.displayName = 'ActionLaunch';
+ActionLaunch.muiName = 'SvgIcon';
 
 exports.default = ActionLaunch;

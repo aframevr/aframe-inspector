@@ -27,5 +27,6 @@ var DeviceNfc = function DeviceNfc(props) {
 };
 DeviceNfc = (0, _pure2.default)(DeviceNfc);
 DeviceNfc.displayName = 'DeviceNfc';
+DeviceNfc.muiName = 'SvgIcon';
 
 exports.default = DeviceNfc;

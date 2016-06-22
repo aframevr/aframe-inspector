@@ -27,5 +27,6 @@ var ActionThumbUp = function ActionThumbUp(props) {
 };
 ActionThumbUp = (0, _pure2.default)(ActionThumbUp);
 ActionThumbUp.displayName = 'ActionThumbUp';
+ActionThumbUp.muiName = 'SvgIcon';
 
 exports.default = ActionThumbUp;

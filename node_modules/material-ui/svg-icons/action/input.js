@@ -27,5 +27,6 @@ var ActionInput = function ActionInput(props) {
 };
 ActionInput = (0, _pure2.default)(ActionInput);
 ActionInput.displayName = 'ActionInput';
+ActionInput.muiName = 'SvgIcon';
 
 exports.default = ActionInput;

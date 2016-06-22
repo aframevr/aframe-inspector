@@ -27,5 +27,6 @@ var ImagePanoramaWideAngle = function ImagePanoramaWideAngle(props) {
 };
 ImagePanoramaWideAngle = (0, _pure2.default)(ImagePanoramaWideAngle);
 ImagePanoramaWideAngle.displayName = 'ImagePanoramaWideAngle';
+ImagePanoramaWideAngle.muiName = 'SvgIcon';
 
 exports.default = ImagePanoramaWideAngle;

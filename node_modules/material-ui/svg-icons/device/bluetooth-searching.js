@@ -27,5 +27,6 @@ var DeviceBluetoothSearching = function DeviceBluetoothSearching(props) {
 };
 DeviceBluetoothSearching = (0, _pure2.default)(DeviceBluetoothSearching);
 DeviceBluetoothSearching.displayName = 'DeviceBluetoothSearching';
+DeviceBluetoothSearching.muiName = 'SvgIcon';
 
 exports.default = DeviceBluetoothSearching;

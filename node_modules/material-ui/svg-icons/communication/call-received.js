@@ -27,5 +27,6 @@ var CommunicationCallReceived = function CommunicationCallReceived(props) {
 };
 CommunicationCallReceived = (0, _pure2.default)(CommunicationCallReceived);
 CommunicationCallReceived.displayName = 'CommunicationCallReceived';
+CommunicationCallReceived.muiName = 'SvgIcon';
 
 exports.default = CommunicationCallReceived;

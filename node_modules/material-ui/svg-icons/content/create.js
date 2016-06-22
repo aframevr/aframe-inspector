@@ -27,5 +27,6 @@ var ContentCreate = function ContentCreate(props) {
 };
 ContentCreate = (0, _pure2.default)(ContentCreate);
 ContentCreate.displayName = 'ContentCreate';
+ContentCreate.muiName = 'SvgIcon';
 
 exports.default = ContentCreate;

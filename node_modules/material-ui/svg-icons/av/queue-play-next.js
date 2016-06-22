@@ -27,5 +27,6 @@ var AvQueuePlayNext = function AvQueuePlayNext(props) {
 };
 AvQueuePlayNext = (0, _pure2.default)(AvQueuePlayNext);
 AvQueuePlayNext.displayName = 'AvQueuePlayNext';
+AvQueuePlayNext.muiName = 'SvgIcon';
 
 exports.default = AvQueuePlayNext;

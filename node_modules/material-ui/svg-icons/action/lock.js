@@ -27,5 +27,6 @@ var ActionLock = function ActionLock(props) {
 };
 ActionLock = (0, _pure2.default)(ActionLock);
 ActionLock.displayName = 'ActionLock';
+ActionLock.muiName = 'SvgIcon';
 
 exports.default = ActionLock;

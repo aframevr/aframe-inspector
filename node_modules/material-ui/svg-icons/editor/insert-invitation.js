@@ -27,5 +27,6 @@ var EditorInsertInvitation = function EditorInsertInvitation(props) {
 };
 EditorInsertInvitation = (0, _pure2.default)(EditorInsertInvitation);
 EditorInsertInvitation.displayName = 'EditorInsertInvitation';
+EditorInsertInvitation.muiName = 'SvgIcon';
 
 exports.default = EditorInsertInvitation;

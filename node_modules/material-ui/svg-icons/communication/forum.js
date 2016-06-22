@@ -27,5 +27,6 @@ var CommunicationForum = function CommunicationForum(props) {
 };
 CommunicationForum = (0, _pure2.default)(CommunicationForum);
 CommunicationForum.displayName = 'CommunicationForum';
+CommunicationForum.muiName = 'SvgIcon';
 
 exports.default = CommunicationForum;

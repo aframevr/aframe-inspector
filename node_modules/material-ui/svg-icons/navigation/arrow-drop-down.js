@@ -27,5 +27,6 @@ var NavigationArrowDropDown = function NavigationArrowDropDown(props) {
 };
 NavigationArrowDropDown = (0, _pure2.default)(NavigationArrowDropDown);
 NavigationArrowDropDown.displayName = 'NavigationArrowDropDown';
+NavigationArrowDropDown.muiName = 'SvgIcon';
 
 exports.default = NavigationArrowDropDown;

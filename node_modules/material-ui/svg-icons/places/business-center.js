@@ -27,5 +27,6 @@ var PlacesBusinessCenter = function PlacesBusinessCenter(props) {
 };
 PlacesBusinessCenter = (0, _pure2.default)(PlacesBusinessCenter);
 PlacesBusinessCenter.displayName = 'PlacesBusinessCenter';
+PlacesBusinessCenter.muiName = 'SvgIcon';
 
 exports.default = PlacesBusinessCenter;

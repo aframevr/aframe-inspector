@@ -28,5 +28,6 @@ var CommunicationRssFeed = function CommunicationRssFeed(props) {
 };
 CommunicationRssFeed = (0, _pure2.default)(CommunicationRssFeed);
 CommunicationRssFeed.displayName = 'CommunicationRssFeed';
+CommunicationRssFeed.muiName = 'SvgIcon';
 
 exports.default = CommunicationRssFeed;

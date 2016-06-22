@@ -27,5 +27,6 @@ var ImagePanoramaHorizontal = function ImagePanoramaHorizontal(props) {
 };
 ImagePanoramaHorizontal = (0, _pure2.default)(ImagePanoramaHorizontal);
 ImagePanoramaHorizontal.displayName = 'ImagePanoramaHorizontal';
+ImagePanoramaHorizontal.muiName = 'SvgIcon';
 
 exports.default = ImagePanoramaHorizontal;

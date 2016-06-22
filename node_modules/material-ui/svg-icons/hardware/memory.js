@@ -27,5 +27,6 @@ var HardwareMemory = function HardwareMemory(props) {
 };
 HardwareMemory = (0, _pure2.default)(HardwareMemory);
 HardwareMemory.displayName = 'HardwareMemory';
+HardwareMemory.muiName = 'SvgIcon';
 
 exports.default = HardwareMemory;

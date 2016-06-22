@@ -27,5 +27,6 @@ var EditorFormatLineSpacing = function EditorFormatLineSpacing(props) {
 };
 EditorFormatLineSpacing = (0, _pure2.default)(EditorFormatLineSpacing);
 EditorFormatLineSpacing.displayName = 'EditorFormatLineSpacing';
+EditorFormatLineSpacing.muiName = 'SvgIcon';
 
 exports.default = EditorFormatLineSpacing;

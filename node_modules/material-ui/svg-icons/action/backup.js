@@ -27,5 +27,6 @@ var ActionBackup = function ActionBackup(props) {
 };
 ActionBackup = (0, _pure2.default)(ActionBackup);
 ActionBackup.displayName = 'ActionBackup';
+ActionBackup.muiName = 'SvgIcon';
 
 exports.default = ActionBackup;

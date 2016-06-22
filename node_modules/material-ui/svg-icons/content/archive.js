@@ -27,5 +27,6 @@ var ContentArchive = function ContentArchive(props) {
 };
 ContentArchive = (0, _pure2.default)(ContentArchive);
 ContentArchive.displayName = 'ContentArchive';
+ContentArchive.muiName = 'SvgIcon';
 
 exports.default = ContentArchive;

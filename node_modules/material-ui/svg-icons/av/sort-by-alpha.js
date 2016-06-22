@@ -27,5 +27,6 @@ var AvSortByAlpha = function AvSortByAlpha(props) {
 };
 AvSortByAlpha = (0, _pure2.default)(AvSortByAlpha);
 AvSortByAlpha.displayName = 'AvSortByAlpha';
+AvSortByAlpha.muiName = 'SvgIcon';
 
 exports.default = AvSortByAlpha;

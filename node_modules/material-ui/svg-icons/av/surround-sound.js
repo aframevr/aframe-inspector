@@ -27,5 +27,6 @@ var AvSurroundSound = function AvSurroundSound(props) {
 };
 AvSurroundSound = (0, _pure2.default)(AvSurroundSound);
 AvSurroundSound.displayName = 'AvSurroundSound';
+AvSurroundSound.muiName = 'SvgIcon';
 
 exports.default = AvSurroundSound;

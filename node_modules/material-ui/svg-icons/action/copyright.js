@@ -27,5 +27,6 @@ var ActionCopyright = function ActionCopyright(props) {
 };
 ActionCopyright = (0, _pure2.default)(ActionCopyright);
 ActionCopyright.displayName = 'ActionCopyright';
+ActionCopyright.muiName = 'SvgIcon';
 
 exports.default = ActionCopyright;

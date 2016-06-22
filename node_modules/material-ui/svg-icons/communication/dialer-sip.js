@@ -27,5 +27,6 @@ var CommunicationDialerSip = function CommunicationDialerSip(props) {
 };
 CommunicationDialerSip = (0, _pure2.default)(CommunicationDialerSip);
 CommunicationDialerSip.displayName = 'CommunicationDialerSip';
+CommunicationDialerSip.muiName = 'SvgIcon';
 
 exports.default = CommunicationDialerSip;

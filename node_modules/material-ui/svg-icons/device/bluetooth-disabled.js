@@ -27,5 +27,6 @@ var DeviceBluetoothDisabled = function DeviceBluetoothDisabled(props) {
 };
 DeviceBluetoothDisabled = (0, _pure2.default)(DeviceBluetoothDisabled);
 DeviceBluetoothDisabled.displayName = 'DeviceBluetoothDisabled';
+DeviceBluetoothDisabled.muiName = 'SvgIcon';
 
 exports.default = DeviceBluetoothDisabled;

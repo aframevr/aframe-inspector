@@ -27,5 +27,6 @@ var AvStop = function AvStop(props) {
 };
 AvStop = (0, _pure2.default)(AvStop);
 AvStop.displayName = 'AvStop';
+AvStop.muiName = 'SvgIcon';
 
 exports.default = AvStop;

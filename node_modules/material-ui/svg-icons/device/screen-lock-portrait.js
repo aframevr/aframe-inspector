@@ -27,5 +27,6 @@ var DeviceScreenLockPortrait = function DeviceScreenLockPortrait(props) {
 };
 DeviceScreenLockPortrait = (0, _pure2.default)(DeviceScreenLockPortrait);
 DeviceScreenLockPortrait.displayName = 'DeviceScreenLockPortrait';
+DeviceScreenLockPortrait.muiName = 'SvgIcon';
 
 exports.default = DeviceScreenLockPortrait;

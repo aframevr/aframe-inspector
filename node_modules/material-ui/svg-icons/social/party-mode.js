@@ -27,5 +27,6 @@ var SocialPartyMode = function SocialPartyMode(props) {
 };
 SocialPartyMode = (0, _pure2.default)(SocialPartyMode);
 SocialPartyMode.displayName = 'SocialPartyMode';
+SocialPartyMode.muiName = 'SvgIcon';
 
 exports.default = SocialPartyMode;

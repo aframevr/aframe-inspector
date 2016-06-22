@@ -27,5 +27,6 @@ var AvClosedCaption = function AvClosedCaption(props) {
 };
 AvClosedCaption = (0, _pure2.default)(AvClosedCaption);
 AvClosedCaption.displayName = 'AvClosedCaption';
+AvClosedCaption.muiName = 'SvgIcon';
 
 exports.default = AvClosedCaption;

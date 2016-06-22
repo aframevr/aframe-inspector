@@ -27,5 +27,6 @@ var AvLibraryMusic = function AvLibraryMusic(props) {
 };
 AvLibraryMusic = (0, _pure2.default)(AvLibraryMusic);
 AvLibraryMusic.displayName = 'AvLibraryMusic';
+AvLibraryMusic.muiName = 'SvgIcon';
 
 exports.default = AvLibraryMusic;

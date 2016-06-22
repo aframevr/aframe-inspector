@@ -27,5 +27,6 @@ var MapsLocalMovies = function MapsLocalMovies(props) {
 };
 MapsLocalMovies = (0, _pure2.default)(MapsLocalMovies);
 MapsLocalMovies.displayName = 'MapsLocalMovies';
+MapsLocalMovies.muiName = 'SvgIcon';
 
 exports.default = MapsLocalMovies;

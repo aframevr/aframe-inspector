@@ -27,5 +27,6 @@ var ImageDetails = function ImageDetails(props) {
 };
 ImageDetails = (0, _pure2.default)(ImageDetails);
 ImageDetails.displayName = 'ImageDetails';
+ImageDetails.muiName = 'SvgIcon';
 
 exports.default = ImageDetails;

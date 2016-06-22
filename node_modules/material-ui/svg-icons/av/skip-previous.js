@@ -27,5 +27,6 @@ var AvSkipPrevious = function AvSkipPrevious(props) {
 };
 AvSkipPrevious = (0, _pure2.default)(AvSkipPrevious);
 AvSkipPrevious.displayName = 'AvSkipPrevious';
+AvSkipPrevious.muiName = 'SvgIcon';
 
 exports.default = AvSkipPrevious;

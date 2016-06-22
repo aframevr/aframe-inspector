@@ -27,5 +27,6 @@ var ActionRestore = function ActionRestore(props) {
 };
 ActionRestore = (0, _pure2.default)(ActionRestore);
 ActionRestore.displayName = 'ActionRestore';
+ActionRestore.muiName = 'SvgIcon';
 
 exports.default = ActionRestore;

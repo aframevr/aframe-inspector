@@ -28,5 +28,6 @@ var DeviceSignalCellular3Bar = function DeviceSignalCellular3Bar(props) {
 };
 DeviceSignalCellular3Bar = (0, _pure2.default)(DeviceSignalCellular3Bar);
 DeviceSignalCellular3Bar.displayName = 'DeviceSignalCellular3Bar';
+DeviceSignalCellular3Bar.muiName = 'SvgIcon';
 
 exports.default = DeviceSignalCellular3Bar;

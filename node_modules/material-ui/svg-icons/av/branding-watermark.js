@@ -27,5 +27,6 @@ var AvBrandingWatermark = function AvBrandingWatermark(props) {
 };
 AvBrandingWatermark = (0, _pure2.default)(AvBrandingWatermark);
 AvBrandingWatermark.displayName = 'AvBrandingWatermark';
+AvBrandingWatermark.muiName = 'SvgIcon';
 
 exports.default = AvBrandingWatermark;

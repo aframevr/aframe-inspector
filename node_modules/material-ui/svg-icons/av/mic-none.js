@@ -27,5 +27,6 @@ var AvMicNone = function AvMicNone(props) {
 };
 AvMicNone = (0, _pure2.default)(AvMicNone);
 AvMicNone.displayName = 'AvMicNone';
+AvMicNone.muiName = 'SvgIcon';
 
 exports.default = AvMicNone;

@@ -76,11 +76,6 @@ var TimeDisplay = function (_Component) {
       return [hour, min];
     }
   }, {
-    key: 'getTheme',
-    value: function getTheme() {
-      return this.context.muiTheme.timePicker;
-    }
-  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -106,7 +101,6 @@ var TimeDisplay = function (_Component) {
           backgroundColor: timePicker.headerColor,
           color: 'white'
         },
-
         text: {
           margin: '6px 0',
           lineHeight: '58px',
@@ -116,11 +110,9 @@ var TimeDisplay = function (_Component) {
           justifyContent: 'center',
           alignItems: 'baseline'
         },
-
         time: {
           margin: '0 10px'
         },
-
         affix: {
           flex: 1,
           position: 'relative',
@@ -128,17 +120,14 @@ var TimeDisplay = function (_Component) {
           height: 17,
           fontSize: 17
         },
-
         affixTop: {
           position: 'absolute',
           top: -20,
           left: 0
         },
-
         clickable: {
           cursor: 'pointer'
         },
-
         inactive: {
           opacity: 0.7
         }

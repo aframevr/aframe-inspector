@@ -27,5 +27,6 @@ var CommunicationCallMissedOutgoing = function CommunicationCallMissedOutgoing(p
 };
 CommunicationCallMissedOutgoing = (0, _pure2.default)(CommunicationCallMissedOutgoing);
 CommunicationCallMissedOutgoing.displayName = 'CommunicationCallMissedOutgoing';
+CommunicationCallMissedOutgoing.muiName = 'SvgIcon';
 
 exports.default = CommunicationCallMissedOutgoing;

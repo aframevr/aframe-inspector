@@ -27,5 +27,6 @@ var FileCloudDownload = function FileCloudDownload(props) {
 };
 FileCloudDownload = (0, _pure2.default)(FileCloudDownload);
 FileCloudDownload.displayName = 'FileCloudDownload';
+FileCloudDownload.muiName = 'SvgIcon';
 
 exports.default = FileCloudDownload;

@@ -27,5 +27,6 @@ var ImageBlurOff = function ImageBlurOff(props) {
 };
 ImageBlurOff = (0, _pure2.default)(ImageBlurOff);
 ImageBlurOff.displayName = 'ImageBlurOff';
+ImageBlurOff.muiName = 'SvgIcon';
 
 exports.default = ImageBlurOff;

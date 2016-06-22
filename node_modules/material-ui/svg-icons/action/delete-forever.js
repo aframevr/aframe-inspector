@@ -27,5 +27,6 @@ var ActionDeleteForever = function ActionDeleteForever(props) {
 };
 ActionDeleteForever = (0, _pure2.default)(ActionDeleteForever);
 ActionDeleteForever.displayName = 'ActionDeleteForever';
+ActionDeleteForever.muiName = 'SvgIcon';
 
 exports.default = ActionDeleteForever;

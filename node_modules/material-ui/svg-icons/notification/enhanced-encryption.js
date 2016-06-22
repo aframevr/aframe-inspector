@@ -27,5 +27,6 @@ var NotificationEnhancedEncryption = function NotificationEnhancedEncryption(pro
 };
 NotificationEnhancedEncryption = (0, _pure2.default)(NotificationEnhancedEncryption);
 NotificationEnhancedEncryption.displayName = 'NotificationEnhancedEncryption';
+NotificationEnhancedEncryption.muiName = 'SvgIcon';
 
 exports.default = NotificationEnhancedEncryption;
