@@ -209,7 +209,7 @@ var TextureWidget = React.createClass({
       <span className="texture">
         <span className={this.state.valueType}></span>
         <canvas ref="canvas" width="32" height="16" title={this.props.mapName} onClick={this.openDialog}></canvas>
-        <input type="text" value={this.state.value}/>
+        <input className="map_value" type="text" value={this.state.value}/>
         <input type="button" value="remove" onClick={this.removeMap}/>
       </span>
     );

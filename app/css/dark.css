@@ -593,6 +593,7 @@ a.button:hover {
 .gallery li .detail {
 	background-color: #323232;
 	padding: 10px;
+	min-height: 60px;
 }
 
 .gallery li:hover .detail {
@@ -604,7 +605,8 @@ a.button:hover {
 }
 
 .gallery li .detail span.title {
-	color: #666 !important;
+	color: #EEE !important;
+	font-weight: bold;
 }
 
 
@@ -645,4 +647,59 @@ a.button:hover {
 	background-color: #2b2b2b;
 	overflow:auto;
 	min-height: 100px;
+}
+
+.map_value {
+	width: 68px;
+	margin-right: 2px;
+}
+
+.preview {
+	width: 200px;
+	float:right;
+	padding: 10px;
+}
+
+.new_asset_options {
+	float: left;
+	width: 600px;
+}
+
+.modal button {
+  display: inline-block;
+  margin: 0 10px 0 0;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.8;
+  appearance: none;
+  box-shadow: none;
+  border-radius: 0;
+	cursor: pointer;
+}
+
+.modal button:focus {
+  outline: none
+}
+
+
+.modal button {
+  color: #fff;
+  background-color: #1eaaf1;
+  border: none;
+}
+
+.modal button:hover,
+.modal button.hover {
+  background-color: #346392;
+  text-shadow: -1px 1px #27496d;
+}
+
+.modal button:active,
+.modal button.active {
+  background-color: #27496d;
+  text-shadow: -1px 1px #193047;
+}
+
+.newimage {
+	padding: 10px;
 }

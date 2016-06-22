@@ -4,6 +4,19 @@ import Modal from './Modal';
 function getFilename(url) {
   return url.split('/').pop();
 }
+function insertNewAsset(type, id, src) {
+  var element = null;
+  switch (type) {
+    case 'img': {
+        element = document.createElement("img");
+        element.id = id;
+
+        element.src = src;
+    } break;
+  }
+  if (element)
+    document.getElementsByTagName("a-assets")[0].appendChild(element);
+}
 
 var Tabs = React.createClass({
 	displayName: 'Tabs',
@@ -91,18 +104,20 @@ export default class ModalTextures extends React.Component {
       isOpen: props.isOpen,
       loadedTextures: [],
       assetsImages: [],
-      samplesImages: []
+      samplesImages: [],
+      newUrl: '',
+      preview: {width:0, height:0, src: '', name: '', loaded: false}
     }
     this.samplesImages = [
-      {name: 'create1111', filename: 'image.jpg', dimensions: '512x512', size: '32kb', src:'assets/textures/758px-Canestra_di_frutta_Caravaggio.jpg'},
-      {name: 'asdfqwer', filename: 'image.jpg', dimensions: '512x512', size: '32kb', src:'assets/textures/2294472375_24a3b8ef46_o.jpg'},
-      {name: 'werwere', filename: 'image.jpg', dimensions: '512x512', size: '32kb', src:'assets/textures/brick_diffuse.jpg'},
-      {name: 'werasdfasdf', filename: 'image.jpg', dimensions: '512x512', size: '32kb', src:'assets/textures/checkerboard.jpg'},
-      {name: 'asdfsdf', filename: 'image.jpg', dimensions: '512x512', size: '32kb', src:'assets/textures/crate.gif'},
-      {name: 'asdfsdf', filename: 'image.jpg', dimensions: '512x512', size: '32kb', src:'assets/textures/UV_Grid_Sm.jpg'},
-      {name: 'asdfsdf', filename: 'image.jpg', dimensions: '512x512', size: '32kb', src:'assets/textures/sprite0.png'},
-      {name: 'asdfsdf', filename: 'image.jpg', dimensions: '512x512', size: '32kb', src:'assets/textures/envmap.png'},
-      {name: 'asdfsdf', filename: 'image.jpg', dimensions: '512x512', size: '32kb', src:'assets/textures/brick_bump.jpg'}
+      {name: 'create1111', src:'assets/textures/758px-Canestra_di_frutta_Caravaggio.jpg'},
+      {name: 'asdfqwer', src:'assets/textures/2294472375_24a3b8ef46_o.jpg'},
+      {name: 'werwere', src:'assets/textures/brick_diffuse.jpg'},
+      {name: 'werasdfasdf', src:'assets/textures/checkerboard.jpg'},
+      {name: 'create', src:'assets/textures/crate.gif'},
+      {name: 'uv_grid_sim', src:'assets/textures/UV_Grid_Sm.jpg'},
+      {name: 'sprite0', src:'assets/textures/sprite0.png'},
+      {name: 'envmap', src:'assets/textures/envmap.png'},
+      {name: 'brick dump', src:'assets/textures/brick_bump.jpg'}
     ];
   }
   componentWillReceiveProps(newProps) {
@@ -127,6 +142,7 @@ export default class ModalTextures extends React.Component {
   generateFromSamples() {
     var self = this;
     this.samplesImages.map((imageData) => {
+
       var image = new Image();
       image.addEventListener('load', function() {
         self.state.samplesImages.push({id: imageData.name, src: image.src, width: image.width, height: image.height, name: imageData.name, type: 'sample', value: 'url(' + image.src + ')'});
@@ -171,17 +187,120 @@ export default class ModalTextures extends React.Component {
       })
     });*/
   }
+  onNewUrl(event) {
+    var self = this;
+    function onImageLoaded(img) {
+      self.setState({preview: {
+          width: self.refs.preview.naturalWidth,
+          height: self.refs.preview.naturalHeight,
+          src: self.refs.preview.src,
+          id: '',
+          name: '',
+          type: 'new',
+          loaded: true,
+          value: 'url(' + self.refs.preview.src + ')'
+        }
+      });
+      self.refs.preview.removeEventListener('load', onImageLoaded);
+    }
+    this.refs.preview.addEventListener('load', onImageLoaded);
+    //this.refs.preview.src = event.target.value;
+    this.refs.preview.src = 'assets/textures/wall.jpg';
+  }
+  addNewImage() {
+    console.log("ASDFADSF");
+  }
+  onNewName(event) {
+    this.state.preview.name = event.target.value;
+  }
+  onNameChanged(event) {
+    this.state.preview.name = event.target.value;
+    this.setState({preview: this.state.preview});
+  }
   render() {
     let samples = this.textures;
     //let alreadyLoaded = editor.sceneEl.systems.material.textureCache;
     let loadedTextures = this.state.loadedTextures;
+    let newUrl = this.state.newUrl;
+    let preview = this.state.preview;
+    let name = this.state.preview.name;
 
     //title="Textures" isOpen={this.state.isOpen} onClose={this.onClose.bind(this)}>
+    //let imagePreviewClick = this.selectTexture.bind(this, this.state.preview);
+    var self = this;
+    let imagePreviewClick = function() {
+      console.log("imagepreview");
+      self.selectTexture(self.state.preview);
+    }
+
+    let addNewAsset = function() {
+      insertNewAsset('img', self.state.preview.name, self.state.preview.src);
+      self.generateFromAssets();
+    }
+
+    let selectSample = function(image) {
+      console.log("Selected",image);
+      self.setState({preview: {
+          width: image.width,
+          height: image.height,
+          src: image.src,
+          id: '',
+          name: '',
+          type: 'sample',
+          loaded: true,
+          value: 'url(' + image.src + ')'
+        }
+      });
+    }
+
     return <Modal
-          title="Textures" isOpen={this.state.isOpen} onClose={this.onClose.bind(this)}>
+          title="Textures" isOpen={true} onClose={this.onClose.bind(this)}>
           <Tabs selected={0}>
-            <Pane label="ADD NEW">
-              <div>ADD NEW TEXTURE</div>
+            <Pane label="ADD NEW IMAGE">
+              <div className="newimage">
+                <div className="new_asset_options">
+                  <span>Please choose one of the following options to add a new image asset</span>
+                  <ul>
+                    <li><span>Enter URL:</span> <input type="text" value={this.props.newUrl} onChange={this.onNewUrl.bind(this)}/></li>
+                    <li><span>Upload file:</span> <input type="file" value={this.props.newUrl} onChange={this.onNewUrl.bind(this)}/></li>
+                    <li><span>Select image from samples</span>
+                      <ul className="gallery">
+                        {
+                           this.state.samplesImages.map(function(image) {
+                             //let imageClick = this.selectTexture.bind(this, image);
+                             let imageClick = selectSample.bind(this, image);
+                              return (
+                                <li key={image.src} onClick={imageClick}>
+                                  <img width="155px" height="155px" src={image.src}/>
+                                  <div className="detail">
+                                    <span className="title">{image.name}</span><br/>
+                                    <span>{getFilename(image.src)}</span><br/>
+                                    <span><em>{image.width} x {image.height}</em></span>
+                                  </div>
+                                </li>
+                              )
+                           }.bind(this))
+                        }
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div className="preview">
+                  Image name: <input type="text" value={this.state.preview.name} onChange={this.onNameChanged.bind(this)}/><br/><br/>
+                <img ref="preview" width="155px" height="155px" src={preview.src}/>
+                  {
+                    this.state.preview.loaded ?
+                    (
+                      <div className="detail">
+                        <span>{getFilename(preview.src)}</span><br/>
+                        <span>{preview.width} x {preview.height}</span>
+                      </div>
+                    ) : <span></span>
+                  }
+                  <br/><br/>
+                  <button onClick={addNewAsset}>ADD IMAGE TO ASSETS</button>
+                </div>
+              </div>
             </Pane>
             <Pane label="SCENE ASSETS">
               <ul className="gallery">
@@ -192,9 +311,9 @@ export default class ModalTextures extends React.Component {
                        <li key={image.id} onClick={textureClick}>
                          <img width="155px" height="155px" src={image.src}/>
                          <div className="detail">
-                           <span className="title">Name:</span> <span>{image.name}</span><br/>
-                           <span className="title">Filename:</span> <span>{getFilename(image.src)}</span><br/>
-                           <span>{image.width} x {image.height}</span>
+                           <span className="title">{image.name}</span><br/>
+                           <span>{getFilename(image.src)}</span><br/>
+                           <span><em>{image.width} x {image.height}</em></span>
                          </div>
                        </li>
                      )
@@ -211,32 +330,13 @@ export default class ModalTextures extends React.Component {
                          <div className="detail">
                            <span className="title">Name:</span> <span>{image.name}</span><br/>
                            <span className="title">Filename:</span> <span>{getFilename(image.src)}</span><br/>
-                           <span>{image.width} x {image.height}</span>
+                           <span><em>{image.width} x {image.height}</em></span>
                          </div>
                        </li>
                      )
                   }.bind(this))
                 }
               </ul>
-            </Pane>
-            <Pane label="SAMPLES">
-                <ul className="gallery">
-                  {
-              	     this.state.samplesImages.map(function(texture) {
-                       let textureClick = this.selectTexture.bind(this, texture);
-                        return (
-                          <li key={texture.src} onClick={textureClick}>
-                            <img width="155px" height="155px" src={texture.src}/>
-                            <div className="detail">
-                              <span className="title">Name:</span> <span>{texture.name}</span><br/>
-                              <span className="title">Filename:</span> <span>{texture.filename}</span><br/>
-                              <span>{texture.dimensions}</span>
-                            </div>
-                          </li>
-                        )
-          	         }.bind(this))
-                  }
-                </ul>
             </Pane>
           </Tabs>
     </Modal>
