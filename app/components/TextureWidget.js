@@ -185,6 +185,7 @@ var TextureWidget = React.createClass({
   */
   removeMap: function(e) {
     this.setValue('');
+    this.notifyChanged('');
   },
   openDialog: function() {
     Events.emit('openTexturesModal', function(image) {

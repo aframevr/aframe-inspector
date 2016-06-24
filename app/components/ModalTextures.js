@@ -105,7 +105,7 @@ export default class ModalTextures extends React.Component {
       loadedTextures: [],
       assetsImages: [],
       samplesImages: [],
-      newUrl: '',
+      addNewDialogOpened: false,
       preview: {width:0, height:0, src: '', name: '', loaded: false}
     }
     this.samplesImages = [
@@ -207,15 +207,16 @@ export default class ModalTextures extends React.Component {
     //this.refs.preview.src = event.target.value;
     this.refs.preview.src = 'assets/textures/wall.jpg';
   }
-  addNewImage() {
-    console.log("ASDFADSF");
-  }
   onNewName(event) {
     this.state.preview.name = event.target.value;
   }
   onNameChanged(event) {
     this.state.preview.name = event.target.value;
     this.setState({preview: this.state.preview});
+  }
+  toggleNewDialog() {
+    this.setState({addNewDialogOpened: !this.state.addNewDialogOpened});
+    console.log(this.state.addNewDialogOpened);
   }
   render() {
     let samples = this.textures;
@@ -236,6 +237,7 @@ export default class ModalTextures extends React.Component {
     let addNewAsset = function() {
       insertNewAsset('img', self.state.preview.name, self.state.preview.src);
       self.generateFromAssets();
+      self.toggleNewDialog();
     }
 
     let selectSample = function(image) {
@@ -245,100 +247,99 @@ export default class ModalTextures extends React.Component {
           height: image.height,
           src: image.src,
           id: '',
-          name: '',
+          name: image.name, // or id?
           type: 'sample',
           loaded: true,
           value: 'url(' + image.src + ')'
         }
       });
+      self.refs.imageName.focus();
     }
 
-    return <Modal
-          title="Textures" isOpen={true} onClose={this.onClose.bind(this)}>
-          <Tabs selected={0}>
-            <Pane label="ADD NEW IMAGE">
-              <div className="newimage">
-                <div className="new_asset_options">
-                  <span>Please choose one of the following options to add a new image asset</span>
-                  <ul>
-                    <li><span>Enter URL:</span> <input type="text" value={this.props.newUrl} onChange={this.onNewUrl.bind(this)}/></li>
-                    <li><span>Upload file:</span> <input type="file" value={this.props.newUrl} onChange={this.onNewUrl.bind(this)}/></li>
-                    <li><span>Select image from samples</span>
-                      <ul className="gallery">
-                        {
-                           this.state.samplesImages.map(function(image) {
-                             //let imageClick = this.selectTexture.bind(this, image);
-                             let imageClick = selectSample.bind(this, image);
-                              return (
-                                <li key={image.src} onClick={imageClick}>
-                                  <img width="155px" height="155px" src={image.src}/>
-                                  <div className="detail">
-                                    <span className="title">{image.name}</span><br/>
-                                    <span>{getFilename(image.src)}</span><br/>
-                                    <span><em>{image.width} x {image.height}</em></span>
-                                  </div>
-                                </li>
-                              )
-                           }.bind(this))
-                        }
-                      </ul>
-                    </li>
-                  </ul>
-                </div>
-                <div className="preview">
-                  Image name: <input type="text" value={this.state.preview.name} onChange={this.onNameChanged.bind(this)}/><br/><br/>
-                <img ref="preview" width="155px" height="155px" src={preview.src}/>
+    return <Modal title="Textures" isOpen={this.state.isOpen} onClose={this.onClose.bind(this)}>
+      <button onClick={this.toggleNewDialog.bind(this)}>ADD NEW ASSET</button>
+      <div className={this.state.addNewDialogOpened ? '' : 'hide'}>
+        <div className="newimage">
+          <div className="new_asset_options">
+            <span>Please choose one of the following options to add a new image asset</span>
+            <ul>
+              <li><span>Enter URL:</span> <input type="text" value={this.props.newUrl} onChange={this.onNewUrl.bind(this)}/></li>
+              <li><span>Upload file:</span> <input type="file" value={this.props.newUrl} onChange={this.onNewUrl.bind(this)}/></li>
+              <li><span>Select image from samples</span>
+                <ul className="gallery">
                   {
-                    this.state.preview.loaded ?
-                    (
-                      <div className="detail">
-                        <span>{getFilename(preview.src)}</span><br/>
-                        <span>{preview.width} x {preview.height}</span>
-                      </div>
-                    ) : <span></span>
+                     this.state.samplesImages.map(function(image) {
+                       //let imageClick = this.selectTexture.bind(this, image);
+                       let imageClick = selectSample.bind(this, image);
+                        return (
+                          <li key={image.src} onClick={imageClick}>
+                            <img width="155px" height="155px" src={image.src}/>
+                            <div className="detail">
+                              <span className="title">{image.name}</span><br/>
+                              <span>{getFilename(image.src)}</span><br/>
+                              <span><em>{image.width} x {image.height}</em></span>
+                            </div>
+                          </li>
+                        )
+                     }.bind(this))
                   }
-                  <br/><br/>
-                  <button onClick={addNewAsset}>ADD IMAGE TO ASSETS</button>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div className="preview">
+            Image name: <input ref="imageName" type="text" value={this.state.preview.name} onChange={this.onNameChanged.bind(this)}/><br/><br/>
+          <img ref="preview" width="155px" height="155px" src={preview.src}/>
+            {
+              this.state.preview.loaded ?
+              (
+                <div className="detail">
+                  <span>{getFilename(preview.src)}</span><br/>
+                  <span>{preview.width} x {preview.height}</span>
                 </div>
-              </div>
-            </Pane>
-            <Pane label="SCENE ASSETS">
-              <ul className="gallery">
-                {
-                  this.state.assetsImages.map(function(image) {
-                    let textureClick = this.selectTexture.bind(this, image);
-                     return (
-                       <li key={image.id} onClick={textureClick}>
-                         <img width="155px" height="155px" src={image.src}/>
-                         <div className="detail">
-                           <span className="title">{image.name}</span><br/>
-                           <span>{getFilename(image.src)}</span><br/>
-                           <span><em>{image.width} x {image.height}</em></span>
-                         </div>
-                       </li>
-                     )
-                  }.bind(this))
-                }
+              ) : <span></span>
+            }
+            <br/><br/>
+            <button onClick={addNewAsset}>ADD IMAGE TO ASSETS</button>
+          </div>
+        </div>
+      </div>
+      <div className={this.state.addNewDialogOpened ? 'hide' : ''}>
+        <ul className="gallery">
+          {
+            this.state.assetsImages.map(function(image) {
+              let textureClick = this.selectTexture.bind(this, image);
+               return (
+                 <li key={image.id} onClick={textureClick}>
+                   <img width="155px" height="155px" src={image.src}/>
+                   <div className="detail">
+                     <span className="title">{image.name}</span><br/>
+                     <span>{getFilename(image.src)}</span><br/>
+                     <span><em>{image.width} x {image.height}</em></span>
+                   </div>
+                 </li>
+               )
+            }.bind(this))
+          }
 
-                {
-                  loadedTextures.map(function(texture) {
-                    var image = texture.image;
-                    let textureClick = this.selectTexture.bind(this, texture);
-                     return (
-                       <li key={texture.uuid} onClick={textureClick}>
-                         <img width="155px" height="155px" src={image.src}/>
-                         <div className="detail">
-                           <span className="title">Name:</span> <span>{image.name}</span><br/>
-                           <span className="title">Filename:</span> <span>{getFilename(image.src)}</span><br/>
-                           <span><em>{image.width} x {image.height}</em></span>
-                         </div>
-                       </li>
-                     )
-                  }.bind(this))
-                }
-              </ul>
-            </Pane>
-          </Tabs>
+          {
+            loadedTextures.map(function(texture) {
+              var image = texture.image;
+              let textureClick = this.selectTexture.bind(this, texture);
+               return (
+                 <li key={texture.uuid} onClick={textureClick}>
+                   <img width="155px" height="155px" src={image.src}/>
+                   <div className="detail">
+                     <span className="title">Name:</span> <span>{image.name}</span><br/>
+                     <span className="title">Filename:</span> <span>{getFilename(image.src)}</span><br/>
+                     <span><em>{image.width} x {image.height}</em></span>
+                   </div>
+                 </li>
+               )
+            }.bind(this))
+          }
+        </ul>
+      </div>
     </Modal>
   }
 }

@@ -702,4 +702,10 @@ a.button:hover {
 
 .newimage {
 	padding: 10px;
+	background-color: #323232;
+	overflow:auto;
+}
+
+.hide {
+	display: none;
 }
