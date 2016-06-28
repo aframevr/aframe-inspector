@@ -1,145 +1,43 @@
 import React from 'react';
 import Modal from './Modal';
+var insertNewAsset = require('../../lib/assetsUtils').insertNewAsset;
 
 function getFilename(url) {
   return url.split('/').pop();
 }
-function insertNewAsset(type, id, src) {
-  var element = null;
-  switch (type) {
-    case 'img': {
-        element = document.createElement("img");
-        element.id = id;
 
-        element.src = src;
-    } break;
-  }
-  if (element)
-    document.getElementsByTagName("a-assets")[0].appendChild(element);
-}
 
-var Tabs = React.createClass({
-	displayName: 'Tabs',
-	propTypes: {
-    selected: React.PropTypes.number,
-    children: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.element
-    ]).isRequired
-  },
-  getDefaultProps: function () {
-  	return {
-    	selected: 0
-    };
-  },
-  getInitialState: function () {
+var ModalTextures = React.createClass({
+  getInitialState: function() {
     return {
-    	selected: this.props.selected
-    };
-  },
-  shouldComponentUpdate(nextProps, nextState) {
-  	return this.props !== nextProps || this.state !== nextState;
-  },
-  handleClick: function (index, event) {
-  	event.preventDefault();
-    this.setState({
-    	selected: index
-    });
-  },
-  _renderTitles: function () {
-  	function labels(child, index) {
-    	var activeClass = (this.state.selected === index ? 'active' : '');
-    	return (
-      	<li key={index}>
-        	<a href="#"
-          	className={activeClass}
-          	onClick={this.handleClick.bind(this, index)}>
-          	{child.props.label}
-          </a>
-        </li>
-      );
-    }
-  	return (
-    	<ul className="tabs__labels">
-      	{this.props.children.map(labels.bind(this))}
-      </ul>
-    );
-  },
-  _renderContent: function () {
-  	return (
-    	<div className="tabs__content">
-	    	{this.props.children[this.state.selected]}
-      </div>
-    );
-  },
-	render: function () {
-  	return (
-    	<div className="tabs">
-        {this._renderTitles()}
-      	{this._renderContent()}
-      </div>
-    );
-  }
-});
-
-var Pane = React.createClass({
-	displayName: 'Pane',
-  propTypes: {
-    label: React.PropTypes.string.isRequired,
-    children: React.PropTypes.element.isRequired
-  },
-	render: function () {
-  	return (
-    	<div>
-      	{this.props.children}
-      </div>
-    );
-  }
-});
-
-export default class ModalTextures extends React.Component {
-  constructor(props) {
-    super();
-    this.state = {
-      isOpen: props.isOpen,
+      isOpen: this.props.isOpen,
       loadedTextures: [],
       assetsImages: [],
       samplesImages: [],
       addNewDialogOpened: false,
       preview: {width:0, height:0, src: '', name: '', loaded: false}
     }
-    this.samplesImages = [
-      {name: 'create1111', src:'assets/textures/758px-Canestra_di_frutta_Caravaggio.jpg'},
-      {name: 'asdfqwer', src:'assets/textures/2294472375_24a3b8ef46_o.jpg'},
-      {name: 'werwere', src:'assets/textures/brick_diffuse.jpg'},
-      {name: 'werasdfasdf', src:'assets/textures/checkerboard.jpg'},
-      {name: 'create', src:'assets/textures/crate.gif'},
-      {name: 'uv_grid_sim', src:'assets/textures/UV_Grid_Sm.jpg'},
-      {name: 'sprite0', src:'assets/textures/sprite0.png'},
-      {name: 'envmap', src:'assets/textures/envmap.png'},
-      {name: 'brick dump', src:'assets/textures/brick_bump.jpg'}
-    ];
-  }
-  componentWillReceiveProps(newProps) {
+  },
+  componentWillReceiveProps: function(newProps) {
     if (this.state.isOpen !== newProps.isOpen) {
       this.state.isOpen = newProps.isOpen;
       if (this.state.isOpen) {
         this.generateFromAssets();
       }
     }
-  }
-  onClose(value) {
+  },
+  onClose: function(value) {
     if (this.props.onClose) {
       this.props.onClose();
     }
-  }
-  selectTexture(value) {
+  },
+  selectTexture: function(value) {
     if (this.props.onClose) {
       this.props.onClose(value);
       this.setState({isOpen: false});
     }
-  }
-  generateFromSamples() {
+  },
+  generateFromSamples: function() {
     var self = this;
     this.samplesImages.map((imageData) => {
 
@@ -150,8 +48,8 @@ export default class ModalTextures extends React.Component {
       });
       image.src = imageData.src;
     });
-  }
-  generateFromAssets() {
+  },
+  generateFromAssets: function() {
     this.setState({assetsImages: []});
 
     var self = this;
@@ -163,11 +61,23 @@ export default class ModalTextures extends React.Component {
       });
       image.src = asset.src;
     });
-  }
-  generateFromTextureCache() {
+  },
+  generateFromTextureCache: function() {
 
-  }
-  componentDidMount() {
+  },
+  componentDidMount: function() {
+    this.samplesImages = [
+      {name: 'create1111', src:'assets/textures/758px-Canestra_di_frutta_Caravaggio.jpg'},
+      {name: 'asdfqwer', src:'assets/textures/2294472375_24a3b8ef46_o.jpg'},
+      {name: 'werwere', src:'assets/textures/brick_diffuse.jpg'},
+      {name: 'werasdfasdf', src:'assets/textures/checkerboard.jpg'},
+      {name: 'create', src:'assets/textures/crate.gif'},
+      {name: 'uv_grid_sim', src:'assets/textures/UV_Grid_Sm.jpg'},
+      {name: 'sprite0', src:'assets/textures/sprite0.png'},
+      {name: 'envmap', src:'assets/textures/envmap.png'},
+      {name: 'brick dump', src:'assets/textures/brick_bump.jpg'}
+    ];
+
     this.generateFromSamples();
     this.generateFromAssets();
     this.generateFromTextureCache();
@@ -186,8 +96,8 @@ export default class ModalTextures extends React.Component {
         }
       })
     });*/
-  }
-  onNewUrl(event) {
+  },
+  onNewUrl: function(event) {
     var self = this;
     function onImageLoaded(img) {
       self.setState({preview: {
@@ -206,19 +116,19 @@ export default class ModalTextures extends React.Component {
     this.refs.preview.addEventListener('load', onImageLoaded);
     //this.refs.preview.src = event.target.value;
     this.refs.preview.src = 'assets/textures/wall.jpg';
-  }
-  onNewName(event) {
+  },
+  onNewName: function(event) {
     this.state.preview.name = event.target.value;
-  }
-  onNameChanged(event) {
+  },
+  onNameChanged: function(event) {
     this.state.preview.name = event.target.value;
     this.setState({preview: this.state.preview});
-  }
-  toggleNewDialog() {
+  },
+  toggleNewDialog: function() {
     this.setState({addNewDialogOpened: !this.state.addNewDialogOpened});
     console.log(this.state.addNewDialogOpened);
-  }
-  render() {
+  },
+  render: function() {
     let samples = this.textures;
     //let alreadyLoaded = editor.sceneEl.systems.material.textureCache;
     let loadedTextures = this.state.loadedTextures;
@@ -226,7 +136,7 @@ export default class ModalTextures extends React.Component {
     let preview = this.state.preview;
     let name = this.state.preview.name;
 
-    //title="Textures" isOpen={this.state.isOpen} onClose={this.onClose.bind(this)}>
+    //title="Textures" isOpen={this.state.isOpen} onClose={this.onClose}>
     //let imagePreviewClick = this.selectTexture.bind(this, this.state.preview);
     var self = this;
     let imagePreviewClick = function() {
@@ -256,15 +166,15 @@ export default class ModalTextures extends React.Component {
       self.refs.imageName.focus();
     }
 
-    return <Modal title="Textures" isOpen={this.state.isOpen} onClose={this.onClose.bind(this)}>
-      <button onClick={this.toggleNewDialog.bind(this)}>ADD NEW ASSET</button>
+    return <Modal title="Textures" isOpen={this.state.isOpen} onClose={this.onClose}>
+      <button onClick={this.toggleNewDialog}>ADD NEW ASSET</button>
       <div className={this.state.addNewDialogOpened ? '' : 'hide'}>
         <div className="newimage">
           <div className="new_asset_options">
             <span>Please choose one of the following options to add a new image asset</span>
             <ul>
-              <li><span>Enter URL:</span> <input type="text" value={this.props.newUrl} onChange={this.onNewUrl.bind(this)}/></li>
-              <li><span>Upload file:</span> <input type="file" value={this.props.newUrl} onChange={this.onNewUrl.bind(this)}/></li>
+              <li><span>Enter URL:</span> <input type="text" value={this.props.newUrl} onChange={this.onNewUrl}/></li>
+              <li><span>Upload file:</span> <input type="file" value={this.props.newUrl} onChange={this.onNewUrl}/></li>
               <li><span>Select image from samples</span>
                 <ul className="gallery">
                   {
@@ -281,14 +191,14 @@ export default class ModalTextures extends React.Component {
                             </div>
                           </li>
                         )
-                     }.bind(this))
+                     })
                   }
                 </ul>
               </li>
             </ul>
           </div>
           <div className="preview">
-            Image name: <input ref="imageName" type="text" value={this.state.preview.name} onChange={this.onNameChanged.bind(this)}/><br/><br/>
+            Image name: <input ref="imageName" type="text" value={this.state.preview.name} onChange={this.onNameChanged}/><br/><br/>
           <img ref="preview" width="155px" height="155px" src={preview.src}/>
             {
               this.state.preview.loaded ?
@@ -336,10 +246,12 @@ export default class ModalTextures extends React.Component {
                    </div>
                  </li>
                )
-            }.bind(this))
+            })
           }
         </ul>
       </div>
     </Modal>
   }
-}
+});
+
+module.exports = ModalTextures;

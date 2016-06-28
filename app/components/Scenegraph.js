@@ -41,7 +41,7 @@ var Scenegraph = React.createClass({
   render: function() {
     var options = [];
 
-    options.push({ static: true, value: this.scene, html: '<span class="type"></span> a-scene' });
+    options.push({ static: true, value: this.props.scene, html: '<span class="type"></span> a-scene' });
 
     function treeIterate (element, depth) {
       if (!element) {

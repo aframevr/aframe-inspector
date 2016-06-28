@@ -1,9 +1,9 @@
 var React = require('react');
 var Component = require('./Component');
 var AttributeRow = require('./AttributeRow');
-var handleEntityChange = require('./widgets').handleEntityChange;
-var InputWidget = require('./widgets').InputWidget;
-var Events = require('../lib/Events.js');
+var handleEntityChange = require('../widgets').handleEntityChange;
+var InputWidget = require('../widgets').InputWidget;
+var Events = require('../../lib/Events.js');
 
 function isSingleProperty (schema) {
   if ('type' in schema) {

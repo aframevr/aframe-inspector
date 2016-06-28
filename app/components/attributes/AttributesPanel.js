@@ -1,5 +1,5 @@
 var React = require('react');
-var Events = require('../lib/Events.js');
+var Events = require('../../lib/Events.js');
 var Attributes = require('./Attributes');
 
 var AttributesPanel = React.createClass({

@@ -4,8 +4,8 @@ var Menu = require('./MenuWidget');
 var Scenegraph = require('./Scenegraph');
 var Events = require('../lib/Events.js');
 var Editor = require('../lib/editor');
-import ModalTextures from './modals/ModalTextures';
-import AttributesSidebar from './AttributesSidebar';
+var ModalTextures = require('./modals/ModalTextures');
+var AttributesSidebar = require('./attributes/AttributesSidebar');
 
 import "../css/main.css";
 import "../css/dark.css";
@@ -45,24 +45,12 @@ var Main = React.createClass({
     Events.on('openTexturesModal', function(textureOnClose){
       this.setState({isModalTexturesOpen: true, textureOnClose: textureOnClose});
     }.bind(this));
-/*
-    var scene = document.querySelector('a-scene');
-    Events.on('editorModeChanged', function(active){
-      if (active)
-        scene.pause();
-      else
-        scene.play();
-      this.setState({editorEnabled: active});
-    }.bind(this));
-*/
   },
   deleteEntity: function() {
     if (editor.selectedEntity) {
       editor.selectedEntity.parentNode.removeChild(editor.selectedEntity);
       editor.selectEntity(null);
-      //this.refresh();
     }
-
     return false;
   },
   openModal: function() {
