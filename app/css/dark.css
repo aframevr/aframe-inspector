@@ -730,6 +730,10 @@ span.mixinlist ul li {
 	margin-bottom: 3px;
 }
 
+span.mixinlist ul li:last-child {
+	margin-bottom: 0px;
+}
+
 span.mixin {
 	width: 100px;
 	display: inline-block;

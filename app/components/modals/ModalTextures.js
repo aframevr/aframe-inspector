@@ -6,7 +6,6 @@ function getFilename(url) {
   return url.split('/').pop();
 }
 
-
 var ModalTextures = React.createClass({
   getInitialState: function() {
     return {
