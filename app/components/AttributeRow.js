@@ -1,13 +1,12 @@
 var React = require('react');
-var handleEntityChange = require('./Widget');
-var NumberWidget = require('./NumberWidget');
-var InputWidget = require('./InputWidget');
-var BooleanWidget = require('./BooleanWidget');
-var SelectWidget = require('./SelectWidget');
-var Vec3Widget = require('./Vec3Widget');
-var ColorWidget = require('./ColorWidget');
-var TextureWidget = require('./TextureWidget');
-var handleEntityChange = require('./Widget');
+var NumberWidget = require('./widgets/NumberWidget');
+var InputWidget = require('./widgets/InputWidget');
+var BooleanWidget = require('./widgets/BooleanWidget');
+var SelectWidget = require('./widgets/SelectWidget');
+var Vec3Widget = require('./widgets/Vec3Widget');
+var ColorWidget = require('./widgets/ColorWidget');
+var TextureWidget = require('./widgets/TextureWidget');
+var handleEntityChange = require('./widgets/Widget');
 
 var AttributeRow = React.createClass({
   render: function() {

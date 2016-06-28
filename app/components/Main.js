@@ -4,7 +4,7 @@ var Menu = require('./MenuWidget');
 var Scenegraph = require('./Scenegraph');
 var Events = require('../lib/Events.js');
 var Editor = require('../lib/editor');
-import ModalTextures from './ModalTextures';
+import ModalTextures from './modals/ModalTextures';
 import AttributesSidebar from './AttributesSidebar';
 
 import "../css/main.css";
@@ -99,8 +99,7 @@ function init(){
   window.addEventListener('editor-loaded', function(){
     ReactDOM.render(<Main />,document.getElementById('app'));
   });
-  var editor = new Editor();
-  window.editor = editor;
+  window.editor = new Editor();
 }
 
 init();

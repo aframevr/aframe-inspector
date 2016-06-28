@@ -7,17 +7,13 @@ var Vec3Widget = React.createClass({
     return {value: this.props.value};
   },
   getValue: function() {
-//    if (this.refs.x && this.refs.y && this.refs.z)
-      return {x: this.refs.x.state.value, y: this.refs.y.state.value, z: this.refs.z.state.value};
-//    else
-//      return {x: 0, y: 0, z: 0};
+    return {x: this.refs.x.state.value, y: this.refs.y.state.value, z: this.refs.z.state.value};
   },
   onChange: function(entity, componentName, name, value) {
     if (this.props.onChange) {
       value = this.getValue();
       this.props.onChange(entity, componentName, name, value);
     }
-
   },
   render: function() {
     return (

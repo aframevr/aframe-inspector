@@ -1,4 +1,4 @@
-var Events = require('../lib/Events.js');
+var Events = require('../../lib/Events.js');
 
 /**
  * Update the entity component value

@@ -1,17 +1,8 @@
-/*
-type
-id
-position
-rotation
-scale
-visible
-<AttributeRow key={key} name={key} schema={componentData.schema[key]} data={componentData.data[key]} componentname={this.props.name} entity={this.props.entity} />
-*/
 var React = require('react');
 var Component = require('./Component');
 var AttributeRow = require('./AttributeRow');
-var handleEntityChange = require('./Widget');
-var InputWidget = require('./InputWidget');
+var handleEntityChange = require('./widgets').handleEntityChange;
+var InputWidget = require('./widgets').InputWidget;
 var Events = require('../lib/Events.js');
 
 function isSingleProperty (schema) {
@@ -21,6 +12,7 @@ function isSingleProperty (schema) {
   return 'default' in schema;
 }
 
+// @todo Take this out and use handleEntityChange ?
 function changeId(entity, componentName, propertyName, value) {
   if (entity.id !== value) {
     entity.id = value;

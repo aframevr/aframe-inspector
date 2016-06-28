@@ -1,14 +1,10 @@
 var React = require('react');
-var handleEntityChange = require('./Widget');
 var Events = require('../lib/Events.js');
 
 var Scenegraph = React.createClass({
   getInitialState: function() {
     return {value: this.props.value || ''};
-  },/*
-  propTypes: {
-    value: React.PropTypes.string
-  },*/
+  },
   getDefaultProps: function() {
     return {
       value: ''
@@ -38,7 +34,6 @@ var Scenegraph = React.createClass({
     });
   },
   componentWillReceiveProps: function(newProps) {
-    // This will be triggered typically when the element is changed directly with element.setAttribute
     if (newProps.value != this.state.value) {
       this.setState({value: newProps.value});
     }
@@ -117,78 +112,4 @@ var Scenegraph = React.createClass({
   }
 });
 
-/*
-/*
-
-
-var div = document.createElement( 'div' );
-div.className = 'option ' + ( option.static === true ? '' : 'draggable' );
-div.innerHTML = option.html;
-div.value = option.value;
-scope.dom.appendChild( div );
-
-scope.options.push( div );
-
-div.addEventListener( 'click', function ( event ) {
-
-  scope.setValue( this.value );
-  scope.dom.dispatchEvent( changeEvent );
-
-}, false );
-
-
-
-
-      for ( var i = 0; i < this.options.length; i ++ ) {
-
-        var element = this.options[ i ];
-
-        if ( element.value === value ) {
-
-          element.classList.add( 'active' );
-
-          // scroll into view
-
-          var y = element.offsetTop - this.dom.offsetTop;
-          var bottomY = y + element.offsetHeight;
-          var minScroll = bottomY - this.dom.offsetHeight;
-
-          if ( this.dom.scrollTop > y ) {
-
-            this.dom.scrollTop = y;
-
-          } else if ( this.dom.scrollTop < minScroll ) {
-
-            this.dom.scrollTop = minScroll;
-
-          }
-
-          this.selectedIndex = i;
-
-        } else {
-
-          element.classList.remove( 'active' );
-
-        }
-
-            <div draggable="false" className="option">
-              <span className="type PerspectiveCamera"></span> Camera
-            </div>
-            <div draggable="false" className="option">
-              <span className="type Scene"></span> Scene
-            </div>
-            <div draggable="true" className="option" style={{marginLeft: '10px'}}>
-              <span className="type Mesh"></span> Sphere 1 <span className="type SphereBufferGeometry"></span>  <span className="type MeshStandardMaterial"></span>
-            </div>
-            <div draggable="true" className="option" style={{marginLeft: '10px'}}>
-              <span className="type Sprite"></span> Sprite 2
-            </div>
-            <div draggable="true" className="option" style={{marginLeft: '10px'}}>
-              <span className="type Mesh"></span> Cylinder 3 <span className="type CylinderBufferGeometry"></span>  <span className="type MeshStandardMaterial"></span>
-            </div>
-            <div draggable="true" className="option" style={{marginLeft: '10px'}}>
-              <span className="type PointLight"></span> PointLight 1
-            </div>
-          </div>
-*/
 module.exports = Scenegraph;
