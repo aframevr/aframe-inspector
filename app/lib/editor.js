@@ -12,8 +12,6 @@ var ComponentLoader = require('./componentloader.js');
 var ShaderLoader = require('./shaderloader.js');
 
 function Editor () {
-  window.aframeCore = window.aframeCore || window.AFRAME.aframeCore || window.AFRAME;
-
   this.enabled = false;
   // Detect if the scene is already loaded
   if (document.readyState === 'complete' || document.readyState === 'loaded') {
@@ -293,5 +291,3 @@ Editor.prototype = {
 };
 
 module.exports = Editor;
-
-//module.exports = new Editor();

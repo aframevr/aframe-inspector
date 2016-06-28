@@ -224,7 +224,7 @@ function Viewport (editor) {
 
     if (intersects.length > 0) {
       var intersect = intersects[ 0 ];
-      Events.on('objectFocused',intersect.object);
+      Events.emit('objectFocused',intersect.object);
     }
   }
 
@@ -267,7 +267,7 @@ function Viewport (editor) {
       transformControls.attach(object);
     }
   });
-/*
+
   Events.on('objectFocused', function (object) {
     controls.focus(object);
   });
@@ -277,7 +277,7 @@ function Viewport (editor) {
       selectionBox.update(object);
     }
   });
-*/
+
   Events.on('objectAdded', function (object) {
     object.traverse(function (child) {
       objects.push(child);
@@ -325,20 +325,16 @@ function Viewport (editor) {
   Events.on('showGridChanged', function (showGrid) {
     grid.visible = showGrid;
   });
-  Events.on('editorModeChanged', function (active) {
 
+  Events.on('editorModeChanged', function (active) {
     if (active) {
-      //editor.currentCameraEl.setAttribute('camera', 'active', 'false');
       editor.editorCameraEl.setAttribute('camera', 'active', 'true');
-      //editor.sceneEl.systems.camera.setActiveCamera(cameraEl);
-//      editor.editorCameraEl.setAttribute('camera','active','true');
       document.querySelector('.a-enter-vr,.rs-base').style.display = 'none';
     } else {
       prevActivedCameraEl.setAttribute('camera', 'active', 'true');
       document.querySelector('.a-enter-vr,.rs-base').style.display = 'block';
     }
   });
-
 }
 
 module.exports = Viewport;

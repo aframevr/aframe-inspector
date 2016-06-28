@@ -1,6 +1,6 @@
 var React = require('react');
 var handleEntityChange = require('./Widget');
-var Events = require('../lib/Events.js');
+var Events = require('../../lib/Events.js');
 
 function GetFilename(url) {
   if (url) {
@@ -11,7 +11,6 @@ function GetFilename(url) {
   }
   return '';
 }
-
 
 function insertNewAsset(type, id, src) {
   var element = null;
@@ -113,7 +112,7 @@ var TextureWidget = React.createClass({
 
     var url;
     if (value[0] == '#') {
-      url = document.querySelector(value).getAttribute('src');
+      url = value.length > 1 && document.querySelector(value) && document.querySelector(value).getAttribute('src');
     } else {
       url = AFRAME.utils.srcLoader.parseUrl(value);
     }
@@ -138,51 +137,13 @@ var TextureWidget = React.createClass({
   notifyChanged: function(value) {
     if (this.props.onChange)
       this.props.onChange(this.props.entity, this.props.componentname, this.props.name, value);
-    this.setState({value: value, valueType: className});
+    this.setState({value: value});
   },
-/*
-  getImageUrl: function() {
-    var canvas = this.refs.canvas;
-    var canvas = document.createElement('canvas');
-    canvas.width = 32;
-    canvas.height = 16;
-
-    var context = canvas.getContext( '2d' );
-
-    function paintPreview(texture) {
-      var image = texture.image;
-      var filename = image.src.replace(/^.*[\\\/]/, '')
-      if (image !== undefined && image.width > 0) {
-        canvas.title = filename;
-        var scale = canvas.width / image.width;
-        context.drawImage(image, 0, 0, image.width * scale, image.height * scale);
-      } else {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-      }
-    }
-
-    function getTextureFromSrc(src) {
-      for (var hash in editor.sceneEl.systems.material.textureCache) {
-        if (JSON.parse(hash).src == src)
-          return editor.sceneEl.systems.material.textureCache[hash];
-      }
-      return null;
-    }
-
-    var url = AFRAME.utils.srcLoader.parseUrl(this.state.value);
-    var texture = getTextureFromSrc(this.state.value);
-
-    var className = 'hidden';
-    if (texture) {
-      className = this.state.value[0] == '#' ? 'fa fa-link' : 'fa fa-external-link';
-      texture.then(paintPreview);
-    } else {
-      context.clearRect( 0, 0, canvas.width, canvas.height );
-    }
-    //return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEUAAAD///+l2Z/dAAAAM0lEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC';
-    return canvas.toDataURL("image/jpeg");
+  onChange: function(e) {
+    var value = e.target.value;
+    this.setState({value: value});
+    this.notifyChanged(value);
   },
-  */
   removeMap: function(e) {
     this.setValue('');
     this.notifyChanged('');
@@ -210,13 +171,11 @@ var TextureWidget = React.createClass({
       <span className="texture">
         <span className={this.state.valueType}></span>
         <canvas ref="canvas" width="32" height="16" title={this.props.mapName} onClick={this.openDialog}></canvas>
-        <input className="map_value" type="text" value={this.state.value}/>
-        <input type="button" value="remove" onClick={this.removeMap}/>
+        <input className="map_value" type="text" value={this.state.value} onChange={this.onChange}/>
+        <a href="#" onClick={this.removeMap} className="button fa fa-times"></a>
       </span>
     );
   }
 });
 
-// <img ref="img" src={this.state.dataURL}/>
-// <input type="text" value={this.state.value}/>
 module.exports = TextureWidget;
