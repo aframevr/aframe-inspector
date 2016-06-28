@@ -2,6 +2,15 @@ var React = require('react');
 var InputWidget = require('../widgets').InputWidget;
 var handleEntityChange = require('../widgets').handleEntityChange;
 var AttributeRow = require('./AttributeRow');
+var Events = require('../../lib/Events.js');
+
+
+function trim (s) {
+  s = s.replace(/(^\s*)|(\s*$)/gi, '');
+  s = s.replace(/[ ]{2,}/gi, ' ');
+  s = s.replace(/\n /, '\n');
+  return s;
+}
 
 // @todo Take this out and use handleEntityChange ?
 function changeId(entity, componentName, propertyName, value) {
@@ -21,7 +30,6 @@ function isSingleProperty (schema) {
 var MixinsComponent = React.createClass({
   render: function() {
     var entity = this.props.entity;
-    console.log(entity.mixinEls);
     var mixins = Array.prototype.slice.call(document.querySelectorAll('a-mixin'));
     return (
       <div className="row">
@@ -44,7 +52,12 @@ var MixinsComponent = React.createClass({
           <ul>
           {
             entity.mixinEls.map(function(mixin){
-              return <li key={mixin.id}><span className="mixin">{mixin.id}</span> <a href="#" className="button fa fa-trash-o" onClick={this.addMixin}></a></li>;
+
+              function removeMixin() {
+                entity.setAttribute('mixin', trim(entity.getAttribute('mixin').replace(mixin.id, '')));
+                Events.emit('objectChanged', entity);
+              }
+              return <li key={mixin.id}><span className="mixin">{mixin.id}</span> <a href="#" className="button fa fa-trash-o" onClick={removeMixin}></a></li>;
             }.bind(this))
           }
           </ul>
