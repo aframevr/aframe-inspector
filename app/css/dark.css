@@ -714,22 +714,28 @@ span.value {
 		display: inline-block;
 }
 
-span.mixin {
+span.mixinlist {
 	color: #888 !important;
+	display: inline-block;
 }
 
-span.value ul {
+span.mixinlist ul {
 	list-style-type: none;
 	padding: 5px;
 	margin: 5px 0 0 0;
 	background-color: #222;
 }
 
-span.value ul li {
+span.mixinlist ul li {
 	margin-bottom: 3px;
 }
 
 span.mixin {
 	width: 100px;
 	display: inline-block;
+}
+
+
+.mixinlist {
+	margin-left: 120px;
 }

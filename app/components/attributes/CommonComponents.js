@@ -30,7 +30,13 @@ function isSingleProperty (schema) {
 var MixinsComponent = React.createClass({
   removeMixin: function(mixin) {
     var entity = this.props.entity;
-    entity.setAttribute('mixin', trim(entity.getAttribute('mixin').replace(mixin, '')));
+    var newMixins = trim(entity.getAttribute('mixin').replace(mixin, ''));
+    if (newMixins.length === 0) {
+      entity.removeAttribute('mixin');
+    } else {
+      entity.setAttribute('mixin', newMixins);
+    }
+
     // @todo Is there some aframe event that we could catch instead of explicitly emit the objectChanged event?
     Events.emit('objectChanged', entity);
   },
@@ -40,10 +46,30 @@ var MixinsComponent = React.createClass({
     // @todo Is there some aframe event that we could catch instead of explicitly emit the objectChanged event?
     Events.emit('objectChanged', entity);
   },
+  renderEntityMixins: function(entityMixins) {
+    if (entityMixins.length === 0) {
+      return <span></span>
+    }
+
+    return (
+      <span className="mixinlist">
+        <ul>
+        {
+          entityMixins.map(function(mixin){
+            let mixinClick = this.removeMixin.bind(this, mixin);
+            return <li key={mixin}><span className="mixin">{mixin}</span> <a href="#" className="button fa fa-trash-o" onClick={mixinClick}></a></li>;
+          }.bind(this))
+        }
+        </ul>
+      </span>
+    )
+  },
   render: function() {
     var entity = this.props.entity;
     var entityMixins = entity.mixinEls.map(function(mixin){return mixin.id;});
     var sceneMixins = Array.prototype.slice.call(document.querySelectorAll('a-mixin'));
+
+
     return (
       <div className="row">
         <span className="text">mixins</span>
@@ -62,17 +88,7 @@ var MixinsComponent = React.createClass({
           </select>
           <a href="#" className="button fa fa-plus-circle" onClick={this.addMixin}></a>
         </span>
-        <span className="text"></span>
-        <span className="value">
-          <ul>
-          {
-            entityMixins.map(function(mixin){
-              let mixinClick = this.removeMixin.bind(this, mixin);
-              return <li key={mixin}><span className="mixin">{mixin}</span> <a href="#" className="button fa fa-trash-o" onClick={mixinClick}></a></li>;
-            }.bind(this))
-          }
-          </ul>
-        </span>
+        { this.renderEntityMixins(entityMixins) }
       </div>
     );
   }
