@@ -28,18 +28,33 @@ function isSingleProperty (schema) {
 }
 
 var MixinsComponent = React.createClass({
+  removeMixin: function(mixin) {
+    var entity = this.props.entity;
+    entity.setAttribute('mixin', trim(entity.getAttribute('mixin').replace(mixin, '')));
+    // @todo Is there some aframe event that we could catch instead of explicitly emit the objectChanged event?
+    Events.emit('objectChanged', entity);
+  },
+  addMixin: function() {
+    var entity = this.props.entity;
+    entity.setAttribute('mixin', trim(entity.getAttribute('mixin') + ' ' + this.refs.select.value));
+    // @todo Is there some aframe event that we could catch instead of explicitly emit the objectChanged event?
+    Events.emit('objectChanged', entity);
+  },
   render: function() {
     var entity = this.props.entity;
-    var mixins = Array.prototype.slice.call(document.querySelectorAll('a-mixin'));
+    var entityMixins = entity.mixinEls.map(function(mixin){return mixin.id;});
+    var sceneMixins = Array.prototype.slice.call(document.querySelectorAll('a-mixin'));
     return (
       <div className="row">
-        <span className="text">Add</span>
+        <span className="text">mixins</span>
         <span className="value">
           <select ref="select">
           {
-            mixins
-              /*.filter(function(key){return usedComponents.indexOf(key)==-1;})
-                .sort()*/
+            sceneMixins
+                .filter(function(mixin){
+                  return entityMixins.indexOf(mixin.id)==-1;
+                })
+                .sort()
                 .map(function(value) {
               return <option key={value.id} value={value.id}>{value.id}</option>;
             }.bind(this))
@@ -51,13 +66,9 @@ var MixinsComponent = React.createClass({
         <span className="value">
           <ul>
           {
-            entity.mixinEls.map(function(mixin){
-
-              function removeMixin() {
-                entity.setAttribute('mixin', trim(entity.getAttribute('mixin').replace(mixin.id, '')));
-                Events.emit('objectChanged', entity);
-              }
-              return <li key={mixin.id}><span className="mixin">{mixin.id}</span> <a href="#" className="button fa fa-trash-o" onClick={removeMixin}></a></li>;
+            entityMixins.map(function(mixin){
+              let mixinClick = this.removeMixin.bind(this, mixin);
+              return <li key={mixin}><span className="mixin">{mixin}</span> <a href="#" className="button fa fa-trash-o" onClick={mixinClick}></a></li>;
             }.bind(this))
           }
           </ul>
@@ -68,40 +79,12 @@ var MixinsComponent = React.createClass({
 });
 
 var CommonComponents = React.createClass({
-  addMixin: function() {
-    //editor.selected.el.setAttribute('mixin', trim(editor.selected.el.getAttribute('mixin') + ' ' + mixinsList.getValue()));
-    /*
-    // Update mixins list
-    mixinsContainer.dom.innerHTML = '';
-    entity.mixinEls.forEach(function (mixin) {
-      var name = new UI.Text(mixin.id).setWidth('160px').setFontSize('12px');
-      mixinsContainer.add(name);
-
-      var edit = new UI.Button('Edit').setDisabled(true);
-      edit.setMarginLeft('4px');
-      edit.onClick(function () {
-        //  signals.editScript.dispatch( object, script );
-      });
-      mixinsContainer.add(edit);
-
-      var remove = new UI.Button('Remove');
-      remove.setMarginLeft('4px');
-      remove.onClick(function () {
-        entity.setAttribute('mixin', trim(entity.getAttribute('mixin').replace(mixin.id, '')));
-      });
-      mixinsContainer.add(remove);
-
-      mixinsContainer.add(new UI.Break());
-    });
-     */
-  },
   render: function() {
     var entity = this.props.entity;
     var components = entity ? this.props.entity.components : {};
     if (!entity) {
       return <div></div>;
     }
-
     return <div className="collapsible">
             <div className="static"><div className="button"></div><span>COMMON</span><div className="menu"></div></div>
             <div className="content">
