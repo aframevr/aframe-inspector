@@ -56,8 +56,20 @@ var MixinsComponent = React.createClass({
         <ul>
         {
           entityMixins.map(function(mixin){
-            let mixinClick = this.removeMixin.bind(this, mixin);
-            return <li key={mixin}><span className="mixin">{mixin}</span> <a href="#" className="button fa fa-trash-o" onClick={mixinClick}></a></li>;
+            var titles = Object.keys(mixin.attributes)
+              .filter(function (i){
+                return mixin.attributes[i].name !== 'id';
+              })
+              .map(function(i){
+                var title = '- ' + mixin.attributes[i].name + ':\n';
+                var titles = mixin.attributes[i].value.split(';').map(function(value){
+                    return '  - ' + trim(value);
+                });
+                return title + titles.join('\n');
+              });
+
+            let mixinClick = this.removeMixin.bind(this, mixin.id);
+            return <li key={mixin.id}><span className="mixin" title={titles.join('\n')}>{mixin.id}</span> <a href="#" className="button fa fa-trash-o" onClick={mixinClick}></a></li>;
           }.bind(this))
         }
         </ul>
@@ -88,7 +100,7 @@ var MixinsComponent = React.createClass({
           </select>
           <a href="#" className="button fa fa-plus-circle" onClick={this.addMixin}></a>
         </span>
-        { this.renderEntityMixins(entityMixins) }
+        { this.renderEntityMixins(entity.mixinEls) }
       </div>
     );
   }

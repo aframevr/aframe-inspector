@@ -11,6 +11,7 @@
       <a-assets>
         <a-mixin id="spin" attribute="rotation" to="0 360 0" repeat="indefinite" easing="linear" dur="9600"></a-mixin>
         <a-mixin id="blue" material="color: #4CC3D9"></a-mixin>
+        <a-mixin id="cube_blue" geometry="primitive: box; depth: 2; height: 5; width: 1" material="color: #4CC3D9"></a-mixin>
         <a-mixin id="cube" geometry="primitive: box; depth: 1; height: 1; width: 1"></a-mixin>
         <a-mixin id="cylinder" geometry="primitive: cylinder; height: 0.3; radius: 0.75; segmentsRadial: 6"></a-mixin>
         <a-mixin id="green" material="color: #7BC8A4"></a-mixin>
@@ -29,10 +30,9 @@
         </a-entity>
       </a-entity>
       <a-entity id="short_orange_cube" mixin="short orange cube" position="-5 2 0"></a-entity>
-      <a-entity id="short_yellow_cube" mixin="short yellow cube" position="5 2 0">
-<!--        <a-event name="click" target="#target" scale="1.5 1.5 1.5"></a-event>
-        <a-event name="click" scale="1.5 1.5 1.5"></a-event>-->
-      </a-entity>
+      <a-entity id="short_yellow_cube" mixin="short yellow cube" position="5 2 0"></a-entity>
+
+      <a-entity id="cubeblue_mixin" mixin="cube_blue" position="0 8 0">></a-entity>
 
       <a-box src="assets/textures/brick_bump.jpg" position="-5 5 -2" width="1" color="#F16745"></a-box>
       <a-box id="box" position="0 2 0" height="2" color="#FFC65D"></a-box>
