@@ -376,9 +376,6 @@ div.vec3 {
 	padding: 10px;
 }
 
-span.value {
-		color: #fff;
-}
 .attributes .row {
 	min-height: 20px;
 	margin-bottom: 10px;
@@ -708,4 +705,31 @@ a.button:hover {
 
 .hide {
 	display: none;
+}
+
+
+
+span.value {
+		color: #fff;
+		display: inline-block;
+}
+
+span.mixin {
+	color: #20b1fb !important;
+}
+
+span.value ul {
+	list-style-type: none;
+	padding: 5px;
+	margin: 5px 0 0 0;
+	background-color: #222;
+}
+
+span.value ul li {
+	margin-bottom: 3px;
+}
+
+span.mixin {
+	width: 100px;
+	display: inline-block;
 }
