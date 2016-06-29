@@ -19,15 +19,7 @@
 		background-color: #1faaf2;
 		color: #fff;
 	}
-/*
-collapsible.collapsed .static .button {
-	border-left-color: #444;
-}
 
-collapsible:not(.collapsed) .static .button {
-	border-top-color: #444;
-}
-*/
 
 input {
 	background-color: transparent;
@@ -360,15 +352,17 @@ div.vec3 {
 	height: 0;
 	float: left;
 	margin-right: 10px;
-/*      border-top: 5px solid transparent;
-	border-bottom: 5px solid transparent;
-	border-left: 5px solid #1faaf2;
-*/
 	border-left: 5px solid transparent;
 	border-right: 5px solid transparent;
-	border-top: 5px solid #1faaf2;
+	/*border-top: 5px solid transparent;*/
 }
+
 .collapsible.collapsed .static .button {
+	border-left-color: #1faaf2;
+}
+
+.collapsible:not(.collapsed) .static .button {
+	border-top-color: #1faaf2;
 }
 
 .collapsible .content {
@@ -748,4 +742,5 @@ span.subcomponent {
 	color: #999;
 	margin-left: 10px;
 	float: none !important;
+	vertical-align: top !important;
 }
