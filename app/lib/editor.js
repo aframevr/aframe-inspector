@@ -1,12 +1,4 @@
-/* global aframeEditor THREE */
-/*
-var Panels = require('./panels');
-var Dialogs = require('./dialogs');
-var Events = require('./events.js');
-*/
-
 var Events = require('./Events');
-//var Panels = require('./panels');
 var Viewport = require('./viewport/index.js');
 var ComponentLoader = require('./componentloader.js');
 var ShaderLoader = require('./shaderloader.js');
@@ -52,12 +44,6 @@ Editor.prototype = {
   },
 
   initUI: function () {
-/*
-    this.DEFAULT_CAMERA = new THREE.PerspectiveCamera(50, 1, 1, 10000);
-    this.DEFAULT_CAMERA.name = 'EditorCamera';
-    this.DEFAULT_CAMERA.position.set(20, 10, 20);
-*/
-
     this.DEFAULT_CAMERA.position.set(20,10,20);
     this.DEFAULT_CAMERA.lookAt(new THREE.Vector3());
     this.DEFAULT_CAMERA.updateMatrixWorld();

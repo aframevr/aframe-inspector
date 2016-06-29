@@ -2,10 +2,7 @@
 var TransformControls = require('../vendor/threejs/TransformControls.js');
 var EditorControls = require('../vendor/threejs/EditorControls.js');
 var Events = require('../Events');
-
-function getNumber (value) {
-  return parseFloat(value.toFixed(2));
-}
+var getNumber = require('../utils').getNumber;
 
 function Viewport (editor) {
   var container = {

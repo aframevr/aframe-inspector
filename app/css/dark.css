@@ -743,3 +743,7 @@ span.mixin {
 .mixinlist {
 	margin-left: 120px;
 }
+
+.component em {
+	color: #999;
+}

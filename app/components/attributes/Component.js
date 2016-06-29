@@ -10,10 +10,18 @@ var Component = React.createClass({
   },
   render: function() {
     var componentData = this.props.component;
-    return <div className="collapsible">
+    var componentName = this.props.name.toUpperCase();
+    var subComponentName = '';
+    
+    if (componentName.indexOf('_') !== -1) {
+      subComponentName = componentName;
+      componentName = componentName.substr(0, componentName.indexOf('_'));
+    }
+
+    return <div className="component collapsible">
       <div className="static">
         <div className="button"></div>
-        <span>{this.props.name.toUpperCase()}</span>
+        <span>{componentName} <em>{subComponentName}</em></span>
         <div className="dropdown menu">
           <div className="dropdown-content">
             <a href="#" onClick={this.deleteComponent}>Delete</a>
