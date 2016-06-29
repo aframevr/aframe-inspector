@@ -744,6 +744,8 @@ span.mixin {
 	margin-left: 120px;
 }
 
-.component em {
+span.subcomponent {
 	color: #999;
+	margin-left: 10px;
+	float: none !important;
 }

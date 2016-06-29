@@ -12,7 +12,7 @@ var Component = React.createClass({
     var componentData = this.props.component;
     var componentName = this.props.name.toUpperCase();
     var subComponentName = '';
-    
+
     if (componentName.indexOf('_') !== -1) {
       subComponentName = componentName;
       componentName = componentName.substr(0, componentName.indexOf('_'));
@@ -21,7 +21,7 @@ var Component = React.createClass({
     return <div className="component collapsible">
       <div className="static">
         <div className="button"></div>
-        <span>{componentName} <em>{subComponentName}</em></span>
+        <span>{componentName} <span className="subcomponent">{subComponentName}</span></span>
         <div className="dropdown menu">
           <div className="dropdown-content">
             <a href="#" onClick={this.deleteComponent}>Delete</a>
