@@ -57,9 +57,9 @@ exports.default = function (instance) {
       if (this.match(_types.types.braceL)) {
         var curContext = this.curContext();
         if (curContext === _context.types.j_oTag) {
-          this.state.context.push(_context.types.b_expr);
+          this.state.context.push(_context.types.braceExpression);
         } else if (curContext === _context.types.j_expr) {
-          this.state.context.push(_context.types.b_tmpl);
+          this.state.context.push(_context.types.templateQuasi);
         } else {
           inner.call(this, prevType);
         }
@@ -104,7 +104,7 @@ _context.types.j_expr = new _context.TokContext("<tag>...</tag>", true, true);
 
 _types.types.jsxName = new _types.TokenType("jsxName");
 _types.types.jsxText = new _types.TokenType("jsxText", { beforeExpr: true });
-_types.types.jsxTagStart = new _types.TokenType("jsxTagStart");
+_types.types.jsxTagStart = new _types.TokenType("jsxTagStart", { startsExpr: true });
 _types.types.jsxTagEnd = new _types.TokenType("jsxTagEnd");
 
 _types.types.jsxTagStart.updateContext = function () {

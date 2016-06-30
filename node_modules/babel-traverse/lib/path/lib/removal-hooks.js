@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 // this file contains hooks that handle ancestry cleanup of parent nodes when removing children
@@ -7,7 +7,7 @@ exports.__esModule = true;
  * Pre hooks should be used for either rejecting removal or delegating removal
  */
 
-var hooks = /*istanbul ignore next*/exports.hooks = [function (self, parent) {
+var hooks = exports.hooks = [function (self, parent) {
   if (self.key === "body" && parent.isArrowFunctionExpression()) {
     self.replaceWith(self.scope.buildUndefinedNode());
     return true;

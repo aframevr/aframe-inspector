@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -10,27 +10,23 @@ var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var /*istanbul ignore next*/_path2 = require("./path");
+var _path2 = require("./path");
 
-/*istanbul ignore next*/
 var _path3 = _interopRequireDefault(_path2);
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-/*istanbul ignore next*/
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var testing = process.env.NODE_ENV === "test";
 
-/*istanbul ignore next*/
 var TraversalContext = function () {
-  function /*istanbul ignore next*/TraversalContext(scope, opts, state, parentPath) {
-    /*istanbul ignore next*/(0, _classCallCheck3.default)(this, TraversalContext);
+  function TraversalContext(scope, opts, state, parentPath) {
+    (0, _classCallCheck3.default)(this, TraversalContext);
     this.queue = null;
 
     this.parentPath = parentPath;
@@ -56,8 +52,7 @@ var TraversalContext = function () {
     if (!keys || !keys.length) return false;
 
     // we need to traverse into this node so ensure that it has children to traverse into!
-    for ( /*istanbul ignore next*/var _iterator = keys, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
-      /*istanbul ignore next*/
+    for (var _iterator = keys, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
       var _ref;
 
       if (_isArray) {
@@ -78,14 +73,13 @@ var TraversalContext = function () {
   };
 
   TraversalContext.prototype.create = function create(node, obj, key, listKey) {
-    return (/*istanbul ignore next*/_path3.default.get({
-        parentPath: this.parentPath,
-        parent: node,
-        container: obj,
-        key: key,
-        listKey: listKey
-      })
-    );
+    return _path3.default.get({
+      parentPath: this.parentPath,
+      parent: node,
+      container: obj,
+      key: key,
+      listKey: listKey
+    });
   };
 
   TraversalContext.prototype.maybeQueue = function maybeQueue(path, notPriority) {
@@ -136,8 +130,7 @@ var TraversalContext = function () {
     var stop = false;
 
     // visit the queue
-    for ( /*istanbul ignore next*/var _iterator2 = queue, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
-      /*istanbul ignore next*/
+    for (var _iterator2 = queue, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
       var _ref2;
 
       if (_isArray2) {
@@ -185,8 +178,7 @@ var TraversalContext = function () {
     }
 
     // clear queue
-    for ( /*istanbul ignore next*/var _iterator3 = queue, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3);;) {
-      /*istanbul ignore next*/
+    for (var _iterator3 = queue, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3);;) {
       var _ref3;
 
       if (_isArray3) {
@@ -223,5 +215,5 @@ var TraversalContext = function () {
   return TraversalContext;
 }();
 
-/*istanbul ignore next*/exports.default = TraversalContext;
-/*istanbul ignore next*/module.exports = exports["default"];
+exports.default = TraversalContext;
+module.exports = exports["default"];

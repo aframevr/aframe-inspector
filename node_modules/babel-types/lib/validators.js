@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -7,30 +7,27 @@ var _getIterator2 = require("babel-runtime/core-js/get-iterator");
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
 exports.isBinding = isBinding;
-/*istanbul ignore next*/exports.isReferenced = isReferenced;
-/*istanbul ignore next*/exports.isValidIdentifier = isValidIdentifier;
-/*istanbul ignore next*/exports.isLet = isLet;
-/*istanbul ignore next*/exports.isBlockScoped = isBlockScoped;
-/*istanbul ignore next*/exports.isVar = isVar;
-/*istanbul ignore next*/exports.isSpecifierDefault = isSpecifierDefault;
-/*istanbul ignore next*/exports.isScope = isScope;
-/*istanbul ignore next*/exports.isImmutable = isImmutable;
+exports.isReferenced = isReferenced;
+exports.isValidIdentifier = isValidIdentifier;
+exports.isLet = isLet;
+exports.isBlockScoped = isBlockScoped;
+exports.isVar = isVar;
+exports.isSpecifierDefault = isSpecifierDefault;
+exports.isScope = isScope;
+exports.isImmutable = isImmutable;
 
-var /*istanbul ignore next*/_retrievers = require("./retrievers");
+var _retrievers = require("./retrievers");
 
-var /*istanbul ignore next*/_esutils = require("esutils");
+var _esutils = require("esutils");
 
-/*istanbul ignore next*/
 var _esutils2 = _interopRequireDefault(_esutils);
 
-var /*istanbul ignore next*/_index = require("./index");
+var _index = require("./index");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_index);
 
-var /*istanbul ignore next*/_constants = require("./constants");
+var _constants = require("./constants");
 
-/*istanbul ignore next*/
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -42,7 +39,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* eslint indent: 0 */
 
 function isBinding(node, parent) {
-  var keys = /*istanbul ignore next*/_retrievers.getBindingIdentifiers.keys[parent.type];
+  var keys = _retrievers.getBindingIdentifiers.keys[parent.type];
   if (keys) {
     for (var i = 0; i < keys.length; i++) {
       var key = keys[i];
@@ -105,8 +102,7 @@ function isReferenced(node, parent) {
     case "ArrowFunctionExpression":
     case "FunctionDeclaration":
     case "FunctionExpression":
-      for ( /*istanbul ignore next*/var _iterator = parent.params, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
-        /*istanbul ignore next*/
+      for (var _iterator = parent.params, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
         var _ref;
 
         if (_isArray) {
@@ -208,11 +204,10 @@ function isReferenced(node, parent) {
  */
 
 function isValidIdentifier(name) {
-  if (typeof name !== "string" || /*istanbul ignore next*/_esutils2.default.keyword.isReservedWordES6(name, true)) {
+  if (typeof name !== "string" || _esutils2.default.keyword.isReservedWordES6(name, true)) {
     return false;
   } else {
-    return (/*istanbul ignore next*/_esutils2.default.keyword.isIdentifierNameES6(name)
-    );
+    return _esutils2.default.keyword.isIdentifierNameES6(name);
   }
 }
 
@@ -221,7 +216,7 @@ function isValidIdentifier(name) {
  */
 
 function isLet(node) {
-  return t.isVariableDeclaration(node) && (node.kind !== "var" || node[/*istanbul ignore next*/_constants.BLOCK_SCOPED_SYMBOL]);
+  return t.isVariableDeclaration(node) && (node.kind !== "var" || node[_constants.BLOCK_SCOPED_SYMBOL]);
 }
 
 /**
@@ -237,7 +232,7 @@ function isBlockScoped(node) {
  */
 
 function isVar(node) {
-  return t.isVariableDeclaration(node, { kind: "var" }) && !node[/*istanbul ignore next*/_constants.BLOCK_SCOPED_SYMBOL];
+  return t.isVariableDeclaration(node, { kind: "var" }) && !node[_constants.BLOCK_SCOPED_SYMBOL];
 }
 
 /**

@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -18,54 +18,44 @@ var _getIterator2 = require("babel-runtime/core-js/get-iterator");
 
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
-var /*istanbul ignore next*/_includes = require("lodash/includes");
+var _includes = require("lodash/includes");
 
-/*istanbul ignore next*/
 var _includes2 = _interopRequireDefault(_includes);
 
-var /*istanbul ignore next*/_repeat = require("lodash/repeat");
+var _repeat = require("lodash/repeat");
 
-/*istanbul ignore next*/
 var _repeat2 = _interopRequireDefault(_repeat);
 
-var /*istanbul ignore next*/_renamer = require("./lib/renamer");
+var _renamer = require("./lib/renamer");
 
-/*istanbul ignore next*/
 var _renamer2 = _interopRequireDefault(_renamer);
 
-var /*istanbul ignore next*/_index = require("../index");
+var _index = require("../index");
 
-/*istanbul ignore next*/
 var _index2 = _interopRequireDefault(_index);
 
-var /*istanbul ignore next*/_defaults = require("lodash/defaults");
+var _defaults = require("lodash/defaults");
 
-/*istanbul ignore next*/
 var _defaults2 = _interopRequireDefault(_defaults);
 
-var /*istanbul ignore next*/_babelMessages = require("babel-messages");
+var _babelMessages = require("babel-messages");
 
-/*istanbul ignore next*/
 var messages = _interopRequireWildcard(_babelMessages);
 
-var /*istanbul ignore next*/_binding2 = require("./binding");
+var _binding2 = require("./binding");
 
-/*istanbul ignore next*/
 var _binding3 = _interopRequireDefault(_binding2);
 
-var /*istanbul ignore next*/_globals = require("globals");
+var _globals = require("globals");
 
-/*istanbul ignore next*/
 var _globals2 = _interopRequireDefault(_globals);
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-var /*istanbul ignore next*/_cache = require("../cache");
+var _cache = require("../cache");
 
-/*istanbul ignore next*/
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -84,10 +74,9 @@ var _crawlCallsCount = 0;
  */
 
 function getCache(path, parentScope, self) {
-  var scopes = /*istanbul ignore next*/_cache.scope.get(path.node) || [];
+  var scopes = _cache.scope.get(path.node) || [];
 
-  for ( /*istanbul ignore next*/var _iterator = scopes, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
-    /*istanbul ignore next*/
+  for (var _iterator = scopes, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
     var _ref;
 
     if (_isArray) {
@@ -106,17 +95,16 @@ function getCache(path, parentScope, self) {
 
   scopes.push(self);
 
-  if (! /*istanbul ignore next*/_cache.scope.has(path.node)) {
-    /*istanbul ignore next*/_cache.scope.set(path.node, scopes);
+  if (!_cache.scope.has(path.node)) {
+    _cache.scope.set(path.node, scopes);
   }
 }
 
 //
 
-var collectorVisitor = { /*istanbul ignore next*/
+var collectorVisitor = {
   For: function For(path) {
-    for ( /*istanbul ignore next*/var _iterator2 = t.FOR_INIT_KEYS, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
-      /*istanbul ignore next*/
+    for (var _iterator2 = t.FOR_INIT_KEYS, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
       var _ref2;
 
       if (_isArray2) {
@@ -134,7 +122,7 @@ var collectorVisitor = { /*istanbul ignore next*/
       if (declar.isVar()) path.scope.getFunctionParent().registerBinding("var", declar);
     }
   },
-  /*istanbul ignore next*/Declaration: function Declaration(path) {
+  Declaration: function Declaration(path) {
     // delegate block scope handling to the `blockVariableVisitor`
     if (path.isBlockScoped()) return;
 
@@ -147,10 +135,10 @@ var collectorVisitor = { /*istanbul ignore next*/
     // we've ran into a declaration!
     path.scope.getFunctionParent().registerDeclaration(path);
   },
-  /*istanbul ignore next*/ReferencedIdentifier: function ReferencedIdentifier(path, state) {
+  ReferencedIdentifier: function ReferencedIdentifier(path, state) {
     state.references.push(path);
   },
-  /*istanbul ignore next*/ForXStatement: function ForXStatement(path, state) {
+  ForXStatement: function ForXStatement(path, state) {
     var left = path.get("left");
     if (left.isPattern() || left.isIdentifier()) {
       state.constantViolations.push(left);
@@ -158,10 +146,10 @@ var collectorVisitor = { /*istanbul ignore next*/
   },
 
 
-  ExportDeclaration: { /*istanbul ignore next*/
+  ExportDeclaration: {
     exit: function exit(_ref3) {
-      /*istanbul ignore next*/var node = _ref3.node;
-      /*istanbul ignore next*/var scope = _ref3.scope;
+      var node = _ref3.node;
+      var scope = _ref3.scope;
 
       var declar = node.declaration;
       if (t.isClassDeclaration(declar) || t.isFunctionDeclaration(declar)) {
@@ -171,8 +159,7 @@ var collectorVisitor = { /*istanbul ignore next*/
         var binding = scope.getBinding(_id.name);
         if (binding) binding.reference();
       } else if (t.isVariableDeclaration(declar)) {
-        for ( /*istanbul ignore next*/var _iterator3 = declar.declarations, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3);;) {
-          /*istanbul ignore next*/
+        for (var _iterator3 = declar.declarations, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3);;) {
           var _ref4;
 
           if (_isArray3) {
@@ -196,37 +183,36 @@ var collectorVisitor = { /*istanbul ignore next*/
     }
   },
 
-  /*istanbul ignore next*/LabeledStatement: function LabeledStatement(path) {
+  LabeledStatement: function LabeledStatement(path) {
     path.scope.getProgramParent().addGlobal(path.node);
     path.scope.getBlockParent().registerDeclaration(path);
   },
-  /*istanbul ignore next*/AssignmentExpression: function AssignmentExpression(path, state) {
+  AssignmentExpression: function AssignmentExpression(path, state) {
     state.assignments.push(path);
   },
-  /*istanbul ignore next*/UpdateExpression: function UpdateExpression(path, state) {
+  UpdateExpression: function UpdateExpression(path, state) {
     state.constantViolations.push(path.get("argument"));
   },
-  /*istanbul ignore next*/UnaryExpression: function UnaryExpression(path, state) {
+  UnaryExpression: function UnaryExpression(path, state) {
     if (path.node.operator === "delete") {
       state.constantViolations.push(path.get("argument"));
     }
   },
-  /*istanbul ignore next*/BlockScoped: function BlockScoped(path) {
+  BlockScoped: function BlockScoped(path) {
     var scope = path.scope;
     if (scope.path === path) scope = scope.parent;
     scope.getBlockParent().registerDeclaration(path);
   },
-  /*istanbul ignore next*/ClassDeclaration: function ClassDeclaration(path) {
+  ClassDeclaration: function ClassDeclaration(path) {
     var id = path.node.id;
     if (!id) return;
 
     var name = id.name;
     path.scope.bindings[name] = path.scope.getBinding(name);
   },
-  /*istanbul ignore next*/Block: function Block(path) {
+  Block: function Block(path) {
     var paths = path.get("body");
-    for ( /*istanbul ignore next*/var _iterator4 = paths, _isArray4 = Array.isArray(_iterator4), _i4 = 0, _iterator4 = _isArray4 ? _iterator4 : (0, _getIterator3.default)(_iterator4);;) {
-      /*istanbul ignore next*/
+    for (var _iterator4 = paths, _isArray4 = Array.isArray(_iterator4), _i4 = 0, _iterator4 = _isArray4 ? _iterator4 : (0, _getIterator3.default)(_iterator4);;) {
       var _ref5;
 
       if (_isArray4) {
@@ -249,7 +235,6 @@ var collectorVisitor = { /*istanbul ignore next*/
 
 var uid = 0;
 
-/*istanbul ignore next*/
 var Scope = function () {
 
   /**
@@ -257,8 +242,8 @@ var Scope = function () {
    * within.
    */
 
-  function /*istanbul ignore next*/Scope(path, parentScope) {
-    /*istanbul ignore next*/(0, _classCallCheck3.default)(this, Scope);
+  function Scope(path, parentScope) {
+    (0, _classCallCheck3.default)(this, Scope);
 
     if (parentScope && parentScope.block === path.node) {
       return parentScope;
@@ -289,7 +274,7 @@ var Scope = function () {
    */
 
   Scope.prototype.traverse = function traverse(node, opts, state) {
-    /*istanbul ignore next*/(0, _index2.default)(node, opts, this, state, this.path);
+    (0, _index2.default)(node, opts, this, state, this.path);
   };
 
   /**
@@ -297,7 +282,7 @@ var Scope = function () {
    */
 
   Scope.prototype.generateDeclaredUidIdentifier = function generateDeclaredUidIdentifier() {
-    /*istanbul ignore next*/var name = arguments.length <= 0 || arguments[0] === undefined ? "temp" : arguments[0];
+    var name = arguments.length <= 0 || arguments[0] === undefined ? "temp" : arguments[0];
 
     var id = this.generateUidIdentifier(name);
     this.push({ id: id });
@@ -309,7 +294,7 @@ var Scope = function () {
    */
 
   Scope.prototype.generateUidIdentifier = function generateUidIdentifier() {
-    /*istanbul ignore next*/var name = arguments.length <= 0 || arguments[0] === undefined ? "temp" : arguments[0];
+    var name = arguments.length <= 0 || arguments[0] === undefined ? "temp" : arguments[0];
 
     return t.identifier(this.generateUid(name));
   };
@@ -319,11 +304,11 @@ var Scope = function () {
    */
 
   Scope.prototype.generateUid = function generateUid() {
-    /*istanbul ignore next*/var name = arguments.length <= 0 || arguments[0] === undefined ? "temp" : arguments[0];
+    var name = arguments.length <= 0 || arguments[0] === undefined ? "temp" : arguments[0];
 
     name = t.toIdentifier(name).replace(/^_+/, "").replace(/[0-9]+$/g, "");
 
-    var uid = /*istanbul ignore next*/void 0;
+    var uid = void 0;
     var i = 0;
     do {
       uid = this._generateUid(name, i);
@@ -344,8 +329,7 @@ var Scope = function () {
   Scope.prototype._generateUid = function _generateUid(name, i) {
     var id = name;
     if (i > 1) id += i;
-    return (/*istanbul ignore next*/"_" + id
-    );
+    return "_" + id;
   };
 
   /**
@@ -370,8 +354,7 @@ var Scope = function () {
         if (node.source) {
           add(node.source);
         } else if (node.specifiers && node.specifiers.length) {
-          for ( /*istanbul ignore next*/var _iterator5 = node.specifiers, _isArray5 = Array.isArray(_iterator5), _i5 = 0, _iterator5 = _isArray5 ? _iterator5 : (0, _getIterator3.default)(_iterator5);;) {
-            /*istanbul ignore next*/
+          for (var _iterator5 = node.specifiers, _isArray5 = Array.isArray(_iterator5), _i5 = 0, _iterator5 = _isArray5 ? _iterator5 : (0, _getIterator3.default)(_iterator5);;) {
             var _ref6;
 
             if (_isArray5) {
@@ -402,8 +385,7 @@ var Scope = function () {
       } else if (t.isCallExpression(node)) {
         add(node.callee);
       } else if (t.isObjectExpression(node) || t.isObjectPattern(node)) {
-        for ( /*istanbul ignore next*/var _iterator6 = node.properties, _isArray6 = Array.isArray(_iterator6), _i6 = 0, _iterator6 = _isArray6 ? _iterator6 : (0, _getIterator3.default)(_iterator6);;) {
-          /*istanbul ignore next*/
+        for (var _iterator6 = node.properties, _isArray6 = Array.isArray(_iterator6), _i6 = 0, _iterator6 = _isArray6 ? _iterator6 : (0, _getIterator3.default)(_iterator6);;) {
           var _ref7;
 
           if (_isArray6) {
@@ -495,7 +477,7 @@ var Scope = function () {
     var binding = this.getBinding(oldName);
     if (binding) {
       newName = newName || this.generateUidIdentifier(oldName).name;
-      return new /*istanbul ignore next*/_renamer2.default(binding, oldName, newName).rename(block);
+      return new _renamer2.default(binding, oldName, newName).rename(block);
     }
   };
 
@@ -507,7 +489,7 @@ var Scope = function () {
   };
 
   Scope.prototype.dump = function dump() {
-    var sep = /*istanbul ignore next*/(0, _repeat2.default)("-", 60);
+    var sep = (0, _repeat2.default)("-", 60);
     console.log(sep);
     var scope = this;
     do {
@@ -560,8 +542,7 @@ var Scope = function () {
       this.registerBinding("hoisted", path.get("id"), path);
     } else if (path.isVariableDeclaration()) {
       var declarations = path.get("declarations");
-      for ( /*istanbul ignore next*/var _iterator7 = declarations, _isArray7 = Array.isArray(_iterator7), _i7 = 0, _iterator7 = _isArray7 ? _iterator7 : (0, _getIterator3.default)(_iterator7);;) {
-        /*istanbul ignore next*/
+      for (var _iterator7 = declarations, _isArray7 = Array.isArray(_iterator7), _i7 = 0, _iterator7 = _isArray7 ? _iterator7 : (0, _getIterator3.default)(_iterator7);;) {
         var _ref8;
 
         if (_isArray7) {
@@ -581,8 +562,7 @@ var Scope = function () {
       this.registerBinding("let", path);
     } else if (path.isImportDeclaration()) {
       var specifiers = path.get("specifiers");
-      for ( /*istanbul ignore next*/var _iterator8 = specifiers, _isArray8 = Array.isArray(_iterator8), _i8 = 0, _iterator8 = _isArray8 ? _iterator8 : (0, _getIterator3.default)(_iterator8);;) {
-        /*istanbul ignore next*/
+      for (var _iterator8 = specifiers, _isArray8 = Array.isArray(_iterator8), _i8 = 0, _iterator8 = _isArray8 ? _iterator8 : (0, _getIterator3.default)(_iterator8);;) {
         var _ref9;
 
         if (_isArray8) {
@@ -625,14 +605,13 @@ var Scope = function () {
   };
 
   Scope.prototype.registerBinding = function registerBinding(kind, path) {
-    /*istanbul ignore next*/var bindingPath = arguments.length <= 2 || arguments[2] === undefined ? path : arguments[2];
+    var bindingPath = arguments.length <= 2 || arguments[2] === undefined ? path : arguments[2];
 
     if (!kind) throw new ReferenceError("no `kind`");
 
     if (path.isVariableDeclaration()) {
       var declarators = path.get("declarations");
-      for ( /*istanbul ignore next*/var _iterator9 = declarators, _isArray9 = Array.isArray(_iterator9), _i9 = 0, _iterator9 = _isArray9 ? _iterator9 : (0, _getIterator3.default)(_iterator9);;) {
-        /*istanbul ignore next*/
+      for (var _iterator9 = declarators, _isArray9 = Array.isArray(_iterator9), _i9 = 0, _iterator9 = _isArray9 ? _iterator9 : (0, _getIterator3.default)(_iterator9);;) {
         var _ref10;
 
         if (_isArray9) {
@@ -655,8 +634,7 @@ var Scope = function () {
     var ids = path.getBindingIdentifiers(true);
 
     for (var name in ids) {
-      for ( /*istanbul ignore next*/var _iterator10 = ids[name], _isArray10 = Array.isArray(_iterator10), _i10 = 0, _iterator10 = _isArray10 ? _iterator10 : (0, _getIterator3.default)(_iterator10);;) {
-        /*istanbul ignore next*/
+      for (var _iterator10 = ids[name], _isArray10 = Array.isArray(_iterator10), _i10 = 0, _iterator10 = _isArray10 ? _iterator10 : (0, _getIterator3.default)(_iterator10);;) {
         var _ref11;
 
         if (_isArray10) {
@@ -686,7 +664,7 @@ var Scope = function () {
 
         parent.references[name] = true;
 
-        this.bindings[name] = new /*istanbul ignore next*/_binding3.default({
+        this.bindings[name] = new _binding3.default({
           identifier: _id3,
           existing: local,
           scope: this,
@@ -741,8 +719,7 @@ var Scope = function () {
       if (node.superClass && !this.isPure(node.superClass, constantsOnly)) return false;
       return this.isPure(node.body, constantsOnly);
     } else if (t.isClassBody(node)) {
-      for ( /*istanbul ignore next*/var _iterator11 = node.body, _isArray11 = Array.isArray(_iterator11), _i11 = 0, _iterator11 = _isArray11 ? _iterator11 : (0, _getIterator3.default)(_iterator11);;) {
-        /*istanbul ignore next*/
+      for (var _iterator11 = node.body, _isArray11 = Array.isArray(_iterator11), _i11 = 0, _iterator11 = _isArray11 ? _iterator11 : (0, _getIterator3.default)(_iterator11);;) {
         var _ref12;
 
         if (_isArray11) {
@@ -762,8 +739,7 @@ var Scope = function () {
     } else if (t.isBinary(node)) {
       return this.isPure(node.left, constantsOnly) && this.isPure(node.right, constantsOnly);
     } else if (t.isArrayExpression(node)) {
-      for ( /*istanbul ignore next*/var _iterator12 = node.elements, _isArray12 = Array.isArray(_iterator12), _i12 = 0, _iterator12 = _isArray12 ? _iterator12 : (0, _getIterator3.default)(_iterator12);;) {
-        /*istanbul ignore next*/
+      for (var _iterator12 = node.elements, _isArray12 = Array.isArray(_iterator12), _i12 = 0, _iterator12 = _isArray12 ? _iterator12 : (0, _getIterator3.default)(_iterator12);;) {
         var _ref13;
 
         if (_isArray12) {
@@ -781,8 +757,7 @@ var Scope = function () {
       }
       return true;
     } else if (t.isObjectExpression(node)) {
-      for ( /*istanbul ignore next*/var _iterator13 = node.properties, _isArray13 = Array.isArray(_iterator13), _i13 = 0, _iterator13 = _isArray13 ? _iterator13 : (0, _getIterator3.default)(_iterator13);;) {
-        /*istanbul ignore next*/
+      for (var _iterator13 = node.properties, _isArray13 = Array.isArray(_iterator13), _i13 = 0, _iterator13 = _isArray13 ? _iterator13 : (0, _getIterator3.default)(_iterator13);;) {
         var _ref14;
 
         if (_isArray13) {
@@ -861,17 +836,16 @@ var Scope = function () {
 
     //
 
-    this.references = /*istanbul ignore next*/(0, _create2.default)(null);
-    this.bindings = /*istanbul ignore next*/(0, _create2.default)(null);
-    this.globals = /*istanbul ignore next*/(0, _create2.default)(null);
-    this.uids = /*istanbul ignore next*/(0, _create2.default)(null);
-    this.data = /*istanbul ignore next*/(0, _create2.default)(null);
+    this.references = (0, _create2.default)(null);
+    this.bindings = (0, _create2.default)(null);
+    this.globals = (0, _create2.default)(null);
+    this.uids = (0, _create2.default)(null);
+    this.data = (0, _create2.default)(null);
 
     // ForStatement - left, init
 
     if (path.isLoop()) {
-      for ( /*istanbul ignore next*/var _iterator14 = t.FOR_INIT_KEYS, _isArray14 = Array.isArray(_iterator14), _i14 = 0, _iterator14 = _isArray14 ? _iterator14 : (0, _getIterator3.default)(_iterator14);;) {
-        /*istanbul ignore next*/
+      for (var _iterator14 = t.FOR_INIT_KEYS, _isArray14 = Array.isArray(_iterator14), _i14 = 0, _iterator14 = _isArray14 ? _iterator14 : (0, _getIterator3.default)(_iterator14);;) {
         var _ref15;
 
         if (_isArray14) {
@@ -910,8 +884,7 @@ var Scope = function () {
 
     if (path.isFunction()) {
       var params = path.get("params");
-      for ( /*istanbul ignore next*/var _iterator15 = params, _isArray15 = Array.isArray(_iterator15), _i15 = 0, _iterator15 = _isArray15 ? _iterator15 : (0, _getIterator3.default)(_iterator15);;) {
-        /*istanbul ignore next*/
+      for (var _iterator15 = params, _isArray15 = Array.isArray(_iterator15), _i15 = 0, _iterator15 = _isArray15 ? _iterator15 : (0, _getIterator3.default)(_iterator15);;) {
         var _ref16;
 
         if (_isArray15) {
@@ -951,8 +924,7 @@ var Scope = function () {
     this.crawling = false;
 
     // register assignments
-    for ( /*istanbul ignore next*/var _iterator16 = state.assignments, _isArray16 = Array.isArray(_iterator16), _i16 = 0, _iterator16 = _isArray16 ? _iterator16 : (0, _getIterator3.default)(_iterator16);;) {
-      /*istanbul ignore next*/
+    for (var _iterator16 = state.assignments, _isArray16 = Array.isArray(_iterator16), _i16 = 0, _iterator16 = _isArray16 ? _iterator16 : (0, _getIterator3.default)(_iterator16);;) {
       var _ref17;
 
       if (_isArray16) {
@@ -968,7 +940,7 @@ var Scope = function () {
 
       // register undeclared bindings as globals
       var ids = _path.getBindingIdentifiers();
-      var programParent = /*istanbul ignore next*/void 0;
+      var programParent = void 0;
       for (var name in ids) {
         if (_path.scope.getBinding(name)) continue;
 
@@ -981,8 +953,7 @@ var Scope = function () {
     }
 
     // register references
-    for ( /*istanbul ignore next*/var _iterator17 = state.references, _isArray17 = Array.isArray(_iterator17), _i17 = 0, _iterator17 = _isArray17 ? _iterator17 : (0, _getIterator3.default)(_iterator17);;) {
-      /*istanbul ignore next*/
+    for (var _iterator17 = state.references, _isArray17 = Array.isArray(_iterator17), _i17 = 0, _iterator17 = _isArray17 ? _iterator17 : (0, _getIterator3.default)(_iterator17);;) {
       var _ref18;
 
       if (_isArray17) {
@@ -1005,8 +976,7 @@ var Scope = function () {
     }
 
     // register constant violations
-    for ( /*istanbul ignore next*/var _iterator18 = state.constantViolations, _isArray18 = Array.isArray(_iterator18), _i18 = 0, _iterator18 = _isArray18 ? _iterator18 : (0, _getIterator3.default)(_iterator18);;) {
-      /*istanbul ignore next*/
+    for (var _iterator18 = state.constantViolations, _isArray18 = Array.isArray(_iterator18), _i18 = 0, _iterator18 = _isArray18 ? _iterator18 : (0, _getIterator3.default)(_iterator18);;) {
       var _ref19;
 
       if (_isArray18) {
@@ -1044,7 +1014,7 @@ var Scope = function () {
     var kind = opts.kind || "var";
     var blockHoist = opts._blockHoist == null ? 2 : opts._blockHoist;
 
-    var dataKey = /*istanbul ignore next*/"declaration:" + kind + ":" + blockHoist;
+    var dataKey = "declaration:" + kind + ":" + blockHoist;
     var declarPath = !unique && path.getData(dataKey);
 
     if (!declarPath) {
@@ -1052,10 +1022,9 @@ var Scope = function () {
       declar._generated = true;
       declar._blockHoist = blockHoist;
 
-      /*istanbul ignore next*/
       var _path$unshiftContaine = path.unshiftContainer("body", [declar]);
 
-      /*istanbul ignore next*/declarPath = _path$unshiftContaine[0];
+      declarPath = _path$unshiftContaine[0];
 
       if (!unique) path.setData(dataKey, declarPath);
     }
@@ -1114,11 +1083,11 @@ var Scope = function () {
    */
 
   Scope.prototype.getAllBindings = function getAllBindings() {
-    var ids = /*istanbul ignore next*/(0, _create2.default)(null);
+    var ids = (0, _create2.default)(null);
 
     var scope = this;
     do {
-      /*istanbul ignore next*/(0, _defaults2.default)(ids, scope.bindings);
+      (0, _defaults2.default)(ids, scope.bindings);
       scope = scope.parent;
     } while (scope);
 
@@ -1130,10 +1099,9 @@ var Scope = function () {
    */
 
   Scope.prototype.getAllBindingsOfKind = function getAllBindingsOfKind() {
-    var ids = /*istanbul ignore next*/(0, _create2.default)(null);
+    var ids = (0, _create2.default)(null);
 
-    for ( /*istanbul ignore next*/var _iterator19 = arguments, _isArray19 = Array.isArray(_iterator19), _i19 = 0, _iterator19 = _isArray19 ? _iterator19 : (0, _getIterator3.default)(_iterator19);;) {
-      /*istanbul ignore next*/
+    for (var _iterator19 = arguments, _isArray19 = Array.isArray(_iterator19), _i19 = 0, _iterator19 = _isArray19 ? _iterator19 : (0, _getIterator3.default)(_iterator19);;) {
       var _ref20;
 
       if (_isArray19) {
@@ -1166,7 +1134,7 @@ var Scope = function () {
 
   Scope.prototype.warnOnFlowBinding = function warnOnFlowBinding(binding) {
     if (_crawlCallsCount === 0 && binding && binding.path.isFlow()) {
-      console.warn( /*istanbul ignore next*/"\n        You or one of the Babel plugins you are using are using Flow declarations as bindings.\n        Support for this will be removed in version 6.8. To find out the caller, grep for this\n        message and change it to a `console.trace()`.\n      ");
+      console.warn("\n        You or one of the Babel plugins you are using are using Flow declarations as bindings.\n        Support for this will be removed in version 6.8. To find out the caller, grep for this\n        message and change it to a `console.trace()`.\n      ");
     }
     return binding;
   };
@@ -1203,8 +1171,8 @@ var Scope = function () {
     if (this.hasOwnBinding(name)) return true;
     if (this.parentHasBinding(name, noGlobals)) return true;
     if (this.hasUid(name)) return true;
-    if (!noGlobals && /*istanbul ignore next*/(0, _includes2.default)(Scope.globals, name)) return true;
-    if (!noGlobals && /*istanbul ignore next*/(0, _includes2.default)(Scope.contextVariables, name)) return true;
+    if (!noGlobals && (0, _includes2.default)(Scope.globals, name)) return true;
+    if (!noGlobals && (0, _includes2.default)(Scope.contextVariables, name)) return true;
     return false;
   };
 
@@ -1248,7 +1216,7 @@ var Scope = function () {
   return Scope;
 }();
 
-/*istanbul ignore next*/Scope.globals = /*istanbul ignore next*/(0, _keys2.default)( /*istanbul ignore next*/_globals2.default.builtin);
-/*istanbul ignore next*/Scope.contextVariables = ["arguments", "undefined", "Infinity", "NaN"];
-/*istanbul ignore next*/exports.default = Scope;
-/*istanbul ignore next*/module.exports = exports["default"];
+Scope.globals = (0, _keys2.default)(_globals2.default.builtin);
+Scope.contextVariables = ["arguments", "undefined", "Infinity", "NaN"];
+exports.default = Scope;
+module.exports = exports["default"];

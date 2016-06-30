@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -7,26 +7,23 @@ var _getIterator2 = require("babel-runtime/core-js/get-iterator");
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
 exports.getStatementParent = getStatementParent;
-/*istanbul ignore next*/exports.getOpposite = getOpposite;
-/*istanbul ignore next*/exports.getCompletionRecords = getCompletionRecords;
-/*istanbul ignore next*/exports.getSibling = getSibling;
-/*istanbul ignore next*/exports.get = get;
-/*istanbul ignore next*/exports._getKey = _getKey;
-/*istanbul ignore next*/exports._getPattern = _getPattern;
-/*istanbul ignore next*/exports.getBindingIdentifiers = getBindingIdentifiers;
-/*istanbul ignore next*/exports.getOuterBindingIdentifiers = getOuterBindingIdentifiers;
+exports.getOpposite = getOpposite;
+exports.getCompletionRecords = getCompletionRecords;
+exports.getSibling = getSibling;
+exports.get = get;
+exports._getKey = _getKey;
+exports._getPattern = _getPattern;
+exports.getBindingIdentifiers = getBindingIdentifiers;
+exports.getOuterBindingIdentifiers = getOuterBindingIdentifiers;
 
-var /*istanbul ignore next*/_index = require("./index");
+var _index = require("./index");
 
-/*istanbul ignore next*/
 var _index2 = _interopRequireDefault(_index);
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-/*istanbul ignore next*/
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -85,14 +82,13 @@ function getCompletionRecords() {
 }
 
 function getSibling(key) {
-  return (/*istanbul ignore next*/_index2.default.get({
-      parentPath: this.parentPath,
-      parent: this.parent,
-      container: this.container,
-      listKey: this.listKey,
-      key: key
-    })
-  );
+  return _index2.default.get({
+    parentPath: this.parentPath,
+    parent: this.parent,
+    container: this.container,
+    listKey: this.listKey,
+    key: key
+  });
 }
 
 function get(key, context) {
@@ -108,7 +104,6 @@ function get(key, context) {
 }
 
 function _getKey(key, context) {
-  /*istanbul ignore next*/
   var _this = this;
 
   var node = this.node;
@@ -117,30 +112,27 @@ function _getKey(key, context) {
   if (Array.isArray(container)) {
     // requested a container so give them all the paths
     return container.map(function (_, i) {
-      return (/*istanbul ignore next*/_index2.default.get({
-          listKey: key,
-          parentPath: /*istanbul ignore next*/_this,
-          parent: node,
-          container: container,
-          key: i
-        }).setContext(context)
-      );
+      return _index2.default.get({
+        listKey: key,
+        parentPath: _this,
+        parent: node,
+        container: container,
+        key: i
+      }).setContext(context);
     });
   } else {
-    return (/*istanbul ignore next*/_index2.default.get({
-        parentPath: this,
-        parent: node,
-        container: node,
-        key: key
-      }).setContext(context)
-    );
+    return _index2.default.get({
+      parentPath: this,
+      parent: node,
+      container: node,
+      key: key
+    }).setContext(context);
   }
 }
 
 function _getPattern(parts, context) {
   var path = this;
-  for ( /*istanbul ignore next*/var _iterator = parts, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
-    /*istanbul ignore next*/
+  for (var _iterator = parts, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
     var _ref;
 
     if (_isArray) {

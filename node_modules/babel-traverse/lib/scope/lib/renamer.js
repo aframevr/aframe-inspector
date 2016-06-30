@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -6,35 +6,32 @@ var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var /*istanbul ignore next*/_binding = require("../binding");
+var _binding = require("../binding");
 
-/*istanbul ignore next*/
 var _binding2 = _interopRequireDefault(_binding);
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-/*istanbul ignore next*/
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var renameVisitor = { /*istanbul ignore next*/
+var renameVisitor = {
   ReferencedIdentifier: function ReferencedIdentifier(_ref, state) {
-    /*istanbul ignore next*/var node = _ref.node;
+    var node = _ref.node;
 
     if (node.name === state.oldName) {
       node.name = state.newName;
     }
   },
-  /*istanbul ignore next*/Scope: function Scope(path, state) {
+  Scope: function Scope(path, state) {
     if (!path.scope.bindingIdentifierEquals(state.oldName, state.binding.identifier)) {
       path.skip();
     }
   },
-  /*istanbul ignore next*/"AssignmentExpression|Declaration": function AssignmentExpressionDeclaration(path, state) {
+  "AssignmentExpression|Declaration": function AssignmentExpressionDeclaration(path, state) {
     var ids = path.getOuterBindingIdentifiers();
 
     for (var name in ids) {
@@ -43,10 +40,9 @@ var renameVisitor = { /*istanbul ignore next*/
   }
 };
 
-/*istanbul ignore next*/
 var Renamer = function () {
-  function /*istanbul ignore next*/Renamer(binding, oldName, newName) {
-    /*istanbul ignore next*/(0, _classCallCheck3.default)(this, Renamer);
+  function Renamer(binding, oldName, newName) {
+    (0, _classCallCheck3.default)(this, Renamer);
 
     this.newName = newName;
     this.oldName = oldName;
@@ -118,14 +114,14 @@ var Renamer = function () {
   };
 
   Renamer.prototype.rename = function rename(block) {
-    /*istanbul ignore next*/var binding = this.binding;
-    /*istanbul ignore next*/var oldName = this.oldName;
-    /*istanbul ignore next*/var newName = this.newName;
-    /*istanbul ignore next*/var scope = binding.scope;
-    /*istanbul ignore next*/var path = binding.path;
+    var binding = this.binding;
+    var oldName = this.oldName;
+    var newName = this.newName;
+    var scope = binding.scope;
+    var path = binding.path;
 
 
-    var parentDeclar = path.find(function (path) /*istanbul ignore next*/{
+    var parentDeclar = path.find(function (path) {
       return path.isDeclaration() || path.isFunctionExpression();
     });
     if (parentDeclar) {
@@ -154,5 +150,5 @@ var Renamer = function () {
   return Renamer;
 }();
 
-/*istanbul ignore next*/exports.default = Renamer;
-/*istanbul ignore next*/module.exports = exports["default"];
+exports.default = Renamer;
+module.exports = exports["default"];

@@ -59,7 +59,7 @@ var State = function () {
       this.lastTokEndLoc = this.lastTokStartLoc = null;
       this.lastTokStart = this.lastTokEnd = this.pos;
 
-      this.context = [_context.types.b_stat];
+      this.context = [_context.types.braceStatement];
       this.exprAllowed = true;
 
       this.containsEsc = this.containsOctal = false;

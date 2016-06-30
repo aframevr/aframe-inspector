@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 exports.Class = exports.Function = exports.Identifier = undefined;
@@ -11,34 +11,32 @@ Object.defineProperty(exports, "Identifier", {
     return _interopRequireDefault(_infererReference).default;
   }
 });
-/*istanbul ignore next*/exports.VariableDeclarator = VariableDeclarator;
-/*istanbul ignore next*/exports.TypeCastExpression = TypeCastExpression;
-/*istanbul ignore next*/exports.NewExpression = NewExpression;
-/*istanbul ignore next*/exports.TemplateLiteral = TemplateLiteral;
-/*istanbul ignore next*/exports.UnaryExpression = UnaryExpression;
-/*istanbul ignore next*/exports.BinaryExpression = BinaryExpression;
-/*istanbul ignore next*/exports.LogicalExpression = LogicalExpression;
-/*istanbul ignore next*/exports.ConditionalExpression = ConditionalExpression;
-/*istanbul ignore next*/exports.SequenceExpression = SequenceExpression;
-/*istanbul ignore next*/exports.AssignmentExpression = AssignmentExpression;
-/*istanbul ignore next*/exports.UpdateExpression = UpdateExpression;
-/*istanbul ignore next*/exports.StringLiteral = StringLiteral;
-/*istanbul ignore next*/exports.NumericLiteral = NumericLiteral;
-/*istanbul ignore next*/exports.BooleanLiteral = BooleanLiteral;
-/*istanbul ignore next*/exports.NullLiteral = NullLiteral;
-/*istanbul ignore next*/exports.RegExpLiteral = RegExpLiteral;
-/*istanbul ignore next*/exports.ObjectExpression = ObjectExpression;
-/*istanbul ignore next*/exports.ArrayExpression = ArrayExpression;
-/*istanbul ignore next*/exports.RestElement = RestElement;
-/*istanbul ignore next*/exports.CallExpression = CallExpression;
-/*istanbul ignore next*/exports.TaggedTemplateExpression = TaggedTemplateExpression;
+exports.VariableDeclarator = VariableDeclarator;
+exports.TypeCastExpression = TypeCastExpression;
+exports.NewExpression = NewExpression;
+exports.TemplateLiteral = TemplateLiteral;
+exports.UnaryExpression = UnaryExpression;
+exports.BinaryExpression = BinaryExpression;
+exports.LogicalExpression = LogicalExpression;
+exports.ConditionalExpression = ConditionalExpression;
+exports.SequenceExpression = SequenceExpression;
+exports.AssignmentExpression = AssignmentExpression;
+exports.UpdateExpression = UpdateExpression;
+exports.StringLiteral = StringLiteral;
+exports.NumericLiteral = NumericLiteral;
+exports.BooleanLiteral = BooleanLiteral;
+exports.NullLiteral = NullLiteral;
+exports.RegExpLiteral = RegExpLiteral;
+exports.ObjectExpression = ObjectExpression;
+exports.ArrayExpression = ArrayExpression;
+exports.RestElement = RestElement;
+exports.CallExpression = CallExpression;
+exports.TaggedTemplateExpression = TaggedTemplateExpression;
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-/*istanbul ignore next*/
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -169,8 +167,8 @@ function Func() {
   return t.genericTypeAnnotation(t.identifier("Function"));
 }
 
-/*istanbul ignore next*/exports.Function = Func;
-/*istanbul ignore next*/exports.Class = Func;
+exports.Function = Func;
+exports.Class = Func;
 function CallExpression() {
   return resolveCall(this.get("callee"));
 }

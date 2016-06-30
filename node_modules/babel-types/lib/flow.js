@@ -1,16 +1,14 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 exports.createUnionTypeAnnotation = createUnionTypeAnnotation;
-/*istanbul ignore next*/exports.removeTypeDuplicates = removeTypeDuplicates;
-/*istanbul ignore next*/exports.createTypeAnnotationBasedOnTypeof = createTypeAnnotationBasedOnTypeof;
+exports.removeTypeDuplicates = removeTypeDuplicates;
+exports.createTypeAnnotationBasedOnTypeof = createTypeAnnotationBasedOnTypeof;
 
-var /*istanbul ignore next*/_index = require("./index");
+var _index = require("./index");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_index);
 
-/*istanbul ignore next*/
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 /**

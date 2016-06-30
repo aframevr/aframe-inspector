@@ -105,7 +105,7 @@ pp.parseExpression = function (noIn, refShorthandDefaultPos) {
 // Parse an assignment expression. This includes applications of
 // operators like `+=`.
 
-pp.parseMaybeAssign = function (noIn, refShorthandDefaultPos, afterLeftParse) {
+pp.parseMaybeAssign = function (noIn, refShorthandDefaultPos, afterLeftParse, refNeedsArrowPos) {
   if (this.match(_types.types._yield) && this.state.inGenerator) {
     return this.parseYield();
   }
@@ -125,7 +125,7 @@ pp.parseMaybeAssign = function (noIn, refShorthandDefaultPos, afterLeftParse) {
     this.state.potentialArrowAt = this.state.start;
   }
 
-  var left = this.parseMaybeConditional(noIn, refShorthandDefaultPos);
+  var left = this.parseMaybeConditional(noIn, refShorthandDefaultPos, refNeedsArrowPos);
   if (afterLeftParse) left = afterLeftParse.call(this, left, startPos, startLoc);
   if (this.state.type.isAssign) {
     var node = this.startNodeAt(startPos, startLoc);
@@ -159,11 +159,16 @@ pp.parseMaybeAssign = function (noIn, refShorthandDefaultPos, afterLeftParse) {
 
 // Parse a ternary conditional (`?:`) operator.
 
-pp.parseMaybeConditional = function (noIn, refShorthandDefaultPos) {
+pp.parseMaybeConditional = function (noIn, refShorthandDefaultPos, refNeedsArrowPos) {
   var startPos = this.state.start,
       startLoc = this.state.startLoc;
   var expr = this.parseExprOps(noIn, refShorthandDefaultPos);
   if (refShorthandDefaultPos && refShorthandDefaultPos.start) return expr;
+
+  return this.parseConditional(expr, noIn, startPos, startLoc, refNeedsArrowPos);
+};
+
+pp.parseConditional = function (expr, noIn, startPos, startLoc) {
   if (this.eat(_types.types.question)) {
     var node = this.startNodeAt(startPos, startLoc);
     node.test = expr;
@@ -555,12 +560,12 @@ pp.parseParenExpression = function () {
   return val;
 };
 
-pp.parseParenAndDistinguishExpression = function (startPos, startLoc, canBeArrow, isAsync, allowOptionalCommaStart) {
+pp.parseParenAndDistinguishExpression = function (startPos, startLoc, canBeArrow, isAsync) {
   startPos = startPos || this.state.start;
   startLoc = startLoc || this.state.startLoc;
 
   var val = void 0;
-  this.next();
+  this.expect(_types.types.parenL);
 
   var innerStartPos = this.state.start,
       innerStartLoc = this.state.startLoc;
@@ -569,6 +574,7 @@ pp.parseParenAndDistinguishExpression = function (startPos, startLoc, canBeArrow
   var refShorthandDefaultPos = { start: 0 },
       spreadStart = void 0,
       optionalCommaStart = void 0;
+  var refNeedsArrowPos = { start: 0 };
   while (!this.match(_types.types.parenR)) {
     if (first) {
       first = false;
@@ -587,7 +593,7 @@ pp.parseParenAndDistinguishExpression = function (startPos, startLoc, canBeArrow
       exprList.push(this.parseParenItem(this.parseRest(), spreadNodeStartLoc, spreadNodeStartPos));
       break;
     } else {
-      exprList.push(this.parseMaybeAssign(false, refShorthandDefaultPos, this.parseParenItem));
+      exprList.push(this.parseMaybeAssign(false, refShorthandDefaultPos, this.parseParenItem, refNeedsArrowPos));
     }
   }
 
@@ -595,7 +601,8 @@ pp.parseParenAndDistinguishExpression = function (startPos, startLoc, canBeArrow
   var innerEndLoc = this.state.startLoc;
   this.expect(_types.types.parenR);
 
-  if (canBeArrow && !this.canInsertSemicolon() && this.eat(_types.types.arrow)) {
+  var arrowNode = this.startNodeAt(startPos, startLoc);
+  if (canBeArrow && !this.canInsertSemicolon() && (arrowNode = this.parseArrow(arrowNode))) {
     var _iteratorNormalCompletion = true;
     var _didIteratorError = false;
     var _iteratorError = undefined;
@@ -621,7 +628,7 @@ pp.parseParenAndDistinguishExpression = function (startPos, startLoc, canBeArrow
       }
     }
 
-    return this.parseArrowExpression(this.startNodeAt(startPos, startLoc), exprList, isAsync);
+    return this.parseArrowExpression(arrowNode, exprList, isAsync);
   }
 
   if (!exprList.length) {
@@ -631,9 +638,10 @@ pp.parseParenAndDistinguishExpression = function (startPos, startLoc, canBeArrow
       this.unexpected(this.state.lastTokStart);
     }
   }
-  if (optionalCommaStart && !allowOptionalCommaStart) this.unexpected(optionalCommaStart);
+  if (optionalCommaStart) this.unexpected(optionalCommaStart);
   if (spreadStart) this.unexpected(spreadStart);
   if (refShorthandDefaultPos.start) this.unexpected(refShorthandDefaultPos.start);
+  if (refNeedsArrowPos.start) this.unexpected(refNeedsArrowPos.start);
 
   if (exprList.length > 1) {
     val = this.startNodeAt(innerStartPos, innerStartLoc);
@@ -648,6 +656,12 @@ pp.parseParenAndDistinguishExpression = function (startPos, startLoc, canBeArrow
   this.addExtra(val, "parenStart", startPos);
 
   return val;
+};
+
+pp.parseArrow = function (node) {
+  if (this.eat(_types.types.arrow)) {
+    return node;
+  }
 };
 
 pp.parseParenItem = function (node) {
@@ -1065,9 +1079,6 @@ pp.parseIdentifier = function (liberal) {
 
 pp.parseAwait = function (node) {
   if (!this.state.inAsync) {
-    this.unexpected();
-  }
-  if (this.isLineTerminator()) {
     this.unexpected();
   }
   if (this.match(_types.types.star)) {

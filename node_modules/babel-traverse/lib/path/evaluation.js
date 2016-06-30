@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -10,9 +10,13 @@ var _getIterator2 = require("babel-runtime/core-js/get-iterator");
 
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
+var _map = require("babel-runtime/core-js/map");
+
+var _map2 = _interopRequireDefault(_map);
+
 exports.evaluateTruthy = evaluateTruthy;
-/*istanbul ignore next*/exports.evaluate = evaluate;
-/*istanbul ignore next*/
+exports.evaluate = evaluate;
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // This file contains Babels metainterpreter that can evaluate static code.
@@ -64,7 +68,8 @@ function evaluateTruthy() {
 
 function evaluate() {
   var confident = true;
-  var deoptPath = /*istanbul ignore next*/void 0;
+  var deoptPath = void 0;
+  var seen = new _map2.default();
 
   function deopt(path) {
     if (!confident) return;
@@ -80,10 +85,40 @@ function evaluate() {
     value: value
   };
 
+  // we wrap the _evaluate method so we can track `seen` nodes, we push an item
+  // to the map before we actually evaluate it so we can deopt on self recursive
+  // nodes such as:
+  //
+  //   var g = a ? 1 : 2,
+  //       a = g * this.foo
+  //
   function evaluate(path) {
+    var node = path.node;
+
+
+    if (seen.has(node)) {
+      var existing = seen.get(node);
+      if (existing.resolved) {
+        return existing.value;
+      } else {
+        deopt(path);
+        return;
+      }
+    } else {
+      var item = { resolved: false };
+      seen.set(node, item);
+
+      var val = _evaluate(path);
+      item.resolved = true;
+      item.value = value;
+      return val;
+    }
+  }
+
+  function _evaluate(path) {
     if (!confident) return;
 
-    /*istanbul ignore next*/var node = path.node;
+    var node = path.node;
 
 
     if (path.isSequenceExpression()) {
@@ -105,8 +140,7 @@ function evaluate() {
       var i = 0;
       var _exprs = path.get("expressions");
 
-      for ( /*istanbul ignore next*/var _iterator = node.quasis, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
-        /*istanbul ignore next*/
+      for (var _iterator = node.quasis, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
         var _ref;
 
         if (_isArray) {
@@ -157,7 +191,7 @@ function evaluate() {
 
       if (object.isLiteral() && property.isIdentifier()) {
         var _value = object.node.value;
-        var type = /*istanbul ignore next*/typeof _value === "undefined" ? "undefined" : (0, _typeof3.default)(_value);
+        var type = typeof _value === "undefined" ? "undefined" : (0, _typeof3.default)(_value);
         if (type === "number" || type === "string") {
           return _value[property.node.name];
         }
@@ -209,16 +243,14 @@ function evaluate() {
         case "~":
           return ~arg;
         case "typeof":
-          return (/*istanbul ignore next*/typeof arg === "undefined" ? "undefined" : (0, _typeof3.default)(arg)
-          );
+          return typeof arg === "undefined" ? "undefined" : (0, _typeof3.default)(arg);
       }
     }
 
     if (path.isArrayExpression()) {
       var arr = [];
       var elems = path.get("elements");
-      for ( /*istanbul ignore next*/var _iterator2 = elems, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
-        /*istanbul ignore next*/
+      for (var _iterator2 = elems, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
         var _ref2;
 
         if (_isArray2) {
@@ -299,8 +331,7 @@ function evaluate() {
         case "%":
           return _left % _right;
         case "**":
-          return (/*istanbul ignore next*/Math.pow(_left, _right)
-          );
+          return Math.pow(_left, _right);
         case "<":
           return _left < _right;
         case ">":
@@ -334,8 +365,8 @@ function evaluate() {
 
     if (path.isCallExpression()) {
       var callee = path.get("callee");
-      var context = /*istanbul ignore next*/void 0;
-      var func = /*istanbul ignore next*/void 0;
+      var context = void 0;
+      var func = void 0;
 
       // Number(1);
       if (callee.isIdentifier() && !path.scope.getBinding(callee.node.name, true) && VALID_CALLEES.indexOf(callee.node.name) >= 0) {
@@ -354,7 +385,7 @@ function evaluate() {
 
         // "abc".charCodeAt(4)
         if (_object.isLiteral() && _property.isIdentifier()) {
-          var _type = /*istanbul ignore next*/(0, _typeof3.default)(_object.node.value);
+          var _type = (0, _typeof3.default)(_object.node.value);
           if (_type === "string" || _type === "number") {
             context = _object.node.value;
             func = context[_property.node.name];

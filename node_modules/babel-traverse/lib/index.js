@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 exports.visitors = exports.Hub = exports.Scope = exports.NodePath = undefined;
@@ -19,7 +19,7 @@ Object.defineProperty(exports, "NodePath", {
     return _interopRequireDefault(_path).default;
   }
 });
-/*istanbul ignore next*/
+
 var _scope = require("./scope");
 
 Object.defineProperty(exports, "Scope", {
@@ -28,7 +28,7 @@ Object.defineProperty(exports, "Scope", {
     return _interopRequireDefault(_scope).default;
   }
 });
-/*istanbul ignore next*/
+
 var _hub = require("./hub");
 
 Object.defineProperty(exports, "Hub", {
@@ -37,39 +37,32 @@ Object.defineProperty(exports, "Hub", {
     return _interopRequireDefault(_hub).default;
   }
 });
-/*istanbul ignore next*/exports.default = traverse;
+exports.default = traverse;
 
-var /*istanbul ignore next*/_context = require("./context");
+var _context = require("./context");
 
-/*istanbul ignore next*/
 var _context2 = _interopRequireDefault(_context);
 
-var /*istanbul ignore next*/_visitors = require("./visitors");
+var _visitors = require("./visitors");
 
-/*istanbul ignore next*/
 var visitors = _interopRequireWildcard(_visitors);
 
-var /*istanbul ignore next*/_babelMessages = require("babel-messages");
+var _babelMessages = require("babel-messages");
 
-/*istanbul ignore next*/
 var messages = _interopRequireWildcard(_babelMessages);
 
-var /*istanbul ignore next*/_includes = require("lodash/includes");
+var _includes = require("lodash/includes");
 
-/*istanbul ignore next*/
 var _includes2 = _interopRequireDefault(_includes);
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-var /*istanbul ignore next*/_cache = require("./cache");
+var _cache = require("./cache");
 
-/*istanbul ignore next*/
 var cache = _interopRequireWildcard(_cache);
 
-/*istanbul ignore next*/
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -106,8 +99,7 @@ traverse.cheap = function (node, enter) {
 
   enter(node);
 
-  for ( /*istanbul ignore next*/var _iterator = keys, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
-    /*istanbul ignore next*/
+  for (var _iterator = keys, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
     var _ref;
 
     if (_isArray) {
@@ -124,8 +116,7 @@ traverse.cheap = function (node, enter) {
     var subNode = node[key];
 
     if (Array.isArray(subNode)) {
-      for ( /*istanbul ignore next*/var _iterator2 = subNode, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
-        /*istanbul ignore next*/
+      for (var _iterator2 = subNode, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
         var _ref2;
 
         if (_isArray2) {
@@ -151,9 +142,8 @@ traverse.node = function (node, opts, scope, state, parentPath, skipKeys) {
   var keys = t.VISITOR_KEYS[node.type];
   if (!keys) return;
 
-  var context = new /*istanbul ignore next*/_context2.default(scope, opts, state, parentPath);
-  for ( /*istanbul ignore next*/var _iterator3 = keys, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3);;) {
-    /*istanbul ignore next*/
+  var context = new _context2.default(scope, opts, state, parentPath);
+  for (var _iterator3 = keys, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3);;) {
     var _ref3;
 
     if (_isArray3) {
@@ -175,8 +165,7 @@ traverse.node = function (node, opts, scope, state, parentPath, skipKeys) {
 var CLEAR_KEYS = t.COMMENT_KEYS.concat(["tokens", "comments", "start", "end", "loc", "raw", "rawValue"]);
 
 traverse.clearNode = function (node) {
-  for ( /*istanbul ignore next*/var _iterator4 = CLEAR_KEYS, _isArray4 = Array.isArray(_iterator4), _i4 = 0, _iterator4 = _isArray4 ? _iterator4 : (0, _getIterator3.default)(_iterator4);;) {
-    /*istanbul ignore next*/
+  for (var _iterator4 = CLEAR_KEYS, _isArray4 = Array.isArray(_iterator4), _i4 = 0, _iterator4 = _isArray4 ? _iterator4 : (0, _getIterator3.default)(_iterator4);;) {
     var _ref4;
 
     if (_isArray4) {
@@ -199,9 +188,8 @@ traverse.clearNode = function (node) {
 
   cache.path.delete(node);
 
-  var syms = /*istanbul ignore next*/(0, _getOwnPropertySymbols2.default)(node);
-  for ( /*istanbul ignore next*/var _iterator5 = syms, _isArray5 = Array.isArray(_iterator5), _i5 = 0, _iterator5 = _isArray5 ? _iterator5 : (0, _getIterator3.default)(_iterator5);;) {
-    /*istanbul ignore next*/
+  var syms = (0, _getOwnPropertySymbols2.default)(node);
+  for (var _iterator5 = syms, _isArray5 = Array.isArray(_iterator5), _i5 = 0, _iterator5 = _isArray5 ? _iterator5 : (0, _getIterator3.default)(_iterator5);;) {
     var _ref5;
 
     if (_isArray5) {
@@ -233,7 +221,7 @@ function hasBlacklistedType(path, state) {
 
 traverse.hasType = function (tree, scope, type, blacklistTypes) {
   // the node we're searching in is blacklisted
-  if ( /*istanbul ignore next*/(0, _includes2.default)(blacklistTypes, tree.type)) return false;
+  if ((0, _includes2.default)(blacklistTypes, tree.type)) return false;
 
   // the type we're looking for is the same as the passed node
   if (tree.type === type) return true;

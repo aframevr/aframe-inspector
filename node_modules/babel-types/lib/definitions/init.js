@@ -1,15 +1,15 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
-/*istanbul ignore next*/require("./index");
+require("./index");
 
-/*istanbul ignore next*/require("./core");
+require("./core");
 
-/*istanbul ignore next*/require("./es2015");
+require("./es2015");
 
-/*istanbul ignore next*/require("./flow");
+require("./flow");
 
-/*istanbul ignore next*/require("./jsx");
+require("./jsx");
 
-/*istanbul ignore next*/require("./misc");
+require("./misc");
 
-/*istanbul ignore next*/require("./experimental");
+require("./experimental");

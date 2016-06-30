@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -7,44 +7,39 @@ var _getIterator2 = require("babel-runtime/core-js/get-iterator");
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
 exports.replaceWithMultiple = replaceWithMultiple;
-/*istanbul ignore next*/exports.replaceWithSourceString = replaceWithSourceString;
-/*istanbul ignore next*/exports.replaceWith = replaceWith;
-/*istanbul ignore next*/exports._replaceWith = _replaceWith;
-/*istanbul ignore next*/exports.replaceExpressionWithStatements = replaceExpressionWithStatements;
-/*istanbul ignore next*/exports.replaceInline = replaceInline;
+exports.replaceWithSourceString = replaceWithSourceString;
+exports.replaceWith = replaceWith;
+exports._replaceWith = _replaceWith;
+exports.replaceExpressionWithStatements = replaceExpressionWithStatements;
+exports.replaceInline = replaceInline;
 
-var /*istanbul ignore next*/_babelCodeFrame = require("babel-code-frame");
+var _babelCodeFrame = require("babel-code-frame");
 
-/*istanbul ignore next*/
 var _babelCodeFrame2 = _interopRequireDefault(_babelCodeFrame);
 
-var /*istanbul ignore next*/_index = require("../index");
+var _index = require("../index");
 
-/*istanbul ignore next*/
 var _index2 = _interopRequireDefault(_index);
 
-var /*istanbul ignore next*/_index3 = require("./index");
+var _index3 = require("./index");
 
-/*istanbul ignore next*/
 var _index4 = _interopRequireDefault(_index3);
 
-var /*istanbul ignore next*/_babylon = require("babylon");
+var _babylon = require("babylon");
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-/*istanbul ignore next*/
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var hoistVariablesVisitor = { /*istanbul ignore next*/
+var hoistVariablesVisitor = {
   Function: function Function(path) {
     path.skip();
   },
-  /*istanbul ignore next*/VariableDeclaration: function VariableDeclaration(path) {
+  VariableDeclaration: function VariableDeclaration(path) {
     if (path.node.kind !== "var") return;
 
     var bindings = path.getBindingIdentifiers();
@@ -54,8 +49,7 @@ var hoistVariablesVisitor = { /*istanbul ignore next*/
 
     var exprs = [];
 
-    for ( /*istanbul ignore next*/var _iterator = path.node.declarations, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
-      /*istanbul ignore next*/
+    for (var _iterator = path.node.declarations, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
       var _ref;
 
       if (_isArray) {
@@ -117,19 +111,19 @@ function replaceWithSourceString(replacement) {
   this.resync();
 
   try {
-    replacement = /*istanbul ignore next*/"(" + replacement + ")";
-    replacement = /*istanbul ignore next*/(0, _babylon.parse)(replacement);
+    replacement = "(" + replacement + ")";
+    replacement = (0, _babylon.parse)(replacement);
   } catch (err) {
     var loc = err.loc;
     if (loc) {
       err.message += " - make sure this is an expression.";
-      err.message += "\n" + /*istanbul ignore next*/(0, _babelCodeFrame2.default)(replacement, loc.line, loc.column + 1);
+      err.message += "\n" + (0, _babelCodeFrame2.default)(replacement, loc.line, loc.column + 1);
     }
     throw err;
   }
 
   replacement = replacement.program.body[0].expression;
-  /*istanbul ignore next*/_index2.default.removeProperties(replacement);
+  _index2.default.removeProperties(replacement);
   return this.replaceWith(replacement);
 }
 
@@ -144,7 +138,7 @@ function replaceWith(replacement) {
     throw new Error("You can't replace this node, we've already removed it");
   }
 
-  if (replacement instanceof /*istanbul ignore next*/_index4.default) {
+  if (replacement instanceof _index4.default) {
     replacement = replacement.node;
   }
 
@@ -214,7 +208,7 @@ function _replaceWith(node) {
     t.validate(this.parent, this.key, node);
   }
 
-  this.debug(function () /*istanbul ignore next*/{
+  this.debug(function () {
     return "Replace with " + (node && node.type);
   });
 
@@ -256,8 +250,7 @@ function replaceExpressionWithStatements(nodes) {
 
     // add implicit returns to all ending expression statements
     var completionRecords = this.get("callee").getCompletionRecords();
-    for ( /*istanbul ignore next*/var _iterator2 = completionRecords, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
-      /*istanbul ignore next*/
+    for (var _iterator2 = completionRecords, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
       var _ref2;
 
       if (_isArray2) {
@@ -273,7 +266,7 @@ function replaceExpressionWithStatements(nodes) {
 
       if (!path.isExpressionStatement()) continue;
 
-      var loop = path.findParent(function (path) /*istanbul ignore next*/{
+      var loop = path.findParent(function (path) {
         return path.isLoop();
       });
       if (loop) {

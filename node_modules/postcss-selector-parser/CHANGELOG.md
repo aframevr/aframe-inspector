@@ -1,3 +1,8 @@
+# 2.1.0
+
+* Added: Use string constants for all node types & expose them on the main
+  parser instance (thanks to @Aweary).
+
 # 2.0.0
 
 This release contains the following breaking changes:

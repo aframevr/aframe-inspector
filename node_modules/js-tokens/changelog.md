@@ -1,3 +1,14 @@
+### Version 2.0.0 (2016-06-19) ###
+
+- Added: Support for ES2016. In other words, support for the `**` exponentiation
+  operator.
+
+These are the breaking changes:
+
+- `'**'.match(jsTokens)` no longer returns `['*', '*']`, but `['**']`.
+- `'**='.match(jsTokens)` no longer returns `['*', '*=']`, but `['**=']`.
+
+
 ### Version 1.0.3 (2016-03-27) ###
 
 - Improved: Made the regex ever so slightly smaller.

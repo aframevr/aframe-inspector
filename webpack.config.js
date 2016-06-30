@@ -1,7 +1,7 @@
 module.exports = {
   entry: "./app/components/Main.js",
   output: {
-    filename: "dist/aframe-editor.js",
+    filename: "build/aframe-editor.js",
   },
   devServer: {
     inline: true,

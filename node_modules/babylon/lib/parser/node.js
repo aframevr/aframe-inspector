@@ -19,6 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // Start an AST node, attaching a start offset.
 
 var pp = _index2.default.prototype;
+var commentKeys = ["leadingComments", "trailingComments", "innerComments"];
 
 var Node = function () {
   function Node(pos, loc, filename) {
@@ -36,8 +37,13 @@ var Node = function () {
     value: function __clone() {
       var node2 = new Node();
       for (var key in this) {
-        node2[key] = this[key];
-      }return node2;
+        // Do not clone comments that are already attached to the node
+        if (commentKeys.indexOf(key) < 0) {
+          node2[key] = this[key];
+        }
+      }
+
+      return node2;
     }
   }]);
   return Node;

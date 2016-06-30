@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -30,12 +30,10 @@ exports.default = function (node) {
   }
 };
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-/*istanbul ignore next*/
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -51,12 +49,11 @@ function getTypeAnnotationBindingConstantViolations(path, name) {
 
   var testType = getConditionalAnnotation(path, name);
   if (testType) {
-    /*istanbul ignore next*/
     (function () {
       var testConstantViolations = getConstantViolationsBefore(binding, testType.ifStatement);
 
       // remove constant violations observed before the IfStatement
-      constantViolations = constantViolations.filter(function (path) /*istanbul ignore next*/{
+      constantViolations = constantViolations.filter(function (path) {
         return testConstantViolations.indexOf(path) < 0;
       });
 
@@ -94,8 +91,7 @@ function getTypeAnnotationBindingConstantViolations(path, name) {
     constantViolations = constantViolations.concat(functionConstantViolations);
 
     // push on inferred types of violated paths
-    for ( /*istanbul ignore next*/var _iterator = constantViolations, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
-      /*istanbul ignore next*/
+    for (var _iterator = constantViolations, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
       var _ref;
 
       if (_isArray) {
@@ -135,7 +131,7 @@ function inferAnnotationFromBinaryExpression(name, path) {
   var right = path.get("right").resolve();
   var left = path.get("left").resolve();
 
-  var target = /*istanbul ignore next*/void 0;
+  var target = void 0;
   if (left.isIdentifier({ name: name })) {
     target = right;
   } else if (right.isIdentifier({ name: name })) {
@@ -154,8 +150,8 @@ function inferAnnotationFromBinaryExpression(name, path) {
   }
 
   //
-  var typeofPath = /*istanbul ignore next*/void 0;
-  var typePath = /*istanbul ignore next*/void 0;
+  var typeofPath = void 0;
+  var typePath = void 0;
   if (left.isUnaryExpression({ operator: "typeof" })) {
     typeofPath = left;
     typePath = right;
@@ -181,7 +177,7 @@ function inferAnnotationFromBinaryExpression(name, path) {
 }
 
 function getParentConditionalPath(path) {
-  var parentPath = /*istanbul ignore next*/void 0;
+  var parentPath = void 0;
   while (parentPath = path.parentPath) {
     if (parentPath.isIfStatement() || parentPath.isConditionalExpression()) {
       if (path.key === "test") {
@@ -226,4 +222,4 @@ function getConditionalAnnotation(path, name) {
     return getConditionalAnnotation(ifStatement, name);
   }
 }
-/*istanbul ignore next*/module.exports = exports["default"];
+module.exports = exports["default"];

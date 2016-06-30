@@ -89,10 +89,8 @@ function reduceCSSCalc(value, decimalPrecision) {
       result = Math.round(result * decimalPrecision) / decimalPrecision
     }
 
-    // We don't need units for zero values...
-    if (result !== 0) {
-      result += unit
-    }
+    // Add unit
+    result += unit
 
     return result
   }

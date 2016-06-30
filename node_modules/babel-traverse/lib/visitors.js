@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -15,27 +15,23 @@ var _getIterator2 = require("babel-runtime/core-js/get-iterator");
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
 exports.explode = explode;
-/*istanbul ignore next*/exports.verify = verify;
-/*istanbul ignore next*/exports.merge = merge;
+exports.verify = verify;
+exports.merge = merge;
 
-var /*istanbul ignore next*/_virtualTypes = require("./path/lib/virtual-types");
+var _virtualTypes = require("./path/lib/virtual-types");
 
-/*istanbul ignore next*/
 var virtualTypes = _interopRequireWildcard(_virtualTypes);
 
-var /*istanbul ignore next*/_babelMessages = require("babel-messages");
+var _babelMessages = require("babel-messages");
 
-/*istanbul ignore next*/
 var messages = _interopRequireWildcard(_babelMessages);
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-var /*istanbul ignore next*/_clone = require("lodash/clone");
+var _clone = require("lodash/clone");
 
-/*istanbul ignore next*/
 var _clone2 = _interopRequireDefault(_clone);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -72,8 +68,7 @@ function explode(visitor) {
     var fns = visitor[nodeType];
     delete visitor[nodeType];
 
-    for ( /*istanbul ignore next*/var _iterator = parts, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
-      /*istanbul ignore next*/
+    for (var _iterator = parts, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
       var _ref;
 
       if (_isArray) {
@@ -105,8 +100,7 @@ function explode(visitor) {
   ensureCallbackArrays(visitor);
 
   // add type wrappers
-  for ( /*istanbul ignore next*/var _iterator2 = /*istanbul ignore next*/(0, _keys2.default)(visitor), _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
-    /*istanbul ignore next*/
+  for (var _iterator2 = (0, _keys2.default)(visitor), _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
     var _ref2;
 
     if (_isArray2) {
@@ -135,8 +129,7 @@ function explode(visitor) {
     delete visitor[_nodeType3];
 
     if (wrapper.types) {
-      for ( /*istanbul ignore next*/var _iterator4 = wrapper.types, _isArray4 = Array.isArray(_iterator4), _i4 = 0, _iterator4 = _isArray4 ? _iterator4 : (0, _getIterator3.default)(_iterator4);;) {
-        /*istanbul ignore next*/
+      for (var _iterator4 = wrapper.types, _isArray4 = Array.isArray(_iterator4), _i4 = 0, _iterator4 = _isArray4 ? _iterator4 : (0, _getIterator3.default)(_iterator4);;) {
         var _ref4;
 
         if (_isArray4) {
@@ -172,7 +165,7 @@ function explode(visitor) {
 
     var deprecratedKey = t.DEPRECATED_KEYS[_nodeType];
     if (deprecratedKey) {
-      console.trace( /*istanbul ignore next*/"Visitor defined for " + _nodeType + " but it has been renamed to " + deprecratedKey);
+      console.trace("Visitor defined for " + _nodeType + " but it has been renamed to " + deprecratedKey);
       aliases = [deprecratedKey];
     }
 
@@ -181,8 +174,7 @@ function explode(visitor) {
     // clear it from the visitor
     delete visitor[_nodeType];
 
-    for ( /*istanbul ignore next*/var _iterator3 = aliases, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3);;) {
-      /*istanbul ignore next*/
+    for (var _iterator3 = aliases, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3);;) {
       var _ref3;
 
       if (_isArray3) {
@@ -200,7 +192,7 @@ function explode(visitor) {
       if (existing) {
         mergePair(existing, _fns);
       } else {
-        visitor[alias] = /*istanbul ignore next*/(0, _clone2.default)(_fns);
+        visitor[alias] = (0, _clone2.default)(_fns);
       }
     }
   }
@@ -233,11 +225,11 @@ function verify(visitor) {
     }
 
     var visitors = visitor[nodeType];
-    if ( /*istanbul ignore next*/(typeof visitors === "undefined" ? "undefined" : (0, _typeof3.default)(visitors)) === "object") {
+    if ((typeof visitors === "undefined" ? "undefined" : (0, _typeof3.default)(visitors)) === "object") {
       for (var visitorKey in visitors) {
         if (visitorKey === "enter" || visitorKey === "exit") {
           // verify that it just contains functions
-          validateVisitorMethods( /*istanbul ignore next*/nodeType + "." + visitorKey, visitors[visitorKey]);
+          validateVisitorMethods(nodeType + "." + visitorKey, visitors[visitorKey]);
         } else {
           throw new Error(messages.get("traverseVerifyVisitorProperty", nodeType, visitorKey));
         }
@@ -250,8 +242,7 @@ function verify(visitor) {
 
 function validateVisitorMethods(path, val) {
   var fns = [].concat(val);
-  for ( /*istanbul ignore next*/var _iterator5 = fns, _isArray5 = Array.isArray(_iterator5), _i5 = 0, _iterator5 = _isArray5 ? _iterator5 : (0, _getIterator3.default)(_iterator5);;) {
-    /*istanbul ignore next*/
+  for (var _iterator5 = fns, _isArray5 = Array.isArray(_iterator5), _i5 = 0, _iterator5 = _isArray5 ? _iterator5 : (0, _getIterator3.default)(_iterator5);;) {
     var _ref5;
 
     if (_isArray5) {
@@ -266,13 +257,13 @@ function validateVisitorMethods(path, val) {
     var fn = _ref5;
 
     if (typeof fn !== "function") {
-      throw new TypeError( /*istanbul ignore next*/"Non-function found defined in " + path + " with type " + (typeof fn === "undefined" ? "undefined" : (0, _typeof3.default)(fn)));
+      throw new TypeError("Non-function found defined in " + path + " with type " + (typeof fn === "undefined" ? "undefined" : (0, _typeof3.default)(fn)));
     }
   }
 }
 
 function merge(visitors) {
-  /*istanbul ignore next*/var states = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
+  var states = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
 
   var rootVisitor = {};
 
@@ -309,7 +300,7 @@ function wrapWithState(oldVisitor, state) {
       var newFn = function newFn(path) {
         return fn.call(state, path, state);
       };
-      newFn.toString = function () /*istanbul ignore next*/{
+      newFn.toString = function () {
         return fn.toString();
       };
       return newFn;
@@ -343,7 +334,7 @@ function wrapCheck(wrapper, fn) {
       return fn.apply(this, arguments);
     }
   };
-  newFn.toString = function () /*istanbul ignore next*/{
+  newFn.toString = function () {
     return fn.toString();
   };
   return newFn;

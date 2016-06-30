@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 exports.is = undefined;
@@ -12,34 +12,31 @@ var _getIterator2 = require("babel-runtime/core-js/get-iterator");
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
 exports.matchesPattern = matchesPattern;
-/*istanbul ignore next*/exports.has = has;
-/*istanbul ignore next*/exports.isStatic = isStatic;
-/*istanbul ignore next*/exports.isnt = isnt;
-/*istanbul ignore next*/exports.equals = equals;
-/*istanbul ignore next*/exports.isNodeType = isNodeType;
-/*istanbul ignore next*/exports.canHaveVariableDeclarationOrExpression = canHaveVariableDeclarationOrExpression;
-/*istanbul ignore next*/exports.canSwapBetweenExpressionAndStatement = canSwapBetweenExpressionAndStatement;
-/*istanbul ignore next*/exports.isCompletionRecord = isCompletionRecord;
-/*istanbul ignore next*/exports.isStatementOrBlock = isStatementOrBlock;
-/*istanbul ignore next*/exports.referencesImport = referencesImport;
-/*istanbul ignore next*/exports.getSource = getSource;
-/*istanbul ignore next*/exports.willIMaybeExecuteBefore = willIMaybeExecuteBefore;
-/*istanbul ignore next*/exports._guessExecutionStatusRelativeTo = _guessExecutionStatusRelativeTo;
-/*istanbul ignore next*/exports._guessExecutionStatusRelativeToDifferentFunctions = _guessExecutionStatusRelativeToDifferentFunctions;
-/*istanbul ignore next*/exports.resolve = resolve;
-/*istanbul ignore next*/exports._resolve = _resolve;
+exports.has = has;
+exports.isStatic = isStatic;
+exports.isnt = isnt;
+exports.equals = equals;
+exports.isNodeType = isNodeType;
+exports.canHaveVariableDeclarationOrExpression = canHaveVariableDeclarationOrExpression;
+exports.canSwapBetweenExpressionAndStatement = canSwapBetweenExpressionAndStatement;
+exports.isCompletionRecord = isCompletionRecord;
+exports.isStatementOrBlock = isStatementOrBlock;
+exports.referencesImport = referencesImport;
+exports.getSource = getSource;
+exports.willIMaybeExecuteBefore = willIMaybeExecuteBefore;
+exports._guessExecutionStatusRelativeTo = _guessExecutionStatusRelativeTo;
+exports._guessExecutionStatusRelativeToDifferentFunctions = _guessExecutionStatusRelativeToDifferentFunctions;
+exports.resolve = resolve;
+exports._resolve = _resolve;
 
-var /*istanbul ignore next*/_includes = require("lodash/includes");
+var _includes = require("lodash/includes");
 
-/*istanbul ignore next*/
 var _includes2 = _interopRequireDefault(_includes);
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-/*istanbul ignore next*/
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -130,7 +127,7 @@ function isStatic() {
  * Alias of `has`.
  */
 
-var is = /*istanbul ignore next*/exports.is = has;
+var is = exports.is = has;
 
 /**
  * Opposite of `has`.
@@ -230,8 +227,7 @@ function isStatementOrBlock() {
   if (this.parentPath.isLabeledStatement() || t.isBlockStatement(this.container)) {
     return false;
   } else {
-    return (/*istanbul ignore next*/(0, _includes2.default)(t.STATEMENT_OR_BLOCK_KEYS, this.key)
-    );
+    return (0, _includes2.default)(t.STATEMENT_OR_BLOCK_KEYS, this.key);
   }
 }
 
@@ -317,9 +313,9 @@ function _guessExecutionStatusRelativeTo(target) {
   var selfPaths = this.getAncestry();
 
   // get ancestor where the branches intersect
-  var commonPath = /*istanbul ignore next*/void 0;
-  var targetIndex = /*istanbul ignore next*/void 0;
-  var selfIndex = /*istanbul ignore next*/void 0;
+  var commonPath = void 0;
+  var targetIndex = void 0;
+  var selfIndex = void 0;
   for (selfIndex = 0; selfIndex < selfPaths.length; selfIndex++) {
     var selfPath = selfPaths[selfIndex];
     targetIndex = targetPaths.indexOf(selfPath);
@@ -366,8 +362,7 @@ function _guessExecutionStatusRelativeToDifferentFunctions(targetFuncParent) {
   var referencePaths = binding.referencePaths;
 
   // verify that all of the references are calls
-  for ( /*istanbul ignore next*/var _iterator = referencePaths, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
-    /*istanbul ignore next*/
+  for (var _iterator = referencePaths, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
     var _ref;
 
     if (_isArray) {
@@ -386,11 +381,10 @@ function _guessExecutionStatusRelativeToDifferentFunctions(targetFuncParent) {
     }
   }
 
-  var allStatus = /*istanbul ignore next*/void 0;
+  var allStatus = void 0;
 
   // verify that all the calls have the same execution status
-  for ( /*istanbul ignore next*/var _iterator2 = referencePaths, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
-    /*istanbul ignore next*/
+  for (var _iterator2 = referencePaths, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
     var _ref2;
 
     if (_isArray2) {
@@ -406,7 +400,7 @@ function _guessExecutionStatusRelativeToDifferentFunctions(targetFuncParent) {
 
     // if a reference is a child of the function we're checking against then we can
     // safelty ignore it
-    var childOfFunction = !!_path.find(function (path) /*istanbul ignore next*/{
+    var childOfFunction = !!_path.find(function (path) {
       return path.node === targetFuncPath.node;
     });
     if (childOfFunction) continue;
@@ -432,7 +426,6 @@ function resolve(dangerous, resolved) {
 }
 
 function _resolve(dangerous, resolved) {
-  /*istanbul ignore next*/
   var _this = this;
 
   // detect infinite recursion
@@ -460,23 +453,20 @@ function _resolve(dangerous, resolved) {
       if (binding.kind === "module") return;
 
       if (binding.path !== this) {
-        /*istanbul ignore next*/
         var _ret = function () {
           var ret = binding.path.resolve(dangerous, resolved);
           // If the identifier resolves to parent node then we can't really resolve it.
-          if ( /*istanbul ignore next*/_this.find(function (parent) /*istanbul ignore next*/{
+          if (_this.find(function (parent) {
             return parent.node === ret.node;
-          })) return (/*istanbul ignore next*/{
-                v: void 0
-              }
-            );
-          return (/*istanbul ignore next*/{
-              v: ret
-            }
-          );
+          })) return {
+              v: void 0
+            };
+          return {
+            v: ret
+          };
         }();
 
-        /*istanbul ignore next*/if ((typeof _ret === "undefined" ? "undefined" : (0, _typeof3.default)(_ret)) === "object") return _ret.v;
+        if ((typeof _ret === "undefined" ? "undefined" : (0, _typeof3.default)(_ret)) === "object") return _ret.v;
       }
     } else if (this.isTypeCastExpression()) {
       return this.get("expression").resolve(dangerous, resolved);
@@ -493,8 +483,7 @@ function _resolve(dangerous, resolved) {
 
       if (target.isObjectExpression()) {
         var props = target.get("properties");
-        for ( /*istanbul ignore next*/var _iterator3 = props, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3);;) {
-          /*istanbul ignore next*/
+        for (var _iterator3 = props, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3);;) {
           var _ref3;
 
           if (_isArray3) {

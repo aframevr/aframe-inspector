@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -7,23 +7,21 @@ var _getIterator2 = require("babel-runtime/core-js/get-iterator");
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
 exports.findParent = findParent;
-/*istanbul ignore next*/exports.find = find;
-/*istanbul ignore next*/exports.getFunctionParent = getFunctionParent;
-/*istanbul ignore next*/exports.getStatementParent = getStatementParent;
-/*istanbul ignore next*/exports.getEarliestCommonAncestorFrom = getEarliestCommonAncestorFrom;
-/*istanbul ignore next*/exports.getDeepestCommonAncestorFrom = getDeepestCommonAncestorFrom;
-/*istanbul ignore next*/exports.getAncestry = getAncestry;
-/*istanbul ignore next*/exports.inType = inType;
-/*istanbul ignore next*/exports.inShadow = inShadow;
+exports.find = find;
+exports.getFunctionParent = getFunctionParent;
+exports.getStatementParent = getStatementParent;
+exports.getEarliestCommonAncestorFrom = getEarliestCommonAncestorFrom;
+exports.getDeepestCommonAncestorFrom = getDeepestCommonAncestorFrom;
+exports.getAncestry = getAncestry;
+exports.inType = inType;
+exports.inShadow = inShadow;
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-var /*istanbul ignore next*/_index = require("./index");
+var _index = require("./index");
 
-/*istanbul ignore next*/
 var _index2 = _interopRequireDefault(_index);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -62,7 +60,7 @@ function find(callback) {
  */
 
 function getFunctionParent() {
-  return this.findParent(function (path) /*istanbul ignore next*/{
+  return this.findParent(function (path) {
     return path.isFunction() || path.isProgram();
   });
 }
@@ -90,11 +88,10 @@ function getStatementParent() {
 
 function getEarliestCommonAncestorFrom(paths) {
   return this.getDeepestCommonAncestorFrom(paths, function (deepest, i, ancestries) {
-    var earliest = /*istanbul ignore next*/void 0;
+    var earliest = void 0;
     var keys = t.VISITOR_KEYS[deepest.type];
 
-    for ( /*istanbul ignore next*/var _iterator = ancestries, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
-      /*istanbul ignore next*/
+    for (var _iterator = ancestries, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
       var _ref;
 
       if (_isArray) {
@@ -145,7 +142,6 @@ function getEarliestCommonAncestorFrom(paths) {
  */
 
 function getDeepestCommonAncestorFrom(paths, filter) {
-  /*istanbul ignore next*/
   var _this = this;
 
   if (!paths.length) {
@@ -160,8 +156,8 @@ function getDeepestCommonAncestorFrom(paths, filter) {
   var minDepth = Infinity;
 
   // last common ancestor
-  var lastCommonIndex = /*istanbul ignore next*/void 0,
-      lastCommon = /*istanbul ignore next*/void 0;
+  var lastCommonIndex = void 0,
+      lastCommon = void 0;
 
   // get the ancestors of the path, breaking when the parent exceeds ourselves
   var ancestries = paths.map(function (path) {
@@ -169,7 +165,7 @@ function getDeepestCommonAncestorFrom(paths, filter) {
 
     do {
       ancestry.unshift(path);
-    } while ((path = path.parentPath) && path !== /*istanbul ignore next*/_this);
+    } while ((path = path.parentPath) && path !== _this);
 
     // save min depth to avoid going too far in
     if (ancestry.length < minDepth) {
@@ -186,8 +182,7 @@ function getDeepestCommonAncestorFrom(paths, filter) {
   depthLoop: for (var i = 0; i < minDepth; i++) {
     var shouldMatch = first[i];
 
-    for ( /*istanbul ignore next*/var _iterator2 = ancestries, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
-      /*istanbul ignore next*/
+    for (var _iterator2 = ancestries, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
       var _ref2;
 
       if (_isArray2) {
@@ -241,8 +236,7 @@ function getAncestry() {
 function inType() {
   var path = this;
   while (path) {
-    for ( /*istanbul ignore next*/var _iterator3 = arguments, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3);;) {
-      /*istanbul ignore next*/
+    for (var _iterator3 = arguments, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3);;) {
       var _ref3;
 
       if (_isArray3) {
@@ -298,7 +292,7 @@ function inType() {
  */
 
 function inShadow(key) {
-  var parentFn = this.isFunction() ? this : this.findParent(function (p) /*istanbul ignore next*/{
+  var parentFn = this.isFunction() ? this : this.findParent(function (p) {
     return p.isFunction();
   });
   if (!parentFn) return;

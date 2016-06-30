@@ -1,3 +1,10 @@
+# 1.2.4 - 2016-06-09
+
+- Fixed: zero values are not unitless anymore.
+  Browsers do not calculate calc() with 0 unitless values.
+  http://jsbin.com/punivivipo/edit?html,css,output
+  ([#11](https://github.com/MoOx/reduce-css-calc/pull/11)) 
+
 # 1.2.3 - 2016-04-28
 
 - Fixed: wrong rouding in some edge cases

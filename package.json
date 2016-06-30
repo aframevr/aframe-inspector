@@ -10,19 +10,17 @@
   "repository": "aframevr/aframe-editor",
   "license": "MIT",
   "dependencies": {
-    "aframe": "^0.2.0",
-    "babel-core": "^6.10.4",
-    "clipboard": "^1.5.12",
-    "css-loader": "^0.23.1",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
-    "style-loader": "^0.13.1"
+    "clipboard": "^1.5.12"
   },
   "devDependencies": {
-    "babel-core": "^6.9.0",
+    "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
+    "css-loader": "^0.23.1",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "style-loader": "^0.13.1",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   }

@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -15,47 +15,41 @@ var _getIterator2 = require("babel-runtime/core-js/get-iterator");
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
 exports.toComputedKey = toComputedKey;
-/*istanbul ignore next*/exports.toSequenceExpression = toSequenceExpression;
-/*istanbul ignore next*/exports.toKeyAlias = toKeyAlias;
-/*istanbul ignore next*/exports.toIdentifier = toIdentifier;
-/*istanbul ignore next*/exports.toBindingIdentifierName = toBindingIdentifierName;
-/*istanbul ignore next*/exports.toStatement = toStatement;
-/*istanbul ignore next*/exports.toExpression = toExpression;
-/*istanbul ignore next*/exports.toBlock = toBlock;
-/*istanbul ignore next*/exports.valueToNode = valueToNode;
+exports.toSequenceExpression = toSequenceExpression;
+exports.toKeyAlias = toKeyAlias;
+exports.toIdentifier = toIdentifier;
+exports.toBindingIdentifierName = toBindingIdentifierName;
+exports.toStatement = toStatement;
+exports.toExpression = toExpression;
+exports.toBlock = toBlock;
+exports.valueToNode = valueToNode;
 
-var /*istanbul ignore next*/_isPlainObject = require("lodash/isPlainObject");
+var _isPlainObject = require("lodash/isPlainObject");
 
-/*istanbul ignore next*/
 var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-var /*istanbul ignore next*/_isNumber = require("lodash/isNumber");
+var _isNumber = require("lodash/isNumber");
 
-/*istanbul ignore next*/
 var _isNumber2 = _interopRequireDefault(_isNumber);
 
-var /*istanbul ignore next*/_isRegExp = require("lodash/isRegExp");
+var _isRegExp = require("lodash/isRegExp");
 
-/*istanbul ignore next*/
 var _isRegExp2 = _interopRequireDefault(_isRegExp);
 
-var /*istanbul ignore next*/_isString = require("lodash/isString");
+var _isString = require("lodash/isString");
 
-/*istanbul ignore next*/
 var _isString2 = _interopRequireDefault(_isString);
 
-var /*istanbul ignore next*/_index = require("./index");
+var _index = require("./index");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_index);
 
-/*istanbul ignore next*/
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function toComputedKey(node) {
-  /*istanbul ignore next*/var key = arguments.length <= 1 || arguments[1] === undefined ? node.key || node.property : arguments[1];
+  var key = arguments.length <= 1 || arguments[1] === undefined ? node.key || node.property : arguments[1];
 
   if (!node.computed) {
     if (t.isIdentifier(key)) key = t.stringLiteral(key.name);
@@ -91,8 +85,7 @@ function toSequenceExpression(nodes, scope) {
     var ensureLastUndefined = false;
     var exprs = [];
 
-    for ( /*istanbul ignore next*/var _iterator = nodes, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
-      /*istanbul ignore next*/
+    for (var _iterator = nodes, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
       var _ref;
 
       if (_isArray) {
@@ -113,8 +106,7 @@ function toSequenceExpression(nodes, scope) {
       } else if (t.isVariableDeclaration(node)) {
         if (node.kind !== "var") return bailed = true; // bailed
 
-        for ( /*istanbul ignore next*/var _iterator2 = node.declarations, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
-          /*istanbul ignore next*/
+        for (var _iterator2 = node.declarations, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
           var _ref2;
 
           if (_isArray2) {
@@ -180,31 +172,31 @@ function toSequenceExpression(nodes, scope) {
 // Can't use import because of cyclic dependency between babel-traverse
 // and this module (babel-types). This require needs to appear after
 // we export the TYPES constant, so we lazy-initialize it before use.
-var traverse = /*istanbul ignore next*/void 0;
+var traverse = void 0;
 
 function toKeyAlias(node) {
-  /*istanbul ignore next*/var key = arguments.length <= 1 || arguments[1] === undefined ? node.key : arguments[1];
+  var key = arguments.length <= 1 || arguments[1] === undefined ? node.key : arguments[1];
 
   if (!traverse) traverse = require("babel-traverse").default;
 
-  var alias = /*istanbul ignore next*/void 0;
+  var alias = void 0;
 
   if (node.kind === "method") {
     return toKeyAlias.increment() + "";
   } else if (t.isIdentifier(key)) {
     alias = key.name;
   } else if (t.isStringLiteral(key)) {
-    alias = /*istanbul ignore next*/(0, _stringify2.default)(key.value);
+    alias = (0, _stringify2.default)(key.value);
   } else {
-    alias = /*istanbul ignore next*/(0, _stringify2.default)(traverse.removeProperties(t.cloneDeep(key)));
+    alias = (0, _stringify2.default)(traverse.removeProperties(t.cloneDeep(key)));
   }
 
   if (node.computed) {
-    alias = /*istanbul ignore next*/"[" + alias + "]";
+    alias = "[" + alias + "]";
   }
 
   if (node.static) {
-    alias = /*istanbul ignore next*/"static:" + alias;
+    alias = "static:" + alias;
   }
 
   return alias;
@@ -213,7 +205,7 @@ function toKeyAlias(node) {
 toKeyAlias.uid = 0;
 
 toKeyAlias.increment = function () {
-  if (toKeyAlias.uid >= /*istanbul ignore next*/_maxSafeInteger2.default) {
+  if (toKeyAlias.uid >= _maxSafeInteger2.default) {
     return toKeyAlias.uid = 0;
   } else {
     return toKeyAlias.uid++;
@@ -235,7 +227,7 @@ function toIdentifier(name) {
   });
 
   if (!t.isValidIdentifier(name)) {
-    name = /*istanbul ignore next*/"_" + name;
+    name = "_" + name;
   }
 
   return name || "_";
@@ -258,7 +250,7 @@ function toStatement(node, ignore) {
   }
 
   var mustHaveId = false;
-  var newType = /*istanbul ignore next*/void 0;
+  var newType = void 0;
 
   if (t.isClass(node)) {
     mustHaveId = true;
@@ -278,7 +270,7 @@ function toStatement(node, ignore) {
     if (ignore) {
       return false;
     } else {
-      throw new Error( /*istanbul ignore next*/"cannot turn " + node.type + " to a statement");
+      throw new Error("cannot turn " + node.type + " to a statement");
     }
   }
 
@@ -301,7 +293,7 @@ function toExpression(node) {
   if (t.isExpression(node)) {
     return node;
   } else {
-    throw new Error( /*istanbul ignore next*/"cannot turn " + node.type + " to an expression");
+    throw new Error("cannot turn " + node.type + " to an expression");
   }
 }
 
@@ -346,17 +338,17 @@ function valueToNode(value) {
   }
 
   // strings
-  if ( /*istanbul ignore next*/(0, _isString2.default)(value)) {
+  if ((0, _isString2.default)(value)) {
     return t.stringLiteral(value);
   }
 
   // numbers
-  if ( /*istanbul ignore next*/(0, _isNumber2.default)(value)) {
+  if ((0, _isNumber2.default)(value)) {
     return t.numericLiteral(value);
   }
 
   // regexes
-  if ( /*istanbul ignore next*/(0, _isRegExp2.default)(value)) {
+  if ((0, _isRegExp2.default)(value)) {
     var pattern = value.source;
     var flags = value.toString().match(/\/([a-z]+|)$/)[1];
     return t.regExpLiteral(pattern, flags);
@@ -368,10 +360,10 @@ function valueToNode(value) {
   }
 
   // object
-  if ( /*istanbul ignore next*/(0, _isPlainObject2.default)(value)) {
+  if ((0, _isPlainObject2.default)(value)) {
     var props = [];
     for (var key in value) {
-      var nodeKey = /*istanbul ignore next*/void 0;
+      var nodeKey = void 0;
       if (t.isValidIdentifier(key)) {
         nodeKey = t.identifier(key);
       } else {

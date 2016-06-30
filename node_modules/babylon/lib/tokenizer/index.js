@@ -908,7 +908,7 @@ var Tokenizer = function () {
     value: function braceIsBlock(prevType) {
       if (prevType === _types.types.colon) {
         var parent = this.curContext();
-        if (parent === _context.types.b_stat || parent === _context.types.b_expr) {
+        if (parent === _context.types.braceStatement || parent === _context.types.braceExpression) {
           return !parent.isExpr;
         }
       }
@@ -922,7 +922,7 @@ var Tokenizer = function () {
       }
 
       if (prevType === _types.types.braceL) {
-        return this.curContext() === _context.types.b_stat;
+        return this.curContext() === _context.types.braceStatement;
       }
 
       return !this.state.exprAllowed;

@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -16,14 +16,14 @@ var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
 exports.default = function () {
   return {
-    visitor: { /*istanbul ignore next*/
+    visitor: {
       VariableDeclaration: function VariableDeclaration(path, file) {
-        /*istanbul ignore next*/var node = path.node;
-        /*istanbul ignore next*/var parent = path.parent;
-        /*istanbul ignore next*/var scope = path.scope;
+        var node = path.node;
+        var parent = path.parent;
+        var scope = path.scope;
 
         if (!isBlockScoped(node)) return;
-        convertBlockScopedToVar(path, parent, scope, true);
+        convertBlockScopedToVar(path, null, parent, scope, true);
 
         if (node._tdzThis) {
           var nodes = [node];
@@ -49,17 +49,17 @@ exports.default = function () {
           path.replaceWithMultiple(nodes);
         }
       },
-      /*istanbul ignore next*/Loop: function Loop(path, file) {
-        /*istanbul ignore next*/var node = path.node;
-        /*istanbul ignore next*/var parent = path.parent;
-        /*istanbul ignore next*/var scope = path.scope;
+      Loop: function Loop(path, file) {
+        var node = path.node;
+        var parent = path.parent;
+        var scope = path.scope;
 
         t.ensureBlock(node);
         var blockScoping = new BlockScoping(path, path.get("body"), parent, scope, file);
         var replace = blockScoping.run();
         if (replace) path.replaceWith(replace);
       },
-      /*istanbul ignore next*/"BlockStatement|Program": function BlockStatementProgram(path, file) {
+      "BlockStatement|SwitchStatement|Program": function BlockStatementSwitchStatementProgram(path, file) {
         if (!t.isLoop(path.parent)) {
           var blockScoping = new BlockScoping(null, path, path.parent, path.scope, file);
           blockScoping.run();
@@ -69,31 +69,26 @@ exports.default = function () {
   };
 };
 
-var /*istanbul ignore next*/_babelTraverse = require("babel-traverse");
+var _babelTraverse = require("babel-traverse");
 
-/*istanbul ignore next*/
 var _babelTraverse2 = _interopRequireDefault(_babelTraverse);
 
-var /*istanbul ignore next*/_tdz = require("./tdz");
+var _tdz = require("./tdz");
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-var /*istanbul ignore next*/_values = require("lodash/values");
+var _values = require("lodash/values");
 
-/*istanbul ignore next*/
 var _values2 = _interopRequireDefault(_values);
 
-var /*istanbul ignore next*/_extend = require("lodash/extend");
+var _extend = require("lodash/extend");
 
-/*istanbul ignore next*/
 var _extend2 = _interopRequireDefault(_extend);
 
-var /*istanbul ignore next*/_babelTemplate = require("babel-template");
+var _babelTemplate = require("babel-template");
 
-/*istanbul ignore next*/
 var _babelTemplate2 = _interopRequireDefault(_babelTemplate);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -102,7 +97,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /* eslint max-len: 0 */
 
-var buildRetCheck = /*istanbul ignore next*/(0, _babelTemplate2.default)( /*istanbul ignore next*/"\n  if (typeof RETURN === \"object\") return RETURN.v;\n");
+var buildRetCheck = (0, _babelTemplate2.default)("\n  if (typeof RETURN === \"object\") return RETURN.v;\n");
 
 function isBlockScoped(node) {
   if (!t.isVariableDeclaration(node)) return false;
@@ -111,11 +106,13 @@ function isBlockScoped(node) {
   return true;
 }
 
-function convertBlockScopedToVar(path, parent, scope) {
-  /*istanbul ignore next*/var moveBindingsToParent = arguments.length <= 3 || arguments[3] === undefined ? false : arguments[3];
-  /*istanbul ignore next*/var node = path.node;
-  // https://github.com/babel/babel/issues/255
+function convertBlockScopedToVar(path, node, parent, scope) {
+  var moveBindingsToParent = arguments.length <= 4 || arguments[4] === undefined ? false : arguments[4];
 
+  if (!node) {
+    node = path.node;
+  }
+  // https://github.com/babel/babel/issues/255
   if (!t.isFor(parent)) {
     for (var i = 0; i < node.declarations.length; i++) {
       var declar = node.declarations[i];
@@ -156,11 +153,11 @@ function replace(path, node, scope, remaps) {
   }
 }
 
-var replaceVisitor = { /*istanbul ignore next*/
+var replaceVisitor = {
   ReferencedIdentifier: function ReferencedIdentifier(path, remaps) {
     replace(path, path.node, path.scope, remaps);
   },
-  /*istanbul ignore next*/AssignmentExpression: function AssignmentExpression(path, remaps) {
+  AssignmentExpression: function AssignmentExpression(path, remaps) {
     var ids = path.getBindingIdentifiers();
     for (var name in ids) {
       replace(null, ids[name], path.scope, remaps);
@@ -183,14 +180,14 @@ function traverseReplace(node, parent, scope, remaps) {
   scope.traverse(node, replaceVisitor, remaps);
 }
 
-var letReferenceBlockVisitor = /*istanbul ignore next*/_babelTraverse2.default.visitors.merge([{ /*istanbul ignore next*/
+var letReferenceBlockVisitor = _babelTraverse2.default.visitors.merge([{
   Function: function Function(path, state) {
     path.traverse(letReferenceFunctionVisitor, state);
     return path.skip();
   }
-}, /*istanbul ignore next*/_tdz.visitor]);
+}, _tdz.visitor]);
 
-var letReferenceFunctionVisitor = /*istanbul ignore next*/_babelTraverse2.default.visitors.merge([{ /*istanbul ignore next*/
+var letReferenceFunctionVisitor = _babelTraverse2.default.visitors.merge([{
   ReferencedIdentifier: function ReferencedIdentifier(path, state) {
     var ref = state.letReferences[path.node.name];
 
@@ -204,12 +201,12 @@ var letReferenceFunctionVisitor = /*istanbul ignore next*/_babelTraverse2.defaul
 
     state.closurify = true;
   }
-}, /*istanbul ignore next*/_tdz.visitor]);
+}, _tdz.visitor]);
 
-var hoistVarDeclarationsVisitor = { /*istanbul ignore next*/
+var hoistVarDeclarationsVisitor = {
   enter: function enter(path, self) {
-    /*istanbul ignore next*/var node = path.node;
-    /*istanbul ignore next*/var parent = path.parent;
+    var node = path.node;
+    var parent = path.parent;
 
 
     if (path.isForStatement()) {
@@ -227,7 +224,7 @@ var hoistVarDeclarationsVisitor = { /*istanbul ignore next*/
         node.left = node.left.declarations[0].id;
       }
     } else if (isVar(node, parent)) {
-      path.replaceWithMultiple(self.pushDeclar(node).map(function (expr) /*istanbul ignore next*/{
+      path.replaceWithMultiple(self.pushDeclar(node).map(function (expr) {
         return t.expressionStatement(expr);
       }));
     } else if (path.isFunction()) {
@@ -236,15 +233,15 @@ var hoistVarDeclarationsVisitor = { /*istanbul ignore next*/
   }
 };
 
-var loopLabelVisitor = { /*istanbul ignore next*/
+var loopLabelVisitor = {
   LabeledStatement: function LabeledStatement(_ref, state) {
-    /*istanbul ignore next*/var node = _ref.node;
+    var node = _ref.node;
 
     state.innerLabels.push(node.label.name);
   }
 };
 
-var continuationVisitor = { /*istanbul ignore next*/
+var continuationVisitor = {
   enter: function enter(path, state) {
     if (path.isAssignmentExpression() || path.isUpdateExpression()) {
       var bindings = path.getBindingIdentifiers();
@@ -264,7 +261,7 @@ function loopNodeTo(node) {
   }
 }
 
-var loopVisitor = { /*istanbul ignore next*/
+var loopVisitor = {
   Loop: function Loop(path, state) {
     var oldIgnoreLabeless = state.ignoreLabeless;
     state.ignoreLabeless = true;
@@ -272,24 +269,24 @@ var loopVisitor = { /*istanbul ignore next*/
     state.ignoreLabeless = oldIgnoreLabeless;
     path.skip();
   },
-  /*istanbul ignore next*/Function: function Function(path) {
+  Function: function Function(path) {
     path.skip();
   },
-  /*istanbul ignore next*/SwitchCase: function SwitchCase(path, state) {
+  SwitchCase: function SwitchCase(path, state) {
     var oldInSwitchCase = state.inSwitchCase;
     state.inSwitchCase = true;
     path.traverse(loopVisitor, state);
     state.inSwitchCase = oldInSwitchCase;
     path.skip();
   },
-  /*istanbul ignore next*/"BreakStatement|ContinueStatement|ReturnStatement": function BreakStatementContinueStatementReturnStatement(path, state) {
-    /*istanbul ignore next*/var node = path.node;
-    /*istanbul ignore next*/var parent = path.parent;
-    /*istanbul ignore next*/var scope = path.scope;
+  "BreakStatement|ContinueStatement|ReturnStatement": function BreakStatementContinueStatementReturnStatement(path, state) {
+    var node = path.node;
+    var parent = path.parent;
+    var scope = path.scope;
 
     if (node[this.LOOP_IGNORE]) return;
 
-    var replace = /*istanbul ignore next*/void 0;
+    var replace = void 0;
     var loopText = loopNodeTo(node);
 
     if (loopText) {
@@ -299,7 +296,7 @@ var loopVisitor = { /*istanbul ignore next*/
           return;
         }
 
-        loopText = /*istanbul ignore next*/loopText + "|" + node.label.name;
+        loopText = loopText + "|" + node.label.name;
       } else {
         // we shouldn't be transforming these statements because
         // they don't refer to the actual loop we're scopifying
@@ -331,10 +328,9 @@ var loopVisitor = { /*istanbul ignore next*/
   }
 };
 
-/*istanbul ignore next*/
 var BlockScoping = function () {
-  function /*istanbul ignore next*/BlockScoping(loopPath, blockPath, parent, scope, file) {
-    /*istanbul ignore next*/(0, _classCallCheck3.default)(this, BlockScoping);
+  function BlockScoping(loopPath, blockPath, parent, scope, file) {
+    (0, _classCallCheck3.default)(this, BlockScoping);
 
     this.parent = parent;
     this.scope = scope;
@@ -343,9 +339,9 @@ var BlockScoping = function () {
     this.blockPath = blockPath;
     this.block = blockPath.node;
 
-    this.outsideLetReferences = /*istanbul ignore next*/(0, _create2.default)(null);
+    this.outsideLetReferences = (0, _create2.default)(null);
     this.hasLetReferences = false;
-    this.letReferences = /*istanbul ignore next*/(0, _create2.default)(null);
+    this.letReferences = (0, _create2.default)(null);
     this.body = [];
 
     if (loopPath) {
@@ -414,7 +410,7 @@ var BlockScoping = function () {
     // we have to check if any of our let variables collide with
     // those in upper scopes and then if they do, generate a uid
     // for them and replace all references with it
-    var remaps = /*istanbul ignore next*/(0, _create2.default)(null);
+    var remaps = (0, _create2.default)(null);
 
     for (var key in letRefs) {
       // just an Identifier node we collected in `getLetReferences`
@@ -478,18 +474,17 @@ var BlockScoping = function () {
     this.hoistVarDeclarations();
 
     // turn outsideLetReferences into an array
-    var params = /*istanbul ignore next*/(0, _values2.default)(outsideRefs);
-    var args = /*istanbul ignore next*/(0, _values2.default)(outsideRefs);
+    var params = (0, _values2.default)(outsideRefs);
+    var args = (0, _values2.default)(outsideRefs);
 
-    // build the closure that we're going to wrap the block with
-    var fn = t.functionExpression(null, params, t.blockStatement(block.body));
+    var isSwitch = this.blockPath.isSwitchStatement();
+
+    // build the closure that we're going to wrap the block with, possible wrapping switch(){}
+    var fn = t.functionExpression(null, params, t.blockStatement(isSwitch ? [block] : block.body));
     fn.shadow = true;
 
     // continuation
     this.addContinuations(fn);
-
-    // replace the current block body with the one we're going to build
-    block.body = this.body;
 
     var ref = fn;
 
@@ -503,20 +498,23 @@ var BlockScoping = function () {
     var ret = this.scope.generateUidIdentifier("ret");
 
     // handle generators
-    var hasYield = /*istanbul ignore next*/_babelTraverse2.default.hasType(fn.body, this.scope, "YieldExpression", t.FUNCTION_TYPES);
+    var hasYield = _babelTraverse2.default.hasType(fn.body, this.scope, "YieldExpression", t.FUNCTION_TYPES);
     if (hasYield) {
       fn.generator = true;
       call = t.yieldExpression(call, true);
     }
 
     // handlers async functions
-    var hasAsync = /*istanbul ignore next*/_babelTraverse2.default.hasType(fn.body, this.scope, "AwaitExpression", t.FUNCTION_TYPES);
+    var hasAsync = _babelTraverse2.default.hasType(fn.body, this.scope, "AwaitExpression", t.FUNCTION_TYPES);
     if (hasAsync) {
       fn.async = true;
       call = t.awaitExpression(call);
     }
 
     this.buildClosure(ret, call);
+
+    // replace the current block body with the one we're going to build
+    if (isSwitch) this.blockPath.replaceWithMultiple(this.body);else block.body = this.body;
   };
 
   /**
@@ -571,7 +569,7 @@ var BlockScoping = function () {
       var init = this.loop.left || this.loop.init;
       if (isBlockScoped(init)) {
         declarators.push(init);
-        /*istanbul ignore next*/(0, _extend2.default)(this.outsideLetReferences, t.getBindingIdentifiers(init));
+        (0, _extend2.default)(this.outsideLetReferences, t.getBindingIdentifiers(init));
       }
     }
 
@@ -582,18 +580,35 @@ var BlockScoping = function () {
         if (t.isClassDeclaration(declar) || t.isFunctionDeclaration(declar) || isBlockScoped(declar)) {
           var declarPath = this.blockPath.get("body")[i];
           if (isBlockScoped(declar)) {
-            convertBlockScopedToVar(declarPath, block, this.scope);
+            convertBlockScopedToVar(declarPath, null, block, this.scope);
           }
           declarators = declarators.concat(declar.declarations || declar);
         }
       }
     }
 
+    if (block.cases) {
+      for (var _i = 0; _i < block.cases.length; _i++) {
+        var consequents = block.cases[_i].consequent;
+
+        for (var j = 0; j < consequents.length; j++) {
+          var _declar = consequents[j];
+          if (t.isClassDeclaration(_declar) || t.isFunctionDeclaration(_declar) || isBlockScoped(_declar)) {
+            var _declarPath = this.blockPath.get("cases")[_i];
+            if (isBlockScoped(_declar)) {
+              convertBlockScopedToVar(_declarPath, _declar, block, this.scope);
+            }
+            declarators = declarators.concat(_declar.declarations || _declar);
+          }
+        }
+      }
+    }
+
     //
-    for (var _i = 0; _i < declarators.length; _i++) {
-      var _declar = declarators[_i];
-      var keys = t.getBindingIdentifiers(_declar);
-      /*istanbul ignore next*/(0, _extend2.default)(this.letReferences, keys);
+    for (var _i2 = 0; _i2 < declarators.length; _i2++) {
+      var _declar2 = declarators[_i2];
+      var keys = t.getBindingIdentifiers(_declar2);
+      (0, _extend2.default)(this.letReferences, keys);
       this.hasLetReferences = true;
     }
 
@@ -629,7 +644,7 @@ var BlockScoping = function () {
       hasReturn: false,
       isLoop: !!this.loop,
       map: {},
-      LOOP_IGNORE: /*istanbul ignore next*/(0, _symbol2.default)()
+      LOOP_IGNORE: (0, _symbol2.default)()
     };
 
     this.blockPath.traverse(loopLabelVisitor, state);
@@ -679,7 +694,7 @@ var BlockScoping = function () {
 
     body.push(t.variableDeclaration("var", [t.variableDeclarator(ret, call)]));
 
-    var retCheck = /*istanbul ignore next*/void 0;
+    var retCheck = void 0;
     var has = this.has;
     var cases = [];
 
@@ -723,4 +738,4 @@ var BlockScoping = function () {
   return BlockScoping;
 }();
 
-/*istanbul ignore next*/module.exports = exports["default"];
+module.exports = exports["default"];

@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -7,29 +7,28 @@ var _getIterator2 = require("babel-runtime/core-js/get-iterator");
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
 exports.call = call;
-/*istanbul ignore next*/exports._call = _call;
-/*istanbul ignore next*/exports.isBlacklisted = isBlacklisted;
-/*istanbul ignore next*/exports.visit = visit;
-/*istanbul ignore next*/exports.skip = skip;
-/*istanbul ignore next*/exports.skipKey = skipKey;
-/*istanbul ignore next*/exports.stop = stop;
-/*istanbul ignore next*/exports.setScope = setScope;
-/*istanbul ignore next*/exports.setContext = setContext;
-/*istanbul ignore next*/exports.resync = resync;
-/*istanbul ignore next*/exports._resyncParent = _resyncParent;
-/*istanbul ignore next*/exports._resyncKey = _resyncKey;
-/*istanbul ignore next*/exports._resyncList = _resyncList;
-/*istanbul ignore next*/exports._resyncRemoved = _resyncRemoved;
-/*istanbul ignore next*/exports.popContext = popContext;
-/*istanbul ignore next*/exports.pushContext = pushContext;
-/*istanbul ignore next*/exports.setup = setup;
-/*istanbul ignore next*/exports.setKey = setKey;
-/*istanbul ignore next*/exports.requeue = requeue;
-/*istanbul ignore next*/exports._getQueueContexts = _getQueueContexts;
+exports._call = _call;
+exports.isBlacklisted = isBlacklisted;
+exports.visit = visit;
+exports.skip = skip;
+exports.skipKey = skipKey;
+exports.stop = stop;
+exports.setScope = setScope;
+exports.setContext = setContext;
+exports.resync = resync;
+exports._resyncParent = _resyncParent;
+exports._resyncKey = _resyncKey;
+exports._resyncList = _resyncList;
+exports._resyncRemoved = _resyncRemoved;
+exports.popContext = popContext;
+exports.pushContext = pushContext;
+exports.setup = setup;
+exports.setKey = setKey;
+exports.requeue = requeue;
+exports._getQueueContexts = _getQueueContexts;
 
-var /*istanbul ignore next*/_index = require("../index");
+var _index = require("../index");
 
-/*istanbul ignore next*/
 var _index2 = _interopRequireDefault(_index);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -37,7 +36,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function call(key) {
   var opts = this.opts;
 
-  this.debug(function () /*istanbul ignore next*/{
+  this.debug(function () {
     return key;
   });
 
@@ -55,8 +54,7 @@ function call(key) {
 function _call(fns) {
   if (!fns) return false;
 
-  for ( /*istanbul ignore next*/var _iterator = fns, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
-    /*istanbul ignore next*/
+  for (var _iterator = fns, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
     var _ref;
 
     if (_isArray) {
@@ -76,7 +74,7 @@ function _call(fns) {
     if (!node) return true;
 
     var ret = fn.call(this.state, this, this.state);
-    if (ret) throw new Error( /*istanbul ignore next*/"Unexpected return value from visitor method " + fn);
+    if (ret) throw new Error("Unexpected return value from visitor method " + fn);
 
     // node has been replaced, it will have been requeued
     if (this.node !== node) return true;
@@ -106,16 +104,16 @@ function visit() {
   }
 
   if (this.call("enter") || this.shouldSkip) {
-    this.debug(function () /*istanbul ignore next*/{
+    this.debug(function () {
       return "Skip...";
     });
     return this.shouldStop;
   }
 
-  this.debug(function () /*istanbul ignore next*/{
+  this.debug(function () {
     return "Recursing into...";
   });
-  /*istanbul ignore next*/_index2.default.node(this.node, this.opts, this.scope, this.state, this, this.skipKeys);
+  _index2.default.node(this.node, this.opts, this.scope, this.state, this, this.skipKeys);
 
   this.call("exit");
 
@@ -261,7 +259,7 @@ function setKey(key) {
 }
 
 function requeue() {
-  /*istanbul ignore next*/var pathToQueue = arguments.length <= 0 || arguments[0] === undefined ? this : arguments[0];
+  var pathToQueue = arguments.length <= 0 || arguments[0] === undefined ? this : arguments[0];
 
   if (pathToQueue.removed) return;
 
@@ -270,8 +268,7 @@ function requeue() {
   // let contexts = this._getQueueContexts();
   var contexts = this.contexts;
 
-  for ( /*istanbul ignore next*/var _iterator2 = contexts, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
-    /*istanbul ignore next*/
+  for (var _iterator2 = contexts, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2);;) {
     var _ref2;
 
     if (_isArray2) {

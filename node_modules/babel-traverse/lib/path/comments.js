@@ -1,9 +1,9 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 exports.shareCommentsWithSiblings = shareCommentsWithSiblings;
-/*istanbul ignore next*/exports.addComment = addComment;
-/*istanbul ignore next*/exports.addComments = addComments;
+exports.addComment = addComment;
+exports.addComments = addComments;
 // This file contains methods responsible for dealing with comments.
 
 /**
@@ -45,7 +45,7 @@ function addComments(type, comments) {
   var node = this.node;
   if (!node) return;
 
-  var key = /*istanbul ignore next*/type + "Comments";
+  var key = type + "Comments";
 
   if (node[key]) {
     node[key] = node[key].concat(comments);

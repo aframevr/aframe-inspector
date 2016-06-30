@@ -1,14 +1,12 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 exports.visitor = undefined;
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-/*istanbul ignore next*/
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function getTDZStatus(refPath, bindingPath) {
@@ -35,13 +33,13 @@ function isReference(node, scope, state) {
   return scope.getBindingIdentifier(node.name) === declared;
 }
 
-var visitor = /*istanbul ignore next*/exports.visitor = { /*istanbul ignore next*/
+var visitor = exports.visitor = {
   ReferencedIdentifier: function ReferencedIdentifier(path, state) {
     if (!this.file.opts.tdz) return;
 
-    /*istanbul ignore next*/var node = path.node;
-    /*istanbul ignore next*/var parent = path.parent;
-    /*istanbul ignore next*/var scope = path.scope;
+    var node = path.node;
+    var parent = path.parent;
+    var scope = path.scope;
 
 
     if (path.parentPath.isFor({ left: node })) return;
@@ -67,16 +65,16 @@ var visitor = /*istanbul ignore next*/exports.visitor = { /*istanbul ignore next
         path.replaceWith(assert);
       }
     } else if (status === "outside") {
-      path.replaceWith(t.throwStatement(t.inherits(t.newExpression(t.identifier("ReferenceError"), [t.stringLiteral( /*istanbul ignore next*/node.name + " is not defined - temporal dead zone")]), node)));
+      path.replaceWith(t.throwStatement(t.inherits(t.newExpression(t.identifier("ReferenceError"), [t.stringLiteral(node.name + " is not defined - temporal dead zone")]), node)));
     }
   },
 
 
-  AssignmentExpression: { /*istanbul ignore next*/
+  AssignmentExpression: {
     exit: function exit(path, state) {
       if (!this.file.opts.tdz) return;
 
-      /*istanbul ignore next*/var node = path.node;
+      var node = path.node;
 
       if (node._ignoreBlockScopingTDZ) return;
 

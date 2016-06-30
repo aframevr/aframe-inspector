@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -10,19 +10,17 @@ var _getIterator2 = require("babel-runtime/core-js/get-iterator");
 
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
-var /*istanbul ignore next*/_babelTypes = require("babel-types");
+var _babelTypes = require("babel-types");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_babelTypes);
 
-/*istanbul ignore next*/
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var referenceVisitor = { /*istanbul ignore next*/
+var referenceVisitor = {
   ReferencedIdentifier: function ReferencedIdentifier(path, state) {
-    if (path.isJSXIdentifier() && /*istanbul ignore next*/_babelTypes.react.isCompatTag(path.node.name)) {
+    if (path.isJSXIdentifier() && _babelTypes.react.isCompatTag(path.node.name)) {
       return;
     }
 
@@ -37,8 +35,7 @@ var referenceVisitor = { /*istanbul ignore next*/
     if (binding.constant) {
       state.bindings[path.node.name] = binding;
     } else {
-      for ( /*istanbul ignore next*/var _iterator = binding.constantViolations, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
-        /*istanbul ignore next*/
+      for (var _iterator = binding.constantViolations, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
         var _ref;
 
         if (_isArray) {
@@ -58,10 +55,9 @@ var referenceVisitor = { /*istanbul ignore next*/
   }
 };
 
-/*istanbul ignore next*/
 var PathHoister = function () {
-  function /*istanbul ignore next*/PathHoister(path, scope) {
-    /*istanbul ignore next*/(0, _classCallCheck3.default)(this, PathHoister);
+  function PathHoister(path, scope) {
+    (0, _classCallCheck3.default)(this, PathHoister);
 
     this.breakOnScopePaths = [];
     this.bindings = {};
@@ -166,5 +162,5 @@ var PathHoister = function () {
   return PathHoister;
 }();
 
-/*istanbul ignore next*/exports.default = PathHoister;
-/*istanbul ignore next*/module.exports = exports["default"];
+exports.default = PathHoister;
+module.exports = exports["default"];

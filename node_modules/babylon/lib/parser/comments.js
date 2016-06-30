@@ -48,7 +48,8 @@ pp.processComment = function (node) {
 
   var lastChild = void 0,
       trailingComments = void 0,
-      i = void 0;
+      i = void 0,
+      j = void 0;
 
   if (this.state.trailingComments.length > 0) {
     // If the first comment in trailingComments comes after the
@@ -99,8 +100,18 @@ pp.processComment = function (node) {
     }
   } else if (this.state.leadingComments.length > 0) {
     if (last(this.state.leadingComments).end <= node.start) {
-      node.leadingComments = this.state.leadingComments;
-      this.state.leadingComments = [];
+      if (this.state.commentPreviousNode) {
+        for (j = 0; j < this.state.leadingComments.length; j++) {
+          if (this.state.leadingComments[j].end < this.state.commentPreviousNode.end) {
+            this.state.leadingComments.splice(j, 1);
+            j--;
+          }
+        }
+      }
+      if (this.state.leadingComments.length > 0) {
+        node.leadingComments = this.state.leadingComments;
+        this.state.leadingComments = [];
+      }
     } else {
       // https://github.com/eslint/espree/issues/2
       //
@@ -136,6 +147,8 @@ pp.processComment = function (node) {
       }
     }
   }
+
+  this.state.commentPreviousNode = node;
 
   if (trailingComments) {
     if (trailingComments.length && trailingComments[0].start >= node.start && last(trailingComments).end <= node.end) {

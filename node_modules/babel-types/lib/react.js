@@ -1,19 +1,17 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 exports.isReactComponent = undefined;
 exports.isCompatTag = isCompatTag;
-/*istanbul ignore next*/exports.buildChildren = buildChildren;
+exports.buildChildren = buildChildren;
 
-var /*istanbul ignore next*/_index = require("./index");
+var _index = require("./index");
 
-/*istanbul ignore next*/
 var t = _interopRequireWildcard(_index);
 
-/*istanbul ignore next*/
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var isReactComponent = /*istanbul ignore next*/exports.isReactComponent = t.buildMatchMemberExpression("React.Component");
+var isReactComponent = exports.isReactComponent = t.buildMatchMemberExpression("React.Component");
 
 function isCompatTag(tagName) {
   return !!tagName && /^[a-z]|\-/.test(tagName);

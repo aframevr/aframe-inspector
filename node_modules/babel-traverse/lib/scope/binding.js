@@ -1,4 +1,4 @@
-/*istanbul ignore next*/"use strict";
+"use strict";
 
 exports.__esModule = true;
 
@@ -20,13 +20,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 
 var Binding = function () {
-  function /*istanbul ignore next*/Binding(_ref) {
-    /*istanbul ignore next*/var existing = _ref.existing;
-    /*istanbul ignore next*/var identifier = _ref.identifier;
-    /*istanbul ignore next*/var scope = _ref.scope;
-    /*istanbul ignore next*/var path = _ref.path;
-    /*istanbul ignore next*/var kind = _ref.kind;
-    /*istanbul ignore next*/(0, _classCallCheck3.default)(this, Binding);
+  function Binding(_ref) {
+    var existing = _ref.existing;
+    var identifier = _ref.identifier;
+    var scope = _ref.scope;
+    var path = _ref.path;
+    var kind = _ref.kind;
+    (0, _classCallCheck3.default)(this, Binding);
 
     this.identifier = identifier;
     this.scope = scope;
@@ -101,5 +101,5 @@ var Binding = function () {
   return Binding;
 }();
 
-/*istanbul ignore next*/exports.default = Binding;
-/*istanbul ignore next*/module.exports = exports["default"];
+exports.default = Binding;
+module.exports = exports["default"];
