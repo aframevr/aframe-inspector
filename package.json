@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --progress --colors -d"
+    "start": "webpack-dev-server --progress --colors -d --open",
+    "build": "webpack --progress --colors -p"
   },
-  "author": "Fernando Serrano",
+  "repository": "aframevr/aframe-editor",
   "license": "MIT",
   "dependencies": {
     "aframe": "^0.2.0",

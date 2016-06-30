@@ -24,16 +24,12 @@ var Collapsible = React.createClass({
   	return this.props !== nextProps || this.state !== nextState;
   },
   toggleVisibility: function () {
-  	event.preventDefault();
     this.setState({
     	expanded: !this.state.expanded
     });
-    console.log(this.state.expanded);
   },
 	render: function () {
     var expanded = this.state.expanded;
-    console.log(this.props.children);
-//    <span>{componentName} <span className="subcomponent">{subComponentName}</span></span>
   	return (
       <div className={'component collapsible' + (expanded ? '' : ' collapsed')}>
         <div className="static">

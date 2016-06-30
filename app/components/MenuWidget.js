@@ -31,24 +31,26 @@ var CreateMenu = React.createClass({
     var prevGroup = null;
     var definitions = this.state.primitivesDefinitions;
 
-    return <div className="menu">
-              <div className="title">Create</div>
-              <div className="options">
-              {
-                Object.keys(definitions).map(function(definition) {
-                  var output = [];
-                  if (prevGroup === null) {
-                    prevGroup = definitions[definition].group;
-                  } else if (prevGroup !== definitions[definition].group) {
-                    prevGroup = definitions[definition].group;
-                    output.push(<hr/>);
-                  }
-                  output.push(<div className="option" key={definition} value={definition} onClick={this.createEntity}>{definition}</div>);
-                  return output;
-                }.bind(this))
-              }
-              </div>
-            </div>;
+    return (
+      <div className="menu">
+        <div className="title">Create</div>
+        <div className="options">
+        {
+          Object.keys(definitions).map(function(definition) {
+            var output = [];
+            if (prevGroup === null) {
+              prevGroup = definitions[definition].group;
+            } else if (prevGroup !== definitions[definition].group) {
+              prevGroup = definitions[definition].group;
+              output.push(<hr/>);
+            }
+            output.push(<div className="option" key={definition} value={definition} onClick={this.createEntity}>{definition}</div>);
+            return output;
+          }.bind(this))
+        }
+        </div>
+      </div>
+    );
   },
   createEntity: function(e) {
     Events.emit('createNewEntity', this.state.primitivesDefinitions[e.target.value]);
@@ -105,16 +107,6 @@ var MenuWidget = React.createClass({
         console.error('Error while copying to clipboard:', e.action, e.trigger);
     });
   },
-  componentWillReceiveProps: function(newProps) {
-    // This will be triggered typically when the element is changed directly with element.setAttribute
-  /*  if (newProps.value != this.state.value) {
-      this.setState({value: newProps.value});
-    }
-*/
-  },
-  copyToClipboard: function() {
-    //console.log(Exporter.generateHtml());
-  },
   saveToHTML: function () {
     var link = document.createElement('a');
     link.style.display = 'none';
@@ -132,28 +124,27 @@ var MenuWidget = React.createClass({
     saveString(Exporter.generateHtml(), 'ascene.html');
   },
   render: function() {
-    return <div className="Panel" id="menubar">
-      {
-
-      }
-      <div className="menu aframe-logo">
-        <div className="title">
-          <span style={{color: '#ed3160'}}>A-</span>
-          <span style={{color: '#fff'}}>Frame</span>
+    return (
+      <div className="Panel" id="menubar">
+        <div className="menu aframe-logo">
+          <div className="title">
+            <span style={{color: '#ed3160'}}>A-</span>
+            <span style={{color: '#fff'}}>Frame</span>
+          </div>
         </div>
-      </div>
-      <div className="menu">
-        <div className="title">Scene</div>
-        <div className="options">
-          <div className="option" onClick={this.saveToHTML}>Save HTML</div>
-          <div className="option" data-action="copy-to-clipboard">Copy to clipboard</div>
+        <div className="menu">
+          <div className="title">Scene</div>
+          <div className="options">
+            <div className="option" onClick={this.saveToHTML}>Save HTML</div>
+            <div className="option" data-action="copy-to-clipboard">Copy to clipboard</div>
+          </div>
         </div>
+        <div className="menu">
+          <div className="title">Edit</div>
+        </div>
+        <CreateMenu/>
       </div>
-      <div className="menu">
-        <div className="title">Edit</div>
-      </div>
-      <CreateMenu/>
-    </div>;
+    );
   }
 });
 

@@ -19,17 +19,19 @@ var Modal = React.createClass({
     if (!this.state.isOpen) {
       return <span></span>;
     }
-    return <div className="modal">
-      <div className="modal-content">
-        <div className="modal-header">
-          <span className="close" onClick={this.close}>×</span>
-          <h3>{ this.props.title }</h3>
-        </div>
-        <div className="modal-body">
-          { this.props.children }
+    return (
+      <div className="modal">
+        <div className="modal-content">
+          <div className="modal-header">
+            <span className="close" onClick={this.close}>×</span>
+            <h3>{ this.props.title }</h3>
+          </div>
+          <div className="modal-body">
+            { this.props.children }
+          </div>
         </div>
       </div>
-    </div>
+    )
   }
 });
 

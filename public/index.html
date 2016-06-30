@@ -24,15 +24,15 @@
         <img id="floorimg2" src="assets/textures/grasslight-big.jpg">
       </a-assets>
       <a-entity id="soundcube" position="0 0 -10" rotation="45 30 0"
-        sound_1="autoplay: true; src: assets/sounds/321103__nsstudios__blip1.wav;"
-        sound_2="autoplay: true; src: assets/sounds/Laser-SoundBible.com-602495617.com-602495617.ogg;"
-        geometry="primitive: box; height: 8; width: 8; depth: 8;"
-        material="color: #167341; roughness: 1.0; metalness: 0.2;">
+          geometry="primitive: box; height: 8; width: 8; depth: 8;"
+          sound__1="autoplay: true; src: assets/sounds/321103__nsstudios__blip1.wav;"
+          sound__2="autoplay: true; src: assets/sounds/Laser-SoundBible.com-602495617.com-602495617.ogg;"
+          material="color: #167341; roughness: 1.0; metalness: 0.2;">
       </a-entity>
       <a-entity position="0 1 8">
         <a-entity camera look-controls wasd-controls>
           <a-entity visible="true" position="0 0 -2" geometry="primitive: ring; radiusOuter: 0.016; radiusInner: 0.01" material="color: #ff9; shader: flat; transparent: true; opacity: 0.5" scale="2 2 2" raycaster="">
-              </a-entity>
+          </a-entity>
         </a-entity>
       </a-entity>
       <a-entity id="short_orange_cube" mixin="short orange cube" position="-5 2 0"></a-entity>
@@ -59,7 +59,7 @@
           position="0 0 0"></a-entity>
 
     </a-scene>
-    <script src="bundle.js"></script>
+    <script src="../build/aframe-editor.js"></script>
     <div id="app"></div>
   </body>
 </html>

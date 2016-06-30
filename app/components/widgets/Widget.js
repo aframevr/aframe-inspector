@@ -1,5 +1,9 @@
 var Events = require('../../lib/Events.js');
 
+function getBaseComponentName(componentName) {
+  return componentName.substr(0,componentName.indexOf('__'));
+}
+
 /**
  * Update the entity component value
  * @param  {Element} entity   Entity to modify
@@ -15,7 +19,10 @@ function handleEntityChange (entity, componentName, propertyName, value) {
     }
     return 'default' in schema;
   }
-  var isSingle = isSingleProperty(AFRAME.components[componentName].schema);
+
+  var isSingle = isSingleProperty(AFRAME.components[getBaseComponentName(componentName)].schema);
+
+  console.log(entity, componentName, propertyName, value);
 
   if (propertyName && !isSingle) {
     if (value === null || value === undefined) {
