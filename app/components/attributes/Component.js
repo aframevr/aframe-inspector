@@ -5,11 +5,11 @@ var Pane = require('../Pane');
 
 var Component = React.createClass({
   deleteComponent: function(event) {
-    event.preventDefault();
+    event.stopPropagation();
     this.props.entity.removeAttribute(this.props.name);
   },
   resetComponent: function(event) {
-    event.preventDefault();
+    event.stopPropagation();
     this.props.entity.setAttribute(this.props.name, {});
   },
   render: function() {

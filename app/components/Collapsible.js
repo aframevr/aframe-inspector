@@ -31,8 +31,8 @@ var Collapsible = React.createClass({
     var expanded = this.state.expanded;
   	return (
       <div className={'component collapsible' + (expanded ? '' : ' collapsed')}>
-        <div className="static">
-          <div className="button" onClick={this.toggleVisibility}></div>
+        <div className="static" onClick={this.toggleVisibility}>
+          <div className="button"></div>
           {this.props.children[0]}
         </div>
         <div className={'content' + (expanded ? '' : ' hide')}>

@@ -320,7 +320,6 @@ div.vec3 {
 	width: 50px;
 }
 
-
 .collapsible {
 }
 
@@ -415,7 +414,7 @@ div.vec3 {
 }
 
 a.button {
-	color: #fff;
+	color: #bcbcbc;
 	font-size: 16px;
 	text-decoration: none;
 	margin-left: 10px;
@@ -743,4 +742,8 @@ span.subcomponent {
 	margin-left: 10px;
 	float: none !important;
 	vertical-align: top !important;
+}
+
+.collapsible .static {
+	cursor: pointer;
 }
