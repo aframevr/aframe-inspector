@@ -8,17 +8,24 @@ An easy-to-use editor for creating VR scenes using [A-FRAME](http://aframe.io/).
 
 2. Add script to your A-FRAME document:
 
-````html
+```html
 <script src="js/aframe-editor.js"></script>
-````
+```
 
 ## Working on the editor
 
-````
+```
 git clone git@github.com:aframevr/aframe-editor.git
 cd aframe-editor
 npm install
 npm start
-````
+```
 
 Navigate to __[http://localhost:3333/public](http://localhost:3333/public)__
+
+## Bookmarklet
+
+You can add this code to any page using the following bookmarklet:
+```javascript
+javascript:(function(){ var div = document.createElement('div'); div.id = "app"; document.body.appendChild(div); var script=document.createElement('script'); script.src='http://localhost:3333/build/aframe-editor.js';document.head.appendChild(script);})()
+```
