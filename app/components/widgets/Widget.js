@@ -1,7 +1,8 @@
 var Events = require('../../lib/Events.js');
 
 function getBaseComponentName(componentName) {
-  return componentName.substr(0,componentName.indexOf('__'));
+  var idx = componentName.indexOf('__');
+  return idx === -1 ? componentName : componentName.substr(0, idx);
 }
 
 /**
@@ -21,8 +22,6 @@ function handleEntityChange (entity, componentName, propertyName, value) {
   }
 
   var isSingle = isSingleProperty(AFRAME.components[getBaseComponentName(componentName)].schema);
-
-  console.log(entity, componentName, propertyName, value);
 
   if (propertyName && !isSingle) {
     if (value === null || value === undefined) {

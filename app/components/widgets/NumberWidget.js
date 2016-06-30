@@ -30,12 +30,8 @@ var NumberWidget = React.createClass({
 
     this.onBlur();
     var input = this.refs.input;
-    input.addEventListener('mousedown', this._onMouseDown, false);
-    input.addEventListener('change', this.onChange, false);
-    input.addEventListener('focus', this.onFocus, false);
-    input.addEventListener('blur', this.onBlur, false);
   },
-  _onMouseMove: function(event) {
+  onMouseMove: function(event) {
     var currentValue = parseFloat(this.value);
     var pointer = [ event.clientX, event.clientY ];
 
@@ -47,17 +43,17 @@ var NumberWidget = React.createClass({
     }
     this.prevPointer = [ event.clientX, event.clientY ];
   },
-  _onMouseDown: function(event) {
+  onMouseDown: function(event) {
     event.preventDefault();
     this.distance = 0;
     this.onMouseDownValue = this.state.value;
     this.prevPointer = [ event.clientX, event.clientY ];
-    document.addEventListener( 'mousemove', this._onMouseMove, false );
-    document.addEventListener( 'mouseup', this._onMouseUp, false );
+    document.addEventListener('mousemove', this.onMouseMove, false);
+    document.addEventListener('mouseup', this.onMouseUp, false);
   },
-  _onMouseUp: function( event ) {
-    document.removeEventListener( 'mousemove', this._onMouseMove, false );
-    document.removeEventListener( 'mouseup', this._onMouseUp, false );
+  onMouseUp: function( event ) {
+    document.removeEventListener('mousemove', this.onMouseMove, false);
+    document.removeEventListener('mouseup', this.onMouseUp, false);
 
     if ( Math.abs( this.distance ) < 2 ) {
       this.refs.input.focus();
@@ -78,6 +74,7 @@ var NumberWidget = React.createClass({
         value = this.props.min;
       if (value > this.props.max)
         value = this.props.max;
+
       this.setState({value: value, displayValue: value.toFixed(this.props.precision)});
 
       if (this.props.onChange)
@@ -90,30 +87,13 @@ var NumberWidget = React.createClass({
       this.setState({value: newProps.value, displayValue: newProps.value.toFixed(this.props.precision)});
     }
   },
-  onChange: function( event ) {
-    var value = 0;
-    try {
-      value = eval( this.refs.input.value );
-    } catch ( error ) {
-      console.error( error.message );
-    }
-    this.setValue( parseFloat( value ) );
-  },
-  _onFocus: function() {
-    this.setState({class: 'focused'});
-  },
   onBlur: function() {
     this.setValue(parseFloat(this.refs.input.value));
     this.setState({class: ''});
   },
-  focus: function() {
-    if (this.refs) {
-      this.refs.focus();
-      this.refs.select();
-    }
-  },
-  nada: function(e) {
-    this.setState({displayValue: this.refs.input.value});
+  onChange: function(e) {
+    value = eval( this.refs.input.value );
+    this.setState({value: value, displayValue: this.refs.input.value});
   },
   onKeyDown: function(event) {
     event.stopPropagation();
@@ -124,7 +104,14 @@ var NumberWidget = React.createClass({
   },
   render: function() {
     return (
-        <input ref="input" className="number" type="text" value={this.state.displayValue} onKeyDown={this.onKeyDown} onChange={this.nada}/>
+        <input ref="input" className="number" type="text"
+          value={this.state.displayValue}
+          onKeyDown={this.onKeyDown}
+          onChange={this.onChange}
+          onMouseDown={this.onMouseDown}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
+        />
         );
   }
 });
