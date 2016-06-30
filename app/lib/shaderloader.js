@@ -10,7 +10,6 @@ ShaderLoader.prototype = {
     var xhr = new window.XMLHttpRequest();
     // @todo Remove the sync call and use a callback
     xhr.open('GET', 'https://raw.githubusercontent.com/fernandojsg/aframe-shaders/master/shaders.json', false);
-    // xhr.open('GET', 'https://raw.githubusercontent.com/aframevr/aframe-shaders/master/shaders.json', false);
     xhr.onload = function () {
       this.shaders = window.JSON.parse(xhr.responseText);
       console.info('Loaded Shaders:', Object.keys(this.shaders).length);

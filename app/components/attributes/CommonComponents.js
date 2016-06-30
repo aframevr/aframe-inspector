@@ -3,7 +3,7 @@ var InputWidget = require('../widgets').InputWidget;
 var handleEntityChange = require('../widgets').handleEntityChange;
 var AttributeRow = require('./AttributeRow');
 var Events = require('../../lib/Events.js');
-
+var Collapsible = require('../Collapsible');
 
 function trim (s) {
   s = s.replace(/(^\s*)|(\s*$)/gi, '');
@@ -113,28 +113,32 @@ var CommonComponents = React.createClass({
     if (!entity) {
       return <div></div>;
     }
-    return <div className="collapsible">
-            <div className="static"><div className="button"></div><span>COMMON</span><div className="menu"></div></div>
-            <div className="content">
-              <div className="row">
-                <span className="text">Type</span>
-                <span className="value">{entity.tagName}</span>
-              </div>
-              <div className="row">
-                <span className="text">ID</span>
-                <InputWidget onChange={changeId} entity={entity} name="id" value={entity.id}/>
-              </div>
-              {
-                Object.keys(components).filter(function(key){return ['visible','position','scale','rotation'].indexOf(key)!=-1;}).map(function(key) {
-                  var componentData = components[key];
-                  var schema = AFRAME.components[key].schema;
-                  var data = isSingleProperty(schema) ? componentData.data : componentData.data[key];
-                  return <AttributeRow onChange={handleEntityChange} key={key} name={key} schema={schema} data={componentData.data} componentname={key} entity={this.props.entity} />
-                }.bind(this))
-              }
-              <MixinsComponent entity={entity}/>
-            </div>
-          </div>;
+    return (
+      <Collapsible>
+        <div className="collapsible-header">
+          <span>COMMON</span>
+        </div>
+        <div className="collapsible-content">
+          <div className="row">
+            <span className="text">Type</span>
+            <span className="value">{entity.tagName}</span>
+          </div>
+          <div className="row">
+            <span className="text">ID</span>
+            <InputWidget onChange={changeId} entity={entity} name="id" value={entity.id}/>
+          </div>
+          {
+            Object.keys(components).filter(function(key){return ['visible','position','scale','rotation'].indexOf(key)!=-1;}).map(function(key) {
+              var componentData = components[key];
+              var schema = AFRAME.components[key].schema;
+              var data = isSingleProperty(schema) ? componentData.data : componentData.data[key];
+              return <AttributeRow onChange={handleEntityChange} key={key} name={key} schema={schema} data={componentData.data} componentname={key} entity={this.props.entity} />
+            }.bind(this))
+          }
+          <MixinsComponent entity={entity}/>
+        </div>
+      </Collapsible>
+    );
   }
 });
 

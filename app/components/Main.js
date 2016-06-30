@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Menu = require('./MenuWidget');
+var Menu = require('./menu/Menu');
 var Scenegraph = require('./Scenegraph');
 var Events = require('../lib/Events.js');
 var Editor = require('../lib/editor');
@@ -10,23 +10,19 @@ var AttributesSidebar = require('./attributes/AttributesSidebar');
 import "../css/main.css";
 import "../css/dark.css";
 
+function injectCSS(url) {
+  var link = document.createElement('link');
+  link.href = url;
+  link.type = 'text/css';
+  link.rel = 'stylesheet';
+  link.media = 'screen,print';
+  document.getElementsByTagName('head')[0].appendChild(link);
+}
+
 // Megahack to include font-awesome
 // -------------
-var link = document.createElement('link');
-link.href = 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css';
-link.type = 'text/css';
-link.rel = 'stylesheet';
-link.media = 'screen,print';
-document.getElementsByTagName('head')[0].appendChild(link);
-// ------------
-
-var link = document.createElement('link');
-link.href = 'https://fonts.googleapis.com/css?family=Roboto:400,300,500';
-link.type = 'text/css';
-link.rel = 'stylesheet';
-link.media = 'screen,print';
-document.getElementsByTagName('head')[0].appendChild(link);
-
+injectCSS('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
+injectCSS('https://fonts.googleapis.com/css?family=Roboto:400,300,500');
 
 var Main = React.createClass({
   getInitialState: function() {

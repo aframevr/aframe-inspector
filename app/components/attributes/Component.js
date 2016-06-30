@@ -3,37 +3,6 @@ var AttributeRow = require('./AttributeRow');
 var Collapsible = require('../Collapsible');
 var Pane = require('../Pane');
 
-var Header = React.createClass({
-	displayName: 'Header',
-  propTypes: {
-    label: React.PropTypes.string.isRequired,
-    children: React.PropTypes.element.isRequired
-  },
-	render: function () {
-  	return (
-    	<div>
-      	{this.props.children}
-      </div>
-    );
-  }
-});
-
-var Content = React.createClass({
-	displayName: 'Content',
-  propTypes: {
-    label: React.PropTypes.string.isRequired,
-    children: React.PropTypes.element.isRequired
-  },
-	render: function () {
-  	return (
-    	<div>
-      	{this.props.children}
-      </div>
-    );
-  }
-});
-
-
 var Component = React.createClass({
   deleteComponent: function(event) {
     event.preventDefault();
@@ -55,7 +24,7 @@ var Component = React.createClass({
 
     return (
       <Collapsible>
-        <Header>
+        <div class="collapsible-header">
           <span>{componentName} <span className="subcomponent">{subComponentName}</span></span>
           <div className="dropdown menu">
             <div className="dropdown-content">
@@ -64,13 +33,13 @@ var Component = React.createClass({
               <a href="#" className="disabled">Copy to clipboard</a>
             </div>
           </div>
-        </Header>
-        <Content>{
+        </div>
+        <div class="collapsible-content">{
           Object.keys(componentData.schema).map(function(key) {
             return <AttributeRow key={key} name={key} schema={componentData.schema[key]} data={componentData.data[key]} componentname={this.props.name} entity={this.props.entity} />
           }.bind(this))
         }
-        </Content>
+        </div>
       </Collapsible>
     );
   }

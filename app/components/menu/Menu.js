@@ -1,7 +1,7 @@
 var React = require('react');
-var Events = require('../lib/Events.js');
 var Clipboard = require('clipboard');
-var Exporter = require('../exporter.js');
+var Exporter = require('../../lib/exporter.js');
+var Events = require('../../lib/Events.js');
 
 var CreateMenu = React.createClass({
   getInitialState: function() {
@@ -66,24 +66,26 @@ var EditMenu = React.createClass({
     var prevGroup = null;
     var definitions = this.state.primitivesDefinitions;
 
-    return <div className="menu">
-              <div className="title">Create</div>
-              <div className="options">
-              {
-                Object.keys(definitions).map(function(definition) {
-                  var output = [];
-                  if (prevGroup === null) {
-                    prevGroup = definitions[definition].group;
-                  } else if (prevGroup !== definitions[definition].group) {
-                    prevGroup = definitions[definition].group;
-                    output.push(<hr/>);
-                  }
-                  output.push(<div className="option" key={definition} value={definition}>{definition}</div>);
-                  return output;
-                }.bind(this))
-              }
-              </div>
-            </div>;
+    return (
+      <div className="menu">
+        <div className="title">Create</div>
+        <div className="options">
+        {
+          Object.keys(definitions).map(function(definition) {
+            var output = [];
+            if (prevGroup === null) {
+              prevGroup = definitions[definition].group;
+            } else if (prevGroup !== definitions[definition].group) {
+              prevGroup = definitions[definition].group;
+              output.push(<hr/>);
+            }
+            output.push(<div className="option" key={definition} value={definition}>{definition}</div>);
+            return output;
+          }.bind(this))
+        }
+        </div>
+      </div>
+    );
   },
   createEntity: function(e) {
     Events.emit('createNewEntity', this.state.primitivesDefinitions[e.target.value]);

@@ -4,7 +4,6 @@ var Pane = require('./Pane');
 var Collapsible = React.createClass({
 	displayName: 'Collapsible',
 	propTypes: {
-    selected: React.PropTypes.number,
     children: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.element
