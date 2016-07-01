@@ -21,7 +21,7 @@ npm install
 npm start
 ```
 
-Navigate to __[http://localhost:3333/public](http://localhost:3333/public)__
+Navigate to __[http://localhost:3333/example](http://localhost:3333/example)__
 
 ## Bookmarklet
 
