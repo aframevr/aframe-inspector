@@ -120,8 +120,8 @@ var CommonComponents = React.createClass({
         </div>
         <div className="collapsible-content">
           <div className="row">
-            <span className="text">Type</span>
-            <span className="value">{entity.tagName}</span>
+            <span className="text">HTML Element</span>
+            <span className="value">&lt;{entity.tagName.toLowerCase()}&gt;</span>
           </div>
           <div className="row">
             <span className="text">ID</span>
