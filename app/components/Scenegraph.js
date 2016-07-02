@@ -101,7 +101,7 @@ var Scenegraph = React.createClass({
 
     treeIterate(this.props.scene);
 
-    return <div className="Outliner" tabindex="0" id="outliner">
+    return <div className="Outliner" tabIndex="0" id="outliner">
       {
         options.map(function(option, idx) {
           var className = 'option' + (option.value === this.state.value ? ' active' : '');

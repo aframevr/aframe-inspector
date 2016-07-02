@@ -3,6 +3,13 @@ var AttributeRow = require('./AttributeRow');
 var Collapsible = require('../Collapsible');
 var Pane = require('../Pane');
 
+function isSingleProperty (schema) {
+   if ('type' in schema) {
+     return typeof schema.type === 'string';
+   }
+   return 'default' in schema;
+}
+
 var Component = React.createClass({
   deleteComponent: function(event) {
     event.stopPropagation();
@@ -22,9 +29,24 @@ var Component = React.createClass({
       componentName = componentName.substr(0, componentName.indexOf('__'));
     }
 
+    var attributeRows = '';
+    if (isSingleProperty(componentData.schema)) {
+      var key = componentName.toLowerCase();
+      var schema = AFRAME.components[key.toLowerCase()].schema;
+      var data = isSingleProperty(schema) ? componentData.data : componentData.data[key];
+      attributeRows = <AttributeRow key={key} name={key} schema={schema} data={componentData.data} componentname={key} entity={this.props.entity} />
+      //attributeRows = <AttributeRow key={key} name={key} schema={componentData.schema[key]} data={componentData.data[key]} componentname={this.props.name} entity={this.props.entity} />
+    } else {
+     attributeRows = Object.keys(componentData.schema).map(function(key) {
+      //var data = isSingleProperty(schema) ? componentData.data : componentData.data[key];
+      var schema = componentData.schema[key];
+      return <AttributeRow key={key} name={key} schema={componentData.schema[key]} data={componentData.data[key]} componentname={this.props.name} entity={this.props.entity} />
+     }.bind(this))
+    }
+
     return (
       <Collapsible>
-        <div class="collapsible-header">
+        <div className="collapsible-header">
           <span>{componentName} <span className="subcomponent">{subComponentName}</span></span>
           <div className="dropdown menu">
             <div className="dropdown-content">
@@ -34,12 +56,7 @@ var Component = React.createClass({
             </div>
           </div>
         </div>
-        <div class="collapsible-content">{
-          Object.keys(componentData.schema).map(function(key) {
-            return <AttributeRow key={key} name={key} schema={componentData.schema[key]} data={componentData.data[key]} componentname={this.props.name} entity={this.props.entity} />
-          }.bind(this))
-        }
-        </div>
+        <div className="collapsible-content">{attributeRows}</div>
       </Collapsible>
     );
   }
