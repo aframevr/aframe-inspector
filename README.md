@@ -27,5 +27,5 @@ Navigate to __[http://localhost:3333/example](http://localhost:3333/example)__
 
 You can add this code to any page using the following bookmarklet:
 ```javascript
-javascript:(function(){ var div = document.createElement('div'); div.id = "app"; document.body.appendChild(div); var script=document.createElement('script'); script.src='http://localhost:3333/build/aframe-editor.js';document.head.appendChild(script);})()
+avascript:(function(){var script=document.createElement('script'); script.src='http://localhost:3333/build/aframe-editor.js';document.head.appendChild(script);})()
 ```

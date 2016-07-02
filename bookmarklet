@@ -1,1 +1,1 @@
-javascript:(function(){ var div = document.createElement('div'); div.id = "app"; document.body.appendChild(div); var script=document.createElement('script'); script.src='http://localhost:3333/build/aframe-editor.js';document.head.appendChild(script);})()
+javascript:(function(){var script=document.createElement('script'); script.src='http://localhost:3333/build/aframe-editor.js';document.head.appendChild(script);})()

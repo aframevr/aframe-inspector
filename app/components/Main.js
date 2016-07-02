@@ -80,6 +80,9 @@ var Main = React.createClass({
 });
 
 function init(){
+  var div = document.createElement('div');
+  div.id = "app";
+  document.body.appendChild(div);
   window.addEventListener('editor-loaded', function(){
     ReactDOM.render(<Main />,document.getElementById('app'));
   });
