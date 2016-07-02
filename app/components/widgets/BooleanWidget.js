@@ -24,8 +24,10 @@ var BooleanWidget = React.createClass({
       this.props.onChange(this.props.entity, this.props.componentname, this.props.name, value);
   },
   render: function() {
+    var id = this.props.componentname + '.' + this.props.name;
+    
     return (
-        <input ref="input" type="checkbox" checked={this.state.value} value={this.state.value} onChange={this.onChange}/>
+        <input id={id} ref="input" type="checkbox" checked={this.state.value} value={this.state.value} onChange={this.onChange}/>
     );
   }
 });

@@ -40,9 +40,10 @@ var AttributeRow = React.createClass({
       widget = <InputWidget onChange={handleEntityChange} name={this.props.name} componentname={this.props.componentname} entity={this.props.entity} value={this.props.data}/>;
     }
     var title = "type: " +this.props.schema.type+ " value: " + JSON.stringify(this.props.data);
+    var id = this.props.componentname + '.' + this.props.name;
     return (
       <div className="row">
-        <span className="text" title={title}>{this.props.name}</span>
+        <label htmlFor={id} className="text" title={title}>{this.props.name}</label>
         {widget}
       </div>
     );
