@@ -20,6 +20,7 @@ THREE.EditorControls = function ( object, domElement ) {
 	var vector = new THREE.Vector3();
 
 	var STATE = { NONE: - 1, ROTATE: 0, ZOOM: 1, PAN: 2 };
+	var stateClass = ['state-rotating', 'state-zooming', 'state-dragging'];
 	var state = STATE.NONE;
 
 	var center = this.center;
@@ -135,13 +136,14 @@ THREE.EditorControls = function ( object, domElement ) {
 
 		}
 
+		domElement.classList.add(stateClass[state]);
+
 		pointerOld.set( event.clientX, event.clientY );
 
 		domElement.addEventListener( 'mousemove', onMouseMove, false );
 		domElement.addEventListener( 'mouseup', onMouseUp, false );
 		domElement.addEventListener( 'mouseout', onMouseUp, false );
 		domElement.addEventListener( 'dblclick', onMouseUp, false );
-
 	}
 
 	function onMouseMove( event ) {
@@ -178,6 +180,7 @@ THREE.EditorControls = function ( object, domElement ) {
 		domElement.removeEventListener( 'mouseout', onMouseUp, false );
 		domElement.removeEventListener( 'dblclick', onMouseUp, false );
 
+		domElement.classList.remove(stateClass[state]);
 		state = STATE.NONE;
 
 	}

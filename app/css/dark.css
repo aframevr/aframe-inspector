@@ -747,3 +747,9 @@ span.subcomponent {
 .collapsible .static {
 	cursor: pointer;
 }
+
+.a-canvas.state-dragging {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
