@@ -18,7 +18,6 @@ var ModalTextures = React.createClass({
     }
   },
   componentWillReceiveProps: function(newProps) {
-    console.log(newProps);
     if (this.state.isOpen !== newProps.isOpen) {
       this.setState({isOpen: newProps.isOpen});
       if (newProps.isOpen) {
@@ -32,7 +31,7 @@ var ModalTextures = React.createClass({
     }
   },
   selectTexture: function(value) {
-    this.setState({isOpen: false});
+//    this.setState({isOpen: false});
     if (this.props.onClose) {
       this.props.onClose(value);
     }
@@ -139,7 +138,7 @@ var ModalTextures = React.createClass({
     //let imagePreviewClick = this.selectTexture.bind(this, this.state.preview);
     var self = this;
     let imagePreviewClick = function() {
-      console.log("imagepreview");
+
       self.selectTexture(self.state.preview);
     }
 
@@ -150,7 +149,6 @@ var ModalTextures = React.createClass({
     }
 
     let selectSample = function(image) {
-      console.log("Selected",image);
       self.setState({preview: {
           width: image.width,
           height: image.height,
