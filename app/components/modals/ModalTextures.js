@@ -31,7 +31,6 @@ var ModalTextures = React.createClass({
     }
   },
   selectTexture: function(value) {
-//    this.setState({isOpen: false});
     if (this.props.onClose) {
       this.props.onClose(value);
     }

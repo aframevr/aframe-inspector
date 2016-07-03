@@ -37,10 +37,10 @@ var Main = React.createClass({
       //Events.emit('editorModeChanged', this.state.editorEnabled);
     });
   },
-  onClose: function() {
+  onModalTextureOnClose: function(value) {
     this.setState({isModalTexturesOpen: false});
     if (this.state.textureOnClose) {
-      this.state.textureOnClose();
+      this.state.textureOnClose(value);
     }
   },
   componentDidMount: function() {
@@ -65,7 +65,7 @@ var Main = React.createClass({
     return (
       <div>
         <div id="editor" className={this.state.editorEnabled ? '' : 'hidden'}>
-          <ModalTextures ref="modaltextures" isOpen={textureDialogOpened} onClose={this.onClose}/>
+          <ModalTextures ref="modaltextures" isOpen={textureDialogOpened} onClose={this.onModalTextureOnClose}/>
           <Menu/>
           <div id="sidebar-left">
             <div className="tab">SCENEGRAPH</div>
