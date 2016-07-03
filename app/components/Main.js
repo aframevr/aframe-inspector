@@ -68,10 +68,7 @@ var Main = React.createClass({
               <a href="#" onClick={this.deleteEntity} className="button fa fa-trash-o"></a>
             </div>
           </div>
-          <div id="sidebar">
-            <div className="tab">ATTRIBUTES</div>
-            <AttributesSidebar/>
-          </div>
+          <AttributesSidebar/>
         </div>
         <a href="#" className="toggle-edit" onClick={this.toggleEditor}>{this.state.editorEnabled?'Exit':'Edit'}</a>
       </div>

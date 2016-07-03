@@ -18,9 +18,10 @@ var ModalTextures = React.createClass({
     }
   },
   componentWillReceiveProps: function(newProps) {
+    console.log(newProps);
     if (this.state.isOpen !== newProps.isOpen) {
-      this.state.isOpen = newProps.isOpen;
-      if (this.state.isOpen) {
+      this.setState({isOpen: newProps.isOpen});
+      if (newProps.isOpen) {
         this.generateFromAssets();
       }
     }
@@ -31,9 +32,9 @@ var ModalTextures = React.createClass({
     }
   },
   selectTexture: function(value) {
+    this.setState({isOpen: false});
     if (this.props.onClose) {
       this.props.onClose(value);
-      this.setState({isOpen: false});
     }
   },
   generateFromSamples: function() {
@@ -125,7 +126,6 @@ var ModalTextures = React.createClass({
   },
   toggleNewDialog: function() {
     this.setState({addNewDialogOpened: !this.state.addNewDialogOpened});
-    console.log(this.state.addNewDialogOpened);
   },
   render: function() {
     let samples = this.textures;
