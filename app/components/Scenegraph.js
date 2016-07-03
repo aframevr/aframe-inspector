@@ -3,42 +3,36 @@ var Events = require('../lib/Events.js');
 
 var Scenegraph = React.createClass({
   getInitialState: function() {
-    return {value: this.props.value || ''};
+    return {value: this.props.value || '', options: [], selectedIndex: -1};
   },
   getDefaultProps: function() {
     return {
-      value: ''
+      value: '',
+      index: -1
     };
   },
   setValue: function(value) {
-    this.setState({value: value});
-    if (this.props.onChange)
-      this.props.onChange(value);
-    Events.emit('entitySelected', value);
+    var found = false;
+    for (var i = 0; i < this.state.options.length; i++) {
+      var element = this.state.options[i];
+      if ( element.value === value ) {
+        this.setState({value: value, selectedIndex: i});
+
+        if (this.props.onChange)
+          this.props.onChange(value);
+        Events.emit('entitySelected', value, true);
+        found = true;
+      }
+    }
+
+    if (!found) {
+      this.setState({value: null, selectedIndex: -1});
+    }
   },
   update: function(e) {
     this.setValue(e.target.value);
   },
-  componentDidMount: function() {
-    document.addEventListener('componentremoved', function(e){
-      this.forceUpdate();
-    }.bind(this));
-    Events.on('entitySelected', function(entity){
-      this.setState({value: entity});
-    }.bind(this));
-    Events.on('entityIdChanged', function(e) {
-      this.forceUpdate();
-    }.bind(this));
-    Events.on('componentChanged', function(e){
-      console.log(e);
-    });
-  },
-  componentWillReceiveProps: function(newProps) {
-    if (newProps.value != this.state.value) {
-      this.setState({value: newProps.value});
-    }
-  },
-  render: function() {
+  rebuildOptions: function() {
     var options = [];
 
     options.push({ static: true, value: this.props.scene, html: '<span class="type"></span> a-scene' });
@@ -93,17 +87,66 @@ var Scenegraph = React.createClass({
           if (child.tagName.toLowerCase() !== 'a-entity') {
             continue;
           }
-
           treeIterate(child, depth);
         }
       }
     }
-
     treeIterate(this.props.scene);
+    this.setState({options: options});
+  },
+  componentDidMount: function() {
+    this.rebuildOptions();
 
-    return <div className="Outliner" tabIndex="0" id="outliner">
+    document.addEventListener('componentremoved', function(e){
+      this.forceUpdate();
+    }.bind(this));
+    Events.on('entitySelected', function(entity, self) {
+      if (self) return;
+      this.setValue(entity);
+    }.bind(this));
+    Events.on('entityIdChanged', function(e) {
+      this.forceUpdate();
+    }.bind(this));
+    Events.on('componentChanged', function(e){
+      console.log(e);
+    });
+  },
+  componentWillReceiveProps: function(newProps) {
+    /*if (newProps.value != this.state.value) {
+      this.setState({value: newProps.value});
+    }*/
+  },
+  selectIndex: function(index) {
+    if (index >= 0 && index < this.state.options.length) {
+  		this.setValue(this.state.options[index].value);
+  	}
+  },
+  onKeyDown: function(event) {
+    switch ( event.keyCode ) {
+			case 38: // up
+			case 40: // down
+				event.preventDefault();
+				event.stopPropagation();
+				break;
+    }
+  },
+  onKeyUp: function(event) {
+    if (this.state.value === null) {
+      return;
+    }
+    switch (event.keyCode) {
+      case 38: // up
+        this.selectIndex(this.state.selectedIndex - 1);
+        break;
+      case 40: // down
+        this.selectIndex(this.state.selectedIndex + 1);
+        break;
+    }
+  },
+  render: function() {
+    return <div className="Outliner" tabIndex="0" id="outliner" onKeyDown={this.onKeyDown} onKeyUp={this.onKeyUp}>
       {
-        options.map(function(option, idx) {
+        this.state.options.map(function(option, idx) {
           var className = 'option' + (option.value === this.state.value ? ' active' : '');
   		    return <div key={idx} className={className} value={option.value} dangerouslySetInnerHTML={{__html:option.html}} onClick={this.setValue.bind(this, option.value)}></div>
   	    }.bind(this))
