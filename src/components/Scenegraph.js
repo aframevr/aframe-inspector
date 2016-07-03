@@ -104,14 +104,20 @@ var Scenegraph = React.createClass({
       if (self) return;
       this.setValue(entity);
     }.bind(this));
-    Events.on('entityIdChanged', function(e) {
-      this.forceUpdate();
+    Events.on('entityIdChanged', this.rebuildOptions);
+    document.addEventListener('componentchanged', function(event){
+      // Check if a new component is added
+      if (Object.keys(event.detail.oldData).length === 0) {
+        this.rebuildOptions();
+      }
     }.bind(this));
-    Events.on('componentChanged', function(e){
-      console.log(e);
-    });
+    document.addEventListener('componentremoved', this.rebuildOptions);
+
+    Events.on('sceneModified', this.rebuildOptions);
+
   },
   componentWillReceiveProps: function(newProps) {
+    console.info(">>>>>>>>>>>>>");
     /*if (newProps.value != this.state.value) {
       this.setState({value: newProps.value});
     }*/
@@ -144,6 +150,7 @@ var Scenegraph = React.createClass({
     }
   },
   render: function() {
+    console.log("Rendring");
     return <div className="Outliner" tabIndex="0" id="outliner" onKeyDown={this.onKeyDown} onKeyUp={this.onKeyUp}>
       {
         this.state.options.map(function(option, idx) {
