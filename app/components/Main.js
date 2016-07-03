@@ -37,6 +37,12 @@ var Main = React.createClass({
       //Events.emit('editorModeChanged', this.state.editorEnabled);
     });
   },
+  onModalTextureOnClose: function(value) {
+    this.setState({isModalTexturesOpen: false});
+    if (this.state.textureOnClose) {
+      this.state.textureOnClose(value);
+    }
+  },
   componentDidMount: function() {
     Events.on('openTexturesModal', function(textureOnClose){
       this.setState({isModalTexturesOpen: true, textureOnClose: textureOnClose});
@@ -59,7 +65,7 @@ var Main = React.createClass({
     return (
       <div>
         <div id="editor" className={this.state.editorEnabled ? '' : 'hidden'}>
-          <ModalTextures ref="modaltextures" isOpen={textureDialogOpened} onClose={this.state.textureOnClose}/>
+          <ModalTextures ref="modaltextures" isOpen={textureDialogOpened} onClose={this.onModalTextureOnClose}/>
           <Menu/>
           <div id="sidebar-left">
             <div className="tab">SCENEGRAPH</div>
@@ -68,10 +74,7 @@ var Main = React.createClass({
               <a href="#" onClick={this.deleteEntity} className="button fa fa-trash-o"></a>
             </div>
           </div>
-          <div id="sidebar">
-            <div className="tab">ATTRIBUTES</div>
-            <AttributesSidebar/>
-          </div>
+          <AttributesSidebar/>
         </div>
         <a href="#" className="toggle-edit" onClick={this.toggleEditor}>{this.state.editorEnabled?'Exit':'Edit'}</a>
       </div>

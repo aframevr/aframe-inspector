@@ -11,12 +11,12 @@ var Collapsible = React.createClass({
   },
   getDefaultProps: function () {
   	return {
-    	expanded: true
+    	collapsed: false
     };
   },
   getInitialState: function () {
     return {
-    	expanded: this.props.expanded
+    	collapsed: this.props.collapsed
     };
   },
   shouldComponentUpdate(nextProps, nextState) {
@@ -24,18 +24,18 @@ var Collapsible = React.createClass({
   },
   toggleVisibility: function () {
     this.setState({
-    	expanded: !this.state.expanded
+    	collapsed: !this.state.collapsed
     });
   },
 	render: function () {
-    var expanded = this.state.expanded;
+    var collapsed = this.state.collapsed;
   	return (
-      <div className={'component collapsible' + (expanded ? '' : ' collapsed')}>
+      <div className={'component collapsible' + (collapsed ? ' collapsed' : '')}>
         <div className="static" onClick={this.toggleVisibility}>
           <div className="button"></div>
           {this.props.children[0]}
         </div>
-        <div className={'content' + (expanded ? '' : ' hide')}>
+        <div className={'content' + (collapsed ? ' hide' : '')}>
           {this.props.children[1]}
         </div>
       </div>
