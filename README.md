@@ -9,6 +9,11 @@ An easy-to-use editor for creating VR scenes using [A-FRAME](http://aframe.io/).
 2. Add script to your A-FRAME document:
 
 ```html
+<a-scene>
+  <!-- A-Frame scene -->
+</a-scene>
+
+<!-- Add editor script below scene markup -->
 <script src="js/aframe-editor.js"></script>
 ```
 
