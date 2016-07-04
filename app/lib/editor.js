@@ -72,10 +72,16 @@ Editor.prototype = {
     function addObjects (object) {
       for (var i = 0; i < object.children.length; i++) {
         var obj = object.children[i];
-        scope.addObject(obj.children[0]);
+        for (var j = 0; j < obj.children.length; j++) {
+          scope.addObject(obj.children[j]);
+        }
       }
     }
     addObjects(this.sceneEl.object3D);
+
+    document.addEventListener('model-loaded', function(event){
+      this.addObject(event.target.object3D);
+    }.bind(this));
 
     this.scene.add(this.sceneHelpers);
 
