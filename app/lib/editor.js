@@ -79,6 +79,10 @@ Editor.prototype = {
     }
     addObjects(this.sceneEl.object3D);
 
+    document.addEventListener('model-loaded', function(event){
+      this.addObject(event.target.object3D);
+    }.bind(this));
+
     this.scene.add(this.sceneHelpers);
 
     this.enable();
