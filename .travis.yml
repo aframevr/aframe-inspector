@@ -1,0 +1,18 @@
+language: node_js
+
+node_js:
+  - '0.12'
+
+install:
+  - npm install
+
+script:
+  - $CI_ACTION
+
+env:
+  matrix:
+    - CI_ACTION="npm run build"
+
+branches:
+  only:
+    - master
