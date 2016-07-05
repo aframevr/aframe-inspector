@@ -35,8 +35,10 @@ var Scenegraph = React.createClass({
   rebuildOptions: function() {
     var options = [];
 
-    options.push({ static: true, value: this.props.scene, html: '<span class="type"></span> a-scene' });
+    // adds a-scene to scene graph.
+    options.push({ static: true, value: this.props.scene, html: 'a-scene' });
 
+    // recursively iterates through all a-scene children and adds to scene graph.
     function treeIterate (element, depth) {
       if (!element) {
         return;
@@ -55,33 +57,21 @@ var Scenegraph = React.createClass({
         if (!child.dataset.isEditor && child.isEntity && !child.isEditor) {
           var extra = '';
 
-          var icons = {'camera': 'fa-video-camera', 'light': 'fa-lightbulb-o', 'geometry': 'fa-cube', 'material': 'fa-picture-o'};
+          // adds icon for key entity types.
+          var icons = {'camera': 'fa-video-camera', 'light': 'fa-lightbulb-o'};
           for (var icon in icons) {
             if (child.components && child.components[icon]) {
               extra += ' <i class="fa ' + icons[icon] + '"></i>';
             }
           }
 
-          var typeClass = 'Entity';
-          switch (child.tagName.toLowerCase()) {
-            case 'a-animation':
-              typeClass = 'Animation';
-              break;
-            case 'a-entity':
-              typeClass = 'Entity';
-              break;
-            default:
-              typeClass = 'Template';
-          }
-
-          var type = '<span class="type ' + typeClass + '"></span>';
           var pad = '&nbsp;&nbsp;&nbsp;'.repeat(depth);
           var label = child.id ? child.id : child.tagName.toLowerCase();
 
           options.push({
             static: true,
             value: child,
-            html: pad + type + label + extra
+            html: pad + label + extra
           });
 
           if (child.tagName.toLowerCase() !== 'a-entity') {
