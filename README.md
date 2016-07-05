@@ -2,6 +2,8 @@
 
 [![build status][travis-image]][travis-url]
 
+> Work in progress.
+
 An easy-to-use editor for editing [A-Frame](https://aframe.io) VR scenes.
 
 [Try it out!](https://aframe.io/aframe-editor/example/)
