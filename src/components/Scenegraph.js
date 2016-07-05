@@ -104,17 +104,19 @@ var Scenegraph = React.createClass({
       if (self) return;
       this.setValue(entity);
     }.bind(this));
-    Events.on('entityIdChanged', function(e) {
-      this.forceUpdate();
+    Events.on('entityIdChanged', this.rebuildOptions);
+    document.addEventListener('componentchanged', function(event){
+      // Check if a new component is added
+      if (event.detail.oldData && Object.keys(event.detail.oldData).length === 0) {
+        this.rebuildOptions();
+      }
     }.bind(this));
-    Events.on('componentChanged', function(e){
-      console.log(e);
-    });
+    document.addEventListener('componentremoved', this.rebuildOptions);
+
+    Events.on('sceneModified', this.rebuildOptions);
+
   },
   componentWillReceiveProps: function(newProps) {
-    /*if (newProps.value != this.state.value) {
-      this.setState({value: newProps.value});
-    }*/
   },
   selectIndex: function(index) {
     if (index >= 0 && index < this.state.options.length) {

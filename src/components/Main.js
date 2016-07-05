@@ -44,6 +44,18 @@ var Main = React.createClass({
     }
   },
   componentDidMount: function() {
+    var target = document.querySelector('a-scene');
+    var observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        Events.emit('sceneModified');
+      });
+    });
+    // configuration of the observer:
+    var config = { attributes: true, childList: true, characterData: true }
+
+    // pass in the target node, as well as the observer options
+    observer.observe(target, config);
+
     Events.on('openTexturesModal', function(textureOnClose){
       this.setState({isModalTexturesOpen: true, textureOnClose: textureOnClose});
     }.bind(this));
@@ -54,6 +66,9 @@ var Main = React.createClass({
       editor.selectEntity(null);
     }
     return false;
+  },
+  addEntity: function() {
+    Events.emit('createNewEntity', {element: 'a-entity', components: []});
   },
   openModal: function() {
     this.setState({isModalTexturesOpen: true});
@@ -71,7 +86,8 @@ var Main = React.createClass({
             <div className="tab">SCENEGRAPH</div>
             <Scenegraph scene={scene}/>
             <div className="scenegraph-bottom">
-              <a href="#" onClick={this.deleteEntity} className="button fa fa-trash-o"></a>
+              <a href="#" title="Delete selected entity" onClick={this.deleteEntity} className="button fa fa-trash-o"></a>
+              <a href="#" title="Add new entity" onClick={this.addEntity} className="button fa fa-plus"></a>
             </div>
           </div>
           <AttributesSidebar/>
