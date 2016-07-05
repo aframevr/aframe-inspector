@@ -4,6 +4,8 @@
 
 An easy-to-use editor for editing [A-Frame](https://aframe.io) VR scenes.
 
+<img alt="Screenshot" src="https://cloud.githubusercontent.com/assets/674727/16597664/fd7b9748-42ae-11e6-9ece-3dfe763ea11c.png">
+
 ## Getting Started
 
 1. [Download A-FRAME editor script](https://aframevr.github.io/aframe-editor/dist/aframe-editor.js)
