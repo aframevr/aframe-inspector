@@ -89,27 +89,27 @@ input.number:focus {
 	border-bottom: 1px solid #111;
 }
 
-	#menubar .menu {
-		float: left;
+	.menu {
+		display: inline-block;
 		cursor: pointer;
 		padding-right: 8px;
 	}
 
-	#menubar .menu.right {
+	.menu.right {
 		float: right;
 		cursor: auto;
 		padding-right: 0;
 		text-align: right;
 	}
 
-		#menubar .menu .title {
+		.menu .title {
 			display: inline-block;
 			color: #888;
 			margin: 0;
 			padding: 9px;
 		}
 
-		#menubar .menu .options {
+		.menu .options {
 			z-index: 1500;
 			position: absolute;
 			display: none;
@@ -118,31 +118,31 @@ input.number:focus {
 			width: 150px;
 		}
 
-		#menubar .menu:hover .options {
+		.menu:hover .options {
 			display: block;
 		}
 
-			#menubar .menu .options hr {
+			.menu .options hr {
 				border-color: #222;
 			}
 
-			#menubar .menu .options .option {
+			.menu .options .option {
 				color: #888;
 				background-color: transparent;
 				padding: 5px 10px;
 				margin: 0 !important;
 			}
 
-				#menubar .menu .options .option:hover {
+				.menu .options .option:hover {
 					color: #fff;
 					background-color: #08f;
 				}
 
-				#menubar .menu .options .option:active {
+				.menu .options .option:active {
 					background: transparent;
 				}
 
-		#menubar .menu .options .inactive {
+		.menu .options .inactive {
 			color: #444;
 			background-color: transparent;
 			padding: 5px 10px;
@@ -155,7 +155,6 @@ input.number:focus {
 	top: 33px;
 	bottom: 0;
 	width: 180px;
-	overflow: auto;
 	background: #2b2b2b;
 }
 
@@ -413,14 +412,14 @@ div.vec3 {
 	left: 0;
 }
 
-a.button {
+.button {
 	color: #bcbcbc;
 	font-size: 16px;
 	text-decoration: none;
 	margin-left: 10px;
 }
 
-a.button:hover {
+.button:hover {
 	color: #1faaf2;
 }
 
