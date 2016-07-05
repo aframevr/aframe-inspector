@@ -4,40 +4,57 @@
 
 An easy-to-use editor for editing [A-Frame](https://aframe.io) VR scenes.
 
-<img alt="Screenshot" src="https://cloud.githubusercontent.com/assets/674727/16597664/fd7b9748-42ae-11e6-9ece-3dfe763ea11c.png">
+[Try it out!](https://aframe.io/aframe-editor/example/)
 
-## Getting Started
+<img alt="screenshot" src="https://cloud.githubusercontent.com/assets/674727/16597664/fd7b9748-42ae-11e6-9ece-3dfe763ea11c.png">
 
-1. [Download A-FRAME editor script](https://aframevr.github.io/aframe-editor/dist/aframe-editor.js)
+## Using the Editor
 
-2. Add script to your A-FRAME document:
+There are several ways to use the editor on your scene.
+
+### A-Frame Component
+
+A-Frame comes with a component to inject the editor. Just include the `editor`
+component, and press `ctrl + alt + e` to inject the editor, just like you would
+use a DOM inspector:
 
 ```html
-<a-scene>
-  <!-- A-Frame scene -->
+<a-scene editor>
+  <!-- Scene... -->
 </a-scene>
+```
 
-<!-- Add editor script below scene markup -->
-<script src="js/aframe-editor.js"></script>
+### Bookmarklet
+
+Copy and paste the code from the [bookmarket](bookmarklet) into a browser bookmark. Then
+open up any scene and click on the bookmarklet to inject the editor.
+
+### Including the Build
+
+1. [Download the build](https://aframevr.github.io/aframe-editor/dist/aframe-editor.js)
+2. Add the build to the bottom of your A-Frame scene:
+
+```html
+<html>
+  <body>
+    <a-scene></a-scene>
+
+    <!-- Add the editor build below the scene markup. -->
+    <script src="js/aframe-editor.js"></script>
+  </body>
+</html>
 ```
 
 ## Working on the Editor
 
-```
+```bash
 git clone git@github.com:aframevr/aframe-editor.git
 cd aframe-editor
 npm install
 npm start
 ```
 
-Navigate to __[http://localhost:3333/example](http://localhost:3333/example)__
-
-## Bookmarklet
-
-You can add this code to any page using the following bookmarklet:
-```javascript
-avascript:(function(){var script=document.createElement('script'); script.src='http://localhost:3333/build/aframe-editor.js';document.head.appendChild(script);})()
-```
+Then navigate to __[http://localhost:3333/example/](http://localhost:3333/example/)__
 
 [travis-image]: https://img.shields.io/travis/aframevr/aframe-editor.svg?style=flat-square
 [travis-url]: https://travis-ci.org/aframevr/aframe-editor
