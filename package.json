@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --progress --colors -d --open",
     "build": "webpack --progress --colors -p",
+    "lint": "node --harmony node_modules/.bin/eslint src",
     "preghpages": "npm run build && shx rm -rf gh-pages && shx mkdir gh-pages",
     "ghpages": "npm run preghpages && shx cp -r build example gh-pages && node ./scripts/gh-pages"
   },
@@ -20,6 +21,8 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
     "css-loader": "^0.23.1",
+    "eslint": "^3.0.1",
+    "eslint-plugin-react": "^5.2.2",
     "gh-pages": "^0.11.0",
     "open": "0.0.5",
     "react": "^15.1.0",
