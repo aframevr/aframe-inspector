@@ -107,7 +107,7 @@ var Scenegraph = React.createClass({
     Events.on('entityIdChanged', this.rebuildOptions);
     document.addEventListener('componentchanged', function(event){
       // Check if a new component is added
-      if (Object.keys(event.detail.oldData).length === 0) {
+      if (event.detail.oldData && Object.keys(event.detail.oldData).length === 0) {
         this.rebuildOptions();
       }
     }.bind(this));
@@ -117,10 +117,6 @@ var Scenegraph = React.createClass({
 
   },
   componentWillReceiveProps: function(newProps) {
-    console.info(">>>>>>>>>>>>>");
-    /*if (newProps.value != this.state.value) {
-      this.setState({value: newProps.value});
-    }*/
   },
   selectIndex: function(index) {
     if (index >= 0 && index < this.state.options.length) {
@@ -150,7 +146,6 @@ var Scenegraph = React.createClass({
     }
   },
   render: function() {
-    console.log("Rendring");
     return <div className="Outliner" tabIndex="0" id="outliner" onKeyDown={this.onKeyDown} onKeyUp={this.onKeyUp}>
       {
         this.state.options.map(function(option, idx) {

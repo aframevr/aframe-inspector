@@ -183,8 +183,7 @@ Editor.prototype = {
     Events.emit('hideModal');//.add(function () {
       this.panels.modal.hide();
     }.bind(this));
-*/
-/*
+
     var entities = document.querySelectorAll('a-entity');
     for (var i = 0; i < entities.length; ++i) {
       var entity = entities[i];
