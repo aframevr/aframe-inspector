@@ -1,5 +1,4 @@
 var React = require('react');
-var Pane = require('./Pane');
 
 /*
 <Tabs>
@@ -14,35 +13,38 @@ var Pane = require('./Pane');
   </Pane>
 </Tabs>
  */
-var Tabs = React.createClass({
-	displayName: 'Tabs',
-	propTypes: {
+export default class Tabs extends React.Component {
+	static propTypes = {
     selected: React.PropTypes.number,
     children: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.element
     ]).isRequired
-  },
-  getDefaultProps: function () {
-  	return {
-    	selected: 0
-    };
-  },
-  getInitialState: function () {
-    return {
+  };
+
+  static defaultProps = {
+    selected: 0
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
     	selected: this.props.selected
     };
-  },
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
   	return this.props !== nextProps || this.state !== nextState;
-  },
-  handleClick: function (index, event) {
+  }
+
+  handleClick = (index, event) => {
   	event.preventDefault();
     this.setState({
     	selected: index
     });
-  },
-  _renderTitles: function () {
+  }
+
+  _renderTitles() {
   	function labels(child, index) {
     	var activeClass = (this.state.selected === index ? 'active' : '');
     	return (
@@ -60,15 +62,17 @@ var Tabs = React.createClass({
       	{this.props.children.map(labels.bind(this))}
       </ul>
     );
-  },
-  _renderContent: function () {
+  }
+
+  _renderContent() {
   	return (
     	<div className="tabs__content">
 	    	{this.props.children[this.state.selected]}
       </div>
     );
-  },
-	render: function () {
+  }
+
+	render() {
   	return (
     	<div className="tabs">
         {this._renderTitles()}
@@ -76,6 +80,4 @@ var Tabs = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = Tabs;
+}

@@ -1,17 +1,41 @@
 var React = require('react');
 var Events = require('../lib/Events.js');
 
-var Scenegraph = React.createClass({
-  getInitialState: function() {
-    return {value: this.props.value || '', options: [], selectedIndex: -1};
+export default class Scenegraph extends React.Component {
+  static defaultProps = {
+    value: '',
+    index: -1
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {value: this.props.value || '', options: [], selectedIndex: -1};
+  }
+
+  componentDidMount() {
+    this.rebuildOptions();
+
+    document.addEventListener('componentremoved', function(e){
+      this.forceUpdate();
+    }.bind(this));
+
+    Events.on('entitySelected', function(entity, self) {
+      if (self) return;
+      this.setValue(entity);
+    }.bind(this));
+    Events.on('entityIdChanged', this.rebuildOptions);
+    document.addEventListener('componentremoved', this.rebuildOptions);
+    document.addEventListener('componentchanged', function(event){
+      console.log(event, Object.keys(event.detail.oldData).length);
+      // Check if a new component is added
+      if (event.detail.oldData && Object.keys(event.detail.oldData).length === 0) {
+        this.rebuildOptions();
+      }
+    }.bind(this));
+    Events.on('sceneModified', this.rebuildOptions);
   },
-  getDefaultProps: function() {
-    return {
-      value: '',
-      index: -1
-    };
-  },
-  setValue: function(value) {
+
+  setValue = value => {
     var found = false;
     for (var i = 0; i < this.state.options.length; i++) {
       var element = this.state.options[i];
@@ -28,11 +52,13 @@ var Scenegraph = React.createClass({
     if (!found) {
       this.setState({value: null, selectedIndex: -1});
     }
-  },
-  update: function(e) {
+  }
+
+  update = e => {
     this.setValue(e.target.value);
-  },
-  rebuildOptions: function() {
+  }
+
+  rebuildOptions = () => {
     var options = [];
 
     options.push({ static: true, value: this.props.scene, html: '<span class="type"></span> a-scene' });
@@ -93,31 +119,15 @@ var Scenegraph = React.createClass({
     }
     treeIterate(this.props.scene);
     this.setState({options: options});
-  },
-  componentDidMount: function() {
-    this.rebuildOptions();
+  }
 
-    Events.on('entitySelected', function(entity, self) {
-      if (self) return;
-      this.setValue(entity);
-    }.bind(this));
-    Events.on('entityIdChanged', this.rebuildOptions);
-    document.addEventListener('componentremoved', this.rebuildOptions);
-    document.addEventListener('componentchanged', function(event){
-      console.log(event, Object.keys(event.detail.oldData).length);
-      // Check if a new component is added
-      if (event.detail.oldData && Object.keys(event.detail.oldData).length === 0) {
-        this.rebuildOptions();
-      }
-    }.bind(this));
-    Events.on('sceneModified', this.rebuildOptions);
-  },
-  selectIndex: function(index) {
+  selectIndex = index => {
     if (index >= 0 && index < this.state.options.length) {
   		this.setValue(this.state.options[index].value);
   	}
-  },
-  onKeyDown: function(event) {
+  }
+
+  onKeyDown = event => {
     switch ( event.keyCode ) {
 			case 38: // up
 			case 40: // down
@@ -125,8 +135,9 @@ var Scenegraph = React.createClass({
 				event.stopPropagation();
 				break;
     }
-  },
-  onKeyUp: function(event) {
+  }
+
+  onKeyUp = event => {
     if (this.state.value === null) {
       return;
     }
@@ -138,8 +149,9 @@ var Scenegraph = React.createClass({
         this.selectIndex(this.state.selectedIndex + 1);
         break;
     }
-  },
-  render: function() {
+  }
+
+  render() {
     return <div className="Outliner" tabIndex="0" id="outliner" onKeyDown={this.onKeyDown} onKeyUp={this.onKeyUp}>
       {
         this.state.options.map(function(option, idx) {
@@ -149,6 +161,4 @@ var Scenegraph = React.createClass({
       }
     </div>
   }
-});
-
-module.exports = Scenegraph;
+}

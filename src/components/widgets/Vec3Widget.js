@@ -1,21 +1,26 @@
 var React = require('react');
 var handleEntityChange = require('./Widget');
-var NumberWidget = require('./NumberWidget');
 
-var Vec3Widget = React.createClass({
-  getInitialState: function() {
-    return {value: this.props.value};
-  },
-  getValue: function() {
+import NumberWidget from './NumberWidget';
+
+export default class Vec3Widget extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: props.value};
+  }
+
+  getValue = () => {
     return {x: this.refs.x.state.value, y: this.refs.y.state.value, z: this.refs.z.state.value};
-  },
-  onChange: function(entity, componentName, name, value) {
+  }
+
+  onChange = (entity, componentName, name, value) => {
     if (this.props.onChange) {
       value = this.getValue();
       this.props.onChange(entity, componentName, name, value);
     }
-  },
-  render: function() {
+  }
+
+  render() {
     return (
         <div className="vec3">
           <NumberWidget ref="x" onChange={this.onChange} name="x" componentname={this.props.componentname} entity={this.props.entity} value={this.props.value.x}/>
@@ -24,6 +29,4 @@ var Vec3Widget = React.createClass({
         </div>
     );
   }
-});
-
-module.exports = Vec3Widget;
+}

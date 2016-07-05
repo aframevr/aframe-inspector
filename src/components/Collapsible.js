@@ -1,33 +1,35 @@
 var React = require('react');
-var Pane = require('./Pane');
 
-var Collapsible = React.createClass({
-	displayName: 'Collapsible',
-	propTypes: {
+export default class Collapsible extends React.Component {
+	static propTypes = {
     children: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.element
     ]).isRequired
-  },
-  getDefaultProps: function () {
-  	return {
-    	collapsed: false
-    };
-  },
-  getInitialState: function () {
-    return {
+  };
+
+  static defaultProps = {
+    collapsed: false
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
     	collapsed: this.props.collapsed
     };
-  },
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
   	return this.props !== nextProps || this.state !== nextState;
-  },
-  toggleVisibility: function () {
+  }
+
+  toggleVisibility = () => {
     this.setState({
     	collapsed: !this.state.collapsed
     });
-  },
-	render: function () {
+  }
+
+	render() {
     var collapsed = this.state.collapsed;
   	return (
       <div className={'component collapsible' + (collapsed ? ' collapsed' : '')}>
@@ -41,6 +43,4 @@ var Collapsible = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = Collapsible;
+}

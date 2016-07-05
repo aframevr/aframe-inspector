@@ -1,15 +1,23 @@
 var React = require('react');
 
-var Modal = React.createClass({
-  getInitialState: function() {
-    return {isOpen: this.props.isOpen};
-  },
-  handleGlobalKeydown: function (event) {
+export default class Modal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {isOpen: this.props.isOpen};
+  }
+
+  componentDidMount() {
+    document.addEventListener('keyup', this.handleGlobalKeydown);
+    document.addEventListener('mousedown', this.handleGlobalMousedown);
+  }
+
+  handleGlobalKeydown = event => {
     if (this.state.isOpen && event.keyCode === 27) {
       this.close();
     }
-  },
-  shouldClickDismiss: function(event) {
+  }
+
+  shouldClickDismiss = event => {
     var target = event.target;
     // This piece of code isolates targets which are fake clicked by things
     // like file-drop handlers
@@ -18,34 +26,35 @@ var Modal = React.createClass({
     }
     if (target === this.refs.self || this.refs.self.contains(target)) return false;
     return true;
-  },
-  handleGlobalMousedown: function (event) {
+  }
+
+  handleGlobalMousedown = event => {
     if (this.state.isOpen && this.shouldClickDismiss(event)) {
       if (typeof this.props.onClose == 'function') {
         this.props.onClose();
       }
     }
-  },
-  componentDidMount: function() {
-    document.addEventListener('keyup', this.handleGlobalKeydown);
-    document.addEventListener('mousedown', this.handleGlobalMousedown);
-  },
-  componentWillUnmount: function() {
+  }
+
+  componentWillUnmount() {
     document.removeEventListener('keyup', this.handleGlobalKeydown);
     document.removeEventListener('mousedown', this.handleGlobalMousedown);
-  },
-  componentWillReceiveProps: function(newProps) {
+  }
+
+  componentWillReceiveProps(newProps) {
     if (this.state.isOpen !== newProps.isOpen) {
       this.state.isOpen = newProps.isOpen;
     }
-  },
-  close: function() {
+  }
+
+  close = () => {
     this.setState({isOpen: false});
     if (this.props.onClose) {
       this.props.onClose();
     }
-  },
-  render: function() {
+  }
+
+  render() {
     if (!this.state.isOpen) {
       return <span></span>;
     }
@@ -63,6 +72,4 @@ var Modal = React.createClass({
       </div>
     )
   }
-});
-
-module.exports = Modal;
+}

@@ -1,10 +1,10 @@
 module.exports = {
-  NumberWidget: require('./NumberWidget'),
-  InputWidget: require('./InputWidget'),
-  BooleanWidget: require('./BooleanWidget'),
-  SelectWidget: require('./SelectWidget'),
-  Vec3Widget: require('./Vec3Widget'),
-  ColorWidget: require('./ColorWidget'),
-  TextureWidget: require('./TextureWidget'),
+  BooleanWidget: require('./BooleanWidget').default,
+  ColorWidget: require('./ColorWidget').default,
+  InputWidget: require('./InputWidget').default,
+  NumberWidget: require('./NumberWidget').default,
+  SelectWidget: require('./SelectWidget').default,
+  TextureWidget: require('./TextureWidget').default,
+  Vec3Widget: require('./Vec3Widget').default,
   handleEntityChange: require('./Widget')
 }
