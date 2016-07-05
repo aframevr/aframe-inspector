@@ -1,5 +1,5 @@
 module.exports = {
-  entry: "./app/components/Main.js",
+  entry: "./src/components/Main.js",
   output: {
     filename: "build/aframe-editor.js",
   },
