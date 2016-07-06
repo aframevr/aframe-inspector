@@ -33,7 +33,7 @@ export default class Scenegraph extends React.Component {
       }
     }.bind(this));
     Events.on('sceneModified', this.rebuildOptions);
-  },
+  }
 
   setValue = value => {
     var found = false;
