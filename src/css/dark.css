@@ -5,9 +5,10 @@
 	width: 100%;
 	font-size: 12px;
 	cursor: default;
-	overflow: auto;
 	outline: none;
 	border-top: 1px solid #111;
+	flex: 1 1 auto;
+	overflow-y: auto;
 }
 
 	.Outliner .option {
@@ -157,6 +158,9 @@ input.number:focus {
 	width: 180px;
 	overflow: auto;
 	background: #2b2b2b;
+	display: flex;
+	flex-direction: column;
+	height: calc(100% - 33px);
 }
 
 
