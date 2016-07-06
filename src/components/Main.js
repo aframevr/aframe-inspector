@@ -44,6 +44,17 @@ var Main = React.createClass({
     }
   },
   componentDidMount: function() {
+
+    // Create an observer to notify the changes in the scene
+    var target = document.querySelector('a-scene');
+    var observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        Events.emit('sceneModified');
+      });
+    });
+    var config = { attributes: true, childList: true, characterData: true }
+    observer.observe(target, config);
+
     Events.on('openTexturesModal', function(textureOnClose){
       this.setState({isModalTexturesOpen: true, textureOnClose: textureOnClose});
     }.bind(this));
@@ -71,7 +82,7 @@ var Main = React.createClass({
             <div className="tab">SCENEGRAPH</div>
             <Scenegraph scene={scene}/>
             <div className="scenegraph-bottom">
-              <a href="#" onClick={this.deleteEntity} className="button fa fa-trash-o"></a>
+              <a href="#" title="Delete selected entity" onClick={this.deleteEntity} className="button fa fa-trash-o"></a>
             </div>
           </div>
           <AttributesSidebar/>
