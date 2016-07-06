@@ -26,7 +26,6 @@ export default class Scenegraph extends React.Component {
     Events.on('entityIdChanged', this.rebuildOptions);
     document.addEventListener('componentremoved', this.rebuildOptions);
     document.addEventListener('componentchanged', function(event){
-      console.log(event, Object.keys(event.detail.oldData).length);
       // Check if a new component is added
       if (event.detail.oldData && Object.keys(event.detail.oldData).length === 0) {
         this.rebuildOptions();
