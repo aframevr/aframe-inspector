@@ -35,7 +35,7 @@ var Scenegraph = React.createClass({
   rebuildOptions: function() {
     var options = [];
 
-    options.push({ static: true, value: this.props.scene, html: '<span class="type"></span> a-scene' });
+    options.push({ static: true, value: this.props.scene, html: 'a-scene' });
 
     function treeIterate (element, depth) {
       if (!element) {
@@ -62,26 +62,13 @@ var Scenegraph = React.createClass({
             }
           }
 
-          var typeClass = 'Entity';
-          switch (child.tagName.toLowerCase()) {
-            case 'a-animation':
-              typeClass = 'Animation';
-              break;
-            case 'a-entity':
-              typeClass = 'Entity';
-              break;
-            default:
-              typeClass = 'Template';
-          }
-
-          var type = '<span class="type ' + typeClass + '"></span>';
           var pad = '&nbsp;&nbsp;&nbsp;'.repeat(depth);
           var label = child.id ? child.id : child.tagName.toLowerCase();
 
           options.push({
             static: true,
             value: child,
-            html: pad + type + label + extra
+            html: pad + label + extra
           });
 
           if (child.tagName.toLowerCase() !== 'a-entity') {
