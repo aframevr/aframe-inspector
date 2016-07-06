@@ -62,7 +62,7 @@ export default class Main extends React.Component {
     if (this.state.textureOnClose) {
       this.state.textureOnClose(value);
     }
-  },
+  }
 
   deleteEntity() {
     if (editor.selectedEntity) {
