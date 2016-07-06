@@ -1,27 +1,29 @@
 var React = require('react');
 var handleEntityChange = require('./Widget');
 
-var NumberWidget = React.createClass({
-  getInitialState: function() {
-    return {value: this.props.value, displayValue: this.props.value.toFixed(this.props.precision)};
-  },
-  propTypes: {
+export default class NumberWidget extends React.Component {
+  static propTypes = {
     min: React.PropTypes.number,
     max: React.PropTypes.number,
     value: React.PropTypes.number,
     precision: React.PropTypes.number,
     step: React.PropTypes.number
-  },
-  getDefaultProps: function() {
-    return {
-      min: -Infinity,
-      max: Infinity,
-      value: 0,
-      precision: 2,
-      step: 1
-    };
-  },
-  componentDidMount: function() {
+  };
+
+  static defaultProps = {
+    min: -Infinity,
+    max: Infinity,
+    value: 0,
+    precision: 2,
+    step: 1
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {value: this.props.value, displayValue: this.props.value.toFixed(this.props.precision)};
+  }
+
+  componentDidMount() {
     this.distance = 0;
     this.onMouseDownValue = 0;
     this.prevPointer = [ 0, 0 ];
@@ -29,9 +31,9 @@ var NumberWidget = React.createClass({
     this.setValue(this.props.value);
 
     this.onBlur();
-    var input = this.refs.input;
-  },
-  onMouseMove: function(event) {
+  }
+
+  onMouseMove = event => {
     var currentValue = parseFloat(this.value);
     var pointer = [ event.clientX, event.clientY ];
 
@@ -42,16 +44,18 @@ var NumberWidget = React.createClass({
       this.setValue( value );
     }
     this.prevPointer = [ event.clientX, event.clientY ];
-  },
-  onMouseDown: function(event) {
+  }
+
+  onMouseDown = event => {
     event.preventDefault();
     this.distance = 0;
     this.onMouseDownValue = this.state.value;
     this.prevPointer = [ event.clientX, event.clientY ];
     document.addEventListener('mousemove', this.onMouseMove, false);
     document.addEventListener('mouseup', this.onMouseUp, false);
-  },
-  onMouseUp: function( event ) {
+  }
+
+  onMouseUp = event => {
     document.removeEventListener('mousemove', this.onMouseMove, false);
     document.removeEventListener('mouseup', this.onMouseUp, false);
 
@@ -59,8 +63,9 @@ var NumberWidget = React.createClass({
       this.refs.input.focus();
       this.refs.input.select();
     }
-  },
-  setValue: function(value) {
+  }
+
+  setValue(value) {
     if (value === this.state.value) return;
 
     if (value !== undefined) {
@@ -80,29 +85,34 @@ var NumberWidget = React.createClass({
       if (this.props.onChange)
         this.props.onChange(this.props.entity, this.props.componentname, this.props.name, value);
     }
-  },
-  componentWillReceiveProps: function(newProps) {
+  }
+
+  componentWillReceiveProps(newProps) {
     // This will be triggered typically when the element is changed directly with element.setAttribute
     if (newProps.value != this.state.value) {
       this.setState({value: newProps.value, displayValue: newProps.value.toFixed(this.props.precision)});
     }
-  },
-  onBlur: function() {
+  }
+
+  onBlur = () => {
     this.setValue(parseFloat(this.refs.input.value));
     this.setState({class: ''});
-  },
-  onChange: function(e) {
+  }
+
+  onChange = e => {
     value = eval( this.refs.input.value );
     this.setState({value: value, displayValue: this.refs.input.value});
-  },
-  onKeyDown: function(event) {
+  }
+
+  onKeyDown = event => {
     event.stopPropagation();
     if ( event.keyCode === 13 ) {
       this.setValue(parseFloat(this.refs.input.value));
       this.refs.input.blur();
     }
-  },
-  render: function() {
+  }
+
+  render() {
     return (
         <input ref="input" className="number" type="text"
           value={this.state.displayValue}
@@ -114,6 +124,4 @@ var NumberWidget = React.createClass({
         />
         );
   }
-});
-
-module.exports = NumberWidget;
+}

@@ -1,9 +1,10 @@
 var React = require('react');
 var InputWidget = require('../widgets').InputWidget;
 var handleEntityChange = require('../widgets').handleEntityChange;
-var AttributeRow = require('./AttributeRow');
 var Events = require('../../lib/Events.js');
-var Collapsible = require('../Collapsible');
+
+import AttributeRow from './AttributeRow';
+import Collapsible from '../Collapsible';
 
 function trim (s) {
   s = s.replace(/(^\s*)|(\s*$)/gi, '');
@@ -27,8 +28,8 @@ function isSingleProperty (schema) {
   return 'default' in schema;
 }
 
-var MixinsComponent = React.createClass({
-  removeMixin: function(mixin) {
+export class MixinsComponent extends React.Component {
+  removeMixin = mixin => {
     var entity = this.props.entity;
     var newMixins = trim(entity.getAttribute('mixin').replace(mixin, ''));
     if (newMixins.length === 0) {
@@ -39,14 +40,16 @@ var MixinsComponent = React.createClass({
 
     // @todo Is there some aframe event that we could catch instead of explicitly emit the objectChanged event?
     Events.emit('objectChanged', entity);
-  },
-  addMixin: function() {
+  }
+
+  addMixin = () => {
     var entity = this.props.entity;
     entity.setAttribute('mixin', trim(entity.getAttribute('mixin') + ' ' + this.refs.select.value));
     // @todo Is there some aframe event that we could catch instead of explicitly emit the objectChanged event?
     Events.emit('objectChanged', entity);
-  },
-  renderEntityMixins: function(entityMixins) {
+  }
+
+  renderEntityMixins(entityMixins) {
     if (entityMixins.length === 0) {
       return <span></span>
     }
@@ -74,13 +77,13 @@ var MixinsComponent = React.createClass({
         }
         </ul>
       </span>
-    )
-  },
-  render: function() {
+    );
+  }
+
+  render() {
     var entity = this.props.entity;
     var entityMixins = entity.mixinEls.map(function(mixin){return mixin.id;});
     var sceneMixins = Array.prototype.slice.call(document.querySelectorAll('a-mixin'));
-
 
     return (
       <div className="row">
@@ -104,41 +107,36 @@ var MixinsComponent = React.createClass({
       </div>
     );
   }
-});
+}
 
-var CommonComponents = React.createClass({
-  render: function() {
-    var entity = this.props.entity;
-    var components = entity ? this.props.entity.components : {};
-    if (!entity) {
-      return <div></div>;
-    }
-    return (
-      <Collapsible>
-        <div className="collapsible-header">
-          <span>COMMON</span>
+const CommonComponents = props => {
+  var entity = props.entity;
+  var components = entity ? props.entity.components : {};
+  if (!entity) { return <div></div>; }
+  return (
+    <Collapsible>
+      <div className="collapsible-header">
+        <span>COMMON</span>
+      </div>
+      <div className="collapsible-content">
+        <div className="row">
+          <span className="value">&lt;{entity.tagName.toLowerCase()}&gt;</span>
         </div>
-        <div className="collapsible-content">
-          <div className="row">
-            <span className="value">&lt;{entity.tagName.toLowerCase()}&gt;</span>
-          </div>
-          <div className="row">
-            <span className="text">ID</span>
-            <InputWidget onChange={changeId} entity={entity} name="id" value={entity.id}/>
-          </div>
-          {
-            Object.keys(components).filter(function(key){return ['visible','position','scale','rotation'].indexOf(key)!=-1;}).map(function(key) {
-              var componentData = components[key];
-              var schema = AFRAME.components[key].schema;
-              var data = isSingleProperty(schema) ? componentData.data : componentData.data[key];
-              return <AttributeRow onChange={handleEntityChange} key={key} name={key} schema={schema} data={componentData.data} componentname={key} entity={this.props.entity} />
-            }.bind(this))
-          }
-          <MixinsComponent entity={entity}/>
+        <div className="row">
+          <span className="text">ID</span>
+          <InputWidget onChange={changeId} entity={entity} name="id" value={entity.id}/>
         </div>
-      </Collapsible>
-    );
-  }
-});
-
-module.exports = CommonComponents;
+        {
+          Object.keys(components).filter(function(key){return ['visible','position','scale','rotation'].indexOf(key)!=-1;}).map(function(key) {
+            var componentData = components[key];
+            var schema = AFRAME.components[key].schema;
+            var data = isSingleProperty(schema) ? componentData.data : componentData.data[key];
+            return <AttributeRow onChange={handleEntityChange} key={key} name={key} schema={schema} data={componentData.data} componentname={key} entity={props.entity} />
+          }.bind(this))
+        }
+        <MixinsComponent entity={entity}/>
+      </div>
+    </Collapsible>
+  );
+}
+export default CommonComponents;

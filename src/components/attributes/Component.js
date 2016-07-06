@@ -1,7 +1,7 @@
 var React = require('react');
-var AttributeRow = require('./AttributeRow');
-var Collapsible = require('../Collapsible');
-var Pane = require('../Pane');
+
+import AttributeRow from './AttributeRow';
+import Collapsible from '../Collapsible';
 
 function isSingleProperty (schema) {
    if ('type' in schema) {
@@ -10,16 +10,18 @@ function isSingleProperty (schema) {
    return 'default' in schema;
 }
 
-var Component = React.createClass({
-  deleteComponent: function(event) {
+export default class Component extends React.Component {
+  deleteComponent = event => {
     event.stopPropagation();
     this.props.entity.removeAttribute(this.props.name);
-  },
-  resetComponent: function(event) {
+  }
+
+  resetComponent = event => {
     event.stopPropagation();
     this.props.entity.setAttribute(this.props.name, {});
-  },
-  render: function() {
+  }
+
+  render() {
     var componentData = this.props.component;
     var componentName = this.props.name.toUpperCase();
     var subComponentName = '';
@@ -60,6 +62,4 @@ var Component = React.createClass({
       </Collapsible>
     );
   }
-});
-
-module.exports = Component;
+}

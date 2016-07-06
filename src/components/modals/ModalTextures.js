@@ -6,9 +6,10 @@ function getFilename(url) {
   return url.split('/').pop();
 }
 
-var ModalTextures = React.createClass({
-  getInitialState: function() {
-    return {
+export default class ModalTextures extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       isOpen: this.props.isOpen,
       loadedTextures: [],
       assetsImages: [],
@@ -16,54 +17,9 @@ var ModalTextures = React.createClass({
       addNewDialogOpened: false,
       preview: {width:0, height:0, src: '', name: '', loaded: false}
     }
-  },
-  componentWillReceiveProps: function(newProps) {
-    if (this.state.isOpen !== newProps.isOpen) {
-      this.setState({isOpen: newProps.isOpen});
-      if (newProps.isOpen) {
-        this.generateFromAssets();
-      }
-    }
-  },
-  onClose: function(value) {
-    if (this.props.onClose) {
-      this.props.onClose();
-    }
-  },
-  selectTexture: function(value) {
-    if (this.props.onClose) {
-      this.props.onClose(value);
-    }
-  },
-  generateFromSamples: function() {
-    var self = this;
-    this.samplesImages.map((imageData) => {
+  }
 
-      var image = new Image();
-      image.addEventListener('load', function() {
-        self.state.samplesImages.push({id: imageData.name, src: image.src, width: image.width, height: image.height, name: imageData.name, type: 'sample', value: 'url(' + image.src + ')'});
-        self.setState({samplesImages: self.state.samplesImages});
-      });
-      image.src = imageData.src;
-    });
-  },
-  generateFromAssets: function() {
-    this.setState({assetsImages: []});
-
-    var self = this;
-    Array.prototype.slice.call(document.querySelectorAll('a-assets img')).map((asset) => {
-      var image = new Image();
-      image.addEventListener('load', function() {
-        self.state.assetsImages.push({id: asset.id, src: image.src, width: image.width, height: image.height, name: asset.id, type: 'asset', value: '#' + asset.id});
-        self.setState({assetsImages: self.state.assetsImages});
-      });
-      image.src = asset.src;
-    });
-  },
-  generateFromTextureCache: function() {
-
-  },
-  componentDidMount: function() {
+  componentDidMount() {
     this.samplesImages = [
       {name: 'create1111', src:'assets/textures/758px-Canestra_di_frutta_Caravaggio.jpg'},
       {name: 'asdfqwer', src:'assets/textures/2294472375_24a3b8ef46_o.jpg'},
@@ -94,8 +50,59 @@ var ModalTextures = React.createClass({
         }
       })
     });*/
-  },
-  onNewUrl: function(event) {
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (this.state.isOpen !== newProps.isOpen) {
+      this.setState({isOpen: newProps.isOpen});
+      if (newProps.isOpen) {
+        this.generateFromAssets();
+      }
+    }
+  }
+
+  onClose = value => {
+    if (this.props.onClose) {
+      this.props.onClose();
+    }
+  }
+
+  selectTexture = value => {
+    if (this.props.onClose) {
+      this.props.onClose(value);
+    }
+  }
+
+  generateFromSamples = () => {
+    var self = this;
+    this.samplesImages.map((imageData) => {
+
+      var image = new Image();
+      image.addEventListener('load', function() {
+        self.state.samplesImages.push({id: imageData.name, src: image.src, width: image.width, height: image.height, name: imageData.name, type: 'sample', value: 'url(' + image.src + ')'});
+        self.setState({samplesImages: self.state.samplesImages});
+      });
+      image.src = imageData.src;
+    });
+  }
+
+  generateFromAssets = () => {
+    this.setState({assetsImages: []});
+
+    var self = this;
+    Array.prototype.slice.call(document.querySelectorAll('a-assets img')).map((asset) => {
+      var image = new Image();
+      image.addEventListener('load', function() {
+        self.state.assetsImages.push({id: asset.id, src: image.src, width: image.width, height: image.height, name: asset.id, type: 'asset', value: '#' + asset.id});
+        self.setState({assetsImages: self.state.assetsImages});
+      });
+      image.src = asset.src;
+    });
+  }
+
+  generateFromTextureCache() {}
+
+  onNewUrl = event => {
     var self = this;
     function onImageLoaded(img) {
       self.setState({preview: {
@@ -114,18 +121,22 @@ var ModalTextures = React.createClass({
     this.refs.preview.addEventListener('load', onImageLoaded);
     //this.refs.preview.src = event.target.value;
     this.refs.preview.src = 'assets/textures/wall.jpg';
-  },
-  onNewName: function(event) {
+  }
+
+  onNewName = event => {
     this.state.preview.name = event.target.value;
-  },
-  onNameChanged: function(event) {
+  }
+
+  onNameChanged = event => {
     this.state.preview.name = event.target.value;
     this.setState({preview: this.state.preview});
-  },
-  toggleNewDialog: function() {
+  }
+
+  toggleNewDialog = () => {
     this.setState({addNewDialogOpened: !this.state.addNewDialogOpened});
-  },
-  render: function() {
+  }
+
+  render() {
     let samples = this.textures;
     //let alreadyLoaded = editor.sceneEl.systems.material.textureCache;
     let loadedTextures = this.state.loadedTextures;
@@ -248,6 +259,4 @@ var ModalTextures = React.createClass({
       </div>
     </Modal>
   }
-});
-
-module.exports = ModalTextures;
+}

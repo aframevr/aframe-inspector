@@ -52,23 +52,27 @@ function insertOrGetImageAsset(src) {
   return id;
 }
 
-
-
-var TextureWidget = React.createClass({
-  getInitialState: function() {
-    return {value: this.props.value || ''};
-  },/*
-  propTypes: {
+export default class TextureWidget extends React.Component {
+  static propTypes = {
     value: React.PropTypes.string
-  },*/
-  getDefaultProps: function() {
-    return {
-      value: '',
-      mapName: 'nomap',
-      dataURL: ''
-    };
-  },
-  componentWillReceiveProps: function(newProps) {
+  };
+
+  static defaultProps = {
+    value: '',
+    mapName: 'nomap',
+    dataURL: ''
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {value: this.props.value || ''};
+  }
+
+  componentDidMount() {
+    this.setValue(this.props.value || '');
+  }
+
+  componentWillReceiveProps(newProps) {
     // This will be triggered typically when the element is changed directly with element.setAttribute
     if (newProps.value != this.state.value)
     {
@@ -76,11 +80,9 @@ var TextureWidget = React.createClass({
       //this.setState({value: newProps.value});
       this.setValue(newProps.value);
     }
-  },
-  componentDidMount: function() {
-    this.setValue(this.props.value || '');
-  },
-  setValue: function(value) {
+  }
+
+  setValue(value) {
     var canvas = this.refs.canvas;
     var context = canvas.getContext('2d');
 
@@ -133,22 +135,26 @@ var TextureWidget = React.createClass({
     }
 
     this.setState({value: value, valueType: className});
-  },
-  notifyChanged: function(value) {
+  }
+
+  notifyChanged = value => {
     if (this.props.onChange)
       this.props.onChange(this.props.entity, this.props.componentname, this.props.name, value);
     this.setState({value: value});
-  },
-  onChange: function(e) {
+  }
+
+  onChange = e => {
     var value = e.target.value;
     this.setState({value: value});
     this.notifyChanged(value);
-  },
-  removeMap: function(e) {
+  }
+
+  removeMap = e => {
     this.setValue('');
     this.notifyChanged('');
-  },
-  openDialog: function() {
+  }
+
+  openDialog = () => {
     Events.emit('openTexturesModal', function(image) {
       if (!image) {
         return;
@@ -165,8 +171,9 @@ var TextureWidget = React.createClass({
       this.setValue(value);
 
     }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     return (
       <span className="texture">
         <span className={this.state.valueType}></span>
@@ -176,6 +183,4 @@ var TextureWidget = React.createClass({
       </span>
     );
   }
-});
-
-module.exports = TextureWidget;
+}
