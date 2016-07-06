@@ -134,7 +134,7 @@ var Scenegraph = React.createClass({
     }
   },
   render: function() {
-    return <div className="Outliner" tabIndex="0" id="outliner" onKeyDown={this.onKeyDown} onKeyUp={this.onKeyUp}>
+    return <div className="Outliner" tabIndex="0" onKeyDown={this.onKeyDown} onKeyUp={this.onKeyUp}>
       {
         this.state.options.map(function(option, idx) {
           var className = 'option' + (option.value === this.state.value ? ' active' : '');

@@ -31,7 +31,7 @@ var CreateMenu = React.createClass({
 
     return (
       <div className="menu">
-        <div className="title"><i className="button fa fa-plus-square"></i></div>
+        <i className="button fa fa-plus-square"></i>
         <div className="options">
         {
           Object.keys(definitions).map(function(definition) {
