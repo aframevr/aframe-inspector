@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Menu = require('./menu/Menu');
 var Scenegraph = require('./Scenegraph');
+var CreateEntity = require('./CreateEntity');
 var Events = require('../lib/Events.js');
 var Editor = require('../lib/editor');
 var ModalTextures = require('./modals/ModalTextures');
@@ -68,7 +69,10 @@ var Main = React.createClass({
           <ModalTextures ref="modaltextures" isOpen={textureDialogOpened} onClose={this.onModalTextureOnClose}/>
           <Menu/>
           <div id="sidebar-left">
-            <div className="tab">SCENEGRAPH</div>
+            <div className="tab">
+              SCENEGRAPH
+              <CreateEntity/>
+            </div>
             <Scenegraph scene={scene}/>
             <div className="scenegraph-bottom">
               <a href="#" onClick={this.deleteEntity} className="button fa fa-trash-o"></a>
