@@ -53,7 +53,7 @@ var CreateMenu = React.createClass({
     );
   },
   createEntity: function(e) {
-    Events.emit('createNewEntity', this.state.primitivesDefinitions[e.target.value]);
+    Events.emit('createNewEntity', this.state.primitivesDefinitions[e.target.getAttribute('value')]);
   },
 });
 
