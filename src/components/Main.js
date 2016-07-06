@@ -76,6 +76,10 @@ export default class Main extends React.Component {
     this.setState({isModalTexturesOpen: true});
   }
 
+  addEntity() {
+    Events.emit('createNewEntity', {element: 'a-entity', components: []});
+  }
+
   render() {
     var scene = document.querySelector('a-scene');
     var toggleText = this.state.editorEnabled;
@@ -90,6 +94,7 @@ export default class Main extends React.Component {
             <Scenegraph scene={scene}/>
             <div className="scenegraph-bottom">
               <a href="#" title="Delete selected entity" onClick={this.deleteEntity} className="button fa fa-trash-o"></a>
+              <a href="#" title="Add new entity" onClick={this.addEntity} className="button fa fa-plus"></a>
             </div>
           </div>
           <AttributesSidebar/>
