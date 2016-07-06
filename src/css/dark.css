@@ -99,7 +99,6 @@ input.number:focus {
 
   #menubar .menu {
     float: left;
-    cursor: pointer;
     padding-right: 8px;
   }
 
@@ -118,6 +117,7 @@ input.number:focus {
     }
 
     #menubar .menu .options {
+      cursor: pointer;
       z-index: 1500;
       position: absolute;
       display: none;
