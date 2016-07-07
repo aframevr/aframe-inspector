@@ -7,7 +7,7 @@ import NumberWidget from '../widgets/NumberWidget';
 import SelectWidget from '../widgets/SelectWidget';
 import TextureWidget from '../widgets/TextureWidget';
 import Vec3Widget from '../widgets/Vec3Widget';
-import handleEntityChange from '../widgets/Widget';
+import {updateEntity} from '../../actions/entity';
 
 export default class AttributeRow extends React.Component {
   static propTypes = {
@@ -25,7 +25,7 @@ export default class AttributeRow extends React.Component {
       componentname: props.componentname,
       entity: props.entity,
       name: props.name,
-      onChange: handleEntityChange,
+      onChange: updateEntity,
       value: props.data
     };
     const numberWidgetProps = {

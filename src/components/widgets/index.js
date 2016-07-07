@@ -5,6 +5,5 @@ module.exports = {
   NumberWidget: require('./NumberWidget').default,
   SelectWidget: require('./SelectWidget').default,
   TextureWidget: require('./TextureWidget').default,
-  Vec3Widget: require('./Vec3Widget').default,
-  handleEntityChange: require('./Widget')
+  Vec3Widget: require('./Vec3Widget').default
 }
