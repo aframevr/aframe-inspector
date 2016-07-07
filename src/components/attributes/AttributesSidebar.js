@@ -15,14 +15,7 @@ export default class AttributesSidebar extends React.Component {
   render() {
     return (
       <div id="sidebar">
-        <div className="tab collapsible">
-          <span>ATTRIBUTES</span>
-          <div className="dropdown menu hide">
-            <div className="dropdown-content">
-              <a href="#" onClick={this.deleteComponent}>Collapse all</a>
-            </div>
-          </div>
-        </div>
+        <div className="sidebar-title">ATTRIBUTES</div>
         <AttributesPanel/>
       </div>
     );

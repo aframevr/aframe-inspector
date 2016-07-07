@@ -26,7 +26,8 @@ export default class SceneGraph extends React.Component {
     this.state = {
       value: this.props.value || '',
       options: [],
-      selectedIndex: -1
+      selectedIndex: -1,
+      filterText: ''
     };
   }
 
@@ -152,21 +153,37 @@ export default class SceneGraph extends React.Component {
   }
 
   renderOptions () {
-    return this.state.options.map((option, idx) => {
-      let className = 'option' + (option.value === this.state.value ? ' active' : '');
-      return (
-        <div key={idx} className={className} value={option.value}
-          dangerouslySetInnerHTML={{__html: option.html}}
-          onClick={this.setValue.bind(this, option.value)}/>
-      );
-    });
+    var filterText = this.state.filterText.toUpperCase();
+    return this.state.options
+      .filter((option, idx) => {
+        const value = option.value;
+        return value.id.toUpperCase().indexOf(filterText) > -1 || value.tagName.toUpperCase().indexOf(filterText) > -1
+      })
+      .map((option, idx) => {
+        let className = 'option' + (option.value === this.state.value ? ' active' : '');
+        return (
+          <div key={idx} className={className} value={option.value}
+            dangerouslySetInnerHTML={{__html: option.html}}
+            onClick={this.setValue.bind(this, option.value)}/>
+        );
+      });
+  }
+
+  onChangeFilter = e => {
+    this.setState({filterText: e.target.value});
   }
 
   render () {
     return (
-      <div className='Outliner' tabIndex='0' id='outliner' onKeyDown={this.onKeyDown}
-        onKeyUp={this.onKeyUp}>
-        {this.renderOptions()}
+      <div className='scenegraph'>
+        <div className='search'>
+          <input placeholder='Search...' value={this.state.filterText} onChange={this.onChangeFilter}/>
+          <span className='fa fa-search'></span>
+        </div>
+        <div className='outliner' tabIndex='0' onKeyDown={this.onKeyDown}
+          onKeyUp={this.onKeyUp}>
+          {this.renderOptions()}
+        </div>
       </div>
     );
   }
