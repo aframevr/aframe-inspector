@@ -116,11 +116,11 @@ const CommonComponents = props => {
   return (
     <Collapsible>
       <div className="collapsible-header">
-        <span>COMMON</span>
+        <span>Common</span>
       </div>
       <div className="collapsible-content">
         <div className="row">
-          <span className="value">&lt;{entity.tagName.toLowerCase()}&gt;</span>
+          <span className="value tagName"><code>&lt;{entity.tagName.toLowerCase()}&gt;</code></span>
         </div>
         <div className="row">
           <span className="text">ID</span>
