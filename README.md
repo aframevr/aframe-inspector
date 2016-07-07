@@ -33,7 +33,7 @@ open up any scene and click on the bookmarklet to inject the editor.
 
 ### Including the Build
 
-1. [Download the build](https://aframevr.github.io/aframe-editor/dist/aframe-editor.js)
+1. [Download the build](https://aframe.io/aframe-editor/build/aframe-editor.js)
 2. Add the build to the bottom of your A-Frame scene:
 
 ```html
