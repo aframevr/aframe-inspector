@@ -35,12 +35,6 @@ textarea, input { outline: none; } /* osx */
 #sidebar-left,
 .Panel {
 	cursor: default;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-
-	/* No support for these yet */
-	-o-user-select: none;
 	user-select: none;
 }
 

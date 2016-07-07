@@ -538,19 +538,12 @@ a.button:hover {
   padding: 0;
   width: 889px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-  -webkit-animation-name: animatetop;
-  -webkit-animation-duration: 0.2s;
   animation-name: animatetop;
   animation-duration: 0.2s
 }
 
 
 /* Add Animation */
-@-webkit-keyframes animatetop {
-  from {top:-300px; opacity:0}
-  to {top:0; opacity:1}
-}
-
 @keyframes animatetop {
   from {top:-300px; opacity:0}
   to {top:0; opacity:1}
@@ -601,15 +594,11 @@ a.button:hover {
   float: left;
   overflow: hidden;
   display: inline-block;
-  -webkit-box-shadow: 3px 3px 8px -2px rgba(0,0,0,0.63);
-  -moz-box-shadow: 3px 3px 8px -2px rgba(0,0,0,0.63);
   box-shadow: 3px 3px 8px -2px rgba(0,0,0,0.63);
   cursor: pointer;
 }
 
 .gallery li:hover {
-  -webkit-box-shadow: 0px 0px 4px 3px rgba(29,138,190,0.63);
-  -moz-box-shadow: 0px 0px 4px 3px rgba(29,138,190,0.63);
   box-shadow: 0px 0px 4px 3px rgba(29,138,190,0.63);
 }
 
@@ -779,6 +768,4 @@ span.subcomponent {
 
 .a-canvas.state-dragging {
   cursor: grabbing;
-  cursor: -moz-grabbing;
-  cursor: -webkit-grabbing;
 }
