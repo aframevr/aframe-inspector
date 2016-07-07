@@ -1,7 +1,7 @@
 {
   "name": "aframe-editor",
   "version": "0.1.0",
-  "description": "",
+  "description": "An editor for A-Frame scenes.",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --progress --colors -d --open",
