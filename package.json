@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --progress --colors -d --open",
     "build": "webpack --progress --colors -p",
-    "lint": "node --harmony node_modules/.bin/eslint src",
+    "lint": "npm run lintfile src/",
+    "lintfile": "node --harmony node_modules/.bin/eslint",
     "preghpages": "npm run build && shx rm -rf gh-pages && shx mkdir gh-pages",
     "ghpages": "npm run preghpages && shx cp -r build example gh-pages && node ./scripts/gh-pages"
   },
