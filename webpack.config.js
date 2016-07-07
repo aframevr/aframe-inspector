@@ -1,3 +1,5 @@
+var autoprefixer = require('autoprefixer');
+
 module.exports = {
   entry: "./src/components/Main.js",
   output: {
@@ -20,8 +22,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader:'style!css!'
+        loader:'style!css!postcss'
       }
     ]
+  },
+  postcss: function () {
+    return [autoprefixer];
   }
 };
