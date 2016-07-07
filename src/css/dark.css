@@ -31,7 +31,11 @@ input, .texture canvas {
   transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;
 }
 
-input.string {
+input[type=text],
+input[type=number],
+input.string,
+input.number {
+  min-height: 14px;
   outline: none;
 }
 
@@ -41,7 +45,6 @@ input.number {
   border: 0px;
   padding: 2px;
   cursor: col-resize;
-  outline: none;
   background-color: transparent !important;
 }
 
@@ -203,7 +206,7 @@ input.number:focus {
     border: solid 1px #5A5A5A;
   }
 
-  .Row {
+  .row {
     min-height: 20px;
     margin-bottom: 10px;
   }
@@ -415,6 +418,11 @@ div.vec3 {
   display: inline-block;
   vertical-align: middle;
   width: 120px;
+}
+
+.attributes .row .map_value {
+  margin: 0 0 0 5px;
+  width: 68px;
 }
 
 .hidden {
@@ -657,11 +665,6 @@ a.button:hover {
   background-color: #2b2b2b;
   overflow:auto;
   min-height: 100px;
-}
-
-.map_value {
-  width: 68px;
-  margin-right: 2px;
 }
 
 .preview {
