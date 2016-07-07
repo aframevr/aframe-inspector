@@ -352,11 +352,9 @@ div.vec3 {
   width: 50px;
 }
 
-.collapsible {
-}
-
-.collapsible .static span {
+.collapsible-header span {
   float: left;
+  text-transform: uppercase;
 }
 
 .collapsible .static {
@@ -370,15 +368,15 @@ div.vec3 {
 }
 
 .collapsible .menu {
-  text-align:right;
+  text-align: right;
 }
 
 .collapsible .menu:after {
+  color: #1faaf2;
   content: '\2807';
   font-size: 12px;
-  color: #1faaf2;
-  text-align:right;
   padding: 5px;
+  text-align: right;
 }
 
 .collapsible .static .button {
@@ -768,4 +766,12 @@ span.subcomponent {
 
 .a-canvas.state-dragging {
   cursor: grabbing;
+}
+
+code, pre {
+  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;
+}
+
+.tagName {
+  font-weight: 500;
 }
