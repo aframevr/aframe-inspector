@@ -326,10 +326,14 @@ function Viewport (editor) {
   Events.on('editorModeChanged', function (active) {
     if (active) {
       editor.editorCameraEl.setAttribute('camera', 'active', 'true');
-      document.querySelector('.a-enter-vr,.rs-base').style.display = 'none';
+      document.querySelectorAll('.a-enter-vr,.rs-base').forEach(function(element){
+        element.style.display = 'none';
+      });
     } else {
       prevActivedCameraEl.setAttribute('camera', 'active', 'true');
-      document.querySelector('.a-enter-vr,.rs-base').style.display = 'block';
+      document.querySelectorAll('.a-enter-vr,.rs-base').forEach(function(element){
+        element.style.display = 'block';
+      });
     }
   });
 }
