@@ -27,25 +27,38 @@ input {
   color: #fff;
 }
 
+input[type="text"],
 input.string {
   outline: none;
 }
 
+input[type="number"],
 input.number {
-  color: #20b1fb !important;
-  font-size: 12px;
-  border: 0px;
-  padding: 2px;
+  background-color: transparent;
+  border-color: transparent transparent #555;
+  border-width: 0 0 1px;
+  color: #20b1fb;
   cursor: col-resize;
+  font-size: 12px;
   outline: none;
-  background-color: transparent !important;
+  padding: 2px;
 }
 
+input[type="text"]:focus,
+input[type="number"]:focus,
 input.string:focus,
 input.number:focus {
   border: 1px solid #20b1fb;
   cursor: auto;
   color: #fff;
+  padding: 1px;
+}
+
+input[type="text"] + input,
+input[type="number"] + input,
+input.string + input,
+input.number + input {
+  margin-left: 4px;
 }
 
 #viewport {
