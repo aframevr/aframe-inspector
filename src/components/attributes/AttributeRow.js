@@ -1,50 +1,75 @@
-var React = require('react');
-import NumberWidget from '../widgets/NumberWidget';
-import InputWidget from '../widgets/InputWidget';
+import React from 'react';
+
 import BooleanWidget from '../widgets/BooleanWidget';
-import SelectWidget from '../widgets/SelectWidget';
-import Vec3Widget from '../widgets/Vec3Widget';
 import ColorWidget from '../widgets/ColorWidget';
+import InputWidget from '../widgets/InputWidget';
+import NumberWidget from '../widgets/NumberWidget';
+import SelectWidget from '../widgets/SelectWidget';
 import TextureWidget from '../widgets/TextureWidget';
+import Vec3Widget from '../widgets/Vec3Widget';
 import handleEntityChange from '../widgets/Widget';
 
 export default class AttributeRow extends React.Component {
-  render() {
-    var componentData = this.props.component;
-    var widget;
+  static propTypes = {
+    componentname: React.PropTypes.string.isRequired,
+    name: React.PropTypes.string.isRequired,
+    schema: React.PropTypes.object.isRequired
+  };
 
-    var map = false;
-    if (this.props.componentname === 'material' && (this.props.name === 'envMap' || this.props.name === 'src')) {
-      map =  true;
+  getWidget () {
+    const props = this.props;
+    const isMap = props.componentname === 'material' && (props.name === 'envMap' ||
+                                                         props.name === 'src');
+    const type = props.schema.type;
+    const widgetProps = {
+      componentname: props.componentname,
+      entity: props.entity,
+      name: props.name,
+      onChange: handleEntityChange,
+      value: props.data
+    };
+    const numberWidgetProps = {
+      min: props.schema.hasOwnProperty('min') ? props.schema.min : -Infinity,
+      max: props.schema.hasOwnProperty('max') ? props.schema.max : Infinity
+    };
+
+    if (props.schema.oneOf && props.schema.oneOf.length > 0) {
+      return <SelectWidget {...widgetProps} options={props.schema.oneOf}/>;
+    }
+    if (type === 'map' || isMap) {
+      return <TextureWidget {...widgetProps}/>;
     }
 
-    if (this.props.schema.oneOf && this.props.schema.oneOf.length>0) {
-      widget = <SelectWidget onChange={handleEntityChange} name={this.props.name} componentname={this.props.componentname} entity={this.props.entity} value={this.props.data} options={this.props.schema.oneOf}/>;
-    } else if (this.props.schema.type === "map" || map) {
-      widget = <TextureWidget onChange={handleEntityChange} name={this.props.name} componentname={this.props.componentname} entity={this.props.entity} value={this.props.data}/>;
-    } else if (this.props.schema.type === "number") {
-      var min = this.props.schema.hasOwnProperty('min') ? this.props.schema.min : -Infinity;
-      var max = this.props.schema.hasOwnProperty('max') ? this.props.schema.max : Infinity;
-        widget = <NumberWidget onChange={handleEntityChange} min={min} max={max} name={this.props.name} componentname={this.props.componentname} entity={this.props.entity} value={this.props.data}/>;
-    } else if (this.props.schema.type === "vec3") {
-      widget = <Vec3Widget onChange={handleEntityChange} name={this.props.name} componentname={this.props.componentname} entity={this.props.entity} value={this.props.data}/>;
-    } else if (this.props.schema.type === "color") {
-      widget = <ColorWidget onChange={handleEntityChange} name={this.props.name} componentname={this.props.componentname} entity={this.props.entity} value={this.props.data}/>;
-    } else if (this.props.schema.type === "int") {
-      var min = this.props.schema.hasOwnProperty('min') ? this.props.schema.min : -Infinity;
-      var max = this.props.schema.hasOwnProperty('max') ? this.props.schema.max : Infinity;
-      widget = <NumberWidget onChange={handleEntityChange} min={min} max={max} name={this.props.name} componentname={this.props.componentname} entity={this.props.entity} value={this.props.data} precision={0}/>;
-    } else if (this.props.schema.type === "boolean") {
-      widget = <BooleanWidget onChange={handleEntityChange} name={this.props.name} componentname={this.props.componentname} entity={this.props.entity} value={this.props.data}/>;
-    } else {
-      widget = <InputWidget onChange={handleEntityChange} name={this.props.name} componentname={this.props.componentname} entity={this.props.entity} value={this.props.data}/>;
+    switch (type) {
+      case 'number': {
+        return <NumberWidget {...widgetProps} {...numberWidgetProps}/>;
+      }
+      case 'int': {
+        return <NumberWidget {...widgetProps} {...numberWidgetProps} precision={0}/>;
+      }
+      case 'vec3': {
+        return <Vec3Widget {...widgetProps}/>;
+      }
+      case 'color': {
+        return <ColorWidget {...widgetProps}/>;
+      }
+      case 'boolean': {
+        return <BooleanWidget {...widgetProps}/>;
+      }
+      default: {
+        return <InputWidget {...widgetProps}/>;
+      }
     }
-    var title = "type: " +this.props.schema.type+ " value: " + JSON.stringify(this.props.data);
-    var id = this.props.componentname + '.' + this.props.name;
+  }
+
+  render () {
+    const props = this.props;
+    const title = 'type: ' + props.schema.type + ' value: ' + JSON.stringify(props.data);
+    const id = props.componentname + '.' + props.name;
     return (
-      <div className="row">
-        <label htmlFor={id} className="text" title={title}>{this.props.name}</label>
-        {widget}
+      <div className='row'>
+        <label htmlFor={id} className='text' title={title}>{props.name}</label>
+        {this.getWidget(props.schema.type)}
       </div>
     );
   }
