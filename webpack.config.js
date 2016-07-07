@@ -1,13 +1,25 @@
+var path = require('path');
+
 var autoprefixer = require('autoprefixer');
+var postcssImport = require('postcss-import');
+var webpack = require('webpack');
+
+// Add HMR for development environments only.
+var entry = ['./src/components/Main.js'];
+if (process.env.NODE_ENV === 'dev') {
+  entry = [
+    'webpack-dev-server/client?http://localhost:3333',
+    'webpack/hot/only-dev-server'
+  ].concat(entry);
+}
 
 module.exports = {
-  entry: "./src/components/Main.js",
+  devServer: {port: 3333},
+  entry: entry,
   output: {
-    filename: "build/aframe-editor.js",
-  },
-  devServer: {
-    inline: true,
-    port: 3333
+    path: path.join(__dirname, 'build'),
+    filename: 'aframe-editor.js',
+    publicPath: '/build/'
   },
   module: {
     loaders: [
@@ -26,7 +38,10 @@ module.exports = {
       }
     ]
   },
-  postcss: function () {
-    return [autoprefixer];
+  postcss: function (webpack) {
+    return [
+      postcssImport({addDependencyTo: webpack}),  // postcss/postcss-loader/issues/8
+      autoprefixer
+    ];
   }
 };
