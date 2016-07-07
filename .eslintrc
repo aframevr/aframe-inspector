@@ -1,6 +1,7 @@
 {
   "extends": ["eslint:recommended", "plugin:react/recommended", "standard"],
   "rules": {
+    "react/jsx-indent-props": [2, 2],
     "semi": [2, "always"]
   },
   "env": {

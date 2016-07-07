@@ -130,12 +130,12 @@ export default class NumberWidget extends React.Component {
   render () {
     return (
       <input ref='input' className='number' type='text'
-             value={this.state.displayValue}
-             onKeyDown={this.onKeyDown}
-             onChange={this.onChange}
-             onMouseDown={this.onMouseDown}
-             onFocus={this.onFocus}
-             onBlur={this.onBlur}
+        value={this.state.displayValue}
+        onKeyDown={this.onKeyDown}
+        onChange={this.onChange}
+        onMouseDown={this.onMouseDown}
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
       />
     );
   }
