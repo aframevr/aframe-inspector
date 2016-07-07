@@ -23,29 +23,34 @@ export default class NumberWidget extends React.Component {
 
   constructor (props) {
     super(props);
-    this.state = {value: this.props.value, displayValue: this.props.value.toFixed(this.props.precision)};
+    this.state = {
+      value: this.props.value,
+      displayValue: this.props.value.toFixed(this.props.precision)
+    };
   }
 
   componentDidMount () {
     this.distance = 0;
     this.onMouseDownValue = 0;
-    this.prevPointer = [ 0, 0 ];
+    this.prevPointer = [0, 0];
 
     this.setValue(this.props.value);
-
     this.onBlur();
   }
 
   onMouseMove = event => {
-    var currentValue = parseFloat(this.value);
-    var pointer = [ event.clientX, event.clientY ];
+    const currentValue = parseFloat(this.value);
+    const pointer = [event.clientX, event.clientY];
+    const delta = (pointer[0] - this.prevPointer[0]) - (pointer[1] - this.prevPointer[1]);
+    this.distance += delta;
 
-    this.distance += (pointer[0] - this.prevPointer[0]) - (pointer[1] - this.prevPointer[1]);
-    var value = this.onMouseDownValue + (this.distance / (event.shiftKey ? 5 : 50)) * this.props.step;
+    // Add minimum tolerance to reduce unintentional drags when clicking on input.
+    if (Math.abs(delta) <= 2) { return; }
+
+    let value = this.onMouseDownValue + (this.distance / (event.shiftKey ? 5 : 50)) *
+                this.props.step;
     value = Math.min(this.props.max, Math.max(this.props.min, value));
-    if (currentValue !== value) {
-      this.setValue(value);
-    }
+    if (currentValue !== value) { this.setValue(value); }
     this.prevPointer = [event.clientX, event.clientY];
   }
 
@@ -53,7 +58,7 @@ export default class NumberWidget extends React.Component {
     event.preventDefault();
     this.distance = 0;
     this.onMouseDownValue = this.state.value;
-    this.prevPointer = [ event.clientX, event.clientY ];
+    this.prevPointer = [event.clientX, event.clientY];
     document.addEventListener('mousemove', this.onMouseMove, false);
     document.addEventListener('mouseup', this.onMouseUp, false);
   }
@@ -88,15 +93,20 @@ export default class NumberWidget extends React.Component {
       this.setState({value: value, displayValue: value.toFixed(this.props.precision)});
 
       if (this.props.onChange) {
-        this.props.onChange(this.props.entity, this.props.componentname, this.props.name, value);
+        this.props.onChange(this.props.entity, this.props.componentname, this.props.name,
+                            value);
       }
     }
   }
 
   componentWillReceiveProps (newProps) {
-    // This will be triggered typically when the element is changed directly with element.setAttribute
+    // This will be triggered typically when the element is changed directly with
+    // element.setAttribute.
     if (newProps.value !== this.state.value) {
-      this.setState({value: newProps.value, displayValue: newProps.value.toFixed(this.props.precision)});
+      this.setState({
+        value: newProps.value,
+        displayValue: newProps.value.toFixed(this.props.precision)
+      });
     }
   }
 
@@ -120,12 +130,12 @@ export default class NumberWidget extends React.Component {
   render () {
     return (
       <input ref='input' className='number' type='text'
-        value={this.state.displayValue}
-        onKeyDown={this.onKeyDown}
-        onChange={this.onChange}
-        onMouseDown={this.onMouseDown}
-        onFocus={this.onFocus}
-        onBlur={this.onBlur}
+             value={this.state.displayValue}
+             onKeyDown={this.onKeyDown}
+             onChange={this.onChange}
+             onMouseDown={this.onMouseDown}
+             onFocus={this.onFocus}
+             onBlur={this.onBlur}
       />
     );
   }
