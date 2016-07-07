@@ -1,5 +1,4 @@
-var React = require('react');
-var handleEntityChange = require('./Widget');
+import React from 'react';
 var Events = require('../../lib/Events.js');
 
 function GetFilename(url) {
