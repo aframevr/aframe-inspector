@@ -106,7 +106,9 @@ export default class NumberWidget extends React.Component {
   }
 
   onChange = e => {
-    this.setState({value: e.target.value, displayValue: e.target.value});
+    const value = e.target.value;
+    this.setState({value: value, displayValue: value});
+    this.setValue(value);
   }
 
   onKeyDown = event => {
@@ -119,7 +121,7 @@ export default class NumberWidget extends React.Component {
 
   render () {
     return (
-      <input ref='input' className='number' type='text'
+      <input ref='input' className='number' type='number'
         value={this.state.displayValue}
         onKeyDown={this.onKeyDown}
         onChange={this.onChange}

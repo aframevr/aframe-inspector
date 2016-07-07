@@ -5,6 +5,14 @@ body {
 	overflow: hidden;
 }
 
+input[type="number"] {
+  appearance: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  appearance: none;
+}
+
 hr {
 	border: 0;
 	border-top: 1px solid #ccc;
