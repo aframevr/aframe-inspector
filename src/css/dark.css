@@ -27,6 +27,10 @@ input {
   color: #fff;
 }
 
+input, .texture canvas {
+  transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;
+}
+
 input.string {
   outline: none;
 }
@@ -261,12 +265,43 @@ input.number:focus {
   font-size: 11px;
 }
 
-input.color {
+.texture canvas,
+input[type=color] {
+  border: 1px solid #111;
+  background-color: #333;
+  cursor: pointer;
+}
+
+.texture canvas:focus,
+input[type=color]:focus {
+  border-color: rgb(32,177,251);
+}
+
+.texture canvas:hover,
+input[type=color]:hover {
+  border-color: rgba(32,177,251,0.5);
+}
+
+input[type=color] {
+  height: 16px;
   width: 64px;
-  height: 17px;
-  border: 0px;
-  padding: 2px;
-  background-color: transparent !important;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Note: these vendor-prefixed selectors cannot be grouped! */
+input[type=color]::-webkit-color-swatch {
+  border: 0;  /* To remove the gray border. */
+}
+input[type=color]::-webkit-color-swatch-wrapper {
+  padding: 0;  /* To remove the inner padding. */
+}
+input[type=color]::-moz-color-swatch {
+  border: 0;
+}
+input[type=color]::-moz-focus-inner {
+  border: 0;  /* To remove the inner border (specific to Firefox). */
+  padding: 0;
 }
 
 .Outliner .fa {
@@ -388,11 +423,8 @@ div.vec3 {
   visibility: hidden;
 }
 
-.texture canvas {
-  cursor: pointer;
-  margin-right: 5px;
-  border: 1px solid #111;
-  background-color: #333;
+.texture canvas + input {
+  margin-left: 5px;
 }
 
 .texture .fa {
