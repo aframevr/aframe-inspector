@@ -13,9 +13,9 @@ export default class Vec3Widget extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      x: this.props.value.x,
-      y: this.props.value.y,
-      z: this.props.value.z
+      x: props.value.x,
+      y: props.value.y,
+      z: props.value.z
     };
   }
 
@@ -27,6 +27,10 @@ export default class Vec3Widget extends React.Component {
     });
   }
 
+  componentWillReceiveProps (nextProps) {
+    this.setState(nextProps.value);
+  }
+
   render () {
     const widgetProps = {
       componentname: this.props.componentname,
@@ -35,11 +39,11 @@ export default class Vec3Widget extends React.Component {
     };
 
     return (
-        <div className='vec3'>
-          <NumberWidget name='x' value={this.state.x} {...widgetProps}/>
-          <NumberWidget name='y' value={this.state.y} {...widgetProps}/>
-          <NumberWidget name='z' value={this.state.z} {...widgetProps}/>
-        </div>
+      <div className='vec3'>
+        <NumberWidget name='x' value={this.state.x} {...widgetProps}/>
+        <NumberWidget name='y' value={this.state.y} {...widgetProps}/>
+        <NumberWidget name='z' value={this.state.z} {...widgetProps}/>
+      </div>
     );
   }
 }
