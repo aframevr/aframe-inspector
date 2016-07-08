@@ -64,20 +64,8 @@ export default class Main extends React.Component {
     }
   }
 
-  deleteEntity() {
-    if (editor.selectedEntity) {
-      editor.selectedEntity.parentNode.removeChild(editor.selectedEntity);
-      editor.selectEntity(null);
-    }
-    return false;
-  }
-
   openModal = () => {
     this.setState({isModalTexturesOpen: true});
-  }
-
-  addEntity() {
-    Events.emit('createNewEntity', {element: 'a-entity', components: []});
   }
 
   render() {
@@ -92,10 +80,6 @@ export default class Main extends React.Component {
           <div id="sidebar-left">
             <div className="tab">SCENEGRAPH</div>
             <SceneGraph scene={scene}/>
-            <div className="scenegraph-bottom">
-              <a href="#" title="Delete selected entity" onClick={this.deleteEntity} className="button fa fa-trash-o"></a>
-              <a href="#" title="Add new entity" onClick={this.addEntity} className="button fa fa-plus"></a>
-            </div>
           </div>
           <AttributesSidebar/>
         </div>
