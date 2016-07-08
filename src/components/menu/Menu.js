@@ -125,7 +125,7 @@ export class MenuWidget extends React.Component {
           </div>
         </div>
         <div className="menu">
-          <div className="title">Scene</div>
+          <div className="title">Export</div>
           <div className="options">
             <div className="option" onClick={this.saveToHTML}>Save HTML</div>
             <div className="option" data-action="copy-to-clipboard">Copy to clipboard</div>
