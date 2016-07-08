@@ -1,25 +1,33 @@
-﻿.Outliner {
-  color: #868686;
-  background: #2b2b2b;
-  padding: 0;
-  width: 100%;
-  font-size: 12px;
-  cursor: default;
-  outline: none;
+.scenegraph {
   border-top: 1px solid #111;
-  flex: 1 1 auto;
-  overflow-y: auto;
 }
 
-  .Outliner .option {
-    padding: 4px;
-    white-space: nowrap;
-  }
+.scenegraph .search {
+  padding: 5px;
+}
 
-  .Outliner .option.active {
-    background-color: #1faaf2;
-    color: #fff;
-  }
+.search {
+  position: relative;
+  color: #aaa;
+  font-size: 16px;
+}
+
+.search input {
+  width: 165px;
+  height: 22px;
+  background: #222;
+  border-radius: 5px;
+}
+
+.search input {
+  text-indent: 10px;
+}
+
+.search .fa-search {
+  position: absolute;
+  top: 10px;
+  right: 11px;
+}
 
 input {
   background-color: transparent;
@@ -305,26 +313,6 @@ input[type=color]::-moz-color-swatch {
 input[type=color]::-moz-focus-inner {
   border: 0;  /* To remove the inner border (specific to Firefox). */
   padding: 0;
-}
-
-.Outliner .fa {
-  color: #aaa;
-}
-
-.Outliner .active .fa {
-  color: #fff;
-}
-
-#outliner .Entity {
-  color: #8888ee;
-}
-
-#outliner .Template {
-  color: #88ee88;
-}
-
-#outliner .Animation {
-  color: #ee8888;
 }
 
 body {
@@ -778,4 +766,34 @@ code, pre {
 
 .tagName {
   font-weight: 500;
+}
+
+.outliner {
+  color: #868686;
+  background: #2b2b2b;
+  padding: 0;
+  width: 100%;
+  font-size: 12px;
+  cursor: default;
+  outline: none;
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+.outliner .option {
+  padding: 4px;
+  white-space: nowrap;
+}
+
+.outliner .option.active {
+  background-color: #1faaf2;
+  color: #fff;
+}
+
+.outliner .fa {
+  color: #aaa;
+}
+
+.outliner .active .fa {
+  color: #fff;
 }
