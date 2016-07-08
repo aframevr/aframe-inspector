@@ -746,7 +746,7 @@
 
 			_mode = mode ? mode : _mode;
 
-			if ( _mode === "scale" ) scope.space = "local";
+			// if ( _mode === "scale" ) scope.space = "local";
 
 			for ( var type in _gizmo ) _gizmo[ type ].visible = ( type === _mode );
 
@@ -801,7 +801,7 @@
 
 			eye.copy( camPosition ).sub( worldPosition ).normalize();
 
-			if ( scope.space === "local" ) {
+			if ( scope.space === "local" || _mode === "scale" ) {
 
 				_gizmo[ _mode ].update( worldRotation, eye );
 
@@ -913,7 +913,7 @@
 				point.sub( offset );
 				point.multiply( parentScale );
 
-				if ( scope.space === "local" ) {
+				if ( scope.space === "local" || _mode === "scale" ) {
 
 					point.applyMatrix4( tempMatrix.getInverse( worldRotationMatrix ) );
 
@@ -943,7 +943,7 @@
 
 				if ( scope.translationSnap !== null ) {
 
-					if ( scope.space === "local" ) {
+					if ( scope.space === "local" || _mode === "scale" ) {
 
 						scope.object.position.applyMatrix4( tempMatrix.getInverse( worldRotationMatrix ) );
 
@@ -953,7 +953,7 @@
 					if ( scope.axis.search( "Y" ) !== - 1 ) scope.object.position.y = Math.round( scope.object.position.y / scope.translationSnap ) * scope.translationSnap;
 					if ( scope.axis.search( "Z" ) !== - 1 ) scope.object.position.z = Math.round( scope.object.position.z / scope.translationSnap ) * scope.translationSnap;
 
-					if ( scope.space === "local" ) {
+					if ( scope.space === "local" || _mode === "scale" ) {
 
 						scope.object.position.applyMatrix4( worldRotationMatrix );
 
@@ -966,7 +966,7 @@
 				point.sub( offset );
 				point.multiply( parentScale );
 
-				if ( scope.space === "local" ) {
+				if ( scope.space === "local" || _mode === "scale" ) {
 
 					if ( scope.axis === "XYZ" ) {
 
@@ -1026,7 +1026,7 @@
 
 					scope.object.quaternion.copy( tempQuaternion );
 
-				} else if ( scope.space === "local" ) {
+				} else if ( scope.space === "local" || _mode === "scale" ) {
 
 					point.applyMatrix4( tempMatrix.getInverse( worldRotationMatrix ) );
 

@@ -157,7 +157,7 @@ export default class SceneGraph extends React.Component {
     return this.state.options
       .filter((option, idx) => {
         const value = option.value;
-        return value.id.toUpperCase().indexOf(filterText) > -1 || value.tagName.toUpperCase().indexOf(filterText) > -1
+        return value.id.toUpperCase().indexOf(filterText) > -1 || value.tagName.toUpperCase().indexOf(filterText) > -1;
       })
       .map((option, idx) => {
         let className = 'option' + (option.value === this.state.value ? ' active' : '');

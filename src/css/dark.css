@@ -47,10 +47,17 @@
   white-space: nowrap;
 }
 
+
+.toolbar .active,
 .outliner .option.active {
   background-color: #1faaf2;
   color: #fff;
 }
+
+.toolbar .active:hover {
+  color: #fff !important;
+}
+
 
 .outliner .fa {
   color: #aaa;
@@ -288,11 +295,14 @@ input.number:focus {
 
 .toolbar * {
   vertical-align: middle;
-  padding-top: 8px;
+  padding: 8px;
+  margin-left: 0px;
+  /*margin-top: 7px;*/
 }
 
-.toolbar button {
-  margin-right: 6px;
+
+.toolbar a.button {
+  margin: 0 6px 0 0;
 }
 
 .aframe-logo {
@@ -800,4 +810,16 @@ code, pre {
 
 .div {
   vertical-align: middle;
+}
+
+.local-transform {
+  padding-left: 10px;
+}
+
+.local-transform label {
+  color: #AAA;
+}
+
+.local-transform a.button {
+  padding-top: 0px;
 }
