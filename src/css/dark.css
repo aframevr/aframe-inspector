@@ -741,6 +741,7 @@ span.mixinlist ul {
 
 span.mixinlist ul li {
   margin-bottom: 3px;
+  font-size: 11px;
 }
 
 span.mixinlist ul li:last-child {
