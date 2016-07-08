@@ -30,6 +30,10 @@ Editor.prototype = {
   },
 
   onSceneLoaded: function () {
+    this.previousDebug = this.sceneEl.hasAttribute('debug') && this.sceneEl.hasAttribute('debug') !== 'false';
+    this.sceneEl.setAttribute('debug', 'true');
+    this.sceneEl.flushToDOM();
+
     this.container = document.querySelector('.a-canvas');
     this.currentCameraEl = document.querySelector('[camera]');
 
@@ -253,20 +257,17 @@ Editor.prototype = {
   },
 
   enable: function () {
-//    this.panels.sidebar.show();
-//    this.panels.menubar.show();
     this.enabled = true;
     Events.emit('editorModeChanged', true);
     this.sceneEl.pause();
   },
 
   disable: function () {
-//    this.panels.sidebar.hide();
-//    this.panels.menubar.hide();
     this.enabled = false;
     Events.emit('editorModeChanged', false);
+    this.sceneEl.setAttribute('debug', this.previousDebug ? 'true' : 'false');
+    this.sceneEl.flushToDOM();
     this.sceneEl.play();
-  // @todo Removelisteners
   },
 
   addObject: function (object) {
