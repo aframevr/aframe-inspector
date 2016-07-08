@@ -7,6 +7,7 @@ import AttributesSidebar from './attributes/AttributesSidebar';
 import {MenuWidget} from './menu/Menu';
 import ModalTextures from './modals/ModalTextures';
 import SceneGraph from './SceneGraph';
+import ToolBar from './ToolBar';
 
 import "../css/main.css";
 import "../css/dark.css";
@@ -76,9 +77,10 @@ export default class Main extends React.Component {
       <div>
         <div id="editor" className={this.state.editorEnabled ? '' : 'hidden'}>
           <ModalTextures ref="modaltextures" isOpen={textureDialogOpened} onClose={this.onModalTextureOnClose}/>
+          <ToolBar/>
           <MenuWidget/>
           <div id="sidebar-left">
-            <div className="tab">SCENEGRAPH</div>
+            <div className="sidebar-title">scenegraph</div>
             <SceneGraph scene={scene}/>
           </div>
           <AttributesSidebar/>
