@@ -6,7 +6,7 @@ var Editor = require('../lib/editor');
 import AttributesSidebar from './attributes/AttributesSidebar';
 import {MenuWidget} from './menu/Menu';
 import ModalTextures from './modals/ModalTextures';
-import Scenegraph from './Scenegraph';
+import SceneGraph from './SceneGraph';
 
 import "../css/main.css";
 import "../css/dark.css";
@@ -91,7 +91,7 @@ export default class Main extends React.Component {
           <MenuWidget/>
           <div id="sidebar-left">
             <div className="tab">SCENEGRAPH</div>
-            <Scenegraph scene={scene}/>
+            <SceneGraph scene={scene}/>
             <div className="scenegraph-bottom">
               <a href="#" title="Delete selected entity" onClick={this.deleteEntity} className="button fa fa-trash-o"></a>
               <a href="#" title="Add new entity" onClick={this.addEntity} className="button fa fa-plus"></a>
