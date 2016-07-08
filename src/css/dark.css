@@ -1,4 +1,36 @@
-﻿.Outliner {
+.scenegraph {
+  border-top: 1px solid #111;
+}
+
+.scenegraph .search {
+  padding: 5px;
+}
+
+.search {
+  position: relative;
+  color: #aaa;
+  font-size: 16px;
+}
+
+.search input {
+  width: 165px;
+  height: 20px;
+
+  background: #222;
+  border-radius: 5px;
+}
+
+.search input {
+  text-indent: 10px;
+}
+
+.search .fa-search {
+  position: absolute;
+  top: 10px;
+  right: 11px;
+}
+
+.outliner {
   color: #868686;
   background: #2b2b2b;
   padding: 0;
@@ -6,20 +38,34 @@
   font-size: 12px;
   cursor: default;
   outline: none;
-  border-top: 1px solid #111;
   flex: 1 1 auto;
   overflow-y: auto;
 }
 
-  .Outliner .option {
-    padding: 4px;
-    white-space: nowrap;
-  }
+.outliner .option {
+  padding: 4px;
+  white-space: nowrap;
+}
 
-  .Outliner .option.active {
-    background-color: #1faaf2;
-    color: #fff;
-  }
+
+.toolbar .active,
+.outliner .option.active {
+  background-color: #1faaf2;
+  color: #fff;
+}
+
+.toolbar .active:hover {
+  color: #fff !important;
+}
+
+
+.outliner .fa {
+  color: #aaa;
+}
+
+.outliner .active .fa {
+  color: #fff;
+}
 
 input {
   background-color: transparent;
@@ -167,7 +213,6 @@ input.number:focus {
   background: #2b2b2b;
   display: flex;
   flex-direction: column;
-  height: calc(100% - 33px);
 }
 
 #sidebar {
@@ -227,28 +272,38 @@ input.number:focus {
     background-color: #111;
   }
 
-#toolbar {
+.statusbar {
   position: absolute;
   left: 0;
-  right: 330px;
+  right: 0;
   bottom: 0;
   height: 32px;
-  background-color: #111;
+  background-color: #262626;
+  color: #333;
+  padding-left: 180px;
+}
+
+.toolbar {
+  position: absolute;
+  left: 180px;
+  right: 330px;
+  top: 34px;
+  height: 32px;
+  background-color: #262626;
   color: #333;
 }
 
-  #toolbar * {
-    vertical-align: middle;
-  }
+.toolbar * {
+  vertical-align: middle;
+  padding: 8px;
+  margin-left: 0px;
+  /*margin-top: 7px;*/
+}
 
-  #toolbar .Panel {
-    padding: 4px;
-    color: #888;
-  }
 
-  #toolbar button {
-    margin-right: 6px;
-  }
+.toolbar a.button {
+  margin: 0 6px 0 0;
+}
 
 .aframe-logo {
   background-color: #424242;
@@ -266,6 +321,15 @@ input.number:focus {
   padding: 10px;
   border-top: 2px solid #1faaf2;
   font-size: 11px;
+}
+
+.sidebar-title {
+  color: #1faaf2;
+  text-align: center;
+  background-color: #323232;
+  padding: 2px;
+  border-top: 2px solid #1faaf2;
+  font-size: 10px;
 }
 
 .texture canvas,
@@ -305,26 +369,6 @@ input[type=color]::-moz-color-swatch {
 input[type=color]::-moz-focus-inner {
   border: 0;  /* To remove the inner border (specific to Firefox). */
   padding: 0;
-}
-
-.Outliner .fa {
-  color: #aaa;
-}
-
-.Outliner .active .fa {
-  color: #fff;
-}
-
-#outliner .Entity {
-  color: #8888ee;
-}
-
-#outliner .Template {
-  color: #88ee88;
-}
-
-#outliner .Animation {
-  color: #ee8888;
 }
 
 body {
@@ -441,15 +485,6 @@ div.vec3 {
   cursor: hand;
 }
 
-.scenegraph-bottom {
-  background-color: #323232;
-  bottom: 10;
-  height: 40px;
-  z-index: 100;
-  border-top: 1px solid #111;
-  left: 0;
-}
-
 a.button {
   color: #bcbcbc;
   font-size: 16px;
@@ -458,14 +493,8 @@ a.button {
 }
 
 a.button:hover {
-  color: #1faaf2;
+  color: #1faaf2 !important;
 }
-
-.scenegraph-bottom a {
-  float: right;
-  margin: 10px;
-}
-
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
@@ -778,4 +807,20 @@ code, pre {
 
 .tagName {
   font-weight: 500;
+}
+
+.div {
+  vertical-align: middle;
+}
+
+.local-transform {
+  padding-left: 10px;
+}
+
+.local-transform label {
+  color: #AAA;
+}
+
+.local-transform a.button {
+  padding-top: 0px;
 }

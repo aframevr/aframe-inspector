@@ -7,6 +7,7 @@ import AttributesSidebar from './attributes/AttributesSidebar';
 import {MenuWidget} from './menu/Menu';
 import ModalTextures from './modals/ModalTextures';
 import SceneGraph from './SceneGraph';
+import ToolBar from './ToolBar';
 
 import "../css/main.css";
 import "../css/dark.css";
@@ -88,14 +89,11 @@ export default class Main extends React.Component {
       <div>
         <div id="editor" className={this.state.editorEnabled ? '' : 'hidden'}>
           <ModalTextures ref="modaltextures" isOpen={textureDialogOpened} onClose={this.onModalTextureOnClose}/>
+          <ToolBar/>
           <MenuWidget/>
           <div id="sidebar-left">
-            <div className="tab">SCENEGRAPH</div>
+            <div className="sidebar-title">SCENEGRAPH</div>
             <SceneGraph scene={scene}/>
-            <div className="scenegraph-bottom">
-              <a href="#" title="Delete selected entity" onClick={this.deleteEntity} className="button fa fa-trash-o"></a>
-              <a href="#" title="Add new entity" onClick={this.addEntity} className="button fa fa-plus"></a>
-            </div>
           </div>
           <AttributesSidebar/>
         </div>
