@@ -30,9 +30,6 @@
   right: 11px;
 }
 
-
-
-
 .outliner {
   color: #868686;
   background: #2b2b2b;
@@ -209,7 +206,6 @@ input.number:focus {
   background: #2b2b2b;
   display: flex;
   flex-direction: column;
-  height: calc(100% - 33px);
 }
 
 #sidebar {
@@ -271,15 +267,14 @@ input.number:focus {
 
 .statusbar {
   position: absolute;
-  left: 0px;
-  right: 0px;
+  left: 0;
+  right: 0;
   bottom: 0;
   height: 32px;
   background-color: #262626;
   color: #333;
   padding-left: 180px;
 }
-
 
 .toolbar {
   position: absolute;
@@ -488,7 +483,7 @@ a.button {
 }
 
 a.button:hover {
-  color: #1faaf2;
+  color: #1faaf2 !important;
 }
 
 /* The container <div> - needed to position the dropdown content */

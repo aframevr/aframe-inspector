@@ -7,7 +7,6 @@ import AttributesSidebar from './attributes/AttributesSidebar';
 import {MenuWidget} from './menu/Menu';
 import ModalTextures from './modals/ModalTextures';
 import SceneGraph from './SceneGraph';
-// import Statusbar from './Statusbar';
 import ToolBar from './ToolBar';
 
 import "../css/main.css";
