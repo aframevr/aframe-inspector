@@ -235,29 +235,6 @@ input.number:focus {
     background-color: #111;
   }
 
-#toolbar {
-  position: absolute;
-  left: 0;
-  right: 330px;
-  bottom: 0;
-  height: 32px;
-  background-color: #111;
-  color: #333;
-}
-
-  #toolbar * {
-    vertical-align: middle;
-  }
-
-  #toolbar .Panel {
-    padding: 4px;
-    color: #888;
-  }
-
-  #toolbar button {
-    margin-right: 6px;
-  }
-
 .aframe-logo {
   background-color: #424242;
   margin-right: 10px;
@@ -766,6 +743,58 @@ code, pre {
 
 .tagName {
   font-weight: 500;
+}
+
+.sidebar-title {
+  color: #1faaf2;
+  text-align: center;
+  background-color: #323232;
+  padding: 2px;
+  border-top: 2px solid #1faaf2;
+  font-size: 10px;
+}
+
+.toolbar {
+  position: absolute;
+  right: 330px;
+  top: 34px;
+  height: 32px;
+  background-color: #262626;
+  color: #333;
+}
+
+.toolbar * {
+  vertical-align: middle;
+  padding: 8px;
+  margin-left: 0px;
+  /*margin-top: 7px;*/
+}
+
+
+.toolbar a.button {
+  margin: 0 6px 0 0;
+}
+
+.toolbar .active {
+  background-color: #1faaf2;
+  color: #fff;
+}
+
+.toolbar .active:hover {
+  color: #fff !important;
+}
+
+.local-transform {
+  padding-left: 10px;
+}
+
+.local-transform label {
+  color: #AAA;
+  padding-left: 5px;
+}
+
+.local-transform a.button {
+  padding-top: 0px;
 }
 
 .outliner {
