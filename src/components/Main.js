@@ -66,12 +66,12 @@ export default class Main extends React.Component {
     var textureDialogOpened = this.state.isModalTexturesOpen;
     return (
       <div>
-        <div id="editor" className={this.state.editorEnabled ? '' : 'hidden'}>
-          <ModalTextures ref="modaltextures" isOpen={textureDialogOpened} onClose={this.onModalTextureOnClose}/>
+        <div id='editor' className={this.state.editorEnabled ? '' : 'hidden'}>
+          <ModalTextures ref='modaltextures' isOpen={textureDialogOpened} onClose={this.onModalTextureOnClose}/>
           <ToolBar/>
           <MenuWidget/>
-          <div id="sidebar-left">
-            <div className="sidebar-title">scenegraph</div>
+          <div id='sidebar-left'>
+            <div className='sidebar-title'>scenegraph</div>
             <SceneGraph scene={scene}/>
           </div>
           <AttributesSidebar/>
@@ -90,15 +90,17 @@ function injectCSS (url) {
   link.type = 'text/css';
   link.rel = 'stylesheet';
   link.media = 'screen,print';
+  link.setAttribute('data-aframe-editor', 'style');
   document.getElementsByTagName('head')[0].appendChild(link);
 }
 
 (function init () {
   var div = document.createElement('div');
-  div.id = 'app';
+  div.id = 'aframe-editor';
+  div.setAttribute('data-aframe-editor', 'app');
   document.body.appendChild(div);
   window.addEventListener('editor-loaded', function () {
-    ReactDOM.render(<Main/>, document.getElementById('app'));
+    ReactDOM.render(<Main/>, div);
   });
   window.editor = new Editor();
 })();

@@ -101,6 +101,7 @@ export class MenuWidget extends React.Component {
   saveToHTML() {
     var link = document.createElement('a');
     link.style.display = 'none';
+    link.setAttribute('data-aframe-editor', 'download');
     document.body.appendChild(link);
     function save (blob, filename) {
       link.href = URL.createObjectURL(blob);
