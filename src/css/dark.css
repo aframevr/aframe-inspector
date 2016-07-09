@@ -320,6 +320,10 @@ div.vec3 {
   width: 50px;
 }
 
+.collapsible-header {
+  display: flex;
+  justify-content: space-between;
+}
 .collapsible-header span {
   float: left;
   text-transform: uppercase;
@@ -347,7 +351,7 @@ div.vec3 {
   text-align: right;
 }
 
-.collapsible .static .button {
+.collapsible .static .collapse-button {
   margin-top: 2px;
   width: 0;
   height: 0;
@@ -357,11 +361,11 @@ div.vec3 {
   border-right: 5px solid transparent;
 }
 
-.collapsible.collapsed .static .button {
+.collapsible.collapsed .static .collapse-button {
   border-left-color: #1faaf2;
 }
 
-.collapsible:not(.collapsed) .static .button {
+.collapsible:not(.collapsed) .static .collapse-button {
   border-top-color: #1faaf2;
 }
 
