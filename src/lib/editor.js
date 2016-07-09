@@ -83,6 +83,10 @@ Editor.prototype = {
       this.addObject(event.target.object3D);
     }.bind(this));
 
+    document.addEventListener('componentchanged', function(event) {
+      this.addObject(event.target.object3D);
+    }.bind(this));
+
     this.scene.add(this.sceneHelpers);
 
     this.enable();

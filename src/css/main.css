@@ -33,7 +33,7 @@ textarea, input { outline: none; } /* osx */
 
 #sidebar,
 #sidebar-left,
-.Panel {
+.panel {
 	cursor: default;
 	user-select: none;
 }
@@ -305,17 +305,17 @@ input.number:focus {
     color: #888;
   }
 
-  .Panel {
+  .panel {
     color: #888;
     padding: 10px;
     border-top: 1px solid #222;
   }
 
-  .Panel.collapsed {
+  .panel.collapsed {
     margin-bottom: 0;
   }
 
-  .Panel.Material canvas {
+  .panel.Material canvas {
     border: solid 1px #5A5A5A;
   }
 
