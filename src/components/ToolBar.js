@@ -26,7 +26,7 @@ export default class ToolBar extends React.Component {
   }
 
   renderTransformButtons = () => {
-    return TransformButtons.map(function (option) {
+    return TransformButtons.map(function (option, i) {
       var selected = option.value === this.state.selectedTransform;
       var classes = classNames({
         button: true,
@@ -35,7 +35,7 @@ export default class ToolBar extends React.Component {
         active: selected
       });
 
-      return <a href='#' title={option.value}
+      return <a href='#' title={option.value} key={i}
         onClick={this.changeTransformMode.bind(this, option.value)}
         className={classes}></a>;
     }.bind(this));
