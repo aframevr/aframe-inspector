@@ -1,8 +1,17 @@
-/* global aframeEditor THREE CustomEvent */
-var TransformControls = require('../vendor/threejs/TransformControls.js');
-var EditorControls = require('../vendor/threejs/EditorControls.js');
+/* global aframeEditor, THREE CustomEvent */
+import debounce from 'lodash.debounce';
+import TransformControls from '../vendor/threejs/TransformControls.js';
+import EditorControls from '../vendor/threejs/EditorControls.js';
+import {getNumber} from '../utils';
 var Events = require('../Events');
-var getNumber = require('../utils').getNumber;
+
+const gaTrackTransformEntity = debounce(transformMode => {
+  ga('send', 'event', 'Viewport', 'transformEntity', transformMode);
+}, 3000);
+
+const gaTrackChangeEditorCamera = debounce(() => {
+  ga('send', 'event', 'Viewport', 'changeEditorCamera');
+}, 3000);
 
 function Viewport (editor) {
   var container = {
@@ -46,39 +55,49 @@ function Viewport (editor) {
    */
   function updateHelpers(object) {
     for (var i = 0; i < object.children.length; i++) {
-      var child = object.children[ i ];
-      if (editor.helpers[ child.id ] !== undefined) {
-        editor.helpers[ child.id ].update();
+      var child = object.children[i];
+      if (editor.helpers[child.id] !== undefined) {
+        editor.helpers[child.id].update();
       }
     }
   }
 
-  var transformControls = new THREE.TransformControls(camera, editor.container);
+  const transformControls = new THREE.TransformControls(camera, editor.container);
   transformControls.addEventListener('change', function () {
-    var object = transformControls.object;
-    if (object !== undefined) {
-      var objectId = object.id;
+    const object = transformControls.object;
+    if (object === undefined) { return; }
+    const objectId = object.id;
 
-      selectionBox.update(object);
+    selectionBox.update(object);
 
-      updateHelpers(object);
+    updateHelpers(object);
 
-      switch (transformControls.getMode()) {
-        case 'translate':
-          object.el.setAttribute('position', {x: getNumber(object.position.x), y: getNumber(object.position.y), z: getNumber(object.position.z)});
-          break;
-        case 'rotate':
-          object.el.setAttribute('rotation', {
-            x: THREE.Math.radToDeg(getNumber(object.rotation.x)),
-            y: THREE.Math.radToDeg(getNumber(object.rotation.y)),
-            z: THREE.Math.radToDeg(getNumber(object.rotation.z))});
-          break;
-        case 'scale':
-          object.el.setAttribute('scale', {x: getNumber(object.scale.x), y: getNumber(object.scale.y), z: getNumber(object.scale.z)});
-          break;
-      }
-      Events.emit('refreshSidebarObject3D',object);
+    const transformMode = transformControls.getMode();
+    switch (transformMode) {
+      case 'translate':
+        object.el.setAttribute('position', {
+          x: getNumber(object.position.x),
+          y: getNumber(object.position.y),
+          z: getNumber(object.position.z)
+        });
+        break;
+      case 'rotate':
+        object.el.setAttribute('rotation', {
+          x: THREE.Math.radToDeg(getNumber(object.rotation.x)),
+          y: THREE.Math.radToDeg(getNumber(object.rotation.y)),
+          z: THREE.Math.radToDeg(getNumber(object.rotation.z))
+        });
+        break;
+      case 'scale':
+        object.el.setAttribute('scale', {
+          x: getNumber(object.scale.x),
+          y: getNumber(object.scale.y),
+          z: getNumber(object.scale.z)
+        });
+        break;
     }
+    Events.emit('refreshSidebarObject3D', object);
+    gaTrackTransformEntity(transformMode);
   });
 
   transformControls.addEventListener('mouseDown', function () {
@@ -246,6 +265,7 @@ function Viewport (editor) {
   var controls = new THREE.EditorControls(camera, editor.container);
   controls.addEventListener('change', function () {
     transformControls.update();
+    gaTrackChangeEditorCamera();
     // editor.signals.cameraChanged.dispatch(camera);
   });
 
@@ -278,6 +298,7 @@ function Viewport (editor) {
 
   Events.on('objectFocused', function (object) {
     controls.focus(object);
+    ga('send', 'event', 'Viewport', 'selectEntity');
   });
 
   Events.on('geometryChanged', function (object) {
@@ -344,6 +365,7 @@ function Viewport (editor) {
         element.style.display = 'block';
       });
     }
+    ga('send', 'event', 'Viewport', 'toggleEditor', active);
   });
 }
 

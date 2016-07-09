@@ -1,4 +1,5 @@
 import React from 'react';
+import debounce from 'lodash.debounce';
 
 const Events = require('../lib/Events.js');
 
@@ -8,6 +9,10 @@ const ICONS = {
   light: 'fa-lightbulb-o',
   material: 'fa-picture-o'
 };
+
+const gaTrackSearchEntity = debounce(() => {
+  ga('send', 'event', 'SceneGraph', 'searchEntity');
+}, 3000);
 
 export default class SceneGraph extends React.Component {
   static propTypes = {
@@ -145,11 +150,18 @@ export default class SceneGraph extends React.Component {
     switch (event.keyCode) {
       case 38: // up
         this.selectIndex(this.state.selectedIndex - 1);
+        ga('send', 'event', 'SceneGraph', 'navigateWithKeyboard');
         break;
       case 40: // down
         this.selectIndex(this.state.selectedIndex + 1);
+        ga('send', 'event', 'SceneGraph', 'navigateWithKeyboard');
         break;
     }
+  }
+
+  handleEntityClick (value) {
+    this.setValue(value);
+    ga('send', 'event', 'SceneGraph', 'selectEntity');
   }
 
   renderOptions () {
@@ -165,13 +177,14 @@ export default class SceneGraph extends React.Component {
         return (
           <div key={idx} className={className} value={option.value}
             dangerouslySetInnerHTML={{__html: option.html}}
-            onClick={this.setValue.bind(this, option.value)}/>
+            onClick={() => {this.handleEntityClick(option.value)}}/>
         );
       });
   }
 
   onChangeFilter = e => {
     this.setState({filterText: e.target.value});
+    gaTrackSearchEntity();
   }
 
   render () {

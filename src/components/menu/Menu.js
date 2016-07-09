@@ -4,28 +4,29 @@ import Events from '../../lib/Events.js';
 import {getSceneName, generateHtml} from '../../lib/exporter';
 
 var primitivesDefinitions = {
-  'Entity': {group: 'entities', element: 'a-entity', components: {}},
+  'Entity': {group: 'entities', components: {}},
 
-  'Box': {group: 'primitives', element: 'a-entity', components: {geometry: 'primitive:box', material: 'color:#f00'}},
-  'Sphere': {group: 'primitives', element: 'a-entity', components: {geometry: 'primitive:sphere', material: 'color:#ff0'}},
-  'Cylinder': {group: 'primitives', element: 'a-entity', components: {geometry: 'primitive:cylinder', material: 'color:#00f'}},
-  'Plane': {group: 'primitives', element: 'a-entity', components: {geometry: 'primitive:plane', material: 'color:#fff'}},
-  'Torus': {group: 'primitives', element: 'a-entity', components: {geometry: 'primitive:torus', material: 'color:#0f0'}},
-  'TorusKnot': {group: 'primitives', element: 'a-entity', components: {geometry: 'primitive:torusKnot', material: 'color:#f0f'}},
-  'Circle': {group: 'primitives', element: 'a-entity', components: {geometry: 'primitive:circle', material: 'color:#f0f'}},
-  'Ring': {group: 'primitives', element: 'a-entity', components: {geometry: 'primitive:ring', material: 'color:#0ff'}},
+  'Box': {group: 'primitives', components: {geometry: 'primitive: box', material: 'color:# f00'}},
+  'Sphere': {group: 'primitives', components: {geometry: 'primitive: sphere', material: 'color:# ff0'}},
+  'Cylinder': {group: 'primitives', components: {geometry: 'primitive: cylinder', material: 'color:# 00f'}},
+  'Plane': {group: 'primitives', components: {geometry: 'primitive: plane', material: 'color:# fff'}},
+  'Torus': {group: 'primitives', components: {geometry: 'primitive: torus', material: 'color:# 0f0'}},
+  'TorusKnot': {group: 'primitives', components: {geometry: 'primitive: torusKnot', material: 'color:# f0f'}},
+  'Circle': {group: 'primitives', components: {geometry: 'primitive: circle', material: 'color:# f0f'}},
+  'Ring': {group: 'primitives', components: {geometry: 'primitive: ring', material: 'color:# 0ff'}},
 
-  'Ambient': {group: 'lights', element: 'a-entity', components: {light: 'type:ambient'}},
-  'Directional': {group: 'lights', element: 'a-entity', components: {light: 'type:directional'}},
-  'Hemisphere': {group: 'lights', element: 'a-entity', components: {light: 'type:hemisphere'}},
-  'Point': {group: 'lights', element: 'a-entity', components: {light: 'type:point'}},
-  'Spot': {group: 'lights', element: 'a-entity', components: {light: 'type:spot'}},
+  'Ambient': {group: 'lights', components: {light: 'type: ambient'}},
+  'Directional': {group: 'lights', components: {light: 'type: directional'}},
+  'Hemisphere': {group: 'lights', components: {light: 'type: hemisphere'}},
+  'Point': {group: 'lights', components: {light: 'type: point'}},
+  'Spot': {group: 'lights', components: {light: 'type: spot'}},
 
-  'Camera': {group: 'cameras', element: 'a-entity', components: {camera: ''}}
+  'Camera': {group: 'cameras', components: {camera: ''}}
 };
 
 function createEntity (definition) {
   Events.emit('createNewEntity', primitivesDefinitions[definition]);
+  ga('send', 'event', 'CreateMenu', 'createEntity', definition);
 }
 
 export const CreateMenu = props => {
@@ -87,8 +88,9 @@ export class MenuWidget extends React.Component {
       }
     });
     clipboard.on('error', function(e) {
-        console.error('Error while copying to clipboard:', e.action, e.trigger);
+      console.error('Error while copying to clipboard:', e.action, e.trigger);
     });
+    ga('send', 'event', 'ExportMenu', 'copyHTML');
   }
 
   update = e => {
@@ -115,6 +117,7 @@ export class MenuWidget extends React.Component {
 
     var sceneName = getSceneName(document.querySelector('a-scene'));
     saveString(generateHtml(), sceneName);
+    ga('send', 'event', 'ExportMenu', 'exportHTML');
   }
 
   render() {

@@ -1,4 +1,8 @@
 /* global editor */
+require('../lib/vendor/ga');
+const Events = require('../lib/Events.js');
+const Editor = require('../lib/editor');
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -19,7 +23,10 @@ injectCSS('https://fonts.googleapis.com/css?family=Roboto:400,300,500');
 export default class Main extends React.Component {
   constructor (props) {
     super(props);
-    this.state = {editorEnabled: true, isModalTexturesOpen: false};
+    this.state = {
+      editorEnabled: true,
+      isModalTexturesOpen: false
+    };
   }
 
   componentDidMount () {
@@ -66,7 +73,8 @@ export default class Main extends React.Component {
     return (
       <div>
         <div id='editor' className={this.state.editorEnabled ? '' : 'hidden'}>
-          <ModalTextures ref='modaltextures' isOpen={textureDialogOpened} onClose={this.onModalTextureOnClose}/>
+          <ModalTextures ref='modaltextures' isOpen={textureDialogOpened}
+            onClose={this.onModalTextureOnClose}/>
           <ToolBar/>
           <MenuWidget/>
           <div id='sidebar-left'>

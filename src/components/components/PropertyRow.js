@@ -1,4 +1,5 @@
 import React from 'react';
+import debounce from 'lodash.debounce';
 
 import BooleanWidget from '../widgets/BooleanWidget';
 import ColorWidget from '../widgets/ColorWidget';
@@ -28,6 +29,9 @@ export default class PropertyRow extends React.Component {
                                                          props.name === 'src');
     const type = props.schema.type;
 
+    const gaTrackComponentUpdate = debounce(() => {
+      ga('send', 'event', 'Components', 'changeProperty', this.id);
+    });
     const widgetProps = {
       componentname: props.componentname,
       entity: props.entity,
@@ -35,6 +39,7 @@ export default class PropertyRow extends React.Component {
       // Wrap updateEntity for tracking.
       onChange: function () {
         updateEntity.apply(this, arguments);
+        gaTrackComponentUpdate();
       },
       value: props.data
     };
