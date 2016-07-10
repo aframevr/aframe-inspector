@@ -1,0 +1,832 @@
+.scenegraph {
+  border-top: 1px solid #111;
+}
+
+.scenegraph .search {
+  padding: 5px;
+}
+
+.search {
+  position: relative;
+  color: #aaa;
+  font-size: 16px;
+}
+
+.search input {
+  width: 165px;
+  height: 22px;
+  background: #222;
+  border-radius: 5px;
+}
+
+.search input {
+  text-indent: 10px;
+}
+
+.search .fa-search {
+  position: absolute;
+  top: 10px;
+  right: 11px;
+}
+
+input {
+  background-color: transparent;
+  border: 1px solid #555;
+  color: #fff;
+}
+
+input, .texture canvas {
+  transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;
+}
+
+input[type=text],
+input[type=number],
+input.string,
+input.number {
+  min-height: 14px;
+  outline: none;
+}
+
+input.number {
+  color: #20b1fb !important;
+  font-size: 12px;
+  border: 0px;
+  padding: 2px;
+  cursor: col-resize;
+  background-color: transparent !important;
+}
+
+input.string:focus,
+input.number:focus {
+  border: 1px solid #20b1fb;
+  cursor: auto;
+  color: #fff;
+}
+
+#viewport {
+  position: absolute;
+  top: 33px;
+  left: 0;
+  right: 330px;
+  bottom: 32px;
+}
+
+  #viewport #info {
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.25);
+    pointer-events: none;
+  }
+
+#script {
+  position: absolute;
+  top: 33px;
+  left: 0;
+  right: 330px;
+  bottom: 32px;
+  opacity: 0.9;
+}
+
+#player {
+  position: absolute;
+  top: 33px;
+  left: 0;
+  right: 330px;
+  bottom: 32px;
+}
+
+#menubar {
+  position: absolute;
+  width: 100%;
+  height: 32px;
+  background: #323232;
+  padding: 0;
+  margin: 0;
+  right: 0;
+  top: 0;
+  border-bottom: 1px solid #111;
+}
+
+  #menubar .menu {
+    float: left;
+    padding-right: 8px;
+  }
+
+  #menubar .menu.right {
+    float: right;
+    cursor: auto;
+    padding-right: 0;
+    text-align: right;
+  }
+
+    #menubar .menu .title {
+      display: inline-block;
+      color: #888;
+      margin: 0;
+      padding: 9px;
+    }
+
+    #menubar .menu .options {
+      cursor: pointer;
+      z-index: 1500;
+      position: absolute;
+      display: none;
+      padding: 5px 0;
+      background: #111;
+      width: 150px;
+    }
+
+    #menubar .menu:hover .options {
+      display: block;
+    }
+
+      #menubar .menu .options hr {
+        border-color: #222;
+      }
+
+      #menubar .menu .options .option {
+        color: #888;
+        background-color: transparent;
+        padding: 5px 10px;
+        margin: 0 !important;
+      }
+
+        #menubar .menu .options .option:hover {
+          color: #fff;
+          background-color: #08f;
+        }
+
+        #menubar .menu .options .option:active {
+          background: transparent;
+        }
+
+    #menubar .menu .options .inactive {
+      color: #444;
+      background-color: transparent;
+      padding: 5px 10px;
+      margin: 0 !important;
+    }
+
+#sidebar-left {
+  position: absolute;
+  left: 0;
+  top: 33px;
+  bottom: 0;
+  width: 180px;
+  overflow: auto;
+  background: #2b2b2b;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 33px);
+}
+
+#sidebar {
+  position: absolute;
+  right: 0;
+  top: 33px;
+  bottom: 0;
+  width: 330px;
+  background: #2b2b2b;
+  overflow: auto;
+}
+
+  #sidebar * {
+    vertical-align: middle;
+  }
+
+  input,
+  textarea,
+  select {
+    background: #222;
+    border: 1px solid transparent;
+    color: #888;
+  }
+
+  .Panel {
+    color: #888;
+    padding: 10px;
+    border-top: 1px solid #222;
+  }
+
+  .Panel.collapsed {
+    margin-bottom: 0;
+  }
+
+  .Panel.Material canvas {
+    border: solid 1px #5A5A5A;
+  }
+
+  .row {
+    min-height: 20px;
+    margin-bottom: 10px;
+  }
+
+#tabs {
+  background-color: #1b1b1b;
+  border-top: 1px solid #222;
+}
+
+  #tabs span {
+    color: #555;
+    border-right: 1px solid #222;
+    padding: 10px;
+  }
+
+  #tabs span.selected {
+    color: #888;
+    background-color: #111;
+  }
+
+.aframe-logo {
+  background-color: #424242;
+  margin-right: 10px;
+}
+
+.aframe-logo span {
+  text-weight: bold;
+}
+
+.tab {
+  color: #1faaf2;
+  text-align: center;
+  background-color: #323232;
+  padding: 10px;
+  border-top: 2px solid #1faaf2;
+  font-size: 11px;
+}
+
+.texture canvas,
+input[type=color] {
+  border: 1px solid #111;
+  background-color: #333;
+  cursor: pointer;
+}
+
+.texture canvas:focus,
+input[type=color]:focus {
+  border-color: rgb(32,177,251);
+}
+
+.texture canvas:hover,
+input[type=color]:hover {
+  border-color: rgba(32,177,251,0.5);
+}
+
+input[type=color] {
+  height: 16px;
+  width: 64px;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Note: these vendor-prefixed selectors cannot be grouped! */
+input[type=color]::-webkit-color-swatch {
+  border: 0;  /* To remove the gray border. */
+}
+input[type=color]::-webkit-color-swatch-wrapper {
+  padding: 0;  /* To remove the inner padding. */
+}
+input[type=color]::-moz-color-swatch {
+  border: 0;
+}
+input[type=color]::-moz-focus-inner {
+  border: 0;  /* To remove the inner border (specific to Firefox). */
+  padding: 0;
+}
+
+body {
+  background-color: #191919;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  color: #fff;
+}
+
+.attributes {
+  background-color: #323232;
+  color: #bcbcbc;
+}
+
+#app {
+  z-index: 1000;
+}
+
+#app b{
+  color: #ff9;
+}
+
+div.vec3 {
+  display: inline;
+}
+
+.vec3 input.number {
+  width: 50px;
+}
+
+.collapsible-header {
+  display: flex;
+  justify-content: space-between;
+}
+.collapsible-header span {
+  float: left;
+  text-transform: uppercase;
+}
+
+.collapsible .static {
+  vertical-align: middle;
+  background-color: #323232;
+  color: #FFF;
+  padding: 10px;
+  border-top: 1px solid #262626;
+  border-bottom: 1px solid #262626;
+  height: 16px;
+}
+
+.collapsible .menu {
+  text-align: right;
+}
+
+.collapsible .menu:after {
+  color: #1faaf2;
+  content: '\2807';
+  font-size: 12px;
+  padding: 5px;
+  text-align: right;
+}
+
+.collapsible .static .collapse-button {
+  margin-top: 2px;
+  width: 0;
+  height: 0;
+  float: left;
+  margin-right: 10px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+}
+
+.collapsible.collapsed .static .collapse-button {
+  border-left-color: #1faaf2;
+}
+
+.collapsible:not(.collapsed) .static .collapse-button {
+  border-top-color: #1faaf2;
+}
+
+.collapsible .content {
+  background-color: #2b2b2b;
+  padding: 10px;
+}
+
+.attributes .row {
+  min-height: 20px;
+  margin-bottom: 10px;
+}
+.attributes * {
+  vertical-align: middle;
+}
+
+.attributes .row .text {
+  cursor: default;
+  display: inline-block;
+  vertical-align: middle;
+  width: 120px;
+}
+
+.attributes .row .map_value {
+  margin: 0 0 0 5px;
+  width: 68px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.texture canvas + input {
+  margin-left: 5px;
+}
+
+.texture .fa {
+  padding-right: 5px;
+}
+
+.texture input:button {
+  cursor: hand;
+}
+
+.scenegraph-bottom {
+  background-color: #323232;
+  bottom: 10;
+  height: 40px;
+  z-index: 100;
+  border-top: 1px solid #111;
+  left: 0;
+}
+
+a.button {
+  color: #bcbcbc;
+  font-size: 16px;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+a.button:hover {
+  color: #1faaf2;
+}
+
+.scenegraph-bottom a {
+  float: right;
+  margin: 10px;
+}
+
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  float: right;
+}
+
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  left:auto;
+  right:0;
+  margin-right:-10px;
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 130px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: #888;
+  background-color: #222;
+  padding: 6px 8px;
+  text-decoration: none;
+  display: block;
+
+}
+
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  color: #fff;
+  background-color: #08f;
+}
+
+.dropdown-content a.disabled {
+  color: #555;
+}
+
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+}
+
+
+/* The Modal (background) */
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #232323;
+  margin: auto;
+  padding: 0;
+  width: 889px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  animation-name: animatetop;
+  animation-duration: 0.2s
+}
+
+
+/* Add Animation */
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #08f;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  color: white;
+}
+
+.modal-body {
+  padding: 16px;
+  overflow: auto;
+}
+
+.modal-footer {
+  padding: 2px 16px;
+  color: white;
+}
+
+
+/* Gallery */
+.gallery {
+  padding: 0px;
+  overflow:auto;
+  margin: 0 auto;
+}
+
+.gallery li {
+  width: 155px;
+  margin: 8px;
+  float: left;
+  overflow: hidden;
+  display: inline-block;
+  box-shadow: 3px 3px 8px -2px rgba(0,0,0,0.63);
+  cursor: pointer;
+}
+
+.gallery li:hover {
+  box-shadow: 0px 0px 4px 3px rgba(29,138,190,0.63);
+}
+
+.gallery li .detail {
+  background-color: #323232;
+  padding: 10px;
+  min-height: 60px;
+}
+
+.gallery li:hover .detail {
+  background-color: #444;
+}
+
+.gallery li .detail span {
+  color: #BBB !important;
+}
+
+.gallery li .detail span.title {
+  color: #EEE !important;
+  font-weight: bold;
+}
+
+
+/* Tabs */
+.tabs {
+  margin: 25px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+}
+.tabs__labels {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+.tabs__labels li {
+  display: inline-block;
+  width: 33.3%;
+}
+
+.tabs__labels li a {
+  padding: 8px 12px;
+  display: block;
+  color: #AAA;
+  text-decoration: none;
+  padding: 15px;
+}
+
+.tabs__labels li a.active {
+  border-bottom: 2px solid #1eaaf1;
+  color: #1eaaf1;
+  background-color: #333;
+}
+
+.tabs__content {
+  background-color: #2b2b2b;
+  overflow:auto;
+  min-height: 100px;
+}
+
+.preview {
+  width: 200px;
+  float:right;
+  padding: 10px;
+}
+
+.new_asset_options {
+  float: left;
+  width: 600px;
+}
+
+.modal button {
+  display: inline-block;
+  margin: 0 10px 0 0;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.8;
+  appearance: none;
+  box-shadow: none;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.modal button:focus {
+  outline: none
+}
+
+.modal button {
+  color: #fff;
+  background-color: #1eaaf1;
+  border: none;
+}
+
+.modal button:hover,
+.modal button.hover {
+  background-color: #346392;
+  text-shadow: -1px 1px #27496d;
+}
+
+.modal button:active,
+.modal button.active {
+  background-color: #27496d;
+  text-shadow: -1px 1px #193047;
+}
+
+.newimage {
+  padding: 10px;
+  background-color: #323232;
+  overflow:auto;
+}
+
+.hide {
+  display: none;
+}
+
+span.value {
+    color: #fff;
+    display: inline-block;
+}
+
+span.mixinlist {
+  color: #888 !important;
+  display: inline-block;
+}
+
+span.mixinlist ul {
+  list-style-type: none;
+  padding: 5px;
+  margin: 5px 0 0 0;
+  background-color: #222;
+}
+
+span.mixinlist ul li {
+  margin-bottom: 3px;
+  font-size: 11px;
+}
+
+span.mixinlist ul li:last-child {
+  margin-bottom: 0px;
+}
+
+span.mixin {
+  width: 100px;
+  display: inline-block;
+}
+
+.mixinlist {
+  margin-left: 120px;
+}
+
+span.subcomponent {
+  color: #999;
+  margin-left: 10px;
+  float: none !important;
+  vertical-align: top !important;
+}
+
+.collapsible .static {
+  cursor: pointer;
+}
+
+.a-canvas.state-dragging {
+  cursor: grabbing;
+}
+
+code, pre {
+  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;
+}
+
+.tagName {
+  font-weight: 500;
+}
+
+.sidebar-title {
+  color: #1faaf2;
+  text-align: center;
+  background-color: #323232;
+  padding: 2px;
+  border-top: 2px solid #1faaf2;
+  font-size: 10px;
+}
+
+.toolbar {
+  position: absolute;
+  right: 330px;
+  top: 34px;
+  height: 32px;
+  background-color: #262626;
+  color: #333;
+}
+
+.toolbar * {
+  vertical-align: middle;
+  padding: 8px;
+  margin-left: 0px;
+  /*margin-top: 7px;*/
+}
+
+
+.toolbar a.button {
+  margin: 0 6px 0 0;
+}
+
+.toolbar .active {
+  background-color: #1faaf2;
+  color: #fff;
+}
+
+.toolbar .active:hover {
+  color: #fff !important;
+}
+
+.local-transform {
+  padding-left: 10px;
+}
+
+.local-transform label {
+  color: #AAA;
+  padding-left: 5px;
+}
+
+.local-transform a.button {
+  padding-top: 0px;
+}
+
+.outliner {
+  color: #868686;
+  background: #2b2b2b;
+  padding: 0;
+  width: 100%;
+  font-size: 12px;
+  cursor: default;
+  outline: none;
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+.outliner .option {
+  padding: 4px;
+  white-space: nowrap;
+}
+
+.outliner .option.active {
+  background-color: #1faaf2;
+  color: #fff;
+}
+
+.outliner .fa {
+  color: #aaa;
+}
+
+.outliner .active .fa {
+  color: #fff;
+}
