@@ -1,14 +1,9 @@
+/* global AFRAME */
 import React from 'react';
-
 import PropertyRow from './PropertyRow';
 import Collapsible from '../Collapsible';
 
-function isSingleProperty (schema) {
-  if ('type' in schema) {
-    return typeof schema.type === 'string';
-  }
-  return 'default' in schema;
-}
+const isSingleProperty = AFRAME.schema.isSingleProperty;
 
 /**
  * Single component.
@@ -44,45 +39,52 @@ export default class Component extends React.Component {
     }
   }
 
-  render () {
+  /**
+   * Render propert(ies) of the component.
+   */
+  renderPropertyRows = () => {
     const componentData = this.props.component;
+
+    if (isSingleProperty(componentData.schema)) {
+      const componentName = componentName.toLowerCase();
+      const schema = AFRAME.components[componentName].schema;
+      return (
+        <PropertyRow key={componentName} name={componentName} schema={schema}
+          data={componentData.data} componentname={componentName}
+          entity={this.props.entity}/>
+      );
+    }
+
+    return Object.keys(componentData.schema).map(propertyName => (
+      <PropertyRow key={propertyName} name={propertyName}
+        schema={componentData.schema[propertyName]}
+        data={componentData.data[propertyName]} componentname={this.props.name}
+        entity={this.props.entity}/>
+    ));
+  }
+
+  render () {
     let componentName = this.props.name.toUpperCase();
     let subComponentName = '';
-
     if (componentName.indexOf('__') !== -1) {
       subComponentName = componentName;
       componentName = componentName.substr(0, componentName.indexOf('__'));
     }
 
-    let propertyRows;
-    if (isSingleProperty(componentData.schema)) {
-      var key = componentName.toLowerCase();
-      var schema = AFRAME.components[key.toLowerCase()].schema;
-      propertyRows = (
-        <PropertyRow key={key} name={key} schema={schema}
-          data={componentData.data} componentname={key}
-          entity={this.props.entity}/>
-      );
-    } else {
-      propertyRows = Object.keys(componentData.schema).map(key => {
-        return (
-          <PropertyRow key={key} name={key} schema={componentData.schema[key]}
-            data={componentData.data[key]} componentname={this.props.name}
-            entity={this.props.entity}/>
-        );
-      });
-    }
-
     return (
       <Collapsible>
         <div className='collapsible-header'>
-          <span title={subComponentName || componentName}>{subComponentName || componentName}</span>
+          <span title={subComponentName || componentName}>
+            {subComponentName || componentName}
+          </span>
           <div>
             <a href='#' title='Remove component' className='flat-button'
               onClick={this.removeComponent}>remove</a>
           </div>
         </div>
-        <div className='collapsible-content'>{propertyRows}</div>
+        <div className='collapsible-content'>
+          {this.renderPropertyRows()}
+        </div>
       </Collapsible>
     );
   }
