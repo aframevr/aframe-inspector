@@ -20,14 +20,28 @@ export default class Component extends React.Component {
     name: React.PropTypes.string
   };
 
-  deleteComponent = event => {
-    event.stopPropagation();
-    this.props.entity.removeAttribute(this.props.name);
+  constructor (props) {
+    super(props);
+    this.state = {
+      entity: this.props.entity,
+      name: this.props.name
+    };
   }
 
-  resetComponent = event => {
+  componentWillReceiveProps (newProps) {
+    if (this.state.entity !== newProps.entity) {
+      this.setState({entity: newProps.entity});
+    }
+    if (this.state.name !== newProps.name) {
+      this.setState({name: newProps.name});
+    }
+  }
+
+  removeComponent = event => {
     event.stopPropagation();
-    this.props.entity.setAttribute(this.props.name, {});
+    if (confirm('Do you really want to remove component `' + this.props.name + '`?')) {
+      this.props.entity.removeAttribute(this.props.name);
+    }
   }
 
   render () {
@@ -63,12 +77,9 @@ export default class Component extends React.Component {
       <Collapsible>
         <div className='collapsible-header'>
           <span title={subComponentName || componentName}>{subComponentName || componentName}</span>
-          <div className='dropdown menu'>
-            <div className='dropdown-content'>
-              <a href='#' onClick={this.deleteComponent}>Delete</a>
-              <a href='#' onClick={this.resetComponent}>Reset to default</a>
-              <a href='#' className='disabled'>Copy to clipboard</a>
-            </div>
+          <div>
+            <a href='#' title='Remove component' className='flat-button'
+              onClick={this.removeComponent}>remove</a>
           </div>
         </div>
         <div className='collapsible-content'>{propertyRows}</div>

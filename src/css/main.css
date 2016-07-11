@@ -42,7 +42,7 @@ textarea, input { outline: none; } /* osx */
 		margin: 0;
 	}
 
-	.collapsible .static .button {
+	.collapsible .static .collapse-button {
 		float: left;
 		margin-right: 6px;
 		width: 0;
@@ -50,12 +50,12 @@ textarea, input { outline: none; } /* osx */
 		border: 6px solid transparent;
 	}
 
-	.collapsible.collapsed .static .button {
+	.collapsible.collapsed .static .collapse-button {
 		margin-top: 2px;
 		border-left-color: #1faaf2;
 	}
 
-	.collapsible:not(.collapsed) .static .button {
+	.collapsible:not(.collapsed) .static .collapse-button {
 		margin-top: 6px;
 		border-top-color: #1faaf2;
 	}

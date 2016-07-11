@@ -10,7 +10,7 @@ export default class Modal extends React.Component {
     document.addEventListener('keyup', this.handleGlobalKeydown);
     document.addEventListener('mousedown', this.handleGlobalMousedown);
   }
-
+change
   handleGlobalKeydown = event => {
     if (this.state.isOpen && event.keyCode === 27) {
       this.close();
