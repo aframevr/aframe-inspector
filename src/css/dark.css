@@ -299,7 +299,7 @@ body {
   color: #fff;
 }
 
-.attributes {
+.components {
   background-color: #323232;
   color: #bcbcbc;
 }
@@ -373,22 +373,22 @@ div.vec3 {
   padding: 10px;
 }
 
-.attributes .row {
+.components .row {
   min-height: 20px;
   margin-bottom: 10px;
 }
-.attributes * {
+.components * {
   vertical-align: middle;
 }
 
-.attributes .row .text {
+.components .row .text {
   cursor: default;
   display: inline-block;
   vertical-align: middle;
   width: 120px;
 }
 
-.attributes .row .map_value {
+.components .row .map_value {
   margin: 0 0 0 5px;
   width: 68px;
 }
