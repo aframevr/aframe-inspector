@@ -59,7 +59,7 @@ export default class Component extends React.Component {
     return (
       <Collapsible>
         <div className='collapsible-header'>
-          <span>{componentName} <span className='subcomponent'>{subComponentName}</span></span>
+          <span title={subComponentName || componentName}>{subComponentName || componentName}</span>
           <div className='dropdown menu'>
             <div className='dropdown-content'>
               <a href='#' onClick={this.deleteComponent}>Delete</a>
