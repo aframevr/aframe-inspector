@@ -1,11 +1,10 @@
 import React from 'react';
-
-const Events = require('../../lib/Events.js');
 import {InputWidget} from '../widgets';
-import AttributeRow from './AttributeRow';
+import PropertyRow from './PropertyRow';
 import Collapsible from '../Collapsible';
-import MixinsComponent from './MixinsComponent';
+import Mixins from './Mixins';
 import {updateEntity} from '../../actions/entity';
+const Events = require('../../lib/Events.js');
 
 // @todo Take this out and use updateEntity?
 function changeId (entity, componentName, propertyName, value) {
@@ -15,6 +14,9 @@ function changeId (entity, componentName, propertyName, value) {
   }
 }
 
+/**
+ * Core component properties such as id, position, rotation, scale.
+ */
 const CommonComponents = props => {
   const entity = props.entity;
   const components = entity ? props.entity.components : {};
@@ -39,13 +41,13 @@ const CommonComponents = props => {
             const componentData = components[key];
             const schema = AFRAME.components[key].schema;
             return (
-              <AttributeRow onChange={updateEntity} key={key} name={key}
-                            schema={schema} data={componentData.data} componentname={key}
-                            entity={props.entity}/>
+              <PropertyRow onChange={updateEntity} key={key} name={key}
+                schema={schema} data={componentData.data} componentname={key}
+                entity={props.entity}/>
             );
           })
         }
-        <MixinsComponent entity={entity}/>
+        <Mixins entity={entity}/>
       </div>
     </Collapsible>
   );

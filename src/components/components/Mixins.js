@@ -9,7 +9,7 @@ function trim (s) {
   return s;
 }
 
-export default class MixinsComponent extends React.Component {
+export default class Mixin extends React.Component {
   static propTypes = {
     entity: React.PropTypes.object.isRequired
   };
@@ -29,7 +29,9 @@ export default class MixinsComponent extends React.Component {
 
   addMixin = () => {
     const entity = this.props.entity;
-    entity.setAttribute('mixin', trim(entity.getAttribute('mixin') + ' ' + this.refs.select.value));
+    entity.setAttribute(
+      'mixin', trim(entity.getAttribute('mixin') + ' ' + this.refs.select.value));
+
     // @todo Is there some aframe event that we could catch instead of explicitly emit the objectChanged event?
     Events.emit('objectChanged', entity);
   }

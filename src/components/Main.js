@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 
 const Events = require('../lib/Events.js');
 const Editor = require('../lib/editor');
-import AttributesSidebar from './attributes/AttributesSidebar';
+import ComponentsSidebar from './components/Sidebar';
 import {MenuWidget} from './menu/Menu';
 import ModalTextures from './modals/ModalTextures';
 import SceneGraph from './SceneGraph';
@@ -74,7 +74,7 @@ export default class Main extends React.Component {
             <div className='sidebar-title'>scenegraph</div>
             <SceneGraph scene={scene}/>
           </div>
-          <AttributesSidebar/>
+          <ComponentsSidebar/>
         </div>
         <a href='#' className='toggle-edit' onClick={this.toggleEditor}>
           {this.state.editorEnabled ? 'Exit' : 'Edit'}

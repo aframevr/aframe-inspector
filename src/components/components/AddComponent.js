@@ -1,11 +1,7 @@
 import React from 'react';
 import Collapsible from '../Collapsible';
-import Component from './Component';
-import CommonComponents from './CommonComponents';
 
-const DEFAULT_COMPONENTS = ['visible', 'position', 'scale', 'rotation'];
-
-class AddComponent extends React.Component {
+export default class AddComponent extends React.Component {
   static propTypes = {
     entity: React.PropTypes.object
   };
@@ -59,7 +55,7 @@ class AddComponent extends React.Component {
               <select ref='select'>
                 {this.renderComponentOptions()}
               </select>
-              <a href='#' className='button fa fa-plus-circle' onClick={this.addComponent}></a>
+              <a href='#' className='button fa fa-plus-circle' onClick={this.addComponent}/>
             </span>
           </div>
         </div>
@@ -67,28 +63,6 @@ class AddComponent extends React.Component {
     );
   }
 }
-
-const Attributes = props => {
-  const entity = props.entity;
-  const components = entity ? entity.components : {};
-  const defaultComponents = Object.keys(components).filter(function (key) {
-    return DEFAULT_COMPONENTS.indexOf(key) === -1;
-  }).sort().map(function (key) {
-    return <Component entity={entity} key={key} name={key} component={components[key]}/>;
-  });
-
-  return (
-    <div className='attributes'>
-      <CommonComponents entity={entity}/>
-      <AddComponent entity={entity}/>
-      {defaultComponents}
-    </div>
-  );
-};
-Attributes.PropTypes = {
-  entity: React.PropTypes.object.isRequired
-};
-export default Attributes;
 
 /**
  * Check if component has multiplicity.

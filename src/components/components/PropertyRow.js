@@ -9,23 +9,33 @@ import TextureWidget from '../widgets/TextureWidget';
 import Vec3Widget from '../widgets/Vec3Widget';
 import {updateEntity} from '../../actions/entity';
 
-export default class AttributeRow extends React.Component {
+export default class PropertyRow extends React.Component {
   static propTypes = {
     componentname: React.PropTypes.string.isRequired,
+    id: React.PropTypes.string,
     name: React.PropTypes.string.isRequired,
     schema: React.PropTypes.object.isRequired
   };
+
+  constructor (props) {
+    super(props);
+    this.id = props.componentname + ':' + props.id;
+  }
 
   getWidget () {
     const props = this.props;
     const isMap = props.componentname === 'material' && (props.name === 'envMap' ||
                                                          props.name === 'src');
     const type = props.schema.type;
+
     const widgetProps = {
       componentname: props.componentname,
       entity: props.entity,
       name: props.name,
-      onChange: updateEntity,
+      // Wrap updateEntity for tracking.
+      onChange: function () {
+        updateEntity.apply(this, arguments);
+      },
       value: props.data
     };
     const numberWidgetProps = {
@@ -65,10 +75,9 @@ export default class AttributeRow extends React.Component {
   render () {
     const props = this.props;
     const title = 'type: ' + props.schema.type + ' value: ' + JSON.stringify(props.data);
-    const id = props.componentname + '.' + props.name;
     return (
       <div className='row'>
-        <label htmlFor={id} className='text' title={title}>{props.name}</label>
+        <label htmlFor={this.id} className='text' title={title}>{props.name}</label>
         {this.getWidget(props.schema.type)}
       </div>
     );

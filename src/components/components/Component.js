@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AttributeRow from './AttributeRow';
+import PropertyRow from './PropertyRow';
 import Collapsible from '../Collapsible';
 
 function isSingleProperty (schema) {
@@ -10,6 +10,9 @@ function isSingleProperty (schema) {
   return 'default' in schema;
 }
 
+/**
+ * Single component.
+ */
 export default class Component extends React.Component {
   static propTypes = {
     component: React.PropTypes.any,
@@ -37,19 +40,19 @@ export default class Component extends React.Component {
       componentName = componentName.substr(0, componentName.indexOf('__'));
     }
 
-    let attributeRows;
+    let propertyRows;
     if (isSingleProperty(componentData.schema)) {
       var key = componentName.toLowerCase();
       var schema = AFRAME.components[key.toLowerCase()].schema;
-      attributeRows = (
-        <AttributeRow key={key} name={key} schema={schema}
+      propertyRows = (
+        <PropertyRow key={key} name={key} schema={schema}
           data={componentData.data} componentname={key}
           entity={this.props.entity}/>
       );
     } else {
-      attributeRows = Object.keys(componentData.schema).map(key => {
+      propertyRows = Object.keys(componentData.schema).map(key => {
         return (
-          <AttributeRow key={key} name={key} schema={componentData.schema[key]}
+          <PropertyRow key={key} name={key} schema={componentData.schema[key]}
             data={componentData.data[key]} componentname={this.props.name}
             entity={this.props.entity}/>
         );
@@ -68,7 +71,7 @@ export default class Component extends React.Component {
             </div>
           </div>
         </div>
-        <div className='collapsible-content'>{attributeRows}</div>
+        <div className='collapsible-content'>{propertyRows}</div>
       </Collapsible>
     );
   }
