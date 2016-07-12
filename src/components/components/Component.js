@@ -2,6 +2,8 @@
 import React from 'react';
 import PropertyRow from './PropertyRow';
 import Collapsible from '../Collapsible';
+import Clipboard from 'clipboard';
+import {getClipboardRepresentation} from '../../actions/component';
 
 const isSingleProperty = AFRAME.schema.isSingleProperty;
 
@@ -21,6 +23,18 @@ export default class Component extends React.Component {
       entity: this.props.entity,
       name: this.props.name
     };
+  }
+
+  componentDidMount () {
+    var clipboard = new Clipboard('[data-action="copy-component-to-clipboard"]', {
+      text: trigger => {
+        var componentName = trigger.getAttribute('data-component').toLowerCase();
+        return getClipboardRepresentation(this.state.entity, componentName);
+      }
+    });
+    clipboard.on('error', e => {
+      // @todo Show the error in the UI
+    });
   }
 
   componentWillReceiveProps (newProps) {
@@ -78,7 +92,12 @@ export default class Component extends React.Component {
             {subComponentName || componentName}
           </span>
           <div>
-            <a href='#' title='Remove component' className='flat-button'
+            <a title='Copy to clipboard' data-action='copy-component-to-clipboard'
+              data-component={subComponentName || componentName}
+              className='flat-button' onClick={event => event.stopPropagation()}>
+              copy html
+            </a>
+            <a title='Remove component' className='flat-button'
               onClick={this.removeComponent}>remove</a>
           </div>
         </div>
