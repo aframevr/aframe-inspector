@@ -1,7 +1,7 @@
-var React = require('react');
-var Clipboard = require('clipboard');
-var Exporter = require('../../lib/exporter.js');
-var Events = require('../../lib/Events.js');
+import React from 'react';
+import Clipboard from 'clipboard';
+import Events from '../../lib/Events.js';
+import {getSceneName, generateHtml} from '../../lib/exporter';
 
 var primitivesDefinitions = {
   'Entity': {group: 'entities', element: 'a-entity', components: {}},
@@ -83,7 +83,7 @@ export class MenuWidget extends React.Component {
   componentDidMount() {
     var clipboard = new Clipboard('[data-action="copy-to-clipboard"]', {
       text: function (trigger) {
-        return Exporter.generateHtml();
+        return generateHtml();
       }
     });
     clipboard.on('error', function(e) {
@@ -113,7 +113,8 @@ export class MenuWidget extends React.Component {
       save(new Blob([ text ], { type: 'text/plain' }), filename);
     }
 
-    saveString(Exporter.generateHtml(), 'ascene.html');
+    var sceneName = getSceneName(document.querySelector('a-scene'));
+    saveString(generateHtml(), sceneName);
   }
 
   render() {
