@@ -75,7 +75,7 @@ export default class Main extends React.Component {
           </div>
           <ComponentsSidebar/>
         </div>
-        <a href='#' className='toggle-edit' onClick={this.toggleEditor}>
+        <a className='toggle-edit' onClick={this.toggleEditor}>
           {this.state.editorEnabled ? 'Exit' : 'Edit'}
         </a>
       </div>

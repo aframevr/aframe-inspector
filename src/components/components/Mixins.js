@@ -79,7 +79,7 @@ export default class Mixin extends React.Component {
     return (
       <li key={mixin.id}>
         <span className='mixin' title={titles.join('\n')}>{mixin.id}</span>
-        <a href='#' className='button fa fa-trash-o' onClick={mixinClick}></a>
+        <a className='button fa fa-trash-o' onClick={mixinClick}></a>
       </li>
     );
   }
@@ -92,7 +92,7 @@ export default class Mixin extends React.Component {
           <select ref='select'>
             {this.renderMixinOptions()}
           </select>
-          <a href='#' className='button fa fa-plus-circle' onClick={this.addMixin}></a>
+          <a className='button fa fa-plus-circle' onClick={this.addMixin}></a>
         </span>
         {this.renderMixins()}
       </div>
