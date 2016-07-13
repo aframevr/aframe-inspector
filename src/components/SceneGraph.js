@@ -78,7 +78,7 @@ export default class SceneGraph extends React.Component {
   }
 
   rebuildOptions = () => {
-    const options = [{static: true, value: this.props.scene, html: 'a-scene'}];
+    const options = [{static: true, value: this.props.scene, html: '&lt;a-scene&gt;'}];
 
     function treeIterate (element, depth) {
       if (!element) { return; }
@@ -103,7 +103,7 @@ export default class SceneGraph extends React.Component {
           }
 
           const pad = '&nbsp;&nbsp;&nbsp;'.repeat(depth);
-          const label = child.id ? child.id : child.tagName.toLowerCase();
+          const label = child.id ? child.id : '&lt;' + child.tagName.toLowerCase() + '&gt;';
 
           options.push({
             static: true,
@@ -157,7 +157,8 @@ export default class SceneGraph extends React.Component {
     return this.state.options
       .filter((option, idx) => {
         const value = option.value;
-        return value.id.toUpperCase().indexOf(filterText) > -1 || value.tagName.toUpperCase().indexOf(filterText) > -1;
+        return value.id.toUpperCase().indexOf(filterText) > -1 ||
+               value.tagName.toUpperCase().indexOf(filterText) > -1;
       })
       .map((option, idx) => {
         let className = 'option' + (option.value === this.state.value ? ' active' : '');
@@ -177,7 +178,8 @@ export default class SceneGraph extends React.Component {
     return (
       <div className='scenegraph'>
         <div className='search'>
-          <input placeholder='Search...' value={this.state.filterText} onChange={this.onChangeFilter}/>
+          <input placeholder='Search...' value={this.state.filterText}
+            onChange={this.onChangeFilter}/>
           <span className='fa fa-search'></span>
         </div>
         <div className='outliner' tabIndex='0' onKeyDown={this.onKeyDown}
