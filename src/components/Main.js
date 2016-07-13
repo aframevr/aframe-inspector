@@ -11,7 +11,6 @@ import SceneGraph from './SceneGraph';
 import ToolBar from './ToolBar';
 
 import '../css/main.css';
-import '../css/dark.css';
 
 // Megahack to include font-awesome.
 injectCSS('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
