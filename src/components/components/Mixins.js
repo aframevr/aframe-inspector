@@ -24,7 +24,7 @@ export default class Mixin extends React.Component {
     }
 
     // @todo Is there some aframe event we could catch instead of explicitly emit the objectChanged event?
-    Events.emit('objectChanged', entity);
+    Events.emit('objectChanged', entity.object3D);
   }
 
   addMixin = () => {
@@ -33,7 +33,7 @@ export default class Mixin extends React.Component {
       'mixin', trim(entity.getAttribute('mixin') + ' ' + this.refs.select.value));
 
     // @todo Is there some aframe event that we could catch instead of explicitly emit the objectChanged event?
-    Events.emit('objectChanged', entity);
+    Events.emit('objectChanged', entity.object3D);
   }
 
   renderMixinOptions = () => {

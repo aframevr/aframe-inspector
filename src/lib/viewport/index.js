@@ -40,6 +40,19 @@ function Viewport (editor) {
   var objectRotationOnDown = null;
   var objectScaleOnDown = null;
 
+  /**
+   * Update the helpers of the object and it childrens
+   * @param  {object3D} object Object to update
+   */
+  function updateHelpers(object) {
+    for (var i = 0; i < object.children.length; i++) {
+      var child = object.children[ i ];
+      if (editor.helpers[ child.id ] !== undefined) {
+        editor.helpers[ child.id ].update();
+      }
+    }
+  }
+
   var transformControls = new THREE.TransformControls(camera, editor.container);
   transformControls.addEventListener('change', function () {
     var object = transformControls.object;
@@ -48,9 +61,7 @@ function Viewport (editor) {
 
       selectionBox.update(object);
 
-      if (editor.helpers[ objectId ] !== undefined) {
-        editor.helpers[ objectId ].update();
-      }
+      updateHelpers(object);
 
       switch (transformControls.getMode()) {
         case 'translate':
@@ -295,9 +306,7 @@ function Viewport (editor) {
       object.updateProjectionMatrix();
     }
 
-    if (editor.helpers[ object.id ] !== undefined) {
-      editor.helpers[ object.id ].update();
-    }
+    updateHelpers(object);
   });
   Events.on('componentChanged', function(e){
 

@@ -36,5 +36,5 @@ export function updateEntity (entity, componentName, propertyName, value) {
       entity.setAttribute(componentName, value);
     }
   }
-  Events.emit('objectChanged', entity);
+  Events.emit('objectChanged', entity.object3D);
 }
