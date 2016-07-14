@@ -47,11 +47,36 @@ export function updateEntity (entity, componentName, propertyName, value) {
 export function removeEntity (entity, force) {
   if (entity) {
     if (force === true || confirm('Do you really want to remove the entity: `' + (entity.id || entity.tagName) + '`')) {
+      var closest = findClosestEntity(entity);
       entity.parentNode.removeChild(entity);
-      // @todo Select the next entity in the scenegraph
-      editor.selectEntity(null);
+      editor.selectEntity(closest);
     }
   }
+}
+
+function findClosestEntity (entity) {
+  // First we try to find the after the entity
+  var nextEntity = entity.nextElementSibling;
+  while (nextEntity && (!nextEntity.isEntity || nextEntity.isEditor)) {
+    nextEntity = nextEntity.nextElementSibling;
+  }
+
+  // Return if we found it
+  if (nextEntity && nextEntity.isEntity && !nextEntity.isEditor) {
+    return nextEntity;
+  }
+  // Otherwise try to find before the entity
+  var prevEntity = entity.previousElementSibling;
+  while (prevEntity && (!prevEntity.isEntity || prevEntity.isEditor)) {
+    prevEntity = prevEntity.previousElementSibling;
+  }
+
+  // Return if we found it
+  if (prevEntity && prevEntity.isEntity && !prevEntity.isEditor) {
+    return prevEntity;
+  }
+
+  return null;
 }
 
 /**
@@ -60,6 +85,15 @@ export function removeEntity (entity, force) {
  */
 export function removeSelectedEntity (force) {
   removeEntity(editor.selectedEntity);
+}
+
+/**
+ * Insert an node after a referenced node.
+ * @param  {Element} newNode       Node to insert.
+ * @param  {Element} referenceNode Node used as reference to insert after it.
+*/
+function insertAfter (newNode, referenceNode) {
+  referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
 
 /**
@@ -73,9 +107,14 @@ export function cloneEntity (entity) {
   });
 
   // Get a valid unique ID for the entity
-  copy.id = getUniqueId(entity.id);
-  //insertAfter(copy, entity);
-  entity.insertAdjacentHTML('afterend', copy.outerHTML);
+  if (entity.id) {
+    copy.id = getUniqueId(entity.id);
+  }
+  copy.addEventListener('loaded', function () {
+    Events.emit('sceneModified');
+    editor.selectEntity(copy);
+  });
+  insertAfter(copy, entity);
 }
 
 /**
@@ -83,15 +122,6 @@ export function cloneEntity (entity) {
  */
 export function cloneSelectedEntity () {
   cloneEntity(editor.selectedEntity);
-}
-
-/**
- * Insert an node after a referenced node.
- * @param  {Element} newNode       Node to insert.
- * @param  {Element} referenceNode Node used as reference to insert after it.
- */
-function insertAfter (newNode, referenceNode) {
-  referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
 
 /**

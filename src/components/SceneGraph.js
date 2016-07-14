@@ -1,6 +1,7 @@
 import React from 'react';
 import debounce from 'lodash.debounce';
 
+import {removeEntity, cloneEntity} from '../actions/entity';
 const Events = require('../lib/Events.js');
 
 const ICONS = {
@@ -76,6 +77,7 @@ export default class SceneGraph extends React.Component {
     if (!found) {
       this.setState({value: null, selectedIndex: -1});
     }
+    ga('send', 'event', 'SceneGraph', 'selectEntity');
   }
 
   update = e => {
@@ -109,11 +111,12 @@ export default class SceneGraph extends React.Component {
 
           const pad = '&nbsp;&nbsp;&nbsp;'.repeat(depth);
           const label = child.id ? child.id : '&lt;' + child.tagName.toLowerCase() + '&gt;';
+          const html = pad + label + extra;
 
           options.push({
             static: true,
             value: child,
-            html: pad + label + extra
+            html: html
           });
 
           if (child.tagName.toLowerCase() !== 'a-entity') {
@@ -159,11 +162,6 @@ export default class SceneGraph extends React.Component {
     }
   }
 
-  handleEntityClick (value) {
-    this.setValue(value);
-    ga('send', 'event', 'SceneGraph', 'selectEntity');
-  }
-
   renderOptions () {
     var filterText = this.state.filterText.toUpperCase();
     return this.state.options
@@ -176,8 +174,15 @@ export default class SceneGraph extends React.Component {
         let className = 'option' + (option.value === this.state.value ? ' active' : '');
         return (
           <div key={idx} className={className} value={option.value}
-            dangerouslySetInnerHTML={{__html: option.html}}
-            onClick={() => {this.handleEntityClick(option.value)}}/>
+            onClick={() => this.setValue(option.value)}>
+            <span dangerouslySetInnerHTML={{__html: option.html}}></span>
+              <span className="icons">
+                <a onClick={() => cloneEntity(option.value)}
+                  title="Clone entity" className="button fa fa-clone"></a>
+                <a onClick={event => { event.stopPropagation(); removeEntity(option.value); } }
+                  title="Remove entity" className="button fa fa-trash-o"></a>
+              </span>
+          </div>
         );
       });
   }
