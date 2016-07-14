@@ -56,7 +56,7 @@ export default class AddComponent extends React.Component {
               <select ref='select'>
                 {this.renderComponentOptions()}
               </select>
-              <a href='#' className='button fa fa-plus-circle' onClick={this.addComponent}/>
+              <a className='button fa fa-plus-circle' onClick={this.addComponent}/>
             </span>
           </div>
         </div>

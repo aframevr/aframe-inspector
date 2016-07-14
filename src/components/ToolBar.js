@@ -40,7 +40,7 @@ export default class Toolbar extends React.Component {
         active: selected
       });
 
-      return <a href='#' title={option.value} key={i}
+      return <a title={option.value} key={i}
         onClick={this.changeTransformMode.bind(this, option.value)}
         className={classes}></a>;
     }.bind(this));

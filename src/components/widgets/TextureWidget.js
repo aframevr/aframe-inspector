@@ -178,7 +178,7 @@ export default class TextureWidget extends React.Component {
         <span className={this.state.valueType}></span>
         <canvas ref="canvas" width="32" height="16" title={this.props.mapName} onClick={this.openDialog}></canvas>
         <input className="map_value string" type="text" value={this.state.value} onChange={this.onChange}/>
-        <a href="#" onClick={this.removeMap} className="button fa fa-times"></a>
+        <a onClick={this.removeMap} className="button fa fa-times"></a>
       </span>
     );
   }
