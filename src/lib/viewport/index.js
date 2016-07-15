@@ -329,8 +329,11 @@ function Viewport (editor) {
 
     updateHelpers(object);
   });
-  Events.on('componentChanged', function(e){
 
+  document.addEventListener('componentchanged', function (event) {
+    if (event.target === editor.selectedEntity) {
+      Events.emit('objectChanged', editor.selectedEntity.object3D);
+    }
   });
 
   Events.on('objectRemoved', function (object) {
