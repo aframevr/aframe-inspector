@@ -13,32 +13,22 @@ export default class ComponentsContainer extends React.Component {
 
   constructor (props) {
     super(props);
-    this.state = {
-      entity: props.entity
-    };
   }
-
+/*
   componentDidMount () {
-    this.refresh();
-    Events.on('entitySelected', entity => {
-      this.setState({entity: entity});
-      if (entity !== null) {
-        entity.addEventListener('componentchanged', this.refresh);
-      }
-    });
     document.addEventListener('componentremoved', event => {
       if (this.state.entity === event.detail.target) {
         this.refresh();
       }
     });
   }
-
+*/
   refresh = () => {
     this.forceUpdate();
   }
 
   render () {
-    const entity = this.state.entity;
+    const entity = this.props.entity;
     const components = entity ? entity.components : {};
     const defaultComponents = Object.keys(components).filter(function (key) {
       return DEFAULT_COMPONENTS.indexOf(key) === -1;

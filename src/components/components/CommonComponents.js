@@ -4,7 +4,6 @@ import PropertyRow from './PropertyRow';
 import Collapsible from '../Collapsible';
 import Mixins from './Mixins';
 import {updateEntity} from '../../actions/entity';
-import Clipboard from 'clipboard';
 
 // @todo Take this out and use updateEntity?
 function changeId (entity, componentName, propertyName, value) {
@@ -18,17 +17,6 @@ class CommonComponents extends React.Component {
   static propTypes = {
     entity: React.PropTypes.object
   };
-
-  componentDidMount () {
-    var clipboard = new Clipboard('[data-action="copy-entity-to-clipboard"]', {
-      text: trigger => {
-        return this.props.entity.outerHTML;
-      }
-    });
-    clipboard.on('error', e => {
-      // @todo Show the error on the UI
-    });
-  }
 
   renderCommonAttributes () {
     const entity = this.props.entity;
@@ -53,10 +41,6 @@ class CommonComponents extends React.Component {
       <Collapsible>
         <div className='collapsible-header'>
           <span>Common</span>
-          <div>
-            <a href='#' title='Copy entity HTML to clipboard' data-action='copy-entity-to-clipboard'
-              className='button fa fa-clipboard' onClick={event => event.stopPropagation()}></a>
-          </div>
         </div>
         <div className='collapsible-content'>
           <div className='row'>

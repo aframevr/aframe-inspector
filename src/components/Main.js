@@ -21,8 +21,9 @@ export default class Main extends React.Component {
     super(props);
     this.state = {
       inspectorEnabled: true,
-      isModalTexturesOpen: false,
-      sceneEl: document.querySelector('a-scene')
+      sceneEl: document.querySelector('a-scene'),
+      entity: null,
+      isModalTexturesOpen: false
     };
   }
 
@@ -38,6 +39,11 @@ export default class Main extends React.Component {
     Events.on('openTexturesModal', function (textureOnClose) {
       this.setState({isModalTexturesOpen: true, textureOnClose: textureOnClose});
     }.bind(this));
+
+    Events.on('entitySelected', entity => {
+      this.setState({entity: entity}, function(){
+      });
+    });
 
     Events.on('inspectorModeChanged', enabled => {
       this.setState({inspectorEnabled: enabled});
@@ -76,9 +82,9 @@ export default class Main extends React.Component {
             onClose={this.onModalTextureOnClose}/>
           <ToolBar/>
           <div id='sidebar-left'>
-            <SceneGraph scene={scene}/>
+            <SceneGraph scene={scene} selectedEntity={this.state.entity}/>
           </div>
-          <ComponentsSidebar/>
+          <ComponentsSidebar entity={this.state.entity}/>
         </div>
       </div>
     );
