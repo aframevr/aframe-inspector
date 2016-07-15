@@ -1,144 +1,20 @@
 import React from 'react';
-import Clipboard from 'clipboard';
-import Events from '../../lib/Events.js';
-import {getSceneName, generateHtml} from '../../lib/exporter';
-
-var primitivesDefinitions = {
-  'Entity': {group: 'entities', components: {}},
-
-  'Box': {group: 'primitives', components: {geometry: 'primitive: box', material: 'color:# f00'}},
-  'Sphere': {group: 'primitives', components: {geometry: 'primitive: sphere', material: 'color:# ff0'}},
-  'Cylinder': {group: 'primitives', components: {geometry: 'primitive: cylinder', material: 'color:# 00f'}},
-  'Plane': {group: 'primitives', components: {geometry: 'primitive: plane', material: 'color:# fff'}},
-  'Torus': {group: 'primitives', components: {geometry: 'primitive: torus', material: 'color:# 0f0'}},
-  'TorusKnot': {group: 'primitives', components: {geometry: 'primitive: torusKnot', material: 'color:# f0f'}},
-  'Circle': {group: 'primitives', components: {geometry: 'primitive: circle', material: 'color:# f0f'}},
-  'Ring': {group: 'primitives', components: {geometry: 'primitive: ring', material: 'color:# 0ff'}},
-
-  'Ambient': {group: 'lights', components: {light: 'type: ambient'}},
-  'Directional': {group: 'lights', components: {light: 'type: directional'}},
-  'Hemisphere': {group: 'lights', components: {light: 'type: hemisphere'}},
-  'Point': {group: 'lights', components: {light: 'type: point'}},
-  'Spot': {group: 'lights', components: {light: 'type: spot'}},
-
-  'Camera': {group: 'cameras', components: {camera: ''}}
-};
-
-function createEntity (definition) {
-  Events.emit('createNewEntity', primitivesDefinitions[definition]);
-  ga('send', 'event', 'CreateMenu', 'createEntity', definition);
-}
-
-export const CreateMenu = props => {
-  var prevGroup = null;
-  var definitions = primitivesDefinitions;
-  return (
-    <div className="menu">
-      <div className="title">Create</div>
-      <div className="options">
-      {
-        Object.keys(definitions).map(function(definition) {
-          var output = [];
-          if (prevGroup === null) {
-            prevGroup = definitions[definition].group;
-          } else if (prevGroup !== definitions[definition].group) {
-            prevGroup = definitions[definition].group;
-            output.push(<hr/>);
-          }
-          output.push(<div className="option" key={definition} value={definition}
-                           onClick={() => createEntity(definition)}>{definition}</div>);
-          return output;
-        }.bind(this))
-      }
-      </div>
-    </div>
-  );
-};
-
-export const EditMenu = () => {
-  var prevGroup = null;
-  var definitions = primitivesDefinitions;
-  return (
-    <div className="menu">
-      <div className="title">Create</div>
-      <div className="options">
-      {
-        Object.keys(definitions).map(function(definition) {
-          var output = [];
-          if (prevGroup === null) {
-            prevGroup = definitions[definition].group;
-          } else if (prevGroup !== definitions[definition].group) {
-            prevGroup = definitions[definition].group;
-            output.push(<hr/>);
-          }
-          output.push(<div className="option" key={definition} value={definition}>{definition}</div>);
-          return output;
-        }.bind(this))
-      }
-      </div>
-    </div>
-  );
-};
+import {CreateMenu} from './CreateMenu';
+import {EditMenu} from './EditMenu';
+import {ExportMenu} from './ExportMenu';
 
 export class MenuWidget extends React.Component {
-  componentDidMount() {
-    var clipboard = new Clipboard('[data-action="copy-to-clipboard"]', {
-      text: function (trigger) {
-        return generateHtml();
-      }
-    });
-    clipboard.on('error', function(e) {
-      console.error('Error while copying to clipboard:', e.action, e.trigger);
-    });
-    ga('send', 'event', 'ExportMenu', 'copyHTML');
-  }
-
-  update = e => {
-    var value = e.target.value;
-    this.setState({value: value});
-    if (this.props.onChange)
-      this.props.onChange(this.props.entity, this.props.componentname, this.props.name, value);
-  }
-
-  saveToHTML() {
-    var link = document.createElement('a');
-    link.style.display = 'none';
-    link.setAttribute('data-aframe-editor', 'download');
-    document.body.appendChild(link);
-    function save (blob, filename) {
-      link.href = URL.createObjectURL(blob);
-      link.download = filename || 'data.json';
-      link.click();
-      // URL.revokeObjectURL(url); breaks Firefox...
-    }
-    function saveString (text, filename) {
-      save(new Blob([ text ], { type: 'text/plain' }), filename);
-    }
-
-    var sceneName = getSceneName(document.querySelector('a-scene'));
-    saveString(generateHtml(), sceneName);
-    ga('send', 'event', 'ExportMenu', 'exportHTML');
-  }
-
-  render() {
+  render () {
     return (
-      <div className="Panel" id="menubar">
-        <div className="menu aframe-logo">
-          <div className="title">
+      <div className='panel' id='menubar'>
+        <div className='menu aframe-logo'>
+          <div className='title'>
             <span style={{color: '#ed3160'}}>A-</span>
             <span style={{color: '#fff'}}>Frame</span>
           </div>
         </div>
-        <div className="menu">
-          <div className="title">Export</div>
-          <div className="options">
-            <div className="option" onClick={this.saveToHTML}>Save HTML</div>
-            <div className="option" data-action="copy-to-clipboard">Copy to clipboard</div>
-          </div>
-        </div>
-        <div className="menu">
-          <div className="title">Edit</div>
-        </div>
+        <ExportMenu/>
+        <EditMenu/>
         <CreateMenu/>
       </div>
     );

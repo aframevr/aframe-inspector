@@ -33,7 +33,7 @@ textarea, input { outline: none; } /* osx */
 
 #sidebar,
 #sidebar-left,
-.Panel {
+.panel {
 	cursor: default;
 	user-select: none;
 }
@@ -275,7 +275,7 @@ input.number:focus {
   left: 0;
   top: 33px;
   bottom: 0;
-  width: 180px;
+  width: 200px;
   overflow: auto;
   background: #2b2b2b;
   display: flex;
@@ -305,17 +305,17 @@ input.number:focus {
     color: #888;
   }
 
-  .Panel {
+  .panel {
     color: #888;
     padding: 10px;
     border-top: 1px solid #222;
   }
 
-  .Panel.collapsed {
+  .panel.collapsed {
     margin-bottom: 0;
   }
 
-  .Panel.Material canvas {
+  .panel.Material canvas {
     border: solid 1px #5A5A5A;
   }
 
@@ -532,6 +532,7 @@ a.button {
   font-size: 16px;
   text-decoration: none;
   margin-left: 10px;
+	cursor: pointer;
 }
 
 a.button:hover {
@@ -924,11 +925,27 @@ code, pre {
 .outliner .option {
   padding: 4px;
   white-space: nowrap;
+	display: flex;
+	justify-content: space-between;
 }
 
 .outliner .option.active {
   background-color: #1faaf2;
   color: #fff;
+}
+
+.outliner .option .icons {
+	display: none;
+	margin: 0 3px 0 10px;
+}
+
+.outliner .option .icons .button {
+  font-size: 12px;
+	color: #fff;
+}
+
+.outliner .option.active .icons {
+	display: inline;
 }
 
 .outliner .fa {

@@ -1,7 +1,5 @@
 /* global editor */
 require('../lib/vendor/ga');
-const Events = require('../lib/Events.js');
-const Editor = require('../lib/editor');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
