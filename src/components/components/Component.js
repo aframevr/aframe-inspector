@@ -86,11 +86,19 @@ export default class Component extends React.Component {
       componentName = componentName.substr(0, componentName.indexOf('__'));
     }
 
+    const link = getComponentDocsLink(componentName.toLowerCase());
+    let componentHelp = '';
+    if (link) {
+      componentHelp = <a title='Help' className='button fa fa-question-circle'
+        target='_blank' onClick={event => event.stopPropagation()}
+        href={link}></a>;
+    }
+
     return (
       <Collapsible>
         <div className='collapsible-header'>
-          <span title={subComponentName || componentName}>
-            {subComponentName || componentName}
+          <span className='component-title' title={subComponentName || componentName}>
+            {subComponentName || componentName} {componentHelp}
           </span>
           <div>
             <a title='Copy to clipboard' data-action='copy-component-to-clipboard'
@@ -108,4 +116,16 @@ export default class Component extends React.Component {
       </Collapsible>
     );
   }
+}
+
+/**
+ * Get the component docs link
+ */
+function getComponentDocsLink (componentName) {
+  if (AFRAME.components[componentName]) {
+    // Returns link from the core components
+    return 'https://aframe.io/docs/' + AFRAME.version + '/components/' +
+      (componentName === 'camera' ? '' : componentName.toLowerCase() + '.html');
+  }
+  return null;
 }

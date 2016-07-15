@@ -973,3 +973,8 @@ a.flat-button {
 a.flat-button:hover {
   color: #1faaf2;
 }
+
+.component-title {
+	display: flex;
+	align-items: center;
+}
