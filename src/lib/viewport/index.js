@@ -1,4 +1,4 @@
-/* global aframeEditor, THREE CustomEvent */
+/* global THREE CustomEvent */
 import debounce from 'lodash.debounce';
 import TransformControls from '../vendor/threejs/TransformControls.js';
 import EditorControls from '../vendor/threejs/EditorControls.js';
@@ -19,7 +19,7 @@ function Viewport (editor) {
   };
 
   var prevActivedCameraEl = editor.currentCameraEl;
-  editor.sceneEl.addEventListener('camera-set-active', function(event){
+  editor.sceneEl.addEventListener('camera-set-active', function (event) {
     if (editor.enabled) {
       // If we're in edit mode, just save the current active camera for later and activate again the editorCamera
       if (event.detail.cameraEl !== editor.editorCameraEl) {
@@ -53,7 +53,7 @@ function Viewport (editor) {
    * Update the helpers of the object and it childrens
    * @param  {object3D} object Object to update
    */
-  function updateHelpers(object) {
+  function updateHelpers (object) {
     for (var i = 0; i < object.children.length; i++) {
       var child = object.children[i];
       if (editor.helpers[child.id] !== undefined) {
@@ -66,7 +66,6 @@ function Viewport (editor) {
   transformControls.addEventListener('change', function () {
     const object = transformControls.object;
     if (object === undefined) { return; }
-    const objectId = object.id;
 
     selectionBox.update(object);
 
@@ -158,8 +157,7 @@ function Viewport (editor) {
   });
 */
 
-
-  Events.on('objectChanged',function () {
+  Events.on('objectChanged', function () {
     if (editor.selectedEntity.object3DMap['mesh']) {
       selectionBox.update(editor.selected);
     }
@@ -251,7 +249,7 @@ function Viewport (editor) {
 
     if (intersects.length > 0) {
       var intersect = intersects[ 0 ];
-      Events.emit('objectFocused',intersect.object);
+      Events.emit('objectFocused', intersect.object);
     }
   }
 
@@ -319,7 +317,7 @@ function Viewport (editor) {
       if (object.geometry && object.geometry.vertices && object.geometry.vertices.length > 0) {
         selectionBox.update(object);
       }
-      //transformControls.update();
+      // transformControls.update();
     }
 
     transformControls.update();
@@ -329,7 +327,6 @@ function Viewport (editor) {
 
     updateHelpers(object);
   });
-
   document.addEventListener('componentchanged', function (event) {
     if (event.target === editor.selectedEntity) {
       Events.emit('objectChanged', editor.selectedEntity.object3D);
@@ -359,12 +356,12 @@ function Viewport (editor) {
   Events.on('editorModeChanged', function (active) {
     if (active) {
       editor.editorCameraEl.setAttribute('camera', 'active', 'true');
-      document.querySelectorAll('.a-enter-vr,.rs-base').forEach(function(element){
+      document.querySelectorAll('.a-enter-vr,.rs-base').forEach(function (element) {
         element.style.display = 'none';
       });
     } else {
       prevActivedCameraEl.setAttribute('camera', 'active', 'true');
-      document.querySelectorAll('.a-enter-vr,.rs-base').forEach(function(element){
+      document.querySelectorAll('.a-enter-vr,.rs-base').forEach(function (element) {
         element.style.display = 'block';
       });
     }

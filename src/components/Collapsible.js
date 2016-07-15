@@ -2,7 +2,8 @@ import React from 'react';
 import classnames from 'classnames';
 
 export default class Collapsible extends React.Component {
-	static propTypes = {
+  static propTypes = {
+    collapsed: React.PropTypes.bool,
     children: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.element
@@ -13,15 +14,15 @@ export default class Collapsible extends React.Component {
     collapsed: false
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
-    	collapsed: this.props.collapsed
+      collapsed: this.props.collapsed
     };
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-  	return this.props !== nextProps || this.state !== nextState;
+  shouldComponentUpdate (nextProps, nextState) {
+    return this.props !== nextProps || this.state !== nextState;
   }
 
   toggleVisibility = () => {
@@ -29,7 +30,7 @@ export default class Collapsible extends React.Component {
     ga('send', 'event', 'Components', 'collapse');
   }
 
-	render() {
+  render () {
     const rootClasses = classnames({
       collapsible: true,
       component: true,
@@ -40,7 +41,7 @@ export default class Collapsible extends React.Component {
       hide: this.state.collapsed
     });
 
-  	return (
+    return (
       <div className={rootClasses}>
         <div className="static" onClick={this.toggleVisibility}>
           <div className="button"/>

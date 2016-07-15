@@ -6,13 +6,12 @@ function ShaderLoader () {
 
 ShaderLoader.prototype = {
   loadShadersData: function () {
-    return;
     var xhr = new window.XMLHttpRequest();
     // @todo Remove the sync call and use a callback
     xhr.open('GET', 'https://raw.githubusercontent.com/fernandojsg/aframe-shaders/master/shaders.json', false);
     xhr.onload = function () {
       this.shaders = window.JSON.parse(xhr.responseText);
-      console.info('Loaded Shaders:', Object.keys(this.shaders).length);
+      // console.info('Loaded Shaders:', Object.keys(this.shaders).length);
     }.bind(this);
     xhr.onerror = function () {
       // process error
@@ -22,7 +21,6 @@ ShaderLoader.prototype = {
   addShaderToScene: function (shaderName, onLoaded) {
     var shader = this.shaders[shaderName];
     if (shader && !shader.included) {
-      console.log('Shader', shaderName, 'loaded!');
       var script = document.createElement('script');
       script.src = shader.url;
       script.setAttribute('data-shader-name', shaderName);

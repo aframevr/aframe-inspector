@@ -6,4 +6,4 @@ module.exports = {
   SelectWidget: require('./SelectWidget').default,
   TextureWidget: require('./TextureWidget').default,
   Vec3Widget: require('./Vec3Widget').default
-}
+};

@@ -4,4 +4,4 @@ function getNumber (value) {
 
 module.exports = {
   getNumber: getNumber
-}
+};
