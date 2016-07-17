@@ -1,8 +1,8 @@
 import React from 'react';
 import debounce from 'lodash.debounce';
-
-import {removeEntity, cloneEntity} from '../actions/entity';
-const Events = require('../lib/Events.js');
+import {removeEntity, cloneEntity} from '../../actions/entity';
+import Toolbar from './Toolbar';
+const Events = require('../../lib/Events.js');
 
 const ICONS = {
   camera: 'fa-video-camera',
@@ -195,10 +195,13 @@ export default class SceneGraph extends React.Component {
   render () {
     return (
       <div className='scenegraph'>
-        <div className='search'>
-          <input placeholder='Search...' value={this.state.filterText}
-            onChange={this.onChangeFilter}/>
-          <span className='fa fa-search'></span>
+        <div className='scenegraph-toolbar'>
+          <Toolbar/>
+          <div className='search'>
+            <input placeholder='Search...' value={this.state.filterText}
+              onChange={this.onChangeFilter}/>
+            <span className='fa fa-search'></span>
+          </div>
         </div>
         <div className='outliner' tabIndex='0' onKeyDown={this.onKeyDown}
           onKeyUp={this.onKeyUp}>

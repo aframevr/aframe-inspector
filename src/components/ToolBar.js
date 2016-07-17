@@ -1,3 +1,4 @@
+/* global editor */
 var React = require('react');
 var Events = require('../lib/Events.js');
 var classNames = require('classnames');
