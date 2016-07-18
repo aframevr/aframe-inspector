@@ -3,7 +3,7 @@ var React = require('react');
 import AttributesPanel from './AttributesPanel';
 
 export default class AttributesSidebar extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {open: false};
   }
@@ -13,7 +13,7 @@ export default class AttributesSidebar extends React.Component {
     ga('send', 'event', 'Components', 'toggleSidebar');
   }
 
-  render() {
+  render () {
     return (
       <div id="sidebar">
         <div className="sidebar-title">attributes</div>

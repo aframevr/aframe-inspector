@@ -12,7 +12,7 @@ export function getSceneName (scene) {
  * @param  {string} text String to slugify
  * @return {string}      Slugified string
  */
-function slugify(text) {
+function slugify (text) {
   return text.toString().toLowerCase()
     .replace(/\s+/g, '-')           // Replace spaces with -
     .replace(/[^\w\-]+/g, '-')      // Replace all non-word chars with -
@@ -25,7 +25,7 @@ function slugify(text) {
  * Generate a filtered stringify HTML from the current page
  * @return {string} String that contains the filtered HTML of the current page
  */
-export function generateHtml() {
+export function generateHtml () {
   var parser = new window.DOMParser();
   var xmlDoc = parser.parseFromString(document.documentElement.innerHTML, 'text/html');
 
@@ -59,7 +59,7 @@ export function generateHtml() {
  * @param  {Document} xmlData XML to stringify
  * @return {string}         String representation of the XML document
  */
-function xmlToString(xmlData) {
+function xmlToString (xmlData) {
   var xmlString;
   // IE
   if (window.ActiveXObject) {

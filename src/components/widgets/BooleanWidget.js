@@ -2,6 +2,10 @@ var React = require('react');
 
 export default class BooleanWidget extends React.Component {
   static propTypes = {
+    componentname: React.PropTypes.string.isRequired,
+    entity: React.PropTypes.object,
+    name: React.PropTypes.string.isRequired,
+    onChange: React.PropTypes.func,
     value: React.PropTypes.bool
   };
 
@@ -9,13 +13,13 @@ export default class BooleanWidget extends React.Component {
     value: false
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {value: this.props.value};
   }
 
-  componentWillReceiveProps(newProps) {
-    if (newProps.value != this.state.value) {
+  componentWillReceiveProps (newProps) {
+    if (newProps.value !== this.state.value) {
       this.setState({value: newProps.value});
     }
   }
@@ -23,11 +27,12 @@ export default class BooleanWidget extends React.Component {
   onChange = e => {
     var value = e.target.checked;
     this.setState({value: value});
-    if (this.props.onChange)
+    if (this.props.onChange) {
       this.props.onChange(this.props.entity, this.props.componentname, this.props.name, value);
+    }
   }
 
-  render() {
+  render () {
     var id = this.props.componentname + '.' + this.props.name;
 
     return (

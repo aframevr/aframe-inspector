@@ -8,7 +8,7 @@ const DEFAULT_COMPONENTS = ['visible', 'position', 'scale', 'rotation'];
 
 export default class ComponentsContainer extends React.Component {
   static propTypes = {
-    entity: React.PropTypes.object.isRequired
+    entity: React.PropTypes.object
   };
 
   constructor (props) {

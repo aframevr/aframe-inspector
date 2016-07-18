@@ -35,7 +35,7 @@ Editor.prototype = {
 
     this.editorCameraEl = document.createElement('a-entity');
     this.editorCameraEl.isEditor = true;
-    this.editorCameraEl.addEventListener('loaded', function(entity) {
+    this.editorCameraEl.addEventListener('loaded', function (entity) {
       this.DEFAULT_CAMERA = this.editorCameraEl.getObject3D('camera');
       this.initUI();
     }.bind(this));
@@ -44,7 +44,7 @@ Editor.prototype = {
   },
 
   initUI: function () {
-    this.DEFAULT_CAMERA.position.set(20,10,20);
+    this.DEFAULT_CAMERA.position.set(20, 10, 20);
     this.DEFAULT_CAMERA.lookAt(new THREE.Vector3());
     this.DEFAULT_CAMERA.updateMatrixWorld();
 
@@ -53,15 +53,13 @@ Editor.prototype = {
     this.initEvents();
 
     this.selected = null;
-    //this.dialogs = new Dialogs(this);
-    //!!!this.panels = new Panels(this);
 
     window.dispatchEvent(new Event('editor-loaded'));
 
     this.scene = this.sceneEl.object3D;
     this.helpers = {};
     this.sceneHelpers = new THREE.Scene();
-    this.sceneHelpers.visible = true; //false;
+    this.sceneHelpers.visible = true; // false;
     this.editorActive = false;
 
     this.viewport = new Viewport(this);
@@ -79,11 +77,11 @@ Editor.prototype = {
     }
     addObjects(this.sceneEl.object3D);
 
-    document.addEventListener('model-loaded', function(event){
+    document.addEventListener('model-loaded', function (event) {
       this.addObject(event.target.object3D);
     }.bind(this));
 
-    document.addEventListener('componentchanged', function(event) {
+    document.addEventListener('componentchanged', function (event) {
       this.addObject(event.target.object3D);
     }.bind(this));
 
@@ -161,20 +159,21 @@ Editor.prototype = {
       this.select(null);
     }
 
-    if (emit === undefined)
+    if (emit === undefined) {
       Events.emit('entitySelected', entity);
+    }
   },
   initEvents: function () {
-    Events.on('entitySelected', function(entity){
+    Events.on('entitySelected', function (entity) {
       this.selectEntity(entity, false);
     }.bind(this));
 
-    Events.on('editorModeChanged', function(active){
+    Events.on('editorModeChanged', function (active) {
       this.editorActive = active;
       this.sceneHelpers.visible = this.editorActive;
     }.bind(this));
 
-    Events.on('createNewEntity', function(definition){
+    Events.on('createNewEntity', function (definition) {
       this.createNewEntity(definition);
     }.bind(this));
 
@@ -244,10 +243,10 @@ Editor.prototype = {
 
     // Ensure the components are loaded before update the UI
     entity.addEventListener('loaded', function () {
-      editor.addEntity(entity);
-    });
+      this.addEntity(entity);
+    }.bind(this));
 
-    editor.sceneEl.appendChild(entity);
+    this.sceneEl.appendChild(entity);
 
     return entity;
   },
