@@ -89,17 +89,23 @@ textarea, input { outline: none; } /* osx */
 
 	}
 
-.toggle-edit {
-	background-color: #ed3160;
+.toggle-panel {
 	position: fixed;
-	right: 3px;
-	top: 3px;
+	bottom: 3px;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.toggle-panel .toggle-edit-button {
+	background-color: #ed3160;
 	padding: 6px 20px;
 	color: #fff;
 	text-decoration: none;
+	cursor: pointer;
 }
 
-.toggle-edit:hover {
+.toggle-panel .toggle-edit-button:hover {
 	background-color: rgb(228,43,90);
 }
 

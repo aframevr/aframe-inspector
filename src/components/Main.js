@@ -81,9 +81,11 @@ export default class Main extends React.Component {
           </div>
           <ComponentsSidebar/>
         </div>
-        <a className='toggle-edit' onClick={this.toggleEditor}>
-          {this.state.editorEnabled ? 'Exit' : 'Edit'}
-        </a>
+        <div className='toggle-panel'>
+          <a className='toggle-edit-button' onClick={this.toggleEditor}>
+            {this.state.editorEnabled ? 'Play scene' : 'Edit scene'}
+          </a>
+        </div>
       </div>
     );
   }
