@@ -213,7 +213,7 @@ input.number:focus {
 
   #menubar .menu {
     float: left;
-    padding-right: 8px;
+    margin-right: 8px;
   }
 
   #menubar .menu.right {
@@ -238,6 +238,10 @@ input.number:focus {
       padding: 5px 0;
       background: #111;
       width: 150px;
+    }
+
+    #menubar .menu:hover {
+        background: #111;
     }
 
     #menubar .menu:hover .options {
