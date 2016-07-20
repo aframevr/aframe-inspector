@@ -97,6 +97,7 @@ textarea, input { outline: none; } /* osx */
 	padding: 6px 20px;
 	color: #fff;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 .toggle-edit:hover {
