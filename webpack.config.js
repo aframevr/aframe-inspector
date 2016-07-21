@@ -18,7 +18,7 @@ module.exports = {
   entry: entry,
   output: {
     path: path.join(__dirname, 'build'),
-    filename: 'aframe-editor.js',
+    filename: 'aframe-inspector.js',
     publicPath: '/build/'
   },
   module: {

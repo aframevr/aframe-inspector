@@ -1,7 +1,7 @@
 {
-  "name": "aframe-editor",
+  "name": "aframe-inspector",
   "version": "0.1.0",
-  "description": "An editor for A-Frame scenes.",
+  "description": "An inspector for A-Frame scenes.",
   "main": "index.js",
   "scripts": {
     "build": "NODE_ENV=production webpack --progress --colors -p",
@@ -11,7 +11,7 @@
     "preghpages": "npm run build && shx rm -rf gh-pages && shx mkdir gh-pages && shx cp -r build example index.html gh-pages && shx sed -i http://localhost:3333 .. gh-pages/example/index.html",
     "start": "NODE_ENV=dev webpack-dev-server --progress --colors --hot -d --open"
   },
-  "repository": "aframevr/aframe-editor",
+  "repository": "aframevr/aframe-inspector",
   "license": "MIT",
   "dependencies": {
     "classnames": "^2.2.5",
