@@ -8,13 +8,13 @@
  * ------------
  *
  * % node ./scripts/gh-pages
- * gh-pages -d dist -r git@github.com:aframevr/aframe-editor.git
+ * gh-pages -d dist -r git@github.com:aframevr/aframe-inspector.git
  *
  * % node ./scripts/gh-pages cvan
- * gh-pages -d dist -r git@github.com:cvan/aframe-editor.git
+ * gh-pages -d dist -r git@github.com:cvan/aframe-inspector.git
  *
  * % node ./scripts/gh-pages git@github.com:dmarcos/aframe.git
- * gh-pages -d dist -r git@github.com:dmarcos/aframe-editor.git
+ * gh-pages -d dist -r git@github.com:dmarcos/aframe-inspector.git
  *
  */
 
@@ -24,7 +24,7 @@ var path = require('path');
 
 var repo = {
   username: 'aframevr',
-  name: 'aframe-editor'
+  name: 'aframe-inspector'
 };
 
 var arg = process.argv[2];
