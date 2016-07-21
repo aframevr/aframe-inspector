@@ -13,12 +13,30 @@ if (process.env.NODE_ENV === 'dev') {
   ].concat(entry);
 }
 
+// Minification.
+var plugins = [];
+if (process.env.NODE_ENV === 'production') {
+  plugins.push(new webpack.optimize.UglifyJsPlugin({
+    compress: {warnings: false}
+  }));
+}
+
+// dist/
+var filename = 'aframe-inspector.js';
+var outPath = 'build';
+if (process.env.AFRAME_DIST) {
+  outPath = 'dist';
+  if (process.env.NODE_ENV === 'production') {
+    filename = 'aframe-inspector.min.js';
+  }
+}
+
 module.exports = {
   devServer: {port: 3333},
   entry: entry,
   output: {
-    path: path.join(__dirname, 'build'),
-    filename: 'aframe-inspector.js',
+    path: path.join(__dirname, outPath),
+    filename: filename,
     publicPath: '/build/'
   },
   module: {
@@ -38,6 +56,7 @@ module.exports = {
       }
     ]
   },
+  plugins: plugins,
   postcss: function (webpack) {
     return [
       postcssImport({addDependencyTo: webpack}),  // postcss/postcss-loader/issues/8
