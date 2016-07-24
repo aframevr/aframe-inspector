@@ -1,32 +1,36 @@
 body {
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 14px;
-	margin: 0;
-	overflow: hidden;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  margin: 0;
+  overflow: hidden;
 }
 
 hr {
-	border: 0;
-	border-top: 1px solid #ccc;
+  border: 0;
+  border-top: 1px solid #ccc;
+}
+
+a {
+  cursor: pointer;
 }
 
 button {
-	position: relative;
+  position: relative;
 }
 
 textarea {
-	tab-size: 4;
-	white-space: pre;
-	word-wrap: normal;
+  tab-size: 4;
+  white-space: pre;
+  word-wrap: normal;
 }
 
 textarea.success {
-	border-color: #8b8 !important;
+  border-color: #8b8 !important;
 }
 
 textarea.fail {
-	border-color: #f00 !important;
-	background-color: rgba(255,0,0,0.05);
+  border-color: #f00 !important;
+  background-color: rgba(255,0,0,0.05);
 }
 
 textarea, input { outline: none; } /* osx */
@@ -34,82 +38,93 @@ textarea, input { outline: none; } /* osx */
 #sidebar,
 #sidebar-left,
 .panel {
-	cursor: default;
-	user-select: none;
+  cursor: default;
+  user-select: none;
 }
 
 .collapsible .static {
-	margin: 0;
+  margin: 0;
 }
 
 .collapsible .static .collapse-button {
-	float: left;
-	margin-right: 6px;
-	width: 0;
-	height: 0;
-	border: 6px solid transparent;
+  float: left;
+  margin-right: 6px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
 }
 
 .collapsible.collapsed .static .collapse-button {
-	margin-top: 2px;
-	border-left-color: #1faaf2;
+  margin-top: 2px;
+  border-left-color: #1faaf2;
 }
 
 .collapsible:not(.collapsed) .static .collapse-button {
-	margin-top: 6px;
-	border-top-color: #1faaf2;
+  margin-top: 6px;
+  border-top-color: #1faaf2;
 }
 
 .collapsible.collapsed .content {
-	display: none;
+  display: none;
 }
 
 /* CodeMirror */
 
 .CodeMirror {
 
-	position: absolute !important;
-	top: 37px;
-	width: 100% !important;
-	height: calc(100% - 37px) !important;
+  position: absolute !important;
+  top: 37px;
+  width: 100% !important;
+  height: calc(100% - 37px) !important;
 
 }
 
-	.CodeMirror .errorLine {
+  .CodeMirror .errorLine {
 
-		background: rgba(255,0,0,0.25);
+    background: rgba(255,0,0,0.25);
 
-	}
+  }
 
-	.CodeMirror .esprima-error {
+  .CodeMirror .esprima-error {
 
-		color: #f00;
-		text-align: right;
-		padding: 0 20px;
+    color: #f00;
+    text-align: right;
+    padding: 0 20px;
 
-	}
+  }
 
 .toggle-edit {
-	background-color: #ed3160;
-	position: fixed;
-	right: 3px;
-	top: 3px;
-	padding: 6px 20px;
-	color: #fff;
-	text-decoration: none;
-	cursor: pointer;
+  background-color: #ed3160;
+  position: fixed;
+  left: 3px;
+  top: 3px;
+  padding: 6px 10px;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  z-index: 99999;
+  width: 174px;
 }
 
 .toggle-edit:hover {
-	background-color: rgb(228,43,90);
+  background-color: rgb(228,43,90);
 }
 
 .scenegraph {
   border-top: 1px solid #111;
+  padding-top: 32px;
 }
 
 .scenegraph .search {
   padding: 5px;
+}
+
+.scenegraph-toolbar {
+  background-color: #333;
+}
+
+.scenegraph-actions {
+  padding: 9px 0px 5px 0px;
 }
 
 .search {
@@ -119,7 +134,7 @@ textarea, input { outline: none; } /* osx */
 }
 
 .search input {
-  width: 165px;
+  width: 185px;
   height: 22px;
   background: #222;
   border-radius: 5px;
@@ -171,7 +186,7 @@ input.number:focus {
 
 #viewport {
   position: absolute;
-  top: 33px;
+  top: 0;
   left: 0;
   right: 330px;
   bottom: 32px;
@@ -184,7 +199,7 @@ input.number:focus {
 
 #script {
   position: absolute;
-  top: 33px;
+  top: 0;
   left: 0;
   right: 330px;
   bottom: 32px;
@@ -193,7 +208,7 @@ input.number:focus {
 
 #player {
   position: absolute;
-  top: 33px;
+  top: 0;
   left: 0;
   right: 330px;
   bottom: 32px;
@@ -278,20 +293,20 @@ input.number:focus {
 #sidebar-left {
   position: absolute;
   left: 0;
-  top: 33px;
+  top: 0;
   bottom: 0;
   width: 200px;
   overflow: auto;
   background: #2b2b2b;
   display: flex;
   flex-direction: column;
-  height: calc(100% - 33px);
+  height: 100%;
 }
 
 #sidebar {
   position: absolute;
   right: 0;
-  top: 33px;
+  top: 0;
   bottom: 0;
   width: 330px;
   background: #2b2b2b;
@@ -537,7 +552,6 @@ a.button {
   font-size: 16px;
   text-decoration: none;
   margin-left: 10px;
-	cursor: pointer;
 }
 
 a.button:hover {
@@ -864,18 +878,17 @@ code, pre {
 }
 
 .sidebar-title {
-  color: #1faaf2;
-  text-align: center;
-  background-color: #323232;
-  padding: 2px;
-  border-top: 2px solid #1faaf2;
-  font-size: 10px;
+	color: #AAA;
+	text-align: left;
+	background-color: #444;
+	padding: 5px 10px;
+	font-size: 12px;
 }
 
 .toolbar {
   position: absolute;
   right: 330px;
-  top: 34px;
+  top: 0;
   height: 32px;
   background-color: #262626;
   color: #333;
@@ -930,8 +943,8 @@ code, pre {
 .outliner .option {
   padding: 4px;
   white-space: nowrap;
-	display: flex;
-	justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .outliner .option.active {
@@ -940,17 +953,17 @@ code, pre {
 }
 
 .outliner .option .icons {
-	display: none;
-	margin: 0 3px 0 10px;
+  display: none;
+  margin: 0 3px 0 10px;
 }
 
 .outliner .option .icons .button {
   font-size: 12px;
-	color: #fff;
+  color: #fff;
 }
 
 .outliner .option.active .icons {
-	display: inline;
+  display: inline;
 }
 
 .outliner .fa {

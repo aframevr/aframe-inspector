@@ -1,10 +1,11 @@
 import React from 'react';
 import Clipboard from 'clipboard';
 import {getSceneName, generateHtml} from '../../lib/exporter';
+import Events from '../../lib/Events.js';
 
-export class ExportMenu extends React.Component {
+export default class Toolbar extends React.Component {
   componentDidMount () {
-    var clipboard = new Clipboard('[data-action="copy-to-clipboard"]', {
+    var clipboard = new Clipboard('[data-action="copy-scene-to-clipboard"]', {
       text: trigger => {
         return generateHtml();
       }
@@ -14,7 +15,7 @@ export class ExportMenu extends React.Component {
     });
   }
 
-  saveToHTML () {
+  saveSceneToHTML () {
     var link = document.createElement('a');
     link.style.display = 'none';
     document.body.appendChild(link);
@@ -31,14 +32,20 @@ export class ExportMenu extends React.Component {
     saveString(generateHtml(), sceneName);
   }
 
+  addEntity () {
+    Events.emit('createNewEntity', {element: 'a-entity', components: {}});
+  }
+
+  playScene () {
+    editor.disable();
+  }
+
   render () {
     return (
-      <div className='menu'>
-        <div className='title'>Export</div>
-        <div className='options'>
-          <div className='option' onClick={this.saveToHTML}>Save HTML</div>
-          <div className='option' data-action='copy-to-clipboard'>Copy to clipboard</div>
-        </div>
+      <div className='scenegraph-actions'>
+        <a className='button fa fa-clipboard' data-action='copy-scene-to-clipboard'></a>
+        <a className='button fa fa-floppy-o' onClick={this.saveSceneToHTML}></a>
+        <a className='button fa fa-plus' onClick={this.addEntity}></a>
       </div>
     );
   }

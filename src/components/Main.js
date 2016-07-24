@@ -7,9 +7,8 @@ import ReactDOM from 'react-dom';
 const Events = require('../lib/Events.js');
 const Editor = require('../lib/editor');
 import ComponentsSidebar from './components/Sidebar';
-import {MenuWidget} from './menu/Menu';
 import ModalTextures from './modals/ModalTextures';
-import SceneGraph from './SceneGraph';
+import SceneGraph from './scenegraph/SceneGraph';
 import ToolBar from './ToolBar';
 
 import '../css/main.css';
@@ -41,16 +40,9 @@ export default class Main extends React.Component {
     Events.on('openTexturesModal', function (textureOnClose) {
       this.setState({isModalTexturesOpen: true, textureOnClose: textureOnClose});
     }.bind(this));
-  }
 
-  toggleEditor = () => {
-    this.setState({editorEnabled: !this.state.editorEnabled}, function () {
-      if (this.state.editorEnabled) {
-        editor.enable();
-      } else {
-        editor.disable();
-      }
-      // Events.emit('editorModeChanged', this.state.editorEnabled);
+    Events.on('editorModeChanged', enabled => {
+      this.setState({editorEnabled: enabled});
     });
   }
 
@@ -65,25 +57,31 @@ export default class Main extends React.Component {
     this.setState({isModalTexturesOpen: true});
   }
 
+  toggleEdit = () => {
+    if (this.state.editorEnabled) {
+      editor.disable();
+    } else {
+      editor.enable();
+    }
+  }
+
   render () {
     var scene = document.querySelector('a-scene');
     var textureDialogOpened = this.state.isModalTexturesOpen;
+    let editButton = <a className='toggle-edit' onClick={this.toggleEdit}>{(this.state.editorEnabled ? 'Back to Scene' : 'Inspect Scene')}</a>
+
     return (
       <div>
+        {editButton}
         <div id='editor' className={this.state.editorEnabled ? '' : 'hidden'}>
           <ModalTextures ref='modaltextures' isOpen={textureDialogOpened}
             onClose={this.onModalTextureOnClose}/>
           <ToolBar/>
-          <MenuWidget/>
           <div id='sidebar-left'>
-            <div className='sidebar-title'>scenegraph</div>
             <SceneGraph scene={scene}/>
           </div>
           <ComponentsSidebar/>
         </div>
-        <a className='toggle-edit' onClick={this.toggleEditor}>
-          {this.state.editorEnabled ? 'Exit' : 'Edit'}
-        </a>
       </div>
     );
   }
