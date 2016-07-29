@@ -20,7 +20,7 @@ export default class PropertyRow extends React.Component {
 
   constructor (props) {
     super(props);
-    this.id = props.componentname + ':' + props.id;
+    this.id = props.componentname + ':' + props.name;
   }
 
   getWidget () {
