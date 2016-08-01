@@ -451,11 +451,13 @@ div.vec3 {
   display: flex;
   justify-content: space-between;
 }
-.collapsible-header span {
+
+.component-title span {
   float: left;
-  max-width: 180px;
+  max-width: 110px;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
   text-transform: uppercase;
 }
 

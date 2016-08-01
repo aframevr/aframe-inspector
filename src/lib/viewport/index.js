@@ -287,7 +287,7 @@ function Viewport (inspector) {
   Events.on('objectSelected', function (object) {
     selectionBox.visible = false;
     transformControls.detach();
-    if (object !== null) {
+    if (object && object.el) {
       if (object.el.getObject3D('mesh')) {
         selectionBox.update(object);
         selectionBox.visible = true;

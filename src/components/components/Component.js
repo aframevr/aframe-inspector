@@ -71,7 +71,7 @@ export default class Component extends React.Component {
     const componentData = this.props.component;
 
     if (isSingleProperty(componentData.schema)) {
-      const componentName = componentName.toLowerCase();
+      const componentName = this.props.name;
       const schema = AFRAME.components[componentName].schema;
       return (
         <PropertyRow key={componentName} name={componentName} schema={schema}
@@ -89,7 +89,7 @@ export default class Component extends React.Component {
   }
 
   render () {
-    let componentName = this.props.name.toUpperCase();
+    let componentName = this.props.name;
     let subComponentName = '';
     if (componentName.indexOf('__') !== -1) {
       subComponentName = componentName;
@@ -102,7 +102,7 @@ export default class Component extends React.Component {
       <Collapsible key={this.state.key}>
         <div className='collapsible-header'>
           <span className='component-title' title={subComponentName || componentName}>
-            {subComponentName || componentName} {componentHelp}
+            <span>{subComponentName || componentName}</span> {componentHelp}
           </span>
           <div>
             <a title='Copy to clipboard' data-action='copy-component-to-clipboard'
