@@ -2,7 +2,6 @@ import React from 'react';
 import AddComponent from './AddComponent';
 import Component from './Component';
 import CommonComponents from './CommonComponents';
-const Events = require('../../lib/Events');
 
 const DEFAULT_COMPONENTS = ['visible', 'position', 'scale', 'rotation'];
 
@@ -11,9 +10,6 @@ export default class ComponentsContainer extends React.Component {
     entity: React.PropTypes.object
   };
 
-  constructor (props) {
-    super(props);
-  }
 /*
   componentDidMount () {
     document.addEventListener('componentremoved', event => {

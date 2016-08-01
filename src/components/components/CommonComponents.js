@@ -1,3 +1,4 @@
+/* global Events */
 import React from 'react';
 import {InputWidget} from '../widgets';
 import PropertyRow from './PropertyRow';
@@ -31,7 +32,7 @@ class CommonComponents extends React.Component {
           showHelp={true} schema={schema} data={componentData.data}
           componentname={componentName} entity={entity}/>
       );
-    })
+    });
   }
 
   render () {
@@ -43,9 +44,6 @@ class CommonComponents extends React.Component {
           <span>Common</span>
         </div>
         <div className='collapsible-content'>
-          <div className='row'>
-            <span className='value tagName'><code>&lt;{entity.tagName.toLowerCase()}&gt;</code></span>
-          </div>
           <div className='row'>
             <span className='text'>ID</span>
             <InputWidget onChange={changeId} entity={entity} name='id' value={entity.id}/>

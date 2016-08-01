@@ -28,7 +28,6 @@ export default class Main extends React.Component {
   }
 
   componentDidMount () {
-
     // Create an observer to notify the changes in the scene
     var observer = new MutationObserver(function (mutations) {
       Events.emit('domModified', mutations);
@@ -41,8 +40,7 @@ export default class Main extends React.Component {
     }.bind(this));
 
     Events.on('entitySelected', entity => {
-      this.setState({entity: entity}, function(){
-      });
+      this.setState({entity: entity});
     });
 
     Events.on('inspectorModeChanged', enabled => {
@@ -72,7 +70,7 @@ export default class Main extends React.Component {
   render () {
     var scene = this.state.sceneEl;
     var textureDialogOpened = this.state.isModalTexturesOpen;
-    let editButton = <a className='toggle-edit' onClick={this.toggleEdit}>{(this.state.inspectorEnabled ? 'Back to Scene' : 'Inspect Scene')}</a>
+    let editButton = <a className='toggle-edit' onClick={this.toggleEdit}>{(this.state.inspectorEnabled ? 'Back to Scene' : 'Inspect Scene')}</a>;
 
     return (
       <div>

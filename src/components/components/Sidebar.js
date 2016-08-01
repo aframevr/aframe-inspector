@@ -29,18 +29,21 @@ export default class Sidebar extends React.Component {
   }
 
   render () {
+    const entity = this.props.entity;
     let entityButtons = '';
-    if (this.props.entity) {
+    let entityName = '';
+    if (entity) {
       entityButtons = <div>
         <a href='#' title='Copy entity HTML to clipboard' data-action='copy-entity-to-clipboard'
           className='button fa fa-clipboard' onClick={event => event.stopPropagation()}></a>
       </div>;
+      entityName = '<' + entity.tagName.toLowerCase() + '>';
     }
 
     return (
       <div id='sidebar'>
         <div className='sidebar-title'>
-          <span>entity</span>
+          <code>{entityName}</code>
           {entityButtons}
         </div>
         <ComponentsContainer entity={this.props.entity}/>
