@@ -9,6 +9,7 @@ import SelectWidget from '../widgets/SelectWidget';
 import TextureWidget from '../widgets/TextureWidget';
 import Vec3Widget from '../widgets/Vec3Widget';
 import {updateEntity} from '../../actions/entity';
+import {getComponentDocsHtmlLink} from '../../actions/component';
 
 export default class PropertyRow extends React.Component {
   static propTypes = {
@@ -80,9 +81,10 @@ export default class PropertyRow extends React.Component {
   render () {
     const props = this.props;
     const title = 'type: ' + props.schema.type + ' value: ' + JSON.stringify(props.data);
+    const help_link = props.show_help ? getComponentDocsHtmlLink(props.name) : '';
     return (
       <div className='row'>
-        <label htmlFor={this.id} className='text' title={title}>{props.name}</label>
+        <label htmlFor={this.id} className='text' title={title}>{props.name}{help_link}</label>
         {this.getWidget(props.schema.type)}
       </div>
     );
