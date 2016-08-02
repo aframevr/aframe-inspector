@@ -991,3 +991,11 @@ a.flat-button:hover {
 	display: flex;
 	align-items: center;
 }
+
+a.help-link {
+  opacity: 0.4;
+}
+
+a.help-link:hover {
+  opacity: 1.0;
+}

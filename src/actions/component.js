@@ -45,7 +45,6 @@ export function getComponentDocsUrl (componentName) {
     return 'https://aframe.io/docs/' + AFRAME.version + '/components/' +
       (componentName === 'camera' ? '' : componentName.toLowerCase() + '.html');
   }
-  return null;
 }
 
 /**
@@ -56,7 +55,7 @@ export function getComponentDocsUrl (componentName) {
 export function getComponentDocsHtmlLink (componentName) {
   let url = getComponentDocsUrl(componentName);
   if (url) {
-    return <a title='Help' className='button fa fa-question-circle'
+    return <a title='Help' className='button help-link fa fa-question-circle'
       target='_blank' onClick={event => event.stopPropagation()}
       href={url}></a>;
   }

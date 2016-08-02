@@ -42,7 +42,7 @@ const CommonComponents = props => {
             const schema = AFRAME.components[key].schema;
             return (
               <PropertyRow onChange={updateEntity} key={key} name={key}
-                show_help={true} schema={schema} data={componentData.data}
+                showHelp={true} schema={schema} data={componentData.data}
                 componentname={key} entity={props.entity}/>
             );
           })
