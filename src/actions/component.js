@@ -1,3 +1,5 @@
+import React from 'react';
+
 /**
  * Get the list of modified properties
  * @param  {Element} entity        Entity where the component belongs
@@ -30,6 +32,35 @@ function getModifiedProperties (entity, componentName) {
 export function getClipboardRepresentation (entity, componentName) {
   var diff = getModifiedProperties(entity, componentName);
   return AFRAME.utils.styleParser.stringify(diff);
+}
+
+/**
+ * Get the component docs link
+ * @param  {string} componentName Component's name
+ * @return {string}               URL to the documentation
+ */
+export function getComponentDocsUrl (componentName) {
+  if (AFRAME.components[componentName]) {
+    // Returns link from the core components
+    return 'https://aframe.io/docs/' + AFRAME.version + '/components/' +
+      (componentName === 'camera' ? '' : componentName.toLowerCase() + '.html');
+  }
+  return null;
+}
+
+/**
+ * Get component documentation html link
+ * @param  {string} componentName Component's name
+ * @return {string}               Html icon link to the documentation
+ */
+export function getComponentDocsHtmlLink (componentName) {
+  let url = getComponentDocsUrl(componentName);
+  if (url) {
+    return <a title='Help' className='button fa fa-question-circle'
+      target='_blank' onClick={event => event.stopPropagation()}
+      href={url}></a>;
+  }
+  return '';
 }
 
 function isEmpty (string) {

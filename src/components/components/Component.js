@@ -3,7 +3,7 @@ import React from 'react';
 import PropertyRow from './PropertyRow';
 import Collapsible from '../Collapsible';
 import Clipboard from 'clipboard';
-import {getClipboardRepresentation} from '../../actions/component';
+import {getClipboardRepresentation, getComponentDocsHtmlLink} from '../../actions/component';
 
 const isSingleProperty = AFRAME.schema.isSingleProperty;
 
@@ -86,13 +86,7 @@ export default class Component extends React.Component {
       componentName = componentName.substr(0, componentName.indexOf('__'));
     }
 
-    const link = getComponentDocsLink(componentName.toLowerCase());
-    let componentHelp = '';
-    if (link) {
-      componentHelp = <a title='Help' className='button fa fa-question-circle'
-        target='_blank' onClick={event => event.stopPropagation()}
-        href={link}></a>;
-    }
+    const componentHelp = getComponentDocsHtmlLink(componentName.toLowerCase());
 
     return (
       <Collapsible>
@@ -116,16 +110,4 @@ export default class Component extends React.Component {
       </Collapsible>
     );
   }
-}
-
-/**
- * Get the component docs link
- */
-function getComponentDocsLink (componentName) {
-  if (AFRAME.components[componentName]) {
-    // Returns link from the core components
-    return 'https://aframe.io/docs/' + AFRAME.version + '/components/' +
-      (componentName === 'camera' ? '' : componentName.toLowerCase() + '.html');
-  }
-  return null;
 }
