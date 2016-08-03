@@ -1,3 +1,5 @@
+var editor = require('../../lib/editor.js');
+
 import React from 'react';
 import Clipboard from 'clipboard';
 import {getSceneName, generateHtml} from '../../lib/exporter';

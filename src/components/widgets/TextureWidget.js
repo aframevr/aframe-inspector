@@ -1,5 +1,5 @@
-/* global editor */
 import React from 'react';
+var editor = require('../../lib/editor.js');
 var Events = require('../../lib/Events.js');
 
 function GetFilename (url) {

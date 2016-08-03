@@ -285,4 +285,4 @@ Editor.prototype = {
   }
 };
 
-module.exports = Editor;
+module.exports = new Editor();

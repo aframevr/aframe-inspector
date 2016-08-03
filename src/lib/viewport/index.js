@@ -1,4 +1,7 @@
 /* global THREE CustomEvent */
+
+var editor = require('../editor.js');
+
 import debounce from 'lodash.debounce';
 import TransformControls from '../vendor/threejs/TransformControls.js';
 import EditorControls from '../vendor/threejs/EditorControls.js';
