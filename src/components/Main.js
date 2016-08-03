@@ -1,5 +1,5 @@
-/* global editor */
 require('../lib/vendor/ga');
+var editor = require('../lib/editor.js');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -105,5 +105,5 @@ function injectCSS (url) {
   window.addEventListener('editor-loaded', function () {
     ReactDOM.render(<Main/>, div);
   });
-  window.editor = new Editor();
+  AFRAME.inspector = editor;
 })();

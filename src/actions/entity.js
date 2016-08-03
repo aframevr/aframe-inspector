@@ -1,4 +1,4 @@
-/* global AFRAME editor */
+var editor = require('../lib/editor.js');
 var Events = require('../lib/Events.js');
 
 var components = AFRAME.components;
