@@ -177,6 +177,19 @@ Editor.prototype = {
       this.createNewEntity(definition);
     }.bind(this));
 
+    Events.on('domModified', (mutations) => {
+      var self = this;
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          mutation.removedNodes.forEach(function(removedNode){
+            if (self.selectedEntity === removedNode) {
+              self.selectEntity(null);
+            }
+          });
+        }
+      });
+    });
+
 /*
     window.addEventListener('resize', Events.emit('windowResize'), false);
 
@@ -212,7 +225,6 @@ Editor.prototype = {
     if (this.selected === object) {
       return;
     }
-
     this.selected = object;
     Events.emit('objectSelected', object);
   },

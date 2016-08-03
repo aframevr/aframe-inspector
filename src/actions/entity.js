@@ -111,7 +111,7 @@ export function cloneEntity (entity) {
     copy.id = getUniqueId(entity.id);
   }
   copy.addEventListener('loaded', function () {
-    Events.emit('sceneModified');
+    Events.emit('domModified');
     editor.selectEntity(copy);
   });
   insertAfter(copy, entity);

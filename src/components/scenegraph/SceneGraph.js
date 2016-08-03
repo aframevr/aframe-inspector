@@ -56,7 +56,7 @@ export default class SceneGraph extends React.Component {
         this.rebuildOptions();
       }
     });
-    Events.on('sceneModified', this.rebuildOptions);
+    Events.on('domModified', this.rebuildOptions);
   }
 
   setValue = value => {

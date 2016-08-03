@@ -290,8 +290,10 @@ function Viewport (editor) {
     selectionBox.visible = false;
     transformControls.detach();
     if (object !== null) {
-      selectionBox.update(object);
-      selectionBox.visible = true;
+      if (object.el.getObject3D('mesh')) {
+        selectionBox.update(object);
+        selectionBox.visible = true;
+      }
 
       transformControls.attach(object);
     }
