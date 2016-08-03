@@ -37,7 +37,7 @@ export default class Toolbar extends React.Component {
   }
 
   playScene () {
-    editor.disable();
+    editor.close();
   }
 
   render () {
