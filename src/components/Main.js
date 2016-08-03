@@ -1,11 +1,10 @@
 require('../lib/vendor/ga');
-var editor = require('../lib/editor.js');
+const INSPECTOR = require('../lib/inspector.js');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 const Events = require('../lib/Events.js');
-const Editor = require('../lib/editor');
 import ComponentsSidebar from './components/Sidebar';
 import ModalTextures from './modals/ModalTextures';
 import SceneGraph from './scenegraph/SceneGraph';
@@ -21,7 +20,7 @@ export default class Main extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      editorEnabled: true,
+      inspectorEnabled: true,
       isModalTexturesOpen: false
     };
   }
@@ -39,8 +38,8 @@ export default class Main extends React.Component {
       this.setState({isModalTexturesOpen: true, textureOnClose: textureOnClose});
     }.bind(this));
 
-    Events.on('editorModeChanged', enabled => {
-      this.setState({editorEnabled: enabled});
+    Events.on('inspectorModeChanged', enabled => {
+      this.setState({inspectorEnabled: enabled});
     });
   }
 
@@ -56,22 +55,22 @@ export default class Main extends React.Component {
   }
 
   toggleEdit = () => {
-    if (this.state.editorEnabled) {
-      editor.close();
+    if (this.state.inspectorEnabled) {
+      INSPECTOR.close();
     } else {
-      editor.open();
+      INSPECTOR.open();
     }
   }
 
   render () {
     var scene = this.sceneEl;
     var textureDialogOpened = this.state.isModalTexturesOpen;
-    let editButton = <a className='toggle-edit' onClick={this.toggleEdit}>{(this.state.editorEnabled ? 'Back to Scene' : 'Inspect Scene')}</a>;
+    let editButton = <a className='toggle-edit' onClick={this.toggleEdit}>{(this.state.inspectorEnabled ? 'Back to Scene' : 'Inspect Scene')}</a>
 
     return (
       <div>
         {editButton}
-        <div id='editor' className={this.state.editorEnabled ? '' : 'hidden'}>
+        <div id='inspector' className={this.state.inspectorEnabled ? '' : 'hidden'}>
           <ModalTextures ref='modaltextures' isOpen={textureDialogOpened}
             onClose={this.onModalTextureOnClose}/>
           <ToolBar/>
@@ -91,17 +90,17 @@ function injectCSS (url) {
   link.type = 'text/css';
   link.rel = 'stylesheet';
   link.media = 'screen,print';
-  link.setAttribute('data-aframe-editor', 'style');
+  link.setAttribute('data-aframe-inspector', 'style');
   document.getElementsByTagName('head')[0].appendChild(link);
 }
 
 (function init () {
   var div = document.createElement('div');
-  div.id = 'aframe-editor';
-  div.setAttribute('data-aframe-editor', 'app');
+  div.id = 'aframe-inspector';
+  div.setAttribute('data-aframe-inspector', 'app');
   document.body.appendChild(div);
-  window.addEventListener('editor-loaded', function () {
+  window.addEventListener('inspector-loaded', function () {
     ReactDOM.render(<Main/>, div);
   });
-  AFRAME.inspector = editor;
+  AFRAME.inspector = INSPECTOR;
 })();

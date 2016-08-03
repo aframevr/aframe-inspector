@@ -1,4 +1,4 @@
-var editor = require('../../lib/editor.js');
+var INSPECTOR = require('../../lib/inspector.js');
 
 import React from 'react';
 import Clipboard from 'clipboard';
@@ -39,7 +39,7 @@ export default class Toolbar extends React.Component {
   }
 
   playScene () {
-    editor.close();
+    INSPECTOR.close();
   }
 
   render () {

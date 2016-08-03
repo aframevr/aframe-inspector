@@ -99,8 +99,8 @@ export default class SceneGraph extends React.Component {
       for (let i = 0; i < children.length; i++) {
         let child = children[i];
 
-        // filter out all entities added by editor and the canvas added by aframe-core
-        if (!child.dataset.isEditor && child.isEntity && !child.isEditor) {
+        // filter out all entities added by inspector and the canvas added by aframe-core
+        if (!child.dataset.isInspector && child.isEntity && !child.isInspector) {
           let extra = '';
 
           for (let icon in ICONS) {

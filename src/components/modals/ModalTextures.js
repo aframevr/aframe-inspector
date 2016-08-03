@@ -43,8 +43,8 @@ export default class ModalTextures extends React.Component {
     this.generateFromTextureCache();
 
     /*
-    Object.keys(editor.sceneEl.systems.material.textureCache).map((hash) => {
-      var texturePromise = editor.sceneEl.systems.material.textureCache[hash];
+    Object.keys(inspector.sceneEl.systems.material.textureCache).map((hash) => {
+      var texturePromise = inspector.sceneEl.systems.material.textureCache[hash];
       texturePromise.then(texture => {
         var elementPos = self.state.loadedTextures.map(function(x) {return x.image.src; }).indexOf(texture.image.src);
         if (elementPos === -1) {

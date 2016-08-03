@@ -1,4 +1,4 @@
-var editor = require('../lib/editor.js');
+var INSPECTOR = require('../lib/inspector.js');
 var Events = require('../lib/Events.js');
 
 var components = AFRAME.components;
@@ -49,7 +49,7 @@ export function removeEntity (entity, force) {
     if (force === true || confirm('Do you really want to remove the entity: `' + (entity.id || entity.tagName) + '`')) {
       var closest = findClosestEntity(entity);
       entity.parentNode.removeChild(entity);
-      editor.selectEntity(closest);
+      INSPECTOR.selectEntity(closest);
     }
   }
 }
@@ -57,22 +57,22 @@ export function removeEntity (entity, force) {
 function findClosestEntity (entity) {
   // First we try to find the after the entity
   var nextEntity = entity.nextElementSibling;
-  while (nextEntity && (!nextEntity.isEntity || nextEntity.isEditor)) {
+  while (nextEntity && (!nextEntity.isEntity || nextEntity.isInspector)) {
     nextEntity = nextEntity.nextElementSibling;
   }
 
   // Return if we found it
-  if (nextEntity && nextEntity.isEntity && !nextEntity.isEditor) {
+  if (nextEntity && nextEntity.isEntity && !nextEntity.isInspector) {
     return nextEntity;
   }
   // Otherwise try to find before the entity
   var prevEntity = entity.previousElementSibling;
-  while (prevEntity && (!prevEntity.isEntity || prevEntity.isEditor)) {
+  while (prevEntity && (!prevEntity.isEntity || prevEntity.isInspector)) {
     prevEntity = prevEntity.previousElementSibling;
   }
 
   // Return if we found it
-  if (prevEntity && prevEntity.isEntity && !prevEntity.isEditor) {
+  if (prevEntity && prevEntity.isEntity && !prevEntity.isInspector) {
     return prevEntity;
   }
 
@@ -84,7 +84,7 @@ function findClosestEntity (entity) {
  * @param  {boolean} force (Optional) If true it won't ask for confirmation
  */
 export function removeSelectedEntity (force) {
-  removeEntity(editor.selectedEntity);
+  removeEntity(INSPECTOR.selectedEntity);
 }
 
 /**
@@ -103,7 +103,7 @@ function insertAfter (newNode, referenceNode) {
 export function cloneEntity (entity) {
   var copy = entity.cloneNode(true);
   copy.addEventListener('loaded', function (e) {
-    editor.selectEntity(copy);
+    INSPECTOR.selectEntity(copy);
   });
 
   // Get a valid unique ID for the entity
@@ -112,7 +112,7 @@ export function cloneEntity (entity) {
   }
   copy.addEventListener('loaded', function () {
     Events.emit('domModified');
-    editor.selectEntity(copy);
+    INSPECTOR.selectEntity(copy);
   });
   insertAfter(copy, entity);
 }
@@ -121,7 +121,7 @@ export function cloneEntity (entity) {
  * Clone the selected entity
  */
 export function cloneSelectedEntity () {
-  cloneEntity(editor.selectedEntity);
+  cloneEntity(INSPECTOR.selectedEntity);
 }
 
 /**
