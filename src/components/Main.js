@@ -59,9 +59,9 @@ export default class Main extends React.Component {
 
   toggleEdit = () => {
     if (this.state.editorEnabled) {
-      editor.disable();
+      editor.close();
     } else {
-      editor.enable();
+      editor.open();
     }
   }
 

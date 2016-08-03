@@ -255,7 +255,7 @@ Editor.prototype = {
     this.selectEntity(entity);
   },
 
-  enable: function () {
+  open: function () {
 //    this.panels.sidebar.show();
 //    this.panels.menubar.show();
     this.enabled = true;
@@ -263,7 +263,7 @@ Editor.prototype = {
     this.sceneEl.pause();
   },
 
-  disable: function () {
+  close: function () {
 //    this.panels.sidebar.hide();
 //    this.panels.menubar.hide();
     this.enabled = false;
