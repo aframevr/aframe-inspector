@@ -87,7 +87,7 @@ Editor.prototype = {
 
     this.scene.add(this.sceneHelpers);
 
-    this.enable();
+    this.open();
   },
 /*
   removeObject: function (object) {
