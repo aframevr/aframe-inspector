@@ -4,7 +4,7 @@ var ComponentLoader = require('./componentloader.js');
 var ShaderLoader = require('./shaderloader.js');
 
 function Editor () {
-  this.enabled = false;
+  this.opened = false;
   // Detect if the scene is already loaded
   if (document.readyState === 'complete' || document.readyState === 'loaded') {
     this.onDomLoaded();
@@ -258,7 +258,7 @@ Editor.prototype = {
   open: function () {
 //    this.panels.sidebar.show();
 //    this.panels.menubar.show();
-    this.enabled = true;
+    this.opened = true;
     Events.emit('editorModeChanged', true);
     this.sceneEl.pause();
   },
@@ -266,7 +266,7 @@ Editor.prototype = {
   close: function () {
 //    this.panels.sidebar.hide();
 //    this.panels.menubar.hide();
-    this.enabled = false;
+    this.opened = false;
     Events.emit('editorModeChanged', false);
     this.sceneEl.play();
   // @todo Removelisteners
