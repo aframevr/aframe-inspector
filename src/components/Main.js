@@ -28,14 +28,12 @@ export default class Main extends React.Component {
 
   componentDidMount () {
     // Create an observer to notify the changes in the scene
-    var target = document.querySelector('a-scene');
+    this.sceneEl = document.querySelector('a-scene');
     var observer = new MutationObserver(function (mutations) {
-      mutations.forEach(function (mutation) {
-        Events.emit('sceneModified');
-      });
+      Events.emit('domModified', mutations);
     });
     var config = {attributes: true, childList: true, characterData: true};
-    observer.observe(target, config);
+    observer.observe(this.sceneEl, config);
 
     Events.on('openTexturesModal', function (textureOnClose) {
       this.setState({isModalTexturesOpen: true, textureOnClose: textureOnClose});
@@ -66,9 +64,9 @@ export default class Main extends React.Component {
   }
 
   render () {
-    var scene = document.querySelector('a-scene');
+    var scene = this.sceneEl;
     var textureDialogOpened = this.state.isModalTexturesOpen;
-    let editButton = <a className='toggle-edit' onClick={this.toggleEdit}>{(this.state.editorEnabled ? 'Back to Scene' : 'Inspect Scene')}</a>
+    let editButton = <a className='toggle-edit' onClick={this.toggleEdit}>{(this.state.editorEnabled ? 'Back to Scene' : 'Inspect Scene')}</a>;
 
     return (
       <div>
