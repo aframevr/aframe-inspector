@@ -29,12 +29,12 @@ export function generateHtml () {
   var parser = new window.DOMParser();
   var xmlDoc = parser.parseFromString(document.documentElement.innerHTML, 'text/html');
 
-  // Remove all the components that are being injected by aframe-editor or aframe
+  // Remove all the components that are being injected by aframe-inspector or aframe
   // @todo Use custom class to prevent this hack
   var elementsToRemove = xmlDoc.querySelectorAll([
-    // Injected by the editor
-    '[data-aframe-editor]',
-    'script[src$="aframe-editor.js"]',
+    // Injected by the inspector
+    '[data-aframe-inspector]',
+    'script[src$="aframe-inspector.js"]',
     'style[type="text/css"]',
     // Injected by aframe
     '.a-enter-vr',

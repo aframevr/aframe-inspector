@@ -1,5 +1,5 @@
 import React from 'react';
-var editor = require('../../lib/editor.js');
+var INSPECTOR = require('../../lib/inspector.js');
 var Events = require('../../lib/Events.js');
 
 function GetFilename (url) {
@@ -106,9 +106,9 @@ export default class TextureWidget extends React.Component {
     }
 
     function getTextureFromSrc (src) {
-      for (var hash in editor.sceneEl.systems.material.textureCache) {
+      for (var hash in INSPECTOR.sceneEl.systems.material.textureCache) {
         if (JSON.parse(hash).src === src) {
-          return editor.sceneEl.systems.material.textureCache[hash];
+          return INSPECTOR.sceneEl.systems.material.textureCache[hash];
         }
       }
       return null;
