@@ -21,18 +21,19 @@ export default class Main extends React.Component {
     super(props);
     this.state = {
       inspectorEnabled: true,
-      isModalTexturesOpen: false
+      isModalTexturesOpen: false,
+      sceneEl: document.querySelector('a-scene')
     };
   }
 
   componentDidMount () {
+
     // Create an observer to notify the changes in the scene
-    this.sceneEl = document.querySelector('a-scene');
     var observer = new MutationObserver(function (mutations) {
       Events.emit('domModified', mutations);
     });
     var config = {attributes: true, childList: true, characterData: true};
-    observer.observe(this.sceneEl, config);
+    observer.observe(this.state.sceneEl, config);
 
     Events.on('openTexturesModal', function (textureOnClose) {
       this.setState({isModalTexturesOpen: true, textureOnClose: textureOnClose});
@@ -63,7 +64,7 @@ export default class Main extends React.Component {
   }
 
   render () {
-    var scene = this.sceneEl;
+    var scene = this.state.sceneEl;
     var textureDialogOpened = this.state.isModalTexturesOpen;
     let editButton = <a className='toggle-edit' onClick={this.toggleEdit}>{(this.state.inspectorEnabled ? 'Back to Scene' : 'Inspect Scene')}</a>
 
