@@ -361,12 +361,12 @@ function Viewport (inspector) {
   Events.on('inspectorModeChanged', function (active) {
     if (active) {
       inspector.inspectorCameraEl.setAttribute('camera', 'active', 'true');
-      document.querySelectorAll('.a-enter-vr,.rs-base').forEach(function (element) {
+      Array.prototype.slice.call(document.querySelectorAll('.a-enter-vr,.rs-base')).forEach(function (element) {
         element.style.display = 'none';
       });
     } else {
       prevActivedCameraEl.setAttribute('camera', 'active', 'true');
-      document.querySelectorAll('.a-enter-vr,.rs-base').forEach(function (element) {
+      Array.prototype.slice.call(document.querySelectorAll('.a-enter-vr,.rs-base')).forEach(function (element) {
         element.style.display = 'block';
       });
     }
