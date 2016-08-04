@@ -121,6 +121,8 @@ textarea, input { outline: none; } /* osx */
 
 .scenegraph-toolbar {
   background-color: #333;
+  position: fixed;
+  top: 32px;
 }
 
 .scenegraph-actions {
@@ -938,6 +940,10 @@ code, pre {
   outline: none;
   flex: 1 1 auto;
   overflow-y: auto;
+  position: fixed;
+  width: 200px;
+  top: 98px;
+  height: calc(100% - 98px);
 }
 
 .outliner .option {
