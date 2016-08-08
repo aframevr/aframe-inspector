@@ -177,16 +177,16 @@ Inspector.prototype = {
       this.createNewEntity(definition);
     }.bind(this));
 
-    Events.on('domModified', (mutations) => {
+    Events.on('domModified', mutations => {
       var self = this;
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'childList') {
-          Array.prototype.slice.call(mutation.removedNodes).forEach(function (removedNode) {
-            if (self.selectedEntity === removedNode) {
-              self.selectEntity(null);
-            }
-          });
-        }
+      if (!mutations) { return; }
+      mutations.forEach(mutation => {
+        if (mutation.type !== 'childList') { return; }
+        Array.prototype.slice.call(mutation.removedNodes).forEach(removedNode => {
+          if (this.selectedEntity === removedNode) {
+            this.selectEntity(null);
+          }
+        });
       });
     });
   },
