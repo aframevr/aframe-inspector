@@ -1,7 +1,5 @@
 /* global THREE CustomEvent */
 
-var INSPECTOR = require('../inspector.js');
-
 import debounce from 'lodash.debounce';
 import TransformControls from '../vendor/threejs/TransformControls.js';
 import EditorControls from '../vendor/threejs/EditorControls.js';

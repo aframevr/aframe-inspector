@@ -21,13 +21,13 @@ export default class Main extends React.Component {
     super(props);
     this.state = {
       inspectorEnabled: true,
-      isModalTexturesOpen: false,
-      sceneEl: document.querySelector('a-scene')
+      sceneEl: document.querySelector('a-scene'),
+      entity: null,
+      isModalTexturesOpen: false
     };
   }
 
   componentDidMount () {
-
     // Create an observer to notify the changes in the scene
     var observer = new MutationObserver(function (mutations) {
       Events.emit('domModified', mutations);
@@ -38,6 +38,10 @@ export default class Main extends React.Component {
     Events.on('openTexturesModal', function (textureOnClose) {
       this.setState({isModalTexturesOpen: true, textureOnClose: textureOnClose});
     }.bind(this));
+
+    Events.on('entitySelected', entity => {
+      this.setState({entity: entity});
+    });
 
     Events.on('inspectorModeChanged', enabled => {
       this.setState({inspectorEnabled: enabled});
@@ -66,7 +70,7 @@ export default class Main extends React.Component {
   render () {
     var scene = this.state.sceneEl;
     var textureDialogOpened = this.state.isModalTexturesOpen;
-    let editButton = <a className='toggle-edit' onClick={this.toggleEdit}>{(this.state.inspectorEnabled ? 'Back to Scene' : 'Inspect Scene')}</a>
+    let editButton = <a className='toggle-edit' onClick={this.toggleEdit}>{(this.state.inspectorEnabled ? 'Back to Scene' : 'Inspect Scene')}</a>;
 
     return (
       <div>
@@ -76,9 +80,9 @@ export default class Main extends React.Component {
             onClose={this.onModalTextureOnClose}/>
           <ToolBar/>
           <div id='sidebar-left'>
-            <SceneGraph scene={scene}/>
+            <SceneGraph scene={scene} selectedEntity={this.state.entity}/>
           </div>
-          <ComponentsSidebar/>
+          <ComponentsSidebar entity={this.state.entity}/>
         </div>
       </div>
     );

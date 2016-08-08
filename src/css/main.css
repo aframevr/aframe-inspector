@@ -225,7 +225,7 @@ input.number:focus {
   margin: 0;
   right: 0;
   top: 0;
-  border-bottom: 1px solid #111;
+  border-bottom: 1px solid #262626;
 }
 
   #menubar .menu {
@@ -880,11 +880,14 @@ code, pre {
 }
 
 .sidebar-title {
-	color: #AAA;
-	text-align: left;
-	background-color: #444;
-	padding: 5px 10px;
-	font-size: 12px;
+  color: #AAA;
+  text-align: center;
+  background-color: #444;
+  padding: 6px 10px;
+  font-size: 12px;
+	display: flex;
+	justify-content: space-between;
+
 }
 
 .toolbar {
@@ -900,7 +903,6 @@ code, pre {
   vertical-align: middle;
   padding: 8px;
   margin-left: 0px;
-  /*margin-top: 7px;*/
 }
 
 
@@ -983,7 +985,7 @@ code, pre {
 a.flat-button {
   color: #bcbcbc;
   background-color: #262626;
-  font-size: 12px;
+  font-size: 11px;
   text-decoration: none;
   margin-left: 10px;
   padding: 5px;

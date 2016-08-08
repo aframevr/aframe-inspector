@@ -1,10 +1,10 @@
+/* global Events */
 import React from 'react';
 import {InputWidget} from '../widgets';
 import PropertyRow from './PropertyRow';
 import Collapsible from '../Collapsible';
 import Mixins from './Mixins';
 import {updateEntity} from '../../actions/entity';
-const Events = require('../../lib/Events.js');
 
 // @todo Take this out and use updateEntity?
 function changeId (entity, componentName, propertyName, value) {
@@ -14,45 +14,46 @@ function changeId (entity, componentName, propertyName, value) {
   }
 }
 
-/**
- * Core component properties such as id, position, rotation, scale.
- */
-const CommonComponents = props => {
-  const entity = props.entity;
-  const components = entity ? props.entity.components : {};
-  if (!entity) { return <div></div>; }
-  return (
-    <Collapsible>
-      <div className='collapsible-header'>
-        <span>Common</span>
-      </div>
-      <div className='collapsible-content'>
-        <div className='row'>
-          <span className='value tagName'><code>&lt;{entity.tagName.toLowerCase()}&gt;</code></span>
+export const DEFAULT_COMPONENTS = ['visible', 'position', 'scale', 'rotation'];
+
+export class CommonComponents extends React.Component {
+  static propTypes = {
+    entity: React.PropTypes.object
+  };
+
+  renderCommonAttributes () {
+    const entity = this.props.entity;
+    const components = entity ? entity.components : {};
+    return Object.keys(components).filter(function (key) {
+      return DEFAULT_COMPONENTS.indexOf(key) !== -1;
+    }).map(componentName => {
+      const componentData = components[componentName];
+      const schema = AFRAME.components[componentName].schema;
+      return (
+        <PropertyRow onChange={updateEntity} key={componentName} name={componentName}
+          showHelp={true} schema={schema} data={componentData.data}
+          componentname={componentName} entity={entity}/>
+      );
+    });
+  }
+
+  render () {
+    const entity = this.props.entity;
+    if (!entity) { return <div></div>; }
+    return (
+      <Collapsible>
+        <div className='collapsible-header'>
+          <span>Common</span>
         </div>
-        <div className='row'>
-          <span className='text'>ID</span>
-          <InputWidget onChange={changeId} entity={entity} name='id' value={entity.id}/>
+        <div className='collapsible-content'>
+          <div className='row'>
+            <span className='text'>ID</span>
+            <InputWidget onChange={changeId} entity={entity} name='id' value={entity.id}/>
+          </div>
+          {this.renderCommonAttributes()}
+          <Mixins entity={entity}/>
         </div>
-        {
-          Object.keys(components).filter(function (key) {
-            return ['visible', 'position', 'scale', 'rotation'].indexOf(key) !== -1;
-          }).map(function (key) {
-            const componentData = components[key];
-            const schema = AFRAME.components[key].schema;
-            return (
-              <PropertyRow onChange={updateEntity} key={key} name={key}
-                showHelp={true} schema={schema} data={componentData.data}
-                componentname={key} entity={props.entity}/>
-            );
-          })
-        }
-        <Mixins entity={entity}/>
-      </div>
-    </Collapsible>
-  );
-};
-CommonComponents.propTypes = {
-  entity: React.PropTypes.object
-};
-export default CommonComponents;
+      </Collapsible>
+    );
+  }
+}
