@@ -1,8 +1,9 @@
 var INSPECTOR = require('../lib/inspector.js');
 var Events = require('../lib/Events.js');
-
 var components = AFRAME.components;
 var isSingleProperty = AFRAME.schema.isSingleProperty;
+
+import {DEFAULT_COMPONENTS} from '../components/components/CommonComponents';
 
 /**
  * Update a component.
@@ -122,6 +123,34 @@ export function cloneEntity (entity) {
  */
 export function cloneSelectedEntity () {
   cloneEntity(INSPECTOR.selectedEntity);
+}
+
+/**
+ * Returns the clipboard representation to be used to copy to the clipboard
+ * @param  {Element} entity Entity to copy to clipboard
+ * @return {string}        Entity clipboard representation
+ */
+export function getClipboardRepresentation (entity) {
+  entity.flushToDOM();
+  var clone = entity.cloneNode(true);
+
+  function removeDefaultAttributes (element) {
+    for (let i = 0; i < element.childNodes.length; i++) {
+      var child = element.childNodes[i];
+      if (child.isEntity) {
+        removeDefaultAttributes(child);
+      }
+    }
+
+    for (let i = 0; i < DEFAULT_COMPONENTS.length; i++) {
+      if (element.getAttribute(DEFAULT_COMPONENTS[i]).length === 0) {
+        element.removeAttribute(DEFAULT_COMPONENTS[i]);
+      }
+    }
+  }
+
+  removeDefaultAttributes(clone);
+  return clone.outerHTML;
 }
 
 /**

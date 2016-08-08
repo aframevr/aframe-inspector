@@ -1,6 +1,7 @@
 import React from 'react';
 import ComponentsContainer from './ComponentsContainer';
 import Clipboard from 'clipboard';
+import {getClipboardRepresentation} from '../../actions/entity';
 
 export default class Sidebar extends React.Component {
   static propTypes = {
@@ -15,7 +16,7 @@ export default class Sidebar extends React.Component {
   componentDidMount () {
     var clipboard = new Clipboard('[data-action="copy-entity-to-clipboard"]', {
       text: trigger => {
-        return this.props.entity.outerHTML;
+        return getClipboardRepresentation(this.props.entity);
       }
     });
     clipboard.on('error', e => {

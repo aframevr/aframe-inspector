@@ -14,7 +14,9 @@ function changeId (entity, componentName, propertyName, value) {
   }
 }
 
-class CommonComponents extends React.Component {
+export const DEFAULT_COMPONENTS = ['visible', 'position', 'scale', 'rotation'];
+
+export class CommonComponents extends React.Component {
   static propTypes = {
     entity: React.PropTypes.object
   };
@@ -23,7 +25,7 @@ class CommonComponents extends React.Component {
     const entity = this.props.entity;
     const components = entity ? entity.components : {};
     return Object.keys(components).filter(function (key) {
-      return ['visible', 'position', 'scale', 'rotation'].indexOf(key) !== -1;
+      return DEFAULT_COMPONENTS.indexOf(key) !== -1;
     }).map(componentName => {
       const componentData = components[componentName];
       const schema = AFRAME.components[componentName].schema;
@@ -55,5 +57,3 @@ class CommonComponents extends React.Component {
     );
   }
 }
-
-export default CommonComponents;

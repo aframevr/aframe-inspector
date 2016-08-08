@@ -1,24 +1,13 @@
 import React from 'react';
 import AddComponent from './AddComponent';
 import Component from './Component';
-import CommonComponents from './CommonComponents';
-
-const DEFAULT_COMPONENTS = ['visible', 'position', 'scale', 'rotation'];
+import {CommonComponents, DEFAULT_COMPONENTS} from './CommonComponents';
 
 export default class ComponentsContainer extends React.Component {
   static propTypes = {
     entity: React.PropTypes.object
   };
 
-/*
-  componentDidMount () {
-    document.addEventListener('componentremoved', event => {
-      if (this.state.entity === event.detail.target) {
-        this.refresh();
-      }
-    });
-  }
-*/
   refresh = () => {
     this.forceUpdate();
   }
