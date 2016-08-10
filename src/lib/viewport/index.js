@@ -330,11 +330,10 @@ function Viewport (inspector) {
 
     updateHelpers(object);
   });
-  document.addEventListener('componentchanged', function (event) {
-    if (event.target === inspector.selectedEntity) {
-      Events.emit('objectChanged', inspector.selectedEntity.object3D);
-    }
-  });
+
+  Events.on('selectedEntityComponentChanged', function() {
+    Events.emit('objectChanged', inspector.selectedEntity.object3D);
+  })
 
   Events.on('objectRemoved', function (object) {
     object.traverse(function (child) {

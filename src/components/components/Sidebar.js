@@ -2,6 +2,7 @@ import React from 'react';
 import ComponentsContainer from './ComponentsContainer';
 import Clipboard from 'clipboard';
 import {getClipboardRepresentation} from '../../actions/entity';
+import Events from '../../lib/Events';
 
 export default class Sidebar extends React.Component {
   static propTypes = {
@@ -10,13 +11,16 @@ export default class Sidebar extends React.Component {
 
   constructor (props) {
     super(props);
-    this.state = {open: false};
+    this.state = {
+      open: false,
+      entity: props.entity
+    };
   }
 
   componentDidMount () {
     var clipboard = new Clipboard('[data-action="copy-entity-to-clipboard"]', {
       text: trigger => {
-        return getClipboardRepresentation(this.props.entity);
+        return getClipboardRepresentation(this.state.entity);
       }
     });
     clipboard.on('error', e => {
@@ -29,8 +33,24 @@ export default class Sidebar extends React.Component {
     ga('send', 'event', 'Components', 'toggleSidebar');
   }
 
+  componentChanged = (event) => {
+    Events.emit('selectedEntityComponentChanged', event.detail);
+  }
+
+  componentWillReceiveProps (newProps) {
+    if (this.state.entity !== newProps.entity) {
+      if (this.state.entity) {
+        this.state.entity.removeEventListener('componentchanged', this.componentChanged);
+      }
+      if (newProps.entity) {
+        newProps.entity.addEventListener('componentchanged', this.componentChanged);
+      }
+      this.setState({entity: newProps.entity});
+    }
+  }
+
   render () {
-    const entity = this.props.entity;
+    const entity = this.state.entity;
     let entityButtons = '';
     let entityName = '';
     if (entity) {
@@ -47,7 +67,7 @@ export default class Sidebar extends React.Component {
           <code>{entityName}</code>
           {entityButtons}
         </div>
-        <ComponentsContainer entity={this.props.entity}/>
+        <ComponentsContainer entity={this.state.entity}/>
       </div>
     );
   }

@@ -81,7 +81,7 @@ Inspector.prototype = {
       this.addObject(event.target.object3D);
     }.bind(this));
 
-    document.addEventListener('componentchanged', function (event) {
+    document.addEventListener('selectedEntityComponentChanged', function (event) {
       this.addObject(event.target.object3D);
     }.bind(this));
 
@@ -189,28 +189,6 @@ Inspector.prototype = {
         }
       });
     });
-
-/*
-    window.addEventListener('resize', Events.emit('windowResize'), false);
-
-    Events.emit('showModal');//.add(function (content) {
-      this.panels.modal.show(content);
-    }.bind(this));
-    Events.emit('hideModal');//.add(function () {
-      this.panels.modal.hide();
-    }.bind(this));
-
-    var entities = document.querySelectorAll('a-entity');
-    for (var i = 0; i < entities.length; ++i) {
-      var entity = entities[i];
-      entity.addEventListener('componentchanged',
-        function (evt) {
-          if (this.selected && evt.srcElement === this.selected.el) {
-            inspector.emit('componentChanged',evt);
-          }
-        }.bind(this));
-    }
-*/
   },
   selectById: function (id) {
     if (id === this.camera.id) {
