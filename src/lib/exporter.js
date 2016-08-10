@@ -37,10 +37,7 @@ export function generateHtml () {
     'script[src$="aframe-inspector.js"]',
     'style[type="text/css"]',
     // Injected by aframe
-    '.a-enter-vr',
-    '.a-orientation-modal',
-    '.a-canvas',
-    '.a-enter-vr-button',
+    '[aframe-injected]',
     'style[data-href$="aframe.css"]',
     // Injected by stats
     '.rs-base',
