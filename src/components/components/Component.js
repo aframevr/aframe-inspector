@@ -4,6 +4,7 @@ import PropertyRow from './PropertyRow';
 import Collapsible from '../Collapsible';
 import Clipboard from 'clipboard';
 import {getClipboardRepresentation, getComponentDocsHtmlLink} from '../../actions/component';
+import Events from '../../lib/Events';
 
 const isSingleProperty = AFRAME.schema.isSingleProperty;
 
@@ -21,7 +22,8 @@ export default class Component extends React.Component {
     super(props);
     this.state = {
       entity: this.props.entity,
-      name: this.props.name
+      name: this.props.name,
+      key: Math.random() // Used to trigger render() on state changes instead of calling forceUpdate()
     };
   }
 
@@ -34,6 +36,14 @@ export default class Component extends React.Component {
     });
     clipboard.on('error', e => {
       // @todo Show the error in the UI
+    });
+
+    Events.on('selectedEntityComponentChanged', detail => {
+      if (detail.name === this.props.name) {
+        // Instead of calling forceUpdate() we update the state with a random
+        // key so it will trigger the render() function
+        this.setState({ key: Math.random() });
+      }
     });
   }
 
@@ -89,7 +99,7 @@ export default class Component extends React.Component {
     const componentHelp = getComponentDocsHtmlLink(componentName.toLowerCase());
 
     return (
-      <Collapsible>
+      <Collapsible key={this.state.key}>
         <div className='collapsible-header'>
           <span className='component-title' title={subComponentName || componentName}>
             {subComponentName || componentName} {componentHelp}

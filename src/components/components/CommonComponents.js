@@ -5,6 +5,7 @@ import PropertyRow from './PropertyRow';
 import Collapsible from '../Collapsible';
 import Mixins from './Mixins';
 import {updateEntity} from '../../actions/entity';
+import Events from '../../lib/Events';
 
 // @todo Take this out and use updateEntity?
 function changeId (entity, componentName, propertyName, value) {
@@ -20,6 +21,23 @@ export class CommonComponents extends React.Component {
   static propTypes = {
     entity: React.PropTypes.object
   };
+
+  constructor (props) {
+    super(props);
+    this.state = {
+      key: Math.random() // Used to trigger render() on state changes instead of calling forceUpdate()
+    };
+  }
+
+  componentDidMount () {
+    Events.on('selectedEntityComponentChanged', detail => {
+      if (DEFAULT_COMPONENTS.indexOf(detail.name) !== -1) {
+        // Instead of calling forceUpdate() we update the state with a random
+        // key so it will trigger the render() function
+        this.setState({ key: Math.random() });
+      }
+    });
+  }
 
   renderCommonAttributes () {
     const entity = this.props.entity;
@@ -41,7 +59,7 @@ export class CommonComponents extends React.Component {
     const entity = this.props.entity;
     if (!entity) { return <div></div>; }
     return (
-      <Collapsible>
+      <Collapsible key={this.state.key}>
         <div className='collapsible-header'>
           <span>Common</span>
         </div>
