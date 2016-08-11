@@ -181,7 +181,7 @@ Inspector.prototype = {
       var self = this;
       mutations.forEach((mutation) => {
         if (mutation.type === 'childList') {
-          mutation.removedNodes.forEach(function (removedNode) {
+          Array.prototype.slice.call(mutation.removedNodes).forEach(function (removedNode) {
             if (self.selectedEntity === removedNode) {
               self.selectEntity(null);
             }
