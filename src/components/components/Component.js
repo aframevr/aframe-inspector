@@ -22,8 +22,7 @@ export default class Component extends React.Component {
     super(props);
     this.state = {
       entity: this.props.entity,
-      name: this.props.name,
-      key: Math.random() // Used to trigger render() on state changes instead of calling forceUpdate()
+      name: this.props.name
     };
   }
 
@@ -40,9 +39,7 @@ export default class Component extends React.Component {
 
     Events.on('selectedEntityComponentChanged', detail => {
       if (detail.name === this.props.name) {
-        // Instead of calling forceUpdate() we update the state with a random
-        // key so it will trigger the render() function
-        this.setState({ key: Math.random() });
+        this.forceUpdate();
       }
     });
   }
@@ -99,7 +96,7 @@ export default class Component extends React.Component {
     const componentHelp = getComponentDocsHtmlLink(componentName.toLowerCase());
 
     return (
-      <Collapsible key={this.state.key}>
+      <Collapsible>
         <div className='collapsible-header'>
           <span className='component-title' title={subComponentName || componentName}>
             <span>{subComponentName || componentName}</span> {componentHelp}
