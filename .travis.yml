@@ -11,7 +11,7 @@ script:
 
 env:
   matrix:
-    - CI_ACTION="npm run build"
+    - CI_ACTION="npm run dist"
 
 branches:
   only:
