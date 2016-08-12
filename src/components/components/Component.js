@@ -54,10 +54,12 @@ export default class Component extends React.Component {
   }
 
   removeComponent = event => {
+    var componentName = this.props.name;
     event.stopPropagation();
-    if (confirm('Do you really want to remove component `' + this.props.name + '`?')) {
-      this.props.entity.removeAttribute(this.props.name);
-      ga('send', 'event', 'Components', 'removeComponent', this.props.name);
+    if (confirm('Do you really want to remove component `' + componentName + '`?')) {
+      this.props.entity.removeAttribute(componentName);
+      Events.emit('componentRemoved', {entity: this.props.entity, component: componentName});
+      ga('send', 'event', 'Components', 'removeComponent', componentName);
     }
   }
 
