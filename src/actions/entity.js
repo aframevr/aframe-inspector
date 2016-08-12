@@ -47,7 +47,7 @@ export function updateEntity (entity, componentName, propertyName, value) {
  */
 export function removeEntity (entity, force) {
   if (entity) {
-    if (force === true || confirm('Do you really want to remove the entity: `' + (entity.id || entity.tagName) + '`')) {
+    if (force === true || confirm('Do you really want to remove entity `' + (entity.id || entity.tagName) + '`?')) {
       var closest = findClosestEntity(entity);
       entity.parentNode.removeChild(entity);
       INSPECTOR.selectEntity(closest);
