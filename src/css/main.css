@@ -380,21 +380,14 @@ input.number:focus {
   font-size: 11px;
 }
 
-.texture canvas,
 input[type=color] {
   border: 1px solid #111;
   background-color: #333;
   cursor: pointer;
 }
 
-.texture canvas:focus,
-input[type=color]:focus {
-  border-color: rgb(32,177,251);
-}
-
-.texture canvas:hover,
-input[type=color]:hover {
-  border-color: rgba(32,177,251,0.5);
+.texture canvas {
+  border: 1px solid #222;
 }
 
 input[type=color] {
