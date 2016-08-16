@@ -45,9 +45,9 @@ export default class Toolbar extends React.Component {
   render () {
     return (
       <div className='scenegraph-actions'>
-        <a className='button fa fa-clipboard' data-action='copy-scene-to-clipboard'></a>
-        <a className='button fa fa-floppy-o' onClick={this.saveSceneToHTML}></a>
-        <a className='button fa fa-plus' onClick={this.addEntity}></a>
+        <a className='button fa fa-clipboard' title='Copy scene to clipboard' data-action='copy-scene-to-clipboard'></a>
+        <a className='button fa fa-download' title='Export to HTML' onClick={this.saveSceneToHTML}></a>
+        <a className='button fa fa-plus' title='Add a new entity' onClick={this.addEntity}></a>
       </div>
     );
   }
