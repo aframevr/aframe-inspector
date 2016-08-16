@@ -107,5 +107,5 @@ function injectCSS (url) {
   window.addEventListener('inspector-loaded', function () {
     ReactDOM.render(<Main/>, div);
   });
-  AFRAME.inspector = INSPECTOR;
+  AFRAME.INSPECTOR = INSPECTOR;
 })();
