@@ -249,12 +249,14 @@ Inspector.prototype = {
     this.opened = true;
     Events.emit('inspectorModeChanged', true);
     this.sceneEl.pause();
+    document.body.classList.add('editor-opened');
   },
 
   close: function () {
     this.opened = false;
     Events.emit('inspectorModeChanged', false);
     this.sceneEl.play();
+    document.body.classList.remove('editor-opened');
   // @todo Removelisteners
   },
 
