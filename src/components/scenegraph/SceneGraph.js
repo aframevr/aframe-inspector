@@ -97,9 +97,16 @@ export default class SceneGraph extends React.Component {
         if (!child.dataset.isInspector && child.isEntity && !child.isInspector) {
           let extra = '';
 
-          for (let icon in ICONS) {
-            if (child.components && child.components[icon]) {
-              extra += ' <i class="fa ' + ICONS[icon] + '"></i>';
+          for (let componentName in ICONS) {
+            if (child.components && child.components[componentName]) {
+              let properties = child.getAttribute(componentName);
+              const titles = Object.keys(properties)
+                .sort()
+                .map(property => {
+                  return ' - ' + property + ': ' + properties[property];
+                });
+              let componentTitle = componentName + (titles.length ? '\n' + titles.join('\n') : '');
+              extra += ' <i class="component fa ' + ICONS[componentName] + '" title="' + componentTitle + '"></i>';
             }
           }
 
