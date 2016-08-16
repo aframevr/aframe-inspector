@@ -36,7 +36,7 @@ textarea.fail {
 textarea, input { outline: none; } /* osx */
 
 #sidebar,
-#sidebar-left,
+#left-sidebar,
 .panel {
   cursor: default;
   user-select: none;
@@ -292,7 +292,7 @@ input.number:focus {
       margin: 0 !important;
     }
 
-#sidebar-left {
+#left-sidebar {
   position: absolute;
   left: 0;
   top: 0;
@@ -306,13 +306,8 @@ input.number:focus {
 }
 
 #sidebar {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
   width: 330px;
   background: #2b2b2b;
-  overflow: auto;
 }
 
   #sidebar * {
@@ -425,6 +420,10 @@ body.editor-opened {
 .components {
   background-color: #323232;
   color: #bcbcbc;
+  width: 330px;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
 }
 
 #app {
@@ -885,16 +884,14 @@ code, pre {
   font-size: 12px;
 	display: flex;
 	justify-content: space-between;
-
+  position: relative;
 }
 
 .toolbar {
-  position: absolute;
-  right: 330px;
-  top: 0;
   height: 32px;
   background-color: #262626;
   color: #333;
+  position: relative;
 }
 
 .toolbar * {
@@ -1004,4 +1001,21 @@ a.help-link {
 
 a.help-link:hover {
   opacity: 1.0;
+}
+
+#right-panels {
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+}
+
+#aframe-inspector-panels {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* This is a temporaly hack, we should style the editor instead of overwriting
+   the a-scene to fix the "display: block" issue. */
+a-scene {
+  display: inline !important;
 }
