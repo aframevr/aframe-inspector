@@ -33,10 +33,17 @@ Inspector.prototype = {
     this.container = document.querySelector('.a-canvas');
     this.currentCameraEl = document.querySelector('[camera]');
 
+    // If the current camera is the default, we should prevent AFRAME from
+    // remove it once when we inject the editor's camera
+    if (this.currentCameraEl.hasAttribute('data-aframe-default-camera')) {
+      this.currentCameraEl.removeAttribute('data-aframe-default-camera');
+      this.currentCameraEl.setAttribute('data-aframe-inspector', 'default-camera');
+    }
+
     this.inspectorCameraEl = document.createElement('a-entity');
     this.inspectorCameraEl.isInspector = true;
     this.inspectorCameraEl.addEventListener('loaded', function (entity) {
-      this.DEFAULT_CAMERA = this.inspectorCameraEl.getObject3D('camera');
+      this.EDITOR_CAMERA = this.inspectorCameraEl.getObject3D('camera');
       this.initUI();
     }.bind(this));
     this.inspectorCameraEl.setAttribute('camera', {far: 10000, fov: 50, near: 1, active: true});
@@ -44,11 +51,11 @@ Inspector.prototype = {
   },
 
   initUI: function () {
-    this.DEFAULT_CAMERA.position.set(20, 10, 20);
-    this.DEFAULT_CAMERA.lookAt(new THREE.Vector3());
-    this.DEFAULT_CAMERA.updateMatrixWorld();
+    this.EDITOR_CAMERA.position.set(20, 10, 20);
+    this.EDITOR_CAMERA.lookAt(new THREE.Vector3());
+    this.EDITOR_CAMERA.updateMatrixWorld();
 
-    this.camera = this.DEFAULT_CAMERA;
+    this.camera = this.EDITOR_CAMERA;
 
     this.initEvents();
 
@@ -212,7 +219,7 @@ Inspector.prototype = {
   },
 
   clear: function () {
-    this.camera.copy(this.DEFAULT_CAMERA);
+    this.camera.copy(this.EDITOR_CAMERA);
     this.deselect();
     document.querySelector('a-scene').innerHTML = '';
     Events.emit('inspectorCleared');
