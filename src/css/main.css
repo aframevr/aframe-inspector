@@ -955,6 +955,15 @@ code, pre {
   color: #fff;
 }
 
+.outliner .option .component:hover {
+  color: #1faaf2;
+}
+
+.outliner .option.active .component:hover {
+  color: #1888c1;
+}
+
+
 .outliner .option .icons {
   display: none;
   margin: 0 3px 0 10px;
