@@ -413,10 +413,13 @@ input[type=color]::-moz-focus-inner {
 }
 
 body {
-  background-color: #191919;
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
   color: #fff;
+}
+
+body.editor-opened {
+  background-color: #191919;
 }
 
 .components {
