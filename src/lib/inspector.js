@@ -97,22 +97,12 @@ Inspector.prototype = {
 
     this.open();
   },
-/*
+
   removeObject: function (object) {
-    if (object.parent === null) return; // avoid deleting the camera or scene
-
-    var scope = this;
-
-    object.traverse(function (child) {
-      scope.removeHelper(child);
-    });
-
-    object.parent.remove(object);
-
-    Events.emit('objectRemoved', object);
-    Events.emit('sceneGraphChanged');
+    // Remove just the helper as the object will be deleted by Aframe
+    object.traverse(this.removeHelper.bind(this));
   },
-*/
+
   addHelper: (function () {
     var geometry = new THREE.SphereBufferGeometry(2, 4, 2);
     var material = new THREE.MeshBasicMaterial({ color: 0xff0000, visible: false });

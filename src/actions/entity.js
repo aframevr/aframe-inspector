@@ -49,6 +49,7 @@ export function removeEntity (entity, force) {
   if (entity) {
     if (force === true || confirm('Do you really want to remove entity `' + (entity.id || entity.tagName) + '`?')) {
       var closest = findClosestEntity(entity);
+      INSPECTOR.removeObject(entity.object3D);
       entity.parentNode.removeChild(entity);
       INSPECTOR.selectEntity(closest);
     }
