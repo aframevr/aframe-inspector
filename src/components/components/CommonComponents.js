@@ -1,4 +1,3 @@
-/* global Events */
 import React from 'react';
 import {InputWidget} from '../widgets';
 import PropertyRow from './PropertyRow';
@@ -21,10 +20,6 @@ export class CommonComponents extends React.Component {
   static propTypes = {
     entity: React.PropTypes.object
   };
-
-  constructor (props) {
-    super(props);
-  }
 
   componentDidMount () {
     Events.on('selectedEntityComponentChanged', detail => {
