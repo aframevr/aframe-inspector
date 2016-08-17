@@ -254,14 +254,25 @@ function Viewport (inspector) {
     }
   }
 
-  inspector.container.addEventListener('mousedown', onMouseDown, false);
-  inspector.container.addEventListener('touchstart', onTouchStart, false);
-  inspector.container.addEventListener('dblclick', onDoubleClick, false);
-
   // controls need to be added *after* main logic,
   // otherwise controls.enabled doesn't work.
-
   var controls = new THREE.EditorControls(camera, inspector.container);
+
+  function disableControls () {
+    inspector.container.removeEventListener('mousedown', onMouseDown);
+    inspector.container.removeEventListener('touchstart', onTouchStart);
+    inspector.container.removeEventListener('dblclick', onDoubleClick);
+    controls.enabled = false;
+  }
+
+  function enableControls () {
+    inspector.container.addEventListener('mousedown', onMouseDown, false);
+    inspector.container.addEventListener('touchstart', onTouchStart, false);
+    inspector.container.addEventListener('dblclick', onDoubleClick, false);
+    controls.enabled = true;
+  }
+  enableControls();
+
   controls.addEventListener('change', function () {
     transformControls.update();
     gaTrackChangeEditorCamera();
@@ -357,11 +368,13 @@ function Viewport (inspector) {
 
   Events.on('inspectorModeChanged', function (active) {
     if (active) {
+      enableControls();
       inspector.inspectorCameraEl.setAttribute('camera', 'active', 'true');
       Array.prototype.slice.call(document.querySelectorAll('.a-enter-vr,.rs-base')).forEach(function (element) {
         element.style.display = 'none';
       });
     } else {
+      disableControls();
       prevActivedCameraEl.setAttribute('camera', 'active', 'true');
       Array.prototype.slice.call(document.querySelectorAll('.a-enter-vr,.rs-base')).forEach(function (element) {
         element.style.display = 'block';
