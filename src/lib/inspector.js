@@ -172,6 +172,19 @@ Inspector.prototype = {
     }
   },
   initEvents: function () {
+    window.addEventListener('keydown', evt => {
+      // Alt + Ctrl + i
+      var shortcutPressed = evt.keyCode === 73 && evt.ctrlKey && evt.altKey;
+      var escape = evt.keyCode === 27;
+      if (escape) {
+        this.close();
+        return;
+      }
+      if (shortcutPressed) {
+        this.toggle();
+      }
+    });
+
     Events.on('entitySelected', entity => {
       this.selectEntity(entity, false);
     });
@@ -250,6 +263,16 @@ Inspector.prototype = {
   addEntity: function (entity) {
     this.addObject(entity.object3D);
     this.selectEntity(entity);
+  },
+  /**
+   * Toggle the editor
+   */
+  toggle: function () {
+    if (this.opened) {
+      this.close();
+    } else {
+      this.open();
+    }
   },
   /**
    * Open the editor UI
