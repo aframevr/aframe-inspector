@@ -29,6 +29,9 @@ Inspector.prototype = {
     }
   },
 
+  /**
+   * Callback when the a-scene is loaded
+   */
   onSceneLoaded: function () {
     this.container = document.querySelector('.a-canvas');
     this.currentCameraEl = document.querySelector('[camera]');
@@ -42,19 +45,17 @@ Inspector.prototype = {
 
     this.inspectorCameraEl = document.createElement('a-entity');
     this.inspectorCameraEl.isInspector = true;
-    this.inspectorCameraEl.addEventListener('loaded', function (entity) {
+    this.inspectorCameraEl.addEventListener('loaded', entity => {
       this.EDITOR_CAMERA = this.inspectorCameraEl.getObject3D('camera');
       this.initUI();
-    }.bind(this));
+    });
     this.inspectorCameraEl.setAttribute('camera', {far: 10000, fov: 50, near: 1, active: true});
     document.querySelector('a-scene').appendChild(this.inspectorCameraEl);
   },
-
   initUI: function () {
     this.EDITOR_CAMERA.position.set(20, 10, 20);
     this.EDITOR_CAMERA.lookAt(new THREE.Vector3());
     this.EDITOR_CAMERA.updateMatrixWorld();
-
     this.camera = this.EDITOR_CAMERA;
 
     this.initEvents();
@@ -84,13 +85,13 @@ Inspector.prototype = {
     }
     addObjects(this.sceneEl.object3D);
 
-    document.addEventListener('model-loaded', function (event) {
+    document.addEventListener('model-loaded', event => {
       this.addObject(event.target.object3D);
-    }.bind(this));
+    });
 
-    document.addEventListener('selectedEntityComponentChanged', function (event) {
+    document.addEventListener('selectedEntityComponentChanged', event => {
       this.addObject(event.target.object3D);
-    }.bind(this));
+    });
 
     this.scene.add(this.sceneHelpers);
 
@@ -171,21 +172,20 @@ Inspector.prototype = {
     }
   },
   initEvents: function () {
-    Events.on('entitySelected', function (entity) {
+    Events.on('entitySelected', entity => {
       this.selectEntity(entity, false);
-    }.bind(this));
+    });
 
-    Events.on('inspectorModeChanged', function (active) {
+    Events.on('inspectorModeChanged', active => {
       this.inspectorActive = active;
       this.sceneHelpers.visible = this.inspectorActive;
-    }.bind(this));
+    });
 
-    Events.on('createNewEntity', function (definition) {
+    Events.on('createNewEntity', definition => {
       this.createNewEntity(definition);
-    }.bind(this));
+    });
 
     Events.on('domModified', mutations => {
-      var self = this;
       if (!mutations) { return; }
       mutations.forEach(mutation => {
         if (mutation.type !== 'childList') { return; }
@@ -204,7 +204,6 @@ Inspector.prototype = {
     }
     this.select(this.scene.getObjectById(id, true));
   },
-
   // Change to select object
   select: function (object) {
     if (this.selected === object) {
@@ -213,11 +212,12 @@ Inspector.prototype = {
     this.selected = object;
     Events.emit('objectSelected', object);
   },
-
   deselect: function () {
     this.select(null);
   },
-
+  /**
+   * Reset the current scene, removing its content.
+   */
   clear: function () {
     this.camera.copy(this.EDITOR_CAMERA);
     this.deselect();
@@ -239,9 +239,9 @@ Inspector.prototype = {
     }
 
     // Ensure the components are loaded before update the UI
-    entity.addEventListener('loaded', function () {
+    entity.addEventListener('loaded', () => {
       this.addEntity(entity);
-    }.bind(this));
+    });
 
     this.sceneEl.appendChild(entity);
 
@@ -251,14 +251,19 @@ Inspector.prototype = {
     this.addObject(entity.object3D);
     this.selectEntity(entity);
   },
-
+  /**
+   * Open the editor UI
+   */
   open: function () {
     this.opened = true;
     Events.emit('inspectorModeChanged', true);
     this.sceneEl.pause();
     document.body.classList.add('editor-opened');
   },
-
+  /**
+   * Closes the editor and gives the control back to the scene
+   * @return {[type]} [description]
+   */
   close: function () {
     this.opened = false;
     Events.emit('inspectorModeChanged', false);
@@ -266,10 +271,9 @@ Inspector.prototype = {
     document.body.classList.remove('editor-opened');
   // @todo Removelisteners
   },
-
   addObject: function (object) {
     var scope = this;
-    object.traverse(function (child) {
+    object.traverse(child => {
       if (!child.el || !child.el.isInspector) {
         scope.addHelper(child);
       }

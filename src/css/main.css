@@ -68,31 +68,6 @@ textarea, input { outline: none; } /* osx */
   display: none;
 }
 
-/* CodeMirror */
-
-.CodeMirror {
-
-  position: absolute !important;
-  top: 37px;
-  width: 100% !important;
-  height: calc(100% - 37px) !important;
-
-}
-
-  .CodeMirror .errorLine {
-
-    background: rgba(255,0,0,0.25);
-
-  }
-
-  .CodeMirror .esprima-error {
-
-    color: #f00;
-    text-align: right;
-    padding: 0 20px;
-
-  }
-
 .toggle-edit {
   background-color: #ed3160;
   position: fixed;
@@ -186,112 +161,6 @@ input.number:focus {
   color: #fff;
 }
 
-#viewport {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 330px;
-  bottom: 32px;
-}
-
-  #viewport #info {
-    text-shadow: 1px 1px 0 rgba(0,0,0,0.25);
-    pointer-events: none;
-  }
-
-#script {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 330px;
-  bottom: 32px;
-  opacity: 0.9;
-}
-
-#player {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 330px;
-  bottom: 32px;
-}
-
-#menubar {
-  position: absolute;
-  width: 100%;
-  height: 32px;
-  background: #323232;
-  padding: 0;
-  margin: 0;
-  right: 0;
-  top: 0;
-  border-bottom: 1px solid #262626;
-}
-
-  #menubar .menu {
-    float: left;
-    margin-right: 8px;
-  }
-
-  #menubar .menu.right {
-    float: right;
-    cursor: auto;
-    padding-right: 0;
-    text-align: right;
-  }
-
-    #menubar .menu .title {
-      display: inline-block;
-      color: #888;
-      margin: 0;
-      padding: 9px;
-    }
-
-    #menubar .menu .options {
-      cursor: pointer;
-      z-index: 1500;
-      position: absolute;
-      display: none;
-      padding: 5px 0;
-      background: #111;
-      width: 150px;
-    }
-
-    #menubar .menu:hover {
-        background: #111;
-    }
-
-    #menubar .menu:hover .options {
-      display: block;
-    }
-
-      #menubar .menu .options hr {
-        border-color: #222;
-      }
-
-      #menubar .menu .options .option {
-        color: #888;
-        background-color: transparent;
-        padding: 5px 10px;
-        margin: 0 !important;
-      }
-
-        #menubar .menu .options .option:hover {
-          color: #fff;
-          background-color: #08f;
-        }
-
-        #menubar .menu .options .option:active {
-          background: transparent;
-        }
-
-    #menubar .menu .options .inactive {
-      color: #444;
-      background-color: transparent;
-      padding: 5px 10px;
-      margin: 0 !important;
-    }
-
 #left-sidebar {
   position: absolute;
   left: 0;
@@ -310,69 +179,21 @@ input.number:focus {
   background: #2b2b2b;
 }
 
-  #sidebar * {
-    vertical-align: middle;
-  }
-
-  input,
-  textarea,
-  select {
-    background: #222;
-    border: 1px solid transparent;
-    color: #888;
-  }
-
-  .panel {
-    color: #888;
-    padding: 10px;
-    border-top: 1px solid #222;
-  }
-
-  .panel.collapsed {
-    margin-bottom: 0;
-  }
-
-  .panel.Material canvas {
-    border: solid 1px #5A5A5A;
-  }
-
-  .row {
-    min-height: 20px;
-    margin-bottom: 10px;
-  }
-
-#tabs {
-  background-color: #1b1b1b;
-  border-top: 1px solid #222;
+#sidebar * {
+  vertical-align: middle;
 }
 
-  #tabs span {
-    color: #555;
-    border-right: 1px solid #222;
-    padding: 10px;
-  }
-
-  #tabs span.selected {
-    color: #888;
-    background-color: #111;
-  }
-
-.aframe-logo {
-  background-color: #424242;
-  margin-right: 10px;
+input,
+textarea,
+select {
+  background: #222;
+  border: 1px solid transparent;
+  color: #888;
 }
 
-.aframe-logo span {
-  text-weight: bold;
-}
-
-.tab {
-  color: #1faaf2;
-  text-align: center;
-  background-color: #323232;
-  padding: 10px;
-  border-top: 2px solid #1faaf2;
-  font-size: 11px;
+.row {
+  min-height: 20px;
+  margin-bottom: 10px;
 }
 
 input[type=color] {
@@ -424,14 +245,6 @@ body.editor-opened {
   position: fixed;
   height: 100%;
   overflow: auto;
-}
-
-#app {
-  z-index: 1000;
-}
-
-#app b{
-  color: #ff9;
 }
 
 div.vec3 {
@@ -562,77 +375,19 @@ a.button:hover {
   margin: 10px;
 }
 
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-  float: right;
-}
-
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  left:auto;
-  right:0;
-  margin-right:-10px;
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 130px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-}
-
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: #888;
-  background-color: #222;
-  padding: 6px 8px;
-  text-decoration: none;
-  display: block;
-
-}
-
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {
-  color: #fff;
-  background-color: #08f;
-}
-
-.dropdown-content a.disabled {
-  color: #555;
-}
-
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
-}
-
-
-/* The Modal (background) */
 .modal {
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
 }
 
-
-/* Modal Content */
 .modal-content {
   position: relative;
   background-color: #232323;
@@ -644,15 +399,11 @@ a.button:hover {
   animation-duration: 0.2s
 }
 
-
-/* Add Animation */
 @keyframes animatetop {
   from {top:-300px; opacity:0}
   to {top:0; opacity:1}
 }
 
-
-/* The Close Button */
 .close {
   color: white;
   float: right;
@@ -721,46 +472,6 @@ a.button:hover {
 .gallery li .detail span.title {
   color: #EEE !important;
   font-weight: bold;
-}
-
-
-/* Tabs */
-.tabs {
-  margin: 25px;
-  background: #fff;
-  border: 1px solid #e5e5e5;
-  border-radius: 3px;
-}
-.tabs__labels {
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  font-size: 14px;
-}
-
-.tabs__labels li {
-  display: inline-block;
-  width: 33.3%;
-}
-
-.tabs__labels li a {
-  padding: 8px 12px;
-  display: block;
-  color: #AAA;
-  text-decoration: none;
-  padding: 15px;
-}
-
-.tabs__labels li a.active {
-  border-bottom: 2px solid #1eaaf1;
-  color: #1eaaf1;
-  background-color: #333;
-}
-
-.tabs__content {
-  background-color: #2b2b2b;
-  overflow:auto;
-  min-height: 100px;
 }
 
 .preview {
