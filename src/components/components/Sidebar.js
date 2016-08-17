@@ -26,6 +26,14 @@ export default class Sidebar extends React.Component {
     clipboard.on('error', e => {
       // @todo Show the error on the UI
     });
+
+    Events.on('componentRemoved', event => {
+      this.forceUpdate();
+    });
+
+    Events.on('componentAdded', event => {
+      this.forceUpdate();
+    });
   }
 
   handleToggle = () => {

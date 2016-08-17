@@ -1,5 +1,6 @@
 import React from 'react';
 import Collapsible from '../Collapsible';
+import Events from '../../lib/Events';
 
 export default class AddComponent extends React.Component {
   static propTypes = {
@@ -12,16 +13,17 @@ export default class AddComponent extends React.Component {
    */
   addComponent = () => {
     var entity = this.props.entity;
-    var newComponentName = this.refs.select.value;
+    var componentName = this.refs.select.value;
 
-    if (AFRAME.components[newComponentName].multiple &&
-        isComponentInstanced(entity, newComponentName)) {
-      newComponentName = newComponentName + '__' +
-                         generateComponentInstanceId(entity, newComponentName);
+    if (AFRAME.components[componentName].multiple &&
+        isComponentInstanced(entity, componentName)) {
+      componentName = componentName + '__' +
+                         generateComponentInstanceId(entity, componentName);
     }
 
-    entity.setAttribute(newComponentName, '');
-    ga('send', 'event', 'Components', 'addComponent', newComponentName);
+    entity.setAttribute(componentName, '');
+    Events.emit('componentAdded', {entity: entity, component: componentName});
+    ga('send', 'event', 'Components', 'addComponent', componentName);
   }
 
   /**
