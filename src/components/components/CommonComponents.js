@@ -56,7 +56,7 @@ export class CommonComponents extends React.Component {
     return (
       <Collapsible>
         <div className='collapsible-header'>
-          <span>Common</span>
+          <span>COMMON</span>
         </div>
         <div className='collapsible-content'>
           <div className='row'>
