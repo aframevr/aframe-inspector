@@ -5,6 +5,7 @@
   "main": "dist/aframe-inspector.min.js",
   "scripts": {
     "build": "cross-env webpack --progress --colors",
+    "deploy": "npm run ghpages",
     "dist": "npm run dist:max && npm run dist:min",
     "dist:max": "AFRAME_DIST=true npm run build",
     "dist:min": "NODE_ENV=production AFRAME_DIST=true npm run build",
