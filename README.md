@@ -2,13 +2,11 @@
 
 [![build status][travis-image]][travis-url]
 
-> Work in progress.
+An easy-to-use inspector for editing [A-Frame](https://aframe.io) scenes.
 
-An easy-to-use inspector for editing [A-Frame](https://aframe.io) VR scenes.
+[VIEW DEMO](https://aframe.io/aframe-inspector/example/)
 
-[Try it out!](https://aframe.io/aframe-inspector/example/)
-
-<img alt="screenshot" src="https://cloud.githubusercontent.com/assets/674727/16597664/fd7b9748-42ae-11e6-9ece-3dfe763ea11c.png">
+![Inspector Preview](https://cloud.githubusercontent.com/assets/674727/17754902/b9f6f09a-648b-11e6-8319-a4344744fed7.png)
 
 ## Using the Inspector
 
