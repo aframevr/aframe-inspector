@@ -774,6 +774,12 @@
 
 		};
 
+		this.toggleSpace = function () {
+
+			this.setSpace(scope.space === 'local' ? 'world' : 'local');
+
+		};
+
 		this.setSpace = function ( space ) {
 
 			scope.space = space;

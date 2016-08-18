@@ -16,6 +16,11 @@ export default class Toolbar extends React.Component {
       localSpace: false
     };
   }
+  componentDidMount () {
+    Events.on('transformModeChanged', (mode) => {
+      this.setState({selectedTransform: mode});
+    });
+  }
 
   changeTransformMode = mode => {
     this.setState({selectedTransform: mode});
