@@ -736,6 +736,6 @@ a.help-link:hover {
 
 /* This is a temporaly hack, we should style the editor instead of overwriting
    the a-scene to fix the "display: block" issue. */
-a-scene {
+a-scene.aframe-inspector-opened {
   display: inline !important;
 }

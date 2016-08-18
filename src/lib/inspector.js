@@ -268,9 +268,15 @@ Inspector.prototype = {
    * Open the editor UI
    */
   open: function () {
+    const sceneEl = this.sceneEl;
     this.opened = true;
     Events.emit('inspectorModeChanged', true);
-    this.sceneEl.pause();
+    sceneEl.pause();
+    sceneEl.setAttribute('aframe-inspector-opened');
+    // Remove embedded styles, but keep track of it.
+    sceneEl.removeAttribute('embedded');
+    sceneEl.setAttribute('aframe-inspector-removed-embedded');
+    sceneEl.resize();
     document.body.classList.add('editor-opened');
   },
   /**
@@ -278,9 +284,17 @@ Inspector.prototype = {
    * @return {[type]} [description]
    */
   close: function () {
+    const sceneEl = this.sceneEl;
     this.opened = false;
     Events.emit('inspectorModeChanged', false);
-    this.sceneEl.play();
+    sceneEl.play();
+    sceneEl.removeAttribute('aframe-inspector-opened');
+    // Remove embedded styles, but keep track of it.
+    if (sceneEl.hasAttribute('aframe-inspector-removed-embedded')) {
+      sceneEl.setAttribute('embedded', '');
+      sceneEl.removeAttribute('aframe-inspector-removed-embedded');
+      sceneEl.resize();
+    }
     document.body.classList.remove('editor-opened');
   // @todo Removelisteners
   },
