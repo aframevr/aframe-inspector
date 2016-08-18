@@ -268,33 +268,31 @@ Inspector.prototype = {
    * Open the editor UI
    */
   open: function () {
-    var sceneEl = this.sceneEl;
     this.opened = true;
     Events.emit('inspectorModeChanged', true);
-    sceneEl.pause();
-    if (sceneEl.hasAttribute('embedded')) {
+    this.sceneEl.pause();
+    if (this.sceneEl.hasAttribute('embedded')) {
       // Remove embedded styles, but keep track of it.
-      sceneEl.removeAttribute('embedded');
-      sceneEl.setAttribute('aframe-inspector-removed-embedded');
+      this.sceneEl.removeAttribute('embedded');
+      this.sceneEl.setAttribute('aframe-inspector-removed-embedded');
     }
     document.body.classList.add('aframe-inspector-opened');
-    sceneEl.resize();
+    this.sceneEl.resize();
   },
   /**
    * Closes the editor and gives the control back to the scene
    * @return {[type]} [description]
    */
   close: function () {
-    var sceneEl = this.sceneEl;
     this.opened = false;
     Events.emit('inspectorModeChanged', false);
-    sceneEl.play();
-    if (sceneEl.hasAttribute('aframe-inspector-removed-embedded')) {
-      sceneEl.setAttribute('embedded', '');
-      sceneEl.removeAttribute('aframe-inspector-removed-embedded');
+    this.sceneEl.play();
+    if (this.sceneEl.hasAttribute('aframe-inspector-removed-embedded')) {
+      this.sceneEl.setAttribute('embedded', '');
+      this.sceneEl.removeAttribute('aframe-inspector-removed-embedded');
     }
     document.body.classList.remove('aframe-inspector-opened');
-    sceneEl.resize();
+    this.sceneEl.resize();
   },
   addObject: function (object) {
     var scope = this;
