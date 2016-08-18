@@ -268,7 +268,7 @@ Inspector.prototype = {
    * Open the editor UI
    */
   open: function () {
-    const sceneEl = this.sceneEl;
+    var sceneEl = this.sceneEl;
     this.opened = true;
     Events.emit('inspectorModeChanged', true);
     sceneEl.pause();
@@ -285,7 +285,7 @@ Inspector.prototype = {
    * @return {[type]} [description]
    */
   close: function () {
-    const sceneEl = this.sceneEl;
+    var sceneEl = this.sceneEl;
     this.opened = false;
     Events.emit('inspectorModeChanged', false);
     sceneEl.play();
