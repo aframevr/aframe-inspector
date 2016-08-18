@@ -2,6 +2,9 @@ body {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 14px;
   margin: 0;
+}
+
+body.aframe-inspector-opened {
   overflow: hidden;
 }
 
@@ -162,7 +165,7 @@ input.number:focus {
 }
 
 #left-sidebar {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
@@ -727,6 +730,10 @@ a.help-link:hover {
   display: flex;
   justify-content: flex-end;
   align-items: stretch;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
 }
 
 #aframe-inspector-panels {
@@ -736,6 +743,10 @@ a.help-link:hover {
 
 /* This is a temporaly hack, we should style the editor instead of overwriting
    the a-scene to fix the "display: block" issue. */
-a-scene {
+.aframe-inspector-opened a-scene {
   display: inline !important;
+}
+
+.aframe-inspector-opened a-scene .a-canvas {
+  position: fixed;
 }

@@ -268,21 +268,33 @@ Inspector.prototype = {
    * Open the editor UI
    */
   open: function () {
+    const sceneEl = this.sceneEl;
     this.opened = true;
     Events.emit('inspectorModeChanged', true);
-    this.sceneEl.pause();
-    document.body.classList.add('editor-opened');
+    sceneEl.pause();
+    if (sceneEl.hasAttribute('embedded')) {
+      // Remove embedded styles, but keep track of it.
+      sceneEl.removeAttribute('embedded');
+      sceneEl.setAttribute('aframe-inspector-removed-embedded');
+    }
+    document.body.classList.add('aframe-inspector-opened');
+    sceneEl.resize();
   },
   /**
    * Closes the editor and gives the control back to the scene
    * @return {[type]} [description]
    */
   close: function () {
+    const sceneEl = this.sceneEl;
     this.opened = false;
     Events.emit('inspectorModeChanged', false);
-    this.sceneEl.play();
-    document.body.classList.remove('editor-opened');
-  // @todo Removelisteners
+    sceneEl.play();
+    if (sceneEl.hasAttribute('aframe-inspector-removed-embedded')) {
+      sceneEl.setAttribute('embedded', '');
+      sceneEl.removeAttribute('aframe-inspector-removed-embedded');
+    }
+    document.body.classList.remove('aframe-inspector-opened');
+    sceneEl.resize();
   },
   addObject: function (object) {
     var scope = this;
