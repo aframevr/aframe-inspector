@@ -26,6 +26,8 @@ export default class ModalTextures extends React.Component {
   }
 
   componentDidMount () {
+    this.samplesImages = [];
+    /*
     this.samplesImages = [
       {name: 'create1111', src: 'assets/textures/758px-Canestra_di_frutta_Caravaggio.jpg'},
       {name: 'asdfqwer', src: 'assets/textures/2294472375_24a3b8ef46_o.jpg'},
@@ -37,6 +39,7 @@ export default class ModalTextures extends React.Component {
       {name: 'envmap', src: 'assets/textures/envmap.png'},
       {name: 'brick dump', src: 'assets/textures/brick_bump.jpg'}
     ];
+    */
 
     this.generateFromSamples();
     this.generateFromAssets();
