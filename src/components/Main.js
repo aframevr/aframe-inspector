@@ -76,8 +76,6 @@ export default class Main extends React.Component {
       <div>
         {editButton}
         <div id='aframe-inspector-panels' className={this.state.inspectorEnabled ? '' : 'hidden'}>
-          <ModalTextures ref='modaltextures' isOpen={textureDialogOpened}
-            onClose={this.onModalTextureOnClose}/>
           <div id='left-sidebar'>
             <SceneGraph scene={scene} selectedEntity={this.state.entity}/>
           </div>
