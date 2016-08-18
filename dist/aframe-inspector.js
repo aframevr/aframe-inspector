@@ -94,9 +94,9 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	__webpack_require__(220);
-	var INSPECTOR = __webpack_require__(185);
+	var INSPECTOR = __webpack_require__(187);
 
-	var Events = __webpack_require__(186);
+	var Events = __webpack_require__(176);
 
 
 	// Megahack to include font-awesome.
@@ -180,16 +180,20 @@
 	        editButton,
 	        _react2.default.createElement(
 	          'div',
-	          { id: 'inspector', className: this.state.inspectorEnabled ? '' : 'hidden' },
+	          { id: 'aframe-inspector-panels', className: this.state.inspectorEnabled ? '' : 'hidden' },
 	          _react2.default.createElement(_ModalTextures2.default, { ref: 'modaltextures', isOpen: textureDialogOpened,
 	            onClose: this.onModalTextureOnClose }),
-	          _react2.default.createElement(_ToolBar2.default, null),
 	          _react2.default.createElement(
 	            'div',
-	            { id: 'sidebar-left' },
+	            { id: 'left-sidebar' },
 	            _react2.default.createElement(_SceneGraph2.default, { scene: scene, selectedEntity: this.state.entity })
 	          ),
-	          _react2.default.createElement(_Sidebar2.default, { entity: this.state.entity })
+	          _react2.default.createElement(
+	            'div',
+	            { id: 'right-panels' },
+	            _react2.default.createElement(_ToolBar2.default, null),
+	            _react2.default.createElement(_Sidebar2.default, { entity: this.state.entity })
+	          )
 	        )
 	      );
 	    }
@@ -219,7 +223,7 @@
 	  window.addEventListener('inspector-loaded', function () {
 	    _reactDom2.default.render(_react2.default.createElement(Main, null), div);
 	  });
-	  AFRAME.inspector = INSPECTOR;
+	  AFRAME.INSPECTOR = INSPECTOR;
 	})();
 
 /***/ },
@@ -21163,7 +21167,7 @@
 
 	var _entity = __webpack_require__(195);
 
-	var _Events = __webpack_require__(186);
+	var _Events = __webpack_require__(176);
 
 	var _Events2 = _interopRequireDefault(_Events);
 
@@ -21212,6 +21216,14 @@
 	      clipboard.on('error', function (e) {
 	        // @todo Show the error on the UI
 	      });
+
+	      _Events2.default.on('componentRemoved', function (event) {
+	        _this2.forceUpdate();
+	      });
+
+	      _Events2.default.on('componentAdded', function (event) {
+	        _this2.forceUpdate();
+	      });
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
@@ -21230,10 +21242,8 @@
 	    key: 'render',
 	    value: function render() {
 	      var entity = this.state.entity;
-	      var entityButtons = '';
-	      var entityName = '';
 	      if (entity) {
-	        entityButtons = _react2.default.createElement(
+	        var entityButtons = _react2.default.createElement(
 	          'div',
 	          null,
 	          _react2.default.createElement('a', { href: '#', title: 'Copy entity HTML to clipboard', 'data-action': 'copy-entity-to-clipboard',
@@ -21241,24 +21251,26 @@
 	              return event.stopPropagation();
 	            } })
 	        );
-	        entityName = '<' + entity.tagName.toLowerCase() + '>';
-	      }
+	        var entityName = '<' + entity.tagName.toLowerCase() + '>';
 
-	      return _react2.default.createElement(
-	        'div',
-	        { id: 'sidebar' },
-	        _react2.default.createElement(
+	        return _react2.default.createElement(
 	          'div',
-	          { className: 'sidebar-title' },
+	          { id: 'sidebar' },
 	          _react2.default.createElement(
-	            'code',
-	            null,
-	            entityName
+	            'div',
+	            { className: 'sidebar-title' },
+	            _react2.default.createElement(
+	              'code',
+	              null,
+	              entityName
+	            ),
+	            entityButtons
 	          ),
-	          entityButtons
-	        ),
-	        _react2.default.createElement(_ComponentsContainer2.default, { entity: this.state.entity })
-	      );
+	          _react2.default.createElement(_ComponentsContainer2.default, { entity: this.state.entity })
+	        );
+	      } else {
+	        return _react2.default.createElement('div', null);
+	      }
 	    }
 	  }]);
 
@@ -21290,7 +21302,7 @@
 
 	var _AddComponent2 = _interopRequireDefault(_AddComponent);
 
-	var _Component = __webpack_require__(176);
+	var _Component = __webpack_require__(178);
 
 	var _Component2 = _interopRequireDefault(_Component);
 
@@ -21372,6 +21384,10 @@
 
 	var _Collapsible2 = _interopRequireDefault(_Collapsible);
 
+	var _Events = __webpack_require__(176);
+
+	var _Events2 = _interopRequireDefault(_Events);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21396,14 +21412,15 @@
 
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(AddComponent)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.addComponent = function () {
 	      var entity = _this.props.entity;
-	      var newComponentName = _this.refs.select.value;
+	      var componentName = _this.refs.select.value;
 
-	      if (AFRAME.components[newComponentName].multiple && isComponentInstanced(entity, newComponentName)) {
-	        newComponentName = newComponentName + '__' + generateComponentInstanceId(entity, newComponentName);
+	      if (AFRAME.components[componentName].multiple && isComponentInstanced(entity, componentName)) {
+	        componentName = componentName + '__' + generateComponentInstanceId(entity, componentName);
 	      }
 
-	      entity.setAttribute(newComponentName, '');
-	      ga('send', 'event', 'Components', 'addComponent', newComponentName);
+	      entity.setAttribute(componentName, '');
+	      _Events2.default.emit('componentAdded', { entity: entity, component: componentName });
+	      ga('send', 'event', 'Components', 'addComponent', componentName);
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 
@@ -21665,6 +21682,343 @@
 
 	'use strict';
 
+	var Emitter = __webpack_require__(177).EventEmitter;
+	var emitter = new Emitter();
+	emitter.setMaxListeners(0);
+
+	function Events() {}
+
+	Events.prototype.on = function () {
+	  emitter.on.apply(emitter, arguments);
+	  return this;
+	};
+
+	Events.prototype.emit = function () {
+	  emitter.emit.apply(emitter, arguments);
+	  return this;
+	};
+
+	Events.prototype.removeListener = function () {
+	  emitter.removeListener.apply(emitter, arguments);
+	  return this;
+	};
+
+	module.exports = new Events();
+
+/***/ },
+/* 177 */
+/***/ function(module, exports) {
+
+	// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	function EventEmitter() {
+	  this._events = this._events || {};
+	  this._maxListeners = this._maxListeners || undefined;
+	}
+	module.exports = EventEmitter;
+
+	// Backwards-compat with node 0.10.x
+	EventEmitter.EventEmitter = EventEmitter;
+
+	EventEmitter.prototype._events = undefined;
+	EventEmitter.prototype._maxListeners = undefined;
+
+	// By default EventEmitters will print a warning if more than 10 listeners are
+	// added to it. This is a useful default which helps finding memory leaks.
+	EventEmitter.defaultMaxListeners = 10;
+
+	// Obviously not all Emitters should be limited to 10. This function allows
+	// that to be increased. Set to zero for unlimited.
+	EventEmitter.prototype.setMaxListeners = function(n) {
+	  if (!isNumber(n) || n < 0 || isNaN(n))
+	    throw TypeError('n must be a positive number');
+	  this._maxListeners = n;
+	  return this;
+	};
+
+	EventEmitter.prototype.emit = function(type) {
+	  var er, handler, len, args, i, listeners;
+
+	  if (!this._events)
+	    this._events = {};
+
+	  // If there is no 'error' event listener then throw.
+	  if (type === 'error') {
+	    if (!this._events.error ||
+	        (isObject(this._events.error) && !this._events.error.length)) {
+	      er = arguments[1];
+	      if (er instanceof Error) {
+	        throw er; // Unhandled 'error' event
+	      } else {
+	        // At least give some kind of context to the user
+	        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
+	        err.context = er;
+	        throw err;
+	      }
+	    }
+	  }
+
+	  handler = this._events[type];
+
+	  if (isUndefined(handler))
+	    return false;
+
+	  if (isFunction(handler)) {
+	    switch (arguments.length) {
+	      // fast cases
+	      case 1:
+	        handler.call(this);
+	        break;
+	      case 2:
+	        handler.call(this, arguments[1]);
+	        break;
+	      case 3:
+	        handler.call(this, arguments[1], arguments[2]);
+	        break;
+	      // slower
+	      default:
+	        args = Array.prototype.slice.call(arguments, 1);
+	        handler.apply(this, args);
+	    }
+	  } else if (isObject(handler)) {
+	    args = Array.prototype.slice.call(arguments, 1);
+	    listeners = handler.slice();
+	    len = listeners.length;
+	    for (i = 0; i < len; i++)
+	      listeners[i].apply(this, args);
+	  }
+
+	  return true;
+	};
+
+	EventEmitter.prototype.addListener = function(type, listener) {
+	  var m;
+
+	  if (!isFunction(listener))
+	    throw TypeError('listener must be a function');
+
+	  if (!this._events)
+	    this._events = {};
+
+	  // To avoid recursion in the case that type === "newListener"! Before
+	  // adding it to the listeners, first emit "newListener".
+	  if (this._events.newListener)
+	    this.emit('newListener', type,
+	              isFunction(listener.listener) ?
+	              listener.listener : listener);
+
+	  if (!this._events[type])
+	    // Optimize the case of one listener. Don't need the extra array object.
+	    this._events[type] = listener;
+	  else if (isObject(this._events[type]))
+	    // If we've already got an array, just append.
+	    this._events[type].push(listener);
+	  else
+	    // Adding the second element, need to change to array.
+	    this._events[type] = [this._events[type], listener];
+
+	  // Check for listener leak
+	  if (isObject(this._events[type]) && !this._events[type].warned) {
+	    if (!isUndefined(this._maxListeners)) {
+	      m = this._maxListeners;
+	    } else {
+	      m = EventEmitter.defaultMaxListeners;
+	    }
+
+	    if (m && m > 0 && this._events[type].length > m) {
+	      this._events[type].warned = true;
+	      console.error('(node) warning: possible EventEmitter memory ' +
+	                    'leak detected. %d listeners added. ' +
+	                    'Use emitter.setMaxListeners() to increase limit.',
+	                    this._events[type].length);
+	      if (typeof console.trace === 'function') {
+	        // not supported in IE 10
+	        console.trace();
+	      }
+	    }
+	  }
+
+	  return this;
+	};
+
+	EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+
+	EventEmitter.prototype.once = function(type, listener) {
+	  if (!isFunction(listener))
+	    throw TypeError('listener must be a function');
+
+	  var fired = false;
+
+	  function g() {
+	    this.removeListener(type, g);
+
+	    if (!fired) {
+	      fired = true;
+	      listener.apply(this, arguments);
+	    }
+	  }
+
+	  g.listener = listener;
+	  this.on(type, g);
+
+	  return this;
+	};
+
+	// emits a 'removeListener' event iff the listener was removed
+	EventEmitter.prototype.removeListener = function(type, listener) {
+	  var list, position, length, i;
+
+	  if (!isFunction(listener))
+	    throw TypeError('listener must be a function');
+
+	  if (!this._events || !this._events[type])
+	    return this;
+
+	  list = this._events[type];
+	  length = list.length;
+	  position = -1;
+
+	  if (list === listener ||
+	      (isFunction(list.listener) && list.listener === listener)) {
+	    delete this._events[type];
+	    if (this._events.removeListener)
+	      this.emit('removeListener', type, listener);
+
+	  } else if (isObject(list)) {
+	    for (i = length; i-- > 0;) {
+	      if (list[i] === listener ||
+	          (list[i].listener && list[i].listener === listener)) {
+	        position = i;
+	        break;
+	      }
+	    }
+
+	    if (position < 0)
+	      return this;
+
+	    if (list.length === 1) {
+	      list.length = 0;
+	      delete this._events[type];
+	    } else {
+	      list.splice(position, 1);
+	    }
+
+	    if (this._events.removeListener)
+	      this.emit('removeListener', type, listener);
+	  }
+
+	  return this;
+	};
+
+	EventEmitter.prototype.removeAllListeners = function(type) {
+	  var key, listeners;
+
+	  if (!this._events)
+	    return this;
+
+	  // not listening for removeListener, no need to emit
+	  if (!this._events.removeListener) {
+	    if (arguments.length === 0)
+	      this._events = {};
+	    else if (this._events[type])
+	      delete this._events[type];
+	    return this;
+	  }
+
+	  // emit removeListener for all listeners on all events
+	  if (arguments.length === 0) {
+	    for (key in this._events) {
+	      if (key === 'removeListener') continue;
+	      this.removeAllListeners(key);
+	    }
+	    this.removeAllListeners('removeListener');
+	    this._events = {};
+	    return this;
+	  }
+
+	  listeners = this._events[type];
+
+	  if (isFunction(listeners)) {
+	    this.removeListener(type, listeners);
+	  } else if (listeners) {
+	    // LIFO order
+	    while (listeners.length)
+	      this.removeListener(type, listeners[listeners.length - 1]);
+	  }
+	  delete this._events[type];
+
+	  return this;
+	};
+
+	EventEmitter.prototype.listeners = function(type) {
+	  var ret;
+	  if (!this._events || !this._events[type])
+	    ret = [];
+	  else if (isFunction(this._events[type]))
+	    ret = [this._events[type]];
+	  else
+	    ret = this._events[type].slice();
+	  return ret;
+	};
+
+	EventEmitter.prototype.listenerCount = function(type) {
+	  if (this._events) {
+	    var evlistener = this._events[type];
+
+	    if (isFunction(evlistener))
+	      return 1;
+	    else if (evlistener)
+	      return evlistener.length;
+	  }
+	  return 0;
+	};
+
+	EventEmitter.listenerCount = function(emitter, type) {
+	  return emitter.listenerCount(type);
+	};
+
+	function isFunction(arg) {
+	  return typeof arg === 'function';
+	}
+
+	function isNumber(arg) {
+	  return typeof arg === 'number';
+	}
+
+	function isObject(arg) {
+	  return typeof arg === 'object' && arg !== null;
+	}
+
+	function isUndefined(arg) {
+	  return arg === void 0;
+	}
+
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -21675,7 +22029,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _PropertyRow = __webpack_require__(177);
+	var _PropertyRow = __webpack_require__(179);
 
 	var _PropertyRow2 = _interopRequireDefault(_PropertyRow);
 
@@ -21689,7 +22043,7 @@
 
 	var _component = __webpack_require__(199);
 
-	var _Events = __webpack_require__(186);
+	var _Events = __webpack_require__(176);
 
 	var _Events2 = _interopRequireDefault(_Events);
 
@@ -21717,10 +22071,12 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Component).call(this, props));
 
 	    _this.removeComponent = function (event) {
+	      var componentName = _this.props.name;
 	      event.stopPropagation();
-	      if (confirm('Do you really want to remove component `' + _this.props.name + '`?')) {
-	        _this.props.entity.removeAttribute(_this.props.name);
-	        ga('send', 'event', 'Components', 'removeComponent', _this.props.name);
+	      if (confirm('Do you really want to remove component `' + componentName + '`?')) {
+	        _this.props.entity.removeAttribute(componentName);
+	        _Events2.default.emit('componentRemoved', { entity: _this.props.entity, component: componentName });
+	        ga('send', 'event', 'Components', 'removeComponent', componentName);
 	      }
 	    };
 
@@ -21855,7 +22211,7 @@
 	exports.default = Component;
 
 /***/ },
-/* 177 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21872,31 +22228,31 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _lodash = __webpack_require__(178);
+	var _lodash = __webpack_require__(180);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _BooleanWidget = __webpack_require__(179);
+	var _BooleanWidget = __webpack_require__(181);
 
 	var _BooleanWidget2 = _interopRequireDefault(_BooleanWidget);
 
-	var _ColorWidget = __webpack_require__(180);
+	var _ColorWidget = __webpack_require__(182);
 
 	var _ColorWidget2 = _interopRequireDefault(_ColorWidget);
 
-	var _InputWidget = __webpack_require__(181);
+	var _InputWidget = __webpack_require__(183);
 
 	var _InputWidget2 = _interopRequireDefault(_InputWidget);
 
-	var _NumberWidget = __webpack_require__(182);
+	var _NumberWidget = __webpack_require__(184);
 
 	var _NumberWidget2 = _interopRequireDefault(_NumberWidget);
 
-	var _SelectWidget = __webpack_require__(183);
+	var _SelectWidget = __webpack_require__(185);
 
 	var _SelectWidget2 = _interopRequireDefault(_SelectWidget);
 
-	var _TextureWidget = __webpack_require__(184);
+	var _TextureWidget = __webpack_require__(186);
 
 	var _TextureWidget2 = _interopRequireDefault(_TextureWidget);
 
@@ -22022,7 +22378,7 @@
 	exports.default = PropertyRow;
 
 /***/ },
-/* 178 */
+/* 180 */
 /***/ function(module, exports) {
 
 	/**
@@ -22422,7 +22778,7 @@
 
 
 /***/ },
-/* 179 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22493,7 +22849,7 @@
 	exports.default = BooleanWidget;
 
 /***/ },
-/* 180 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22570,7 +22926,7 @@
 	}
 
 /***/ },
-/* 181 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22636,7 +22992,7 @@
 	exports.default = InputWidget;
 
 /***/ },
-/* 182 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22815,7 +23171,7 @@
 	exports.default = NumberWidget;
 
 /***/ },
-/* 183 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22896,7 +23252,7 @@
 	exports.default = SelectWidget;
 
 /***/ },
-/* 184 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22919,8 +23275,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var INSPECTOR = __webpack_require__(185);
-	var Events = __webpack_require__(186);
+	var INSPECTOR = __webpack_require__(187);
+	var Events = __webpack_require__(176);
 
 	function GetFilename(url) {
 	  if (url) {
@@ -23125,12 +23481,12 @@
 	exports.default = TextureWidget;
 
 /***/ },
-/* 185 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Events = __webpack_require__(186);
+	var Events = __webpack_require__(176);
 	var Viewport = __webpack_require__(188);
 	var ComponentLoader = __webpack_require__(192);
 	var ShaderLoader = __webpack_require__(193);
@@ -23161,26 +23517,38 @@
 	    }
 	  },
 
+	  /**
+	   * Callback when the a-scene is loaded
+	   */
 	  onSceneLoaded: function onSceneLoaded() {
+	    var _this = this;
+
 	    this.container = document.querySelector('.a-canvas');
 	    this.currentCameraEl = document.querySelector('[camera]');
+
+	    // If the current camera is the default, we should prevent AFRAME from
+	    // remove it once when we inject the editor's camera
+	    if (this.currentCameraEl.hasAttribute('data-aframe-default-camera')) {
+	      this.currentCameraEl.removeAttribute('data-aframe-default-camera');
+	      this.currentCameraEl.setAttribute('data-aframe-inspector', 'default-camera');
+	    }
 
 	    this.inspectorCameraEl = document.createElement('a-entity');
 	    this.inspectorCameraEl.isInspector = true;
 	    this.inspectorCameraEl.addEventListener('loaded', function (entity) {
-	      this.DEFAULT_CAMERA = this.inspectorCameraEl.getObject3D('camera');
-	      this.initUI();
-	    }.bind(this));
+	      _this.EDITOR_CAMERA = _this.inspectorCameraEl.getObject3D('camera');
+	      _this.initUI();
+	    });
 	    this.inspectorCameraEl.setAttribute('camera', { far: 10000, fov: 50, near: 1, active: true });
 	    document.querySelector('a-scene').appendChild(this.inspectorCameraEl);
 	  },
-
 	  initUI: function initUI() {
-	    this.DEFAULT_CAMERA.position.set(20, 10, 20);
-	    this.DEFAULT_CAMERA.lookAt(new THREE.Vector3());
-	    this.DEFAULT_CAMERA.updateMatrixWorld();
+	    var _this2 = this;
 
-	    this.camera = this.DEFAULT_CAMERA;
+	    this.EDITOR_CAMERA.position.set(20, 10, 20);
+	    this.EDITOR_CAMERA.lookAt(new THREE.Vector3());
+	    this.EDITOR_CAMERA.updateMatrixWorld();
+	    this.camera = this.EDITOR_CAMERA;
 
 	    this.initEvents();
 
@@ -23210,33 +23578,23 @@
 	    addObjects(this.sceneEl.object3D);
 
 	    document.addEventListener('model-loaded', function (event) {
-	      this.addObject(event.target.object3D);
-	    }.bind(this));
+	      _this2.addObject(event.target.object3D);
+	    });
 
 	    document.addEventListener('selectedEntityComponentChanged', function (event) {
-	      this.addObject(event.target.object3D);
-	    }.bind(this));
+	      _this2.addObject(event.target.object3D);
+	    });
 
 	    this.scene.add(this.sceneHelpers);
 
 	    this.open();
 	  },
-	  /*
-	    removeObject: function (object) {
-	      if (object.parent === null) return; // avoid deleting the camera or scene
-	  
-	      var scope = this;
-	  
-	      object.traverse(function (child) {
-	        scope.removeHelper(child);
-	      });
-	  
-	      object.parent.remove(object);
-	  
-	      Events.emit('objectRemoved', object);
-	      Events.emit('sceneGraphChanged');
-	    },
-	  */
+
+	  removeObject: function removeObject(object) {
+	    // Remove just the helper as the object will be deleted by Aframe
+	    object.traverse(this.removeHelper.bind(this));
+	  },
+
 	  addHelper: function () {
 	    var geometry = new THREE.SphereBufferGeometry(2, 4, 2);
 	    var material = new THREE.MeshBasicMaterial({ color: 0xff0000, visible: false });
@@ -23296,31 +23654,47 @@
 	    }
 	  },
 	  initEvents: function initEvents() {
-	    var _this = this;
+	    var _this3 = this;
+
+	    window.addEventListener('keydown', function (evt) {
+	      // Alt + Ctrl + i
+	      var shortcutPressed = evt.keyCode === 73 && evt.ctrlKey && evt.altKey;
+	      var escape = evt.keyCode === 27;
+	      if (escape) {
+	        _this3.close();
+	        return;
+	      }
+	      if (shortcutPressed) {
+	        _this3.toggle();
+	      }
+	    });
 
 	    Events.on('entitySelected', function (entity) {
-	      this.selectEntity(entity, false);
-	    }.bind(this));
+	      _this3.selectEntity(entity, false);
+	    });
 
 	    Events.on('inspectorModeChanged', function (active) {
-	      this.inspectorActive = active;
-	      this.sceneHelpers.visible = this.inspectorActive;
-	    }.bind(this));
+	      _this3.inspectorActive = active;
+	      _this3.sceneHelpers.visible = _this3.inspectorActive;
+	    });
 
 	    Events.on('createNewEntity', function (definition) {
-	      this.createNewEntity(definition);
-	    }.bind(this));
+	      _this3.createNewEntity(definition);
+	    });
 
 	    Events.on('domModified', function (mutations) {
-	      var self = _this;
+	      if (!mutations) {
+	        return;
+	      }
 	      mutations.forEach(function (mutation) {
-	        if (mutation.type === 'childList') {
-	          Array.prototype.slice.call(mutation.removedNodes).forEach(function (removedNode) {
-	            if (self.selectedEntity === removedNode) {
-	              self.selectEntity(null);
-	            }
-	          });
+	        if (mutation.type !== 'childList') {
+	          return;
 	        }
+	        Array.prototype.slice.call(mutation.removedNodes).forEach(function (removedNode) {
+	          if (_this3.selectedEntity === removedNode) {
+	            _this3.selectEntity(null);
+	          }
+	        });
 	      });
 	    });
 	  },
@@ -23331,7 +23705,6 @@
 	    }
 	    this.select(this.scene.getObjectById(id, true));
 	  },
-
 	  // Change to select object
 	  select: function select(object) {
 	    if (this.selected === object) {
@@ -23340,13 +23713,14 @@
 	    this.selected = object;
 	    Events.emit('objectSelected', object);
 	  },
-
 	  deselect: function deselect() {
 	    this.select(null);
 	  },
-
+	  /**
+	   * Reset the current scene, removing its content.
+	   */
 	  clear: function clear() {
-	    this.camera.copy(this.DEFAULT_CAMERA);
+	    this.camera.copy(this.EDITOR_CAMERA);
 	    this.deselect();
 	    document.querySelector('a-scene').innerHTML = '';
 	    Events.emit('inspectorCleared');
@@ -23358,6 +23732,8 @@
 	   * @return {Element}            Entity created
 	   */
 	  createNewEntity: function createNewEntity(definition) {
+	    var _this4 = this;
+
 	    var entity = document.createElement(definition.element);
 
 	    // load default attributes
@@ -23367,8 +23743,8 @@
 
 	    // Ensure the components are loaded before update the UI
 	    entity.addEventListener('loaded', function () {
-	      this.addEntity(entity);
-	    }.bind(this));
+	      _this4.addEntity(entity);
+	    });
 
 	    this.sceneEl.appendChild(entity);
 
@@ -23378,20 +23754,48 @@
 	    this.addObject(entity.object3D);
 	    this.selectEntity(entity);
 	  },
-
+	  /**
+	   * Toggle the editor
+	   */
+	  toggle: function toggle() {
+	    if (this.opened) {
+	      this.close();
+	    } else {
+	      this.open();
+	    }
+	  },
+	  /**
+	   * Open the editor UI
+	   */
 	  open: function open() {
+	    var sceneEl = this.sceneEl;
 	    this.opened = true;
 	    Events.emit('inspectorModeChanged', true);
-	    this.sceneEl.pause();
+	    sceneEl.pause();
+	    if (sceneEl.hasAttribute('embedded')) {
+	      // Remove embedded styles, but keep track of it.
+	      sceneEl.removeAttribute('embedded');
+	      sceneEl.setAttribute('aframe-inspector-removed-embedded');
+	    }
+	    document.body.classList.add('aframe-inspector-opened');
+	    sceneEl.resize();
 	  },
-
+	  /**
+	   * Closes the editor and gives the control back to the scene
+	   * @return {[type]} [description]
+	   */
 	  close: function close() {
+	    var sceneEl = this.sceneEl;
 	    this.opened = false;
 	    Events.emit('inspectorModeChanged', false);
-	    this.sceneEl.play();
-	    // @todo Removelisteners
+	    sceneEl.play();
+	    if (sceneEl.hasAttribute('aframe-inspector-removed-embedded')) {
+	      sceneEl.setAttribute('embedded', '');
+	      sceneEl.removeAttribute('aframe-inspector-removed-embedded');
+	    }
+	    document.body.classList.remove('aframe-inspector-opened');
+	    sceneEl.resize();
 	  },
-
 	  addObject: function addObject(object) {
 	    var scope = this;
 	    object.traverse(function (child) {
@@ -23408,349 +23812,12 @@
 	module.exports = new Inspector();
 
 /***/ },
-/* 186 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var Emitter = __webpack_require__(187).EventEmitter;
-	var emitter = new Emitter();
-	emitter.setMaxListeners(0);
-
-	function Events() {}
-
-	Events.prototype.on = function () {
-	  emitter.on.apply(emitter, arguments);
-	  return this;
-	};
-
-	Events.prototype.emit = function () {
-	  emitter.emit.apply(emitter, arguments);
-	  return this;
-	};
-
-	Events.prototype.removeListener = function () {
-	  emitter.removeListener.apply(emitter, arguments);
-	  return this;
-	};
-
-	module.exports = new Events();
-
-/***/ },
-/* 187 */
-/***/ function(module, exports) {
-
-	// Copyright Joyent, Inc. and other Node contributors.
-	//
-	// Permission is hereby granted, free of charge, to any person obtaining a
-	// copy of this software and associated documentation files (the
-	// "Software"), to deal in the Software without restriction, including
-	// without limitation the rights to use, copy, modify, merge, publish,
-	// distribute, sublicense, and/or sell copies of the Software, and to permit
-	// persons to whom the Software is furnished to do so, subject to the
-	// following conditions:
-	//
-	// The above copyright notice and this permission notice shall be included
-	// in all copies or substantial portions of the Software.
-	//
-	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-	// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-	function EventEmitter() {
-	  this._events = this._events || {};
-	  this._maxListeners = this._maxListeners || undefined;
-	}
-	module.exports = EventEmitter;
-
-	// Backwards-compat with node 0.10.x
-	EventEmitter.EventEmitter = EventEmitter;
-
-	EventEmitter.prototype._events = undefined;
-	EventEmitter.prototype._maxListeners = undefined;
-
-	// By default EventEmitters will print a warning if more than 10 listeners are
-	// added to it. This is a useful default which helps finding memory leaks.
-	EventEmitter.defaultMaxListeners = 10;
-
-	// Obviously not all Emitters should be limited to 10. This function allows
-	// that to be increased. Set to zero for unlimited.
-	EventEmitter.prototype.setMaxListeners = function(n) {
-	  if (!isNumber(n) || n < 0 || isNaN(n))
-	    throw TypeError('n must be a positive number');
-	  this._maxListeners = n;
-	  return this;
-	};
-
-	EventEmitter.prototype.emit = function(type) {
-	  var er, handler, len, args, i, listeners;
-
-	  if (!this._events)
-	    this._events = {};
-
-	  // If there is no 'error' event listener then throw.
-	  if (type === 'error') {
-	    if (!this._events.error ||
-	        (isObject(this._events.error) && !this._events.error.length)) {
-	      er = arguments[1];
-	      if (er instanceof Error) {
-	        throw er; // Unhandled 'error' event
-	      } else {
-	        // At least give some kind of context to the user
-	        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
-	        err.context = er;
-	        throw err;
-	      }
-	    }
-	  }
-
-	  handler = this._events[type];
-
-	  if (isUndefined(handler))
-	    return false;
-
-	  if (isFunction(handler)) {
-	    switch (arguments.length) {
-	      // fast cases
-	      case 1:
-	        handler.call(this);
-	        break;
-	      case 2:
-	        handler.call(this, arguments[1]);
-	        break;
-	      case 3:
-	        handler.call(this, arguments[1], arguments[2]);
-	        break;
-	      // slower
-	      default:
-	        args = Array.prototype.slice.call(arguments, 1);
-	        handler.apply(this, args);
-	    }
-	  } else if (isObject(handler)) {
-	    args = Array.prototype.slice.call(arguments, 1);
-	    listeners = handler.slice();
-	    len = listeners.length;
-	    for (i = 0; i < len; i++)
-	      listeners[i].apply(this, args);
-	  }
-
-	  return true;
-	};
-
-	EventEmitter.prototype.addListener = function(type, listener) {
-	  var m;
-
-	  if (!isFunction(listener))
-	    throw TypeError('listener must be a function');
-
-	  if (!this._events)
-	    this._events = {};
-
-	  // To avoid recursion in the case that type === "newListener"! Before
-	  // adding it to the listeners, first emit "newListener".
-	  if (this._events.newListener)
-	    this.emit('newListener', type,
-	              isFunction(listener.listener) ?
-	              listener.listener : listener);
-
-	  if (!this._events[type])
-	    // Optimize the case of one listener. Don't need the extra array object.
-	    this._events[type] = listener;
-	  else if (isObject(this._events[type]))
-	    // If we've already got an array, just append.
-	    this._events[type].push(listener);
-	  else
-	    // Adding the second element, need to change to array.
-	    this._events[type] = [this._events[type], listener];
-
-	  // Check for listener leak
-	  if (isObject(this._events[type]) && !this._events[type].warned) {
-	    if (!isUndefined(this._maxListeners)) {
-	      m = this._maxListeners;
-	    } else {
-	      m = EventEmitter.defaultMaxListeners;
-	    }
-
-	    if (m && m > 0 && this._events[type].length > m) {
-	      this._events[type].warned = true;
-	      console.error('(node) warning: possible EventEmitter memory ' +
-	                    'leak detected. %d listeners added. ' +
-	                    'Use emitter.setMaxListeners() to increase limit.',
-	                    this._events[type].length);
-	      if (typeof console.trace === 'function') {
-	        // not supported in IE 10
-	        console.trace();
-	      }
-	    }
-	  }
-
-	  return this;
-	};
-
-	EventEmitter.prototype.on = EventEmitter.prototype.addListener;
-
-	EventEmitter.prototype.once = function(type, listener) {
-	  if (!isFunction(listener))
-	    throw TypeError('listener must be a function');
-
-	  var fired = false;
-
-	  function g() {
-	    this.removeListener(type, g);
-
-	    if (!fired) {
-	      fired = true;
-	      listener.apply(this, arguments);
-	    }
-	  }
-
-	  g.listener = listener;
-	  this.on(type, g);
-
-	  return this;
-	};
-
-	// emits a 'removeListener' event iff the listener was removed
-	EventEmitter.prototype.removeListener = function(type, listener) {
-	  var list, position, length, i;
-
-	  if (!isFunction(listener))
-	    throw TypeError('listener must be a function');
-
-	  if (!this._events || !this._events[type])
-	    return this;
-
-	  list = this._events[type];
-	  length = list.length;
-	  position = -1;
-
-	  if (list === listener ||
-	      (isFunction(list.listener) && list.listener === listener)) {
-	    delete this._events[type];
-	    if (this._events.removeListener)
-	      this.emit('removeListener', type, listener);
-
-	  } else if (isObject(list)) {
-	    for (i = length; i-- > 0;) {
-	      if (list[i] === listener ||
-	          (list[i].listener && list[i].listener === listener)) {
-	        position = i;
-	        break;
-	      }
-	    }
-
-	    if (position < 0)
-	      return this;
-
-	    if (list.length === 1) {
-	      list.length = 0;
-	      delete this._events[type];
-	    } else {
-	      list.splice(position, 1);
-	    }
-
-	    if (this._events.removeListener)
-	      this.emit('removeListener', type, listener);
-	  }
-
-	  return this;
-	};
-
-	EventEmitter.prototype.removeAllListeners = function(type) {
-	  var key, listeners;
-
-	  if (!this._events)
-	    return this;
-
-	  // not listening for removeListener, no need to emit
-	  if (!this._events.removeListener) {
-	    if (arguments.length === 0)
-	      this._events = {};
-	    else if (this._events[type])
-	      delete this._events[type];
-	    return this;
-	  }
-
-	  // emit removeListener for all listeners on all events
-	  if (arguments.length === 0) {
-	    for (key in this._events) {
-	      if (key === 'removeListener') continue;
-	      this.removeAllListeners(key);
-	    }
-	    this.removeAllListeners('removeListener');
-	    this._events = {};
-	    return this;
-	  }
-
-	  listeners = this._events[type];
-
-	  if (isFunction(listeners)) {
-	    this.removeListener(type, listeners);
-	  } else if (listeners) {
-	    // LIFO order
-	    while (listeners.length)
-	      this.removeListener(type, listeners[listeners.length - 1]);
-	  }
-	  delete this._events[type];
-
-	  return this;
-	};
-
-	EventEmitter.prototype.listeners = function(type) {
-	  var ret;
-	  if (!this._events || !this._events[type])
-	    ret = [];
-	  else if (isFunction(this._events[type]))
-	    ret = [this._events[type]];
-	  else
-	    ret = this._events[type].slice();
-	  return ret;
-	};
-
-	EventEmitter.prototype.listenerCount = function(type) {
-	  if (this._events) {
-	    var evlistener = this._events[type];
-
-	    if (isFunction(evlistener))
-	      return 1;
-	    else if (evlistener)
-	      return evlistener.length;
-	  }
-	  return 0;
-	};
-
-	EventEmitter.listenerCount = function(emitter, type) {
-	  return emitter.listenerCount(type);
-	};
-
-	function isFunction(arg) {
-	  return typeof arg === 'function';
-	}
-
-	function isNumber(arg) {
-	  return typeof arg === 'number';
-	}
-
-	function isObject(arg) {
-	  return typeof arg === 'object' && arg !== null;
-	}
-
-	function isUndefined(arg) {
-	  return arg === void 0;
-	}
-
-
-/***/ },
 /* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _lodash = __webpack_require__(178);
+	var _lodash = __webpack_require__(180);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -23768,7 +23835,7 @@
 
 	/* global THREE CustomEvent */
 
-	var Events = __webpack_require__(186);
+	var Events = __webpack_require__(176);
 
 	var gaTrackTransformEntity = (0, _lodash2.default)(function (transformMode) {
 	  ga('send', 'event', 'Viewport', 'transformEntity', transformMode);
@@ -24020,14 +24087,25 @@
 	    }
 	  }
 
-	  inspector.container.addEventListener('mousedown', onMouseDown, false);
-	  inspector.container.addEventListener('touchstart', onTouchStart, false);
-	  inspector.container.addEventListener('dblclick', onDoubleClick, false);
-
 	  // controls need to be added *after* main logic,
 	  // otherwise controls.enabled doesn't work.
-
 	  var controls = new THREE.EditorControls(camera, inspector.container);
+
+	  function disableControls() {
+	    inspector.container.removeEventListener('mousedown', onMouseDown);
+	    inspector.container.removeEventListener('touchstart', onTouchStart);
+	    inspector.container.removeEventListener('dblclick', onDoubleClick);
+	    controls.enabled = false;
+	  }
+
+	  function enableControls() {
+	    inspector.container.addEventListener('mousedown', onMouseDown, false);
+	    inspector.container.addEventListener('touchstart', onTouchStart, false);
+	    inspector.container.addEventListener('dblclick', onDoubleClick, false);
+	    controls.enabled = true;
+	  }
+	  enableControls();
+
 	  controls.addEventListener('change', function () {
 	    transformControls.update();
 	    gaTrackChangeEditorCamera();
@@ -24123,11 +24201,13 @@
 
 	  Events.on('inspectorModeChanged', function (active) {
 	    if (active) {
+	      enableControls();
 	      inspector.inspectorCameraEl.setAttribute('camera', 'active', 'true');
 	      Array.prototype.slice.call(document.querySelectorAll('.a-enter-vr,.rs-base')).forEach(function (element) {
 	        element.style.display = 'none';
 	      });
 	    } else {
+	      disableControls();
 	      prevActivedCameraEl.setAttribute('camera', 'active', 'true');
 	      Array.prototype.slice.call(document.querySelectorAll('.a-enter-vr,.rs-base')).forEach(function (element) {
 	        element.style.display = 'block';
@@ -25589,7 +25669,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _NumberWidget = __webpack_require__(182);
+	var _NumberWidget = __webpack_require__(184);
 
 	var _NumberWidget2 = _interopRequireDefault(_NumberWidget);
 
@@ -25680,8 +25760,8 @@
 
 	var _CommonComponents = __webpack_require__(196);
 
-	var INSPECTOR = __webpack_require__(185);
-	var Events = __webpack_require__(186);
+	var INSPECTOR = __webpack_require__(187);
+	var Events = __webpack_require__(176);
 	var components = AFRAME.components;
 	var isSingleProperty = AFRAME.schema.isSingleProperty;
 
@@ -25729,6 +25809,7 @@
 	  if (entity) {
 	    if (force === true || confirm('Do you really want to remove entity `' + (entity.id || entity.tagName) + '`?')) {
 	      var closest = findClosestEntity(entity);
+	      INSPECTOR.removeObject(entity.object3D);
 	      entity.parentNode.removeChild(entity);
 	      INSPECTOR.selectEntity(closest);
 	    }
@@ -25877,7 +25958,7 @@
 
 	var _widgets = __webpack_require__(197);
 
-	var _PropertyRow = __webpack_require__(177);
+	var _PropertyRow = __webpack_require__(179);
 
 	var _PropertyRow2 = _interopRequireDefault(_PropertyRow);
 
@@ -25891,7 +25972,7 @@
 
 	var _entity = __webpack_require__(195);
 
-	var _Events = __webpack_require__(186);
+	var _Events = __webpack_require__(176);
 
 	var _Events2 = _interopRequireDefault(_Events);
 
@@ -25901,8 +25982,7 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global Events */
-
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	// @todo Take this out and use updateEntity?
 	function changeId(entity, componentName, propertyName, value) {
@@ -25917,10 +25997,10 @@
 	var CommonComponents = exports.CommonComponents = function (_React$Component) {
 	  _inherits(CommonComponents, _React$Component);
 
-	  function CommonComponents(props) {
+	  function CommonComponents() {
 	    _classCallCheck(this, CommonComponents);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(CommonComponents).call(this, props));
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(CommonComponents).apply(this, arguments));
 	  }
 
 	  _createClass(CommonComponents, [{
@@ -25965,7 +26045,7 @@
 	          _react2.default.createElement(
 	            'span',
 	            null,
-	            'Common'
+	            'COMMON'
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -26002,12 +26082,12 @@
 	'use strict';
 
 	module.exports = {
-	  BooleanWidget: __webpack_require__(179).default,
-	  ColorWidget: __webpack_require__(180).default,
-	  InputWidget: __webpack_require__(181).default,
-	  NumberWidget: __webpack_require__(182).default,
-	  SelectWidget: __webpack_require__(183).default,
-	  TextureWidget: __webpack_require__(184).default,
+	  BooleanWidget: __webpack_require__(181).default,
+	  ColorWidget: __webpack_require__(182).default,
+	  InputWidget: __webpack_require__(183).default,
+	  NumberWidget: __webpack_require__(184).default,
+	  SelectWidget: __webpack_require__(185).default,
+	  TextureWidget: __webpack_require__(186).default,
 	  Vec3Widget: __webpack_require__(194).default
 	};
 
@@ -26035,7 +26115,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Events = __webpack_require__(186);
+	var Events = __webpack_require__(176);
 
 	function trim(s) {
 	  s = s.replace(/(^\s*)|(\s*$)/gi, '');
@@ -27613,7 +27693,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _lodash = __webpack_require__(178);
+	var _lodash = __webpack_require__(180);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -27631,7 +27711,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Events = __webpack_require__(186);
+	var Events = __webpack_require__(176);
 
 	var ICONS = {
 	  camera: 'fa-video-camera',
@@ -27698,9 +27778,16 @@
 	          if (!child.dataset.isInspector && child.isEntity && !child.isInspector) {
 	            var extra = '';
 
-	            for (var icon in ICONS) {
-	              if (child.components && child.components[icon]) {
-	                extra += ' <i class="fa ' + ICONS[icon] + '"></i>';
+	            for (var componentName in ICONS) {
+	              if (child.components && child.components[componentName]) {
+	                (function () {
+	                  var properties = child.getAttribute(componentName);
+	                  var titles = Object.keys(properties).sort().map(function (property) {
+	                    return ' - ' + property + ': ' + properties[property];
+	                  });
+	                  var componentTitle = componentName + (titles.length ? '\n' + titles.join('\n') : '');
+	                  extra += ' <i class="component fa ' + ICONS[componentName] + '" title="' + componentTitle + '"></i>';
+	                })();
 	              }
 	            }
 
@@ -27892,7 +27979,7 @@
 
 	var _exporter = __webpack_require__(214);
 
-	var _Events = __webpack_require__(186);
+	var _Events = __webpack_require__(176);
 
 	var _Events2 = _interopRequireDefault(_Events);
 
@@ -27904,7 +27991,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var INSPECTOR = __webpack_require__(185);
+	var INSPECTOR = __webpack_require__(187);
 
 	var Toolbar = function (_React$Component) {
 	  _inherits(Toolbar, _React$Component);
@@ -27961,9 +28048,9 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'scenegraph-actions' },
-	        _react2.default.createElement('a', { className: 'button fa fa-clipboard', 'data-action': 'copy-scene-to-clipboard' }),
-	        _react2.default.createElement('a', { className: 'button fa fa-floppy-o', onClick: this.saveSceneToHTML }),
-	        _react2.default.createElement('a', { className: 'button fa fa-plus', onClick: this.addEntity })
+	        _react2.default.createElement('a', { className: 'button fa fa-clipboard', title: 'Copy scene to clipboard', 'data-action': 'copy-scene-to-clipboard' }),
+	        _react2.default.createElement('a', { className: 'button fa fa-download', title: 'Export to HTML', onClick: this.saveSceneToHTML }),
+	        _react2.default.createElement('a', { className: 'button fa fa-plus', title: 'Add a new entity', onClick: this.addEntity })
 	      );
 	    }
 	  }]);
@@ -28069,7 +28156,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var React = __webpack_require__(2);
-	var Events = __webpack_require__(186);
+	var Events = __webpack_require__(176);
 	var classNames = __webpack_require__(175);
 
 	var TransformButtons = [{ value: 'translate', icon: 'fa-arrows' }, { value: 'rotate', icon: 'fa-repeat' }, { value: 'scale', icon: 'fa-expand' }];
@@ -28182,7 +28269,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  font-family: Helvetica, Arial, sans-serif;\n  font-size: 14px;\n  margin: 0;\n  overflow: hidden;\n}\n\nhr {\n  border: 0;\n  border-top: 1px solid #ccc;\n}\n\na {\n  cursor: pointer;\n}\n\nbutton {\n  position: relative;\n}\n\ntextarea {\n  -moz-tab-size: 4;\n    -o-tab-size: 4;\n       tab-size: 4;\n  white-space: pre;\n  word-wrap: normal;\n}\n\ntextarea.success {\n  border-color: #8b8 !important;\n}\n\ntextarea.fail {\n  border-color: #f00 !important;\n  background-color: rgba(255,0,0,0.05);\n}\n\ntextarea, input { outline: none; }\n\n/* osx */\n\n#sidebar,\n#sidebar-left,\n.panel {\n  cursor: default;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.collapsible .static {\n  margin: 0;\n}\n\n.collapsible .static .collapse-button {\n  float: left;\n  margin-right: 6px;\n  width: 0;\n  height: 0;\n  border: 6px solid transparent;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  margin-top: 2px;\n  border-left-color: #1faaf2;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  margin-top: 6px;\n  border-top-color: #1faaf2;\n}\n\n.collapsible.collapsed .content {\n  display: none;\n}\n\n/* CodeMirror */\n\n.CodeMirror {\n\n  position: absolute !important;\n  top: 37px;\n  width: 100% !important;\n  height: calc(100% - 37px) !important;\n\n}\n\n.CodeMirror .errorLine {\n\n    background: rgba(255,0,0,0.25);\n\n  }\n\n.CodeMirror .esprima-error {\n\n    color: #f00;\n    text-align: right;\n    padding: 0 20px;\n\n  }\n\n.toggle-edit {\n  background-color: #ed3160;\n  position: fixed;\n  left: 3px;\n  top: 3px;\n  padding: 6px 10px;\n  color: #fff;\n  text-decoration: none;\n  text-align: center;\n  z-index: 99999;\n  width: 174px;\n}\n\n.toggle-edit:hover {\n  background-color: rgb(228,43,90);\n}\n\n.scenegraph {\n  border-top: 1px solid #111;\n  padding-top: 32px;\n}\n\n.scenegraph .search {\n  padding: 5px;\n}\n\n.scenegraph-toolbar {\n  background-color: #333;\n  position: fixed;\n  top: 32px;\n}\n\n.scenegraph-actions {\n  padding: 9px 0px 5px 0px;\n}\n\n.search {\n  position: relative;\n  color: #aaa;\n  font-size: 16px;\n}\n\n.search input {\n  width: 185px;\n  height: 22px;\n  background: #222;\n  border-radius: 5px;\n}\n\n.search input {\n  text-indent: 10px;\n}\n\n.search .fa-search {\n  position: absolute;\n  top: 10px;\n  right: 11px;\n}\n\ninput {\n  background-color: transparent;\n  border: 1px solid #555;\n  color: #fff;\n}\n\ninput, .texture canvas {\n  -webkit-transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n  transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n}\n\ninput[type=text],\ninput[type=number],\ninput.string,\ninput.number {\n  min-height: 14px;\n  outline: none;\n}\n\ninput.number {\n  color: #20b1fb !important;\n  font-size: 12px;\n  border: 0px;\n  padding: 2px;\n  cursor: col-resize;\n  background-color: transparent !important;\n}\n\ninput.string:focus,\ninput.number:focus {\n  border: 1px solid #20b1fb;\n  cursor: auto;\n  color: #fff;\n}\n\n#viewport {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 330px;\n  bottom: 32px;\n}\n\n#viewport #info {\n    text-shadow: 1px 1px 0 rgba(0,0,0,0.25);\n    pointer-events: none;\n  }\n\n#script {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 330px;\n  bottom: 32px;\n  opacity: 0.9;\n}\n\n#player {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 330px;\n  bottom: 32px;\n}\n\n#menubar {\n  position: absolute;\n  width: 100%;\n  height: 32px;\n  background: #323232;\n  padding: 0;\n  margin: 0;\n  right: 0;\n  top: 0;\n  border-bottom: 1px solid #262626;\n}\n\n#menubar .menu {\n    float: left;\n    margin-right: 8px;\n  }\n\n#menubar .menu.right {\n    float: right;\n    cursor: auto;\n    padding-right: 0;\n    text-align: right;\n  }\n\n#menubar .menu .title {\n      display: inline-block;\n      color: #888;\n      margin: 0;\n      padding: 9px;\n    }\n\n#menubar .menu .options {\n      cursor: pointer;\n      z-index: 1500;\n      position: absolute;\n      display: none;\n      padding: 5px 0;\n      background: #111;\n      width: 150px;\n    }\n\n#menubar .menu:hover {\n        background: #111;\n    }\n\n#menubar .menu:hover .options {\n      display: block;\n    }\n\n#menubar .menu .options hr {\n        border-color: #222;\n      }\n\n#menubar .menu .options .option {\n        color: #888;\n        background-color: transparent;\n        padding: 5px 10px;\n        margin: 0 !important;\n      }\n\n#menubar .menu .options .option:hover {\n          color: #fff;\n          background-color: #08f;\n        }\n\n#menubar .menu .options .option:active {\n          background: transparent;\n        }\n\n#menubar .menu .options .inactive {\n      color: #444;\n      background-color: transparent;\n      padding: 5px 10px;\n      margin: 0 !important;\n    }\n\n#sidebar-left {\n  position: absolute;\n  left: 0;\n  top: 0;\n  bottom: 0;\n  width: 200px;\n  overflow: auto;\n  background: #2b2b2b;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  height: 100%;\n}\n\n#sidebar {\n  position: absolute;\n  right: 0;\n  top: 0;\n  bottom: 0;\n  width: 330px;\n  background: #2b2b2b;\n  overflow: auto;\n}\n\n#sidebar * {\n    vertical-align: middle;\n  }\n\ninput,\n  textarea,\n  select {\n    background: #222;\n    border: 1px solid transparent;\n    color: #888;\n  }\n\n.panel {\n    color: #888;\n    padding: 10px;\n    border-top: 1px solid #222;\n  }\n\n.panel.collapsed {\n    margin-bottom: 0;\n  }\n\n.panel.Material canvas {\n    border: solid 1px #5A5A5A;\n  }\n\n.row {\n    min-height: 20px;\n    margin-bottom: 10px;\n  }\n\n#tabs {\n  background-color: #1b1b1b;\n  border-top: 1px solid #222;\n}\n\n#tabs span {\n    color: #555;\n    border-right: 1px solid #222;\n    padding: 10px;\n  }\n\n#tabs span.selected {\n    color: #888;\n    background-color: #111;\n  }\n\n.aframe-logo {\n  background-color: #424242;\n  margin-right: 10px;\n}\n\n.aframe-logo span {\n  text-weight: bold;\n}\n\n.tab {\n  color: #1faaf2;\n  text-align: center;\n  background-color: #323232;\n  padding: 10px;\n  border-top: 2px solid #1faaf2;\n  font-size: 11px;\n}\n\ninput[type=color] {\n  border: 1px solid #111;\n  background-color: #333;\n  cursor: pointer;\n}\n\n.texture canvas {\n  border: 1px solid #222;\n}\n\ninput[type=color] {\n  height: 16px;\n  width: 64px;\n  cursor: pointer;\n  padding: 0;\n}\n\n/* Note: these vendor-prefixed selectors cannot be grouped! */\n\ninput[type=color]::-webkit-color-swatch {\n  border: 0;  /* To remove the gray border. */\n}\n\ninput[type=color]::-webkit-color-swatch-wrapper {\n  padding: 0;  /* To remove the inner padding. */\n}\n\ninput[type=color]::-moz-color-swatch {\n  border: 0;\n}\n\ninput[type=color]::-moz-focus-inner {\n  border: 0;  /* To remove the inner border (specific to Firefox). */\n  padding: 0;\n}\n\nbody {\n  background-color: #191919;\n  font-family: 'Roboto', sans-serif;\n  font-size: 12px;\n  color: #fff;\n}\n\n.components {\n  background-color: #323232;\n  color: #bcbcbc;\n}\n\n#app {\n  z-index: 1000;\n}\n\n#app b{\n  color: #ff9;\n}\n\ndiv.vec3 {\n  display: inline;\n}\n\n.vec3 input.number {\n  width: 50px;\n}\n\n.collapsible-header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.component-title span {\n  float: left;\n  max-width: 110px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  text-transform: uppercase;\n}\n\n.collapsible .static {\n  vertical-align: middle;\n  background-color: #323232;\n  color: #FFF;\n  padding: 10px;\n  border-top: 1px solid #262626;\n  border-bottom: 1px solid #262626;\n  height: 16px;\n}\n\n.collapsible .menu {\n  text-align: right;\n}\n\n.collapsible .menu:after {\n  color: #1faaf2;\n  content: '\\2807';\n  font-size: 12px;\n  padding: 5px;\n  text-align: right;\n}\n\n.collapsible .static .collapse-button {\n  margin-top: 2px;\n  width: 0;\n  height: 0;\n  float: left;\n  margin-right: 10px;\n  border-left: 5px solid transparent;\n  border-right: 5px solid transparent;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #1faaf2;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #1faaf2;\n}\n\n.collapsible .content {\n  background-color: #2b2b2b;\n  padding: 10px;\n}\n\n.components .row {\n  min-height: 20px;\n  margin-bottom: 10px;\n}\n\n.components * {\n  vertical-align: middle;\n}\n\n.components .row .text {\n  cursor: default;\n  display: inline-block;\n  vertical-align: middle;\n  width: 120px;\n}\n\n.components .row .map_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n\n.hidden {\n  visibility: hidden;\n}\n\n.texture canvas + input {\n  margin-left: 5px;\n}\n\n.texture .fa {\n  padding-right: 5px;\n}\n\n.texture input:button {\n  cursor: hand;\n}\n\n.scenegraph-bottom {\n  background-color: #323232;\n  bottom: 10;\n  height: 40px;\n  z-index: 100;\n  border-top: 1px solid #111;\n  left: 0;\n}\n\na.button {\n  color: #bcbcbc;\n  font-size: 16px;\n  text-decoration: none;\n  margin-left: 10px;\n}\n\na.button:hover {\n  color: #1faaf2;\n}\n\n.scenegraph-bottom a {\n  float: right;\n  margin: 10px;\n}\n\n/* The container <div> - needed to position the dropdown content */\n\n.dropdown {\n  position: relative;\n  display: inline-block;\n  float: right;\n}\n\n/* Dropdown Content (Hidden by Default) */\n\n.dropdown-content {\n  left:auto;\n  right:0;\n  margin-right:-10px;\n  display: none;\n  position: absolute;\n  background-color: #f9f9f9;\n  min-width: 130px;\n  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\n}\n\n/* Links inside the dropdown */\n\n.dropdown-content a {\n  color: #888;\n  background-color: #222;\n  padding: 6px 8px;\n  text-decoration: none;\n  display: block;\n\n}\n\n/* Change color of dropdown links on hover */\n\n.dropdown-content a:hover {\n  color: #fff;\n  background-color: #08f;\n}\n\n.dropdown-content a.disabled {\n  color: #555;\n}\n\n/* Show the dropdown menu on hover */\n\n.dropdown:hover .dropdown-content {\n  display: block;\n}\n\n/* Change the background color of the dropdown button when the dropdown content is shown */\n\n.dropdown:hover .dropbtn {\n}\n\n/* The Modal (background) */\n\n.modal {\n  position: fixed; /* Stay in place */\n  z-index: 1; /* Sit on top */\n  padding-top: 100px; /* Location of the box */\n  left: 0;\n  top: 0;\n  width: 100%; /* Full width */\n  height: 100%; /* Full height */\n  overflow: auto; /* Enable scroll if needed */\n  background-color: rgb(0,0,0); /* Fallback color */\n  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */\n}\n\n/* Modal Content */\n\n.modal-content {\n  position: relative;\n  background-color: #232323;\n  margin: auto;\n  padding: 0;\n  width: 889px;\n  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);\n  -webkit-animation-name: animatetop;\n          animation-name: animatetop;\n  -webkit-animation-duration: 0.2s;\n          animation-duration: 0.2s\n}\n\n/* Add Animation */\n\n@-webkit-keyframes animatetop {\n  from {top:-300px; opacity:0}\n  to {top:0; opacity:1}\n}\n\n@keyframes animatetop {\n  from {top:-300px; opacity:0}\n  to {top:0; opacity:1}\n}\n\n/* The Close Button */\n\n.close {\n  color: white;\n  float: right;\n  font-size: 28px;\n  font-weight: bold;\n}\n\n.close:hover,\n.close:focus {\n  color: #08f;\n  text-decoration: none;\n  cursor: pointer;\n}\n\n.modal-header {\n  padding: 2px 16px;\n  color: white;\n}\n\n.modal-body {\n  padding: 16px;\n  overflow: auto;\n}\n\n.modal-footer {\n  padding: 2px 16px;\n  color: white;\n}\n\n/* Gallery */\n\n.gallery {\n  padding: 0px;\n  overflow:auto;\n  margin: 0 auto;\n}\n\n.gallery li {\n  width: 155px;\n  margin: 8px;\n  float: left;\n  overflow: hidden;\n  display: inline-block;\n  box-shadow: 3px 3px 8px -2px rgba(0,0,0,0.63);\n  cursor: pointer;\n}\n\n.gallery li:hover {\n  box-shadow: 0px 0px 4px 3px rgba(29,138,190,0.63);\n}\n\n.gallery li .detail {\n  background-color: #323232;\n  padding: 10px;\n  min-height: 60px;\n}\n\n.gallery li:hover .detail {\n  background-color: #444;\n}\n\n.gallery li .detail span {\n  color: #BBB !important;\n}\n\n.gallery li .detail span.title {\n  color: #EEE !important;\n  font-weight: bold;\n}\n\n/* Tabs */\n\n.tabs {\n  margin: 25px;\n  background: #fff;\n  border: 1px solid #e5e5e5;\n  border-radius: 3px;\n}\n\n.tabs__labels {\n  margin: 0;\n  padding: 0;\n  text-align: center;\n  font-size: 14px;\n}\n\n.tabs__labels li {\n  display: inline-block;\n  width: 33.3%;\n}\n\n.tabs__labels li a {\n  padding: 8px 12px;\n  display: block;\n  color: #AAA;\n  text-decoration: none;\n  padding: 15px;\n}\n\n.tabs__labels li a.active {\n  border-bottom: 2px solid #1eaaf1;\n  color: #1eaaf1;\n  background-color: #333;\n}\n\n.tabs__content {\n  background-color: #2b2b2b;\n  overflow:auto;\n  min-height: 100px;\n}\n\n.preview {\n  width: 200px;\n  float:right;\n  padding: 10px;\n}\n\n.new_asset_options {\n  float: left;\n  width: 600px;\n}\n\n.modal button {\n  display: inline-block;\n  margin: 0 10px 0 0;\n  padding: 5px 10px;\n  font-size: 12px;\n  line-height: 1.8;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  box-shadow: none;\n  border-radius: 0;\n  cursor: pointer;\n}\n\n.modal button:focus {\n  outline: none\n}\n\n.modal button {\n  color: #fff;\n  background-color: #1eaaf1;\n  border: none;\n}\n\n.modal button:hover,\n.modal button.hover {\n  background-color: #346392;\n  text-shadow: -1px 1px #27496d;\n}\n\n.modal button:active,\n.modal button.active {\n  background-color: #27496d;\n  text-shadow: -1px 1px #193047;\n}\n\n.newimage {\n  padding: 10px;\n  background-color: #323232;\n  overflow:auto;\n}\n\n.hide {\n  display: none;\n}\n\nspan.value {\n    color: #fff;\n    display: inline-block;\n}\n\nspan.mixinlist {\n  color: #888 !important;\n  display: inline-block;\n}\n\nspan.mixinlist ul {\n  list-style-type: none;\n  padding: 5px;\n  margin: 5px 0 0 0;\n  background-color: #222;\n}\n\nspan.mixinlist ul li {\n  margin-bottom: 3px;\n  font-size: 11px;\n}\n\nspan.mixinlist ul li:last-child {\n  margin-bottom: 0px;\n}\n\nspan.mixin {\n  width: 100px;\n  display: inline-block;\n}\n\n.mixinlist {\n  margin-left: 120px;\n}\n\nspan.subcomponent {\n  color: #999;\n  margin-left: 10px;\n  float: none !important;\n  vertical-align: top !important;\n}\n\n.collapsible .static {\n  cursor: pointer;\n}\n\n.a-canvas.state-dragging {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n\ncode, pre {\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.tagName {\n  font-weight: 500;\n}\n\n.sidebar-title {\n  color: #AAA;\n  text-align: center;\n  background-color: #444;\n  padding: 6px 10px;\n  font-size: 12px;\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t    -ms-flex-pack: justify;\n\t        justify-content: space-between;\n\n}\n\n.toolbar {\n  position: absolute;\n  right: 330px;\n  top: 0;\n  height: 32px;\n  background-color: #262626;\n  color: #333;\n}\n\n.toolbar * {\n  vertical-align: middle;\n  padding: 8px;\n  margin-left: 0px;\n}\n\n.toolbar a.button {\n  margin: 0 6px 0 0;\n}\n\n.toolbar .active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.toolbar .active:hover {\n  color: #fff !important;\n}\n\n.local-transform {\n  padding-left: 10px;\n}\n\n.local-transform label {\n  color: #AAA;\n  padding-left: 5px;\n}\n\n.local-transform a.button {\n  padding-top: 0px;\n}\n\n.outliner {\n  color: #868686;\n  background: #2b2b2b;\n  padding: 0;\n  width: 100%;\n  font-size: 12px;\n  cursor: default;\n  outline: none;\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 auto;\n          flex: 1 1 auto;\n  overflow-y: auto;\n  position: fixed;\n  width: 200px;\n  top: 98px;\n  height: calc(100% - 98px);\n}\n\n.outliner .option {\n  padding: 4px;\n  white-space: nowrap;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.outliner .option.active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.outliner .option .icons {\n  display: none;\n  margin: 0 3px 0 10px;\n}\n\n.outliner .option .icons .button {\n  font-size: 12px;\n  color: #fff;\n}\n\n.outliner .option.active .icons {\n  display: inline;\n}\n\n.outliner .fa {\n  color: #aaa;\n}\n\n.outliner .active .fa {\n  color: #fff;\n}\n\na.flat-button {\n  color: #bcbcbc;\n  background-color: #262626;\n  font-size: 11px;\n  text-decoration: none;\n  margin-left: 10px;\n  padding: 5px;\n}\n\na.flat-button:hover {\n  color: #1faaf2;\n}\n\n.component-title {\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t    -ms-flex-align: center;\n\t        align-items: center;\n}\n\na.help-link {\n  opacity: 0.4;\n}\n\na.help-link:hover {\n  opacity: 1.0;\n}\n", ""]);
+	exports.push([module.id, "body {\n  font-family: Helvetica, Arial, sans-serif;\n  font-size: 14px;\n  margin: 0;\n}\n\nbody.aframe-inspector-opened {\n  overflow: hidden;\n}\n\nhr {\n  border: 0;\n  border-top: 1px solid #ccc;\n}\n\na {\n  cursor: pointer;\n}\n\nbutton {\n  position: relative;\n}\n\ntextarea {\n  -moz-tab-size: 4;\n    -o-tab-size: 4;\n       tab-size: 4;\n  white-space: pre;\n  word-wrap: normal;\n}\n\ntextarea.success {\n  border-color: #8b8 !important;\n}\n\ntextarea.fail {\n  border-color: #f00 !important;\n  background-color: rgba(255,0,0,0.05);\n}\n\ntextarea, input { outline: none; }\n\n/* osx */\n\n#left-sidebar,\n#right-panels {\n  z-index: 9999;\n}\n\n#sidebar,\n#left-sidebar,\n.panel {\n  cursor: default;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.collapsible .static {\n  margin: 0;\n}\n\n.collapsible .static .collapse-button {\n  float: left;\n  margin-right: 6px;\n  width: 0;\n  height: 0;\n  border: 6px solid transparent;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  margin-top: 2px;\n  border-left-color: #1faaf2;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  margin-top: 6px;\n  border-top-color: #1faaf2;\n}\n\n.collapsible.collapsed .content {\n  display: none;\n}\n\n.toggle-edit {\n  background-color: #ed3160;\n  position: fixed;\n  left: 3px;\n  top: 3px;\n  padding: 6px 10px;\n  color: #fff;\n  text-decoration: none;\n  text-align: center;\n  z-index: 99999;\n  width: 174px;\n}\n\n.toggle-edit:hover {\n  background-color: rgb(228,43,90);\n}\n\n.scenegraph {\n  border-top: 1px solid #111;\n  padding-top: 32px;\n}\n\n.scenegraph .search {\n  padding: 5px;\n}\n\n.scenegraph-toolbar {\n  background-color: #333;\n  position: fixed;\n  top: 32px;\n}\n\n.scenegraph-actions {\n  padding: 9px 0px 5px 0px;\n}\n\n.search {\n  position: relative;\n  color: #aaa;\n  font-size: 16px;\n}\n\n.search input {\n  width: 185px;\n  height: 22px;\n  background: #222;\n  border-radius: 5px;\n}\n\n.search input {\n  text-indent: 10px;\n}\n\n.search .fa-search {\n  position: absolute;\n  top: 10px;\n  right: 11px;\n}\n\ninput {\n  background-color: transparent;\n  border: 1px solid #555;\n  color: #fff;\n}\n\ninput, .texture canvas {\n  -webkit-transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n  transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n}\n\ninput[type=text],\ninput[type=number],\ninput.string,\ninput.number {\n  min-height: 14px;\n  outline: none;\n}\n\ninput.number {\n  color: #20b1fb !important;\n  font-size: 12px;\n  border: 0px;\n  padding: 2px;\n  cursor: col-resize;\n  background-color: transparent !important;\n}\n\ninput.string:focus,\ninput.number:focus {\n  border: 1px solid #20b1fb;\n  cursor: auto;\n  color: #fff;\n}\n\n#left-sidebar {\n  position: fixed;\n  left: 0;\n  top: 0;\n  bottom: 0;\n  width: 200px;\n  overflow: auto;\n  background: #2b2b2b;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  height: 100%;\n}\n\n#sidebar {\n  width: 330px;\n  background: #2b2b2b;\n}\n\n#sidebar * {\n  vertical-align: middle;\n}\n\ninput,\ntextarea,\nselect {\n  background: #222;\n  border: 1px solid transparent;\n  color: #888;\n}\n\n.row {\n  min-height: 20px;\n  margin-bottom: 10px;\n}\n\ninput[type=color] {\n  border: 1px solid #111;\n  background-color: #333;\n  cursor: pointer;\n}\n\n.texture canvas {\n  border: 1px solid #222;\n}\n\ninput[type=color] {\n  height: 16px;\n  width: 64px;\n  cursor: pointer;\n  padding: 0;\n}\n\n/* Note: these vendor-prefixed selectors cannot be grouped! */\n\ninput[type=color]::-webkit-color-swatch {\n  border: 0;  /* To remove the gray border. */\n}\n\ninput[type=color]::-webkit-color-swatch-wrapper {\n  padding: 0;  /* To remove the inner padding. */\n}\n\ninput[type=color]::-moz-color-swatch {\n  border: 0;\n}\n\ninput[type=color]::-moz-focus-inner {\n  border: 0;  /* To remove the inner border (specific to Firefox). */\n  padding: 0;\n}\n\nbody {\n  font-family: 'Roboto', sans-serif;\n  font-size: 12px;\n  color: #fff;\n}\n\nbody.editor-opened {\n  background-color: #191919;\n}\n\n.components {\n  background-color: #323232;\n  color: #bcbcbc;\n  width: 330px;\n  position: fixed;\n  height: 100%;\n  overflow: auto;\n}\n\ndiv.vec3 {\n  display: inline;\n}\n\n.vec3 input.number {\n  width: 50px;\n}\n\n.collapsible-header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.component-title span {\n  float: left;\n  max-width: 110px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  text-transform: uppercase;\n}\n\n.collapsible .static {\n  vertical-align: middle;\n  background-color: #323232;\n  color: #FFF;\n  padding: 10px;\n  border-top: 1px solid #262626;\n  border-bottom: 1px solid #262626;\n  height: 16px;\n}\n\n.collapsible .menu {\n  text-align: right;\n}\n\n.collapsible .menu:after {\n  color: #1faaf2;\n  content: '\\2807';\n  font-size: 12px;\n  padding: 5px;\n  text-align: right;\n}\n\n.collapsible .static .collapse-button {\n  margin-top: 2px;\n  width: 0;\n  height: 0;\n  float: left;\n  margin-right: 10px;\n  border-left: 5px solid transparent;\n  border-right: 5px solid transparent;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #1faaf2;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #1faaf2;\n}\n\n.collapsible .content {\n  background-color: #2b2b2b;\n  padding: 10px;\n}\n\n.components .row {\n  min-height: 20px;\n  margin-bottom: 10px;\n}\n\n.components * {\n  vertical-align: middle;\n}\n\n.components .row .text {\n  cursor: default;\n  display: inline-block;\n  vertical-align: middle;\n  width: 120px;\n}\n\n.components .row .map_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n\n.hidden {\n  visibility: hidden;\n}\n\n.texture canvas + input {\n  margin-left: 5px;\n}\n\n.texture .fa {\n  padding-right: 5px;\n}\n\n.texture input:button {\n  cursor: hand;\n}\n\n.scenegraph-bottom {\n  background-color: #323232;\n  bottom: 10;\n  height: 40px;\n  z-index: 100;\n  border-top: 1px solid #111;\n  left: 0;\n}\n\na.button {\n  color: #bcbcbc;\n  font-size: 16px;\n  text-decoration: none;\n  margin-left: 10px;\n}\n\na.button:hover {\n  color: #1faaf2;\n}\n\n.scenegraph-bottom a {\n  float: right;\n  margin: 10px;\n}\n\n.modal {\n  position: fixed;\n  z-index: 1;\n  padding-top: 100px;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  background-color: rgb(0,0,0);\n  background-color: rgba(0,0,0,0.4);\n}\n\n.modal-content {\n  position: relative;\n  background-color: #232323;\n  margin: auto;\n  padding: 0;\n  width: 889px;\n  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);\n  -webkit-animation-name: animatetop;\n          animation-name: animatetop;\n  -webkit-animation-duration: 0.2s;\n          animation-duration: 0.2s\n}\n\n@-webkit-keyframes animatetop {\n  from {top:-300px; opacity:0}\n  to {top:0; opacity:1}\n}\n\n@keyframes animatetop {\n  from {top:-300px; opacity:0}\n  to {top:0; opacity:1}\n}\n\n.close {\n  color: white;\n  float: right;\n  font-size: 28px;\n  font-weight: bold;\n}\n\n.close:hover,\n.close:focus {\n  color: #08f;\n  text-decoration: none;\n  cursor: pointer;\n}\n\n.modal-header {\n  padding: 2px 16px;\n  color: white;\n}\n\n.modal-body {\n  padding: 16px;\n  overflow: auto;\n}\n\n.modal-footer {\n  padding: 2px 16px;\n  color: white;\n}\n\n/* Gallery */\n\n.gallery {\n  padding: 0px;\n  overflow:auto;\n  margin: 0 auto;\n}\n\n.gallery li {\n  width: 155px;\n  margin: 8px;\n  float: left;\n  overflow: hidden;\n  display: inline-block;\n  box-shadow: 3px 3px 8px -2px rgba(0,0,0,0.63);\n  cursor: pointer;\n}\n\n.gallery li:hover {\n  box-shadow: 0px 0px 4px 3px rgba(29,138,190,0.63);\n}\n\n.gallery li .detail {\n  background-color: #323232;\n  padding: 10px;\n  min-height: 60px;\n}\n\n.gallery li:hover .detail {\n  background-color: #444;\n}\n\n.gallery li .detail span {\n  color: #BBB !important;\n}\n\n.gallery li .detail span.title {\n  color: #EEE !important;\n  font-weight: bold;\n}\n\n.preview {\n  width: 200px;\n  float:right;\n  padding: 10px;\n}\n\n.new_asset_options {\n  float: left;\n  width: 600px;\n}\n\n.modal button {\n  display: inline-block;\n  margin: 0 10px 0 0;\n  padding: 5px 10px;\n  font-size: 12px;\n  line-height: 1.8;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  box-shadow: none;\n  border-radius: 0;\n  cursor: pointer;\n}\n\n.modal button:focus {\n  outline: none\n}\n\n.modal button {\n  color: #fff;\n  background-color: #1eaaf1;\n  border: none;\n}\n\n.modal button:hover,\n.modal button.hover {\n  background-color: #346392;\n  text-shadow: -1px 1px #27496d;\n}\n\n.modal button:active,\n.modal button.active {\n  background-color: #27496d;\n  text-shadow: -1px 1px #193047;\n}\n\n.newimage {\n  padding: 10px;\n  background-color: #323232;\n  overflow:auto;\n}\n\n.hide {\n  display: none;\n}\n\nspan.value {\n    color: #fff;\n    display: inline-block;\n}\n\nspan.mixinlist {\n  color: #888 !important;\n  display: inline-block;\n}\n\nspan.mixinlist ul {\n  list-style-type: none;\n  padding: 5px;\n  margin: 5px 0 0 0;\n  background-color: #222;\n}\n\nspan.mixinlist ul li {\n  margin-bottom: 3px;\n  font-size: 11px;\n}\n\nspan.mixinlist ul li:last-child {\n  margin-bottom: 0px;\n}\n\nspan.mixin {\n  width: 100px;\n  display: inline-block;\n}\n\n.mixinlist {\n  margin-left: 120px;\n}\n\nspan.subcomponent {\n  color: #999;\n  margin-left: 10px;\n  float: none !important;\n  vertical-align: top !important;\n}\n\n.collapsible .static {\n  cursor: pointer;\n}\n\n.a-canvas.state-dragging {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n\ncode, pre {\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.tagName {\n  font-weight: 500;\n}\n\n.sidebar-title {\n  color: #AAA;\n  text-align: center;\n  background-color: #444;\n  padding: 6px 10px;\n  font-size: 12px;\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-pack: justify;\n\t    -ms-flex-pack: justify;\n\t        justify-content: space-between;\n  position: relative;\n}\n\n.toolbar {\n  height: 32px;\n  background-color: #262626;\n  color: #333;\n  position: relative;\n}\n\n.toolbar * {\n  vertical-align: middle;\n  padding: 8px;\n  margin-left: 0px;\n}\n\n.toolbar a.button {\n  margin: 0 6px 0 0;\n}\n\n.toolbar .active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.toolbar .active:hover {\n  color: #fff !important;\n}\n\n.local-transform {\n  padding-left: 10px;\n}\n\n.local-transform label {\n  color: #AAA;\n  padding-left: 5px;\n}\n\n.local-transform a.button {\n  padding-top: 0px;\n}\n\n.outliner {\n  color: #868686;\n  background: #2b2b2b;\n  padding: 0;\n  width: 100%;\n  font-size: 12px;\n  cursor: default;\n  outline: none;\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 auto;\n          flex: 1 1 auto;\n  overflow-y: auto;\n  position: fixed;\n  width: 200px;\n  top: 98px;\n  height: calc(100% - 98px);\n}\n\n.outliner .option {\n  padding: 4px;\n  white-space: nowrap;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.outliner .option.active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.outliner .option .component:hover {\n  color: #1faaf2;\n}\n\n.outliner .option.active .component:hover {\n  color: #1888c1;\n}\n\n.outliner .option .icons {\n  display: none;\n  margin: 0 3px 0 10px;\n}\n\n.outliner .option .icons .button {\n  font-size: 12px;\n  color: #fff;\n}\n\n.outliner .option.active .icons {\n  display: inline;\n}\n\n.outliner .fa {\n  color: #aaa;\n}\n\n.outliner .active .fa {\n  color: #fff;\n}\n\na.flat-button {\n  color: #bcbcbc;\n  background-color: #262626;\n  font-size: 11px;\n  text-decoration: none;\n  margin-left: 10px;\n  padding: 5px;\n}\n\na.flat-button:hover {\n  color: #1faaf2;\n}\n\n.component-title {\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t    -ms-flex-align: center;\n\t        align-items: center;\n}\n\na.help-link {\n  opacity: 0.4;\n}\n\na.help-link:hover {\n  opacity: 1.0;\n}\n\n#right-panels {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  right: 0;\n}\n\n#aframe-inspector-panels {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n/* This is a temporaly hack, we should style the editor instead of overwriting\n   the a-scene to fix the \"display: block\" issue. */\n\n.aframe-inspector-opened a-scene {\n  display: inline !important;\n}\n\n.aframe-inspector-opened a-scene .a-canvas {\n  position: fixed;\n  background-color: #191919;\n  z-index: 9999;\n}\n", ""]);
 
 	// exports
 
