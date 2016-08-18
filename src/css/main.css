@@ -38,6 +38,11 @@ textarea.fail {
 
 textarea, input { outline: none; } /* osx */
 
+#left-sidebar,
+#right-panels {
+  z-index: 9999;
+}
+
 #sidebar,
 #left-sidebar,
 .panel {
@@ -749,4 +754,6 @@ a.help-link:hover {
 
 .aframe-inspector-opened a-scene .a-canvas {
   position: fixed;
+  background-color: #191919;
+  z-index: 9999;
 }
