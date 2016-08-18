@@ -23575,33 +23575,31 @@
 	   * Open the editor UI
 	   */
 	  open: function open() {
-	    var sceneEl = this.sceneEl;
 	    this.opened = true;
 	    Events.emit('inspectorModeChanged', true);
-	    sceneEl.pause();
-	    if (sceneEl.hasAttribute('embedded')) {
+	    this.sceneEl.pause();
+	    if (this.sceneEl.hasAttribute('embedded')) {
 	      // Remove embedded styles, but keep track of it.
-	      sceneEl.removeAttribute('embedded');
-	      sceneEl.setAttribute('aframe-inspector-removed-embedded');
+	      this.sceneEl.removeAttribute('embedded');
+	      this.sceneEl.setAttribute('aframe-inspector-removed-embedded');
 	    }
 	    document.body.classList.add('aframe-inspector-opened');
-	    sceneEl.resize();
+	    this.sceneEl.resize();
 	  },
 	  /**
 	   * Closes the editor and gives the control back to the scene
 	   * @return {[type]} [description]
 	   */
 	  close: function close() {
-	    var sceneEl = this.sceneEl;
 	    this.opened = false;
 	    Events.emit('inspectorModeChanged', false);
-	    sceneEl.play();
-	    if (sceneEl.hasAttribute('aframe-inspector-removed-embedded')) {
-	      sceneEl.setAttribute('embedded', '');
-	      sceneEl.removeAttribute('aframe-inspector-removed-embedded');
+	    this.sceneEl.play();
+	    if (this.sceneEl.hasAttribute('aframe-inspector-removed-embedded')) {
+	      this.sceneEl.setAttribute('embedded', '');
+	      this.sceneEl.removeAttribute('aframe-inspector-removed-embedded');
 	    }
 	    document.body.classList.remove('aframe-inspector-opened');
-	    sceneEl.resize();
+	    this.sceneEl.resize();
 	  },
 	  addObject: function addObject(object) {
 	    var scope = this;
@@ -27030,7 +27028,20 @@
 	  _createClass(ModalTextures, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this.samplesImages = [{ name: 'create1111', src: 'assets/textures/758px-Canestra_di_frutta_Caravaggio.jpg' }, { name: 'asdfqwer', src: 'assets/textures/2294472375_24a3b8ef46_o.jpg' }, { name: 'werwere', src: 'assets/textures/brick_diffuse.jpg' }, { name: 'werasdfasdf', src: 'assets/textures/checkerboard.jpg' }, { name: 'create', src: 'assets/textures/crate.gif' }, { name: 'uv_grid_sim', src: 'assets/textures/UV_Grid_Sm.jpg' }, { name: 'sprite0', src: 'assets/textures/sprite0.png' }, { name: 'envmap', src: 'assets/textures/envmap.png' }, { name: 'brick dump', src: 'assets/textures/brick_bump.jpg' }];
+	      this.samplesImages = [];
+	      /*
+	      this.samplesImages = [
+	        {name: 'create1111', src: 'assets/textures/758px-Canestra_di_frutta_Caravaggio.jpg'},
+	        {name: 'asdfqwer', src: 'assets/textures/2294472375_24a3b8ef46_o.jpg'},
+	        {name: 'werwere', src: 'assets/textures/brick_diffuse.jpg'},
+	        {name: 'werasdfasdf', src: 'assets/textures/checkerboard.jpg'},
+	        {name: 'create', src: 'assets/textures/crate.gif'},
+	        {name: 'uv_grid_sim', src: 'assets/textures/UV_Grid_Sm.jpg'},
+	        {name: 'sprite0', src: 'assets/textures/sprite0.png'},
+	        {name: 'envmap', src: 'assets/textures/envmap.png'},
+	        {name: 'brick dump', src: 'assets/textures/brick_bump.jpg'}
+	      ];
+	      */
 
 	      this.generateFromSamples();
 	      this.generateFromAssets();
