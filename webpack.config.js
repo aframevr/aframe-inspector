@@ -14,7 +14,13 @@ if (process.env.NODE_ENV === 'dev') {
 }
 
 // Minification.
-var plugins = [];
+var plugins = [
+  new webpack.DefinePlugin({
+    'process.env':{
+      'NODE_ENV': process.env.NODE_ENV
+    }
+  })
+];
 if (process.env.NODE_ENV === 'production') {
   plugins.push(new webpack.optimize.UglifyJsPlugin({
     compress: {warnings: false}
