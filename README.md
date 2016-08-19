@@ -15,7 +15,7 @@ There are several ways to use the inspector on your scene.
 ### A-Frame Component
 
 A-Frame comes with a component to inject the inspector. Just include the `inspector`
-component, and press `ctrl + alt + e` to inject the inspector, just like you would
+component, and press `ctrl + alt + i` to inject the inspector, just like you would
 use a DOM inspector:
 
 ```html
