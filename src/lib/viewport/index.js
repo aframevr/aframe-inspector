@@ -20,7 +20,7 @@ function Viewport (inspector) {
 
   var prevActivedCameraEl = inspector.currentCameraEl;
   inspector.sceneEl.addEventListener('camera-set-active', event => {
-    if (inspector.enabled) {
+    if (inspector.opened) {
       // If we're in edit mode, just save the current active camera for later and activate again the editorCamera
       if (event.detail.cameraEl !== inspector.inspectorCameraEl) {
         prevActivedCameraEl = event.detail.cameraEl;
