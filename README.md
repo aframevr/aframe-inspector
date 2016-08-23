@@ -14,12 +14,15 @@ There are several ways to use the inspector on your scene.
 
 ### A-Frame Component
 
-A-Frame comes with a component to inject the inspector. Just include the `inspector`
-component, and press `ctrl + alt + i` to inject the inspector, just like you would
-use a DOM inspector:
+A-Frame comes with a component to inject the inspector. Just open up any
+A-Frame scene (running at least A-Frame v0.3.0) and press `ctrl + alt + i` to
+inject the inspector, just like you would use a DOM inspector:
+
+This is done with the `inspector` component. By default, this is set on the
+scene. We can specify which build of the Inspector to inject by passing a URL.
 
 ```html
-<a-scene inspector>
+<a-scene inspector="url: https://someurl.com/aframe-inspector.js">
   <!-- Scene... -->
 </a-scene>
 ```
