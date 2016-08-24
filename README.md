@@ -22,7 +22,7 @@ This is done with the `inspector` component. By default, this is set on the
 scene. We can specify which build of the Inspector to inject by passing a URL.
 
 ```html
-<a-scene inspector="url: https://someurl.com/aframe-inspector.js">
+<a-scene inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js">
   <!-- Scene... -->
 </a-scene>
 ```
