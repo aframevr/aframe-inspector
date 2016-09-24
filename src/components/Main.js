@@ -100,12 +100,18 @@ function injectCSS (url) {
 }
 
 (function init () {
-  var webFont = document.createElement('script');
-  webFont.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js';
   var webFontLoader = document.createElement('script');
   webFontLoader.innerHTML = 'WebFont.load({google: {families: ["Roboto Mono"]}});';
+
+  var webFont = document.createElement('script');
+  webFont.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js';
+  webFont.addEventListener('load', function () {
+    document.head.appendChild(webFontLoader);  
+  });
+  webFont.addEventListener('error', function () {
+    console.warn('Could not load WebFont script:', webFont.src);
+  });
   document.head.appendChild(webFont);
-  document.head.appendChild(webFontLoader);
 
   var div = document.createElement('div');
   div.id = 'aframe-inspector';
