@@ -587,8 +587,20 @@ span.subcomponent {
   cursor: grabbing;
 }
 
-code, pre {
+code,
+pre,
+input,
+textarea,
+select {
   font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;
+}
+
+.wf-active code,
+.wf-active pre,
+.wf-active input,
+.wf-active textarea,
+.wf-active select {
+  font-family: Roboto Mono, Consolas, Andale Mono, Monaco, Courier New, monospace;
 }
 
 .tagName {
