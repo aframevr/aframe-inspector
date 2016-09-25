@@ -1,4 +1,3 @@
-var INSPECTOR = require('../lib/inspector.js');
 var Events = require('../lib/Events.js');
 var components = AFRAME.components;
 var isSingleProperty = AFRAME.schema.isSingleProperty;
@@ -49,9 +48,9 @@ export function removeEntity (entity, force) {
   if (entity) {
     if (force === true || confirm('Do you really want to remove entity `' + (entity.id || entity.tagName) + '`?')) {
       var closest = findClosestEntity(entity);
-      INSPECTOR.removeObject(entity.object3D);
+      AFRAME.INSPECTOR.removeObject(entity.object3D);
       entity.parentNode.removeChild(entity);
-      INSPECTOR.selectEntity(closest);
+      AFRAME.INSPECTOR.selectEntity(closest);
     }
   }
 }
@@ -86,7 +85,9 @@ function findClosestEntity (entity) {
  * @param  {boolean} force (Optional) If true it won't ask for confirmation
  */
 export function removeSelectedEntity (force) {
-  removeEntity(INSPECTOR.selectedEntity);
+  if (AFRAME.INSPECTOR.selectedEntity) {
+    removeEntity(AFRAME.INSPECTOR.selectedEntity);
+  }
 }
 
 /**
@@ -105,7 +106,7 @@ function insertAfter (newNode, referenceNode) {
 export function cloneEntity (entity) {
   var copy = entity.cloneNode(true);
   copy.addEventListener('loaded', function (e) {
-    INSPECTOR.selectEntity(copy);
+    AFRAME.INSPECTOR.selectEntity(copy);
   });
 
   // Get a valid unique ID for the entity
@@ -114,7 +115,7 @@ export function cloneEntity (entity) {
   }
   copy.addEventListener('loaded', function () {
     Events.emit('domModified');
-    INSPECTOR.selectEntity(copy);
+    AFRAME.INSPECTOR.selectEntity(copy);
   });
   insertAfter(copy, entity);
 }
@@ -123,7 +124,9 @@ export function cloneEntity (entity) {
  * Clone the selected entity
  */
 export function cloneSelectedEntity () {
-  cloneEntity(INSPECTOR.selectedEntity);
+  if (AFRAME.INSPECTOR.selectedEntity) {
+    cloneEntity(AFRAME.INSPECTOR.selectedEntity);
+  }
 }
 
 /**

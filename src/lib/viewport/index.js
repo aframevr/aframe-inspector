@@ -361,8 +361,11 @@ function Viewport (inspector) {
     camera.updateProjectionMatrix();
     // renderer.setSize(container.dom.offsetWidth, container.dom.offsetHeight);
   });
-  Events.on('showGridChanged', showGrid => {
+  Events.on('gridVisibilityChanged', showGrid => {
     grid.visible = showGrid;
+  });
+  Events.on('toggleGrid', () => {
+    grid.visible = !grid.visible;
   });
 
   Events.on('inspectorModeChanged', active => {

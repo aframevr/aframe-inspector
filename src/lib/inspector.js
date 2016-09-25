@@ -2,6 +2,7 @@ var Events = require('./Events');
 var Viewport = require('./viewport/index.js');
 var ComponentLoader = require('./componentloader.js');
 var ShaderLoader = require('./shaderloader.js');
+var Shortcuts = require('./shortcuts.js');
 
 function Inspector () {
   this.opened = false;
@@ -163,13 +164,9 @@ Inspector.prototype = {
   },
   initEvents: function () {
     window.addEventListener('keydown', evt => {
-      // Alt + Ctrl + i
+
+      // Alt + Ctrl + i: Shorcut to toggle the inspector
       var shortcutPressed = evt.keyCode === 73 && evt.ctrlKey && evt.altKey;
-      var escape = evt.keyCode === 27;
-      if (escape) {
-        this.close();
-        return;
-      }
       if (shortcutPressed) {
         this.toggle();
       }
@@ -278,6 +275,7 @@ Inspector.prototype = {
     }
     document.body.classList.add('aframe-inspector-opened');
     this.sceneEl.resize();
+    Shortcuts.enable();
   },
   /**
    * Closes the editor and gives the control back to the scene
@@ -293,6 +291,7 @@ Inspector.prototype = {
     }
     document.body.classList.remove('aframe-inspector-opened');
     this.sceneEl.resize();
+    Shortcuts.disable();
   },
   addObject: function (object) {
     var scope = this;
