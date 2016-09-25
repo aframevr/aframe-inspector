@@ -65,7 +65,7 @@ input {
 
 #left-sidebar,
 #right-panels {
-  z-index: 9999;
+  z-index: 9998;
 }
 
 #sidebar,
@@ -99,6 +99,23 @@ input {
 
 .collapsible.collapsed .content {
   display: none;
+}
+
+.toggle-edit {
+  background-color: #ed3160;
+  position: fixed;
+  left: 3px;
+  top: 3px;
+  padding: 6px 10px;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  z-index: 9999;
+  width: 174px;
+}
+
+.toggle-edit:hover {
+  background-color: rgb(228, 43, 90);
 }
 
 .scenegraph {
@@ -221,6 +238,11 @@ input[type=color] {
 
 .texture canvas {
   border: 1px solid #222;
+  cursor: pointer;
+}
+
+.texture canvas:hover {
+  border-color: #1faaf2;
 }
 
 input[type=color] {
@@ -351,6 +373,10 @@ div.vec3 {
 
 .hidden {
   visibility: hidden;
+}
+
+.uploader-normal-button .hidden {
+  display: none;
 }
 
 .texture canvas + input {
@@ -772,9 +798,24 @@ a.help-link:hover {
 
 .aframe-inspector-opened a-scene .a-canvas {
   background-color: #191919;
-  position: fixed;
-  z-index: 9999;
-  zoom: 1;
+  z-index: 9998;
+}
+
+.uploadcare-widget-button-open {
+  background-color: #1eaaf1;
+  border-radius: 0px;
+}
+
+.uploadcare-widget-button-open:hover {
+  background-color: #346392;
+}
+
+.new_asset_options li {
+  padding: 5px;
+}
+
+.new_asset_options .imageUrl {
+  width: 400px;
 }
 
 span.entity-name {
