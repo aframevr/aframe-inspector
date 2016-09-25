@@ -168,6 +168,7 @@ export default class TextureWidget extends React.Component {
         var assetId = insertOrGetImageAsset(image.src);
         value = '#' + assetId;
       }
+
       if (this.props.onChange) {
         this.props.onChange(this.props.name, value);
       }
