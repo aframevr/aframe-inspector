@@ -1,3 +1,5 @@
+import {getMajorVersion} from './utils.js';
+
 function ComponentLoader () {
   this.components = null;
   this.loadComponentsData();
@@ -7,7 +9,7 @@ ComponentLoader.prototype = {
   loadComponentsData: function () {
     var xhr = new window.XMLHttpRequest();
     // @todo Remove the sync call and use a callback
-    xhr.open('GET', 'https://aframe.io/aframe-registry/build/' + AFRAME.version + '.json');
+    xhr.open('GET', 'https://aframe.io/aframe-registry/build/' + getMajorVersion(AFRAME.version) + '.json');
     xhr.onload = function () {
       this.components = window.JSON.parse(xhr.responseText).components;
       console.info('Loaded components:', Object.keys(this.components).length);
