@@ -1,3 +1,5 @@
+import {getMajorVersion} from './utils.js';
+
 function ComponentLoader () {
   this.components = null;
   this.loadComponentsData();
@@ -7,29 +9,29 @@ ComponentLoader.prototype = {
   loadComponentsData: function () {
     var xhr = new window.XMLHttpRequest();
     // @todo Remove the sync call and use a callback
-    xhr.open('GET', 'https://raw.githubusercontent.com/aframevr/aframe-components/master/components.json', false);
+    xhr.open('GET', 'https://aframe.io/aframe-registry/build/' + getMajorVersion(AFRAME.version) + '.json');
     xhr.onload = function () {
-      this.components = window.JSON.parse(xhr.responseText);
-      // console.info('Loaded components:', Object.keys(this.components).length);
+      this.components = window.JSON.parse(xhr.responseText).components;
+      console.info('Loaded components:', Object.keys(this.components).length);
     }.bind(this);
     xhr.onerror = function () {
       // process error
     };
     xhr.send();
   },
-  addComponentToScene: function (componentName, onLoaded) {
-    var component = this.components[componentName];
+  addComponentToScene: function (packageName, onLoaded) {
+    var component = this.components[packageName];
+    var componentName = component.name;
     if (component && !component.included) {
       var script = document.createElement('script');
-      script.src = component.url;
+      script.src = component.file;
       script.setAttribute('data-component-name', componentName);
       script.setAttribute('data-component-description', component.description);
       script.onload = script.onreadystatechange = function () {
         script.onreadystatechange = script.onload = null;
-        onLoaded();
+        onLoaded(componentName);
       };
-      var head = document.getElementsByTagName('head')[0];
-      (head || document.body).appendChild(script);
+      (document.head || document.body).appendChild(script);
 
       var link = document.createElement('script');
       link.href = component.url;
@@ -38,7 +40,7 @@ ComponentLoader.prototype = {
       document.getElementsByTagName('head')[0].appendChild(link);
       component.included = true;
     } else {
-      onLoaded();
+      onLoaded(componentName);
     }
   }
 };
