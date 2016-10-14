@@ -264,7 +264,7 @@ div.vec3 {
 }
 
 .vec3 input.number {
-  width: 50px;
+  width: 46px;
 }
 
 .collapsible-header {
@@ -599,6 +599,7 @@ select {
   font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;
 }
 
+.Select,
 .wf-active code,
 .wf-active pre,
 .wf-active input,
@@ -817,7 +818,7 @@ span.entity-name {
 
 .select-widget {
   display: inline-block;
-  width: 188px;
+  width: 157px;
 }
 
 .Select-placeholder, .Select--single > .Select-control .Select-value {
@@ -835,7 +836,7 @@ span.entity-name {
 
 .row .Select-placeholder,
 .row .Select--single > .Select-control .Select-value {
-  line-height: 23px;
+  line-height: 19px;
 }
 
 .row .Select-input{
