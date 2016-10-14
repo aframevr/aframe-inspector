@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom';
 
 const Events = require('../lib/Events.js');
 import ComponentsSidebar from './components/Sidebar';
-import ModalTextures from './modals/ModalTextures';
 import SceneGraph from './scenegraph/SceneGraph';
 import ToolBar from './ToolBar';
 
@@ -69,7 +68,6 @@ export default class Main extends React.Component {
 
   render () {
     var scene = this.state.sceneEl;
-    var textureDialogOpened = this.state.isModalTexturesOpen;
     let editButton = <a className='toggle-edit' onClick={this.toggleEdit}>{(this.state.inspectorEnabled ? 'Back to Scene' : 'Inspect Scene')}</a>;
 
     return (
@@ -106,7 +104,7 @@ function injectCSS (url) {
   var webFont = document.createElement('script');
   webFont.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js';
   webFont.addEventListener('load', function () {
-    document.head.appendChild(webFontLoader);  
+    document.head.appendChild(webFontLoader);
   });
   webFont.addEventListener('error', function () {
     console.warn('Could not load WebFont script:', webFont.src);
