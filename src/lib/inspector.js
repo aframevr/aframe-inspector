@@ -108,8 +108,19 @@ Inspector.prototype = {
     var geometry = new THREE.SphereBufferGeometry(2, 4, 2);
     var material = new THREE.MeshBasicMaterial({ color: 0xff0000, visible: false });
 
-    return function (object) {
+    return function (object, parent) {
       var helper;
+
+      // Helpers for object already created, remove every helper
+      if (this.helpers[parent.id]) {
+        for (var objectId in this.helpers[parent.id]) {
+          helper = this.helpers[parent.id][objectId];
+          this.sceneHelpers.remove(helper);
+        }
+      } else {
+        this.helpers[parent.id] = {};
+      }
+
       if (object instanceof THREE.Camera) {
         helper = new THREE.CameraHelper(object, 1);
       } else if (object instanceof THREE.PointLight) {
@@ -133,21 +144,26 @@ Inspector.prototype = {
       helper.add(picker);
 
       this.sceneHelpers.add(helper);
-      this.helpers[ object.id ] = helper;
+      this.helpers[parent.id][object.id] = helper;
 
       Events.emit('helperadded', helper);
     };
   })(),
 
   removeHelper: function (object) {
-    if (this.helpers[ object.id ] !== undefined) {
-      var helper = this.helpers[ object.id ];
+    /*
+    var parentId = object.parent.id;
+    var objectId = object.id;
+    console.log(this.helpers, parentId, objectId);
+    if (this.helpers[parentId][objectId] !== undefined) {
+      var helper = this.helpers[parentId][objectId];
       helper.parent.remove(helper);
 
-      delete this.helpers[ object.id ];
+      delete this.helpers[parentId][objectId];
 
       Events.emit('helperremoved', helper);
     }
+    */////////!!!!!!!!
   },
 
   selectEntity: function (entity, emit) {
@@ -296,7 +312,7 @@ Inspector.prototype = {
     var scope = this;
     object.traverse(child => {
       if (!child.el || !child.el.isInspector) {
-        scope.addHelper(child);
+        scope.addHelper(child, object);
       }
     });
 

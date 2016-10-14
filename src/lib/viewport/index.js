@@ -320,7 +320,10 @@ function Viewport (inspector) {
 
   Events.on('objectadded', object => {
     object.traverse(child => {
-      objects.push(child);
+      if (objects.indexOf(child) === -1) {
+        objects.push(child);
+        console.log('Added', child);
+      }
     });
   });
 
