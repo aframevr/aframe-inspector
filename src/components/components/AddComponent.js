@@ -1,7 +1,8 @@
 import React from 'react';
-import Collapsible from '../Collapsible';
 import Events from '../../lib/Events';
 var INSPECTOR = require('../../lib/inspector.js');
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 export default class AddComponent extends React.Component {
   static propTypes = {
@@ -12,17 +13,19 @@ export default class AddComponent extends React.Component {
    * Add blank component.
    * If component is instanced, generate an ID.
    */
-  addComponent = () => {
+  addComponent = (componentName) => {
     var entity = this.props.entity;
-    var selectedOption = this.refs.select.selectedOptions[0];
-    var origin = selectedOption.getAttribute('origin');
+    var packageName;
+    var selectedOption = this.options.filter(function (option) {
+      return option.value === componentName;
+    })[0];
 
-    if (origin === 'registry') {
-      var [packageName, componentName] = selectedOption.value.split('.');
+    if (selectedOption.origin === 'registry') {
+      [packageName, componentName] = selectedOption.value.split('.');
       INSPECTOR.componentLoader.addComponentToScene(packageName, componentName)
         .then(addComponent);
     } else {
-      var componentName = selectedOption.value;
+      componentName = selectedOption.value;
       addComponent(componentName);
     }
 
@@ -42,7 +45,7 @@ export default class AddComponent extends React.Component {
   /**
    * Component dropdown options.
    */
-  renderComponentOptions () {
+  getComponentsOptions () {
     const usedComponents = Object.keys(this.props.entity.components);
     var commonOptions = Object.keys(AFRAME.components)
       .filter(function (componentName) {
@@ -51,7 +54,7 @@ export default class AddComponent extends React.Component {
       })
       .sort()
       .map(function (value) {
-        return <option key={value} origin='core' value={value}>{value}</option>;
+        return {value: value, label: value, origin: 'loaded'};
       });
 
     // Create the list of components that should appear in the registry group
@@ -65,45 +68,38 @@ export default class AddComponent extends React.Component {
           }
         });
       });
-      var registryOptions = registryComponents
-        .sort(function (a, b) {
-          return a.componentName >= b.componentName;
-        })
-        .map(function (item) {
-          return <option key={item.componentName} origin='registry'
-            value={`${item.componentPackageName}.${item.componentName}`}>{item.componentName}</option>
+    var registryOptions = registryComponents
+      .sort(function (a, b) {
+        return a.componentName >= b.componentName;
+      })
+      .map(function (item) {
+        return {value: item.componentPackageName + '.' + item.componentName,
+          label: item.componentName, origin: 'registry'};
       });
 
-    return [commonOptions, registryOptions];
+    this.options = commonOptions.concat(registryOptions);
   }
 
   render () {
     const entity = this.props.entity;
     if (!entity) { return <div></div>; }
 
-    var options = this.renderComponentOptions();
+    this.getComponentsOptions();
     return (
-      <Collapsible>
-        <div className='collapsible-header'>
-          <span>COMPONENTS</span>
+        <div className='add-component-container'>
+          <Select
+            className="add-component"
+            ref="select"
+            autofocus
+            options={this.options}
+            simpleValue
+            clearable={true}
+            placeholder="Add component..."
+            noResultsText="No components found"
+            onChange={this.addComponent}
+            searchable={true}
+          />
         </div>
-        <div className='collapsible-content'>
-          <div className='row'>
-            <span className='text'>Add</span>
-            <span className='value'>
-              <select ref='select'>
-                <optgroup label="registered">
-                  {options[0]}
-                </optgroup>
-                <optgroup label="registry">
-                  {options[1]}
-                </optgroup>
-              </select>
-              <a className='button fa fa-plus-circle' onClick={this.addComponent}/>
-            </span>
-          </div>
-        </div>
-      </Collapsible>
     );
   }
 }
