@@ -2,7 +2,7 @@ import React from 'react';
 
 import NumberWidget from './NumberWidget';
 
-export default class Vec3Widget extends React.Component {
+export default class Vec2Widget extends React.Component {
   static propTypes = {
     componentname: React.PropTypes.string,
     entity: React.PropTypes.object,
@@ -14,8 +14,7 @@ export default class Vec3Widget extends React.Component {
     super(props);
     this.state = {
       x: props.value.x,
-      y: props.value.y,
-      z: props.value.z
+      y: props.value.y
     };
   }
 
@@ -39,10 +38,9 @@ export default class Vec3Widget extends React.Component {
     };
 
     return (
-      <div className='vec3'>
+      <div className='vec2'>
         <NumberWidget name='x' value={this.state.x} {...widgetProps}/>
         <NumberWidget name='y' value={this.state.y} {...widgetProps}/>
-        <NumberWidget name='z' value={this.state.z} {...widgetProps}/>
       </div>
     );
   }

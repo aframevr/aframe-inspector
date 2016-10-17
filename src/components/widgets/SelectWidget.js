@@ -20,7 +20,7 @@ export default class SelectWidget extends React.Component {
   onChange = value => {
     this.setState({value: value});
     if (this.props.onChange) {
-      this.props.onChange(this.props.entity, this.props.componentname, this.props.name, value);
+      this.props.onChange(this.props.name, value);
     }
   }
 

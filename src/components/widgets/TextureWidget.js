@@ -141,7 +141,7 @@ export default class TextureWidget extends React.Component {
 
   notifyChanged = value => {
     if (this.props.onChange) {
-      this.props.onChange(this.props.entity, this.props.componentname, this.props.name, value);
+      this.props.onChange(this.props.name, value);
     }
     this.setState({value: value});
   }
@@ -169,7 +169,7 @@ export default class TextureWidget extends React.Component {
         value = '#' + assetId;
       }
       if (this.props.onChange) {
-        this.props.onChange(this.props.entity, this.props.componentname, this.props.name, value);
+        this.props.onChange(this.props.name, value);
       }
       this.setValue(value);
     });
