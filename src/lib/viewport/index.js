@@ -54,10 +54,9 @@ function Viewport (inspector) {
    * @param  {object3D} object Object to update
    */
   function updateHelpers (object) {
-    for (var i = 0; i < object.children.length; i++) {
-      var child = object.children[i];
-      if (inspector.helpers[child.id] !== undefined) {
-        inspector.helpers[child.id].update();
+    if (inspector.helpers[object.id] !== undefined) {
+      for (var objectId in inspector.helpers[object.id]) {
+        inspector.helpers[object.id][objectId].update();
       }
     }
   }
@@ -322,7 +321,6 @@ function Viewport (inspector) {
     object.traverse(child => {
       if (objects.indexOf(child) === -1) {
         objects.push(child);
-        console.log('Added', child);
       }
     });
   });
@@ -355,6 +353,7 @@ function Viewport (inspector) {
   });
   Events.on('helperadded', object => {
     objects.push(object.getObjectByName('picker'));
+//!!!    updateHelpers(helper.fromObject.parent);
   });
   Events.on('helperremoved', object => {
     objects.splice(objects.indexOf(object.getObjectByName('picker')), 1);
