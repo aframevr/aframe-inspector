@@ -36,7 +36,7 @@ export function updateEntity (entity, componentName, propertyName, value) {
       entity.setAttribute(componentName, value);
     }
   }
-  Events.emit('objectChanged', entity.object3D);
+  Events.emit('objectchanged', entity.object3D);
 }
 
 /**
@@ -114,7 +114,7 @@ export function cloneEntity (entity) {
     copy.id = getUniqueId(entity.id);
   }
   copy.addEventListener('loaded', function () {
-    Events.emit('domModified');
+    Events.emit('dommodified');
     AFRAME.INSPECTOR.selectEntity(copy);
   });
   insertAfter(copy, entity);

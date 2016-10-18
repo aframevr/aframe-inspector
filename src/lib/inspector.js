@@ -72,7 +72,7 @@ Inspector.prototype = {
     this.inspectorActive = false;
 
     this.viewport = new Viewport(this);
-    Events.emit('windowResize');
+    Events.emit('windowresize');
 
     var scope = this;
 
@@ -135,7 +135,7 @@ Inspector.prototype = {
       this.sceneHelpers.add(helper);
       this.helpers[ object.id ] = helper;
 
-      Events.emit('helperAdded', helper);
+      Events.emit('helperadded', helper);
     };
   })(),
 
@@ -146,7 +146,7 @@ Inspector.prototype = {
 
       delete this.helpers[ object.id ];
 
-      Events.emit('helperRemoved', helper);
+      Events.emit('helperremoved', helper);
     }
   },
 
@@ -159,7 +159,7 @@ Inspector.prototype = {
     }
 
     if (emit === undefined) {
-      Events.emit('entitySelected', entity);
+      Events.emit('entityselected', entity);
     }
   },
   initEvents: function () {
@@ -171,20 +171,20 @@ Inspector.prototype = {
       }
     });
 
-    Events.on('entitySelected', entity => {
+    Events.on('entityselected', entity => {
       this.selectEntity(entity, false);
     });
 
-    Events.on('inspectorModeChanged', active => {
+    Events.on('inspectormodechanged', active => {
       this.inspectorActive = active;
       this.sceneHelpers.visible = this.inspectorActive;
     });
 
-    Events.on('createNewEntity', definition => {
+    Events.on('createnewentity', definition => {
       this.createNewEntity(definition);
     });
 
-    Events.on('domModified', mutations => {
+    Events.on('dommodified', mutations => {
       if (!mutations) { return; }
       mutations.forEach(mutation => {
         if (mutation.type !== 'childList') { return; }
@@ -209,7 +209,7 @@ Inspector.prototype = {
       return;
     }
     this.selected = object;
-    Events.emit('objectSelected', object);
+    Events.emit('objectselected', object);
   },
   deselect: function () {
     this.select(null);
@@ -221,7 +221,7 @@ Inspector.prototype = {
     this.camera.copy(this.EDITOR_CAMERA);
     this.deselect();
     document.querySelector('a-scene').innerHTML = '';
-    Events.emit('inspectorCleared');
+    Events.emit('inspectorcleared');
   },
   /**
    * Helper function to add a new entity with a list of components
@@ -265,7 +265,7 @@ Inspector.prototype = {
    */
   open: function () {
     this.opened = true;
-    Events.emit('inspectorModeChanged', true);
+    Events.emit('inspectormodechanged', true);
     this.sceneEl.pause();
     if (this.sceneEl.hasAttribute('embedded')) {
       // Remove embedded styles, but keep track of it.
@@ -282,7 +282,7 @@ Inspector.prototype = {
    */
   close: function () {
     this.opened = false;
-    Events.emit('inspectorModeChanged', false);
+    Events.emit('inspectormodechanged', false);
     this.sceneEl.play();
     if (this.sceneEl.hasAttribute('aframe-inspector-removed-embedded')) {
       this.sceneEl.setAttribute('embedded', '');
@@ -300,8 +300,8 @@ Inspector.prototype = {
       }
     });
 
-    Events.emit('objectAdded', object);
-    Events.emit('sceneGraphChanged');
+    Events.emit('objectadded', object);
+    Events.emit('scenegraphchanged');
   }
 };
 

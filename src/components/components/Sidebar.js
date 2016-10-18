@@ -17,11 +17,11 @@ export default class Sidebar extends React.Component {
 
   componentDidMount () {
 
-    Events.on('componentRemoved', event => {
+    Events.on('componentremoved', event => {
       this.forceUpdate();
     });
 
-    Events.on('componentAdded', event => {
+    Events.on('componentadded', event => {
       this.forceUpdate();
     });
   }
@@ -32,7 +32,7 @@ export default class Sidebar extends React.Component {
   }
 
   componentChanged = (event) => {
-    Events.emit('selectedEntityComponentChanged', event.detail);
+    Events.emit('selectedentitycomponentchanged', event.detail);
   }
 
   componentWillReceiveProps (newProps) {
