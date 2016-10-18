@@ -95,7 +95,7 @@ function Viewport (inspector) {
         });
         break;
     }
-    Events.emit('refresh-sidebar-object3d', object);
+    Events.emit('refreshsidebarobject3d', object);
     gaTrackTransformEntity(transformMode);
   });
 
@@ -157,7 +157,7 @@ function Viewport (inspector) {
   });
 */
 
-  Events.on('object-changed', () => {
+  Events.on('objectchanged', () => {
     if (inspector.selectedEntity.object3DMap['mesh']) {
       selectionBox.update(inspector.selected);
     }
@@ -249,7 +249,7 @@ function Viewport (inspector) {
 
     if (intersects.length > 0) {
       var intersect = intersects[ 0 ];
-      Events.emit('object-focused', intersect.object);
+      Events.emit('objectfocused', intersect.object);
     }
   }
 
@@ -278,23 +278,23 @@ function Viewport (inspector) {
     // inspector.signals.cameraChanged.dispatch(camera);
   });
 
-  Events.on('inspector-cleared', () => {
+  Events.on('inspectorcleared', () => {
     controls.center.set(0, 0, 0);
   });
 
-  Events.on('transform-mode-changed', mode => {
+  Events.on('transformmodechanged', mode => {
     transformControls.setMode(mode);
   });
 
-  Events.on('snap-changed', dist => {
+  Events.on('snapchanged', dist => {
     transformControls.setTranslationSnap(dist);
   });
 
-  Events.on('space-changed', space => {
+  Events.on('spacechanged', space => {
     transformControls.setSpace(space);
   });
 
-  Events.on('object-selected', object => {
+  Events.on('objectselected', object => {
     selectionBox.visible = false;
     transformControls.detach();
     if (object && object.el) {
@@ -307,24 +307,24 @@ function Viewport (inspector) {
     }
   });
 
-  Events.on('object-focused', object => {
+  Events.on('objectfocused', object => {
     controls.focus(object);
     ga('send', 'event', 'Viewport', 'selectEntity');
   });
 
-  Events.on('geometry-changed', object => {
+  Events.on('geometrychanged', object => {
     if (object !== null) {
       selectionBox.update(object);
     }
   });
 
-  Events.on('object-added', object => {
+  Events.on('objectadded', object => {
     object.traverse(child => {
       objects.push(child);
     });
   });
 
-  Events.on('object-changed', object => {
+  Events.on('objectchanged', object => {
     if (inspector.selected === object) {
       // Hack because object3D always has geometry :(
       if (object.geometry && object.geometry.vertices && object.geometry.vertices.length > 0) {
@@ -341,34 +341,34 @@ function Viewport (inspector) {
     updateHelpers(object);
   });
 
-  Events.on('selected-entity-component-changed', () => {
-    Events.emit('objectChanged', inspector.selectedEntity.object3D);
+  Events.on('selectedentitycomponentchanged', () => {
+    Events.emit('objectchanged', inspector.selectedEntity.object3D);
   });
 
-  Events.on('object-removed', object => {
+  Events.on('objectremoved', object => {
     object.traverse(child => {
       objects.splice(objects.indexOf(child), 1);
     });
   });
-  Events.on('helper-added', object => {
+  Events.on('helperadded', object => {
     objects.push(object.getObjectByName('picker'));
   });
-  Events.on('helper-removed', object => {
+  Events.on('helperremoved', object => {
     objects.splice(objects.indexOf(object.getObjectByName('picker')), 1);
   });
-  Events.on('window-resize', () => {
+  Events.on('windowresize', () => {
     camera.aspect = container.dom.offsetWidth / container.dom.offsetHeight;
     camera.updateProjectionMatrix();
     // renderer.setSize(container.dom.offsetWidth, container.dom.offsetHeight);
   });
-  Events.on('grid-visibility-changed', showGrid => {
+  Events.on('gridvisibilitychanged', showGrid => {
     grid.visible = showGrid;
   });
-  Events.on('toggle-grid', () => {
+  Events.on('togglegrid', () => {
     grid.visible = !grid.visible;
   });
 
-  Events.on('inspector-mode-changed', active => {
+  Events.on('inspectormodechanged', active => {
     if (active) {
       enableControls();
       inspector.inspectorCameraEl.setAttribute('camera', 'active', 'true');

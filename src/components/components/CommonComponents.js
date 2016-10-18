@@ -12,7 +12,7 @@ import Clipboard from 'clipboard';
 function changeId (entity, componentName, propertyName, value) {
   if (entity.id !== value) {
     entity.id = value;
-    Events.emit('entity-id-changed', entity);
+    Events.emit('entityidchanged', entity);
   }
 }
 
@@ -22,7 +22,7 @@ export default class CommonComponents extends React.Component {
   };
 
   componentDidMount () {
-    Events.on('selected-entity-component-changed', detail => {
+    Events.on('selectedentitycomponentchanged', detail => {
       if (DEFAULT_COMPONENTS.indexOf(detail.name) !== -1) {
         this.forceUpdate();
       }

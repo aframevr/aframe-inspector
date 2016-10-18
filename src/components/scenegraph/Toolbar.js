@@ -35,7 +35,7 @@ export default class Toolbar extends React.Component {
   }
 
   addEntity () {
-    Events.emit('create-new-entity', {element: 'a-entity', components: {}});
+    Events.emit('createnewentity', {element: 'a-entity', components: {}});
   }
 
   playScene () {

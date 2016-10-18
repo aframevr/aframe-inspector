@@ -158,7 +158,7 @@ export default class TextureWidget extends React.Component {
   }
 
   openDialog = () => {
-    Events.emit('open-textures-modal', image => {
+    Events.emit('opentexturesmodal', image => {
       if (!image) {
         return;
       }
