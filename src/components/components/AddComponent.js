@@ -99,6 +99,9 @@ export default class AddComponent extends React.Component {
             onChange={this.addComponent}
             searchable={true}
           />
+          <a href="https://aframe.io/aframe-registry" target="_blank" title="A-Frame Registry" className="aregistry-button">
+            <img src="../assets/a-registry-logo-min.svg"/>
+          </a>
         </div>
     );
   }
