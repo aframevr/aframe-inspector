@@ -9,7 +9,7 @@ module.exports = {
 
     // h: help
     if (event.keyCode === 72) {
-      Events.emit('openHelpModal');
+      Events.emit('open-help-modal');
     }
 
     // esc: close inspector
@@ -20,27 +20,27 @@ module.exports = {
 
     // w: translate
     if (event.keyCode === 87) {
-      Events.emit('transformModeChanged', 'translate');
+      Events.emit('transform-mode-changed', 'translate');
     }
 
     // e: rotate
     if (event.keyCode === 69) {
-      Events.emit('transformModeChanged', 'rotate');
+      Events.emit('transform-mode-changed', 'rotate');
     }
 
     // r: scale
     if (event.keyCode === 82) {
-      Events.emit('transformModeChanged', 'scale');
+      Events.emit('transform-mode-changed', 'scale');
     }
 
     // g: toggle grid
     if (event.keyCode === 71) {
-      Events.emit('toggleGrid');
+      Events.emit('toggle-grid');
     }
 
     // n: new entity
     if (event.keyCode === 78) {
-      Events.emit('createNewEntity', {element: 'a-entity', components: {}});
+      Events.emit('create-new-entity', {element: 'a-entity', components: {}});
     }
 
     // backspace & supr: remove selected entity

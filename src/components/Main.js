@@ -30,24 +30,24 @@ export default class Main extends React.Component {
   componentDidMount () {
     // Create an observer to notify the changes in the scene
     var observer = new MutationObserver(function (mutations) {
-      Events.emit('domModified', mutations);
+      Events.emit('dom-modified', mutations);
     });
     var config = {attributes: true, childList: true, characterData: true};
     observer.observe(this.state.sceneEl, config);
 
-    Events.on('openTexturesModal', function (textureOnClose) {
+    Events.on('open-textures-modal', function (textureOnClose) {
       this.setState({isModalTexturesOpen: true, textureOnClose: textureOnClose});
     }.bind(this));
 
-    Events.on('entitySelected', entity => {
+    Events.on('entity-selected', entity => {
       this.setState({entity: entity});
     });
 
-    Events.on('inspectorModeChanged', enabled => {
+    Events.on('inspector-mode-changed', enabled => {
       this.setState({inspectorEnabled: enabled});
     });
 
-    Events.on('openHelpModal', () => {
+    Events.on('open-help-modal', () => {
       this.setState({isHelpOpen: true});
     });
   }

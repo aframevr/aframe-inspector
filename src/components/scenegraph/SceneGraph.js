@@ -44,13 +44,13 @@ export default class SceneGraph extends React.Component {
       this.forceUpdate();
     });
 
-    Events.on('entitySelected', (entity, self) => {
+    Events.on('entity-selected', (entity, self) => {
       if (self) { return; }
       this.setValue(entity);
     });
-    Events.on('entityIdChanged', this.rebuildOptions);
+    Events.on('entity-id-changed', this.rebuildOptions);
     document.addEventListener('componentremoved', this.rebuildOptions);
-    Events.on('domModified', this.rebuildOptions);
+    Events.on('dom-modified', this.rebuildOptions);
   }
 
   setValue = value => {
@@ -63,7 +63,7 @@ export default class SceneGraph extends React.Component {
         if (this.props.onChange) {
           this.props.onChange(value);
         }
-        Events.emit('entitySelected', value, true);
+        Events.emit('entity-selected', value, true);
         found = true;
       }
     }
