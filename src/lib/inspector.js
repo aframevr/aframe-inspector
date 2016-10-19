@@ -90,11 +90,11 @@ Inspector.prototype = {
       this.addObject(event.target.object3D);
     });
 
-    Events.on('selectedEntityComponentChanged', event => {
+    Events.on('selectedentitycomponentchanged', event => {
       this.addObject(event.target.object3D);
     });
 
-    Events.on('selectedEntityComponentCreated', event => {
+    Events.on('selectedentitycomponentcreated', event => {
       this.addObject(event.target.object3D);
     });
 
@@ -157,21 +157,13 @@ Inspector.prototype = {
 
   removeHelpers: function (object) {
     var parentId = object.id;
-/*
-<<<<<<< d94d0485f83427a26999095d0c064fa0ed10ac59
-      delete this.helpers[parentId][objectId];
-
-      Events.emit('helperremoved', helper);
-=======
     if (this.helpers[parentId]) {
       for (var objectId in this.helpers[parentId]) {
         var helper = this.helpers[parentId][objectId];
-        Events.emit('helperRemoved', helper);
+        Events.emit('helperremoved', helper);
         this.sceneHelpers.remove(helper);
       }
       delete this.helpers[parentId];
->>>>>>> Use componentInitialized for newly created components
-*/
     }
   },
 
@@ -207,6 +199,15 @@ Inspector.prototype = {
 
     Events.on('createnewentity', definition => {
       this.createNewEntity(definition);
+    });
+
+    Events.on('selectedentitycomponentchanged', event => {
+      this.addObject(event.target.object3D);
+    });
+
+    document.addEventListener('child-detached', event => {
+      var entity = event.detail.el;
+      AFRAME.INSPECTOR.removeObject(entity.object3D);
     });
 
     Events.on('dommodified', mutations => {
