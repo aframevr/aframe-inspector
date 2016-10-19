@@ -26,22 +26,6 @@ body.aframe-inspector-opened {
   background-color: rgb(228, 43, 90);
 }
 
-::-webkit-scrollbar {
-  width:  10px;
-  height: 10px;
-}
-::-webkit-scrollbar-thumb {
-  background: #20b1fb;
-}
-::-webkit-scrollbar-track {
-  background: #000;
-
-}body {
-  scrollbar-face-color: #20b1fb;
-  scrollbar-track-color: #000;
-}
-
-
 hr {
   border: 0;
   border-top: 1px solid #ccc;
@@ -968,6 +952,7 @@ span.entity-name {
   color: #1faaf2;
   border: 1px solid transparent;
   background: #222;
+}
 
 /* shortcuts help */
 .help-lists {
