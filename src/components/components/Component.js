@@ -77,7 +77,7 @@ export default class Component extends React.Component {
       return (
         <PropertyRow key={componentName} name={componentName} schema={schema}
           data={componentData.data} componentname={componentName}
-          entity={this.props.entity}/>
+          isSingle={true} entity={this.props.entity}/>
       );
     }
 
@@ -85,7 +85,7 @@ export default class Component extends React.Component {
       <PropertyRow key={propertyName} name={propertyName}
         schema={componentData.schema[propertyName]}
         data={componentData.data[propertyName]} componentname={this.props.name}
-        entity={this.props.entity}/>
+        isSingle={false} entity={this.props.entity}/>
     ));
   }
 

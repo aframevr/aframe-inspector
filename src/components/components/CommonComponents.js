@@ -49,7 +49,7 @@ export default class CommonComponents extends React.Component {
       return (
         <PropertyRow onChange={updateEntity} key={componentName} name={componentName}
           showHelp={true} schema={schema} data={componentData.data}
-          componentname={componentName} entity={entity}/>
+          isSingle={true} componentname={componentName} entity={entity}/>
       );
     });
   }

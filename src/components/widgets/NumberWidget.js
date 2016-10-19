@@ -93,8 +93,7 @@ export default class NumberWidget extends React.Component {
       this.setState({value: value, displayValue: value.toFixed(this.props.precision)});
 
       if (this.props.onChange) {
-        this.props.onChange(this.props.entity, this.props.componentname, this.props.name,
-                            value);
+        this.props.onChange(this.props.name, value);
       }
     }
   }

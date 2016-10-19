@@ -259,10 +259,12 @@ body.editor-opened {
   overflow: auto;
 }
 
+div.vec2,
 div.vec3 {
   display: inline;
 }
 
+.vec2 input.number,
 .vec3 input.number {
   width: 46px;
 }

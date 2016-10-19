@@ -8,6 +8,7 @@ import NumberWidget from '../widgets/NumberWidget';
 import SelectWidget from '../widgets/SelectWidget';
 import TextureWidget from '../widgets/TextureWidget';
 import Vec3Widget from '../widgets/Vec3Widget';
+import Vec2Widget from '../widgets/Vec2Widget';
 import {updateEntity} from '../../actions/entity';
 import {getComponentDocsHtmlLink} from '../../actions/component';
 
@@ -36,10 +37,16 @@ export default class PropertyRow extends React.Component {
     const widgetProps = {
       componentname: props.componentname,
       entity: props.entity,
+      isSingle: props.isSingle,
       name: props.name,
       // Wrap updateEntity for tracking.
-      onChange: function () {
-        updateEntity.apply(this, arguments);
+      onChange: function (name, value) {
+        var propertyName = props.componentname;
+        if (!props.isSingle) {
+          propertyName +='.' + props.name;
+        }
+
+        updateEntity.apply(this, [props.entity, propertyName, value]);
         gaTrackComponentUpdate();
       },
       value: props.data
@@ -62,6 +69,9 @@ export default class PropertyRow extends React.Component {
       }
       case 'int': {
         return <NumberWidget {...widgetProps} {...numberWidgetProps} precision={0}/>;
+      }
+      case 'vec2': {
+        return <Vec2Widget {...widgetProps}/>;
       }
       case 'vec3': {
         return <Vec3Widget {...widgetProps}/>;

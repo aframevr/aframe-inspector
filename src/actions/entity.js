@@ -12,28 +12,26 @@ import DEFAULT_COMPONENTS from '../components/components/DefaultComponents';
  * @param {string} property - Property name.
  * @param {string|number} value - New value.
  */
-export function updateEntity (entity, componentName, propertyName, value) {
-  var isSingle = isSingleProperty(components[entity.components[componentName].name].schema);
-
-  if (propertyName && !isSingle) {
-    // Multi-prop.
+export function updateEntity (entity, propertyName, value) {
+  if (propertyName.indexOf('.') !== -1) {
+    // Multi-prop
+    var splitName = propertyName.split('.');
     if (value === null || value === undefined) {
       // Remove property.
-      var parameters = entity.getAttribute(componentName);
-      delete parameters[propertyName];
-      entity.setAttribute(componentName, parameters);
+      var parameters = entity.getAttribute(splitName[0]);
+      delete parameters[splitName[1]];
+      entity.setAttribute(splitName[0], parameters);
     } else {
       // Set property.
-      entity.setAttribute(componentName, propertyName, value);
+      entity.setAttribute(splitName[0], splitName[1], value);
     }
   } else {
-    // Single-prop.
     if (value === null || value === undefined) {
       // Remove property.
-      entity.removeAttribute(componentName);
+      entity.removeAttribute(propertyName);
     } else {
       // Set property.
-      entity.setAttribute(componentName, value);
+      entity.setAttribute(propertyName, value);
     }
   }
   Events.emit('objectchanged', entity.object3D);
