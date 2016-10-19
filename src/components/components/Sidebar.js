@@ -35,10 +35,6 @@ export default class Sidebar extends React.Component {
     Events.emit('selectedentitycomponentchanged', event.detail);
   }
 
-  componentCreated = (event) => {
-    Events.emit('selectedEntityComponentCreated', event.detail);
-  }
-
   componentWillReceiveProps (newProps) {
     if (this.state.entity !== newProps.entity) {
       if (this.state.entity) {

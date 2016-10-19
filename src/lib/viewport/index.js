@@ -351,9 +351,9 @@ function Viewport (inspector) {
       objects.splice(objects.indexOf(child), 1);
     });
   });
-  Events.on('helperadded', object => {
-    objects.push(object.getObjectByName('picker'));
-//!!!    updateHelpers(helper.fromObject.parent);
+  Events.on('helperadded', helper => {
+    objects.push(helper.getObjectByName('picker'));
+    updateHelpers(helper.fromObject.parent);
   });
   Events.on('helperremoved', object => {
     objects.splice(objects.indexOf(object.getObjectByName('picker')), 1);
