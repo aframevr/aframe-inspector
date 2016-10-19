@@ -90,7 +90,11 @@ Inspector.prototype = {
       this.addObject(event.target.object3D);
     });
 
-    document.addEventListener('selectedEntityComponentChanged', event => {
+    Events.on('selectedEntityComponentChanged', event => {
+      this.addObject(event.target.object3D);
+    });
+
+    Events.on('selectedEntityComponentCreated', event => {
       this.addObject(event.target.object3D);
     });
 
@@ -101,7 +105,7 @@ Inspector.prototype = {
 
   removeObject: function (object) {
     // Remove just the helper as the object will be deleted by Aframe
-    object.traverse(this.removeHelper.bind(this));
+    this.removeHelpers(object);
   },
 
   addHelper: (function () {
@@ -127,26 +131,47 @@ Inspector.prototype = {
         return;
       }
 
+      var parentId = object.parent.id;
+
+      // Helpers for object already created, remove every helper
+      if (this.helpers[parentId]) {
+        for (var objectId in this.helpers[parentId]) {
+          this.sceneHelpers.remove(this.helpers[parentId][objectId]);
+        }
+      } else {
+        this.helpers[parentId] = {};
+      }
+
       var picker = new THREE.Mesh(geometry, material);
       picker.name = 'picker';
       picker.userData.object = object;
       helper.add(picker);
+      helper.fromObject = object;
 
       this.sceneHelpers.add(helper);
-      this.helpers[ object.id ] = helper;
+      this.helpers[parentId][object.id] = helper;
 
       Events.emit('helperadded', helper);
     };
   })(),
 
-  removeHelper: function (object) {
-    if (this.helpers[ object.id ] !== undefined) {
-      var helper = this.helpers[ object.id ];
-      helper.parent.remove(helper);
-
-      delete this.helpers[ object.id ];
+  removeHelpers: function (object) {
+    var parentId = object.id;
+/*
+<<<<<<< d94d0485f83427a26999095d0c064fa0ed10ac59
+      delete this.helpers[parentId][objectId];
 
       Events.emit('helperremoved', helper);
+=======
+    if (this.helpers[parentId]) {
+      for (var objectId in this.helpers[parentId]) {
+        var helper = this.helpers[parentId][objectId];
+        Events.emit('helperRemoved', helper);
+        this.sceneHelpers.remove(helper);
+      }
+      delete this.helpers[parentId];
+>>>>>>> Use componentInitialized for newly created components
+*/
     }
   },
 
@@ -296,7 +321,7 @@ Inspector.prototype = {
     var scope = this;
     object.traverse(child => {
       if (!child.el || !child.el.isInspector) {
-        scope.addHelper(child);
+        scope.addHelper(child, object);
       }
     });
 
