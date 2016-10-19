@@ -2,8 +2,16 @@ import React from 'react';
 import Modal from './Modal';
 var insertNewAsset = require('../../lib/assetsUtils').insertNewAsset;
 
-function getFilename (url) {
-  return url.split('/').pop();
+function getFilename (url, converted = false) {
+  var filename = url.split('/').pop();
+  if (converted) {
+    filename = getValidId(filename);
+  }
+  return filename;
+}
+
+function getValidId (name) {
+  return name.replace(/\W/g,'_').toLowerCase();
 }
 
 export default class ModalTextures extends React.Component {
@@ -135,24 +143,25 @@ export default class ModalTextures extends React.Component {
 
     var self = this;
     function onImageLoaded (img) {
+      var src = self.refs.preview.src;
       self.setState(
         { preview: {
           width: self.refs.preview.naturalWidth,
           height: self.refs.preview.naturalHeight,
-          src: self.refs.preview.src,
+          src: src,
           id: '',
-          name: '',
-          filename: '',
+          name: getFilename(src, true),
+          filename: getFilename(src),
           type: 'new',
           loaded: true,
-          value: 'url(' + self.refs.preview.src + ')'
+          value: 'url(' + src + ')'
         }
       });
       self.refs.preview.removeEventListener('load', onImageLoaded);
     }
     this.refs.preview.addEventListener('load', onImageLoaded);
-    // this.refs.preview.src = event.target.value;
-    this.refs.preview.src = 'assets/textures/wall.jpg';
+    this.refs.preview.src = event.target.value;
+    // this.refs.preview.src = 'assets/textures/wall.jpg';
   }
 
   onNameChanged = event => {
@@ -250,12 +259,12 @@ export default class ModalTextures extends React.Component {
                 this.state.preview.loaded
                  ? (
                   <div className="detail">
-                    <span>{preview.filename}</span><br/>
+                    <span className="title" title={preview.filename}>{preview.filename}</span><br/>
                     <span>{preview.width} x {preview.height}</span>
                   </div>
                 ) : <span></span>
               }
-              <br/><br/>
+              <br/>
               <button onClick={addNewAsset}>LOAD THIS TEXTURE</button>
             </div>
           </div>
