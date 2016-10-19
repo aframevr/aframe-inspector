@@ -917,7 +917,12 @@ span.entity-name {
   background-color: #1faaf2;
 }
 
-.aregistry-button img {
+.aregistry-button svg {
   width: 20px;
   height: 20px;
+  fill: #bcbcbc;
+}
+
+.aregistry-button:hover svg {
+  fill: #fff;
 }

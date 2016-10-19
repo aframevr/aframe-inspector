@@ -100,7 +100,9 @@ export default class AddComponent extends React.Component {
             searchable={true}
           />
           <a href="https://aframe.io/aframe-registry" target="_blank" title="A-Frame Registry" className="aregistry-button">
-            <img src="../assets/a-registry-logo-min.svg"/>
+            <svg version="1.1" viewBox="0 0 19.999999 19.999999">
+             <path d="m14.451 0.25195l-1.428 5.3398 5.342 1.4258 1.426-5.3399-5.34-1.4258zm-4.6112 2.0722l-1.7421 0.5762h-3.0684l-4.9688 16.477h4.043l0.832-3.543h4.8262l0.8323 3.543h4.136l-1.798-5.951 2.439-1.512-2.357-3.8007-3.8011 2.3577 1.5701 2.533h-5.1814l1.7031-7.1466 0.3008 0.9102 3.3395-1.1055-1.1052-3.3379z"/>
+            </svg>
           </a>
         </div>
     );
