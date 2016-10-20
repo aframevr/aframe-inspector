@@ -57,35 +57,20 @@ export default class ModalTextures extends React.Component {
   componentDidMount () {
     this.uploadcareWidget = null;
     this.samplesImages = [
-      {name: 'create1111', src: 'assets/textures/758px-Canestra_di_frutta_Caravaggio.jpg'},
-      {name: 'asdfqwer', src: 'assets/textures/2294472375_24a3b8ef46_o.jpg'},
-      {name: 'werwere', src: 'assets/textures/brick_diffuse.jpg'},
-      {name: 'werasdfasdf', src: 'assets/textures/checkerboard.jpg'},
-      {name: 'create', src: 'assets/textures/crate.gif'},
+      {name: 'canestra', src: 'assets/textures/758px-Canestra_di_frutta_Caravaggio.jpg'},
+      {name: 'equi', src: 'assets/textures/2294472375_24a3b8ef46_o.jpg'},
+      {name: 'brick diffuse', src: 'assets/textures/brick_diffuse.jpg'},
+      {name: 'checkboard', src: 'assets/textures/checkerboard.jpg'},
+      {name: 'crate', src: 'assets/textures/crate.gif'},
       {name: 'uv_grid_sim', src: 'assets/textures/UV_Grid_Sm.jpg'},
       {name: 'sprite0', src: 'assets/textures/sprite0.png'},
       {name: 'envmap', src: 'assets/textures/envmap.png'},
-      {name: 'brick dump', src: 'assets/textures/brick_bump.jpg'}
+      {name: 'brick bump', src: 'assets/textures/brick_bump.jpg'}
     ];
 
     this.generateFromSamples();
     this.generateFromAssets();
     this.generateFromTextureCache();
-
-    /*
-    Object.keys(inspector.sceneEl.systems.material.textureCache).map((hash) => {
-      var texturePromise = inspector.sceneEl.systems.material.textureCache[hash];
-      texturePromise.then(texture => {
-        var elementPos = self.state.loadedTextures.map(function(x) {return x.image.src; }).indexOf(texture.image.src);
-        if (elementPos === -1) {
-          var newTextures = self.state.loadedTextures.slice();
-          newTextures.push(texture);
-          self.setState({
-            loadedTextures: newTextures
-          });
-        }
-      })
-    });*/
   }
   componentDidUpdate () {
     if (!this.uploadcareWidget && this.state.isOpen) {
@@ -158,7 +143,23 @@ export default class ModalTextures extends React.Component {
     });
   }
 
-  generateFromTextureCache () {}
+  generateFromTextureCache () {
+    /*
+    Object.keys(inspector.sceneEl.systems.material.textureCache).map((hash) => {
+      var texturePromise = inspector.sceneEl.systems.material.textureCache[hash];
+      texturePromise.then(texture => {
+        var elementPos = self.state.loadedTextures.map(function(x) {return x.image.src; }).indexOf(texture.image.src);
+        if (elementPos === -1) {
+          var newTextures = self.state.loadedTextures.slice();
+          newTextures.push(texture);
+          self.setState({
+            loadedTextures: newTextures
+          });
+        }
+      })
+    });
+    */
+  }
 
   onNewUrl = event => {
     if (event.keyCode !== 13) { return; }
@@ -200,17 +201,6 @@ export default class ModalTextures extends React.Component {
 
   toggleNewDialog = () => {
     this.setState({addNewDialogOpened: !this.state.addNewDialogOpened});
-  }
-
-  openUploader = () => {
-    //var dialog = this.uploadcareWidget.openDialog();
-
-/*
-    uploadcare.openDialog(null, {
-      publicKey: "f43ad452b58f9e853d05",
-      imagesOnly: true,
-      crop: "300x200"
-    });  */
   }
 
   clear () {

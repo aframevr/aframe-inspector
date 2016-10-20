@@ -44,7 +44,6 @@ export default class Modal extends React.Component {
   }
 
   handleGlobalMousedown = event => {
-    return;
     if (this.state.isOpen && this.shouldClickDismiss(event)) {
       if (typeof this.props.onClose === 'function') {
         this.props.onClose();
@@ -71,12 +70,6 @@ export default class Modal extends React.Component {
   }
 
   render () {
-    /*
-    if (!this.state.isOpen) {
-      return <span></span>;
-    }
-    <div className='modal'>
-*/
     return (
       <div className={this.state.isOpen ? 'modal' : 'modal hide'}>
         <div className='modal-content' ref='self'>
