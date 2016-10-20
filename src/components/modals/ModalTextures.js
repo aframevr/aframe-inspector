@@ -10,14 +10,23 @@ function getFilename (url, converted = false) {
   return filename;
 }
 
+function isValidId (id) {
+  // The correct re should include : and . but A-frame seems to fail while accessing them
+  var re = (/^[A-Za-z]+[\w\-]*$/);
+  return re.test(id);
+}
+
 function getValidId (name) {
-  return name.replace(/\W/g,'_').toLowerCase();
+  return name.split('.').shift()
+          .replace(/\s/, '-')
+          .replace(/^\d+\s*/, '')
+          .replace(/[\W]/, '')
+          .toLowerCase();
 }
 
 export default class ModalTextures extends React.Component {
   static propTypes = {
     isOpen: React.PropTypes.bool,
-    newUrl: React.PropTypes.string,
     onClose: React.PropTypes.func
   };
 
@@ -29,7 +38,18 @@ export default class ModalTextures extends React.Component {
       assetsImages: [],
       samplesImages: [],
       addNewDialogOpened: false,
-      preview: {width: 0, height: 0, src: '', name: '', filename: '', loaded: false}
+      newUrl: '',
+      preview: {
+        width: 0,
+        height: 0,
+        src: '',
+        id: '',
+        name: '',
+        filename: '',
+        type: '',
+        value: '',
+        loaded: false
+      }
     };
   }
 
@@ -161,9 +181,15 @@ export default class ModalTextures extends React.Component {
     }
     this.refs.preview.addEventListener('load', onImageLoaded);
     this.refs.preview.src = event.target.value;
-    // this.refs.preview.src = 'assets/textures/wall.jpg';
+
+    this.refs.imageName.focus();
   }
 
+  onNameKeyUp = event => {
+    if (event.keyCode === 13 && this.isValidAsset()) {
+      this.addNewAsset();
+    }
+  }
   onNameChanged = event => {
     var state = this.state.preview;
     state.name = event.target.value;
@@ -185,17 +211,51 @@ export default class ModalTextures extends React.Component {
     });  */
   }
 
+  clear () {
+    this.setState({
+      preview: {
+        width: 0,
+        height: 0,
+        src: '',
+        id: '',
+        filename: '',
+        name: '',
+        type: '',
+        loaded: false,
+        value: ''
+      },
+      newUrl: ''
+    });
+  }
+
+  onUrlChange = (e) => {
+    this.setState({newUrl: e.target.value});
+  }
+
+  isValidAsset () {
+    let validUrl = isValidId(this.state.preview.name);
+    let validAsset = this.state.preview.loaded && validUrl;
+    return validAsset;
+  }
+
+  addNewAsset = () => {
+    var self = this;
+    insertNewAsset('img', this.state.preview.name, this.state.preview.src, true, function() {
+      self.generateFromAssets();
+      self.toggleNewDialog();
+      self.clear();
+    });
+  }
+
   render () {
+    let isOpen = this.state.isOpen;
+    if (!isOpen) {
+      return <div></div>;
+    }
+
     let loadedTextures = this.state.loadedTextures;
     let preview = this.state.preview;
     var self = this;
-
-    let addNewAsset = function () {
-      insertNewAsset('img', self.state.preview.name, self.state.preview.src, true, function() {
-        self.generateFromAssets();
-        self.toggleNewDialog();
-      });
-    };
 
     let selectSample = function (image) {
       self.setState({preview: {
@@ -203,7 +263,7 @@ export default class ModalTextures extends React.Component {
         height: image.height,
         src: image.src,
         id: '',
-        name: image.name, // or id?
+        name: getFilename(image.name, true),
         filename: getFilename(image.src),
         type: 'sample',
         loaded: true,
@@ -213,7 +273,8 @@ export default class ModalTextures extends React.Component {
       self.refs.imageName.focus();
     };
 
-    let isOpen = this.state.isOpen;
+    let validUrl = isValidId(this.state.preview.name);
+    let validAsset = this.isValidAsset();
 
     let addNewAssetButton = this.state.addNewDialogOpened ? 'BACK' : 'LOAD TEXTURE';
 
@@ -225,14 +286,14 @@ export default class ModalTextures extends React.Component {
             <div className="new_asset_options">
               <span>Load a new texture from one of these sources:</span>
               <ul>
-                <li><span>From URL (and press Enter):</span> <input type="text" className='imageUrl' value={this.props.newUrl} onKeyUp={this.onNewUrl}/></li>
+                <li><span>From URL (and press Enter):</span> <input type="text" className='imageUrl' value={this.state.newUrl} onChange={this.onUrlChange} onKeyUp={this.onNewUrl}/></li>
                 <li>
                   <div className="uploader-normal-button">
                     From a file: <input type="hidden" role="uploadcare-uploader"/>
                   </div>
                 </li>
                 <li><span>From samples gallery:</span>
-                  <ul className="gallery">
+                  <ul ref="samplesGallery" className="gallery">
                     {
                       this.state.samplesImages.map(function (image) {
                         let imageClick = selectSample.bind(this, image);
@@ -253,7 +314,7 @@ export default class ModalTextures extends React.Component {
               </ul>
             </div>
             <div className="preview">
-              Name: <input ref="imageName" type="text" value={this.state.preview.name} onChange={this.onNameChanged}/>
+              Name: <input ref="imageName" className={this.state.preview.name.length > 0 && !validUrl ? 'error' : ''} type="text" value={this.state.preview.name} onChange={this.onNameChanged} onKeyUp={this.onNameKeyUp}/>
               <img ref="preview" width="155px" height="155px" src={preview.src}/>
               {
                 this.state.preview.loaded
@@ -265,7 +326,7 @@ export default class ModalTextures extends React.Component {
                 ) : <span></span>
               }
               <br/>
-              <button onClick={addNewAsset}>LOAD THIS TEXTURE</button>
+              <button disabled={!validAsset} onClick={this.addNewAsset}>LOAD THIS TEXTURE</button>
             </div>
           </div>
         </div>
