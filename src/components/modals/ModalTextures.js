@@ -17,6 +17,7 @@ function isValidId (id) {
 }
 
 function getValidId (name) {
+  // info.name.replace(/\.[^/.]+$/, '').replace(/\s+/g, '')
   return name.split('.').shift()
           .replace(/\s/, '-')
           .replace(/^\d+\s*/, '')
@@ -90,21 +91,22 @@ export default class ModalTextures extends React.Component {
     if (!this.uploadcareWidget && this.state.isOpen) {
       this.uploadcareWidget = uploadcare.SingleWidget('[role=uploadcare-uploader]');
       var self = this;
-      this.uploadcareWidget.onUploadComplete(function(info) {
+      this.uploadcareWidget.onUploadComplete(info => {
         if (info.isImage) {
-          self.setState({preview: {
+          this.setState({preview: {
             width: info.originalImageInfo.height,
             height: info.originalImageInfo.height,
             src: info.cdnUrl,
             id: '',
             filename: info.name,
-            name: info.name.replace(/\.[^/.]+$/, '').replace(/\s+/g, ''),
+            name: getFilename(info.name, true),
             type: 'uploaded',
             loaded: true,
             value: 'url(' + info.cdnUrl + ')'
           }
           });
-          self.refs.imageName.focus();
+          this.uploadcareWidget.value(null);
+          this.refs.imageName.focus();
         }
       });
     }
