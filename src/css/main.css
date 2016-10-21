@@ -455,11 +455,6 @@ a.button:hover {
   overflow: hidden;
 }
 
-@keyframes animatetop {
-  from {top: 50px;}
-  to {top: 0;}
-}
-
 @keyframes animateopacity {
   from {opacity: 0}
   to {opacity: 1}

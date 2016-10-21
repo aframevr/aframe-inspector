@@ -271,7 +271,7 @@ export default class ModalTextures extends React.Component {
     let addNewAssetButton = this.state.addNewDialogOpened ? 'BACK' : 'LOAD TEXTURE';
 
     return (
-      <Modal title="Textures" isOpen={isOpen} onClose={this.onClose}>
+      <Modal title="Textures" isOpen={isOpen} onClose={this.onClose} closeOnClickOutside={false}>
         <button onClick={this.toggleNewDialog}>{addNewAssetButton}</button>
         <div className={this.state.addNewDialogOpened ? '' : 'hide'}>
           <div className="newimage">
