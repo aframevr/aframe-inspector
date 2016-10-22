@@ -2,9 +2,9 @@
 
 [![build status][travis-image]][travis-url]
 
-An easy-to-use inspector for editing [A-Frame](https://aframe.io) scenes. Check
-out [the
-guide](https://aframe.io/docs/master/guides/using-the-aframe-inspector.html).
+A visual inspector tool for [A-Frame](https://aframe.io) scenes. Just hit
+`<ctrl> + <alt> + i` on any A-Frame scene to open up the Inspector. Check out
+[the guide](https://aframe.io/docs/master/guides/using-the-aframe-inspector.html).
 
 [VIEW DEMO](https://aframe.io/aframe-inspector/example/)
 
@@ -17,7 +17,7 @@ There are several ways to use the inspector on your scene.
 ### A-Frame Component
 
 A-Frame comes with a component to inject the inspector. Just open up any
-A-Frame scene (running at least A-Frame v0.3.0) and press `ctrl + alt + i` to
+A-Frame scene (running at least A-Frame v0.3.0) and press **`<ctrl> + <alt> + i`** to
 inject the inspector, just like you would use a DOM inspector:
 
 This is done with the `inspector` component. By default, this is set on the
