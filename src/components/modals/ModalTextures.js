@@ -317,7 +317,7 @@ export default class ModalTextures extends React.Component {
                 </li>
                 <li><span>From assets registry: </span>
                   <div className='assets search'>
-                    <input placeholder='Search...' value={this.state.filterText}
+                    <input placeholder='Filter...' value={this.state.filterText}
                       onChange={this.onChangeFilter}/>
                     <span className='fa fa-search'></span>
                   </div>
