@@ -1,6 +1,8 @@
+import Events from '../../lib/Events';
 import React from 'react';
 import Modal from './Modal';
 var insertNewAsset = require('../../lib/assetsUtils').insertNewAsset;
+import INSPECTOR from '../../lib/inspector.js';
 
 function getFilename (url, converted = false) {
   var filename = url.split('/').pop();
@@ -37,7 +39,7 @@ export default class ModalTextures extends React.Component {
       isOpen: this.props.isOpen,
       loadedTextures: [],
       assetsImages: [],
-      samplesImages: [],
+      registryImages: [],
       addNewDialogOpened: false,
       newUrl: '',
       preview: {
@@ -55,20 +57,11 @@ export default class ModalTextures extends React.Component {
   }
 
   componentDidMount () {
-    this.uploadcareWidget = null;
-    this.samplesImages = [
-      {name: 'canestra', src: 'assets/textures/758px-Canestra_di_frutta_Caravaggio.jpg'},
-      {name: 'equi', src: 'assets/textures/2294472375_24a3b8ef46_o.jpg'},
-      {name: 'brick diffuse', src: 'assets/textures/brick_diffuse.jpg'},
-      {name: 'checkboard', src: 'assets/textures/checkerboard.jpg'},
-      {name: 'crate', src: 'assets/textures/crate.gif'},
-      {name: 'uv_grid_sim', src: 'assets/textures/UV_Grid_Sm.jpg'},
-      {name: 'sprite0', src: 'assets/textures/sprite0.png'},
-      {name: 'envmap', src: 'assets/textures/envmap.png'},
-      {name: 'brick bump', src: 'assets/textures/brick_bump.jpg'}
-    ];
+    Events.on('assetsimagesloaded', (images) => {
+      this.generateFromRegistry();
+    });
 
-    this.generateFromSamples();
+    this.uploadcareWidget = null;
     this.generateFromAssets();
     this.generateFromTextureCache();
   }
@@ -117,15 +110,23 @@ export default class ModalTextures extends React.Component {
     }
   }
 
-  generateFromSamples = () => {
+  generateFromRegistry = () => {
     var self = this;
-    this.samplesImages.map((imageData) => {
+    INSPECTOR.assetsLoader.images.forEach((imageData) => {
       var image = new Image();
       image.addEventListener('load', () => {
-        self.state.samplesImages.push({id: imageData.name, src: image.src, width: image.width, height: image.height, name: imageData.name, type: 'sample', value: 'url(' + image.src + ')'});
-        self.setState({samplesImages: self.state.samplesImages});
+        self.state.registryImages.push({
+          id: imageData.id,
+          src: image.src,
+          width: image.width,
+          height: image.height,
+          name: imageData.id,
+          type: 'registry',
+          tags: imageData.tags,
+          value: 'url(' + image.src + ')'});
+        self.setState({registryImages: self.state.registryImages});
       });
-      image.src = imageData.src;
+      image.src = imageData.fullPath;
     });
   }
 
@@ -257,7 +258,7 @@ export default class ModalTextures extends React.Component {
         id: '',
         name: getFilename(image.name, true),
         filename: getFilename(image.src),
-        type: 'sample',
+        type: 'registry',
         loaded: true,
         value: 'url(' + image.src + ')'
       }
@@ -287,7 +288,7 @@ export default class ModalTextures extends React.Component {
                 <li><span>From samples gallery:</span>
                   <ul ref="samplesGallery" className="gallery">
                     {
-                      this.state.samplesImages.map(function (image) {
+                      this.state.registryImages.map(function (image) {
                         let imageClick = selectSample.bind(this, image);
                         return (
                           <li key={image.src} onClick={imageClick}>

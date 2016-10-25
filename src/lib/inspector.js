@@ -1,6 +1,7 @@
 var Events = require('./Events');
 var Viewport = require('./viewport/index.js');
 var ComponentLoader = require('./componentloader.js');
+var AssetsLoader = require('./assetsLoader.js');
 var ShaderLoader = require('./shaderloader.js');
 var Shortcuts = require('./shortcuts.js');
 
@@ -21,6 +22,7 @@ Inspector.prototype = {
   onDomLoaded: function () {
     this.componentLoader = new ComponentLoader();
     this.shaderLoader = new ShaderLoader();
+    this.assetsLoader = new AssetsLoader();
 
     this.sceneEl = document.querySelector('a-scene');
     if (this.sceneEl.hasLoaded) {
