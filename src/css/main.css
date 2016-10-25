@@ -728,15 +728,14 @@ select {
 
 a.flat-button {
   color: #bcbcbc;
-  background-color: #262626;
   font-size: 11px;
   text-decoration: none;
-  margin-left: 10px;
+  margin-left: 3px;
   padding: 5px;
 }
 
 a.flat-button:hover {
-  color: #1faaf2;
+  background-color: #1faaf2;
 }
 
 .component-title {
@@ -922,3 +921,9 @@ span.entity-name {
   width: 20px;
   height: 20px;
 }
+
+.icon-button img {
+  width: 15px;
+  height: 15px;
+}
+

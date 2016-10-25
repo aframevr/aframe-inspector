@@ -106,13 +106,13 @@ export default class Component extends React.Component {
             <span>{subComponentName || componentName}</span> {componentHelp}
           </span>
           <div>
-            <a title='Copy to clipboard' data-action='copy-component-to-clipboard'
+            <a title='Copy component to clipboard' data-action='copy-component-to-clipboard'
               data-component={subComponentName || componentName}
-              className='flat-button' onClick={event => event.stopPropagation()}>
-              Copy HTML
+              className='flat-button icon-button' onClick={event => event.stopPropagation()}>
+              <img src="https://aframe.io/aframe-inspector/assets/copyhtml-min.svg"/>
             </a>
-            <a title='Remove component' className='flat-button'
-              onClick={this.removeComponent}>Remove</a>
+            <a title='Remove component' className='flat-button icon-button'
+              onClick={this.removeComponent}><img src="https://aframe.io/aframe-inspector/assets/remove-min.svg"/></a>
           </div>
         </div>
         <div className='collapsible-content'>

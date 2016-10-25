@@ -60,7 +60,9 @@ export default class CommonComponents extends React.Component {
     const entityName = '<' + entity.tagName.toLowerCase() + '>';
     const entityButtons = <div>
       <a href='#' title='Copy entity HTML to clipboard' data-action='copy-entity-to-clipboard'
-        className='button fa fa-clipboard' onClick={event => event.stopPropagation()}></a>
+        className='flat-button icon-button' onClick={event => event.stopPropagation()}>
+        <img src="https://aframe.io/aframe-inspector/assets/copyhtml-min.svg"/>
+      </a>
     </div>;
 
     return (
