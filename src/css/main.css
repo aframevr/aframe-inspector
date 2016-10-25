@@ -1057,3 +1057,12 @@ span.entity-name {
   margin: 0 0 0 5px;
   width: 68px;
 }
+
+.assets.search {
+  width: 200px;
+  margin-top: 10px;
+}
+
+.assets.search .fa-search {
+  top: 7px;
+}

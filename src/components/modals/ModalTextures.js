@@ -36,6 +36,7 @@ export default class ModalTextures extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
+      filterText: '',
       isOpen: this.props.isOpen,
       loadedTextures: [],
       assetsImages: [],
@@ -240,16 +241,12 @@ export default class ModalTextures extends React.Component {
     });
   }
 
-  render () {
-    let isOpen = this.state.isOpen;
-    if (!isOpen) {
-      return <div></div>;
-    }
+  onChangeFilter = e => {
+    this.setState({filterText: e.target.value});
+  }
 
-    let loadedTextures = this.state.loadedTextures;
-    let preview = this.state.preview;
+  renderRegistryImages () {
     var self = this;
-
     let selectSample = function (image) {
       self.setState({preview: {
         width: image.width,
@@ -265,6 +262,39 @@ export default class ModalTextures extends React.Component {
       });
       self.refs.imageName.focus();
     };
+
+    var filterText = this.state.filterText.toUpperCase();
+
+    return this.state.registryImages
+      .filter((image) => {
+        return image.id.toUpperCase().indexOf(filterText) > -1 ||
+               image.name.toUpperCase().indexOf(filterText) > -1 ||
+               image.tags.indexOf(filterText) > -1;
+      })
+      .map(function (image) {
+      let imageClick = selectSample.bind(this, image);
+      return (
+        <li key={image.src} onClick={imageClick}>
+          <img width="155px" height="155px" src={image.src}/>
+          <div className="detail">
+            <span className="title">{image.name}</span>
+            <span>{getFilename(image.src)}</span>
+            <span>{image.width} x {image.height}</span>
+          </div>
+        </li>
+      );
+    })
+  }
+
+  render () {
+    let isOpen = this.state.isOpen;
+    if (!isOpen) {
+      return <div></div>;
+    }
+
+    let loadedTextures = this.state.loadedTextures;
+    let preview = this.state.preview;
+    var self = this;
 
     let validUrl = isValidId(this.state.preview.name);
     let validAsset = this.isValidAsset();
@@ -285,23 +315,14 @@ export default class ModalTextures extends React.Component {
                     From a file: <input type="hidden" role="uploadcare-uploader"/>
                   </div>
                 </li>
-                <li><span>From samples gallery:</span>
-                  <ul ref="samplesGallery" className="gallery">
-                    {
-                      this.state.registryImages.map(function (image) {
-                        let imageClick = selectSample.bind(this, image);
-                        return (
-                          <li key={image.src} onClick={imageClick}>
-                            <img width="155px" height="155px" src={image.src}/>
-                            <div className="detail">
-                              <span className="title">{image.name}</span>
-                              <span>{getFilename(image.src)}</span>
-                              <span>{image.width} x {image.height}</span>
-                            </div>
-                          </li>
-                        );
-                      })
-                    }
+                <li><span>From assets registry: </span>
+                  <div className='assets search'>
+                    <input placeholder='Search...' value={this.state.filterText}
+                      onChange={this.onChangeFilter}/>
+                    <span className='fa fa-search'></span>
+                  </div>
+                  <ul ref="registryGallery" className="gallery">
+                    { this.renderRegistryImages() }
                   </ul>
                 </li>
               </ul>
