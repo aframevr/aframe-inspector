@@ -15,7 +15,8 @@
     "preghpages": "npm run dist:min && shx rm -rf gh-pages && shx mkdir gh-pages && shx cp -r assets dist example index.html gh-pages && mv gh-pages/dist gh-pages/build && shx sed -i http://localhost:3333 .. gh-pages/example/index.html && shx sed -i ../dist/aframe-inspector.js dist/aframe-inspector.min.js gh-pages/example/index.html",
     "start": "cross-env NODE_ENV=dev webpack-dev-server --progress --colors --hot -d --open --host 0.0.0.0",
     "test": "jest --watch",
-    "test:ci": "jest"
+    "test:ci": "jest",
+    "test:css": "stylelint src/css/main.css"
   },
   "repository": "aframevr/aframe-inspector",
   "license": "MIT",
@@ -52,6 +53,8 @@
     "react-test-renderer": "^15.3.2",
     "shx": "^0.1.2",
     "style-loader": "^0.13.1",
+    "stylelint": "^7.5.0",
+    "stylelint-config-standard": "^14.0.0",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.15.1"
   }
