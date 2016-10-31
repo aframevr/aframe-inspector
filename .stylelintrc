@@ -1,3 +1,8 @@
 {
-  "extends": "stylelint-config-standard"
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "selector-type-no-unknown": [true,
+      "ignoreTypes": ["a-scene", "a-entity"]
+    ]
+  }
 }

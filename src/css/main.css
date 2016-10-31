@@ -37,10 +37,13 @@ textarea.success {
 
 textarea.fail {
   border-color: #f00 !important;
-  background-color: rgba(255,0,0,0.05);
+  background-color: rgba(255, 0, 0, 0.05);
 }
 
-textarea, input { outline: none; } /* osx */
+textarea,
+input {
+  outline: none; /* osx */
+}
 
 #left-sidebar,
 #right-panels {
@@ -94,7 +97,7 @@ textarea, input { outline: none; } /* osx */
 }
 
 .toggle-edit:hover {
-  background-color: rgb(228,43,90);
+  background-color: rgb(228, 43, 90);
 }
 
 .scenegraph {
@@ -113,7 +116,7 @@ textarea, input { outline: none; } /* osx */
 }
 
 .scenegraph-actions {
-  padding: 9px 0px 5px 0px;
+  padding: 9px 0 5px;
 }
 
 .search {
@@ -145,7 +148,8 @@ input {
   color: #fff;
 }
 
-input, .texture canvas {
+input,
+.texture canvas {
   transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;
 }
 
@@ -160,7 +164,7 @@ input.number {
 input.number {
   color: #20b1fb !important;
   font-size: 12px;
-  border: 0px;
+  border: 0;
   padding: 2px;
   cursor: col-resize;
   background-color: transparent !important;
@@ -229,12 +233,15 @@ input[type=color] {
 input[type=color]::-webkit-color-swatch {
   border: 0;  /* To remove the gray border. */
 }
+
 input[type=color]::-webkit-color-swatch-wrapper {
   padding: 0;  /* To remove the inner padding. */
 }
+
 input[type=color]::-moz-color-swatch {
   border: 0;
 }
+
 input[type=color]::-moz-focus-inner {
   border: 0;  /* To remove the inner border (specific to Firefox). */
   padding: 0;
@@ -286,7 +293,7 @@ div.vec3 {
 .collapsible .static {
   vertical-align: middle;
   background-color: #323232;
-  color: #FFF;
+  color: #fff;
   padding: 10px;
   border-top: 1px solid #262626;
   border-bottom: 1px solid #262626;
@@ -297,8 +304,8 @@ div.vec3 {
   text-align: right;
 }
 
-.collapsible .menu:after {
-  color: #BBB;
+.collapsible .menu::after {
+  color: #bbb;
   content: '\2807';
   font-size: 12px;
   padding: 5px;
@@ -316,11 +323,11 @@ div.vec3 {
 }
 
 .collapsible.collapsed .static .collapse-button {
-  border-left-color: #BBB;
+  border-left-color: #bbb;
 }
 
 .collapsible:not(.collapsed) .static .collapse-button {
-  border-top-color: #BBB;
+  border-top-color: #bbb;
 }
 
 .collapsible .content {
@@ -332,6 +339,7 @@ div.vec3 {
   min-height: 20px;
   margin-bottom: 10px;
 }
+
 .components * {
   vertical-align: middle;
 }
@@ -360,10 +368,6 @@ div.vec3 {
 
 .texture .fa {
   padding-right: 5px;
-}
-
-.texture input:button {
-  cursor: hand;
 }
 
 .scenegraph-bottom {
@@ -400,8 +404,8 @@ a.button:hover {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
@@ -410,14 +414,21 @@ a.button:hover {
   margin: auto;
   padding: 0;
   width: 889px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   animation-name: animatetop;
-  animation-duration: 0.2s
+  animation-duration: 0.2s;
 }
 
 @keyframes animatetop {
-  from {top:-300px; opacity:0}
-  to {top:0; opacity:1}
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+
+  to {
+    top: 0;
+    opacity: 1;
+  }
 }
 
 .close {
@@ -449,11 +460,10 @@ a.button:hover {
   color: white;
 }
 
-
 /* Gallery */
 .gallery {
-  padding: 0px;
-  overflow:auto;
+  padding: 0;
+  overflow: auto;
   margin: 0 auto;
 }
 
@@ -463,12 +473,12 @@ a.button:hover {
   float: left;
   overflow: hidden;
   display: inline-block;
-  box-shadow: 3px 3px 8px -2px rgba(0,0,0,0.63);
+  box-shadow: 3px 3px 8px -2px rgba(0, 0, 0, 0.63);
   cursor: pointer;
 }
 
 .gallery li:hover {
-  box-shadow: 0px 0px 4px 3px rgba(29,138,190,0.63);
+  box-shadow: 0 0 4px 3px rgba(29, 138, 190, 0.63);
 }
 
 .gallery li .detail {
@@ -482,17 +492,17 @@ a.button:hover {
 }
 
 .gallery li .detail span {
-  color: #BBB !important;
+  color: #bbb !important;
 }
 
 .gallery li .detail span.title {
-  color: #EEE !important;
+  color: #eee !important;
   font-weight: bold;
 }
 
 .preview {
   width: 200px;
-  float:right;
+  float: right;
   padding: 10px;
 }
 
@@ -514,7 +524,7 @@ a.button:hover {
 }
 
 .modal button:focus {
-  outline: none
+  outline: none;
 }
 
 .modal button {
@@ -538,7 +548,7 @@ a.button:hover {
 .newimage {
   padding: 10px;
   background-color: #323232;
-  overflow:auto;
+  overflow: auto;
 }
 
 .hide {
@@ -546,8 +556,8 @@ a.button:hover {
 }
 
 span.value {
-    color: #fff;
-    display: inline-block;
+  color: #fff;
+  display: inline-block;
 }
 
 span.mixinlist {
@@ -558,7 +568,7 @@ span.mixinlist {
 span.mixinlist ul {
   list-style-type: none;
   padding: 5px;
-  margin: 5px 0 0 0;
+  margin: 5px 0 0;
   background-color: #222;
 }
 
@@ -568,7 +578,7 @@ span.mixinlist ul li {
 }
 
 span.mixinlist ul li:last-child {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 span.mixin {
@@ -617,13 +627,13 @@ select {
 }
 
 .sidebar-title {
-  color: #AAA;
+  color: #aaa;
   text-align: center;
   background-color: #444;
   padding: 6px 10px;
   font-size: 12px;
-	display: flex;
-	justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
   position: relative;
 }
 
@@ -637,9 +647,8 @@ select {
 .toolbar * {
   vertical-align: middle;
   padding: 8px;
-  margin-left: 0px;
+  margin-left: 0;
 }
-
 
 .toolbar a.button {
   margin: 0 6px 0 0;
@@ -659,19 +668,18 @@ select {
 }
 
 .local-transform label {
-  color: #AAA;
+  color: #aaa;
   padding-left: 5px;
 }
 
 .local-transform a.button {
-  padding-top: 0px;
+  padding-top: 0;
 }
 
 .outliner {
   color: #868686;
   background: #2b2b2b;
   padding: 0;
-  width: 100%;
   font-size: 12px;
   cursor: default;
   outline: none;
@@ -702,7 +710,6 @@ select {
 .outliner .option.active .component:hover {
   color: #1888c1;
 }
-
 
 .outliner .option .icons {
   display: none;
@@ -740,8 +747,8 @@ a.flat-button:hover {
 }
 
 .component-title {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 a.help-link {
@@ -749,7 +756,7 @@ a.help-link {
 }
 
 a.help-link:hover {
-  opacity: 1.0;
+  opacity: 1;
 }
 
 #right-panels {
@@ -813,7 +820,8 @@ span.entity-name {
   width: 157px;
 }
 
-.Select-placeholder, .Select--single > .Select-control .Select-value {
+.Select-placeholder,
+.Select--single > .Select-control .Select-value {
   color: #1faaf2 !important;
 }
 
@@ -831,7 +839,7 @@ span.entity-name {
   line-height: 19px;
 }
 
-.row .Select-input{
+.row .Select-input {
   height: 22px;
 }
 
@@ -856,7 +864,7 @@ span.entity-name {
 .help-list {
   list-style: none;
   margin: 0;
-  padding: 0 0 10px 0;
+  padding: 0 0 10px;
   width: 350px;
 }
 
@@ -893,7 +901,7 @@ span.entity-name {
 .help-key-def {
   display: inline-block;
   margin-left: 1em;
-  color: #BBB;
+  color: #bbb;
 }
 
 .add-component {
