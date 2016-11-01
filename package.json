@@ -1,7 +1,7 @@
 {
   "name": "aframe-inspector",
   "version": "0.3.0",
-  "description": "An inspector for A-Frame scenes.",
+  "description": "A visual inspector tool for A-Frame.",
   "main": "dist/aframe-inspector.min.js",
   "scripts": {
     "build": "cross-env webpack --progress --colors",
@@ -57,5 +57,17 @@
     "stylelint-config-standard": "^14.0.0",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.15.1"
-  }
+  },
+  "keywords": [
+    "3d",
+    "aframe",
+    "editor",
+    "inspector",
+    "three.js",
+    "tool",
+    "unity",
+    "vr",
+    "virtualreality",
+    "webvr"
+  ]
 }
