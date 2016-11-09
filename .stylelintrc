@@ -3,6 +3,7 @@
   "rules": {
     "selector-type-no-unknown": [true,
       "ignoreTypes": ["a-scene", "a-entity"]
-    ]
+    ],
+    "declaration-block-properties-order": "alphabetical"
   }
 }
