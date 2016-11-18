@@ -34,7 +34,8 @@ export default class ColorWidget extends React.Component {
 
   render () {
     return (
-      <input type='color' className="color" value={this.state.value} onChange={this.onChange}/>
+      <input type='color' className="color" value={this.state.value}
+        title={this.state.value} onChange={this.onChange}/>
     );
   }
 }
