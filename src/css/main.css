@@ -908,6 +908,23 @@ span.entity-name {
   text-align: left;
 }
 
+.add-component {
+
+}
+
+.add-component .option {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-component .option span {
+  color: #1faaf2;
+}
+
+.Select-menu-outer .is-focused span {
+  color: #fff;
+}
+
 .add-component-container {
   display: flex;
   justify-content: center;
