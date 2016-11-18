@@ -32,7 +32,8 @@ function getModifiedProperties (entity, componentName) {
  */
 export function getClipboardRepresentation (entity, componentName) {
   var diff = getModifiedProperties(entity, componentName);
-  return AFRAME.utils.styleParser.stringify(diff);
+  var attributes = AFRAME.utils.styleParser.stringify(diff).replace(/;|:/g, '$& ');
+  return `${componentName}="${attributes}"`;
 }
 
 /**
