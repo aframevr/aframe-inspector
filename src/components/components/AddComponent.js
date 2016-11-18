@@ -69,15 +69,20 @@ export default class AddComponent extends React.Component {
         });
       });
     var registryOptions = registryComponents
-      .sort(function (a, b) {
-        return a.componentName >= b.componentName;
-      })
       .map(function (item) {
         return {value: item.componentPackageName + '.' + item.componentName,
           label: item.componentName, origin: 'registry'};
       });
 
     this.options = commonOptions.concat(registryOptions);
+    this.options.sort(function (a, b) {
+      return a.label >= b.label;
+    })
+  }
+
+  renderOption (option) {
+    var bullet = <span title="Component already loaded in the scene">&#9679;</span>;
+    return <strong className="option">{option.label} {option.origin === 'loaded' ? bullet : ''}</strong>;
   }
 
   render () {
@@ -85,6 +90,7 @@ export default class AddComponent extends React.Component {
     if (!entity) { return <div></div>; }
 
     this.getComponentsOptions();
+
     return (
         <div className='add-component-container'>
           <Select
@@ -97,6 +103,7 @@ export default class AddComponent extends React.Component {
             placeholder="Add component..."
             noResultsText="No components found"
             onChange={this.addComponent}
+            optionRenderer={this.renderOption}
             searchable={true}
           />
           <a href="https://aframe.io/aframe-registry" target="_blank" title="A-Frame Registry" className="aregistry-button">
