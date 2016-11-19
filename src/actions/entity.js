@@ -2,6 +2,7 @@ var Events = require('../lib/Events.js');
 var components = AFRAME.components;
 var isSingleProperty = AFRAME.schema.isSingleProperty;
 
+import {equal} from '../lib/utils.js';
 import DEFAULT_COMPONENTS from '../components/components/DefaultComponents';
 
 /**
@@ -133,26 +134,75 @@ export function cloneSelectedEntity () {
  * @return {string}        Entity clipboard representation
  */
 export function getClipboardRepresentation (entity) {
-  entity.flushToDOM();
+  //entity.flushToDOM();
   var clone = entity.cloneNode(true);
 
-  function removeDefaultAttributes (element) {
-    for (let i = 0; i < element.childNodes.length; i++) {
-      var child = element.childNodes[i];
+  removeDefaultAttributes(clone);
+  removeNotModifiedMixedinAttributes(entity, clone);
+  removeDefaultProperties(entity, clone);
+  clone.flushToDOM();
+  return clone.outerHTML;
+
+  function removeDefaultAttributes (el) {
+    for (let i = 0; i < el.childNodes.length; i++) {
+      var child = el.childNodes[i];
       if (child.isEntity) {
         removeDefaultAttributes(child);
       }
     }
 
     for (let i = 0; i < DEFAULT_COMPONENTS.length; i++) {
-      if (element.getAttribute(DEFAULT_COMPONENTS[i]).length === 0) {
-        element.removeAttribute(DEFAULT_COMPONENTS[i]);
+      if (el.getAttribute(DEFAULT_COMPONENTS[i]).length === 0) {
+        el.removeAttribute(DEFAULT_COMPONENTS[i]);
       }
     }
   }
 
-  removeDefaultAttributes(clone);
-  return clone.outerHTML;
+  function removeNotModifiedMixedinAttributes (entity, clonedEntity) {
+    var mixinEls = entity.mixinEls;
+    mixinEls.forEach(function removeIfNoModified (mixinEl) {
+      var attributes = mixinEl.attributes;
+      var attrName;
+      var components = entity.components;
+      var componentAttrValue;
+      for (var i = 0; i < attributes.length; i++) {
+        attrName = attributes[i].name;
+        componentAttrValue = HTMLElement.prototype.getAttribute.call(entity, attrName);
+        // Not a component
+        if (!entity.components[attrName]) { continue; }
+        // Value of the component has not changed
+        if (componentAttrValue && componentAttrValue !== attributes[i].value) { continue; }
+        clonedEntity.removeAttribute(attrName);
+      }
+    });
+  }
+
+  function removeDefaultProperties (entity, clonedEntity) {
+    var attributes = Array.prototype.slice.call(clonedEntity.attributes);
+    var attributesLength = attributes.length;
+    for (var i = 0; i < attributesLength; i++) {
+      if (!entity.components[attributes[i].name]) { continue; }
+      removeDefaultValues(attributes[i].name, entity, clonedEntity);
+    }
+
+    function removeDefaultValues(componentName, entity, clonedEntity) {
+      var schema = entity.components[componentName].schema;
+      var componentValues = entity.getAttribute(componentName);
+      var defaultValue;
+      if (schema.default) {
+        defaultValue = schema.default;
+        if (!equal(defaultValue, componentValues)) { return; }
+        clonedEntity.removeAttribute(componentName);
+      } else {
+        for (var property in schema) {
+          defaultValue = schema[property].default;
+          if (!equal(defaultValue, componentValues[property])) { continue; }
+          delete componentValues[property];
+        }
+        clonedEntity.setAttribute(componentName, componentValues, true);
+      }
+    }
+  }
 }
 
 /**
