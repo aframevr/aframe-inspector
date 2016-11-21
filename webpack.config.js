@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // dist/
 var filename = 'aframe-inspector.js';
-var outPath = 'build';
+var outPath = 'dist';
 if (process.env.AFRAME_DIST) {
   outPath = 'dist';
   if (process.env.NODE_ENV === 'production') {
@@ -43,7 +43,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, outPath),
     filename: filename,
-    publicPath: '/build/'
+    publicPath: '/dist/'
   },
   module: {
     loaders: [
