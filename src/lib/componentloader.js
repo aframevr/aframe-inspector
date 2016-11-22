@@ -26,7 +26,7 @@ ComponentLoader.prototype = {
         console.error('Error loading registry file: 404');
       } else {
         this.components = JSON.parse(xhr.responseText).components;
-        console.info('Components in registry:', Object.keys(this.components).length);
+        console.info('Registry file loaded. ' + Object.keys(this.components).length + ' components available.');
       }
     };
     xhr.onerror = () => { console.error('Error loading registry file.'); };
