@@ -27464,7 +27464,7 @@
 	 */
 	/* global XMLHttpRequest JSON */
 	function ComponentLoader() {
-	  this.components = null;
+	  this.components = [];
 	  this.loadFromRegistry();
 	}
 
@@ -27481,8 +27481,12 @@
 	    xhr.open('GET', registryBaseUrl + (0, _utils.getMajorVersion)(AFRAME.version) + '.json');
 
 	    xhr.onload = function () {
-	      _this.components = JSON.parse(xhr.responseText).components;
-	      console.info('Components in registry:', Object.keys(_this.components).length);
+	      if (xhr.status === 404) {
+	        console.error('Error loading registry file: 404');
+	      } else {
+	        _this.components = JSON.parse(xhr.responseText).components;
+	        console.info('Registry file loaded. ' + Object.keys(_this.components).length + ' components available.');
+	      }
 	    };
 	    xhr.onerror = function () {
 	      console.error('Error loading registry file.');
@@ -28031,7 +28035,7 @@
 	                className: 'flat-button', onClick: function onClick(event) {
 	                  return event.stopPropagation();
 	                } },
-	              'Copy HTML'
+	              'Copy Attributes'
 	            ),
 	            _react2.default.createElement(
 	              'a',
@@ -29195,7 +29199,8 @@
 	 */
 	function getClipboardRepresentation(entity, componentName) {
 	  var diff = getModifiedProperties(entity, componentName);
-	  return AFRAME.utils.styleParser.stringify(diff);
+	  var attributes = AFRAME.utils.styleParser.stringify(diff).replace(/;|:/g, '$& ');
+	  return componentName + '="' + attributes + '"';
 	}
 
 	/**
