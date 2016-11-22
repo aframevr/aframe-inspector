@@ -102,6 +102,7 @@ function insertAfter (newNode, referenceNode) {
  * @param  {Element} entity Entity to clone
  */
 export function cloneEntity (entity) {
+  entity.flushToDOM();
   var copy = entity.cloneNode(true);
   copy.addEventListener('loaded', function (e) {
     AFRAME.INSPECTOR.selectEntity(copy);
