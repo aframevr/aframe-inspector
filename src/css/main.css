@@ -36,8 +36,8 @@ textarea.success {
 }
 
 textarea.fail {
-  border-color: #f00 !important;
   background-color: rgba(255, 0, 0, 0.05);
+  border-color: #f00 !important;
 }
 
 textarea,
@@ -62,21 +62,21 @@ input {
 }
 
 .collapsible .static .collapse-button {
+  border: 6px solid transparent;
   float: left;
+  height: 0;
   margin-right: 6px;
   width: 0;
-  height: 0;
-  border: 6px solid transparent;
 }
 
 .collapsible.collapsed .static .collapse-button {
-  margin-top: 2px;
   border-left-color: #1faaf2;
+  margin-top: 2px;
 }
 
 .collapsible:not(.collapsed) .static .collapse-button {
-  margin-top: 6px;
   border-top-color: #1faaf2;
+  margin-top: 6px;
 }
 
 .collapsible.collapsed .content {
@@ -85,15 +85,15 @@ input {
 
 .toggle-edit {
   background-color: #ed3160;
-  position: fixed;
-  left: 3px;
-  top: 3px;
-  padding: 6px 10px;
   color: #fff;
-  text-decoration: none;
+  left: 3px;
+  padding: 6px 10px;
+  position: fixed;
   text-align: center;
-  z-index: 99999;
+  text-decoration: none;
+  top: 3px;
   width: 174px;
+  z-index: 99999;
 }
 
 .toggle-edit:hover {
@@ -120,16 +120,16 @@ input {
 }
 
 .search {
-  position: relative;
   color: #aaa;
   font-size: 16px;
+  position: relative;
 }
 
 .search input {
-  width: 185px;
-  height: 22px;
   background: #222;
   border-radius: 5px;
+  height: 22px;
+  width: 185px;
 }
 
 .search input {
@@ -138,8 +138,8 @@ input {
 
 .search .fa-search {
   position: absolute;
-  top: 10px;
   right: 11px;
+  top: 10px;
 }
 
 input {
@@ -162,37 +162,37 @@ input.number {
 }
 
 input.number {
-  color: #20b1fb !important;
-  font-size: 12px;
-  border: 0;
-  padding: 2px;
-  cursor: col-resize;
   background-color: transparent !important;
+  border: 0;
+  color: #20b1fb !important;
+  cursor: col-resize;
+  font-size: 12px;
+  padding: 2px;
 }
 
 input.string:focus,
 input.number:focus {
   border: 1px solid #20b1fb;
-  cursor: auto;
   color: #fff;
+  cursor: auto;
 }
 
 #left-sidebar {
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 200px;
-  overflow: auto;
   background: #2b2b2b;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   height: 100%;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  width: 200px;
 }
 
 #sidebar {
-  width: 330px;
   background: #2b2b2b;
+  width: 330px;
 }
 
 #sidebar * {
@@ -208,13 +208,13 @@ select {
 }
 
 .row {
-  min-height: 20px;
   margin-bottom: 10px;
+  min-height: 20px;
 }
 
 input[type=color] {
-  border: 1px solid #111;
   background-color: #333;
+  border: 1px solid #111;
   cursor: pointer;
 }
 
@@ -223,10 +223,10 @@ input[type=color] {
 }
 
 input[type=color] {
-  height: 16px;
-  width: 64px;
   cursor: pointer;
+  height: 16px;
   padding: 0;
+  width: 64px;
 }
 
 /* Note: these vendor-prefixed selectors cannot be grouped! */
@@ -248,9 +248,9 @@ input[type=color]::-moz-focus-inner {
 }
 
 body {
+  color: #fff;
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
-  color: #fff;
 }
 
 body.editor-opened {
@@ -260,10 +260,10 @@ body.editor-opened {
 .components {
   background-color: #323232;
   color: #bcbcbc;
-  width: 330px;
-  position: fixed;
   height: 100%;
   overflow: auto;
+  position: fixed;
+  width: 330px;
 }
 
 div.vec2,
@@ -286,18 +286,18 @@ div.vec3 {
   max-width: 110px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .collapsible .static {
-  vertical-align: middle;
   background-color: #323232;
-  color: #fff;
-  padding: 10px;
-  border-top: 1px solid #262626;
   border-bottom: 1px solid #262626;
+  border-top: 1px solid #262626;
+  color: #fff;
   height: 16px;
+  padding: 10px;
+  vertical-align: middle;
 }
 
 .collapsible .menu {
@@ -313,13 +313,13 @@ div.vec3 {
 }
 
 .collapsible .static .collapse-button {
-  margin-top: 2px;
-  width: 0;
-  height: 0;
-  float: left;
-  margin-right: 10px;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
+  float: left;
+  height: 0;
+  margin-right: 10px;
+  margin-top: 2px;
+  width: 0;
 }
 
 .collapsible.collapsed .static .collapse-button {
@@ -336,8 +336,8 @@ div.vec3 {
 }
 
 .components .row {
-  min-height: 20px;
   margin-bottom: 10px;
+  min-height: 20px;
 }
 
 .components * {
@@ -347,10 +347,10 @@ div.vec3 {
 .components .row .text {
   cursor: default;
   display: inline-block;
-  vertical-align: middle;
-  width: 120px;
   overflow: hidden;
   text-overflow: ellipsis;
+  vertical-align: middle;
+  width: 120px;
 }
 
 .components .row .map_value {
@@ -372,18 +372,18 @@ div.vec3 {
 
 .scenegraph-bottom {
   background-color: #323232;
+  border-top: 1px solid #111;
   bottom: 10;
   height: 40px;
-  z-index: 100;
-  border-top: 1px solid #111;
   left: 0;
+  z-index: 100;
 }
 
 a.button {
   color: #bcbcbc;
   font-size: 16px;
-  text-decoration: none;
   margin-left: 10px;
+  text-decoration: none;
 }
 
 a.button:hover {
@@ -396,38 +396,38 @@ a.button:hover {
 }
 
 .modal {
-  position: fixed;
-  z-index: 9999;
-  padding-top: 100px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  padding-top: 100px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
 }
 
 .modal-content {
-  position: relative;
+  animation-duration: 0.2s;
+  animation-name: animatetop;
   background-color: #232323;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin: auto;
   padding: 0;
+  position: relative;
   width: 889px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  animation-name: animatetop;
-  animation-duration: 0.2s;
 }
 
 @keyframes animatetop {
   from {
-    top: -300px;
     opacity: 0;
+    top: -300px;
   }
 
   to {
-    top: 0;
     opacity: 1;
+    top: 0;
   }
 }
 
@@ -441,40 +441,40 @@ a.button:hover {
 .close:hover,
 .close:focus {
   color: #08f;
-  text-decoration: none;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .modal-header {
-  padding: 2px 16px;
   color: white;
+  padding: 2px 16px;
 }
 
 .modal-body {
-  padding: 16px;
   overflow: auto;
+  padding: 16px;
 }
 
 .modal-footer {
-  padding: 2px 16px;
   color: white;
+  padding: 2px 16px;
 }
 
 /* Gallery */
 .gallery {
-  padding: 0;
-  overflow: auto;
   margin: 0 auto;
+  overflow: auto;
+  padding: 0;
 }
 
 .gallery li {
-  width: 155px;
-  margin: 8px;
-  float: left;
-  overflow: hidden;
-  display: inline-block;
   box-shadow: 3px 3px 8px -2px rgba(0, 0, 0, 0.63);
   cursor: pointer;
+  display: inline-block;
+  float: left;
+  margin: 8px;
+  overflow: hidden;
+  width: 155px;
 }
 
 .gallery li:hover {
@@ -483,8 +483,8 @@ a.button:hover {
 
 .gallery li .detail {
   background-color: #323232;
-  padding: 10px;
   min-height: 60px;
+  padding: 10px;
 }
 
 .gallery li:hover .detail {
@@ -501,9 +501,9 @@ a.button:hover {
 }
 
 .preview {
-  width: 200px;
   float: right;
   padding: 10px;
+  width: 200px;
 }
 
 .new_asset_options {
@@ -512,15 +512,15 @@ a.button:hover {
 }
 
 .modal button {
+  appearance: none;
+  border-radius: 0;
+  box-shadow: none;
+  cursor: pointer;
   display: inline-block;
-  margin: 0 10px 0 0;
-  padding: 5px 10px;
   font-size: 12px;
   line-height: 1.8;
-  appearance: none;
-  box-shadow: none;
-  border-radius: 0;
-  cursor: pointer;
+  margin: 0 10px 0 0;
+  padding: 5px 10px;
 }
 
 .modal button:focus {
@@ -528,9 +528,9 @@ a.button:hover {
 }
 
 .modal button {
-  color: #fff;
   background-color: #1eaaf1;
   border: none;
+  color: #fff;
 }
 
 .modal button:hover,
@@ -546,9 +546,9 @@ a.button:hover {
 }
 
 .newimage {
-  padding: 10px;
   background-color: #323232;
   overflow: auto;
+  padding: 10px;
 }
 
 .hide {
@@ -566,15 +566,15 @@ span.mixinlist {
 }
 
 span.mixinlist ul {
-  list-style-type: none;
-  padding: 5px;
-  margin: 5px 0 0;
   background-color: #222;
+  list-style-type: none;
+  margin: 5px 0 0;
+  padding: 5px;
 }
 
 span.mixinlist ul li {
-  margin-bottom: 3px;
   font-size: 11px;
+  margin-bottom: 3px;
 }
 
 span.mixinlist ul li:last-child {
@@ -582,8 +582,8 @@ span.mixinlist ul li:last-child {
 }
 
 span.mixin {
-  width: 100px;
   display: inline-block;
+  width: 100px;
 }
 
 .mixinlist {
@@ -592,8 +592,8 @@ span.mixin {
 
 span.subcomponent {
   color: #999;
-  margin-left: 10px;
   float: none !important;
+  margin-left: 10px;
   vertical-align: top !important;
 }
 
@@ -627,27 +627,27 @@ select {
 }
 
 .sidebar-title {
-  color: #aaa;
-  text-align: center;
   background-color: #444;
-  padding: 6px 10px;
-  font-size: 12px;
+  color: #aaa;
   display: flex;
+  font-size: 12px;
   justify-content: space-between;
+  padding: 6px 10px;
   position: relative;
+  text-align: center;
 }
 
 .toolbar {
-  height: 32px;
   background-color: #262626;
   color: #333;
+  height: 32px;
   position: relative;
 }
 
 .toolbar * {
-  vertical-align: middle;
-  padding: 8px;
   margin-left: 0;
+  padding: 8px;
+  vertical-align: middle;
 }
 
 .toolbar a.button {
@@ -677,25 +677,25 @@ select {
 }
 
 .outliner {
-  color: #868686;
   background: #2b2b2b;
-  padding: 0;
-  font-size: 12px;
+  color: #868686;
   cursor: default;
-  outline: none;
   flex: 1 1 auto;
-  overflow-y: auto;
-  position: fixed;
-  width: 200px;
-  top: 98px;
+  font-size: 12px;
   height: calc(100% - 98px);
+  outline: none;
+  overflow-y: auto;
+  padding: 0;
+  position: fixed;
+  top: 98px;
+  width: 200px;
 }
 
 .outliner .option {
-  padding: 4px;
-  white-space: nowrap;
   display: flex;
   justify-content: space-between;
+  padding: 4px;
+  white-space: nowrap;
 }
 
 .outliner .option.active {
@@ -717,8 +717,8 @@ select {
 }
 
 .outliner .option .icons .button {
-  font-size: 12px;
   color: #fff;
+  font-size: 12px;
 }
 
 .outliner .option.active .icons {
@@ -734,12 +734,12 @@ select {
 }
 
 a.flat-button {
-  color: #bcbcbc;
   background-color: #262626;
+  color: #bcbcbc;
   font-size: 11px;
-  text-decoration: none;
   margin-left: 10px;
   padding: 5px;
+  text-decoration: none;
 }
 
 a.flat-button:hover {
@@ -747,8 +747,8 @@ a.flat-button:hover {
 }
 
 .component-title {
-  display: flex;
   align-items: center;
+  display: flex;
 }
 
 a.help-link {
@@ -760,12 +760,12 @@ a.help-link:hover {
 }
 
 #right-panels {
+  align-items: stretch;
   display: flex;
   justify-content: flex-end;
-  align-items: stretch;
   position: fixed;
-  top: 0;
   right: 0;
+  top: 0;
 }
 
 #aframe-inspector-panels {
@@ -780,14 +780,14 @@ a.help-link:hover {
 }
 
 .aframe-inspector-opened a-scene .a-canvas {
-  position: fixed;
   background-color: #191919;
+  position: fixed;
   z-index: 9999;
 }
 
 span.entity-name {
-  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;
   color: #fff;
+  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;
   font-size: 16px;
 }
 
@@ -797,9 +797,9 @@ span.entity-name {
 
 .Select-control {
   background-color: #222 !important;
+  border: none;
   border-radius: 0;
   color: #1faaf2;
-  border: none;
 }
 
 .Select-menu-outer {
@@ -830,8 +830,8 @@ span.entity-name {
 }
 
 .row .Select-control {
-  height: 24px;
   font-size: 11px;
+  height: 24px;
 }
 
 .row .Select-placeholder,
@@ -847,12 +847,12 @@ span.entity-name {
 .row input[type=number],
 .row input.string,
 .row input.number {
+  background: #222;
+  border: 1px solid transparent;
+  color: #1faaf2;
   min-height: 20px;
   padding-left: 5px;
   padding-right: 5px;
-  color: #1faaf2;
-  border: 1px solid transparent;
-  background: #222;
 }
 
 /* shortcuts help */
@@ -879,37 +879,33 @@ span.entity-name {
 }
 
 .help-key {
-  min-width: 60px;
-  position: relative;
   bottom: 2px;
   margin-right: 4px;
+  min-width: 60px;
+  position: relative;
 }
 
 .help-key span {
-  font-size: 12px;
-  color: #999;
-  display: inline-block;
-  padding: 0 8px;
-  text-align: center;
   background-color: #2e2e2e;
   background-repeat: repeat-x;
   border: 1px solid #666;
   border-radius: 3px;
   box-shadow: 0 0 5px #000;
+  color: #999;
+  display: inline-block;
+  font-size: 12px;
+  padding: 0 8px;
+  text-align: center;
 }
 
 .help-key-def {
+  color: #bbb;
   display: inline-block;
   margin-left: 1em;
-  color: #bbb;
 }
 
 .add-component {
   text-align: left;
-}
-
-.add-component {
-
 }
 
 .add-component .option {
@@ -926,17 +922,17 @@ span.entity-name {
 }
 
 .add-component-container {
-  display: flex;
-  justify-content: center;
   align-items: center;
   background-color: #2b2b2b;
+  display: flex;
+  justify-content: center;
   padding: 10px;
 }
 
 .aregistry-button {
-  padding: 8px;
   font-size: 12px;
   margin-left: 10px;
+  padding: 8px;
 }
 
 .aregistry-button:hover {
@@ -944,6 +940,6 @@ span.entity-name {
 }
 
 .aregistry-button img {
-  width: 20px;
   height: 20px;
+  width: 20px;
 }
