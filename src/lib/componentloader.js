@@ -7,7 +7,7 @@ const registryBaseUrl = 'https://aframe.io/aframe-registry/build/';
  * Asynchronously load and register components from the registry.
  */
 function ComponentLoader () {
-  this.components = null;
+  this.components = [];
   this.loadFromRegistry();
 }
 
@@ -22,8 +22,12 @@ ComponentLoader.prototype = {
     xhr.open('GET', registryBaseUrl + getMajorVersion(AFRAME.version) + '.json');
 
     xhr.onload = () => {
-      this.components = JSON.parse(xhr.responseText).components;
-      console.info('Components in registry:', Object.keys(this.components).length);
+      if (xhr.status === 404) {
+        console.error('Error loading registry file: 404');
+      } else {
+        this.components = JSON.parse(xhr.responseText).components;
+        console.info('Registry file loaded. ' + Object.keys(this.components).length + ' components available.');
+      }
     };
     xhr.onerror = () => { console.error('Error loading registry file.'); };
     xhr.send();
