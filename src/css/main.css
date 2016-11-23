@@ -774,6 +774,7 @@ a.help-link:hover {
   background-color: #191919;
   position: fixed;
   z-index: 9999;
+  zoom: reset;
 }
 
 span.entity-name {
