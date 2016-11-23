@@ -1,11 +1,29 @@
-body {
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 14px;
+body.aframe-inspector-opened {
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
   margin: 0;
+  overflow: hidden;
 }
 
-body.aframe-inspector-opened {
-  overflow: hidden;
+.toggle-edit {
+  background-color: #ed3160;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  left: 3px;
+  margin: 0;
+  padding: 6px 10px;
+  position: fixed;
+  text-align: center;
+  text-decoration: none;
+  top: 3px;
+  width: 174px;
+  z-index: 99999;
+}
+
+.toggle-edit:hover {
+  background-color: rgb(228, 43, 90);
 }
 
 hr {
@@ -81,23 +99,6 @@ input {
 
 .collapsible.collapsed .content {
   display: none;
-}
-
-.toggle-edit {
-  background-color: #ed3160;
-  color: #fff;
-  left: 3px;
-  padding: 6px 10px;
-  position: fixed;
-  text-align: center;
-  text-decoration: none;
-  top: 3px;
-  width: 174px;
-  z-index: 99999;
-}
-
-.toggle-edit:hover {
-  background-color: rgb(228, 43, 90);
 }
 
 .scenegraph {
@@ -245,16 +246,6 @@ input[type=color]::-moz-color-swatch {
 input[type=color]::-moz-focus-inner {
   border: 0;  /* To remove the inner border (specific to Firefox). */
   padding: 0;
-}
-
-body {
-  color: #fff;
-  font-family: 'Roboto', sans-serif;
-  font-size: 12px;
-}
-
-body.editor-opened {
-  background-color: #191919;
 }
 
 .components {
