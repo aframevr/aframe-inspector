@@ -12,6 +12,9 @@ function getModifiedProperties (entity, componentName) {
   var defaultData = entity.components[componentName].schema;
   var diff = {};
   for (var key in data) {
+    // Prevent adding unknown attributes
+    if (!defaultData[key]) { continue; }
+
     var defaultValue = defaultData[key].default;
     var currentValue = data[key];
 
