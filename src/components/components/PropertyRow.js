@@ -7,6 +7,7 @@ import InputWidget from '../widgets/InputWidget';
 import NumberWidget from '../widgets/NumberWidget';
 import SelectWidget from '../widgets/SelectWidget';
 import TextureWidget from '../widgets/TextureWidget';
+import Vec4Widget from '../widgets/Vec4Widget';
 import Vec3Widget from '../widgets/Vec3Widget';
 import Vec2Widget from '../widgets/Vec2Widget';
 import {updateEntity} from '../../actions/entity';
@@ -75,6 +76,9 @@ export default class PropertyRow extends React.Component {
       }
       case 'vec3': {
         return <Vec3Widget {...widgetProps}/>;
+      }
+      case 'vec4': {
+        return <Vec4Widget {...widgetProps}/>;
       }
       case 'color': {
         return <ColorWidget {...widgetProps}/>;
