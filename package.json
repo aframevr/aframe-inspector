@@ -1,6 +1,6 @@
 {
   "name": "aframe-inspector",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A visual inspector tool for A-Frame.",
   "main": "dist/aframe-inspector.min.js",
   "scripts": {
@@ -69,6 +69,7 @@
     "unity",
     "vr",
     "virtualreality",
-    "webvr"
+    "webvr",
+    "wysiwyg"
   ]
 }
