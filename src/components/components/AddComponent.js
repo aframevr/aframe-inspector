@@ -96,7 +96,6 @@ export default class AddComponent extends React.Component {
           <Select
             className="add-component"
             ref="select"
-            autofocus
             options={this.options}
             simpleValue
             clearable={true}
