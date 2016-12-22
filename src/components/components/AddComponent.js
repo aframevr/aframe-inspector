@@ -75,9 +75,9 @@ export default class AddComponent extends React.Component {
       });
 
     this.options = commonOptions.concat(registryOptions);
-    this.options.sort(function (a, b) {
-      return a.label >= b.label;
-    })
+    this.options = this.options.sort(function (a, b) {
+      return a.label === b.label ? 0 : a.label < b.label ? -1 : 1;
+    });
   }
 
   renderOption (option) {
