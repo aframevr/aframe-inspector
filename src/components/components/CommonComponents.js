@@ -43,7 +43,7 @@ export default class CommonComponents extends React.Component {
     const components = entity ? entity.components : {};
     return Object.keys(components).filter(function (key) {
       return DEFAULT_COMPONENTS.indexOf(key) !== -1;
-    }).map(componentName => {
+    }).sort().map(componentName => {
       const componentData = components[componentName];
       const schema = AFRAME.components[componentName].schema;
       return (
