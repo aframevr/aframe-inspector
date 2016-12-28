@@ -1,7 +1,12 @@
 /* globals AFRAME */
 var Events = require('./Events');
-var shouldCaptureKeyEvent = AFRAME.utils.shouldCaptureKeyEvent;
 import {removeSelectedEntity, cloneSelectedEntity} from '../actions/entity';
+
+function shouldCaptureKeyEvent (event) {
+  if (event.metaKey) { return false; }
+  return event.target.tagName !== 'INPUT' &&
+    event.target.tagName !== 'TEXTAREA';
+}
 
 module.exports = {
   onKeyUp: function (event) {
