@@ -935,3 +935,8 @@ span.entity-name {
   height: 20px;
   width: 20px;
 }
+
+.components .row .color_value {
+  margin: 0 0 0 5px;
+  width: 68px;
+}
