@@ -3,7 +3,6 @@ var components = AFRAME.components;
 var isSingleProperty = AFRAME.schema.isSingleProperty;
 
 import {equal} from '../lib/utils.js';
-import DEFAULT_COMPONENTS from '../components/components/DefaultComponents';
 
 /**
  * Update a component.
@@ -137,6 +136,7 @@ export function cloneSelectedEntity () {
 export function getClipboardRepresentation (entity) {
   //entity.flushToDOM();
   var clone = entity.cloneNode(true);
+  var defaultComponents = Object.keys(clone.defaultComponents);
 
   removeDefaultAttributes(clone);
   removeNotModifiedMixedinAttributes(entity, clone);
@@ -152,9 +152,9 @@ export function getClipboardRepresentation (entity) {
       }
     }
 
-    for (let i = 0; i < DEFAULT_COMPONENTS.length; i++) {
-      if (el.getAttribute(DEFAULT_COMPONENTS[i]).length === 0) {
-        el.removeAttribute(DEFAULT_COMPONENTS[i]);
+    for (let i = 0; i < defaultComponents.length; i++) {
+      if (el.getAttribute(defaultComponents[i])) {
+        el.removeAttribute(defaultComponents[i]);
       }
     }
   }
