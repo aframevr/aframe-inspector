@@ -34,6 +34,9 @@ export default class PropertyRow extends React.Component {
     const gaTrackComponentUpdate = debounce(() => {
       ga('send', 'event', 'Components', 'changeProperty', this.id);
     });
+
+    const value = props.schema.type === 'selector' ? props.entity.getDOMAttribute(props.componentname)[props.name] : props.data;
+
     const widgetProps = {
       componentname: props.componentname,
       entity: props.entity,
@@ -49,7 +52,7 @@ export default class PropertyRow extends React.Component {
         updateEntity.apply(this, [props.entity, propertyName, value]);
         gaTrackComponentUpdate();
       },
-      value: props.data
+      value: value
     };
     const numberWidgetProps = {
       min: props.schema.hasOwnProperty('min') ? props.schema.min : -Infinity,
@@ -90,7 +93,8 @@ export default class PropertyRow extends React.Component {
 
   render () {
     const props = this.props;
-    const title = props.name + '\n - type: ' + props.schema.type + '\n - value: ' + JSON.stringify(props.data);
+    const value = props.schema.type === 'selector' ? props.entity.getDOMAttribute(props.componentname)[props.name] : JSON.stringify(props.data);
+    const title = props.name + '\n - type: ' + props.schema.type + '\n - value: ' + value;
     const helpLink = props.showHelp ? getComponentDocsHtmlLink(props.name) : '';
     return (
       <div className='row'>
