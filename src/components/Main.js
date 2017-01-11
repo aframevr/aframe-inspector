@@ -130,5 +130,5 @@ function injectCSS (url) {
   });
   AFRAME.INSPECTOR = INSPECTOR;
 
-  console.log('A-Frame Inspector Version:', VERSION, '(Build: ' + BUILD_TIMESTAMP + ')');
+  console.log('A-Frame Inspector Version:', VERSION, '(' + BUILD_TIMESTAMP + ' Commit: ' + COMMIT_HASH.substr(0, 7) + ')');
 })();

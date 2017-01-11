@@ -1,5 +1,5 @@
 var path = require('path');
-
+var childProcess = require('child_process');
 var autoprefixer = require('autoprefixer');
 var postcssImport = require('postcss-import');
 var webpack = require('webpack');
@@ -19,15 +19,14 @@ function getBuildTimestamp () {
   }
   var date = new Date();
   var timestamp = [
-    date.getUTCFullYear(),
-    pad2(date.getUTCMonth()+1),
     pad2(date.getUTCDate()),
-    pad2(date.getUTCHours()),
-    pad2(date.getUTCMinutes()),
-    pad2(date.getUTCSeconds())
+    pad2(date.getUTCMonth()+1),
+    date.getUTCFullYear()
   ]
-  return timestamp.join('');
+  return timestamp.join('-');
 }
+
+var commitHash = childProcess.execSync('git rev-parse HEAD').toString();
 
 // Minification.
 var plugins = [
@@ -36,7 +35,8 @@ var plugins = [
       'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     },
     VERSION: JSON.stringify(require('./package.json').version),
-    BUILD_TIMESTAMP: getBuildTimestamp()
+    BUILD_TIMESTAMP: JSON.stringify(getBuildTimestamp()),
+    COMMIT_HASH: JSON.stringify(commitHash)
   }),
 ];
 if (process.env.NODE_ENV === 'production') {
