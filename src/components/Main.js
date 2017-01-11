@@ -129,4 +129,6 @@ function injectCSS (url) {
     ReactDOM.render(<Main/>, div);
   });
   AFRAME.INSPECTOR = INSPECTOR;
+
+  console.log('A-Frame Inspector Version:', VERSION, '(Build: ' + BUILD_TIMESTAMP + ')');
 })();

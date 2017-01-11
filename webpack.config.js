@@ -13,13 +13,31 @@ if (process.env.NODE_ENV === 'dev') {
   ].concat(entry);
 }
 
+function getBuildTimestamp () {
+  function pad2 (value) {
+    return ('0' + value).slice(-2);
+  }
+  var date = new Date();
+  var timestamp = [
+    date.getUTCFullYear(),
+    pad2(date.getUTCMonth()+1),
+    pad2(date.getUTCDate()),
+    pad2(date.getUTCHours()),
+    pad2(date.getUTCMinutes()),
+    pad2(date.getUTCSeconds())
+  ]
+  return timestamp.join('');
+}
+
 // Minification.
 var plugins = [
   new webpack.DefinePlugin({
     'process.env':{
       'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-    }
-  })
+    },
+    VERSION: JSON.stringify(require('./package.json').version),
+    BUILD_TIMESTAMP: getBuildTimestamp()
+  }),
 ];
 if (process.env.NODE_ENV === 'production') {
   plugins.push(new webpack.optimize.UglifyJsPlugin({
