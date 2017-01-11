@@ -1,1 +1,1 @@
-javascript:(function(){var script=document.createElement('script'); script.src='https://aframe.io/releases/0.3.0/aframe-inspector.min.js';document.head.appendChild(script);})()
+javascript:(function(){var script=document.createElement('script'); script.src='http://localhost:3333/dist/aframe-inspector.js';document.head.appendChild(script);})()
