@@ -243,6 +243,8 @@
 	    _reactDom2.default.render(_react2.default.createElement(Main, null), div);
 	  });
 	  AFRAME.INSPECTOR = INSPECTOR;
+
+	  console.log('A-Frame Inspector Version:', ("0.4.0"), '(Build: ' + (20170111143011) + ')');
 	})();
 
 /***/ },
