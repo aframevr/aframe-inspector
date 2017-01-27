@@ -58,31 +58,21 @@ module.exports = {
       cloneSelectedEntity();
     }
 
-    // Ctrl
-    if (event.keyCode === 17) {
-      AFRAME.INSPECTOR.controlPressed = false;
-    }
   },
   onKeyDown: function (event) {
-    // Ctrl
-    if (event.keyCode === 17) {
-      AFRAME.INSPECTOR.controlPressed = true;
-    }
-
     // c: copy selected entity
     if (event.keyCode === 67) {
-      if(AFRAME.INSPECTOR.selected && AFRAME.INSPECTOR.controlPressed && document.activeElement.tagName !== "INPUT") {
+      if(AFRAME.INSPECTOR.selected && (event.ctrlKey || event.metaKey) && document.activeElement.tagName !== "INPUT") {
         AFRAME.INSPECTOR.copiedEntity = AFRAME.INSPECTOR.selectedEntity;
       }
     }
 
     // v: paste copied entity
     if (event.keyCode === 86) {
-      if(AFRAME.INSPECTOR.copiedEntity && AFRAME.INSPECTOR.controlPressed && document.activeElement.tagName !== "INPUT") {
+      if(AFRAME.INSPECTOR.copiedEntity && (event.ctrlKey || event.metaKey) && document.activeElement.tagName !== "INPUT") {
         cloneEntity(AFRAME.INSPECTOR.copiedEntity);
       }
     }
-
   },
   enable: function () {
     window.addEventListener('keyup', this.onKeyUp, false);
