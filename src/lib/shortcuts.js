@@ -67,6 +67,7 @@ module.exports = {
       cloneSelectedEntity();
     }
 
+    // Num Key from 1-9 pressed
     if(event.keyCode >=48 && event.keyCode<=57) {
       if(AFRAME.Keyevents.VAL == null) {
         AFRAME.Keyevents.VAL = 0;
@@ -78,13 +79,18 @@ module.exports = {
       AFRAME.Keyevents.NEGATION = false;
     }
 
+    // Return: Change value of specified direction
     if(event.keyCode == 13) {
       var key = AFRAME.Keyevents.LASTKEY;
       if(key === 88 || key === 89 || key === 90 || (key>=48 & key<=57)) {
         if(AFRAME.Keyevents.NEGATION) {
-          Events.emit('modifyValue', { val: -1 * AFRAME.Keyevents.VAL,  dimension: AFRAME.Keyevents.DIM});
+          if (AFRAME.INSPECTOR.selectedEntity) {
+            Events.emit('modifyValue', { val: -1 * AFRAME.Keyevents.VAL,  dimension: AFRAME.Keyevents.DIM});
+          }
         } else {
-          Events.emit('modifyValue', { val: AFRAME.Keyevents.VAL,  dimension: AFRAME.Keyevents.DIM});
+          if (AFRAME.INSPECTOR.selectedEntity) {
+            Events.emit('modifyValue', { val: AFRAME.Keyevents.VAL,  dimension: AFRAME.Keyevents.DIM});
+          }
         }
       }
       AFRAME.Keyevents.VAL = null;
@@ -97,14 +103,17 @@ module.exports = {
       }
     }
 
+    // x: Change edit mode to x direction
     if (event.keyCode === 88) {
     AFRAME.Keyevents.DIM = 'x';
     }
 
+    // x: Change edit mode to y direction
     if (event.keyCode === 89) {
     AFRAME.Keyevents.DIM = 'y';
     }
 
+    // z: Change edit mode to z direction
     if (event.keyCode === 90) {
     AFRAME.Keyevents.DIM = 'z';
     }
