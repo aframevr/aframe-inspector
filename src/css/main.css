@@ -103,15 +103,15 @@ input {
 
 .toggle-edit {
   background-color: #ed3160;
-  position: fixed;
-  left: 3px;
-  top: 3px;
-  padding: 6px 10px;
   color: #fff;
-  text-decoration: none;
+  left: 3px;
+  padding: 6px 10px;
+  position: fixed;
   text-align: center;
-  z-index: 9999;
+  text-decoration: none;
+  top: 3px;
   width: 174px;
+  z-index: 9999;
 }
 
 .toggle-edit:hover {
@@ -417,20 +417,17 @@ a.button:hover {
 }
 
 .modal {
+  animation: animateopacity 0.2s ease-out;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
-  position: fixed;
-  z-index: 9999;
+  height: 100%;
   left: 0;
   overflow: auto;
-  padding-top: 100px;
   position: fixed;
   top: 0;
   width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.6);
-  animation: animateopacity 0.2s ease-out;
+  z-index: 9999;
 }
 
 .modal h3 {
@@ -440,24 +437,23 @@ a.button:hover {
 }
 
 .modal-content {
+  animation: animatetop 0.2s ease-out;
   animation-duration: 0.2s;
   animation-name: animatetop;
   background-color: #232323;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  margin: auto;
-  min-width: 200px;
-  min-height: 200px;
-  padding: 0;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
-  animation: animatetop 0.2s ease-out;
+  margin: auto;
   max-height: calc(100% - 50px);
   max-width: calc(100% - 50px);
+  min-height: 200px;
+  min-width: 200px;
   overflow: hidden;
+  padding: 0;
 }
 
 @keyframes animateopacity {
-  from {opacity: 0}
-  to {opacity: 1}
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .close {
@@ -475,14 +471,11 @@ a.button:hover {
 }
 
 .modal-header {
-  padding: 2px 16px 0px 30px;
   color: white;
   padding: 2px 16px;
 }
 
 .modal-body {
-  padding: 30px;
-  padding-top: 10px;
   overflow: auto;
   padding: 16px;
 }
@@ -494,15 +487,13 @@ a.button:hover {
 
 /* Gallery */
 .gallery {
+  background: #232323;
   display: flex;
   flex-wrap: wrap;
-  padding: 3px;
-  margin: 15px auto 0 auto;
-  overflow: auto;
+  margin: 15px auto 0;
   max-height: 50vh;
-  background: #232323;
-  padding-left: 15px;
-  padding-top: 15px;
+  overflow: auto;
+  padding: 15 3 3 15;
 }
 
 .newimage .gallery {
@@ -510,28 +501,28 @@ a.button:hover {
 }
 
 .gallery li {
-  width: 155px;
+  border-radius: 2px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
   margin: 8px;
   overflow: hidden;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.6);
-  cursor: pointer;
-  border-radius: 2px;
+  width: 155px;
 }
 
 .gallery li:hover {
-  box-shadow: 0px 0px 0px 2px #1eaaf1;
+  box-shadow: 0 0 0 2px #1eaaf1;
 }
 
 .gallery li .detail {
   background-color: #323232;
-  padding: 3px 10px;
-  min-height: 60px;
   margin: 0;
+  min-height: 60px;
+  padding: 3px 10px;
 }
 
 .preview {
-  width: 200px;
   padding: 10px;
+  width: 200px;
 }
 
 .preview input {
@@ -539,32 +530,32 @@ a.button:hover {
   margin: 8px 0;
   width: 144px;
 }
+
 .preview button {
   width: 155px;
 }
 
 .preview .detail .title {
+  color: #fff;
+  display: inline-block;
   max-width: 155px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  display: inline-block;
-  color: #fff;
 }
 
 .gallery li:hover .detail {
   background-color: #444;
 }
 
-
 .gallery li .detail span {
   color: #777;
   display: block;
-  width: 140px;
+  margin-top: 4px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-top: 4px;
+  width: 140px;
 }
 
 .gallery li:hover .detail span {
@@ -572,7 +563,7 @@ a.button:hover {
 }
 
 .gallery li .detail span.title {
-  color: #FFF !important;
+  color: #fff !important;
 }
 
 .modal button {
@@ -615,18 +606,18 @@ a.button:hover {
 }
 
 .newimage {
-  margin-top: 10px;
-  padding: 10px;
   background-color: #323232;
-  overflow: auto;
-  font-size: 13px;
   color: #bcbcbc;
   display: flex;
+  font-size: 13px;
+  margin-top: 10px;
+  overflow: auto;
+  padding: 10px;
 }
 
 .newimage input {
-  padding: 3px 5px;
   color: #1eaaf1;
+  padding: 3px 5px;
 }
 
 .hide {
@@ -864,10 +855,10 @@ a.help-link:hover {
 
 .uploadcare-widget-button-open {
   background-color: #1eaaf1;
-  border-radius: 0px;
+  border-radius: 0;
   cursor: pointer;
-  padding: 10px 15px;
   margin-left: 10px;
+  padding: 10px 15px;
 }
 
 .uploadcare-widget-button-open:hover {
@@ -879,8 +870,8 @@ a.help-link:hover {
 }
 
 .new_asset_options > ul {
-  padding: 5px;
   margin-left: 10px;
+  padding: 5px;
 }
 
 .new_asset_options > ul > li {
@@ -888,8 +879,8 @@ a.help-link:hover {
 }
 
 .new_asset_options .imageUrl {
-  width: 350px;
   margin-left: 5px;
+  width: 350px;
 }
 
 span.entity-name {
@@ -960,9 +951,6 @@ span.entity-name {
   min-height: 20px;
   padding-left: 5px;
   padding-right: 5px;
-  color: #1faaf2;
-  border: 1px solid transparent;
-  background: #222;
 }
 
 .help-lists {
@@ -1059,8 +1047,8 @@ span.entity-name {
 }
 
 .assets.search {
-  width: 200px;
   margin-top: 10px;
+  width: 200px;
 }
 
 .assets.search .fa-search {
