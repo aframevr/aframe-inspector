@@ -6,7 +6,6 @@
     <script src="js/aframe-master.js"></script>
     <script>UPLOADCARE_PUBLIC_KEY = "f43ad452b58f9e853d05";</script>
     <script src="https://ucarecdn.com/widget/2.10.0/uploadcare/uploadcare.full.min.js" charset="utf-8"></script>
-    <script src="js/aframe.min.js"></script>
   </head>
   <body>
     <a-scene debug="true">
@@ -20,8 +19,8 @@
         <a-mixin id="purple" material="color: #93648D"></a-mixin>
         <a-mixin id="short" scale="1 0.5 1"></a-mixin>
         <a-mixin id="yellow" material="color: #FFC65D"></a-mixin>
-        <img id="crateImg" src="assets/textures/crate.gif">
-        <img id="floorImg" src="assets/textures/grasslight-big.jpg">
+        <img id="crateImg" src="https://aframe.io/sample-assets/assets/images/wood/crate.gif">
+        <img id="floorImg" src="https://aframe.io/sample-assets/assets/images/terrain/grasslight-big.jpg">
       </a-assets>
 
       <!-- Meshes. -->
@@ -32,7 +31,7 @@
         <a-animation attribute="rotation" to="0 360 0" repeat="indefinite" easing="linear" dur="9600"></a-animation>
       </a-entity>
       <a-entity id="yellowSphere" geometry="primitive: sphere" material="color:#ff0; metalness:0.0; roughness:1.0" position="-2 2 -2"></a-entity>
-      <a-box src="assets/textures/brick_bump.jpg" position="-5 5 -2" width="1" color="#F16745"></a-box>
+      <a-box src="https://aframe.io/sample-assets/assets/images/bricks/brick_bump.jpg" position="-5 5 -2" width="1" color="#F16745"></a-box>
       <a-box id="box" position="0 2 0" height="2" color="#FFC65D"></a-box>
 
       <!-- Models. -->
