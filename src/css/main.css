@@ -493,7 +493,7 @@ a.button:hover {
   margin: 15px auto 0;
   max-height: 50vh;
   overflow: auto;
-  padding: 15 3 3 15;
+  padding: 15px 3px 3px 3px;
 }
 
 .newimage .gallery {
