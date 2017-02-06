@@ -118,16 +118,16 @@ export default class ModalTextures extends React.Component {
       image.addEventListener('load', () => {
         self.state.registryImages.push({
           id: imageData.id,
-          src: image.src,
-          width: image.width,
-          height: image.height,
+          src: imageData.fullPath,
+          width: imageData.width,
+          height: imageData.height,
           name: imageData.id,
           type: 'registry',
           tags: imageData.tags,
-          value: 'url(' + image.src + ')'});
+          value: 'url(' + imageData.fullPath + ')'});
         self.setState({registryImages: self.state.registryImages});
       });
-      image.src = imageData.fullPath;
+      image.src = imageData.fullThumbPath;
     });
   }
 

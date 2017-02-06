@@ -26,10 +26,12 @@ AssetsLoader.prototype = {
     xhr.open('GET', url);
 
     xhr.onload = () => {
-      this.images = JSON.parse(xhr.responseText).images;
+      var data = JSON.parse(xhr.responseText);
+      this.images = data.images;
       console.info('Images in registry:', Object.keys(this.images).length);
       this.images.forEach(image => {
-        image.fullPath = assetsBaseUrl + image.path;
+        image.fullPath = assetsBaseUrl + data.basepath.images + image.path;
+        image.fullThumbPath = assetsBaseUrl + data.basepath.images_thumbnails + image.thumbnail;
       });
       Events.emit('assetsimagesloaded', this.images);
     };
