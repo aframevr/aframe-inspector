@@ -1,6 +1,6 @@
 /* globals AFRAME */
 var Events = require('./Events');
-import {removeSelectedEntity, cloneSelectedEntity} from '../actions/entity';
+import {removeSelectedEntity, cloneSelectedEntity, cloneEntity} from '../actions/entity';
 
 function shouldCaptureKeyEvent (event) {
   if (event.metaKey) { return false; }
@@ -58,10 +58,33 @@ module.exports = {
       cloneSelectedEntity();
     }
   },
+  onKeyDown: function (event) {
+    // Ctrl
+    if (event.keyCode === 17) {
+      AFRAME.INSPECTOR.controlPressed = true;
+    }
+
+    // c: copy selected entity
+    if (event.keyCode === 67) {
+      if(AFRAME.INSPECTOR.selected && AFRAME.INSPECTOR.controlPressed) {
+        AFRAME.INSPECTOR.copiedEntity = AFRAME.INSPECTOR.selectedEntity;
+      }
+    }
+
+    // v: paste copied entity
+    if (event.keyCode === 86) {
+      if(AFRAME.INSPECTOR.copiedEntity && AFRAME.INSPECTOR.controlPressed) {
+        cloneEntity(AFRAME.INSPECTOR.copiedEntity);
+      }
+    }
+
+  },
   enable: function () {
     window.addEventListener('keyup', this.onKeyUp, false);
+    window.addEventListener('keydown', this.onKeyDown, false);
   },
   disable: function () {
     window.removeEventListener('keyup', this.onKeyUp);
+    window.removeEventListener('keydown', this.onKeyDown);
   }
 };
