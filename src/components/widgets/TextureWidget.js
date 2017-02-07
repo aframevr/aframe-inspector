@@ -2,6 +2,11 @@ import React from 'react';
 import INSPECTOR from '../../lib/inspector';
 
 var Events = require('../../lib/Events.js');
+
+function getUrlFromId (assetId) {
+  return assetId.length > 1 && document.querySelector(assetId) && document.querySelector(assetId).getAttribute('src');
+}
+
 function GetFilename (url) {
   if (url) {
     var m = url.toString().match(/.*\/(.+?)\./);
@@ -119,7 +124,7 @@ export default class TextureWidget extends React.Component {
 
     var url;
     if (value[0] === '#') {
-      url = value.length > 1 && document.querySelector(value) && document.querySelector(value).getAttribute('src');
+      url = getUrlFromId(value);
     } else {
       url = AFRAME.utils.srcLoader.parseUrl(value);
     }
@@ -172,7 +177,6 @@ export default class TextureWidget extends React.Component {
       }
 
       if (this.props.onChange) {
-        console.log(this.props.name, value);
         this.props.onChange(this.props.name, value);
       }
 
@@ -181,11 +185,21 @@ export default class TextureWidget extends React.Component {
   }
 
   render () {
+    let hint = '';
+    if (this.state.value) {
+      if (this.state.value[0] === '#') {
+        hint = 'Asset ID: '+ this.state.value +'\nURL: ' + getUrlFromId(this.state.value);
+      }
+      else {
+        hint = 'URL: ' + this.state.value;
+      }
+    }
+
     return (
       <span className='texture'>
         <span className={this.state.valueType}></span>
         <canvas ref='canvas' width='32' height='16' title={this.props.mapName} onClick={this.openDialog}></canvas>
-        <input className='map_value string' type='text' value={this.state.value} onChange={this.onChange}/>
+        <input className='map_value string' type='text' title={hint} value={this.state.value} onChange={this.onChange}/>
         <a onClick={this.removeMap} className='button fa fa-times'></a>
       </span>
     );
