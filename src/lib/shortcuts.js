@@ -57,6 +57,11 @@ module.exports = {
     if (event.keyCode === 68) {
       cloneSelectedEntity();
     }
+
+    // Ctrl
+    if (event.keyCode === 17) {
+      AFRAME.INSPECTOR.controlPressed = false;
+    }
   },
   onKeyDown: function (event) {
     // Ctrl
