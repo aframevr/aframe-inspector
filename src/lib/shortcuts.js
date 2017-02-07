@@ -71,14 +71,14 @@ module.exports = {
 
     // c: copy selected entity
     if (event.keyCode === 67) {
-      if(AFRAME.INSPECTOR.selected && AFRAME.INSPECTOR.controlPressed) {
+      if(AFRAME.INSPECTOR.selected && AFRAME.INSPECTOR.controlPressed && document.activeElement.tagName !== "INPUT") {
         AFRAME.INSPECTOR.copiedEntity = AFRAME.INSPECTOR.selectedEntity;
       }
     }
 
     // v: paste copied entity
     if (event.keyCode === 86) {
-      if(AFRAME.INSPECTOR.copiedEntity && AFRAME.INSPECTOR.controlPressed) {
+      if(AFRAME.INSPECTOR.copiedEntity && AFRAME.INSPECTOR.controlPressed && document.activeElement.tagName !== "INPUT") {
         cloneEntity(AFRAME.INSPECTOR.copiedEntity);
       }
     }
