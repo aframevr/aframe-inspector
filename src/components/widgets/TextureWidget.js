@@ -78,9 +78,12 @@ export default class TextureWidget extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
+    var component = this.props.entity.components[this.props.componentname];
+    var newValue = component.attrValue[this.props.name];
+
     // This will be triggered typically when the element is changed directly with element.setAttribute
-    if (newProps.value !== this.state.value) {
-      this.setValue(newProps.value);
+    if (newValue && newValue !== this.state.value) {
+      this.setValue(newValue);
     }
   }
 
@@ -162,7 +165,6 @@ export default class TextureWidget extends React.Component {
       if (!image) {
         return;
       }
-
       var value = image.value;
       if (image.type !== 'asset') {
         var assetId = insertOrGetImageAsset(image.src);
@@ -170,8 +172,10 @@ export default class TextureWidget extends React.Component {
       }
 
       if (this.props.onChange) {
+        console.log(this.props.name, value);
         this.props.onChange(this.props.name, value);
       }
+
       this.setValue(value);
     });
   }

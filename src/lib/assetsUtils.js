@@ -3,9 +3,9 @@ function insertNewAsset (type, id, src, anonymousCrossOrigin, onLoadedCallback) 
   switch (type) {
     case 'img': {
       element = document.createElement('img');
-      if (anonymousCrossOrigin) { element.crossOrigin = 'anonymous'; }
       element.id = id;
       element.src = src;
+      if (anonymousCrossOrigin) { element.crossOrigin = 'anonymous'; }
     } break;
   }
 

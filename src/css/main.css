@@ -442,13 +442,11 @@ a.button:hover {
   animation-name: animatetop;
   background-color: #232323;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+  height: calc(100% - 50px);
   margin: auto;
-  max-height: calc(100% - 50px);
-  max-width: calc(100% - 50px);
-  min-height: 200px;
-  min-width: 200px;
   overflow: hidden;
   padding: 0;
+  width: calc(100% - 50px);
 }
 
 @keyframes animateopacity {
@@ -493,7 +491,7 @@ a.button:hover {
   margin: 15px auto 0;
   max-height: 50vh;
   overflow: auto;
-  padding: 15px 3px 3px 3px;
+  padding: 15px 3px 3px;
 }
 
 .newimage .gallery {
