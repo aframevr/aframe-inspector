@@ -512,6 +512,7 @@ a.button:hover {
   width: 155px;
 }
 
+.gallery li.selected,
 .gallery li:hover {
   box-shadow: 0 0 0 2px #1eaaf1;
 }
@@ -547,6 +548,7 @@ a.button:hover {
   white-space: nowrap;
 }
 
+.gallery li.selected .detail,
 .gallery li:hover .detail {
   background-color: #444;
 }
@@ -561,6 +563,7 @@ a.button:hover {
   width: 140px;
 }
 
+.gallery li.selected .detail span,
 .gallery li:hover .detail span {
   color: #888;
 }
@@ -1062,5 +1065,4 @@ span.entity-name {
 .gallery a.fa.texture-link {
   box-shadow: 0 0 14px -1px rgba(0, 0, 0, 0.75);
   position: fixed;
-
 }

@@ -31,7 +31,8 @@ function getValidId (name) {
 export default class ModalTextures extends React.Component {
   static propTypes = {
     isOpen: React.PropTypes.bool,
-    onClose: React.PropTypes.func
+    onClose: React.PropTypes.func,
+    selectedTexture: React.PropTypes.string
   };
 
   constructor (props) {
@@ -346,19 +347,24 @@ export default class ModalTextures extends React.Component {
         <div className={this.state.addNewDialogOpened ? 'hide' : ''}>
           <ul className="gallery">
             {
-              this.state.assetsImages.map(function (image) {
-                let textureClick = this.selectTexture.bind(this, image);
-                return (
-                 <li key={image.id} onClick={textureClick}>
-                   <img width="155px" height="155px" src={image.src}/>
-                   <div className="detail">
-                     <span className="title">{image.name}</span>
-                     <span>{getFilename(image.src)}</span>
-                     <span>{image.width} x {image.height}</span>
-                   </div>
-                 </li>
-                );
-              }.bind(this))
+              this.state.assetsImages
+                .sort(function (a, b) {
+                  return a.id > b.id;
+                })
+                .map(function (image) {
+                  let textureClick = this.selectTexture.bind(this, image);
+                  var selectedClass = (this.props.selectedTexture === '#' + image.id) ? 'selected' : '';
+                  return (
+                   <li key={image.id} onClick={textureClick} className={selectedClass}>
+                     <img width="155px" height="155px" src={image.src}/>
+                     <div className="detail">
+                       <span className="title">{image.name}</span>
+                       <span>{getFilename(image.src)}</span>
+                       <span>{image.width} x {image.height}</span>
+                     </div>
+                   </li>
+                  );
+                }.bind(this))
             }
             {
               loadedTextures.map(function (texture) {

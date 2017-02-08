@@ -39,8 +39,8 @@ export default class Main extends React.Component {
     var config = {attributes: true, childList: true, characterData: true};
     observer.observe(this.state.sceneEl, config);
 
-    Events.on('opentexturesmodal', function (textureOnClose) {
-      this.setState({isModalTexturesOpen: true, textureOnClose: textureOnClose});
+    Events.on('opentexturesmodal', function (selectedTexture, textureOnClose) {
+      this.setState({selectedTexture: selectedTexture, isModalTexturesOpen: true, textureOnClose: textureOnClose});
     }.bind(this));
 
     Events.on('entityselected', entity => {
@@ -66,11 +66,11 @@ export default class Main extends React.Component {
       this.state.textureOnClose(value);
     }
   }
-
+/*
   openModal = () => {
     this.setState({isModalTexturesOpen: true});
   }
-
+*/
   toggleEdit = () => {
     if (this.state.inspectorEnabled) {
       INSPECTOR.close();
@@ -87,7 +87,7 @@ export default class Main extends React.Component {
       <div>
         {editButton}
         <div id='aframe-inspector-panels' className={this.state.inspectorEnabled ? '' : 'hidden'}>
-          <ModalTextures ref='modaltextures' isOpen={this.state.isModalTexturesOpen}	onClose={this.onModalTextureOnClose}/>
+          <ModalTextures ref='modaltextures' isOpen={this.state.isModalTexturesOpen} selectedTexture={this.state.selectedTexture} onClose={this.onModalTextureOnClose}/>
           <div id='left-sidebar'>
             <SceneGraph scene={scene} selectedEntity={this.state.entity}/>
           </div>
