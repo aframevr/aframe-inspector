@@ -524,6 +524,12 @@ a.button:hover {
   padding: 3px 10px;
 }
 
+.gallery li .button.fa-external-link {
+  margin-left: 136px;
+  margin-top: 5px;
+  position: fixed;
+}
+
 .preview {
   padding: 10px;
   width: 150px;
