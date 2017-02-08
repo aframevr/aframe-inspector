@@ -2,7 +2,8 @@
   "extends": ["eslint:recommended", "plugin:react/recommended", "standard"],
   "rules": {
     "react/jsx-indent-props": [2, 2],
-    "semi": [2, "always"]
+    "semi": [2, "always"],
+    "no-console": "off"
   },
   "env": {
     "es6": true,
@@ -11,6 +12,7 @@
   },
   "globals": {
     "AFRAME": true,
+    "ga": true,
     "THREE": true
   },
   "parser": "babel-eslint",

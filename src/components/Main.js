@@ -1,11 +1,15 @@
+/* global VERSION BUILD_TIMESTAMP COMMIT_HASH */
 require('../lib/vendor/ga');
 const INSPECTOR = require('../lib/inspector.js');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+THREE.ImageUtils.crossOrigin = '';
+
 const Events = require('../lib/Events.js');
 import ComponentsSidebar from './components/Sidebar';
+import ModalTextures from './modals/ModalTextures';
 import ModalHelp from './modals/ModalHelp';
 import SceneGraph from './scenegraph/SceneGraph';
 import ToolBar from './ToolBar';
@@ -83,6 +87,7 @@ export default class Main extends React.Component {
       <div>
         {editButton}
         <div id='aframe-inspector-panels' className={this.state.inspectorEnabled ? '' : 'hidden'}>
+          <ModalTextures ref='modaltextures' isOpen={this.state.isModalTexturesOpen}	onClose={this.onModalTextureOnClose}/>
           <div id='left-sidebar'>
             <SceneGraph scene={scene} selectedEntity={this.state.entity}/>
           </div>

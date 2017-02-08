@@ -178,7 +178,7 @@ export default class SceneGraph extends React.Component {
         let cloneButton = <a onClick={() => this.cloneEntity(option.value)}
           title="Clone entity" className="button fa fa-clone"></a>;
         let removeButton = <a onClick={event => { event.stopPropagation(); removeEntity(option.value); } }
-            title="Remove entity" className="button fa fa-trash-o"></a>;
+          title="Remove entity" className="button fa fa-trash-o"></a>;
 
         if (option.value.tagName === 'A-SCENE') {
           cloneButton = '';

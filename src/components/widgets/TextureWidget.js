@@ -2,6 +2,11 @@ import React from 'react';
 import INSPECTOR from '../../lib/inspector';
 
 var Events = require('../../lib/Events.js');
+
+function getUrlFromId (assetId) {
+  return assetId.length > 1 && document.querySelector(assetId) && document.querySelector(assetId).getAttribute('src');
+}
+
 function GetFilename (url) {
   if (url) {
     var m = url.toString().match(/.*\/(.+?)\./);
@@ -78,9 +83,12 @@ export default class TextureWidget extends React.Component {
   }
 
   componentWillReceiveProps (newProps) {
+    var component = this.props.entity.components[this.props.componentname];
+    var newValue = component.attrValue[this.props.name];
+
     // This will be triggered typically when the element is changed directly with element.setAttribute
-    if (newProps.value !== this.state.value) {
-      this.setValue(newProps.value);
+    if (newValue && newValue !== this.state.value) {
+      this.setValue(newValue);
     }
   }
 
@@ -116,19 +124,18 @@ export default class TextureWidget extends React.Component {
 
     var url;
     if (value[0] === '#') {
-      url = value.length > 1 && document.querySelector(value) && document.querySelector(value).getAttribute('src');
+      url = getUrlFromId(value);
     } else {
       url = AFRAME.utils.srcLoader.parseUrl(value);
     }
 
     var texture = getTextureFromSrc(value);
-    var className = 'hidden';
+    var valueType = null;
+    valueType = value[0] === '#' ? 'asset' : 'url';
     if (texture) {
       texture.then(paintPreview);
-      className = value[0] === '#' ? 'fa fa-link' : 'fa fa-external-link';
     } else if (url) {
       // The image still didn't load
-      className = value[0] === '#' ? 'fa fa-link' : 'fa fa-external-link';
       var image = new Image();
       image.addEventListener('load', () => { paintPreviewWithImage(image); }, false);
       image.src = url;
@@ -136,7 +143,7 @@ export default class TextureWidget extends React.Component {
       context.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    this.setState({value: value, valueType: className});
+    this.setState({value: value, valueType: valueType, url: url});
   }
 
   notifyChanged = value => {
@@ -162,25 +169,40 @@ export default class TextureWidget extends React.Component {
       if (!image) {
         return;
       }
-
       var value = image.value;
       if (image.type !== 'asset') {
         var assetId = insertOrGetImageAsset(image.src);
         value = '#' + assetId;
       }
+
       if (this.props.onChange) {
         this.props.onChange(this.props.name, value);
       }
+
       this.setValue(value);
     });
   }
 
   render () {
+    let hint = '';
+    let openLink = '';
+
+    if (this.state.value) {
+      if (this.state.valueType === 'asset') {
+        hint = 'Asset ID: ' + this.state.value + '\nURL: ' + this.state.url;
+      } else {
+        hint = 'URL: ' + this.state.value;
+      }
+      openLink = <a target="_blank" className="button fa fa-external-link"
+        title="Open image in a new tab"
+        href={this.state.url}></a>;
+    }
+
     return (
       <span className='texture'>
-        <span className={this.state.valueType}></span>
-        <canvas ref='canvas' width='32' height='16' title={this.props.mapName}></canvas>
-        <input className='map_value string' type='text' value={this.state.value} onChange={this.onChange}/>
+        <canvas ref='canvas' width='32' height='16' title={hint} onClick={this.openDialog}></canvas>
+        <input className='map_value string' type='text' title={hint} value={this.state.value} onChange={this.onChange}/>
+        {openLink}
         <a onClick={this.removeMap} className='button fa fa-times'></a>
       </span>
     );

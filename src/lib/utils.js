@@ -6,8 +6,11 @@ function getMajorVersion (version) {
   var major = version.split('.');
   var clean = false;
   for (var i = 0; i < major.length; i++) {
-    if (clean) { major[i] = 0; }
-    else if (major[i] !== '0') { clean = true; }
+    if (clean) {
+      major[i] = 0;
+    } else if (major[i] !== '0') {
+      clean = true;
+    }
   }
   return major.join('.');
 }
@@ -22,11 +25,11 @@ function equal (var1, var2) {
   keys1 = Object.keys(var1);
   keys2 = Object.keys(var2);
   if (keys1.length !== keys2.length) { return false; }
-  for (var i = 0; i < keys1.length; i ++) {
+  for (var i = 0; i < keys1.length; i++) {
     if (!equal(var1[keys1[i]], var2[keys2[i]])) { return false; }
   }
   return true;
-};
+}
 
 module.exports = {
   equal: equal,

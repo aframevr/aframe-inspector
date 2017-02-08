@@ -8,9 +8,14 @@ export default class Modal extends React.Component {
     ]).isRequired,
     isOpen: React.PropTypes.bool,
     extraCloseKeyCode: React.PropTypes.number,
+    closeOnClickOutside: React.PropTypes.bool,
     onClose: React.PropTypes.func,
     title: React.PropTypes.string
   };
+
+  static defaultProps = {
+    closeOnClickOutside: true
+  }
 
   constructor (props) {
     super(props);
@@ -44,7 +49,7 @@ export default class Modal extends React.Component {
   }
 
   handleGlobalMousedown = event => {
-    if (this.state.isOpen && this.shouldClickDismiss(event)) {
+    if (this.props.closeOnClickOutside && this.state.isOpen && this.shouldClickDismiss(event)) {
       if (typeof this.props.onClose === 'function') {
         this.props.onClose();
       }
@@ -70,11 +75,8 @@ export default class Modal extends React.Component {
   }
 
   render () {
-    if (!this.state.isOpen) {
-      return <span></span>;
-    }
     return (
-      <div className='modal'>
+      <div className={this.state.isOpen ? 'modal' : 'modal hide'}>
         <div className='modal-content' ref='self'>
           <div className='modal-header'>
             <span className='close' onClick={this.close}>×</span>
