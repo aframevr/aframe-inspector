@@ -12,7 +12,7 @@ function insertNewAsset (type, id, src, anonymousCrossOrigin, onLoadedCallback) 
   if (element) {
     element.onload = function () {
       if (onLoadedCallback) { onLoadedCallback(); }
-    }
+    };
     document.getElementsByTagName('a-assets')[0].appendChild(element);
   }
 }

@@ -1,3 +1,4 @@
+/* global uploadcare */
 import Events from '../../lib/Events';
 import React from 'react';
 import Modal from './Modal';
@@ -69,7 +70,6 @@ export default class ModalTextures extends React.Component {
   componentDidUpdate () {
     if (!this.uploadcareWidget && this.state.isOpen) {
       this.uploadcareWidget = uploadcare.SingleWidget('[role=uploadcare-uploader]');
-      var self = this;
       this.uploadcareWidget.onUploadComplete(info => {
         if (info.isImage) {
           this.setState({preview: {
@@ -234,7 +234,7 @@ export default class ModalTextures extends React.Component {
 
   addNewAsset = () => {
     var self = this;
-    insertNewAsset('img', this.state.preview.name, this.state.preview.src, true, function() {
+    insertNewAsset('img', this.state.preview.name, this.state.preview.src, true, function () {
       self.generateFromAssets();
       self.toggleNewDialog();
       self.clear();
@@ -272,18 +272,18 @@ export default class ModalTextures extends React.Component {
                image.tags.indexOf(filterText) > -1;
       })
       .map(function (image) {
-      let imageClick = selectSample.bind(this, image);
-      return (
-        <li key={image.src} onClick={imageClick}>
-          <img width="155px" height="155px" src={image.src}/>
-          <div className="detail">
-            <span className="title">{image.name}</span>
-            <span>{getFilename(image.src)}</span>
-            <span>{image.width} x {image.height}</span>
-          </div>
-        </li>
-      );
-    })
+        let imageClick = selectSample.bind(this, image);
+        return (
+          <li key={image.src} onClick={imageClick}>
+            <img width="155px" height="155px" src={image.src}/>
+            <div className="detail">
+              <span className="title">{image.name}</span>
+              <span>{getFilename(image.src)}</span>
+              <span>{image.width} x {image.height}</span>
+            </div>
+          </li>
+        );
+      });
   }
 
   render () {
@@ -294,7 +294,6 @@ export default class ModalTextures extends React.Component {
 
     let loadedTextures = this.state.loadedTextures;
     let preview = this.state.preview;
-    var self = this;
 
     let validUrl = isValidId(this.state.preview.name);
     let validAsset = this.isValidAsset();

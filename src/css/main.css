@@ -391,6 +391,11 @@ div.vec3 {
   padding-right: 5px;
 }
 
+.texture .fa-external-link {
+  font-size: 14px;
+  padding-top: 2px;
+}
+
 .scenegraph-bottom {
   background-color: #323232;
   border-top: 1px solid #111;
@@ -520,7 +525,7 @@ a.button:hover {
 
 .preview {
   padding: 10px;
-  width: 200px;
+  width: 150px;
 }
 
 .preview input {
@@ -608,6 +613,7 @@ a.button:hover {
   color: #bcbcbc;
   display: flex;
   font-size: 13px;
+  justify-content: space-between;
   margin-top: 10px;
   overflow: auto;
   padding: 10px;
@@ -1051,4 +1057,10 @@ span.entity-name {
 
 .assets.search .fa-search {
   top: 7px;
+}
+
+.gallery a.fa.texture-link {
+  box-shadow: 0 0 14px -1px rgba(0, 0, 0, 0.75);
+  position: fixed;
+
 }

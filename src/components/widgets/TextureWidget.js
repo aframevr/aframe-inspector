@@ -130,13 +130,12 @@ export default class TextureWidget extends React.Component {
     }
 
     var texture = getTextureFromSrc(value);
-    var className = 'hidden';
+    var valueType = null;
+    valueType = value[0] === '#' ? 'asset' : 'url';
     if (texture) {
       texture.then(paintPreview);
-      className = value[0] === '#' ? 'fa fa-link' : 'fa fa-external-link';
     } else if (url) {
       // The image still didn't load
-      className = value[0] === '#' ? 'fa fa-link' : 'fa fa-external-link';
       var image = new Image();
       image.addEventListener('load', () => { paintPreviewWithImage(image); }, false);
       image.src = url;
@@ -144,7 +143,7 @@ export default class TextureWidget extends React.Component {
       context.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    this.setState({value: value, valueType: className});
+    this.setState({value: value, valueType: valueType, url: url});
   }
 
   notifyChanged = value => {
@@ -186,20 +185,24 @@ export default class TextureWidget extends React.Component {
 
   render () {
     let hint = '';
+    let openLink = '';
+
     if (this.state.value) {
-      if (this.state.value[0] === '#') {
-        hint = 'Asset ID: '+ this.state.value +'\nURL: ' + getUrlFromId(this.state.value);
-      }
-      else {
+      if (this.state.valueType === 'asset') {
+        hint = 'Asset ID: ' + this.state.value + '\nURL: ' + this.state.url;
+      } else {
         hint = 'URL: ' + this.state.value;
       }
+      openLink = <a target="_blank" className="button fa fa-external-link"
+        title="Open image in a new tab"
+        href={this.state.url}></a>;
     }
 
     return (
       <span className='texture'>
-        <span className={this.state.valueType}></span>
-        <canvas ref='canvas' width='32' height='16' title={this.props.mapName} onClick={this.openDialog}></canvas>
+        <canvas ref='canvas' width='32' height='16' title={hint} onClick={this.openDialog}></canvas>
         <input className='map_value string' type='text' title={hint} value={this.state.value} onChange={this.onChange}/>
+        {openLink}
         <a onClick={this.removeMap} className='button fa fa-times'></a>
       </span>
     );

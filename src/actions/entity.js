@@ -1,6 +1,4 @@
 var Events = require('../lib/Events.js');
-var components = AFRAME.components;
-var isSingleProperty = AFRAME.schema.isSingleProperty;
 
 import {equal} from '../lib/utils.js';
 
@@ -134,7 +132,7 @@ export function cloneSelectedEntity () {
  * @return {string}        Entity clipboard representation
  */
 export function getClipboardRepresentation (entity) {
-  //entity.flushToDOM();
+  // entity.flushToDOM();
   var clone = entity.cloneNode(true);
   var defaultComponents = Object.keys(clone.defaultComponents);
 
@@ -170,7 +168,7 @@ export function getClipboardRepresentation (entity) {
         attrName = attributes[i].name;
         componentAttrValue = HTMLElement.prototype.getAttribute.call(entity, attrName);
         // Not a component
-        if (!entity.components[attrName]) { continue; }
+        if (!components[attrName]) { continue; }
         // Value of the component has not changed
         if (componentAttrValue && componentAttrValue !== attributes[i].value) { continue; }
         clonedEntity.removeAttribute(attrName);
@@ -186,7 +184,7 @@ export function getClipboardRepresentation (entity) {
       removeDefaultValues(attributes[i].name, entity, clonedEntity);
     }
 
-    function removeDefaultValues(componentName, entity, clonedEntity) {
+    function removeDefaultValues (componentName, entity, clonedEntity) {
       var schema = entity.components[componentName].schema;
       var componentValues = entity.getAttribute(componentName);
       var defaultValue;

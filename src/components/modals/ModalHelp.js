@@ -27,9 +27,7 @@ export default class ModalHelp extends React.Component {
   }
 
   render () {
-    var self = this;
-
-    let shortcuts = [
+    let shortcuts = [
       [
         {key: ['w'], description: 'Translate'},
         {key: ['e'], description: 'Rotate'},
@@ -43,7 +41,7 @@ export default class ModalHelp extends React.Component {
         {key: ['supr'], description: 'Delete selected entity'},
         {key: ['Esc'], description: 'Exit edit mode'},
         {key: ['backspace'], description: 'Delete selected entity'},
-        {key: ['ctrl','alt','i'], description: 'Switch Edit and VR Modes'}
+        {key: ['ctrl', 'alt', 'i'], description: 'Switch Edit and VR Modes'}
       ]
     ];
 
@@ -59,15 +57,15 @@ export default class ModalHelp extends React.Component {
                   <li key={shortcut.key} className="help-key-unit">
                   {
                     shortcut.key.map(function (key) {
-                      return <kbd key={key} className="help-key"><span>{key}</span></kbd>
+                      return <kbd key={key} className="help-key"><span>{key}</span></kbd>;
                     })
                   }
                   <span className="help-key-def">{shortcut.description}</span>
                   </li>
-                )
+                );
               })
             }
-            </ul>
+            </ul>;
           })
         }
         </div>

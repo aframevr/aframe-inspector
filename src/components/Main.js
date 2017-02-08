@@ -1,3 +1,4 @@
+/* global VERSION BUILD_TIMESTAMP COMMIT_HASH */
 require('../lib/vendor/ga');
 const INSPECTOR = require('../lib/inspector.js');
 

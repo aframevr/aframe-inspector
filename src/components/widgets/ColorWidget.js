@@ -48,7 +48,7 @@ export default class ColorWidget extends React.Component {
   }
 
   getHexString (value) {
-     return '#' + this.color.set(value).getHexString();
+    return '#' + this.color.set(value).getHexString();
   }
 
   onChange = e => {
@@ -58,9 +58,7 @@ export default class ColorWidget extends React.Component {
   onKeyUp = e => {
     e.stopPropagation();
     // if (e.keyCode === 13)
-    {
-      this.setValue(e.target.value);
-    }
+    this.setValue(e.target.value);
   }
 
   onChangeText = e => {

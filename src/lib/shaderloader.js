@@ -7,6 +7,7 @@ function ShaderLoader () {
 ShaderLoader.prototype = {
   loadShadersData: function () {
     return;
+    /*
     var xhr = new window.XMLHttpRequest();
     // @todo Remove the sync call and use a callback
     xhr.open('GET', 'https://raw.githubusercontent.com/fernandojsg/aframe-shaders/master/shaders.json', false);
@@ -18,6 +19,7 @@ ShaderLoader.prototype = {
       // process error
     };
     xhr.send();
+    */
   },
   addShaderToScene: function (shaderName, onLoaded) {
     var shader = this.shaders[shaderName];
