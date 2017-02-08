@@ -236,7 +236,7 @@ export default class ModalTextures extends React.Component {
     var self = this;
     insertNewAsset('img', this.state.preview.name, this.state.preview.src, true, function () {
       self.generateFromAssets();
-      self.toggleNewDialog();
+      self.setState({addNewDialogOpened: false});
       self.clear();
     });
   }
