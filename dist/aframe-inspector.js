@@ -71,19 +71,23 @@
 
 	var _Sidebar2 = _interopRequireDefault(_Sidebar);
 
-	var _ModalHelp = __webpack_require__(234);
+	var _ModalTextures = __webpack_require__(235);
+
+	var _ModalTextures2 = _interopRequireDefault(_ModalTextures);
+
+	var _ModalHelp = __webpack_require__(238);
 
 	var _ModalHelp2 = _interopRequireDefault(_ModalHelp);
 
-	var _SceneGraph = __webpack_require__(236);
+	var _SceneGraph = __webpack_require__(239);
 
 	var _SceneGraph2 = _interopRequireDefault(_SceneGraph);
 
-	var _ToolBar = __webpack_require__(239);
+	var _ToolBar = __webpack_require__(242);
 
 	var _ToolBar2 = _interopRequireDefault(_ToolBar);
 
-	__webpack_require__(240);
+	__webpack_require__(243);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -93,8 +97,11 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	__webpack_require__(242);
+	/* global VERSION BUILD_TIMESTAMP COMMIT_HASH */
+	__webpack_require__(245);
 	var INSPECTOR = __webpack_require__(200);
+
+	THREE.ImageUtils.crossOrigin = '';
 
 	var Events = __webpack_require__(182);
 
@@ -120,10 +127,6 @@
 	      if (_this.state.textureOnClose) {
 	        _this.state.textureOnClose(value);
 	      }
-	    };
-
-	    _this.openModal = function () {
-	      _this.setState({ isModalTexturesOpen: true });
 	    };
 
 	    _this.toggleEdit = function () {
@@ -155,8 +158,8 @@
 	      var config = { attributes: true, childList: true, characterData: true };
 	      observer.observe(this.state.sceneEl, config);
 
-	      Events.on('opentexturesmodal', function (textureOnClose) {
-	        this.setState({ isModalTexturesOpen: true, textureOnClose: textureOnClose });
+	      Events.on('opentexturesmodal', function (selectedTexture, textureOnClose) {
+	        this.setState({ selectedTexture: selectedTexture, isModalTexturesOpen: true, textureOnClose: textureOnClose });
 	      }.bind(this));
 
 	      Events.on('entityselected', function (entity) {
@@ -171,6 +174,12 @@
 	        _this2.setState({ isHelpOpen: true });
 	      });
 	    }
+	    /*
+	      openModal = () => {
+	        this.setState({isModalTexturesOpen: true});
+	      }
+	    */
+
 	  }, {
 	    key: 'render',
 	    value: function render() {
@@ -188,6 +197,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { id: 'aframe-inspector-panels', className: this.state.inspectorEnabled ? '' : 'hidden' },
+	          _react2.default.createElement(_ModalTextures2.default, { ref: 'modaltextures', isOpen: this.state.isModalTexturesOpen, selectedTexture: this.state.selectedTexture, onClose: this.onModalTextureOnClose }),
 	          _react2.default.createElement(
 	            'div',
 	            { id: 'left-sidebar' },
@@ -244,7 +254,7 @@
 	  });
 	  AFRAME.INSPECTOR = INSPECTOR;
 
-	  console.log('A-Frame Inspector Version:', ("0.4.2"), '(' + ("11-01-2017") + ' Commit: ' + ("4faa6debe5a08cddf2279a7890f953449afe5d2c\n").substr(0, 7) + ')');
+	  console.log('A-Frame Inspector Version:', ("0.5.0"), '(' + ("08-02-2017") + ' Commit: ' + ("c2f7cee3a5e9e7e2203d42d8690292b7213abba1\n").substr(0, 7) + ')');
 	})();
 
 /***/ },
@@ -21689,15 +21699,15 @@
 
 	var _AddComponent2 = _interopRequireDefault(_AddComponent);
 
-	var _Component = __webpack_require__(210);
+	var _Component = __webpack_require__(211);
 
 	var _Component2 = _interopRequireDefault(_Component);
 
-	var _CommonComponents = __webpack_require__(230);
+	var _CommonComponents = __webpack_require__(231);
 
 	var _CommonComponents2 = _interopRequireDefault(_CommonComponents);
 
-	var _DefaultComponents = __webpack_require__(232);
+	var _DefaultComponents = __webpack_require__(233);
 
 	var _DefaultComponents2 = _interopRequireDefault(_DefaultComponents);
 
@@ -24966,8 +24976,9 @@
 	var Events = __webpack_require__(182);
 	var Viewport = __webpack_require__(201);
 	var ComponentLoader = __webpack_require__(206);
-	var ShaderLoader = __webpack_require__(207);
-	var Shortcuts = __webpack_require__(208);
+	var AssetsLoader = __webpack_require__(207);
+	var ShaderLoader = __webpack_require__(208);
+	var Shortcuts = __webpack_require__(209);
 
 	function Inspector() {
 	  this.opened = false;
@@ -24986,6 +24997,7 @@
 	  onDomLoaded: function onDomLoaded() {
 	    this.componentLoader = new ComponentLoader();
 	    this.shaderLoader = new ShaderLoader();
+	    this.assetsLoader = new AssetsLoader();
 
 	    this.sceneEl = document.querySelector('a-scene');
 	    if (this.sceneEl.hasLoaded) {
@@ -27471,7 +27483,7 @@
 	    }
 	  }
 	  return true;
-	};
+	}
 
 	module.exports = {
 	  equal: equal,
@@ -27557,6 +27569,64 @@
 
 /***/ },
 /* 207 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _Events = __webpack_require__(182);
+
+	var _Events2 = _interopRequireDefault(_Events);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var assetsBaseUrl = 'https://aframe.io/sample-assets/'; /* global XMLHttpRequest JSON */
+
+	var assetsRelativeUrl = {
+	  'images': 'dist/images.json'
+	};
+
+	/**
+	 * Asynchronously load and register components from the registry.
+	 */
+	function AssetsLoader() {
+	  this.images = [];
+	  this.load();
+	}
+
+	AssetsLoader.prototype = {
+	  /**
+	   * XHR the assets JSON.
+	   */
+	  load: function load() {
+	    var _this = this;
+
+	    var xhr = new XMLHttpRequest();
+	    var url = assetsBaseUrl + assetsRelativeUrl['images'];
+
+	    // @todo Remove the sync call and use a callback
+	    xhr.open('GET', url);
+
+	    xhr.onload = function () {
+	      var data = JSON.parse(xhr.responseText);
+	      _this.images = data.images;
+	      console.info('Images in registry:', Object.keys(_this.images).length);
+	      _this.images.forEach(function (image) {
+	        image.fullPath = assetsBaseUrl + data.basepath.images + image.path;
+	        image.fullThumbPath = assetsBaseUrl + data.basepath.images_thumbnails + image.thumbnail;
+	      });
+	      _Events2.default.emit('assetsimagesloaded', _this.images);
+	    };
+	    xhr.onerror = function () {
+	      console.error('Error loading registry file.');
+	    };
+	    xhr.send();
+	  }
+	};
+
+	module.exports = AssetsLoader;
+
+/***/ },
+/* 208 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27570,6 +27640,7 @@
 	ShaderLoader.prototype = {
 	  loadShadersData: function loadShadersData() {
 	    return;
+	    /*
 	    var xhr = new window.XMLHttpRequest();
 	    // @todo Remove the sync call and use a callback
 	    xhr.open('GET', 'https://raw.githubusercontent.com/fernandojsg/aframe-shaders/master/shaders.json', false);
@@ -27581,6 +27652,7 @@
 	      // process error
 	    };
 	    xhr.send();
+	    */
 	  },
 	  addShaderToScene: function addShaderToScene(shaderName, onLoaded) {
 	    var shader = this.shaders[shaderName];
@@ -27611,12 +27683,12 @@
 	module.exports = ShaderLoader;
 
 /***/ },
-/* 208 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _entity = __webpack_require__(209);
+	var _entity = __webpack_require__(210);
 
 	/* globals AFRAME */
 	var Events = __webpack_require__(182);
@@ -27690,7 +27762,7 @@
 	};
 
 /***/ },
-/* 209 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27708,8 +27780,6 @@
 	var _utils = __webpack_require__(205);
 
 	var Events = __webpack_require__(182);
-	var components = AFRAME.components;
-	var isSingleProperty = AFRAME.schema.isSingleProperty;
 
 	/**
 	 * Update a component.
@@ -27841,7 +27911,7 @@
 	 * @return {string}        Entity clipboard representation
 	 */
 	function getClipboardRepresentation(entity) {
-	  //entity.flushToDOM();
+	  // entity.flushToDOM();
 	  var clone = entity.cloneNode(true);
 	  var defaultComponents = Object.keys(clone.defaultComponents);
 
@@ -27877,7 +27947,7 @@
 	        attrName = attributes[i].name;
 	        componentAttrValue = HTMLElement.prototype.getAttribute.call(entity, attrName);
 	        // Not a component
-	        if (!entity.components[attrName]) {
+	        if (!components[attrName]) {
 	          continue;
 	        }
 	        // Value of the component has not changed
@@ -27949,7 +28019,7 @@
 	}
 
 /***/ },
-/* 210 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27964,19 +28034,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _PropertyRow = __webpack_require__(211);
+	var _PropertyRow = __webpack_require__(212);
 
 	var _PropertyRow2 = _interopRequireDefault(_PropertyRow);
 
-	var _Collapsible = __webpack_require__(221);
+	var _Collapsible = __webpack_require__(222);
 
 	var _Collapsible2 = _interopRequireDefault(_Collapsible);
 
-	var _clipboard = __webpack_require__(222);
+	var _clipboard = __webpack_require__(223);
 
 	var _clipboard2 = _interopRequireDefault(_clipboard);
 
-	var _component = __webpack_require__(220);
+	var _component = __webpack_require__(221);
 
 	var _Events = __webpack_require__(182);
 
@@ -28148,7 +28218,7 @@
 	exports.default = Component;
 
 /***/ },
-/* 211 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28169,41 +28239,41 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _BooleanWidget = __webpack_require__(212);
+	var _BooleanWidget = __webpack_require__(213);
 
 	var _BooleanWidget2 = _interopRequireDefault(_BooleanWidget);
 
-	var _ColorWidget = __webpack_require__(213);
+	var _ColorWidget = __webpack_require__(214);
 
 	var _ColorWidget2 = _interopRequireDefault(_ColorWidget);
 
-	var _InputWidget = __webpack_require__(214);
+	var _InputWidget = __webpack_require__(215);
 
 	var _InputWidget2 = _interopRequireDefault(_InputWidget);
 
-	var _NumberWidget = __webpack_require__(215);
+	var _NumberWidget = __webpack_require__(216);
 
 	var _NumberWidget2 = _interopRequireDefault(_NumberWidget);
 
-	var _SelectWidget = __webpack_require__(216);
+	var _SelectWidget = __webpack_require__(217);
 
 	var _SelectWidget2 = _interopRequireDefault(_SelectWidget);
 
-	var _TextureWidget = __webpack_require__(217);
+	var _TextureWidget = __webpack_require__(218);
 
 	var _TextureWidget2 = _interopRequireDefault(_TextureWidget);
 
-	var _Vec3Widget = __webpack_require__(218);
+	var _Vec3Widget = __webpack_require__(219);
 
 	var _Vec3Widget2 = _interopRequireDefault(_Vec3Widget);
 
-	var _Vec2Widget = __webpack_require__(219);
+	var _Vec2Widget = __webpack_require__(220);
 
 	var _Vec2Widget2 = _interopRequireDefault(_Vec2Widget);
 
-	var _entity = __webpack_require__(209);
+	var _entity = __webpack_require__(210);
 
-	var _component = __webpack_require__(220);
+	var _component = __webpack_require__(221);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28333,7 +28403,7 @@
 	exports.default = PropertyRow;
 
 /***/ },
-/* 212 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28404,7 +28474,7 @@
 	exports.default = BooleanWidget;
 
 /***/ },
-/* 213 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28438,9 +28508,7 @@
 	    _this.onKeyUp = function (e) {
 	      e.stopPropagation();
 	      // if (e.keyCode === 13)
-	      {
-	        _this.setValue(e.target.value);
-	      }
+	      _this.setValue(e.target.value);
 	    };
 
 	    _this.onChangeText = function (e) {
@@ -28519,7 +28587,7 @@
 	exports.default = ColorWidget;
 
 /***/ },
-/* 214 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28585,7 +28653,7 @@
 	exports.default = InputWidget;
 
 /***/ },
-/* 215 */
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28764,7 +28832,7 @@
 	exports.default = NumberWidget;
 
 /***/ },
-/* 216 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28862,7 +28930,7 @@
 	exports.default = SelectWidget;
 
 /***/ },
-/* 217 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28890,6 +28958,11 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var Events = __webpack_require__(182);
+
+	function getUrlFromId(assetId) {
+	  return assetId.length > 1 && document.querySelector(assetId) && document.querySelector(assetId).getAttribute('src');
+	}
+
 	function GetFilename(url) {
 	  if (url) {
 	    var m = url.toString().match(/.*\/(.+?)\./);
@@ -28968,19 +29041,20 @@
 	    };
 
 	    _this.openDialog = function () {
-	      Events.emit('opentexturesmodal', function (image) {
+	      Events.emit('opentexturesmodal', _this.state.value, function (image) {
 	        if (!image) {
 	          return;
 	        }
-
 	        var value = image.value;
 	        if (image.type !== 'asset') {
 	          var assetId = insertOrGetImageAsset(image.src);
 	          value = '#' + assetId;
 	        }
+
 	        if (_this.props.onChange) {
 	          _this.props.onChange(_this.props.name, value);
 	        }
+
 	        _this.setValue(value);
 	      });
 	    };
@@ -28997,9 +29071,12 @@
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(newProps) {
+	      var component = this.props.entity.components[this.props.componentname];
+	      var newValue = component.attrValue[this.props.name];
+
 	      // This will be triggered typically when the element is changed directly with element.setAttribute
-	      if (newProps.value !== this.state.value) {
-	        this.setValue(newProps.value);
+	      if (newValue && newValue !== this.state.value) {
+	        this.setValue(newValue);
 	      }
 	    }
 	  }, {
@@ -29036,19 +29113,18 @@
 
 	      var url;
 	      if (value[0] === '#') {
-	        url = value.length > 1 && document.querySelector(value) && document.querySelector(value).getAttribute('src');
+	        url = getUrlFromId(value);
 	      } else {
 	        url = AFRAME.utils.srcLoader.parseUrl(value);
 	      }
 
 	      var texture = getTextureFromSrc(value);
-	      var className = 'hidden';
+	      var valueType = null;
+	      valueType = value[0] === '#' ? 'asset' : 'url';
 	      if (texture) {
 	        texture.then(paintPreview);
-	        className = value[0] === '#' ? 'fa fa-link' : 'fa fa-external-link';
 	      } else if (url) {
 	        // The image still didn't load
-	        className = value[0] === '#' ? 'fa fa-link' : 'fa fa-external-link';
 	        var image = new Image();
 	        image.addEventListener('load', function () {
 	          paintPreviewWithImage(image);
@@ -29058,17 +29134,31 @@
 	        context.clearRect(0, 0, canvas.width, canvas.height);
 	      }
 
-	      this.setState({ value: value, valueType: className });
+	      this.setState({ value: value, valueType: valueType, url: url });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var hint = '';
+	      var openLink = '';
+
+	      if (this.state.value) {
+	        if (this.state.valueType === 'asset') {
+	          hint = 'Asset ID: ' + this.state.value + '\nURL: ' + this.state.url;
+	        } else {
+	          hint = 'URL: ' + this.state.value;
+	        }
+	        openLink = _react2.default.createElement('a', { target: '_blank', className: 'button fa fa-external-link',
+	          title: 'Open image in a new tab',
+	          href: this.state.url });
+	      }
+
 	      return _react2.default.createElement(
 	        'span',
 	        { className: 'texture' },
-	        _react2.default.createElement('span', { className: this.state.valueType }),
-	        _react2.default.createElement('canvas', { ref: 'canvas', width: '32', height: '16', title: this.props.mapName }),
-	        _react2.default.createElement('input', { className: 'map_value string', type: 'text', value: this.state.value, onChange: this.onChange }),
+	        _react2.default.createElement('canvas', { ref: 'canvas', width: '32', height: '16', title: hint, onClick: this.openDialog }),
+	        _react2.default.createElement('input', { className: 'map_value string', type: 'text', title: hint, value: this.state.value, onChange: this.onChange }),
+	        openLink,
 	        _react2.default.createElement('a', { onClick: this.removeMap, className: 'button fa fa-times' })
 	      );
 	    }
@@ -29093,7 +29183,7 @@
 	exports.default = TextureWidget;
 
 /***/ },
-/* 218 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29110,7 +29200,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _NumberWidget = __webpack_require__(215);
+	var _NumberWidget = __webpack_require__(216);
 
 	var _NumberWidget2 = _interopRequireDefault(_NumberWidget);
 
@@ -29184,7 +29274,7 @@
 	exports.default = Vec3Widget;
 
 /***/ },
-/* 219 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29201,7 +29291,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _NumberWidget = __webpack_require__(215);
+	var _NumberWidget = __webpack_require__(216);
 
 	var _NumberWidget2 = _interopRequireDefault(_NumberWidget);
 
@@ -29273,7 +29363,7 @@
 	exports.default = Vec2Widget;
 
 /***/ },
-/* 220 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29366,7 +29456,7 @@
 	}
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29461,12 +29551,12 @@
 	exports.default = Collapsible;
 
 /***/ },
-/* 222 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(223), __webpack_require__(225), __webpack_require__(226)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(224), __webpack_require__(226), __webpack_require__(227)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof exports !== "undefined") {
 	        factory(module, require('./clipboard-action'), require('tiny-emitter'), require('good-listener'));
 	    } else {
@@ -29651,12 +29741,12 @@
 	});
 
 /***/ },
-/* 223 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(224)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(225)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof exports !== "undefined") {
 	        factory(module, require('select'));
 	    } else {
@@ -29885,7 +29975,7 @@
 	});
 
 /***/ },
-/* 224 */
+/* 225 */
 /***/ function(module, exports) {
 
 	function select(element) {
@@ -29924,7 +30014,7 @@
 
 
 /***/ },
-/* 225 */
+/* 226 */
 /***/ function(module, exports) {
 
 	function E () {
@@ -29996,11 +30086,11 @@
 
 
 /***/ },
-/* 226 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var is = __webpack_require__(227);
-	var delegate = __webpack_require__(228);
+	var is = __webpack_require__(228);
+	var delegate = __webpack_require__(229);
 
 	/**
 	 * Validates all params and calls the right
@@ -30097,7 +30187,7 @@
 
 
 /***/ },
-/* 227 */
+/* 228 */
 /***/ function(module, exports) {
 
 	/**
@@ -30152,10 +30242,10 @@
 
 
 /***/ },
-/* 228 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var closest = __webpack_require__(229);
+	var closest = __webpack_require__(230);
 
 	/**
 	 * Delegates event to a selector.
@@ -30202,7 +30292,7 @@
 
 
 /***/ },
-/* 229 */
+/* 230 */
 /***/ function(module, exports) {
 
 	/**
@@ -30236,7 +30326,7 @@
 
 
 /***/ },
-/* 230 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30251,31 +30341,31 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _widgets = __webpack_require__(231);
+	var _widgets = __webpack_require__(232);
 
-	var _DefaultComponents = __webpack_require__(232);
+	var _DefaultComponents = __webpack_require__(233);
 
 	var _DefaultComponents2 = _interopRequireDefault(_DefaultComponents);
 
-	var _PropertyRow = __webpack_require__(211);
+	var _PropertyRow = __webpack_require__(212);
 
 	var _PropertyRow2 = _interopRequireDefault(_PropertyRow);
 
-	var _Collapsible = __webpack_require__(221);
+	var _Collapsible = __webpack_require__(222);
 
 	var _Collapsible2 = _interopRequireDefault(_Collapsible);
 
-	var _Mixins = __webpack_require__(233);
+	var _Mixins = __webpack_require__(234);
 
 	var _Mixins2 = _interopRequireDefault(_Mixins);
 
-	var _entity = __webpack_require__(209);
+	var _entity = __webpack_require__(210);
 
 	var _Events = __webpack_require__(182);
 
 	var _Events2 = _interopRequireDefault(_Events);
 
-	var _clipboard = __webpack_require__(222);
+	var _clipboard = __webpack_require__(223);
 
 	var _clipboard2 = _interopRequireDefault(_clipboard);
 
@@ -30398,24 +30488,24 @@
 	exports.default = CommonComponents;
 
 /***/ },
-/* 231 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = {
-	  BooleanWidget: __webpack_require__(212).default,
-	  ColorWidget: __webpack_require__(213).default,
-	  InputWidget: __webpack_require__(214).default,
-	  NumberWidget: __webpack_require__(215).default,
-	  SelectWidget: __webpack_require__(216).default,
-	  TextureWidget: __webpack_require__(217).default,
-	  Vec3Widget: __webpack_require__(218).default,
-	  Vec2Widget: __webpack_require__(219).default
+	  BooleanWidget: __webpack_require__(213).default,
+	  ColorWidget: __webpack_require__(214).default,
+	  InputWidget: __webpack_require__(215).default,
+	  NumberWidget: __webpack_require__(216).default,
+	  SelectWidget: __webpack_require__(217).default,
+	  TextureWidget: __webpack_require__(218).default,
+	  Vec3Widget: __webpack_require__(219).default,
+	  Vec2Widget: __webpack_require__(220).default
 	};
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30426,7 +30516,7 @@
 	exports.default = ['visible', 'position', 'scale', 'rotation'];
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30580,7 +30670,737 @@
 	exports.default = Mixin;
 
 /***/ },
-/* 234 */
+/* 235 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _Events = __webpack_require__(182);
+
+	var _Events2 = _interopRequireDefault(_Events);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Modal = __webpack_require__(236);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _inspector = __webpack_require__(200);
+
+	var _inspector2 = _interopRequireDefault(_inspector);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global uploadcare */
+
+
+	var insertNewAsset = __webpack_require__(237).insertNewAsset;
+
+
+	function getFilename(url) {
+	  var converted = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+	  var filename = url.split('/').pop();
+	  if (converted) {
+	    filename = getValidId(filename);
+	  }
+	  return filename;
+	}
+
+	function isValidId(id) {
+	  // The correct re should include : and . but A-frame seems to fail while accessing them
+	  var re = /^[A-Za-z]+[\w\-]*$/;
+	  return re.test(id);
+	}
+
+	function getValidId(name) {
+	  // info.name.replace(/\.[^/.]+$/, '').replace(/\s+/g, '')
+	  return name.split('.').shift().replace(/\s/, '-').replace(/^\d+\s*/, '').replace(/[\W]/, '').toLowerCase();
+	}
+
+	var ModalTextures = function (_React$Component) {
+	  _inherits(ModalTextures, _React$Component);
+
+	  function ModalTextures(props) {
+	    _classCallCheck(this, ModalTextures);
+
+	    var _this = _possibleConstructorReturn(this, (ModalTextures.__proto__ || Object.getPrototypeOf(ModalTextures)).call(this, props));
+
+	    _this.onClose = function (value) {
+	      if (_this.props.onClose) {
+	        _this.props.onClose();
+	      }
+	    };
+
+	    _this.selectTexture = function (value) {
+	      if (_this.props.onClose) {
+	        _this.props.onClose(value);
+	      }
+	    };
+
+	    _this.generateFromRegistry = function () {
+	      var self = _this;
+	      _inspector2.default.assetsLoader.images.forEach(function (imageData) {
+	        var image = new Image();
+	        image.addEventListener('load', function () {
+	          self.state.registryImages.push({
+	            id: imageData.id,
+	            src: imageData.fullPath,
+	            width: imageData.width,
+	            height: imageData.height,
+	            name: imageData.id,
+	            type: 'registry',
+	            tags: imageData.tags,
+	            value: 'url(' + imageData.fullPath + ')' });
+	          self.setState({ registryImages: self.state.registryImages });
+	        });
+	        image.src = imageData.fullThumbPath;
+	      });
+	    };
+
+	    _this.generateFromAssets = function () {
+	      _this.setState({ assetsImages: [] });
+
+	      var self = _this;
+	      Array.prototype.slice.call(document.querySelectorAll('a-assets img')).map(function (asset) {
+	        var image = new Image();
+	        image.addEventListener('load', function () {
+	          self.state.assetsImages.push({ id: asset.id, src: image.src, width: image.width, height: image.height, name: asset.id, type: 'asset', value: '#' + asset.id });
+	          self.setState({ assetsImages: self.state.assetsImages });
+	        });
+	        image.src = asset.src;
+	      });
+	    };
+
+	    _this.onNewUrl = function (event) {
+	      if (event.keyCode !== 13) {
+	        return;
+	      }
+
+	      var self = _this;
+	      function onImageLoaded(img) {
+	        var src = self.refs.preview.src;
+	        self.setState({ preview: {
+	            width: self.refs.preview.naturalWidth,
+	            height: self.refs.preview.naturalHeight,
+	            src: src,
+	            id: '',
+	            name: getFilename(src, true),
+	            filename: getFilename(src),
+	            type: 'new',
+	            loaded: true,
+	            value: 'url(' + src + ')'
+	          }
+	        });
+	        self.refs.preview.removeEventListener('load', onImageLoaded);
+	      }
+	      _this.refs.preview.addEventListener('load', onImageLoaded);
+	      _this.refs.preview.src = event.target.value;
+
+	      _this.refs.imageName.focus();
+	    };
+
+	    _this.onNameKeyUp = function (event) {
+	      if (event.keyCode === 13 && _this.isValidAsset()) {
+	        _this.addNewAsset();
+	      }
+	    };
+
+	    _this.onNameChanged = function (event) {
+	      var state = _this.state.preview;
+	      state.name = event.target.value;
+	      _this.setState({ preview: state });
+	    };
+
+	    _this.toggleNewDialog = function () {
+	      _this.setState({ addNewDialogOpened: !_this.state.addNewDialogOpened });
+	    };
+
+	    _this.onUrlChange = function (e) {
+	      _this.setState({ newUrl: e.target.value });
+	    };
+
+	    _this.addNewAsset = function () {
+	      var self = _this;
+	      insertNewAsset('img', _this.state.preview.name, _this.state.preview.src, true, function () {
+	        self.generateFromAssets();
+	        self.setState({ addNewDialogOpened: false });
+	        self.clear();
+	      });
+	    };
+
+	    _this.onChangeFilter = function (e) {
+	      _this.setState({ filterText: e.target.value });
+	    };
+
+	    _this.state = {
+	      filterText: '',
+	      isOpen: _this.props.isOpen,
+	      loadedTextures: [],
+	      assetsImages: [],
+	      registryImages: [],
+	      addNewDialogOpened: false,
+	      newUrl: '',
+	      preview: {
+	        width: 0,
+	        height: 0,
+	        src: '',
+	        id: '',
+	        name: '',
+	        filename: '',
+	        type: '',
+	        value: '',
+	        loaded: false
+	      }
+	    };
+	    return _this;
+	  }
+
+	  _createClass(ModalTextures, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+
+	      _Events2.default.on('assetsimagesloaded', function (images) {
+	        _this2.generateFromRegistry();
+	      });
+
+	      this.uploadcareWidget = null;
+	      this.generateFromAssets();
+	      this.generateFromTextureCache();
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      var _this3 = this;
+
+	      if (!this.uploadcareWidget && this.state.isOpen) {
+	        this.uploadcareWidget = uploadcare.SingleWidget('[role=uploadcare-uploader]');
+	        this.uploadcareWidget.onUploadComplete(function (info) {
+	          if (info.isImage) {
+	            _this3.setState({ preview: {
+	                width: info.originalImageInfo.height,
+	                height: info.originalImageInfo.height,
+	                src: info.cdnUrl,
+	                id: '',
+	                filename: info.name,
+	                name: getFilename(info.name, true),
+	                type: 'uploaded',
+	                loaded: true,
+	                value: 'url(' + info.cdnUrl + ')'
+	              }
+	            });
+	            _this3.uploadcareWidget.value(null);
+	            _this3.refs.imageName.focus();
+	          }
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(newProps) {
+	      if (this.state.isOpen !== newProps.isOpen) {
+	        this.setState({ isOpen: newProps.isOpen });
+	        if (newProps.isOpen) {
+	          this.generateFromAssets();
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'generateFromTextureCache',
+	    value: function generateFromTextureCache() {
+	      /*
+	      Object.keys(inspector.sceneEl.systems.material.textureCache).map((hash) => {
+	        var texturePromise = inspector.sceneEl.systems.material.textureCache[hash];
+	        texturePromise.then(texture => {
+	          var elementPos = self.state.loadedTextures.map(function(x) {return x.image.src; }).indexOf(texture.image.src);
+	          if (elementPos === -1) {
+	            var newTextures = self.state.loadedTextures.slice();
+	            newTextures.push(texture);
+	            self.setState({
+	              loadedTextures: newTextures
+	            });
+	          }
+	        })
+	      });
+	      */
+	    }
+	  }, {
+	    key: 'clear',
+	    value: function clear() {
+	      this.setState({
+	        preview: {
+	          width: 0,
+	          height: 0,
+	          src: '',
+	          id: '',
+	          filename: '',
+	          name: '',
+	          type: '',
+	          loaded: false,
+	          value: ''
+	        },
+	        newUrl: ''
+	      });
+	    }
+	  }, {
+	    key: 'isValidAsset',
+	    value: function isValidAsset() {
+	      var validUrl = isValidId(this.state.preview.name);
+	      var validAsset = this.state.preview.loaded && validUrl;
+	      return validAsset;
+	    }
+	  }, {
+	    key: 'renderRegistryImages',
+	    value: function renderRegistryImages() {
+	      var self = this;
+	      var selectSample = function selectSample(image) {
+	        self.setState({ preview: {
+	            width: image.width,
+	            height: image.height,
+	            src: image.src,
+	            id: '',
+	            name: getFilename(image.name, true),
+	            filename: getFilename(image.src),
+	            type: 'registry',
+	            loaded: true,
+	            value: 'url(' + image.src + ')'
+	          }
+	        });
+	        self.refs.imageName.focus();
+	      };
+
+	      var filterText = this.state.filterText.toUpperCase();
+
+	      return this.state.registryImages.filter(function (image) {
+	        return image.id.toUpperCase().indexOf(filterText) > -1 || image.name.toUpperCase().indexOf(filterText) > -1 || image.tags.indexOf(filterText) > -1;
+	      }).map(function (image) {
+	        var imageClick = selectSample.bind(this, image);
+	        return _react2.default.createElement(
+	          'li',
+	          { key: image.src, onClick: imageClick },
+	          _react2.default.createElement('img', { width: '155px', height: '155px', src: image.src }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'detail' },
+	            _react2.default.createElement(
+	              'span',
+	              { className: 'title' },
+	              image.name
+	            ),
+	            _react2.default.createElement(
+	              'span',
+	              null,
+	              getFilename(image.src)
+	            ),
+	            _react2.default.createElement(
+	              'span',
+	              null,
+	              image.width,
+	              ' x ',
+	              image.height
+	            )
+	          )
+	        );
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var isOpen = this.state.isOpen;
+	      if (!isOpen) {
+	        return _react2.default.createElement('div', null);
+	      }
+
+	      var loadedTextures = this.state.loadedTextures;
+	      var preview = this.state.preview;
+
+	      var validUrl = isValidId(this.state.preview.name);
+	      var validAsset = this.isValidAsset();
+
+	      var addNewAssetButton = this.state.addNewDialogOpened ? 'BACK' : 'LOAD TEXTURE';
+
+	      return _react2.default.createElement(
+	        _Modal2.default,
+	        { title: 'Textures', isOpen: isOpen, onClose: this.onClose, closeOnClickOutside: false },
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.toggleNewDialog },
+	          addNewAssetButton
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: this.state.addNewDialogOpened ? '' : 'hide' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'newimage' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'new_asset_options' },
+	              _react2.default.createElement(
+	                'span',
+	                null,
+	                'Load a new texture from one of these sources:'
+	              ),
+	              _react2.default.createElement(
+	                'ul',
+	                null,
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    'From URL (and press Enter):'
+	                  ),
+	                  ' ',
+	                  _react2.default.createElement('input', { type: 'text', className: 'imageUrl', value: this.state.newUrl, onChange: this.onUrlChange, onKeyUp: this.onNewUrl })
+	                ),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  _react2.default.createElement(
+	                    'div',
+	                    { className: 'uploader-normal-button' },
+	                    'From a file: ',
+	                    _react2.default.createElement('input', { type: 'hidden', role: 'uploadcare-uploader' })
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    'From assets registry: '
+	                  ),
+	                  _react2.default.createElement(
+	                    'div',
+	                    { className: 'assets search' },
+	                    _react2.default.createElement('input', { placeholder: 'Filter...', value: this.state.filterText,
+	                      onChange: this.onChangeFilter }),
+	                    _react2.default.createElement('span', { className: 'fa fa-search' })
+	                  ),
+	                  _react2.default.createElement(
+	                    'ul',
+	                    { ref: 'registryGallery', className: 'gallery' },
+	                    this.renderRegistryImages()
+	                  )
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'preview' },
+	              'Name: ',
+	              _react2.default.createElement('input', { ref: 'imageName', className: this.state.preview.name.length > 0 && !validUrl ? 'error' : '', type: 'text', value: this.state.preview.name, onChange: this.onNameChanged, onKeyUp: this.onNameKeyUp }),
+	              _react2.default.createElement('img', { ref: 'preview', width: '155px', height: '155px', src: preview.src }),
+	              this.state.preview.loaded ? _react2.default.createElement(
+	                'div',
+	                { className: 'detail' },
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'title', title: preview.filename },
+	                  preview.filename
+	                ),
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement(
+	                  'span',
+	                  null,
+	                  preview.width,
+	                  ' x ',
+	                  preview.height
+	                )
+	              ) : _react2.default.createElement('span', null),
+	              _react2.default.createElement('br', null),
+	              _react2.default.createElement(
+	                'button',
+	                { disabled: !validAsset, onClick: this.addNewAsset },
+	                'LOAD THIS TEXTURE'
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: this.state.addNewDialogOpened ? 'hide' : '' },
+	          _react2.default.createElement(
+	            'ul',
+	            { className: 'gallery' },
+	            this.state.assetsImages.sort(function (a, b) {
+	              return a.id > b.id;
+	            }).map(function (image) {
+	              var textureClick = this.selectTexture.bind(this, image);
+	              var selectedClass = this.props.selectedTexture === '#' + image.id ? 'selected' : '';
+	              return _react2.default.createElement(
+	                'li',
+	                { key: image.id, onClick: textureClick, className: selectedClass },
+	                _react2.default.createElement('a', { href: image.src, hint: 'Open image in a new tab', className: 'button fa fa-external-link', target: '_blank' }),
+	                _react2.default.createElement('img', { width: '155px', height: '155px', src: image.src }),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'detail' },
+	                  _react2.default.createElement(
+	                    'span',
+	                    { className: 'title' },
+	                    image.name
+	                  ),
+	                  _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    getFilename(image.src)
+	                  ),
+	                  _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    image.width,
+	                    ' x ',
+	                    image.height
+	                  )
+	                )
+	              );
+	            }.bind(this)),
+	            loadedTextures.map(function (texture) {
+	              var image = texture.image;
+	              var textureClick = this.selectTexture.bind(this, texture);
+	              return _react2.default.createElement(
+	                'li',
+	                { key: texture.uuid, onClick: textureClick },
+	                _react2.default.createElement('img', { width: '155px', height: '155px', src: image.src }),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'detail' },
+	                  _react2.default.createElement(
+	                    'span',
+	                    { className: 'title' },
+	                    'Name:'
+	                  ),
+	                  ' ',
+	                  _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    image.name
+	                  ),
+	                  _react2.default.createElement(
+	                    'span',
+	                    { className: 'title' },
+	                    'Filename:'
+	                  ),
+	                  ' ',
+	                  _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    getFilename(image.src)
+	                  ),
+	                  _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    image.width,
+	                    ' x ',
+	                    image.height
+	                  )
+	                )
+	              );
+	            })
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ModalTextures;
+	}(_react2.default.Component);
+
+	ModalTextures.propTypes = {
+	  isOpen: _react2.default.PropTypes.bool,
+	  onClose: _react2.default.PropTypes.func,
+	  selectedTexture: _react2.default.PropTypes.string
+	};
+	exports.default = ModalTextures;
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var React = __webpack_require__(2);
+
+	var Modal = function (_React$Component) {
+	  _inherits(Modal, _React$Component);
+
+	  function Modal(props) {
+	    _classCallCheck(this, Modal);
+
+	    var _this = _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, props));
+
+	    _this.handleGlobalKeydown = function (event) {
+	      if (_this.state.isOpen && (event.keyCode === 27 || _this.props.extraCloseKeyCode && event.keyCode === _this.props.extraCloseKeyCode)) {
+	        _this.close();
+
+	        // Prevent closing the inspector
+	        event.stopPropagation();
+	      }
+	    };
+
+	    _this.shouldClickDismiss = function (event) {
+	      var target = event.target;
+	      // This piece of code isolates targets which are fake clicked by things
+	      // like file-drop handlers
+	      if (target.tagName === 'INPUT' && target.type === 'file') {
+	        return false;
+	      }
+	      if (target === _this.refs.self || _this.refs.self.contains(target)) return false;
+	      return true;
+	    };
+
+	    _this.handleGlobalMousedown = function (event) {
+	      if (_this.props.closeOnClickOutside && _this.state.isOpen && _this.shouldClickDismiss(event)) {
+	        if (typeof _this.props.onClose === 'function') {
+	          _this.props.onClose();
+	        }
+	      }
+	    };
+
+	    _this.close = function () {
+	      _this.setState({ isOpen: false });
+	      if (_this.props.onClose) {
+	        _this.props.onClose();
+	      }
+	    };
+
+	    _this.state = { isOpen: _this.props.isOpen };
+	    return _this;
+	  }
+
+	  _createClass(Modal, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      document.addEventListener('keyup', this.handleGlobalKeydown);
+	      document.addEventListener('mousedown', this.handleGlobalMousedown);
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      document.removeEventListener('keyup', this.handleGlobalKeydown);
+	      document.removeEventListener('mousedown', this.handleGlobalMousedown);
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(newProps) {
+	      if (this.state.isOpen !== newProps.isOpen) {
+	        this.setState({ isOpen: newProps.isOpen });
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        { className: this.state.isOpen ? 'modal' : 'modal hide' },
+	        React.createElement(
+	          'div',
+	          { className: 'modal-content', ref: 'self' },
+	          React.createElement(
+	            'div',
+	            { className: 'modal-header' },
+	            React.createElement(
+	              'span',
+	              { className: 'close', onClick: this.close },
+	              '\xD7'
+	            ),
+	            React.createElement(
+	              'h3',
+	              null,
+	              this.props.title
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'modal-body' },
+	            this.props.children
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Modal;
+	}(React.Component);
+
+	Modal.propTypes = {
+	  children: React.PropTypes.oneOfType([React.PropTypes.array, React.PropTypes.element]).isRequired,
+	  isOpen: React.PropTypes.bool,
+	  extraCloseKeyCode: React.PropTypes.number,
+	  closeOnClickOutside: React.PropTypes.bool,
+	  onClose: React.PropTypes.func,
+	  title: React.PropTypes.string
+	};
+	Modal.defaultProps = {
+	  closeOnClickOutside: true
+	};
+	exports.default = Modal;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	function insertNewAsset(type, id, src, anonymousCrossOrigin, onLoadedCallback) {
+	  var element = null;
+	  switch (type) {
+	    case 'img':
+	      {
+	        element = document.createElement('img');
+	        element.id = id;
+	        element.src = src;
+	        if (anonymousCrossOrigin) {
+	          element.crossOrigin = 'anonymous';
+	        }
+	      }break;
+	  }
+
+	  if (element) {
+	    element.onload = function () {
+	      if (onLoadedCallback) {
+	        onLoadedCallback();
+	      }
+	    };
+	    document.getElementsByTagName('a-assets')[0].appendChild(element);
+	  }
+	}
+
+	module.exports = {
+	  insertNewAsset: insertNewAsset
+	};
+
+/***/ },
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30595,7 +31415,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Modal = __webpack_require__(235);
+	var _Modal = __webpack_require__(236);
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -30637,8 +31457,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var self = this;
-
 	      var shortcuts = [[{ key: ['w'], description: 'Translate' }, { key: ['e'], description: 'Rotate' }, { key: ['r'], description: 'Scale' }, { key: ['d'], description: 'Duplicate selected entity' }, { key: ['g'], description: 'Toggle grid visibility' }, { key: ['n'], description: 'Add new entity' }], [{ key: ['h'], description: 'Show this help' }, { key: ['supr'], description: 'Delete selected entity' }, { key: ['Esc'], description: 'Exit edit mode' }, { key: ['backspace'], description: 'Delete selected entity' }, { key: ['ctrl', 'alt', 'i'], description: 'Switch Edit and VR Modes' }]];
 
 	      return _react2.default.createElement(
@@ -30690,141 +31508,7 @@
 	exports.default = ModalHelp;
 
 /***/ },
-/* 235 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var React = __webpack_require__(2);
-
-	var Modal = function (_React$Component) {
-	  _inherits(Modal, _React$Component);
-
-	  function Modal(props) {
-	    _classCallCheck(this, Modal);
-
-	    var _this = _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, props));
-
-	    _this.handleGlobalKeydown = function (event) {
-	      if (_this.state.isOpen && (event.keyCode === 27 || _this.props.extraCloseKeyCode && event.keyCode === _this.props.extraCloseKeyCode)) {
-	        _this.close();
-
-	        // Prevent closing the inspector
-	        event.stopPropagation();
-	      }
-	    };
-
-	    _this.shouldClickDismiss = function (event) {
-	      var target = event.target;
-	      // This piece of code isolates targets which are fake clicked by things
-	      // like file-drop handlers
-	      if (target.tagName === 'INPUT' && target.type === 'file') {
-	        return false;
-	      }
-	      if (target === _this.refs.self || _this.refs.self.contains(target)) return false;
-	      return true;
-	    };
-
-	    _this.handleGlobalMousedown = function (event) {
-	      if (_this.state.isOpen && _this.shouldClickDismiss(event)) {
-	        if (typeof _this.props.onClose === 'function') {
-	          _this.props.onClose();
-	        }
-	      }
-	    };
-
-	    _this.close = function () {
-	      _this.setState({ isOpen: false });
-	      if (_this.props.onClose) {
-	        _this.props.onClose();
-	      }
-	    };
-
-	    _this.state = { isOpen: _this.props.isOpen };
-	    return _this;
-	  }
-
-	  _createClass(Modal, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      document.addEventListener('keyup', this.handleGlobalKeydown);
-	      document.addEventListener('mousedown', this.handleGlobalMousedown);
-	    }
-	  }, {
-	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {
-	      document.removeEventListener('keyup', this.handleGlobalKeydown);
-	      document.removeEventListener('mousedown', this.handleGlobalMousedown);
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(newProps) {
-	      if (this.state.isOpen !== newProps.isOpen) {
-	        this.setState({ isOpen: newProps.isOpen });
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      if (!this.state.isOpen) {
-	        return React.createElement('span', null);
-	      }
-	      return React.createElement(
-	        'div',
-	        { className: 'modal' },
-	        React.createElement(
-	          'div',
-	          { className: 'modal-content', ref: 'self' },
-	          React.createElement(
-	            'div',
-	            { className: 'modal-header' },
-	            React.createElement(
-	              'span',
-	              { className: 'close', onClick: this.close },
-	              '\xD7'
-	            ),
-	            React.createElement(
-	              'h3',
-	              null,
-	              this.props.title
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'modal-body' },
-	            this.props.children
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Modal;
-	}(React.Component);
-
-	Modal.propTypes = {
-	  children: React.PropTypes.oneOfType([React.PropTypes.array, React.PropTypes.element]).isRequired,
-	  isOpen: React.PropTypes.bool,
-	  extraCloseKeyCode: React.PropTypes.number,
-	  onClose: React.PropTypes.func,
-	  title: React.PropTypes.string
-	};
-	exports.default = Modal;
-
-/***/ },
-/* 236 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30843,9 +31527,9 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _entity = __webpack_require__(209);
+	var _entity = __webpack_require__(210);
 
-	var _Toolbar = __webpack_require__(237);
+	var _Toolbar = __webpack_require__(240);
 
 	var _Toolbar2 = _interopRequireDefault(_Toolbar);
 
@@ -31114,7 +31798,7 @@
 	exports.default = SceneGraph;
 
 /***/ },
-/* 237 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31129,11 +31813,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _clipboard = __webpack_require__(222);
+	var _clipboard = __webpack_require__(223);
 
 	var _clipboard2 = _interopRequireDefault(_clipboard);
 
-	var _exporter = __webpack_require__(238);
+	var _exporter = __webpack_require__(241);
 
 	var _Events = __webpack_require__(182);
 
@@ -31217,7 +31901,7 @@
 	exports.default = Toolbar;
 
 /***/ },
-/* 238 */
+/* 241 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31292,7 +31976,7 @@
 	}
 
 /***/ },
-/* 239 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31400,13 +32084,13 @@
 	exports.default = Toolbar;
 
 /***/ },
-/* 240 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(241);
+	var content = __webpack_require__(244);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(199)(content, {});
@@ -31426,7 +32110,7 @@
 	}
 
 /***/ },
-/* 241 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(198)();
@@ -31434,13 +32118,13 @@
 
 
 	// module
-	exports.push([module.id, "body.aframe-inspector-opened {\n  color: #fff;\n  font-family: 'Roboto', sans-serif;\n  font-size: 12px;\n  margin: 0;\n  overflow: hidden;\n}\n\n.toggle-edit {\n  background-color: #ed3160;\n  color: #fff;\n  font-family: 'Roboto', sans-serif;\n  font-size: 12px;\n  left: 3px;\n  margin: 0;\n  padding: 6px 10px;\n  position: fixed;\n  text-align: center;\n  text-decoration: none;\n  top: 3px;\n  width: 174px;\n  z-index: 99999;\n}\n\n.toggle-edit:hover {\n  background-color: rgb(228, 43, 90);\n}\n\nhr {\n  border: 0;\n  border-top: 1px solid #ccc;\n}\n\na {\n  cursor: pointer;\n}\n\nbutton {\n  position: relative;\n}\n\ncode {\n  font-family: Consolas, Andale Mono, Monaco, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;\n}\n\ntextarea {\n  -moz-tab-size: 4;\n    -o-tab-size: 4;\n       tab-size: 4;\n  white-space: pre;\n  word-wrap: normal;\n}\n\ntextarea.success {\n  border-color: #8b8 !important;\n}\n\ntextarea.fail {\n  background-color: rgba(255, 0, 0, 0.05);\n  border-color: #f00 !important;\n}\n\ntextarea,\ninput {\n  outline: none; /* osx */\n}\n\n#left-sidebar,\n#right-panels {\n  z-index: 9999;\n}\n\n#sidebar,\n#left-sidebar,\n.panel {\n  cursor: default;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.collapsible .static {\n  margin: 0;\n}\n\n.collapsible .static .collapse-button {\n  border: 6px solid transparent;\n  float: left;\n  height: 0;\n  margin-right: 6px;\n  width: 0;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #1faaf2;\n  margin-top: 2px;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #1faaf2;\n  margin-top: 6px;\n}\n\n.collapsible.collapsed .content {\n  display: none;\n}\n\n.scenegraph {\n  border-top: 1px solid #111;\n  padding-top: 32px;\n}\n\n.scenegraph .search {\n  padding: 5px;\n}\n\n.scenegraph-toolbar {\n  background-color: #333;\n  position: fixed;\n  top: 32px;\n}\n\n.scenegraph-actions {\n  padding: 9px 0 5px;\n}\n\n.search {\n  color: #aaa;\n  font-size: 16px;\n  position: relative;\n}\n\n.search input {\n  background: #222;\n  border-radius: 5px;\n  height: 22px;\n  width: 185px;\n}\n\n.search input {\n  text-indent: 10px;\n}\n\n.search .fa-search {\n  position: absolute;\n  right: 11px;\n  top: 10px;\n}\n\ninput {\n  background-color: transparent;\n  border: 1px solid #555;\n  color: #fff;\n}\n\ninput,\n.texture canvas {\n  -webkit-transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n  transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n}\n\ninput[type=text],\ninput[type=number],\ninput.string,\ninput.number {\n  min-height: 14px;\n  outline: none;\n}\n\ninput.number {\n  background-color: transparent !important;\n  border: 0;\n  color: #20b1fb !important;\n  cursor: col-resize;\n  font-size: 12px;\n  padding: 2px;\n}\n\ninput.string:focus,\ninput.number:focus {\n  border: 1px solid #20b1fb;\n  color: #fff;\n  cursor: auto;\n}\n\n#left-sidebar {\n  background: #2b2b2b;\n  bottom: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  height: 100%;\n  left: 0;\n  overflow: auto;\n  position: fixed;\n  top: 0;\n  width: 200px;\n}\n\n#sidebar {\n  background: #2b2b2b;\n  width: 330px;\n}\n\n#sidebar * {\n  vertical-align: middle;\n}\n\ninput,\ntextarea,\nselect {\n  background: #222;\n  border: 1px solid transparent;\n  color: #888;\n}\n\n.row {\n  margin-bottom: 10px;\n  min-height: 20px;\n}\n\ninput[type=color] {\n  background-color: #333;\n  border: 1px solid #111;\n  cursor: pointer;\n}\n\n.texture canvas {\n  border: 1px solid #222;\n}\n\ninput[type=color] {\n  cursor: pointer;\n  height: 16px;\n  padding: 0;\n  width: 64px;\n}\n\n/* Note: these vendor-prefixed selectors cannot be grouped! */\n\ninput[type=color]::-webkit-color-swatch {\n  border: 0;  /* To remove the gray border. */\n}\n\ninput[type=color]::-webkit-color-swatch-wrapper {\n  padding: 0;  /* To remove the inner padding. */\n}\n\ninput[type=color]::-moz-color-swatch {\n  border: 0;\n}\n\ninput[type=color]::-moz-focus-inner {\n  border: 0;  /* To remove the inner border (specific to Firefox). */\n  padding: 0;\n}\n\n.components {\n  background-color: #323232;\n  color: #bcbcbc;\n  height: 100%;\n  overflow: auto;\n  position: fixed;\n  width: 330px;\n}\n\ndiv.vec2,\ndiv.vec3 {\n  display: inline;\n}\n\n.vec2 input.number,\n.vec3 input.number {\n  width: 46px;\n}\n\n.collapsible-header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.component-title span {\n  float: left;\n  max-width: 110px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n\n.collapsible .static {\n  background-color: #323232;\n  border-bottom: 1px solid #262626;\n  border-top: 1px solid #262626;\n  color: #fff;\n  height: 16px;\n  padding: 10px;\n  vertical-align: middle;\n}\n\n.collapsible .menu {\n  text-align: right;\n}\n\n.collapsible .menu::after {\n  color: #bbb;\n  content: '\\2807';\n  font-size: 12px;\n  padding: 5px;\n  text-align: right;\n}\n\n.collapsible .static .collapse-button {\n  border-left: 5px solid transparent;\n  border-right: 5px solid transparent;\n  float: left;\n  height: 0;\n  margin-right: 10px;\n  margin-top: 2px;\n  width: 0;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #bbb;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #bbb;\n}\n\n.collapsible .content {\n  background-color: #2b2b2b;\n  padding: 10px;\n}\n\n.components .row {\n  margin-bottom: 10px;\n  min-height: 20px;\n}\n\n.components * {\n  vertical-align: middle;\n}\n\n.components .row .text {\n  cursor: default;\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  vertical-align: middle;\n  width: 120px;\n}\n\n.components .row .map_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n\n.hidden {\n  visibility: hidden;\n}\n\n.texture canvas + input {\n  margin-left: 5px;\n}\n\n.texture .fa {\n  padding-right: 5px;\n}\n\n.scenegraph-bottom {\n  background-color: #323232;\n  border-top: 1px solid #111;\n  bottom: 10;\n  height: 40px;\n  left: 0;\n  z-index: 100;\n}\n\na.button {\n  color: #bcbcbc;\n  font-size: 16px;\n  margin-left: 10px;\n  text-decoration: none;\n}\n\na.button:hover {\n  color: #1faaf2;\n}\n\n.scenegraph-bottom a {\n  float: right;\n  margin: 10px;\n}\n\n.modal {\n  background-color: rgb(0, 0, 0);\n  background-color: rgba(0, 0, 0, 0.4);\n  height: 100%;\n  left: 0;\n  overflow: auto;\n  padding-top: 100px;\n  position: fixed;\n  top: 0;\n  width: 100%;\n  z-index: 9999;\n}\n\n.modal-content {\n  -webkit-animation-duration: 0.2s;\n          animation-duration: 0.2s;\n  -webkit-animation-name: animatetop;\n          animation-name: animatetop;\n  background-color: #232323;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n  margin: auto;\n  padding: 0;\n  position: relative;\n  width: 889px;\n}\n\n@-webkit-keyframes animatetop {\n  from {\n    opacity: 0;\n    top: -300px;\n  }\n\n  to {\n    opacity: 1;\n    top: 0;\n  }\n}\n\n@keyframes animatetop {\n  from {\n    opacity: 0;\n    top: -300px;\n  }\n\n  to {\n    opacity: 1;\n    top: 0;\n  }\n}\n\n.close {\n  color: white;\n  float: right;\n  font-size: 28px;\n  font-weight: bold;\n}\n\n.close:hover,\n.close:focus {\n  color: #08f;\n  cursor: pointer;\n  text-decoration: none;\n}\n\n.modal-header {\n  color: white;\n  padding: 2px 16px;\n}\n\n.modal-body {\n  overflow: auto;\n  padding: 16px;\n}\n\n.modal-footer {\n  color: white;\n  padding: 2px 16px;\n}\n\n/* Gallery */\n\n.gallery {\n  margin: 0 auto;\n  overflow: auto;\n  padding: 0;\n}\n\n.gallery li {\n  box-shadow: 3px 3px 8px -2px rgba(0, 0, 0, 0.63);\n  cursor: pointer;\n  display: inline-block;\n  float: left;\n  margin: 8px;\n  overflow: hidden;\n  width: 155px;\n}\n\n.gallery li:hover {\n  box-shadow: 0 0 4px 3px rgba(29, 138, 190, 0.63);\n}\n\n.gallery li .detail {\n  background-color: #323232;\n  min-height: 60px;\n  padding: 10px;\n}\n\n.gallery li:hover .detail {\n  background-color: #444;\n}\n\n.gallery li .detail span {\n  color: #bbb !important;\n}\n\n.gallery li .detail span.title {\n  color: #eee !important;\n  font-weight: bold;\n}\n\n.preview {\n  float: right;\n  padding: 10px;\n  width: 200px;\n}\n\n.new_asset_options {\n  float: left;\n  width: 600px;\n}\n\n.modal button {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  border-radius: 0;\n  box-shadow: none;\n  cursor: pointer;\n  display: inline-block;\n  font-size: 12px;\n  line-height: 1.8;\n  margin: 0 10px 0 0;\n  padding: 5px 10px;\n}\n\n.modal button:focus {\n  outline: none;\n}\n\n.modal button {\n  background-color: #1eaaf1;\n  border: none;\n  color: #fff;\n}\n\n.modal button:hover,\n.modal button.hover {\n  background-color: #346392;\n  text-shadow: -1px 1px #27496d;\n}\n\n.modal button:active,\n.modal button.active {\n  background-color: #27496d;\n  text-shadow: -1px 1px #193047;\n}\n\n.newimage {\n  background-color: #323232;\n  overflow: auto;\n  padding: 10px;\n}\n\n.hide {\n  display: none;\n}\n\nspan.value {\n  color: #fff;\n  display: inline-block;\n}\n\nspan.mixinlist {\n  color: #888 !important;\n  display: inline-block;\n}\n\nspan.mixinlist ul {\n  background-color: #222;\n  list-style-type: none;\n  margin: 5px 0 0;\n  padding: 5px;\n}\n\nspan.mixinlist ul li {\n  font-size: 11px;\n  margin-bottom: 3px;\n}\n\nspan.mixinlist ul li:last-child {\n  margin-bottom: 0;\n}\n\nspan.mixin {\n  display: inline-block;\n  width: 100px;\n}\n\n.mixinlist {\n  margin-left: 120px;\n}\n\nspan.subcomponent {\n  color: #999;\n  float: none !important;\n  margin-left: 10px;\n  vertical-align: top !important;\n}\n\n.collapsible .static {\n  cursor: pointer;\n}\n\n.a-canvas.state-dragging {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n\ncode,\npre,\ninput,\ntextarea,\nselect {\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.Select,\n.wf-active code,\n.wf-active pre,\n.wf-active input,\n.wf-active textarea,\n.wf-active select {\n  font-family: Roboto Mono, Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.tagName {\n  font-weight: 500;\n}\n\n.sidebar-title {\n  background-color: #444;\n  color: #aaa;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  font-size: 12px;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  padding: 6px 10px;\n  position: relative;\n  text-align: center;\n}\n\n.toolbar {\n  background-color: #262626;\n  color: #333;\n  height: 32px;\n  position: relative;\n}\n\n.toolbar * {\n  margin-left: 0;\n  padding: 8px;\n  vertical-align: middle;\n}\n\n.toolbar a.button {\n  margin: 0 6px 0 0;\n}\n\n.toolbar .active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.toolbar .active:hover {\n  color: #fff !important;\n}\n\n.local-transform {\n  padding-left: 10px;\n}\n\n.local-transform label {\n  color: #aaa;\n  padding-left: 5px;\n}\n\n.local-transform a.button {\n  padding-top: 0;\n}\n\n.outliner {\n  background: #2b2b2b;\n  color: #868686;\n  cursor: default;\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 auto;\n          flex: 1 1 auto;\n  font-size: 12px;\n  height: calc(100% - 98px);\n  outline: none;\n  overflow-y: auto;\n  padding: 0;\n  position: fixed;\n  top: 98px;\n  width: 200px;\n}\n\n.outliner .option {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  padding: 4px;\n  white-space: nowrap;\n}\n\n.outliner .option.active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.outliner .option .component:hover {\n  color: #1faaf2;\n}\n\n.outliner .option.active .component:hover {\n  color: #1888c1;\n}\n\n.outliner .option .icons {\n  display: none;\n  margin: 0 3px 0 10px;\n}\n\n.outliner .option .icons .button {\n  color: #fff;\n  font-size: 12px;\n}\n\n.outliner .option.active .icons {\n  display: inline;\n}\n\n.outliner .fa {\n  color: #aaa;\n}\n\n.outliner .active .fa {\n  color: #fff;\n}\n\na.flat-button {\n  background-color: #262626;\n  color: #bcbcbc;\n  font-size: 11px;\n  margin-left: 10px;\n  padding: 5px;\n  text-decoration: none;\n}\n\na.flat-button:hover {\n  color: #1faaf2;\n}\n\n.component-title {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n\na.help-link {\n  opacity: 0.4;\n}\n\na.help-link:hover {\n  opacity: 1;\n}\n\n#right-panels {\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  position: fixed;\n  right: 0;\n  top: 0;\n}\n\n#aframe-inspector-panels {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n/* This is a temporaly hack, we should style the editor instead of overwriting\n   the a-scene to fix the \"display: block\" issue. */\n\n.aframe-inspector-opened a-scene {\n  display: inline !important;\n}\n\n.aframe-inspector-opened a-scene .a-canvas {\n  background-color: #191919;\n  position: fixed;\n  z-index: 9999;\n  zoom: 1;\n}\n\nspan.entity-name {\n  color: #fff;\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n  font-size: 16px;\n}\n\n.add-component {\n  width: 200px;\n}\n\n.Select-control {\n  background-color: #222 !important;\n  border: none;\n  border-radius: 0;\n  color: #1faaf2;\n}\n\n.Select-menu-outer {\n  border: none;\n}\n\n.Select-menu-outer .is-focused {\n  background-color: #1faaf2 !important;\n  color: #fff;\n}\n\n.Select-option {\n  background-color: #222 !important;\n}\n\n.select-widget {\n  display: inline-block;\n  width: 157px;\n}\n\n.Select-placeholder,\n.Select--single > .Select-control .Select-value {\n  color: #1faaf2 !important;\n}\n\n.Select-value-label {\n  color: #1faaf2 !important;\n}\n\n.row .Select-control {\n  font-size: 11px;\n  height: 24px;\n}\n\n.row .Select-placeholder,\n.row .Select--single > .Select-control .Select-value {\n  line-height: 19px;\n}\n\n.row .Select-input {\n  height: 22px;\n}\n\n.row input[type=text],\n.row input[type=number],\n.row input.string,\n.row input.number {\n  background: #222;\n  border: 1px solid transparent;\n  color: #1faaf2;\n  min-height: 20px;\n  padding-left: 5px;\n  padding-right: 5px;\n}\n\n/* shortcuts help */\n\n.help-lists {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n\n.help-list {\n  list-style: none;\n  margin: 0;\n  padding: 0 0 10px;\n  width: 350px;\n}\n\n.help-list li {\n  margin-right: 40px;\n}\n\n.help-key-unit {\n  line-height: 1.8;\n  margin-right: 2em;\n  padding: 5px 0;\n}\n\n.help-key {\n  bottom: 2px;\n  margin-right: 4px;\n  min-width: 60px;\n  position: relative;\n}\n\n.help-key span {\n  background-color: #2e2e2e;\n  background-repeat: repeat-x;\n  border: 1px solid #666;\n  border-radius: 3px;\n  box-shadow: 0 0 5px #000;\n  color: #999;\n  display: inline-block;\n  font-size: 12px;\n  padding: 0 8px;\n  text-align: center;\n}\n\n.help-key-def {\n  color: #bbb;\n  display: inline-block;\n  margin-left: 1em;\n}\n\n.add-component {\n  text-align: left;\n}\n\n.add-component .option {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.add-component .option span {\n  color: #1faaf2;\n}\n\n.Select-menu-outer .is-focused span {\n  color: #fff;\n}\n\n.add-component-container {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-color: #2b2b2b;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  padding: 10px;\n}\n\n.aregistry-button {\n  font-size: 12px;\n  margin-left: 10px;\n  padding: 8px;\n}\n\n.aregistry-button:hover {\n  background-color: #1faaf2;\n}\n\n.aregistry-button img {\n  height: 20px;\n  width: 20px;\n}\n\n.components .row .color_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n", ""]);
+	exports.push([module.id, "body.aframe-inspector-opened {\n  color: #fff;\n  font-family: 'Roboto', sans-serif;\n  font-size: 12px;\n  margin: 0;\n  overflow: hidden;\n}\n\n.toggle-edit {\n  background-color: #ed3160;\n  color: #fff;\n  font-family: 'Roboto', sans-serif;\n  font-size: 12px;\n  left: 3px;\n  margin: 0;\n  padding: 6px 10px;\n  position: fixed;\n  text-align: center;\n  text-decoration: none;\n  top: 3px;\n  width: 174px;\n  z-index: 99999;\n}\n\n.toggle-edit:hover {\n  background-color: rgb(228, 43, 90);\n}\n\nhr {\n  border: 0;\n  border-top: 1px solid #ccc;\n}\n\na {\n  cursor: pointer;\n}\n\nbutton {\n  position: relative;\n}\n\ncode {\n  font-family: Consolas, Andale Mono, Monaco, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;\n}\n\ntextarea {\n  -moz-tab-size: 4;\n    -o-tab-size: 4;\n       tab-size: 4;\n  white-space: pre;\n  word-wrap: normal;\n}\n\ntextarea.success {\n  border-color: #8b8 !important;\n}\n\ntextarea.fail {\n  background-color: rgba(255, 0, 0, 0.05);\n  border-color: #f00 !important;\n}\n\ntextarea,\ninput {\n  outline: none; /* osx */\n}\n\n#left-sidebar,\n#right-panels {\n  z-index: 9998;\n}\n\n#sidebar,\n#left-sidebar,\n.panel {\n  cursor: default;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.collapsible .static {\n  margin: 0;\n}\n\n.collapsible .static .collapse-button {\n  border: 6px solid transparent;\n  float: left;\n  height: 0;\n  margin-right: 6px;\n  width: 0;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #1faaf2;\n  margin-top: 2px;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #1faaf2;\n  margin-top: 6px;\n}\n\n.collapsible.collapsed .content {\n  display: none;\n}\n\n.toggle-edit {\n  background-color: #ed3160;\n  color: #fff;\n  left: 3px;\n  padding: 6px 10px;\n  position: fixed;\n  text-align: center;\n  text-decoration: none;\n  top: 3px;\n  width: 174px;\n  z-index: 9999;\n}\n\n.toggle-edit:hover {\n  background-color: rgb(228, 43, 90);\n}\n\n.scenegraph {\n  border-top: 1px solid #111;\n  padding-top: 32px;\n}\n\n.scenegraph .search {\n  padding: 5px;\n}\n\n.scenegraph-toolbar {\n  background-color: #333;\n  position: fixed;\n  top: 32px;\n}\n\n.scenegraph-actions {\n  padding: 9px 0 5px;\n}\n\n.search {\n  color: #aaa;\n  font-size: 16px;\n  position: relative;\n}\n\n.search input {\n  background: #222;\n  border-radius: 5px;\n  height: 22px;\n  width: 185px;\n}\n\n.search input {\n  text-indent: 10px;\n}\n\n.search .fa-search {\n  position: absolute;\n  right: 11px;\n  top: 10px;\n}\n\ninput {\n  background-color: transparent;\n  border: 1px solid #555;\n  color: #fff;\n}\n\ninput,\n.texture canvas {\n  -webkit-transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n  transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n}\n\ninput[type=text],\ninput[type=number],\ninput.string,\ninput.number {\n  min-height: 14px;\n  outline: none;\n}\n\ninput.number {\n  background-color: transparent !important;\n  border: 0;\n  color: #20b1fb !important;\n  cursor: col-resize;\n  font-size: 12px;\n  padding: 2px;\n}\n\ninput.string:focus,\ninput.number:focus {\n  border: 1px solid #20b1fb;\n  color: #fff;\n  cursor: auto;\n}\n\ninput.error {\n  border: 1px solid #a00;\n}\n\n#left-sidebar {\n  background: #2b2b2b;\n  bottom: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  height: 100%;\n  left: 0;\n  overflow: auto;\n  position: fixed;\n  top: 0;\n  width: 200px;\n}\n\n#sidebar {\n  background: #2b2b2b;\n  width: 330px;\n}\n\n#sidebar * {\n  vertical-align: middle;\n}\n\ninput,\ntextarea,\nselect {\n  background: #222;\n  border: 1px solid transparent;\n  color: #888;\n}\n\n.row {\n  margin-bottom: 10px;\n  min-height: 20px;\n}\n\ninput[type=color] {\n  background-color: #333;\n  border: 1px solid #111;\n  cursor: pointer;\n}\n\n.texture canvas {\n  border: 1px solid #222;\n  cursor: pointer;\n}\n\n.texture canvas:hover {\n  border-color: #1faaf2;\n}\n\ninput[type=color] {\n  cursor: pointer;\n  height: 16px;\n  padding: 0;\n  width: 64px;\n}\n\n/* Note: these vendor-prefixed selectors cannot be grouped! */\n\ninput[type=color]::-webkit-color-swatch {\n  border: 0;  /* To remove the gray border. */\n}\n\ninput[type=color]::-webkit-color-swatch-wrapper {\n  padding: 0;  /* To remove the inner padding. */\n}\n\ninput[type=color]::-moz-color-swatch {\n  border: 0;\n}\n\ninput[type=color]::-moz-focus-inner {\n  border: 0;  /* To remove the inner border (specific to Firefox). */\n  padding: 0;\n}\n\n.components {\n  background-color: #323232;\n  color: #bcbcbc;\n  height: 100%;\n  overflow: auto;\n  position: fixed;\n  width: 330px;\n}\n\ndiv.vec2,\ndiv.vec3 {\n  display: inline;\n}\n\n.vec2 input.number,\n.vec3 input.number {\n  width: 46px;\n}\n\n.collapsible-header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.component-title span {\n  float: left;\n  max-width: 110px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n\n.collapsible .static {\n  background-color: #323232;\n  border-bottom: 1px solid #262626;\n  border-top: 1px solid #262626;\n  color: #fff;\n  height: 16px;\n  padding: 10px;\n  vertical-align: middle;\n}\n\n.collapsible .menu {\n  text-align: right;\n}\n\n.collapsible .menu::after {\n  color: #bbb;\n  content: '\\2807';\n  font-size: 12px;\n  padding: 5px;\n  text-align: right;\n}\n\n.collapsible .static .collapse-button {\n  border-left: 5px solid transparent;\n  border-right: 5px solid transparent;\n  float: left;\n  height: 0;\n  margin-right: 10px;\n  margin-top: 2px;\n  width: 0;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #bbb;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #bbb;\n}\n\n.collapsible .content {\n  background-color: #2b2b2b;\n  padding: 10px;\n}\n\n.components .row {\n  margin-bottom: 10px;\n  min-height: 20px;\n}\n\n.components * {\n  vertical-align: middle;\n}\n\n.components .row .text {\n  cursor: default;\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  vertical-align: middle;\n  width: 120px;\n}\n\n.components .row .map_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n\n.hidden {\n  visibility: hidden;\n}\n\n.uploader-normal-button .hidden {\n  display: none;\n}\n\n.texture canvas + input {\n  margin-left: 5px;\n}\n\n.texture .fa {\n  padding-right: 5px;\n}\n\n.texture .fa-external-link {\n  font-size: 14px;\n  padding-top: 2px;\n}\n\n.scenegraph-bottom {\n  background-color: #323232;\n  border-top: 1px solid #111;\n  bottom: 10;\n  height: 40px;\n  left: 0;\n  z-index: 100;\n}\n\na.button {\n  color: #bcbcbc;\n  font-size: 16px;\n  margin-left: 10px;\n  text-decoration: none;\n}\n\na.button:hover {\n  color: #1faaf2;\n}\n\n.scenegraph-bottom a {\n  float: right;\n  margin: 10px;\n}\n\n.modal {\n  -webkit-animation: animateopacity 0.2s ease-out;\n          animation: animateopacity 0.2s ease-out;\n  background-color: rgb(0, 0, 0);\n  background-color: rgba(0, 0, 0, 0.6);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  height: 100%;\n  left: 0;\n  overflow: auto;\n  position: fixed;\n  top: 0;\n  width: 100%;\n  z-index: 9999;\n}\n\n.modal h3 {\n  font-size: 18px;\n  font-weight: 100;\n  margin: 0.6em 0;\n}\n\n.modal-content {\n  -webkit-animation: animatetop 0.2s ease-out;\n          animation: animatetop 0.2s ease-out;\n  -webkit-animation-duration: 0.2s;\n          animation-duration: 0.2s;\n  -webkit-animation-name: animatetop;\n          animation-name: animatetop;\n  background-color: #232323;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);\n  height: calc(100% - 50px);\n  margin: auto;\n  overflow: hidden;\n  padding: 0;\n  width: calc(100% - 50px);\n}\n\n@-webkit-keyframes animateopacity {\n  from { opacity: 0; }\n  to { opacity: 1; }\n}\n\n@keyframes animateopacity {\n  from { opacity: 0; }\n  to { opacity: 1; }\n}\n\n.close {\n  color: white;\n  float: right;\n  font-size: 28px;\n  font-weight: bold;\n}\n\n.close:hover,\n.close:focus {\n  color: #08f;\n  cursor: pointer;\n  text-decoration: none;\n}\n\n.modal-header {\n  color: white;\n  padding: 2px 16px;\n}\n\n.modal-body {\n  overflow: auto;\n  padding: 16px;\n}\n\n.modal-footer {\n  color: white;\n  padding: 2px 16px;\n}\n\n/* Gallery */\n\n.gallery {\n  background: #232323;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  margin: 15px auto 0;\n  max-height: 50vh;\n  overflow: auto;\n  padding: 15px 3px 3px;\n}\n\n.newimage .gallery {\n  padding: 16px;\n}\n\n.gallery li {\n  border-radius: 2px;\n  box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);\n  cursor: pointer;\n  margin: 8px;\n  overflow: hidden;\n  width: 155px;\n}\n\n.gallery li.selected,\n.gallery li:hover {\n  box-shadow: 0 0 0 2px #1eaaf1;\n}\n\n.gallery li .detail {\n  background-color: #323232;\n  margin: 0;\n  min-height: 60px;\n  padding: 3px 10px;\n}\n\n.gallery li .button.fa-external-link {\n  margin-left: 136px;\n  margin-top: 5px;\n  position: fixed;\n}\n\n.preview {\n  padding: 10px;\n  width: 150px;\n}\n\n.preview input {\n  display: block;\n  margin: 8px 0;\n  width: 144px;\n}\n\n.preview button {\n  width: 155px;\n}\n\n.preview .detail .title {\n  color: #fff;\n  display: inline-block;\n  max-width: 155px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.gallery li.selected .detail,\n.gallery li:hover .detail {\n  background-color: #444;\n}\n\n.gallery li .detail span {\n  color: #777;\n  display: block;\n  margin-top: 4px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  width: 140px;\n}\n\n.gallery li.selected .detail span,\n.gallery li:hover .detail span {\n  color: #888;\n}\n\n.gallery li .detail span.title {\n  color: #fff !important;\n}\n\n.modal button {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  border-radius: 0;\n  box-shadow: none;\n  cursor: pointer;\n  display: inline-block;\n  font-size: 12px;\n  line-height: 1.8;\n  margin: 0 10px 0 0;\n  padding: 5px 10px;\n}\n\n.modal button:focus {\n  outline: none;\n}\n\n.modal button {\n  background-color: #1eaaf1;\n  border: none;\n  color: #fff;\n}\n\n.modal button:hover,\n.modal button.hover {\n  background-color: #346392;\n  text-shadow: -1px 1px #27496d;\n}\n\n.modal button:active,\n.modal button.active {\n  background-color: #27496d;\n  text-shadow: -1px 1px #193047;\n}\n\n.modal button:disabled {\n  background-color: #888;\n  cursor: none;\n}\n\n.newimage {\n  background-color: #323232;\n  color: #bcbcbc;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  font-size: 13px;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  margin-top: 10px;\n  overflow: auto;\n  padding: 10px;\n}\n\n.newimage input {\n  color: #1eaaf1;\n  padding: 3px 5px;\n}\n\n.hide {\n  display: none;\n}\n\nspan.value {\n  color: #fff;\n  display: inline-block;\n}\n\nspan.mixinlist {\n  color: #888 !important;\n  display: inline-block;\n}\n\nspan.mixinlist ul {\n  background-color: #222;\n  list-style-type: none;\n  margin: 5px 0 0;\n  padding: 5px;\n}\n\nspan.mixinlist ul li {\n  font-size: 11px;\n  margin-bottom: 3px;\n}\n\nspan.mixinlist ul li:last-child {\n  margin-bottom: 0;\n}\n\nspan.mixin {\n  display: inline-block;\n  width: 100px;\n}\n\n.mixinlist {\n  margin-left: 120px;\n}\n\nspan.subcomponent {\n  color: #999;\n  float: none !important;\n  margin-left: 10px;\n  vertical-align: top !important;\n}\n\n.collapsible .static {\n  cursor: pointer;\n}\n\n.a-canvas.state-dragging {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n\ncode,\npre,\ninput,\ntextarea,\nselect {\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.Select,\n.wf-active code,\n.wf-active pre,\n.wf-active input,\n.wf-active textarea,\n.wf-active select {\n  font-family: Roboto Mono, Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.tagName {\n  font-weight: 500;\n}\n\n.sidebar-title {\n  background-color: #444;\n  color: #aaa;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  font-size: 12px;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  padding: 6px 10px;\n  position: relative;\n  text-align: center;\n}\n\n.toolbar {\n  background-color: #262626;\n  color: #333;\n  height: 32px;\n  position: relative;\n}\n\n.toolbar * {\n  margin-left: 0;\n  padding: 8px;\n  vertical-align: middle;\n}\n\n.toolbar a.button {\n  margin: 0 6px 0 0;\n}\n\n.toolbar .active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.toolbar .active:hover {\n  color: #fff !important;\n}\n\n.local-transform {\n  padding-left: 10px;\n}\n\n.local-transform label {\n  color: #aaa;\n  padding-left: 5px;\n}\n\n.local-transform a.button {\n  padding-top: 0;\n}\n\n.outliner {\n  background: #2b2b2b;\n  color: #868686;\n  cursor: default;\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 auto;\n          flex: 1 1 auto;\n  font-size: 12px;\n  height: calc(100% - 98px);\n  outline: none;\n  overflow-y: auto;\n  padding: 0;\n  position: fixed;\n  top: 98px;\n  width: 200px;\n}\n\n.outliner .option {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  padding: 4px;\n  white-space: nowrap;\n}\n\n.outliner .option.active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.outliner .option .component:hover {\n  color: #1faaf2;\n}\n\n.outliner .option.active .component:hover {\n  color: #1888c1;\n}\n\n.outliner .option .icons {\n  display: none;\n  margin: 0 3px 0 10px;\n}\n\n.outliner .option .icons .button {\n  color: #fff;\n  font-size: 12px;\n}\n\n.outliner .option.active .icons {\n  display: inline;\n}\n\n.outliner .fa {\n  color: #aaa;\n}\n\n.outliner .active .fa {\n  color: #fff;\n}\n\na.flat-button {\n  background-color: #262626;\n  color: #bcbcbc;\n  font-size: 11px;\n  margin-left: 10px;\n  padding: 5px;\n  text-decoration: none;\n}\n\na.flat-button:hover {\n  color: #1faaf2;\n}\n\n.component-title {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n\na.help-link {\n  opacity: 0.4;\n}\n\na.help-link:hover {\n  opacity: 1;\n}\n\n#right-panels {\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  position: fixed;\n  right: 0;\n  top: 0;\n}\n\n#aframe-inspector-panels {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n/* This is a temporaly hack, we should style the editor instead of overwriting\n   the a-scene to fix the \"display: block\" issue. */\n\n.aframe-inspector-opened a-scene {\n  display: inline !important;\n}\n\n.aframe-inspector-opened a-scene .a-canvas {\n  background-color: #191919;\n  z-index: 9998;\n}\n\n.uploadcare-widget-button-open {\n  background-color: #1eaaf1;\n  border-radius: 0;\n  cursor: pointer;\n  margin-left: 10px;\n  padding: 10px 15px;\n}\n\n.uploadcare-widget-button-open:hover {\n  background-color: #346392;\n}\n\n.new_asset_options {\n  margin: 10px;\n}\n\n.new_asset_options > ul {\n  margin-left: 10px;\n  padding: 5px;\n}\n\n.new_asset_options > ul > li {\n  padding: 10px 0;\n}\n\n.new_asset_options .imageUrl {\n  margin-left: 5px;\n  width: 350px;\n}\n\nspan.entity-name {\n  color: #fff;\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n  font-size: 16px;\n}\n\n.add-component {\n  width: 200px;\n}\n\n.Select-control {\n  background-color: #222 !important;\n  border: none;\n  border-radius: 0;\n  color: #1faaf2;\n}\n\n.Select-menu-outer {\n  border: none;\n}\n\n.Select-menu-outer .is-focused {\n  background-color: #1faaf2 !important;\n  color: #fff;\n}\n\n.Select-option {\n  background-color: #222 !important;\n}\n\n.select-widget {\n  display: inline-block;\n  width: 157px;\n}\n\n.Select-placeholder,\n.Select--single > .Select-control .Select-value {\n  color: #1faaf2 !important;\n}\n\n.Select-value-label {\n  color: #1faaf2 !important;\n}\n\n.row .Select-control {\n  font-size: 11px;\n  height: 24px;\n}\n\n.row .Select-placeholder,\n.row .Select--single > .Select-control .Select-value {\n  line-height: 19px;\n}\n\n.row .Select-input {\n  height: 22px;\n}\n\n.row input[type=text],\n.row input[type=number],\n.row input.string,\n.row input.number {\n  background: #222;\n  border: 1px solid transparent;\n  color: #1faaf2;\n  min-height: 20px;\n  padding-left: 5px;\n  padding-right: 5px;\n}\n\n.help-lists {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n\n.help-list {\n  list-style: none;\n  margin: 0;\n  padding: 0 0 10px;\n  width: 350px;\n}\n\n.help-list li {\n  margin-right: 40px;\n}\n\n.help-key-unit {\n  line-height: 1.8;\n  margin-right: 2em;\n  padding: 5px 0;\n}\n\n.help-key {\n  bottom: 2px;\n  margin-right: 4px;\n  min-width: 60px;\n  position: relative;\n}\n\n.help-key span {\n  background-color: #2e2e2e;\n  background-repeat: repeat-x;\n  border: 1px solid #666;\n  border-radius: 3px;\n  box-shadow: 0 0 5px #000;\n  color: #999;\n  display: inline-block;\n  font-size: 12px;\n  padding: 0 8px;\n  text-align: center;\n}\n\n.help-key-def {\n  color: #bbb;\n  display: inline-block;\n  margin-left: 1em;\n}\n\n.add-component {\n  text-align: left;\n}\n\n.add-component .option {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.add-component .option span {\n  color: #1faaf2;\n}\n\n.Select-menu-outer .is-focused span {\n  color: #fff;\n}\n\n.add-component-container {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-color: #2b2b2b;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  padding: 10px;\n}\n\n.aregistry-button {\n  font-size: 12px;\n  margin-left: 10px;\n  padding: 8px;\n}\n\n.aregistry-button:hover {\n  background-color: #1faaf2;\n}\n\n.aregistry-button img {\n  height: 20px;\n  width: 20px;\n}\n\n.components .row .color_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n\n.assets.search {\n  margin-top: 10px;\n  width: 200px;\n}\n\n.assets.search .fa-search {\n  top: 7px;\n}\n\n.gallery a.fa.texture-link {\n  box-shadow: 0 0 14px -1px rgba(0, 0, 0, 0.75);\n  position: fixed;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 242 */
+/* 245 */
 /***/ function(module, exports) {
 
 	'use strict';
