@@ -34,13 +34,15 @@ export default class ModalHelp extends React.Component {
         {key: ['r'], description: 'Scale'},
         {key: ['d'], description: 'Duplicate selected entity'},
         {key: ['g'], description: 'Toggle grid visibility'},
-        {key: ['n'], description: 'Add new entity'}
+        {key: ['n'], description: 'Add new entity'},
+        {key: ['supr | backspace'], description: 'Delete selected entity'}
       ],
       [
+        {key: ['ctrl | cmd', 'x'], description: 'Cut selected entity'},
+        {key: ['ctrl | cmd', 'c'], description: 'Copy selected entity'},
+        {key: ['ctrl | cmd', 'v'], description: 'Paste entity'},
         {key: ['h'], description: 'Show this help'},
-        {key: ['supr'], description: 'Delete selected entity'},
         {key: ['Esc'], description: 'Exit edit mode'},
-        {key: ['backspace'], description: 'Delete selected entity'},
         {key: ['ctrl', 'alt', 'i'], description: 'Switch Edit and VR Modes'}
       ]
     ];
