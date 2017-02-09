@@ -2,6 +2,7 @@ var React = require('react');
 
 export default class Modal extends React.Component {
   static propTypes = {
+    id: React.PropTypes.string,
     children: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.element
@@ -76,7 +77,7 @@ export default class Modal extends React.Component {
 
   render () {
     return (
-      <div className={this.state.isOpen ? 'modal' : 'modal hide'}>
+      <div id={this.props.id} className={this.state.isOpen ? 'modal' : 'modal hide'}>
         <div className='modal-content' ref='self'>
           <div className='modal-header'>
             <span className='close' onClick={this.close}>×</span>

@@ -448,17 +448,21 @@ a.button:hover {
   margin: 0.6em 0;
 }
 
+
+#texture-modal .modal-content {
+  height: calc(100% - 50px);
+  width: calc(100% - 50px);  
+}
+
 .modal-content {
   animation: animatetop 0.2s ease-out;
   animation-duration: 0.2s;
   animation-name: animatetop;
   background-color: #232323;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
-  height: calc(100% - 50px);
   margin: auto;
   overflow: hidden;
   padding: 0;
-  width: calc(100% - 50px);
 }
 
 @keyframes animateopacity {
