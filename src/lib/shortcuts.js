@@ -2,6 +2,16 @@
 var Events = require('./Events');
 import {removeSelectedEntity, cloneSelectedEntity} from '../actions/entity';
 
+AFRAME.Keyevents = {};
+AFRAME.Keyevents.VAL = null;
+AFRAME.Keyevents.DIM = 'x';
+AFRAME.Keyevents.LASTKEY = null;
+AFRAME.Keyevents.NEGATION = false;
+
+document.addEventListener("click", function(){
+  AFRAME.Keyevents.LASTKEY = null;
+});
+
 function shouldCaptureKeyEvent (event) {
   if (event.metaKey) { return false; }
   return event.target.tagName !== 'INPUT' &&
@@ -11,7 +21,6 @@ function shouldCaptureKeyEvent (event) {
 module.exports = {
   onKeyUp: function (event) {
     if (!shouldCaptureKeyEvent(event)) { return; }
-
     // h: help
     if (event.keyCode === 72) {
       Events.emit('openhelpmodal');
@@ -57,6 +66,58 @@ module.exports = {
     if (event.keyCode === 68) {
       cloneSelectedEntity();
     }
+
+    // Num Key from 1-9 pressed
+    if(event.keyCode >=48 && event.keyCode<=57) {
+      if(AFRAME.Keyevents.VAL == null) {
+        AFRAME.Keyevents.VAL = 0;
+      }
+      AFRAME.Keyevents.VAL *= 10;
+      AFRAME.Keyevents.VAL += (event.keyCode - 48);
+    } else if(event.keyCode != 13 && event.keyCode != 189) {
+      AFRAME.Keyevents.VAL = null;
+      AFRAME.Keyevents.NEGATION = false;
+    }
+
+    // Return: Change value of specified direction
+    if(event.keyCode == 13) {
+      var key = AFRAME.Keyevents.LASTKEY;
+      if(key === 88 || key === 89 || key === 90 || (key>=48 & key<=57)) {
+        if(AFRAME.Keyevents.NEGATION) {
+          if (AFRAME.INSPECTOR.selectedEntity) {
+            Events.emit('modifyValue', { val: -1 * AFRAME.Keyevents.VAL,  dimension: AFRAME.Keyevents.DIM});
+          }
+        } else {
+          if (AFRAME.INSPECTOR.selectedEntity) {
+            Events.emit('modifyValue', { val: AFRAME.Keyevents.VAL,  dimension: AFRAME.Keyevents.DIM});
+          }
+        }
+      }
+      AFRAME.Keyevents.VAL = null;
+      AFRAME.Keyevents.NEGATION = false;
+    }
+
+    if(event.keyCode == 189) {
+      if(AFRAME.Keyevents.VAL == null) {
+        AFRAME.Keyevents.NEGATION = true;
+      }
+    }
+
+    // x: Change edit mode to x direction
+    if (event.keyCode === 88) {
+    AFRAME.Keyevents.DIM = 'x';
+    }
+
+    // x: Change edit mode to y direction
+    if (event.keyCode === 89) {
+    AFRAME.Keyevents.DIM = 'y';
+    }
+
+    // z: Change edit mode to z direction
+    if (event.keyCode === 90) {
+    AFRAME.Keyevents.DIM = 'z';
+    }
+    AFRAME.Keyevents.LASTKEY = event.keyCode;
   },
   enable: function () {
     window.addEventListener('keyup', this.onKeyUp, false);

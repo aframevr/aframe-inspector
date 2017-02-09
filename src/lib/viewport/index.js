@@ -311,6 +311,20 @@ function Viewport (inspector) {
     }
   });
 
+  Events.on('modifyValue', prop => {
+    var entity = AFRAME.INSPECTOR.selectedEntity;
+    var mode = transformControls.getMode();
+      if(transformControls.getMode() == "translate") {
+        mode = "position";
+      } else if (transformControls.getMode() == "rotate") {
+        mode = "rotation";
+      }
+      var value = entity.getAttribute(mode);
+      value[prop.dimension] = prop.val;
+      entity.setAttribute(mode, value);
+      Events.emit('objectchanged', entity.object3D);
+    });
+
   Events.on('objectfocused', object => {
     controls.focus(object);
     ga('send', 'event', 'Viewport', 'selectEntity');
