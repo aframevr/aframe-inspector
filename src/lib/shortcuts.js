@@ -96,8 +96,8 @@ module.exports = {
         }
       }
 
-      // p: focus filter input
-      if (event.keyCode === 80) {
+      // f: focus filter input
+      if (event.keyCode === 70) {
         event.preventDefault();
         event.stopPropagation();
         document.getElementById('filter').focus();
