@@ -160,6 +160,13 @@ input {
   top: 10px;
 }
 
+.search .fa-times {
+  position: absolute;
+  right: 32px;
+  top: 10px;
+}
+
+
 input {
   background-color: transparent;
   border: 1px solid #555;

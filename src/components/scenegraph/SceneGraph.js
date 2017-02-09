@@ -222,7 +222,13 @@ export default class SceneGraph extends React.Component {
     gaTrackSearchEntity();
   }
 
+  clearFilter = () => {
+    this.setState({filterText: ''});
+  }
+
   render () {
+    let clearFilter = this.state.filterText ? <a onClick={this.clearFilter} className='button fa fa-times'></a> : null;
+
     return (
       <div className='scenegraph'>
         <div className='scenegraph-toolbar'>
@@ -230,6 +236,7 @@ export default class SceneGraph extends React.Component {
           <div className='search'>
             <input placeholder='Search...' value={this.state.filterText}
               onChange={this.onChangeFilter}/>
+            {clearFilter}
             <span className='fa fa-search'></span>
           </div>
         </div>
