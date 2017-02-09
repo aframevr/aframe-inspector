@@ -82,7 +82,7 @@ function findClosestEntity (entity) {
  */
 export function removeSelectedEntity (force) {
   if (AFRAME.INSPECTOR.selectedEntity) {
-    removeEntity(AFRAME.INSPECTOR.selectedEntity);
+    removeEntity(AFRAME.INSPECTOR.selectedEntity, force);
   }
 }
 
@@ -92,7 +92,15 @@ export function removeSelectedEntity (force) {
  * @param  {Element} referenceNode Node used as reference to insert after it.
 */
 function insertAfter (newNode, referenceNode) {
-  referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  if (!referenceNode.parentNode) {
+    referenceNode = AFRAME.INSPECTOR.selectedEntity;
+  }
+
+  if (!referenceNode) {
+    AFRAME.INSPECTOR.sceneEl.appendChild(newNode);
+  } else {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  }
 }
 
 /**
