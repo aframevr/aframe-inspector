@@ -84,6 +84,7 @@ export default class TextureWidget extends React.Component {
 
   componentWillReceiveProps (newProps) {
     var component = this.props.entity.components[this.props.componentname];
+    if (!component) { return; }
     var newValue = component.attrValue[this.props.name];
 
     // This will be triggered typically when the element is changed directly with element.setAttribute
