@@ -1,7 +1,11 @@
 /* global THREE CustomEvent */
 import debounce from 'lodash.debounce';
+
+/* eslint-disable no-unused-vars */
 import TransformControls from '../vendor/threejs/TransformControls.js';
 import EditorControls from '../vendor/threejs/EditorControls.js';
+/* eslint-disable no-unused-vars */
+
 import {getNumber} from '../utils';
 var Events = require('../Events');
 

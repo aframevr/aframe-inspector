@@ -173,7 +173,7 @@ export default class SceneGraph extends React.Component {
         // Check if the ID or the tagName includes the filterText
         if (value.id.toUpperCase().indexOf(filterText) > -1 ||
             value.tagName.toUpperCase().indexOf(filterText) > -1) {
-              return true;
+          return true;
         }
 
         // Check each component's name
@@ -186,7 +186,6 @@ export default class SceneGraph extends React.Component {
             var attrValue = component.attrValue[j].toString();
             if (attrValue.toUpperCase().indexOf(filterText) > -1) { return true; }
           }
-
         }
 
         return false;
@@ -203,6 +202,7 @@ export default class SceneGraph extends React.Component {
           removeButton = '';
         }
 
+        /* eslint-disable react/no-danger */
         return (
           <div key={idx} className={className} value={option.value}
             onClick={() => this.setValue(option.value)}>
@@ -213,6 +213,7 @@ export default class SceneGraph extends React.Component {
               </span>
           </div>
         );
+        /* eslint-enable react/no-danger */
       });
   }
 
