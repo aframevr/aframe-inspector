@@ -234,7 +234,7 @@ export default class SceneGraph extends React.Component {
         <div className='scenegraph-toolbar'>
           <Toolbar/>
           <div className='search'>
-            <input placeholder='Search...' value={this.state.filterText}
+            <input id="filter" placeholder='Search...' value={this.state.filterText}
               onChange={this.onChangeFilter}/>
             {clearFilter}
             <span className='fa fa-search'></span>
