@@ -450,10 +450,9 @@ a.button:hover {
   margin: 0.6em 0;
 }
 
-
 #texture-modal .modal-content {
   height: calc(100% - 50px);
-  width: calc(100% - 50px);  
+  width: calc(100% - 50px);
 }
 
 .modal-content {
