@@ -144,6 +144,12 @@ export default class SceneGraph extends React.Component {
     }
   }
 
+  onFilterKeyUp = event => {
+    if (event.keyCode === 27) {
+      this.clearFilter();
+    }
+  }
+
   onKeyDown = event => {
     switch (event.keyCode) {
       case 38: // up
@@ -253,7 +259,7 @@ export default class SceneGraph extends React.Component {
           <Toolbar/>
           <div className='search'>
             <input id="filter" placeholder='Search...' value={this.state.filterText}
-              onChange={this.onChangeFilter}/>
+              onChange={this.onChangeFilter} onKeyUp={this.onFilterKeyUp}/>
             {clearFilter}
             <span className='fa fa-search'></span>
           </div>
