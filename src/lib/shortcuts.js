@@ -1,6 +1,7 @@
 /* globals AFRAME */
 var Events = require('./Events');
 import {removeSelectedEntity, cloneSelectedEntity, cloneEntity} from '../actions/entity';
+import {os} from '../lib/utils.js';
 
 function shouldCaptureKeyEvent (event) {
   if (event.metaKey) { return false; }
@@ -57,24 +58,32 @@ module.exports = {
     if (event.keyCode === 68) {
       cloneSelectedEntity();
     }
-
   },
   onKeyDown: function (event) {
     // c: copy selected entity
     if (event.keyCode === 67) {
-      if(AFRAME.INSPECTOR.selected && (event.ctrlKey || event.metaKey) && document.activeElement.tagName !== "INPUT") {
-        AFRAME.INSPECTOR.copiedEntity = AFRAME.INSPECTOR.selectedEntity;
+      if (AFRAME.INSPECTOR.selectedEntity &&
+        (event.ctrlKey && os === 'windows' || event.metaKey && os === 'macos') &&
+        document.activeElement.tagName !== 'INPUT') {
+        AFRAME.INSPECTOR.entityToCopy = AFRAME.INSPECTOR.selectedEntity;
       }
     }
 
     // v: paste copied entity
     if (event.keyCode === 86) {
-      if(AFRAME.INSPECTOR.copiedEntity && (event.ctrlKey || event.metaKey) && document.activeElement.tagName !== "INPUT") {
-        cloneEntity(AFRAME.INSPECTOR.copiedEntity);
+      if (AFRAME.INSPECTOR.entityToCopy &&
+        (event.ctrlKey && os === 'windows' || event.metaKey && os === 'macos') &&
+        document.activeElement.tagName !== 'INPUT') {
+        cloneEntity(AFRAME.INSPECTOR.entityToCopy);
       }
     }
   },
   enable: function () {
+    document.querySelector('a-scene').addEventListener('child-detached', event => {
+      if (event.detail.el === AFRAME.INSPECTOR.entityToCopy) {
+        AFRAME.INSPECTOR.entityToCopy = null;
+      }
+    });
     window.addEventListener('keyup', this.onKeyUp, false);
     window.addEventListener('keydown', this.onKeyDown, false);
   },
