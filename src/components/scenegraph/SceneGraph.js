@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 import debounce from 'lodash.debounce';
 import {removeEntity, cloneEntity} from '../../actions/entity';
 import Toolbar from './Toolbar';
@@ -79,7 +80,7 @@ export default class SceneGraph extends React.Component {
   }
 
   rebuildOptions = () => {
-    const options = [{static: true, value: this.props.scene, html: '&lt;a-scene&gt;'}];
+    const options = [{static: true, value: this.props.scene, tagName: 'a-scene', hasChildren: true}];
 
     function treeIterate (element, depth) {
       if (!element) { return; }
@@ -112,12 +113,15 @@ export default class SceneGraph extends React.Component {
 
           const pad = '&nbsp;&nbsp;&nbsp;'.repeat(depth);
           const label = child.id ? child.id : '&lt;' + child.tagName.toLowerCase() + '&gt;';
-          const html = pad + label + extra;
 
           options.push({
             static: true,
+            depth: depth,
             value: child,
-            html: html
+            hasChildren: child.children.length > 0,
+            tagName: child.tagName.toLowerCase(),
+            id: child.id,
+            extra: extra
           });
 
           treeIterate(child, depth);
@@ -197,7 +201,6 @@ export default class SceneGraph extends React.Component {
         return false;
       })
       .map((option, idx) => {
-        let className = 'option' + (option.value === this.state.value ? ' active' : '');
         let cloneButton = <a onClick={() => this.cloneEntity(option.value)}
           title="Clone entity" className="button fa fa-clone"></a>;
         let removeButton = <a onClick={event => { event.stopPropagation(); removeEntity(option.value); } }
@@ -208,18 +211,37 @@ export default class SceneGraph extends React.Component {
           removeButton = '';
         }
 
-        /* eslint-disable react/no-danger */
+        const pad = '    '.repeat(option.depth);
+        // const collapse = option.hasChildren ? <span className="collasespace fa fa-caret-down"></span> : <span className="collasespace"></span>;
+        const collapse = null;
+        let visibility = null;
+        let visible = true;
+        if (option.value.components['visible']) {
+          visible = option.value.components['visible'].data;
+          visibility = <i className={'fa ' + (visible ? 'fa-eye' : 'fa-eye-slash')}
+            onClick={() => option.value.setAttribute('visible', !visible)}></i>;
+        } else if (option.tagName === 'a-scene') {
+          visible = option.value.object3D.visible;
+          visibility = <i className={'fa ' + (visible ? 'fa-eye' : 'fa-eye-slash')}
+            onClick={() => option.value.setAttribute('visible', !visible)}></i>;
+        }
+
+        const className = classnames({
+          option: true,
+          active: option.value === this.state.value,
+          novisible: !visible
+        });
+
         return (
           <div key={idx} className={className} value={option.value}
             onClick={() => this.setValue(option.value)}>
-            <span dangerouslySetInnerHTML={{__html: option.html}}></span>
+            <span>{visibility} {collapse}{pad} <span className="id">{option.id}</span> <span>&lt;{option.tagName}&gt;</span></span>
               <span className="icons">
                 {cloneButton}
                 {removeButton}
               </span>
           </div>
         );
-        /* eslint-enable react/no-danger */
       });
   }
 

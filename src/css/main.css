@@ -1082,3 +1082,42 @@ span.entity-name {
   box-shadow: 0 0 14px -1px rgba(0, 0, 0, 0.75);
   position: fixed;
 }
+
+.outliner .id {
+  color: #ccc;
+}
+
+.outliner .option.active .id {
+  color: #fff;
+}
+
+.outliner .collasespace {
+  color: #eee;
+  display: inline-block;
+  text-align: center;
+  width: 14px;
+}
+
+.outliner .fa-eye {
+  color: #bbb;
+}
+
+.outliner .option {
+  white-space: pre;
+}
+
+.option span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.outliner .option.novisible span,
+.outliner .option.novisible .fa,
+.outliner .option.novisible .collasespace,
+.outliner .option.novisible .id {
+  color: #666;
+}
+
+.outliner .option .icons a.button {
+  color: #fff;
+}
