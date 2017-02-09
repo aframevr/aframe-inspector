@@ -31,8 +31,32 @@ function equal (var1, var2) {
   return true;
 }
 
+function getOS () {
+  var userAgent = window.navigator.userAgent;
+  var platform = window.navigator.platform;
+  var macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'];
+  var windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'];
+  var iosPlatforms = ['iPhone', 'iPad', 'iPod'];
+  var os = null;
+
+  if (macosPlatforms.indexOf(platform) !== -1) {
+    os = 'macos';
+  } else if (iosPlatforms.indexOf(platform) !== -1) {
+    os = 'ios';
+  } else if (windowsPlatforms.indexOf(platform) !== -1) {
+    os = 'windows';
+  } else if (/Android/.test(userAgent)) {
+    os = 'android';
+  } else if (!os && /Linux/.test(platform)) {
+    os = 'linux';
+  }
+
+  return os;
+}
 module.exports = {
   equal: equal,
   getNumber: getNumber,
-  getMajorVersion: getMajorVersion
+  getMajorVersion: getMajorVersion,
+  getOS: getOS,
+  os: getOS()
 };
