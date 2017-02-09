@@ -81,23 +81,26 @@ module.exports = {
     }
   },
   onKeyDown: function (event) {
-    if (AFRAME.INSPECTOR.selectedEntity &&
-      (event.ctrlKey && os === 'windows' || event.metaKey && os === 'macos') &&
-      document.activeElement.tagName !== 'INPUT') {
-      // x: cut selected entity
-      if (event.keyCode === 88) {
-        AFRAME.INSPECTOR.entityToCopy = AFRAME.INSPECTOR.selectedEntity;
-        removeSelectedEntity(true);
+    if (event.ctrlKey && os === 'windows' || event.metaKey && os === 'macos') {
+
+      if (AFRAME.INSPECTOR.selectedEntity && document.activeElement.tagName !== 'INPUT') {
+        // x: cut selected entity
+        if (event.keyCode === 88) {
+          AFRAME.INSPECTOR.entityToCopy = AFRAME.INSPECTOR.selectedEntity;
+          removeSelectedEntity(true);
+        }
+
+        // c: copy selected entity
+        if (event.keyCode === 67) {
+          AFRAME.INSPECTOR.entityToCopy = AFRAME.INSPECTOR.selectedEntity;
+        }
       }
 
-      // c: copy selected entity
-      if (event.keyCode === 67) {
-        AFRAME.INSPECTOR.entityToCopy = AFRAME.INSPECTOR.selectedEntity;
-      }
-
-      // v: paste copied entity
-      if (event.keyCode === 86) {
-        cloneEntity(AFRAME.INSPECTOR.entityToCopy);
+      // p: focus filter input
+      if (event.keyCode === 80) {
+        event.preventDefault();
+        event.stopPropagation();
+        document.getElementById('filter').focus();
       }
     }
   },
