@@ -53,10 +53,31 @@ function getOS () {
 
   return os;
 }
+
+function injectCSS (url) {
+  var link = document.createElement('link');
+  link.href = url;
+  link.type = 'text/css';
+  link.rel = 'stylesheet';
+  link.media = 'screen,print';
+  link.setAttribute('data-aframe-inspector', 'style');
+  document.head.appendChild(link);
+}
+
+function injectJS (url) {
+  var link = document.createElement('script');
+  link.src = url;
+  link.charset = 'utf-8';
+  link.setAttribute('data-aframe-inspector', 'style');
+  document.head.appendChild(link);
+}
+
 module.exports = {
   equal: equal,
   getNumber: getNumber,
   getMajorVersion: getMajorVersion,
   getOS: getOS,
-  os: getOS()
+  os: getOS(),
+  injectCSS: injectCSS,
+  injectJS: injectJS
 };
