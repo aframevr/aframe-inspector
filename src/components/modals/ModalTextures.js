@@ -4,6 +4,7 @@ import React from 'react';
 import Modal from './Modal';
 var insertNewAsset = require('../../lib/assetsUtils').insertNewAsset;
 import INSPECTOR from '../../lib/inspector.js';
+import initUploadCare from '../../lib/uploadcare';
 
 function getFilename (url, converted = false) {
   var filename = url.split('/').pop();
@@ -36,6 +37,7 @@ export default class ModalTextures extends React.Component {
   };
 
   constructor (props) {
+    initUploadCare();
     super(props);
     this.state = {
       filterText: '',
@@ -356,7 +358,7 @@ export default class ModalTextures extends React.Component {
                   var selectedClass = (this.props.selectedTexture === '#' + image.id) ? 'selected' : '';
                   return (
                    <li key={image.id} onClick={textureClick} className={selectedClass}>
-                     <a href={image.src} hint="Open image in a new tab" className="button fa fa-external-link" target="_blank"></a>
+                     <a href={image.src} title="Open image in a new tab" className="button fa fa-external-link" target="_blank"></a>
                      <img width="155px" height="155px" src={image.src}/>
                      <div className="detail">
                        <span className="title">{image.name}</span>
