@@ -11,8 +11,17 @@ export default class Sidebar extends React.Component {
     super(props);
     this.state = {
       open: false,
+      visible: true,
       entity: props.entity
     };
+
+    Events.on('togglesidebar', event => {
+      if (event.which == 'all' || event.which == 'sidebar') {
+        this.state.visible = ! this.state.visible;
+        this.forceUpdate();
+      }
+    });
+
   }
 
   componentDidMount () {
@@ -50,7 +59,8 @@ export default class Sidebar extends React.Component {
 
   render () {
     const entity = this.state.entity;
-    if (entity) {
+    const visible = this.state.visible;
+    if (entity && visible) {
       return (
         <div id='sidebar'>
           <ComponentsContainer entity={this.state.entity}/>

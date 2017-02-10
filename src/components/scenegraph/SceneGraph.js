@@ -33,8 +33,10 @@ export default class SceneGraph extends React.Component {
       value: this.props.value || '',
       options: [],
       selectedIndex: -1,
-      filterText: ''
+      filterText: '',
+      visible: true
     };
+
   }
 
   componentDidMount () {
@@ -51,6 +53,14 @@ export default class SceneGraph extends React.Component {
     Events.on('entityidchanged', this.rebuildOptions);
     document.addEventListener('componentremoved', this.rebuildOptions);
     Events.on('dommodified', this.rebuildOptions);
+
+
+    Events.on('togglesidebar', event => {
+      if (event.which == 'all' || event.which == 'scenegraph') {
+        this.state.visible = ! this.state.visible;
+        this.forceUpdate();
+      }
+    });
   }
 
   setValue = value => {
@@ -227,6 +237,14 @@ export default class SceneGraph extends React.Component {
   }
 
   render () {
+    // to hide the SceneGraph we have to hide its parent too (#left-sidebar)
+    var leftsidebar = document.getElementById('left-sidebar');
+    if (leftsidebar) leftsidebar.style.display = this.state.visible ? 'flex' : 'none';
+
+    if (!this.state.visible) {
+      return null;
+    }
+
     let clearFilter = this.state.filterText ? <a onClick={this.clearFilter} className='button fa fa-times'></a> : null;
 
     return (
