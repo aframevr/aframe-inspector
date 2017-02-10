@@ -6,26 +6,6 @@ body.aframe-inspector-opened {
   overflow: hidden;
 }
 
-.toggle-edit {
-  background-color: #ed3160;
-  color: #fff;
-  font-family: 'Roboto', sans-serif;
-  font-size: 12px;
-  left: 3px;
-  margin: 0;
-  padding: 6px 10px;
-  position: fixed;
-  text-align: center;
-  text-decoration: none;
-  top: 3px;
-  width: 174px;
-  z-index: 99999;
-}
-
-.toggle-edit:hover {
-  background-color: rgb(228, 43, 90);
-}
-
 hr {
   border: 0;
   border-top: 1px solid #ccc;
@@ -104,14 +84,17 @@ input {
 .toggle-edit {
   background-color: #ed3160;
   color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
   left: 3px;
+  margin: 0;
   padding: 6px 10px;
   position: fixed;
   text-align: center;
   text-decoration: none;
   top: 3px;
-  width: 174px;
-  z-index: 9999;
+  width: 204px;
+  z-index: 99999;
 }
 
 .toggle-edit:hover {
@@ -147,11 +130,8 @@ input {
   background: #222;
   border-radius: 5px;
   height: 22px;
-  width: 185px;
-}
-
-.search input {
   text-indent: 10px;
+  width: 216px;
 }
 
 .search .fa-search {
@@ -165,7 +145,6 @@ input {
   right: 32px;
   top: 10px;
 }
-
 
 input {
   background-color: transparent;
@@ -216,7 +195,7 @@ input.error {
   overflow: auto;
   position: fixed;
   top: 0;
-  width: 200px;
+  width: 230px;
 }
 
 #sidebar {
@@ -780,7 +759,7 @@ select {
   padding: 0;
   position: fixed;
   top: 98px;
-  width: 200px;
+  width: 230px;
 }
 
 .outliner .option {
@@ -1115,7 +1094,7 @@ span.entity-name {
 .outliner .option.novisible .fa,
 .outliner .option.novisible .collasespace,
 .outliner .option.novisible .id {
-  color: #666;
+  color: #575757;
 }
 
 .outliner .option .icons a.button {
