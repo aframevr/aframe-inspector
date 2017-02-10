@@ -63,7 +63,6 @@ module.exports = {
     if (AFRAME.INSPECTOR.selectedEntity &&
       (event.ctrlKey && os === 'windows' || event.metaKey && os === 'macos') &&
       document.activeElement.tagName !== 'INPUT') {
-
       // x: cut selected entity
       if (event.keyCode === 88) {
         AFRAME.INSPECTOR.entityToCopy = AFRAME.INSPECTOR.selectedEntity;

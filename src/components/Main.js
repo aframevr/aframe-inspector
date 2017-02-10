@@ -13,6 +13,7 @@ import ModalTextures from './modals/ModalTextures';
 import ModalHelp from './modals/ModalHelp';
 import SceneGraph from './scenegraph/SceneGraph';
 import ToolBar from './ToolBar';
+import {injectCSS} from '../lib/utils';
 
 import '../css/main.css';
 
@@ -100,16 +101,6 @@ export default class Main extends React.Component {
       </div>
     );
   }
-}
-
-function injectCSS (url) {
-  var link = document.createElement('link');
-  link.href = url;
-  link.type = 'text/css';
-  link.rel = 'stylesheet';
-  link.media = 'screen,print';
-  link.setAttribute('data-aframe-inspector', 'style');
-  document.head.appendChild(link);
 }
 
 (function init () {
