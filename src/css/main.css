@@ -221,7 +221,7 @@ input.error {
 
 #sidebar {
   background: #2b2b2b;
-  width: 330px;
+  width: 331px;
 }
 
 #sidebar * {
@@ -287,7 +287,7 @@ input[type=color]::-moz-focus-inner {
   height: 100%;
   overflow: auto;
   position: fixed;
-  width: 330px;
+  width: 331px;
 }
 
 div.vec2,
@@ -974,6 +974,11 @@ span.entity-name {
   min-height: 20px;
   padding-left: 5px;
   padding-right: 5px;
+}
+
+.row input.string {
+  box-sizing: border-box;
+  width: 165px;
 }
 
 .help-lists {
