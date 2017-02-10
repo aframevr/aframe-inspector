@@ -25,7 +25,8 @@ export default class SceneGraph extends React.Component {
 
   static defaultProps = {
     value: '',
-    index: -1
+    index: -1,
+    id: 'left-sidebar'
   }
 
   constructor (props) {
@@ -245,31 +246,14 @@ export default class SceneGraph extends React.Component {
         return (
           <div key={idx} className={className} value={option.value}
             onClick={() => this.setValue(option.value)}>
-            <span>{visibility} {collapse}{pad} &lt;{option.tagName}<span className="id">{option.id ? ' ' + option.id : ''}</span>&gt;</span>
+            <span>{visibility} {collapse}{pad} &lt;{option.tagName}<span className="id">{option.id ? ' ' + option.id : ''}</span>
+            <span dangerouslySetInnerHTML={{__html: option.extra}}></span>&gt;</span>
               <span className="icons">
                 {cloneButton}
                 {removeButton}
               </span>
           </div>
         );
-
-/*
-        let tag = null;
-        if (option.tagName === 'a-entity' && !option.id || option.tagName !== 'a-entity') {
-          tag = <span>&lt;{option.tagName}&gt;</span>;
-        }
-
-        return (
-          <div key={idx} className={className} value={option.value}
-            onClick={() => this.setValue(option.value)}>
-            <span>{visibility} {collapse}{pad} <span className="id">{option.id}</span> {tag}</span>
-              <span className="icons">
-                {cloneButton}
-                {removeButton}
-              </span>
-          </div>
-        );
-*/
       });
   }
 
@@ -294,7 +278,7 @@ export default class SceneGraph extends React.Component {
     let clearFilter = this.state.filterText ? <a onClick={this.clearFilter} className='button fa fa-times'></a> : null;
 
     return (
-      <div className='scenegraph'>
+      <div id={this.props.id} className='scenegraph'>
         <div className='scenegraph-toolbar'>
           <Toolbar/>
           <div className='search'>
