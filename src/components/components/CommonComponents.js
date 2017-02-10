@@ -9,7 +9,8 @@ import Events from '../../lib/Events';
 import Clipboard from 'clipboard';
 
 // @todo Take this out and use updateEntity?
-function changeId (entity, componentName, propertyName, value) {
+function changeId (componentName, value) {
+  var entity = AFRAME.INSPECTOR.selectedEntity;
   if (entity.id !== value) {
     entity.id = value;
     Events.emit('entityidchanged', entity);
