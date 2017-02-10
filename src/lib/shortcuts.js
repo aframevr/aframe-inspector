@@ -10,6 +10,27 @@ function shouldCaptureKeyEvent (event) {
 }
 
 module.exports = {
+  onKeyDown: function (event) {
+    if (!shouldCaptureKeyEvent(event)) { return; }
+
+    // tab: toggle sidebars visibility
+    if (event.keyCode === 9) {
+      Events.emit('togglesidebar', {which:'all'});
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    // 1: toggle scenegraph visibility only
+    if (event.keyCode === 49) {
+      Events.emit('togglesidebar', {which:'scenegraph'});
+    }
+
+    // 2: toggle sidebar visibility only
+    if (event.keyCode === 50) {
+      Events.emit('togglesidebar', {which:'sidebar'});
+    }
+  },
+
   onKeyUp: function (event) {
     if (!shouldCaptureKeyEvent(event)) { return; }
 
@@ -89,10 +110,12 @@ module.exports = {
     }
   },
   enable: function () {
+    window.addEventListener('keydown', this.onKeyDown, false);
     window.addEventListener('keyup', this.onKeyUp, false);
     window.addEventListener('keydown', this.onKeyDown, false);
   },
   disable: function () {
+    window.removeEventListener('keydown', this.onKeyDown);
     window.removeEventListener('keyup', this.onKeyUp);
     window.removeEventListener('keydown', this.onKeyDown);
   }
