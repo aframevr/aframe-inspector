@@ -37,7 +37,7 @@ function Viewport (inspector) {
   var sceneHelpers = inspector.sceneHelpers;
   var objects = [];
 
-  var grid = new THREE.GridHelper(30, 60, 0x555555, 0x181818);
+  var grid = new THREE.GridHelper(30, 60, 0x555555, 0x292929);
 
   sceneHelpers.add(grid);
 
