@@ -245,13 +245,31 @@ export default class SceneGraph extends React.Component {
         return (
           <div key={idx} className={className} value={option.value}
             onClick={() => this.setValue(option.value)}>
-            <span>{visibility} {collapse}{pad} <span className="id">{option.id}</span> <span>&lt;{option.tagName}&gt;</span></span>
+            <span>{visibility} {collapse}{pad} &lt;{option.tagName}<span className="id">{option.id ? ' ' + option.id : ''}</span>&gt;</span>
               <span className="icons">
                 {cloneButton}
                 {removeButton}
               </span>
           </div>
         );
+
+/*
+        let tag = null;
+        if (option.tagName === 'a-entity' && !option.id || option.tagName !== 'a-entity') {
+          tag = <span>&lt;{option.tagName}&gt;</span>;
+        }
+
+        return (
+          <div key={idx} className={className} value={option.value}
+            onClick={() => this.setValue(option.value)}>
+            <span>{visibility} {collapse}{pad} <span className="id">{option.id}</span> {tag}</span>
+              <span className="icons">
+                {cloneButton}
+                {removeButton}
+              </span>
+          </div>
+        );
+*/
       });
   }
 
