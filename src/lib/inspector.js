@@ -108,6 +108,7 @@ Inspector.prototype = {
   removeObject: function (object) {
     // Remove just the helper as the object will be deleted by Aframe
     this.removeHelpers(object);
+    Events.emit('objectremoved', object);
   },
 
   addHelper: (function () {
