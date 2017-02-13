@@ -38,6 +38,10 @@ export default class ModalHelp extends React.Component {
         {key: ['supr | backspace'], description: 'Delete selected entity'}
       ],
       [
+        {key: ['1'], description: 'Toggle scenegraph panel'},
+        {key: ['2'], description: 'Toggle components panel'},
+        {key: ['tab'], description: 'Toggle scenegraph and components panel'},
+
         {key: ['ctrl | cmd', 'x'], description: 'Cut selected entity'},
         {key: ['ctrl | cmd', 'c'], description: 'Copy selected entity'},
         {key: ['ctrl | cmd', 'v'], description: 'Paste entity'},

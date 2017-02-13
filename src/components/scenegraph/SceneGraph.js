@@ -20,7 +20,8 @@ export default class SceneGraph extends React.Component {
   static propTypes = {
     onChange: React.PropTypes.func,
     scene: React.PropTypes.object,
-    value: React.PropTypes.string
+    value: React.PropTypes.string,
+    visible: React.PropTypes.bool
   };
 
   static defaultProps = {
@@ -37,6 +38,7 @@ export default class SceneGraph extends React.Component {
       selectedIndex: -1,
       filterText: ''
     };
+
   }
 
   componentDidMount () {
@@ -255,6 +257,11 @@ export default class SceneGraph extends React.Component {
   }
 
   render () {
+    // to hide the SceneGraph we have to hide its parent too (#left-sidebar)
+    if (!this.props.visible) {
+      return null;
+    }
+
     let clearFilter = this.state.filterText ? <a onClick={this.clearFilter} className='button fa fa-times'></a> : null;
 
     return (

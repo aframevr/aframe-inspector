@@ -24,12 +24,33 @@ injectCSS('https://fonts.googleapis.com/css?family=Roboto:400,300,500');
 export default class Main extends React.Component {
   constructor (props) {
     super(props);
+
     this.state = {
       inspectorEnabled: true,
       sceneEl: document.querySelector('a-scene'),
       entity: null,
-      isModalTexturesOpen: false
+      isModalTexturesOpen: false,
+      visible: {
+        scenegraph: true,
+        attributes: true
+      }
     };
+
+    Events.on('togglesidebar', event => {
+      if (event.which == 'all') {
+        if (this.state.visible.scenegraph || this.state.visible.attributes) {
+          this.state.visible.scenegraph = this.state.visible.attributes = false;
+        } else {
+          this.state.visible.scenegraph = this.state.visible.attributes = true;
+        }
+      } else if (event.which == 'attributes') {
+        this.state.visible.attributes = !this.state.visible.attributes;
+      } else if (event.which == 'scenegraph') {
+        this.state.visible.scenegraph = !this.state.visible.scenegraph;
+      }
+      this.forceUpdate();
+
+    });
   }
 
   componentDidMount () {
@@ -83,16 +104,20 @@ export default class Main extends React.Component {
   render () {
     var scene = this.state.sceneEl;
     let editButton = <a className='toggle-edit' onClick={this.toggleEdit}>{(this.state.inspectorEnabled ? 'Back to Scene' : 'Inspect Scene')}</a>;
+    const showScenegraph = this.state.visible.scenegraph ? null : <div className="toggle-sidebar left"><a onClick={() => {this.state.visible.scenegraph = true; this.forceUpdate()}} className='fa fa-plus' title='Show scenegraph'></a></div>;
+    const showAttributes = !this.state.entity || this.state.visible.attributes ? null : <div className="toggle-sidebar right"><a onClick={() => {this.state.visible.attributes = true; this.forceUpdate()}} className='fa fa-plus' title='Show components'></a></div>;
 
     return (
       <div>
         {editButton}
         <div id='aframe-inspector-panels' className={this.state.inspectorEnabled ? '' : 'hidden'}>
           <ModalTextures ref='modaltextures' isOpen={this.state.isModalTexturesOpen} selectedTexture={this.state.selectedTexture} onClose={this.onModalTextureOnClose}/>
-          <SceneGraph id='left-sidebar' scene={scene} selectedEntity={this.state.entity}/>
+          <SceneGraph id='left-sidebar' scene={scene} selectedEntity={this.state.entity} visible={this.state.visible.scenegraph}/>
+          {showScenegraph}
+          {showAttributes}
           <div id='right-panels'>
             <ToolBar/>
-            <ComponentsSidebar entity={this.state.entity}/>
+            <ComponentsSidebar entity={this.state.entity} visible={this.state.visible.attributes}/>
           </div>
         </div>
         <ModalHelp isOpen={this.state.isHelpOpen} onClose={this.onCloseHelpModal}/>

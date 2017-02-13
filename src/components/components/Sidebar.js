@@ -4,7 +4,8 @@ import Events from '../../lib/Events';
 
 export default class Sidebar extends React.Component {
   static propTypes = {
-    entity: React.PropTypes.object
+    entity: React.PropTypes.object,
+    visible: React.PropTypes.bool
   };
 
   constructor (props) {
@@ -50,7 +51,8 @@ export default class Sidebar extends React.Component {
 
   render () {
     const entity = this.state.entity;
-    if (entity) {
+    const visible = this.props.visible;
+    if (entity && visible) {
       return (
         <div id='sidebar'>
           <ComponentsContainer entity={this.state.entity}/>
