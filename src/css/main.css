@@ -1110,3 +1110,31 @@ span.entity-name {
 .outliner .option .icons a.button {
   color: #fff;
 }
+
+.toggle-sidebar {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  position: absolute;
+  z-index: 9998;
+}
+
+.toggle-sidebar.left {
+  left: 0;
+}
+
+.toggle-sidebar.right {
+  right: 0;
+}
+
+.toggle-sidebar a {
+  background-color: #262626;
+  color: #bcbcbc;
+  padding: 5px;
+  z-index: 9998;
+}
+
+.toggle-sidebar a:hover {
+  background-color: #1faaf2;
+  color: #fff;
+}

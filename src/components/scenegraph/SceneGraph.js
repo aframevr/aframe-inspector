@@ -20,7 +20,8 @@ export default class SceneGraph extends React.Component {
   static propTypes = {
     onChange: React.PropTypes.func,
     scene: React.PropTypes.object,
-    value: React.PropTypes.string
+    value: React.PropTypes.string,
+    visible: React.PropTypes.bool
   };
 
   static defaultProps = {
@@ -35,8 +36,7 @@ export default class SceneGraph extends React.Component {
       value: this.props.value || '',
       options: [],
       selectedIndex: -1,
-      filterText: '',
-      visible: true
+      filterText: ''
     };
 
   }
@@ -55,14 +55,6 @@ export default class SceneGraph extends React.Component {
     Events.on('entityidchanged', this.rebuildOptions);
     document.addEventListener('componentremoved', this.rebuildOptions);
     Events.on('dommodified', this.rebuildOptions);
-
-
-    Events.on('togglesidebar', event => {
-      if (event.which == 'all' || event.which == 'scenegraph') {
-        this.state.visible = ! this.state.visible;
-        this.forceUpdate();
-      }
-    });
   }
 
   setValue = value => {
@@ -266,10 +258,7 @@ export default class SceneGraph extends React.Component {
 
   render () {
     // to hide the SceneGraph we have to hide its parent too (#left-sidebar)
-    var leftsidebar = document.getElementById('left-sidebar');
-    if (leftsidebar) leftsidebar.style.display = this.state.visible ? 'flex' : 'none';
-
-    if (!this.state.visible) {
+    if (!this.props.visible) {
       return null;
     }
 

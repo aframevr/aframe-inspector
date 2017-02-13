@@ -4,24 +4,16 @@ import Events from '../../lib/Events';
 
 export default class Sidebar extends React.Component {
   static propTypes = {
-    entity: React.PropTypes.object
+    entity: React.PropTypes.object,
+    visible: React.PropTypes.bool
   };
 
   constructor (props) {
     super(props);
     this.state = {
       open: false,
-      visible: true,
       entity: props.entity
     };
-
-    Events.on('togglesidebar', event => {
-      if (event.which == 'all' || event.which == 'sidebar') {
-        this.state.visible = ! this.state.visible;
-        this.forceUpdate();
-      }
-    });
-
   }
 
   componentDidMount () {
@@ -59,7 +51,7 @@ export default class Sidebar extends React.Component {
 
   render () {
     const entity = this.state.entity;
-    const visible = this.state.visible;
+    const visible = this.props.visible;
     if (entity && visible) {
       return (
         <div id='sidebar'>
