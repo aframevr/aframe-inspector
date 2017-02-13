@@ -176,6 +176,11 @@ export default class SceneGraph extends React.Component {
     ga('send', 'event', 'SceneGraph', 'cloneEntity');
   }
 
+  toggleVisibility = (entity, event) => {
+    var visible = entity.tagName.toLowerCase() === 'a-scene' ? entity.object3D.visible : entity.getAttribute('visible');
+    entity.setAttribute('visible', !visible);
+  }
+
   renderOptions () {
     var filterText = this.state.filterText.toUpperCase();
     return this.state.options
@@ -215,17 +220,10 @@ export default class SceneGraph extends React.Component {
         const pad = '    '.repeat(option.depth);
         // const collapse = option.hasChildren ? <span className="collasespace fa fa-caret-down"></span> : <span className="collasespace"></span>;
         const collapse = null;
-        let visibility = null;
-        let visible = true;
-        if (option.value.components['visible']) {
-          visible = option.value.components['visible'].data;
-          visibility = <i className={'fa ' + (visible ? 'fa-eye' : 'fa-eye-slash')}
-            onClick={() => option.value.setAttribute('visible', !visible)}></i>;
-        } else if (option.tagName === 'a-scene') {
-          visible = option.value.object3D.visible;
-          visibility = <i className={'fa ' + (visible ? 'fa-eye' : 'fa-eye-slash')}
-            onClick={() => option.value.setAttribute('visible', !visible)}></i>;
-        }
+        let entity = option.value;
+        const visible = entity.tagName.toLowerCase() == 'a-scene' ? entity.object3D.visible : entity.getAttribute('visible');
+        let visibility = <i title="Toggle entity visibility" className={'fa ' + (visible ? 'fa-eye' : 'fa-eye-slash')}
+            onClick={ event => { this.toggleVisibility(option.value, event) } }></i>;
 
         const className = classnames({
           option: true,
