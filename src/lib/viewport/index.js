@@ -265,6 +265,7 @@ function Viewport (inspector) {
     inspector.container.removeEventListener('mousedown', onMouseDown);
     inspector.container.removeEventListener('touchstart', onTouchStart);
     inspector.container.removeEventListener('dblclick', onDoubleClick);
+    transformControls.dispose();
     controls.enabled = false;
   }
 
@@ -272,6 +273,7 @@ function Viewport (inspector) {
     inspector.container.addEventListener('mousedown', onMouseDown, false);
     inspector.container.addEventListener('touchstart', onTouchStart, false);
     inspector.container.addEventListener('dblclick', onDoubleClick, false);
+    transformControls.activate();
     controls.enabled = true;
   }
   enableControls();

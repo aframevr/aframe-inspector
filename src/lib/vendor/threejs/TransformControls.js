@@ -685,20 +685,24 @@
 		var camPosition = new THREE.Vector3();
 		var camRotation = new THREE.Euler();
 
-		domElement.addEventListener( "mousedown", onPointerDown, false );
-		domElement.addEventListener( "touchstart", onPointerDown, false );
+		this.activate = function () {
+			domElement.addEventListener( "mousedown", onPointerDown, false );
+			domElement.addEventListener( "touchstart", onPointerDown, false );
 
-		domElement.addEventListener( "mousemove", onPointerHover, false );
-		domElement.addEventListener( "touchmove", onPointerHover, false );
+			domElement.addEventListener( "mousemove", onPointerHover, false );
+			domElement.addEventListener( "touchmove", onPointerHover, false );
 
-		domElement.addEventListener( "mousemove", onPointerMove, false );
-		domElement.addEventListener( "touchmove", onPointerMove, false );
+			domElement.addEventListener( "mousemove", onPointerMove, false );
+			domElement.addEventListener( "touchmove", onPointerMove, false );
 
-		domElement.addEventListener( "mouseup", onPointerUp, false );
-		domElement.addEventListener( "mouseout", onPointerUp, false );
-		domElement.addEventListener( "touchend", onPointerUp, false );
-		domElement.addEventListener( "touchcancel", onPointerUp, false );
-		domElement.addEventListener( "touchleave", onPointerUp, false );
+			domElement.addEventListener( "mouseup", onPointerUp, false );
+			domElement.addEventListener( "mouseout", onPointerUp, false );
+			domElement.addEventListener( "touchend", onPointerUp, false );
+			domElement.addEventListener( "touchcancel", onPointerUp, false );
+			domElement.addEventListener( "touchleave", onPointerUp, false );
+		}
+
+		this.activate();
 
 		this.dispose = function () {
 
