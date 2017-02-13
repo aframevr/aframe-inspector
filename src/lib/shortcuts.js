@@ -58,6 +58,51 @@ module.exports = {
     if (event.keyCode === 68) {
       cloneSelectedEntity();
     }
+
+    // 1: toggle scenegraph visibility only
+    if (event.keyCode === 49) {
+      Events.emit('togglesidebar', {which:'scenegraph'});
+    }
+
+    // 2: toggle sidebar visibility only
+    if (event.keyCode === 50) {
+      Events.emit('togglesidebar', {which:'sidebar'});
+    }
+  },
+  onKeyDown: function (event) {
+    // tab: toggle sidebars visibility
+    if (event.keyCode === 9) {
+      Events.emit('togglesidebar', {which:'all'});
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    if (event.ctrlKey && os === 'windows' || event.metaKey && os === 'macos') {
+      if (AFRAME.INSPECTOR.selectedEntity && document.activeElement.tagName !== 'INPUT') {
+        // x: cut selected entity
+        if (event.keyCode === 88) {
+          AFRAME.INSPECTOR.entityToCopy = AFRAME.INSPECTOR.selectedEntity;
+          removeSelectedEntity(true);
+        }
+
+        // c: copy selected entity
+        if (event.keyCode === 67) {
+          AFRAME.INSPECTOR.entityToCopy = AFRAME.INSPECTOR.selectedEntity;
+        }
+
+        // v: paste copied entity
+        if (event.keyCode === 86) {
+          cloneEntity(AFRAME.INSPECTOR.entityToCopy);
+        }
+      }
+
+      // f: focus filter input
+      if (event.keyCode === 70) {
+        event.preventDefault();
+        event.stopPropagation();
+        document.getElementById('filter').focus();
+      }
+    }
   },
   onKeyDown: function (event) {
 
@@ -89,10 +134,12 @@ module.exports = {
     }
   },
   enable: function () {
+    window.addEventListener('keydown', this.onKeyDown, false);
     window.addEventListener('keyup', this.onKeyUp, false);
     window.addEventListener('keydown', this.onKeyDown, false);
   },
   disable: function () {
+    window.removeEventListener('keydown', this.onKeyDown);
     window.removeEventListener('keyup', this.onKeyUp);
     window.removeEventListener('keydown', this.onKeyDown);
   }
