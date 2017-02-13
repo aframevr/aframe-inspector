@@ -66017,7 +66017,7 @@ function extend() {
 },{}],55:[function(_dereq_,module,exports){
 module.exports={
   "name": "aframe",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "A web framework for building virtual reality experiences.",
   "homepage": "https://aframe.io/",
   "main": "dist/aframe-master.js",
@@ -66030,11 +66030,11 @@ module.exports={
     "dist:max": "npm run browserify -s -- --debug | exorcist dist/aframe-master.js.map > dist/aframe-master.js",
     "dist:min": "npm run browserify -s -- --debug -p [minifyify --map aframe-master.min.js.map --output dist/aframe-master.min.js.map] -o dist/aframe-master.min.js",
     "docs": "markserv --dir docs --port 9001",
-    "ghpages": "ghpages -p gh-pages/",
+    "ghpages": "npm run preghpages && ghpages -p gh-pages/",
     "lint": "semistandard -v | snazzy",
     "precommit": "npm run lint",
-    "preghpages": "npm run dist && rimraf gh-pages && mkdirp gh-pages && cp -r {.nojekyll,dist,lib,examples,index.html,style} gh-pages/. 2>/dev/null || : && git checkout dist/ && replace 'build/aframe-master.js' 'dist/aframe-master.min.js' gh-pages/ -r --silent",
-    "prerelease": "npm run dist && node scripts/release.js 0.3.2 0.4.0",
+    "preghpages": "rimraf gh-pages && mkdirp gh-pages && cp -r .nojekyll dist examples index.html gh-pages && replace -r 'dist/aframe-master.js' 'dist/aframe-master.min.js' gh-pages/",
+    "prerelease": "npm run dist && node scripts/release.js 0.4.0 0.5.0",
     "start": "npm run dev",
     "test": "karma start ./tests/karma.conf.js",
     "test:docs": "node scripts/docsLint.js",
@@ -66181,7 +66181,7 @@ module.exports.Component = registerComponent('blend-character-model', {
   }
 });
 
-},{"../core/component":100,"../lib/three":145}],57:[function(_dereq_,module,exports){
+},{"../core/component":100,"../lib/three":146}],57:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 var THREE = _dereq_('../lib/three');
 var utils = _dereq_('../utils/');
@@ -66358,7 +66358,7 @@ module.exports.Component = registerComponent('camera', {
   }
 });
 
-},{"../core/component":100,"../lib/three":145,"../utils/":166}],58:[function(_dereq_,module,exports){
+},{"../core/component":100,"../lib/three":146,"../utils/":167}],58:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 var THREE = _dereq_('../lib/three');
 
@@ -66393,7 +66393,7 @@ module.exports.Component = registerComponent('collada-model', {
   }
 });
 
-},{"../core/component":100,"../lib/three":145}],59:[function(_dereq_,module,exports){
+},{"../core/component":100,"../lib/three":146}],59:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 var utils = _dereq_('../utils/');
 var bind = utils.bind;
@@ -66570,7 +66570,7 @@ module.exports.Component = registerComponent('cursor', {
   }
 });
 
-},{"../core/component":100,"../utils/":166}],60:[function(_dereq_,module,exports){
+},{"../core/component":100,"../utils/":167}],60:[function(_dereq_,module,exports){
 var debug = _dereq_('../utils/debug');
 var geometries = _dereq_('../core/geometry').geometries;
 var geometryNames = _dereq_('../core/geometry').geometryNames;
@@ -66694,7 +66694,7 @@ module.exports.Component = registerComponent('geometry', {
   }
 });
 
-},{"../core/component":100,"../core/geometry":101,"../lib/three":145,"../utils/debug":162}],61:[function(_dereq_,module,exports){
+},{"../core/component":100,"../core/geometry":101,"../lib/three":146,"../utils/debug":163}],61:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 var THREE = _dereq_('../lib/three');
 
@@ -66733,11 +66733,11 @@ module.exports.Component = registerComponent('gltf-model', {
   }
 });
 
-},{"../core/component":100,"../lib/three":145}],62:[function(_dereq_,module,exports){
+},{"../core/component":100,"../lib/three":146}],62:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 
-var OCULUS_LEFT_HAND_MODEL_URL = 'https://cdn.aframe.io/controllers/oculus-hands/leftHand.json';
-var OCULUS_RIGHT_HAND_MODEL_URL = 'https://cdn.aframe.io/controllers/oculus-hands/rightHand.json';
+var OCULUS_LEFT_HAND_MODEL_URL = 'https://cdn.aframe.io/controllers/oculus-hands/v2/leftHand.json';
+var OCULUS_RIGHT_HAND_MODEL_URL = 'https://cdn.aframe.io/controllers/oculus-hands/v2/rightHand.json';
 
 /**
 *
@@ -66919,30 +66919,32 @@ module.exports.Component = registerComponent('hand-controls', {
   },
 
   gestureAnimationMapping: {
-    'pointing': 'pointing',
-    'pistol': 'pistol',
-    'fist': 'press',
-    'touch': 'touch',
-    'thumb': 'thumb'
+    default: 'Open',
+    pointing: 'Point',
+    pistol: 'Point + Thumb',
+    fist: 'Fist',
+    touch: 'Hold',
+    thumb: 'Thumb Up'
   },
 
   animateGesture: function (gesture) {
     var isOculusTouch = this.isOculusTouchController();
-    if (!gesture) {
-      this.playAnimation('touch', isOculusTouch);
+    if (!gesture && !isOculusTouch) {
+      // for Vive (and other non-Oculus Touch), change rest pose to be thumb down
+      this.playAnimation('Open', true);
       return;
     }
-    var animation = this.gestureAnimationMapping[gesture];
-    this.playAnimation(animation || 'touch', !animation && isOculusTouch);
+    var animation = this.gestureAnimationMapping[gesture || 'default'];
+    this.playAnimation(animation || 'Open', !animation && isOculusTouch);
   },
 
   // map to old vive-specific event names for now
   gestureEventMapping: {
-    'fist': 'grip',         // fist: e.g. grip active, trigger active, trackpad / surface active
-    'touch': 'point',       // 'touch' e.g. trigger active, grip not active
-    'thumb': 'thumb',       // thumbs up: e.g. grip active, trigger active, trackpad / surface not active
-    'pointing': 'pointing', // pointing: e.g. grip active, trackpad / surface active, trigger not active
-    'pistol': 'pistol'      // pistol: e.g. grip active, trigger not active, trackpad / surface not active
+    fist: 'grip',         // fist: e.g. grip active, trigger active, trackpad / surface active
+    touch: 'point',       // 'touch' e.g. trigger active, grip not active
+    thumb: 'thumb',       // thumbs up: e.g. grip active, trigger active, trackpad / surface not active
+    pointing: 'pointing', // pointing: e.g. grip active, trackpad / surface active, trigger not active
+    pistol: 'pistol'      // pistol: e.g. grip active, trigger not active, trackpad / surface not active
   },
 
   gestureEventName: function (gesture, active) {
@@ -66975,6 +66977,7 @@ module.exports.Component = registerComponent('hand-controls', {
     var animationActive = this.animationActive;
     var timeScale = 1;
     var mesh = this.el.getObject3D('mesh');
+    var clipAction;
     if (!mesh) { return; }
 
     // determine direction of the animation.
@@ -66984,9 +66987,14 @@ module.exports.Component = registerComponent('hand-controls', {
     if (animationActive) { mesh.play(animationActive, 0); }
 
     // play new animation.
-    mesh.mixer.clipAction(animation).loop = 2200;
-    mesh.mixer.clipAction(animation).clampWhenFinished = true;
-    mesh.mixer.clipAction(animation).timeScale = timeScale;
+    clipAction = mesh.mixer.clipAction(animation);
+    // returning when no clipAction will prevent further issues
+    // (e.g. controllers no longer updating pose)
+    // but per https://github.com/aframevr/aframe/pull/2191#discussion_r93121878
+    // the preference is to NOT prevent the issues to catch bugs earlier in QA.
+    clipAction.loop = 2200;
+    clipAction.clampWhenFinished = true;
+    clipAction.timeScale = timeScale;
     mesh.play(animation, 1);
     this.animationActive = animation;
   }
@@ -67223,7 +67231,7 @@ module.exports.Component = registerComponent('light', {
   }
 });
 
-},{"../core/component":100,"../lib/three":145,"../utils":166,"../utils/bind":160,"../utils/debug":162}],65:[function(_dereq_,module,exports){
+},{"../core/component":100,"../lib/three":146,"../utils":167,"../utils/bind":161,"../utils/debug":163}],65:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 var THREE = _dereq_('../lib/three');
 var isMobile = _dereq_('../utils/').device.isMobile();
@@ -67518,7 +67526,7 @@ function isNullVector (vector) {
   return vector.x === 0 && vector.y === 0 && vector.z === 0;
 }
 
-},{"../core/component":100,"../lib/three":145,"../utils/":166,"../utils/bind":160}],66:[function(_dereq_,module,exports){
+},{"../core/component":100,"../lib/three":146,"../utils/":167,"../utils/bind":161}],66:[function(_dereq_,module,exports){
 /* global Promise */
 var utils = _dereq_('../utils/');
 var component = _dereq_('../core/component');
@@ -67692,7 +67700,7 @@ function disposeMaterial (material, system) {
   system.unregisterMaterial(material);
 }
 
-},{"../core/component":100,"../core/shader":108,"../lib/three":145,"../utils/":166}],67:[function(_dereq_,module,exports){
+},{"../core/component":100,"../core/shader":109,"../lib/three":146,"../utils/":167}],67:[function(_dereq_,module,exports){
 var debug = _dereq_('../utils/debug');
 var registerComponent = _dereq_('../core/component').registerComponent;
 var THREE = _dereq_('../lib/three');
@@ -67770,7 +67778,7 @@ module.exports.Component = registerComponent('obj-model', {
   }
 });
 
-},{"../core/component":100,"../lib/three":145,"../utils/debug":162}],68:[function(_dereq_,module,exports){
+},{"../core/component":100,"../lib/three":146,"../utils/debug":163}],68:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 var bind = _dereq_('../utils/bind');
 var isControllerPresent = _dereq_('../utils/tracked-controls').isControllerPresent;
@@ -68017,7 +68025,7 @@ module.exports.Component = registerComponent('oculus-touch-controls', {
   }
 });
 
-},{"../core/component":100,"../utils/bind":160,"../utils/tracked-controls":170}],69:[function(_dereq_,module,exports){
+},{"../core/component":100,"../utils/bind":161,"../utils/tracked-controls":171}],69:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 
 module.exports.Component = registerComponent('position', {
@@ -68195,7 +68203,7 @@ module.exports.Component = registerComponent('raycaster', {
   })()
 });
 
-},{"../core/component":100,"../lib/three":145,"../utils/":166}],71:[function(_dereq_,module,exports){
+},{"../core/component":100,"../lib/three":146,"../utils/":167}],71:[function(_dereq_,module,exports){
 var degToRad = _dereq_('../lib/three').Math.degToRad;
 var registerComponent = _dereq_('../core/component').registerComponent;
 
@@ -68213,7 +68221,7 @@ module.exports.Component = registerComponent('rotation', {
   }
 });
 
-},{"../core/component":100,"../lib/three":145}],72:[function(_dereq_,module,exports){
+},{"../core/component":100,"../lib/three":146}],72:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 
 // Avoids triggering a zero-determinant which makes object3D matrix non-invertible.
@@ -68293,7 +68301,7 @@ module.exports.Component = registerComponent('auto-enter-vr', {
 });
 
 
-},{"../../core/component":100,"../../utils":166}],74:[function(_dereq_,module,exports){
+},{"../../core/component":100,"../../utils":167}],74:[function(_dereq_,module,exports){
 var bind = _dereq_('../../utils/bind');
 var registerComponent = _dereq_('../../core/component').registerComponent;
 
@@ -68338,7 +68346,7 @@ module.exports.Component = registerComponent('canvas', {
   }
 });
 
-},{"../../core/component":100,"../../utils/bind":160}],75:[function(_dereq_,module,exports){
+},{"../../core/component":100,"../../utils/bind":161}],75:[function(_dereq_,module,exports){
 var register = _dereq_('../../core/component').registerComponent;
 
 module.exports.Component = register('debug', {
@@ -68443,7 +68451,7 @@ function getFog (data) {
   return fog;
 }
 
-},{"../../core/component":100,"../../lib/three":145,"../../utils/debug":162}],78:[function(_dereq_,module,exports){
+},{"../../core/component":100,"../../lib/three":146,"../../utils/debug":163}],78:[function(_dereq_,module,exports){
 (function (process){
 /* global AFRAME */
 var AFRAME_INJECTED = _dereq_('../../constants').AFRAME_INJECTED;
@@ -68504,7 +68512,7 @@ module.exports.Component = registerComponent('inspector', {
   },
 
   hideLoader: function () {
-    this.el.removeChild(this.loadingMessageEl);
+    document.body.removeChild(this.loadingMessageEl);
   },
 
   /**
@@ -68544,7 +68552,7 @@ module.exports.Component = registerComponent('inspector', {
 
 }).call(this,_dereq_('_process'))
 
-},{"../../../package":55,"../../constants":91,"../../core/component":100,"../../utils/bind":160,"_process":34}],79:[function(_dereq_,module,exports){
+},{"../../../package":55,"../../constants":91,"../../core/component":100,"../../utils/bind":161,"_process":34}],79:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../../core/component').registerComponent;
 var shouldCaptureKeyEvent = _dereq_('../../utils/').shouldCaptureKeyEvent;
 var THREE = _dereq_('../../lib/three');
@@ -68587,7 +68595,7 @@ module.exports.Component = registerComponent('keyboard-shortcuts', {
   }
 });
 
-},{"../../core/component":100,"../../lib/three":145,"../../utils/":166}],80:[function(_dereq_,module,exports){
+},{"../../core/component":100,"../../lib/three":146,"../../utils/":167}],80:[function(_dereq_,module,exports){
 var debug = _dereq_('../../utils/debug');
 var registerComponent = _dereq_('../../core/component').registerComponent;
 
@@ -68696,7 +68704,7 @@ module.exports.Component = registerComponent('pool', {
   }
 });
 
-},{"../../core/component":100,"../../utils/debug":162}],81:[function(_dereq_,module,exports){
+},{"../../core/component":100,"../../utils/debug":163}],81:[function(_dereq_,module,exports){
 /* global ImageData, URL */
 var registerComponent = _dereq_('../../core/component').registerComponent;
 var THREE = _dereq_('../../lib/three');
@@ -68954,7 +68962,7 @@ module.exports.Component = registerComponent('screenshot', {
   }
 });
 
-},{"../../core/component":100,"../../lib/three":145}],82:[function(_dereq_,module,exports){
+},{"../../core/component":100,"../../lib/three":146}],82:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../../core/component').registerComponent;
 var RStats = _dereq_('../../../vendor/rStats');
 var utils = _dereq_('../../utils');
@@ -69034,7 +69042,7 @@ function createStats (scene) {
   });
 }
 
-},{"../../../vendor/rStats":174,"../../../vendor/rStats.extras":173,"../../core/component":100,"../../lib/rStatsAframe":144,"../../utils":166}],83:[function(_dereq_,module,exports){
+},{"../../../vendor/rStats":175,"../../../vendor/rStats.extras":174,"../../core/component":100,"../../lib/rStatsAframe":145,"../../utils":167}],83:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../../core/component').registerComponent;
 var constants = _dereq_('../../constants/');
 var utils = _dereq_('../../utils/');
@@ -69183,7 +69191,7 @@ function createOrientationModal (exitVRHandler) {
   return modal;
 }
 
-},{"../../constants/":91,"../../core/component":100,"../../utils/":166}],84:[function(_dereq_,module,exports){
+},{"../../constants/":91,"../../core/component":100,"../../utils/":167}],84:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 var debug = _dereq_('../utils/debug');
 var bind = _dereq_('../utils/bind');
@@ -69197,9 +69205,14 @@ var warn = debug('components:sound:warn');
 module.exports.Component = registerComponent('sound', {
   schema: {
     autoplay: {default: false},
+    distanceModel: {default: 'inverse',
+      oneOf: ['linear', 'inverse', 'exponential']},
     loop: {default: false},
+    maxDistance: {default: 10000},
     on: {default: ''},
     poolSize: {default: 1},
+    refDistance: {default: 1},
+    rolloffFactor: {default: 1},
     src: {type: 'audio'},
     volume: {default: 1}
   },
@@ -69227,7 +69240,11 @@ module.exports.Component = registerComponent('sound', {
 
     this.pool.children.forEach(function (sound) {
       sound.autoplay = data.autoplay;
+      sound.setDistanceModel(data.distanceModel);
       sound.setLoop(data.loop);
+      sound.setMaxDistance(data.maxDistance);
+      sound.setRefDistance(data.refDistance);
+      sound.setRolloffFactor(data.rolloffFactor);
       sound.setVolume(data.volume);
     });
 
@@ -69367,7 +69384,7 @@ module.exports.Component = registerComponent('sound', {
   }
 });
 
-},{"../core/component":100,"../lib/three":145,"../utils/bind":160,"../utils/debug":162}],85:[function(_dereq_,module,exports){
+},{"../core/component":100,"../lib/three":146,"../utils/bind":161,"../utils/debug":163}],85:[function(_dereq_,module,exports){
 var createTextGeometry = _dereq_('three-bmfont-text');
 var loadBMFont = _dereq_('load-bmfont');
 var path = _dereq_('path');
@@ -69833,7 +69850,7 @@ function PromiseCache () {
   };
 }
 
-},{"../core/component":100,"../core/shader":108,"../lib/three":145,"../utils/":166,"load-bmfont":22,"path":32,"three-bmfont-text":38}],86:[function(_dereq_,module,exports){
+},{"../core/component":100,"../core/shader":109,"../lib/three":146,"../utils/":167,"load-bmfont":22,"path":32,"three-bmfont-text":38}],86:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 var THREE = _dereq_('../lib/three');
 
@@ -69849,7 +69866,8 @@ var THREE = _dereq_('../lib/three');
 module.exports.Component = registerComponent('tracked-controls', {
   schema: {
     controller: {default: 0},
-    id: {default: 'Match none by default!'},
+    id: {type: 'string', default: ''},
+    idPrefix: {type: 'string', default: ''},
     rotationOffset: {default: 0}
   },
 
@@ -69862,10 +69880,10 @@ module.exports.Component = registerComponent('tracked-controls', {
   update: function () {
     var controllers = this.system.controllers;
     var data = this.data;
-    controllers = controllers.filter(hasId);
+    controllers = controllers.filter(hasIdOrPrefix);
     // handId: 0 - right, 1 - left
     this.controller = controllers[data.controller];
-    function hasId (controller) { return controller.id === data.id; }
+    function hasIdOrPrefix (controller) { return data.idPrefix ? controller.id.indexOf(data.idPrefix) === 0 : controller.id === data.id; }
   },
 
   tick: function (time, delta) {
@@ -70021,7 +70039,7 @@ module.exports.Component = registerComponent('tracked-controls', {
   }
 });
 
-},{"../core/component":100,"../lib/three":145}],87:[function(_dereq_,module,exports){
+},{"../core/component":100,"../lib/three":146}],87:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../core/component').registerComponent;
 
 /**
@@ -70043,7 +70061,7 @@ var isControllerPresent = _dereq_('../utils/tracked-controls').isControllerPrese
 var VIVE_CONTROLLER_MODEL_OBJ_URL = 'https://cdn.aframe.io/controllers/vive/vr_controller_vive.obj';
 var VIVE_CONTROLLER_MODEL_OBJ_MTL = 'https://cdn.aframe.io/controllers/vive/vr_controller_vive.mtl';
 
-var GAMEPAD_ID_PREFIX = 'OpenVR Gamepad';
+var GAMEPAD_ID_PREFIX = 'OpenVR ';
 
 /**
  * Vive Controls Component
@@ -70166,7 +70184,7 @@ module.exports.Component = registerComponent('vive-controls', {
     // handId: 0 - right, 1 - left, 2 - anything else...
     var controller = data.hand === 'right' ? 0 : data.hand === 'left' ? 1 : 2;
     // if we have an OpenVR Gamepad, use the fixed mapping
-    el.setAttribute('tracked-controls', {id: GAMEPAD_ID_PREFIX, controller: controller, rotationOffset: data.rotationOffset});
+    el.setAttribute('tracked-controls', {idPrefix: GAMEPAD_ID_PREFIX, controller: controller, rotationOffset: data.rotationOffset});
     if (!this.data.model) { return; }
     this.el.setAttribute('obj-model', {
       obj: VIVE_CONTROLLER_MODEL_OBJ_URL,
@@ -70250,7 +70268,7 @@ module.exports.Component = registerComponent('vive-controls', {
   }
 });
 
-},{"../core/component":100,"../utils/bind":160,"../utils/tracked-controls":170}],89:[function(_dereq_,module,exports){
+},{"../core/component":100,"../utils/bind":161,"../utils/tracked-controls":171}],89:[function(_dereq_,module,exports){
 var KEYCODE_TO_CODE = _dereq_('../constants').keyboardevent.KEYCODE_TO_CODE;
 var registerComponent = _dereq_('../core/component').registerComponent;
 var THREE = _dereq_('../lib/three');
@@ -70455,7 +70473,7 @@ module.exports.Component = registerComponent('wasd-controls', {
   }
 });
 
-},{"../constants":91,"../core/component":100,"../lib/three":145,"../utils/":166}],90:[function(_dereq_,module,exports){
+},{"../constants":91,"../core/component":100,"../lib/three":146,"../utils/":167}],90:[function(_dereq_,module,exports){
 /**
  * Animation configuration options for TWEEN.js animations.
  * Used by `<a-animation>`.
@@ -71126,7 +71144,7 @@ function rgbVectorToHex (color) {
   }).join('');
 }
 
-},{"../constants/animation":90,"../lib/three":145,"../utils/":166,"./a-node":98,"./a-register-element":99,"./schema":107,"tween.js":49}],94:[function(_dereq_,module,exports){
+},{"../constants/animation":90,"../lib/three":146,"../utils/":167,"./a-node":98,"./a-register-element":99,"./schema":108,"tween.js":49}],94:[function(_dereq_,module,exports){
 var ANode = _dereq_('./a-node');
 var bind = _dereq_('../utils/bind');
 var debug = _dereq_('../utils/debug');
@@ -71355,7 +71373,7 @@ function extractDomain (url) {
   return domain.split(':')[0];
 }
 
-},{"../lib/three":145,"../utils/bind":160,"../utils/debug":162,"./a-node":98,"./a-register-element":99}],95:[function(_dereq_,module,exports){
+},{"../lib/three":146,"../utils/bind":161,"../utils/debug":163,"./a-node":98,"./a-register-element":99}],95:[function(_dereq_,module,exports){
 /* global HTMLElement */
 var debug = _dereq_('../utils/debug');
 var registerElement = _dereq_('./a-register-element').registerElement;
@@ -71406,7 +71424,7 @@ module.exports = registerElement('a-cubemap', {
   })
 });
 
-},{"../utils/debug":162,"./a-register-element":99}],96:[function(_dereq_,module,exports){
+},{"../utils/debug":163,"./a-register-element":99}],96:[function(_dereq_,module,exports){
 /* global HTMLElement */
 var ANode = _dereq_('./a-node');
 var COMPONENTS = _dereq_('./component').components;
@@ -72320,7 +72338,7 @@ AEntity = registerElement('a-entity', {
 });
 module.exports = AEntity;
 
-},{"../lib/three":145,"../utils/":166,"./a-node":98,"./a-register-element":99,"./component":100}],97:[function(_dereq_,module,exports){
+},{"../lib/three":146,"../utils/":167,"./a-node":98,"./a-register-element":99,"./component":100}],97:[function(_dereq_,module,exports){
 /* global HTMLElement */
 var ANode = _dereq_('./a-node');
 var registerElement = _dereq_('./a-register-element').registerElement;
@@ -72677,7 +72695,7 @@ module.exports = registerElement('a-node', {
   })
 });
 
-},{"../utils/":166,"./a-register-element":99}],99:[function(_dereq_,module,exports){
+},{"../utils/":167,"./a-register-element":99}],99:[function(_dereq_,module,exports){
 /*
   ------------------------------------------------------------
   ------------- WARNING WARNING WARNING WARNING --------------
@@ -72855,8 +72873,9 @@ ANode = _dereq_('./a-node');
 AEntity = _dereq_('./a-entity');
 
 },{"./a-entity":96,"./a-node":98,"document-register-element":10}],100:[function(_dereq_,module,exports){
-/* global HTMLElement */
+/* global HTMLElement, Node */
 var schema = _dereq_('./schema');
+var scenes = _dereq_('./scene/scenes');
 var systems = _dereq_('./system');
 var utils = _dereq_('../utils/');
 
@@ -72868,6 +72887,10 @@ var isSingleProp = schema.isSingleProperty;
 var stringifyProperties = schema.stringifyProperties;
 var stringifyProperty = schema.stringifyProperty;
 var styleParser = utils.styleParser;
+var warn = utils.debug('core:component:warn');
+
+var aframeScript = document.currentScript;
+var upperCaseRegExp = new RegExp('[A-Z]+');
 
 /**
  * Component class definition.
@@ -73118,6 +73141,11 @@ Component.prototype = {
   }
 };
 
+// For testing.
+if (window.debug) {
+  var registrationOrderWarnings = module.exports.registrationOrderWarnings = {};
+}
+
 /**
  * Registers a component to A-Frame.
  *
@@ -73129,13 +73157,29 @@ module.exports.registerComponent = function (name, definition) {
   var NewComponent;
   var proto = {};
 
-  var testForUpperCase = new RegExp('[A-Z]+');
+  // Warning if component is statically registered after the scene.
+  if (document.currentScript && document.currentScript !== aframeScript) {
+    scenes.forEach(function checkPosition (sceneEl) {
+      // Okay to register component after the scene at runtime.
+      if (sceneEl.hasLoaded) { return; }
 
-  if (testForUpperCase.test(name) === true) {
-    console.warn('The component name `' + name + '`contains uppercase characters,' +
-                  'but HTML ignores the capitalization of attributes. ' +
-                  'Consider changing it. ' +
-                  'Your component can be accessed as ' + name.toLowerCase());
+      // Check that component is declared before the scene.
+      if (document.currentScript.compareDocumentPosition(sceneEl) ===
+          Node.DOCUMENT_POSITION_FOLLOWING) { return; }
+
+      warn('The component `' + name + '` was registered in a <script> tag after the scene. ' +
+           'Component <script> tags in an HTML file should be declared *before* the scene ' +
+           'such that the component is available to entities during scene initialization.');
+
+      // For testing.
+      if (window.debug) { registrationOrderWarnings[name] = true; }
+    });
+  }
+
+  if (upperCaseRegExp.test(name) === true) {
+    warn('The component name `' + name + '` contains uppercase characters, but ' +
+         'HTML will ignore the capitalization of attribute names. ' +
+         'Change the name to be lowercase: `' + name.toLowerCase() + '`');
   }
 
   if (name.indexOf('__') !== -1) {
@@ -73295,7 +73339,7 @@ function wrapPlay (playMethod) {
   };
 }
 
-},{"../utils/":166,"./schema":107,"./system":109}],101:[function(_dereq_,module,exports){
+},{"../utils/":167,"./scene/scenes":106,"./schema":108,"./system":110}],101:[function(_dereq_,module,exports){
 var schema = _dereq_('./schema');
 
 var processSchema = schema.process;
@@ -73369,7 +73413,7 @@ module.exports.registerGeometry = function (name, definition) {
   return NewGeometry;
 };
 
-},{"../lib/three":145,"./schema":107}],102:[function(_dereq_,module,exports){
+},{"../lib/three":146,"./schema":108}],102:[function(_dereq_,module,exports){
 var coordinates = _dereq_('../utils/coordinates');
 var debug = _dereq_('debug');
 
@@ -73524,11 +73568,12 @@ function vecParse (value) {
   return coordinates.parse(value, this.default);
 }
 
-},{"../utils/coordinates":161,"debug":7}],103:[function(_dereq_,module,exports){
+},{"../utils/coordinates":162,"debug":7}],103:[function(_dereq_,module,exports){
 /* global Promise, screen */
 var initMetaTags = _dereq_('./metaTags').inject;
 var initWakelock = _dereq_('./wakelock');
 var re = _dereq_('../a-register-element');
+var scenes = _dereq_('./scenes');
 var systems = _dereq_('../system').systems;
 var THREE = _dereq_('../../lib/three');
 var TWEEN = _dereq_('tween.js');
@@ -73583,7 +73628,6 @@ module.exports = registerElement('a-scene', {
         this.render = bind(this.render, this);
         this.systems = {};
         this.time = 0;
-
         this.init();
       }
     },
@@ -73632,6 +73676,9 @@ module.exports = registerElement('a-scene', {
         window.addEventListener('load', resize);
         window.addEventListener('resize', resize);
         this.play();
+
+        // Add to scene index.
+        scenes.push(this);
       },
       writable: window.debug
     },
@@ -73656,8 +73703,12 @@ module.exports = registerElement('a-scene', {
      */
     detachedCallback: {
       value: function () {
+        var sceneIndex;
         window.cancelAnimationFrame(this.animationFrameID);
         this.animationFrameID = null;
+        // Remove from scene index.
+        sceneIndex = scenes.indexOf(this);
+        scenes.splice(sceneIndex, 1);
       }
     },
 
@@ -74040,7 +74091,7 @@ function exitFullscreen () {
   }
 }
 
-},{"../../lib/three":145,"../../utils/":166,"../a-entity":96,"../a-node":98,"../a-register-element":99,"../system":109,"./metaTags":104,"./postMessage":105,"./wakelock":106,"tween.js":49}],104:[function(_dereq_,module,exports){
+},{"../../lib/three":146,"../../utils/":167,"../a-entity":96,"../a-node":98,"../a-register-element":99,"../system":110,"./metaTags":104,"./postMessage":105,"./scenes":106,"./wakelock":107,"tween.js":49}],104:[function(_dereq_,module,exports){
 var constants = _dereq_('../../constants/');
 var extend = _dereq_('../../utils').extend;
 
@@ -74121,7 +74172,7 @@ function createTag (tagObj) {
   return extend(meta, tagObj.attributes);
 }
 
-},{"../../constants/":91,"../../utils":166}],105:[function(_dereq_,module,exports){
+},{"../../constants/":91,"../../utils":167}],105:[function(_dereq_,module,exports){
 var bind = _dereq_('../../utils/bind');
 var isIframed = _dereq_('../../utils/').isIframed;
 
@@ -74154,7 +74205,13 @@ function postMessageAPIHandler (event) {
   }
 }
 
-},{"../../utils/":166,"../../utils/bind":160}],106:[function(_dereq_,module,exports){
+},{"../../utils/":167,"../../utils/bind":161}],106:[function(_dereq_,module,exports){
+/*
+  Scene index for keeping track of created scenes.
+*/
+module.exports = [];
+
+},{}],107:[function(_dereq_,module,exports){
 var Wakelock = _dereq_('../../../vendor/wakelock/wakelock');
 
 module.exports = function initWakelock (scene) {
@@ -74165,7 +74222,7 @@ module.exports = function initWakelock (scene) {
   scene.addEventListener('exit-vr', function () { wakelock.release(); });
 };
 
-},{"../../../vendor/wakelock/wakelock":176}],107:[function(_dereq_,module,exports){
+},{"../../../vendor/wakelock/wakelock":177}],108:[function(_dereq_,module,exports){
 var debug = _dereq_('../utils/debug');
 var propertyTypes = _dereq_('./propertyTypes').propertyTypes;
 var warn = debug('core:schema:warn');
@@ -74329,7 +74386,7 @@ function stringifyProperty (value, propDefinition) {
 }
 module.exports.stringifyProperty = stringifyProperty;
 
-},{"../utils/debug":162,"./propertyTypes":102}],108:[function(_dereq_,module,exports){
+},{"../utils/debug":163,"./propertyTypes":102}],109:[function(_dereq_,module,exports){
 var schema = _dereq_('./schema');
 
 var processSchema = schema.process;
@@ -74505,7 +74562,7 @@ module.exports.registerShader = function (name, definition) {
   return NewShader;
 };
 
-},{"../lib/three":145,"../utils":166,"./schema":107}],109:[function(_dereq_,module,exports){
+},{"../lib/three":146,"../utils":167,"./schema":108}],110:[function(_dereq_,module,exports){
 /* global HTMLElement */
 var components = _dereq_('./component');
 var schema = _dereq_('./schema');
@@ -74622,10 +74679,10 @@ module.exports.registerSystem = function (name, definition) {
   for (i = 0; i < scenes.length; i++) { scenes[i].initSystem(name); }
 };
 
-},{"../utils/":166,"./component":100,"./schema":107}],110:[function(_dereq_,module,exports){
+},{"../utils/":167,"./component":100,"./schema":108}],111:[function(_dereq_,module,exports){
 _dereq_('./pivot');
 
-},{"./pivot":111}],111:[function(_dereq_,module,exports){
+},{"./pivot":112}],112:[function(_dereq_,module,exports){
 var registerComponent = _dereq_('../../core/component').registerComponent;
 var THREE = _dereq_('../../lib/three');
 
@@ -74674,7 +74731,7 @@ registerComponent('pivot', {
   }
 });
 
-},{"../../core/component":100,"../../lib/three":145}],112:[function(_dereq_,module,exports){
+},{"../../core/component":100,"../../lib/three":146}],113:[function(_dereq_,module,exports){
 /**
  * Common mesh defaults, mappings, and transforms.
  */
@@ -74701,7 +74758,7 @@ module.exports = function getMeshMixin () {
   };
 };
 
-},{"../../core/component":100,"../../core/shader":108,"../../utils/":166}],113:[function(_dereq_,module,exports){
+},{"../../core/component":100,"../../core/shader":109,"../../utils/":167}],114:[function(_dereq_,module,exports){
 _dereq_('./primitives/a-camera');
 _dereq_('./primitives/a-collada-model');
 _dereq_('./primitives/a-cursor');
@@ -74717,7 +74774,7 @@ _dereq_('./primitives/a-video');
 _dereq_('./primitives/a-videosphere');
 _dereq_('./primitives/meshPrimitives');
 
-},{"./primitives/a-camera":115,"./primitives/a-collada-model":116,"./primitives/a-cursor":117,"./primitives/a-curvedimage":118,"./primitives/a-gltf-model":119,"./primitives/a-image":120,"./primitives/a-light":121,"./primitives/a-obj-model":122,"./primitives/a-sky":123,"./primitives/a-sound":124,"./primitives/a-text":125,"./primitives/a-video":126,"./primitives/a-videosphere":127,"./primitives/meshPrimitives":128}],114:[function(_dereq_,module,exports){
+},{"./primitives/a-camera":116,"./primitives/a-collada-model":117,"./primitives/a-cursor":118,"./primitives/a-curvedimage":119,"./primitives/a-gltf-model":120,"./primitives/a-image":121,"./primitives/a-light":122,"./primitives/a-obj-model":123,"./primitives/a-sky":124,"./primitives/a-sound":125,"./primitives/a-text":126,"./primitives/a-video":127,"./primitives/a-videosphere":128,"./primitives/meshPrimitives":129}],115:[function(_dereq_,module,exports){
 var AEntity = _dereq_('../../core/a-entity');
 var components = _dereq_('../../core/component').components;
 var registerElement = _dereq_('../../core/a-register-element').registerElement;
@@ -74882,7 +74939,7 @@ function definePrimitive (tagName, defaultComponents, mappings) {
 }
 module.exports.definePrimitive = definePrimitive;
 
-},{"../../core/a-entity":96,"../../core/a-register-element":99,"../../core/component":100,"../../utils/":166}],115:[function(_dereq_,module,exports){
+},{"../../core/a-entity":96,"../../core/a-register-element":99,"../../core/component":100,"../../utils/":167}],116:[function(_dereq_,module,exports){
 var DEFAULT_CAMERA_HEIGHT = _dereq_('../../../constants/').DEFAULT_CAMERA_HEIGHT;
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 
@@ -74917,7 +74974,7 @@ registerPrimitive('a-camera', {
   }
 });
 
-},{"../../../constants/":91,"../primitives":114}],116:[function(_dereq_,module,exports){
+},{"../../../constants/":91,"../primitives":115}],117:[function(_dereq_,module,exports){
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 
 registerPrimitive('a-collada-model', {
@@ -74926,7 +74983,7 @@ registerPrimitive('a-collada-model', {
   }
 });
 
-},{"../primitives":114}],117:[function(_dereq_,module,exports){
+},{"../primitives":115}],118:[function(_dereq_,module,exports){
 var getMeshMixin = _dereq_('../getMeshMixin');
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 var utils = _dereq_('../../../utils/');
@@ -74964,7 +75021,7 @@ registerPrimitive('a-cursor', utils.extendDeep({}, getMeshMixin(), {
   }
 }));
 
-},{"../../../utils/":166,"../getMeshMixin":112,"../primitives":114}],118:[function(_dereq_,module,exports){
+},{"../../../utils/":167,"../getMeshMixin":113,"../primitives":115}],119:[function(_dereq_,module,exports){
 var getMeshMixin = _dereq_('../getMeshMixin');
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 var utils = _dereq_('../../../utils/');
@@ -75001,7 +75058,7 @@ registerPrimitive('a-curvedimage', utils.extendDeep({}, getMeshMixin(), {
   }
 }));
 
-},{"../../../utils/":166,"../getMeshMixin":112,"../primitives":114}],119:[function(_dereq_,module,exports){
+},{"../../../utils/":167,"../getMeshMixin":113,"../primitives":115}],120:[function(_dereq_,module,exports){
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 
 registerPrimitive('a-gltf-model', {
@@ -75010,7 +75067,7 @@ registerPrimitive('a-gltf-model', {
   }
 });
 
-},{"../primitives":114}],120:[function(_dereq_,module,exports){
+},{"../primitives":115}],121:[function(_dereq_,module,exports){
 var getMeshMixin = _dereq_('../getMeshMixin');
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 var utils = _dereq_('../../../utils/');
@@ -75034,7 +75091,7 @@ registerPrimitive('a-image', utils.extendDeep({}, getMeshMixin(), {
   }
 }));
 
-},{"../../../utils/":166,"../getMeshMixin":112,"../primitives":114}],121:[function(_dereq_,module,exports){
+},{"../../../utils/":167,"../getMeshMixin":113,"../primitives":115}],122:[function(_dereq_,module,exports){
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 
 registerPrimitive('a-light', {
@@ -75055,7 +75112,7 @@ registerPrimitive('a-light', {
   }
 });
 
-},{"../primitives":114}],122:[function(_dereq_,module,exports){
+},{"../primitives":115}],123:[function(_dereq_,module,exports){
 var meshMixin = _dereq_('../getMeshMixin')();
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 var utils = _dereq_('../../../utils/');
@@ -75071,7 +75128,7 @@ registerPrimitive('a-obj-model', utils.extendDeep({}, meshMixin, {
   }
 }));
 
-},{"../../../utils/":166,"../getMeshMixin":112,"../primitives":114}],123:[function(_dereq_,module,exports){
+},{"../../../utils/":167,"../getMeshMixin":113,"../primitives":115}],124:[function(_dereq_,module,exports){
 var getMeshMixin = _dereq_('../getMeshMixin');
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 var utils = _dereq_('../../../utils/');
@@ -75095,7 +75152,7 @@ registerPrimitive('a-sky', utils.extendDeep({}, getMeshMixin(), {
   mappings: utils.extendDeep({}, meshPrimitives['a-sphere'].prototype.mappings)
 }));
 
-},{"../../../utils/":166,"../getMeshMixin":112,"../primitives":114,"./meshPrimitives":128}],124:[function(_dereq_,module,exports){
+},{"../../../utils/":167,"../getMeshMixin":113,"../primitives":115,"./meshPrimitives":129}],125:[function(_dereq_,module,exports){
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 
 registerPrimitive('a-sound', {
@@ -75112,12 +75169,12 @@ registerPrimitive('a-sound', {
   }
 });
 
-},{"../primitives":114}],125:[function(_dereq_,module,exports){
+},{"../primitives":115}],126:[function(_dereq_,module,exports){
 // <a-text> using `definePrimitive` helper.
 var definePrimitive = _dereq_('../primitives').definePrimitive;
 definePrimitive('a-text', {text: {anchor: 'align', width: 5}});
 
-},{"../primitives":114}],126:[function(_dereq_,module,exports){
+},{"../primitives":115}],127:[function(_dereq_,module,exports){
 var getMeshMixin = _dereq_('../getMeshMixin');
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 var utils = _dereq_('../../../utils/');
@@ -75141,7 +75198,7 @@ registerPrimitive('a-video', utils.extendDeep({}, getMeshMixin(), {
   }
 }));
 
-},{"../../../utils/":166,"../getMeshMixin":112,"../primitives":114}],127:[function(_dereq_,module,exports){
+},{"../../../utils/":167,"../getMeshMixin":113,"../primitives":115}],128:[function(_dereq_,module,exports){
 var getMeshMixin = _dereq_('../getMeshMixin');
 var registerPrimitive = _dereq_('../primitives').registerPrimitive;
 var utils = _dereq_('../../../utils/');
@@ -75168,7 +75225,7 @@ registerPrimitive('a-videosphere', utils.extendDeep({}, getMeshMixin(), {
   }
 }));
 
-},{"../../../utils/":166,"../getMeshMixin":112,"../primitives":114}],128:[function(_dereq_,module,exports){
+},{"../../../utils/":167,"../getMeshMixin":113,"../primitives":115}],129:[function(_dereq_,module,exports){
 /**
  * Automated mesh primitive registration.
  */
@@ -75208,7 +75265,7 @@ function unCamelCase (str) {
   return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 }
 
-},{"../../../core/geometry":101,"../../../utils/":166,"../getMeshMixin":112,"../primitives":114}],129:[function(_dereq_,module,exports){
+},{"../../../core/geometry":101,"../../../utils/":167,"../getMeshMixin":113,"../primitives":115}],130:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -75227,7 +75284,7 @@ registerGeometry('box', {
   }
 });
 
-},{"../core/geometry":101,"../lib/three":145}],130:[function(_dereq_,module,exports){
+},{"../core/geometry":101,"../lib/three":146}],131:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -75247,7 +75304,7 @@ registerGeometry('circle', {
   }
 });
 
-},{"../core/geometry":101,"../lib/three":145}],131:[function(_dereq_,module,exports){
+},{"../core/geometry":101,"../lib/three":146}],132:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -75273,7 +75330,7 @@ registerGeometry('cone', {
   }
 });
 
-},{"../core/geometry":101,"../lib/three":145}],132:[function(_dereq_,module,exports){
+},{"../core/geometry":101,"../lib/three":146}],133:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -75297,7 +75354,7 @@ registerGeometry('cylinder', {
   }
 });
 
-},{"../core/geometry":101,"../lib/three":145}],133:[function(_dereq_,module,exports){
+},{"../core/geometry":101,"../lib/three":146}],134:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -75312,7 +75369,7 @@ registerGeometry('dodecahedron', {
   }
 });
 
-},{"../core/geometry":101,"../lib/three":145}],134:[function(_dereq_,module,exports){
+},{"../core/geometry":101,"../lib/three":146}],135:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -75327,7 +75384,7 @@ registerGeometry('icosahedron', {
   }
 });
 
-},{"../core/geometry":101,"../lib/three":145}],135:[function(_dereq_,module,exports){
+},{"../core/geometry":101,"../lib/three":146}],136:[function(_dereq_,module,exports){
 _dereq_('./box.js');
 _dereq_('./circle.js');
 _dereq_('./cone.js');
@@ -75342,7 +75399,7 @@ _dereq_('./tetrahedron.js');
 _dereq_('./torus.js');
 _dereq_('./torusKnot.js');
 
-},{"./box.js":129,"./circle.js":130,"./cone.js":131,"./cylinder.js":132,"./dodecahedron.js":133,"./icosahedron.js":134,"./octahedron.js":136,"./plane.js":137,"./ring.js":138,"./sphere.js":139,"./tetrahedron.js":140,"./torus.js":141,"./torusKnot.js":142}],136:[function(_dereq_,module,exports){
+},{"./box.js":130,"./circle.js":131,"./cone.js":132,"./cylinder.js":133,"./dodecahedron.js":134,"./icosahedron.js":135,"./octahedron.js":137,"./plane.js":138,"./ring.js":139,"./sphere.js":140,"./tetrahedron.js":141,"./torus.js":142,"./torusKnot.js":143}],137:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -75357,7 +75414,7 @@ registerGeometry('octahedron', {
   }
 });
 
-},{"../core/geometry":101,"../lib/three":145}],137:[function(_dereq_,module,exports){
+},{"../core/geometry":101,"../lib/three":146}],138:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -75374,7 +75431,7 @@ registerGeometry('plane', {
   }
 });
 
-},{"../core/geometry":101,"../lib/three":145}],138:[function(_dereq_,module,exports){
+},{"../core/geometry":101,"../lib/three":146}],139:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -75397,7 +75454,7 @@ registerGeometry('ring', {
   }
 });
 
-},{"../core/geometry":101,"../lib/three":145}],139:[function(_dereq_,module,exports){
+},{"../core/geometry":101,"../lib/three":146}],140:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -75421,7 +75478,7 @@ registerGeometry('sphere', {
   }
 });
 
-},{"../core/geometry":101,"../lib/three":145}],140:[function(_dereq_,module,exports){
+},{"../core/geometry":101,"../lib/three":146}],141:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -75436,7 +75493,7 @@ registerGeometry('tetrahedron', {
   }
 });
 
-},{"../core/geometry":101,"../lib/three":145}],141:[function(_dereq_,module,exports){
+},{"../core/geometry":101,"../lib/three":146}],142:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -75458,7 +75515,7 @@ registerGeometry('torus', {
   }
 });
 
-},{"../core/geometry":101,"../lib/three":145}],142:[function(_dereq_,module,exports){
+},{"../core/geometry":101,"../lib/three":146}],143:[function(_dereq_,module,exports){
 var registerGeometry = _dereq_('../core/geometry').registerGeometry;
 var THREE = _dereq_('../lib/three');
 
@@ -75479,16 +75536,17 @@ registerGeometry('torusKnot', {
   }
 });
 
-},{"../core/geometry":101,"../lib/three":145}],143:[function(_dereq_,module,exports){
+},{"../core/geometry":101,"../lib/three":146}],144:[function(_dereq_,module,exports){
 var utils = _dereq_('./utils/');
 
 var debug = utils.debug;
-var error = debug('A-Frame:warn');
-var info = debug('A-Frame:info');
+var warn = debug('A-Frame:warn');
 
-if (document.currentScript && document.currentScript.parentNode !== document.head) {
-  error('Put the A-Frame <script> tag in the <head> of the HTML before <a-scene> to ensure everything for A-Frame is properly registered before they are used in the <body>.');
-  info('Also make sure that any component <script> tags are included after A-Frame, but still before <a-scene>.');
+if (document.currentScript && document.currentScript.parentNode !== document.head &&
+    !window.debug) {
+  warn('Put the A-Frame <script> tag in the <head> of the HTML *before* the scene to ' +
+       'ensure everything for A-Frame is properly registered before they are used from ' +
+       'HTML.');
 }
 
 // Polyfill `Promise`.
@@ -75551,7 +75609,7 @@ _dereq_('./core/a-mixin');
 _dereq_('./extras/components/');
 _dereq_('./extras/primitives/');
 
-console.log('A-Frame Version: 0.4.0 (Date 09-02-2017, Commit #e2e64d3)');
+console.log('A-Frame Version: 0.5.0 (Date 13-02-2017, Commit #92136f0)');
 console.log('three Version:', pkg.dependencies['three']);
 console.log('WebVR Polyfill Version:', pkg.dependencies['webvr-polyfill']);
 
@@ -75572,6 +75630,7 @@ module.exports = window.AFRAME = {
     getMeshMixin: _dereq_('./extras/primitives/getMeshMixin'),
     primitives: _dereq_('./extras/primitives/primitives').primitives
   },
+  scenes: _dereq_('./core/scene/scenes'),
   schema: _dereq_('./core/schema'),
   shaders: shaders,
   systems: systems,
@@ -75581,7 +75640,7 @@ module.exports = window.AFRAME = {
   version: pkg.version
 };
 
-},{"../package":55,"./components/index":63,"./core/a-animation":93,"./core/a-assets":94,"./core/a-cubemap":95,"./core/a-entity":96,"./core/a-mixin":97,"./core/a-node":98,"./core/a-register-element":99,"./core/component":100,"./core/geometry":101,"./core/scene/a-scene":103,"./core/schema":107,"./core/shader":108,"./core/system":109,"./extras/components/":110,"./extras/primitives/":113,"./extras/primitives/getMeshMixin":112,"./extras/primitives/primitives":114,"./geometries/index":135,"./lib/three":145,"./shaders/index":147,"./style/aframe.css":151,"./style/rStats.css":152,"./systems/index":156,"./utils/":166,"present":33,"promise-polyfill":35,"tween.js":49,"webvr-polyfill":50}],144:[function(_dereq_,module,exports){
+},{"../package":55,"./components/index":63,"./core/a-animation":93,"./core/a-assets":94,"./core/a-cubemap":95,"./core/a-entity":96,"./core/a-mixin":97,"./core/a-node":98,"./core/a-register-element":99,"./core/component":100,"./core/geometry":101,"./core/scene/a-scene":103,"./core/scene/scenes":106,"./core/schema":108,"./core/shader":109,"./core/system":110,"./extras/components/":111,"./extras/primitives/":114,"./extras/primitives/getMeshMixin":113,"./extras/primitives/primitives":115,"./geometries/index":136,"./lib/three":146,"./shaders/index":148,"./style/aframe.css":152,"./style/rStats.css":153,"./systems/index":157,"./utils/":167,"present":33,"promise-polyfill":35,"tween.js":49,"webvr-polyfill":50}],145:[function(_dereq_,module,exports){
 window.aframeStats = function (scene) {
   var _rS = null;
   var _scene = scene;
@@ -75638,7 +75697,7 @@ if (typeof module === 'object') {
   };
 }
 
-},{}],145:[function(_dereq_,module,exports){
+},{}],146:[function(_dereq_,module,exports){
 (function (global){
 var THREE = global.THREE = _dereq_('three');
 
@@ -75678,7 +75737,7 @@ module.exports = THREE;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"../../vendor/VRControls":171,"../../vendor/VREffect":172,"three":42,"three/examples/js/BlendCharacter":43,"three/examples/js/loaders/ColladaLoader":44,"three/examples/js/loaders/GLTFLoader":45,"three/examples/js/loaders/MTLLoader":46,"three/examples/js/loaders/OBJLoader":47}],146:[function(_dereq_,module,exports){
+},{"../../vendor/VRControls":172,"../../vendor/VREffect":173,"three":42,"three/examples/js/BlendCharacter":43,"three/examples/js/loaders/ColladaLoader":44,"three/examples/js/loaders/GLTFLoader":45,"three/examples/js/loaders/MTLLoader":46,"three/examples/js/loaders/OBJLoader":47}],147:[function(_dereq_,module,exports){
 var registerShader = _dereq_('../core/shader').registerShader;
 var THREE = _dereq_('../lib/three');
 var utils = _dereq_('../utils/');
@@ -75743,13 +75802,13 @@ function getMaterialData (data) {
   };
 }
 
-},{"../core/shader":108,"../lib/three":145,"../utils/":166}],147:[function(_dereq_,module,exports){
+},{"../core/shader":109,"../lib/three":146,"../utils/":167}],148:[function(_dereq_,module,exports){
 _dereq_('./flat');
 _dereq_('./standard');
 _dereq_('./sdf');
 _dereq_('./msdf');
 
-},{"./flat":146,"./msdf":148,"./sdf":149,"./standard":150}],148:[function(_dereq_,module,exports){
+},{"./flat":147,"./msdf":149,"./sdf":150,"./standard":151}],149:[function(_dereq_,module,exports){
 var registerShader = _dereq_('../core/shader').registerShader;
 
 /**
@@ -75825,7 +75884,7 @@ module.exports.Shader = registerShader('msdf', {
   ].join('\n')
 });
 
-},{"../core/shader":108}],149:[function(_dereq_,module,exports){
+},{"../core/shader":109}],150:[function(_dereq_,module,exports){
 var registerShader = _dereq_('../core/shader').registerShader;
 
 /**
@@ -75935,7 +75994,7 @@ module.exports.Shader = registerShader('sdf', {
   ].join('\n')
 });
 
-},{"../core/shader":108}],150:[function(_dereq_,module,exports){
+},{"../core/shader":109}],151:[function(_dereq_,module,exports){
 var registerShader = _dereq_('../core/shader').registerShader;
 var THREE = _dereq_('../lib/three');
 var utils = _dereq_('../utils/');
@@ -76100,11 +76159,11 @@ function getMaterialData (data) {
   return newData;
 }
 
-},{"../core/shader":108,"../lib/three":145,"../utils/":166}],151:[function(_dereq_,module,exports){
-var css = ".a-html{bottom:0;left:0;position:fixed;right:0;top:0}.a-body{height:100%;margin:0;overflow:hidden;padding:0;width:100%}:-webkit-full-screen{background-color:transparent}.a-hidden{display:none!important}.a-canvas{height:100%;left:0;position:absolute;top:0;width:100%}.a-canvas.a-grab-cursor:hover{cursor:grab;cursor:-moz-grabbing;cursor:-webkit-grab}.a-canvas.a-grab-cursor:active,.a-grabbing{cursor:grabbing;cursor:-moz-grabbing;cursor:-webkit-grabbing}// Class is removed when doing <a-scene embedded>. a-scene.fullscreen .a-canvas{width:100%!important;height:100%!important;top:0!important;left:0!important;right:0!important;bottom:0!important;z-index:999999!important;position:fixed!important}.a-inspector-loader{background-color:#ed3160;position:fixed;left:3px;top:3px;padding:6px 10px;color:#fff;text-decoration:none;font-size:12px;font-family:Roboto,sans-serif;text-align:center;z-index:99999;width:174px}@keyframes dots-1{from{opacity:0}25%{opacity:1}}@keyframes dots-2{from{opacity:0}50%{opacity:1}}@keyframes dots-3{from{opacity:0}75%{opacity:1}}@-webkit-keyframes dots-1{from{opacity:0}25%{opacity:1}}@-webkit-keyframes dots-2{from{opacity:0}50%{opacity:1}}@-webkit-keyframes dots-3{from{opacity:0}75%{opacity:1}}.a-inspector-loader .dots span{animation:dots-1 2s infinite steps(1);-webkit-animation:dots-1 2s infinite steps(1)}.a-inspector-loader .dots span:first-child+span{animation-name:dots-2;-webkit-animation-name:dots-2}.a-inspector-loader .dots span:first-child+span+span{animation-name:dots-3;-webkit-animation-name:dots-3}a-scene{display:block;position:relative;height:100%;width:100%}a-assets,a-scene audio,a-scene img,a-scene video{display:none}.a-enter-vr-modal,.a-orientation-modal{font-family:Consolas,Andale Mono,Courier New,monospace}.a-enter-vr-modal a{border-bottom:1px solid #fff;padding:2px 0;text-decoration:none;transition:.1s color ease-in}.a-enter-vr-modal a:hover{background-color:#fff;color:#111;padding:2px 4px;position:relative;left:-4px}.a-enter-vr{font-family:sans-serif,monospace;font-size:13px;width:100%;font-weight:200;line-height:16px;height:10%;position:absolute;right:20px;bottom:20px}.a-enter-vr.embedded{right:5px;bottom:5px}.a-enter-vr-button,.a-enter-vr-modal,.a-enter-vr-modal a{color:#fff}.a-enter-vr-button{background:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20245.82%20141.73%22%3E%3Cdefs%3E%3Cstyle%3E.a%7Bfill%3A%23fff%3Bfill-rule%3Aevenodd%3B%7D%3C%2Fstyle%3E%3C%2Fdefs%3E%3Ctitle%3Emask%3C%2Ftitle%3E%3Cpath%20class%3D%22a%22%20d%3D%22M175.56%2C111.37c-22.52%2C0-40.77-18.84-40.77-42.07S153%2C27.24%2C175.56%2C27.24s40.77%2C18.84%2C40.77%2C42.07S198.08%2C111.37%2C175.56%2C111.37ZM26.84%2C69.31c0-23.23%2C18.25-42.07%2C40.77-42.07s40.77%2C18.84%2C40.77%2C42.07-18.26%2C42.07-40.77%2C42.07S26.84%2C92.54%2C26.84%2C69.31ZM27.27%2C0C11.54%2C0%2C0%2C12.34%2C0%2C28.58V110.9c0%2C16.24%2C11.54%2C30.83%2C27.27%2C30.83H99.57c2.17%2C0%2C4.19-1.83%2C5.4-3.7L116.47%2C118a8%2C8%2C0%2C0%2C1%2C12.52-.18l11.51%2C20.34c1.2%2C1.86%2C3.22%2C3.61%2C5.39%2C3.61h72.29c15.74%2C0%2C27.63-14.6%2C27.63-30.83V28.58C245.82%2C12.34%2C233.93%2C0%2C218.19%2C0H27.27Z%22%2F%3E%3C%2Fsvg%3E) 50% 50%/70% 70% no-repeat rgba(0,0,0,.35);border:0;bottom:0;cursor:pointer;min-width:50px;min-height:30px;padding-right:5%;padding-top:4%;position:absolute;right:0;transition:background-color .05s ease;-webkit-transition:background-color .05s ease;z-index:9999}.a-enter-vr-button:active,.a-enter-vr-button:hover{background-color:#666}[data-a-enter-vr-no-webvr] .a-enter-vr-button{border-color:#666;opacity:.65}[data-a-enter-vr-no-webvr] .a-enter-vr-button:active,[data-a-enter-vr-no-webvr] .a-enter-vr-button:hover{background-color:rgba(0,0,0,.35);cursor:not-allowed}.a-enter-vr-modal{background-color:#666;border-radius:0;display:none;min-height:32px;margin-right:70px;padding:9px;width:280px;right:2%;position:absolute}.a-enter-vr-modal:after{border-bottom:10px solid transparent;border-left:10px solid #666;border-top:10px solid transparent;display:inline-block;content:'';position:absolute;right:-5px;top:5px;width:0;height:0}.a-enter-vr-modal a,.a-enter-vr-modal p{display:inline}.a-enter-vr-modal p{margin:0}.a-enter-vr-modal p:after{content:' '}[data-a-enter-vr-no-headset].a-enter-vr:hover .a-enter-vr-modal,[data-a-enter-vr-no-webvr].a-enter-vr:hover .a-enter-vr-modal{display:block}.a-orientation-modal{background:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%20version%3D%221.1%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%2090%2090%22%20enable-background%3D%22new%200%200%2090%2090%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpolygon%20points%3D%220%2C0%200%2C0%200%2C0%20%22%3E%3C/polygon%3E%3Cg%3E%3Cpath%20d%3D%22M71.545%2C48.145h-31.98V20.743c0-2.627-2.138-4.765-4.765-4.765H18.456c-2.628%2C0-4.767%2C2.138-4.767%2C4.765v42.789%20%20%20c0%2C2.628%2C2.138%2C4.766%2C4.767%2C4.766h5.535v0.959c0%2C2.628%2C2.138%2C4.765%2C4.766%2C4.765h42.788c2.628%2C0%2C4.766-2.137%2C4.766-4.765V52.914%20%20%20C76.311%2C50.284%2C74.173%2C48.145%2C71.545%2C48.145z%20M18.455%2C16.935h16.344c2.1%2C0%2C3.808%2C1.708%2C3.808%2C3.808v27.401H37.25V22.636%20%20%20c0-0.264-0.215-0.478-0.479-0.478H16.482c-0.264%2C0-0.479%2C0.214-0.479%2C0.478v36.585c0%2C0.264%2C0.215%2C0.478%2C0.479%2C0.478h7.507v7.644%20%20%20h-5.534c-2.101%2C0-3.81-1.709-3.81-3.81V20.743C14.645%2C18.643%2C16.354%2C16.935%2C18.455%2C16.935z%20M16.96%2C23.116h19.331v25.031h-7.535%20%20%20c-2.628%2C0-4.766%2C2.139-4.766%2C4.768v5.828h-7.03V23.116z%20M71.545%2C73.064H28.757c-2.101%2C0-3.81-1.708-3.81-3.808V52.914%20%20%20c0-2.102%2C1.709-3.812%2C3.81-3.812h42.788c2.1%2C0%2C3.809%2C1.71%2C3.809%2C3.812v16.343C75.354%2C71.356%2C73.645%2C73.064%2C71.545%2C73.064z%22%3E%3C/path%3E%3Cpath%20d%3D%22M28.919%2C58.424c-1.466%2C0-2.659%2C1.193-2.659%2C2.66c0%2C1.466%2C1.193%2C2.658%2C2.659%2C2.658c1.468%2C0%2C2.662-1.192%2C2.662-2.658%20%20%20C31.581%2C59.617%2C30.387%2C58.424%2C28.919%2C58.424z%20M28.919%2C62.786c-0.939%2C0-1.703-0.764-1.703-1.702c0-0.939%2C0.764-1.704%2C1.703-1.704%20%20%20c0.94%2C0%2C1.705%2C0.765%2C1.705%2C1.704C30.623%2C62.022%2C29.858%2C62.786%2C28.919%2C62.786z%22%3E%3C/path%3E%3Cpath%20d%3D%22M69.654%2C50.461H33.069c-0.264%2C0-0.479%2C0.215-0.479%2C0.479v20.288c0%2C0.264%2C0.215%2C0.478%2C0.479%2C0.478h36.585%20%20%20c0.263%2C0%2C0.477-0.214%2C0.477-0.478V50.939C70.131%2C50.676%2C69.917%2C50.461%2C69.654%2C50.461z%20M69.174%2C51.417V70.75H33.548V51.417H69.174z%22%3E%3C/path%3E%3Cpath%20d%3D%22M45.201%2C30.296c6.651%2C0%2C12.233%2C5.351%2C12.551%2C11.977l-3.033-2.638c-0.193-0.165-0.507-0.142-0.675%2C0.048%20%20%20c-0.174%2C0.198-0.153%2C0.501%2C0.045%2C0.676l3.883%2C3.375c0.09%2C0.075%2C0.198%2C0.115%2C0.312%2C0.115c0.141%2C0%2C0.273-0.061%2C0.362-0.166%20%20%20l3.371-3.877c0.173-0.2%2C0.151-0.502-0.047-0.675c-0.194-0.166-0.508-0.144-0.676%2C0.048l-2.592%2C2.979%20%20%20c-0.18-3.417-1.629-6.605-4.099-9.001c-2.538-2.461-5.877-3.817-9.404-3.817c-0.264%2C0-0.479%2C0.215-0.479%2C0.479%20%20%20C44.72%2C30.083%2C44.936%2C30.296%2C45.201%2C30.296z%22%3E%3C/path%3E%3C/g%3E%3C/svg%3E) center/50% 50% no-repeat rgba(244,244,244,1);bottom:0;font-size:14px;font-weight:600;left:0;line-height:20px;right:0;position:fixed;top:0;z-index:9999999}.a-orientation-modal:after{color:#666;content:\"Insert phone into Cardboard holder.\";display:block;position:absolute;text-align:center;top:70%;transform:translateY(-70%);width:100%}.a-orientation-modal button{background:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%20version%3D%221.1%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%20100%20100%22%20enable-background%3D%22new%200%200%20100%20100%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M55.209%2C50l17.803-17.803c1.416-1.416%2C1.416-3.713%2C0-5.129c-1.416-1.417-3.713-1.417-5.129%2C0L50.08%2C44.872%20%20L32.278%2C27.069c-1.416-1.417-3.714-1.417-5.129%2C0c-1.417%2C1.416-1.417%2C3.713%2C0%2C5.129L44.951%2C50L27.149%2C67.803%20%20c-1.417%2C1.416-1.417%2C3.713%2C0%2C5.129c0.708%2C0.708%2C1.636%2C1.062%2C2.564%2C1.062c0.928%2C0%2C1.856-0.354%2C2.564-1.062L50.08%2C55.13l17.803%2C17.802%20%20c0.708%2C0.708%2C1.637%2C1.062%2C2.564%2C1.062s1.856-0.354%2C2.564-1.062c1.416-1.416%2C1.416-3.713%2C0-5.129L55.209%2C50z%22%3E%3C/path%3E%3C/svg%3E) no-repeat;border:none;height:50px;text-indent:-9999px;width:50px}"; (_dereq_("browserify-css").createStyle(css, { "href": "src/style/aframe.css"})); module.exports = css;
-},{"browserify-css":4}],152:[function(_dereq_,module,exports){
-var css = ".rs-base{background-color:#333;color:#fafafa;border-radius:0;font:10px monospace;left:5px;line-height:1em;opacity:.85;overflow:hidden;padding:10px;position:fixed;top:5px;width:300px;z-index:10000}.rs-base div.hidden{display:none}.rs-base h1{color:#fff;cursor:pointer;font-size:1.4em;font-weight:300;margin:0 0 5px;padding:0}.rs-group{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-direction:column-reverse;flex-direction:column-reverse;margin-bottom:5px}.rs-group:last-child{margin-bottom:0}.rs-counter-base{align-items:center;display:-webkit-box;display:-webkit-flex;display:flex;height:10px;-webkit-justify-content:space-between;justify-content:space-between;margin:2px 0}.rs-counter-base.alarm{color:#b70000;text-shadow:0 0 0 #b70000,0 0 1px #fff,0 0 1px #fff,0 0 2px #fff,0 0 2px #fff,0 0 3px #fff,0 0 3px #fff,0 0 4px #fff,0 0 4px #fff}.rs-counter-id{font-weight:300;-webkit-box-ordinal-group:0;-webkit-order:0;order:0;width:54px}.rs-counter-value{font-weight:300;-webkit-box-ordinal-group:1;-webkit-order:1;order:1;text-align:right;width:35px}.rs-canvas{-webkit-box-ordinal-group:2;-webkit-order:2;order:2}@media (min-width:480px){.rs-base{left:20px;top:20px}}"; (_dereq_("browserify-css").createStyle(css, { "href": "src/style/rStats.css"})); module.exports = css;
+},{"../core/shader":109,"../lib/three":146,"../utils/":167}],152:[function(_dereq_,module,exports){
+var css = ".a-html{bottom:0;left:0;position:fixed;right:0;top:0}.a-body{height:100%;margin:0;overflow:hidden;padding:0;width:100%}:-webkit-full-screen{background-color:transparent}.a-hidden{display:none!important}.a-canvas{height:100%;left:0;position:absolute;top:0;width:100%}.a-canvas.a-grab-cursor:hover{cursor:grab;cursor:-moz-grabbing;cursor:-webkit-grab}.a-canvas.a-grab-cursor:active,.a-grabbing{cursor:grabbing;cursor:-moz-grabbing;cursor:-webkit-grabbing}// Class is removed when doing <a-scene embedded>. a-scene.fullscreen .a-canvas{width:100%!important;height:100%!important;top:0!important;left:0!important;right:0!important;bottom:0!important;z-index:999999!important;position:fixed!important}.a-inspector-loader{background-color:#ed3160;position:fixed;left:3px;top:3px;padding:6px 10px;color:#fff;text-decoration:none;font-size:12px;font-family:Roboto,sans-serif;text-align:center;z-index:99999;width:204px}@keyframes dots-1{from{opacity:0}25%{opacity:1}}@keyframes dots-2{from{opacity:0}50%{opacity:1}}@keyframes dots-3{from{opacity:0}75%{opacity:1}}@-webkit-keyframes dots-1{from{opacity:0}25%{opacity:1}}@-webkit-keyframes dots-2{from{opacity:0}50%{opacity:1}}@-webkit-keyframes dots-3{from{opacity:0}75%{opacity:1}}.a-inspector-loader .dots span{animation:dots-1 2s infinite steps(1);-webkit-animation:dots-1 2s infinite steps(1)}.a-inspector-loader .dots span:first-child+span{animation-name:dots-2;-webkit-animation-name:dots-2}.a-inspector-loader .dots span:first-child+span+span{animation-name:dots-3;-webkit-animation-name:dots-3}a-scene{display:block;position:relative;height:100%;width:100%}a-assets,a-scene audio,a-scene img,a-scene video{display:none}.a-enter-vr-modal,.a-orientation-modal{font-family:Consolas,Andale Mono,Courier New,monospace}.a-enter-vr-modal a{border-bottom:1px solid #fff;padding:2px 0;text-decoration:none;transition:.1s color ease-in}.a-enter-vr-modal a:hover{background-color:#fff;color:#111;padding:2px 4px;position:relative;left:-4px}.a-enter-vr{font-family:sans-serif,monospace;font-size:13px;width:100%;font-weight:200;line-height:16px;height:10%;position:absolute;right:20px;bottom:20px}.a-enter-vr.embedded{right:5px;bottom:5px}.a-enter-vr-button,.a-enter-vr-modal,.a-enter-vr-modal a{color:#fff}.a-enter-vr-button{background:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20245.82%20141.73%22%3E%3Cdefs%3E%3Cstyle%3E.a%7Bfill%3A%23fff%3Bfill-rule%3Aevenodd%3B%7D%3C%2Fstyle%3E%3C%2Fdefs%3E%3Ctitle%3Emask%3C%2Ftitle%3E%3Cpath%20class%3D%22a%22%20d%3D%22M175.56%2C111.37c-22.52%2C0-40.77-18.84-40.77-42.07S153%2C27.24%2C175.56%2C27.24s40.77%2C18.84%2C40.77%2C42.07S198.08%2C111.37%2C175.56%2C111.37ZM26.84%2C69.31c0-23.23%2C18.25-42.07%2C40.77-42.07s40.77%2C18.84%2C40.77%2C42.07-18.26%2C42.07-40.77%2C42.07S26.84%2C92.54%2C26.84%2C69.31ZM27.27%2C0C11.54%2C0%2C0%2C12.34%2C0%2C28.58V110.9c0%2C16.24%2C11.54%2C30.83%2C27.27%2C30.83H99.57c2.17%2C0%2C4.19-1.83%2C5.4-3.7L116.47%2C118a8%2C8%2C0%2C0%2C1%2C12.52-.18l11.51%2C20.34c1.2%2C1.86%2C3.22%2C3.61%2C5.39%2C3.61h72.29c15.74%2C0%2C27.63-14.6%2C27.63-30.83V28.58C245.82%2C12.34%2C233.93%2C0%2C218.19%2C0H27.27Z%22%2F%3E%3C%2Fsvg%3E) 50% 50%/70% 70% no-repeat rgba(0,0,0,.35);border:0;bottom:0;cursor:pointer;min-width:50px;min-height:30px;padding-right:5%;padding-top:4%;position:absolute;right:0;transition:background-color .05s ease;-webkit-transition:background-color .05s ease;z-index:9999}.a-enter-vr-button:active,.a-enter-vr-button:hover{background-color:#666}[data-a-enter-vr-no-webvr] .a-enter-vr-button{border-color:#666;opacity:.65}[data-a-enter-vr-no-webvr] .a-enter-vr-button:active,[data-a-enter-vr-no-webvr] .a-enter-vr-button:hover{background-color:rgba(0,0,0,.35);cursor:not-allowed}.a-enter-vr-modal{background-color:#666;border-radius:0;display:none;min-height:32px;margin-right:70px;padding:9px;width:280px;right:2%;position:absolute}.a-enter-vr-modal:after{border-bottom:10px solid transparent;border-left:10px solid #666;border-top:10px solid transparent;display:inline-block;content:'';position:absolute;right:-5px;top:5px;width:0;height:0}.a-enter-vr-modal a,.a-enter-vr-modal p{display:inline}.a-enter-vr-modal p{margin:0}.a-enter-vr-modal p:after{content:' '}[data-a-enter-vr-no-headset].a-enter-vr:hover .a-enter-vr-modal,[data-a-enter-vr-no-webvr].a-enter-vr:hover .a-enter-vr-modal{display:block}.a-orientation-modal{background:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%20version%3D%221.1%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%2090%2090%22%20enable-background%3D%22new%200%200%2090%2090%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpolygon%20points%3D%220%2C0%200%2C0%200%2C0%20%22%3E%3C/polygon%3E%3Cg%3E%3Cpath%20d%3D%22M71.545%2C48.145h-31.98V20.743c0-2.627-2.138-4.765-4.765-4.765H18.456c-2.628%2C0-4.767%2C2.138-4.767%2C4.765v42.789%20%20%20c0%2C2.628%2C2.138%2C4.766%2C4.767%2C4.766h5.535v0.959c0%2C2.628%2C2.138%2C4.765%2C4.766%2C4.765h42.788c2.628%2C0%2C4.766-2.137%2C4.766-4.765V52.914%20%20%20C76.311%2C50.284%2C74.173%2C48.145%2C71.545%2C48.145z%20M18.455%2C16.935h16.344c2.1%2C0%2C3.808%2C1.708%2C3.808%2C3.808v27.401H37.25V22.636%20%20%20c0-0.264-0.215-0.478-0.479-0.478H16.482c-0.264%2C0-0.479%2C0.214-0.479%2C0.478v36.585c0%2C0.264%2C0.215%2C0.478%2C0.479%2C0.478h7.507v7.644%20%20%20h-5.534c-2.101%2C0-3.81-1.709-3.81-3.81V20.743C14.645%2C18.643%2C16.354%2C16.935%2C18.455%2C16.935z%20M16.96%2C23.116h19.331v25.031h-7.535%20%20%20c-2.628%2C0-4.766%2C2.139-4.766%2C4.768v5.828h-7.03V23.116z%20M71.545%2C73.064H28.757c-2.101%2C0-3.81-1.708-3.81-3.808V52.914%20%20%20c0-2.102%2C1.709-3.812%2C3.81-3.812h42.788c2.1%2C0%2C3.809%2C1.71%2C3.809%2C3.812v16.343C75.354%2C71.356%2C73.645%2C73.064%2C71.545%2C73.064z%22%3E%3C/path%3E%3Cpath%20d%3D%22M28.919%2C58.424c-1.466%2C0-2.659%2C1.193-2.659%2C2.66c0%2C1.466%2C1.193%2C2.658%2C2.659%2C2.658c1.468%2C0%2C2.662-1.192%2C2.662-2.658%20%20%20C31.581%2C59.617%2C30.387%2C58.424%2C28.919%2C58.424z%20M28.919%2C62.786c-0.939%2C0-1.703-0.764-1.703-1.702c0-0.939%2C0.764-1.704%2C1.703-1.704%20%20%20c0.94%2C0%2C1.705%2C0.765%2C1.705%2C1.704C30.623%2C62.022%2C29.858%2C62.786%2C28.919%2C62.786z%22%3E%3C/path%3E%3Cpath%20d%3D%22M69.654%2C50.461H33.069c-0.264%2C0-0.479%2C0.215-0.479%2C0.479v20.288c0%2C0.264%2C0.215%2C0.478%2C0.479%2C0.478h36.585%20%20%20c0.263%2C0%2C0.477-0.214%2C0.477-0.478V50.939C70.131%2C50.676%2C69.917%2C50.461%2C69.654%2C50.461z%20M69.174%2C51.417V70.75H33.548V51.417H69.174z%22%3E%3C/path%3E%3Cpath%20d%3D%22M45.201%2C30.296c6.651%2C0%2C12.233%2C5.351%2C12.551%2C11.977l-3.033-2.638c-0.193-0.165-0.507-0.142-0.675%2C0.048%20%20%20c-0.174%2C0.198-0.153%2C0.501%2C0.045%2C0.676l3.883%2C3.375c0.09%2C0.075%2C0.198%2C0.115%2C0.312%2C0.115c0.141%2C0%2C0.273-0.061%2C0.362-0.166%20%20%20l3.371-3.877c0.173-0.2%2C0.151-0.502-0.047-0.675c-0.194-0.166-0.508-0.144-0.676%2C0.048l-2.592%2C2.979%20%20%20c-0.18-3.417-1.629-6.605-4.099-9.001c-2.538-2.461-5.877-3.817-9.404-3.817c-0.264%2C0-0.479%2C0.215-0.479%2C0.479%20%20%20C44.72%2C30.083%2C44.936%2C30.296%2C45.201%2C30.296z%22%3E%3C/path%3E%3C/g%3E%3C/svg%3E) center/50% 50% no-repeat rgba(244,244,244,1);bottom:0;font-size:14px;font-weight:600;left:0;line-height:20px;right:0;position:fixed;top:0;z-index:9999999}.a-orientation-modal:after{color:#666;content:\"Insert phone into Cardboard holder.\";display:block;position:absolute;text-align:center;top:70%;transform:translateY(-70%);width:100%}.a-orientation-modal button{background:url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%20version%3D%221.1%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%20100%20100%22%20enable-background%3D%22new%200%200%20100%20100%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M55.209%2C50l17.803-17.803c1.416-1.416%2C1.416-3.713%2C0-5.129c-1.416-1.417-3.713-1.417-5.129%2C0L50.08%2C44.872%20%20L32.278%2C27.069c-1.416-1.417-3.714-1.417-5.129%2C0c-1.417%2C1.416-1.417%2C3.713%2C0%2C5.129L44.951%2C50L27.149%2C67.803%20%20c-1.417%2C1.416-1.417%2C3.713%2C0%2C5.129c0.708%2C0.708%2C1.636%2C1.062%2C2.564%2C1.062c0.928%2C0%2C1.856-0.354%2C2.564-1.062L50.08%2C55.13l17.803%2C17.802%20%20c0.708%2C0.708%2C1.637%2C1.062%2C2.564%2C1.062s1.856-0.354%2C2.564-1.062c1.416-1.416%2C1.416-3.713%2C0-5.129L55.209%2C50z%22%3E%3C/path%3E%3C/svg%3E) no-repeat;border:none;height:50px;text-indent:-9999px;width:50px}"; (_dereq_("browserify-css").createStyle(css, { "href": "src/style/aframe.css"})); module.exports = css;
 },{"browserify-css":4}],153:[function(_dereq_,module,exports){
+var css = ".rs-base{background-color:#333;color:#fafafa;border-radius:0;font:10px monospace;left:5px;line-height:1em;opacity:.85;overflow:hidden;padding:10px;position:fixed;top:5px;width:300px;z-index:10000}.rs-base div.hidden{display:none}.rs-base h1{color:#fff;cursor:pointer;font-size:1.4em;font-weight:300;margin:0 0 5px;padding:0}.rs-group{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-flex-direction:column-reverse;flex-direction:column-reverse;margin-bottom:5px}.rs-group:last-child{margin-bottom:0}.rs-counter-base{align-items:center;display:-webkit-box;display:-webkit-flex;display:flex;height:10px;-webkit-justify-content:space-between;justify-content:space-between;margin:2px 0}.rs-counter-base.alarm{color:#b70000;text-shadow:0 0 0 #b70000,0 0 1px #fff,0 0 1px #fff,0 0 2px #fff,0 0 2px #fff,0 0 3px #fff,0 0 3px #fff,0 0 4px #fff,0 0 4px #fff}.rs-counter-id{font-weight:300;-webkit-box-ordinal-group:0;-webkit-order:0;order:0;width:54px}.rs-counter-value{font-weight:300;-webkit-box-ordinal-group:1;-webkit-order:1;order:1;text-align:right;width:35px}.rs-canvas{-webkit-box-ordinal-group:2;-webkit-order:2;order:2}@media (min-width:480px){.rs-base{left:20px;top:20px}}"; (_dereq_("browserify-css").createStyle(css, { "href": "src/style/rStats.css"})); module.exports = css;
+},{"browserify-css":4}],154:[function(_dereq_,module,exports){
 var bind = _dereq_('../utils/bind');
 var constants = _dereq_('../constants/');
 var registerSystem = _dereq_('../core/system').registerSystem;
@@ -76231,7 +76290,7 @@ function removeDefaultCamera (sceneEl) {
   sceneEl.removeChild(defaultCamera);
 }
 
-},{"../constants/":91,"../core/system":109,"../utils/bind":160}],154:[function(_dereq_,module,exports){
+},{"../constants/":91,"../core/system":110,"../utils/bind":161}],155:[function(_dereq_,module,exports){
 var geometries = _dereq_('../core/geometry').geometries;
 var registerSystem = _dereq_('../core/system').registerSystem;
 var THREE = _dereq_('../lib/three');
@@ -76371,7 +76430,7 @@ function toBufferGeometry (geometry, doBuffer) {
   return bufferGeometry;
 }
 
-},{"../core/geometry":101,"../core/system":109,"../lib/three":145}],155:[function(_dereq_,module,exports){
+},{"../core/geometry":101,"../core/system":110,"../lib/three":146}],156:[function(_dereq_,module,exports){
 var registerSystem = _dereq_('../core/system').registerSystem;
 var THREE = _dereq_('../lib/three');
 
@@ -76414,7 +76473,7 @@ module.exports.System = registerSystem('gltf-model', {
   }
 });
 
-},{"../core/system":109,"../lib/three":145}],156:[function(_dereq_,module,exports){
+},{"../core/system":110,"../lib/three":146}],157:[function(_dereq_,module,exports){
 _dereq_('./camera');
 _dereq_('./geometry');
 _dereq_('./gltf-model');
@@ -76423,7 +76482,7 @@ _dereq_('./material');
 _dereq_('./tracked-controls');
 
 
-},{"./camera":153,"./geometry":154,"./gltf-model":155,"./light":157,"./material":158,"./tracked-controls":159}],157:[function(_dereq_,module,exports){
+},{"./camera":154,"./geometry":155,"./gltf-model":156,"./light":158,"./material":159,"./tracked-controls":160}],158:[function(_dereq_,module,exports){
 var registerSystem = _dereq_('../core/system').registerSystem;
 var bind = _dereq_('../utils/bind');
 var constants = _dereq_('../constants/');
@@ -76502,7 +76561,7 @@ module.exports.System = registerSystem('light', {
   }
 });
 
-},{"../constants/":91,"../core/system":109,"../utils/bind":160}],158:[function(_dereq_,module,exports){
+},{"../constants/":91,"../core/system":110,"../utils/bind":161}],159:[function(_dereq_,module,exports){
 var registerSystem = _dereq_('../core/system').registerSystem;
 var THREE = _dereq_('../lib/three');
 var utils = _dereq_('../utils/');
@@ -76843,7 +76902,7 @@ function fixVideoAttributes (videoEl) {
   return videoEl;
 }
 
-},{"../core/system":109,"../lib/three":145,"../utils/":166}],159:[function(_dereq_,module,exports){
+},{"../core/system":110,"../lib/three":146,"../utils/":167}],160:[function(_dereq_,module,exports){
 var registerSystem = _dereq_('../core/system').registerSystem;
 var trackedControlsUtils = _dereq_('../utils/tracked-controls');
 var utils = _dereq_('../utils');
@@ -76885,7 +76944,7 @@ module.exports.System = registerSystem('tracked-controls', {
   }
 });
 
-},{"../core/system":109,"../utils":166,"../utils/tracked-controls":170}],160:[function(_dereq_,module,exports){
+},{"../core/system":110,"../utils":167,"../utils/tracked-controls":171}],161:[function(_dereq_,module,exports){
 /**
  * Faster version of Function.prototype.bind
  * @param {Function} fn - Function to wrap.
@@ -76902,7 +76961,7 @@ module.exports = function bind (fn, ctx/* , arg1, arg2 */) {
   })(Array.prototype.slice.call(arguments, 2));
 };
 
-},{}],161:[function(_dereq_,module,exports){
+},{}],162:[function(_dereq_,module,exports){
 /* global THREE */
 var extend = _dereq_('object-assign');
 // Coordinate string regex. Handles negative, positive, and decimals.
@@ -76981,7 +77040,7 @@ module.exports.toVector3 = function (vec3) {
   return new THREE.Vector3(vec3.x, vec3.y, vec3.z);
 };
 
-},{"object-assign":26}],162:[function(_dereq_,module,exports){
+},{"object-assign":26}],163:[function(_dereq_,module,exports){
 (function (process){
 var debugLib = _dereq_('debug');
 var extend = _dereq_('object-assign');
@@ -77078,7 +77137,7 @@ module.exports = debug;
 
 }).call(this,_dereq_('_process'))
 
-},{"_process":34,"debug":7,"object-assign":26}],163:[function(_dereq_,module,exports){
+},{"_process":34,"debug":7,"object-assign":26}],164:[function(_dereq_,module,exports){
 var THREE = _dereq_('../lib/three');
 var dolly = new THREE.Object3D();
 var controls = new THREE.VRControls(dolly);
@@ -77164,7 +77223,7 @@ module.exports.isIOSOlderThan10 = function (userAgent) {
   return /(iphone|ipod|ipad).*os.(7|8|9)/i.test(userAgent);
 };
 
-},{"../lib/three":145}],164:[function(_dereq_,module,exports){
+},{"../lib/three":146}],165:[function(_dereq_,module,exports){
 /**
  * Split a delimited component property string (e.g., `material.color`) to an object
  * containing `component` name and `property` name. If there is no delimiter, just return the
@@ -77205,7 +77264,7 @@ module.exports.setComponentProperty = function (el, name, value, delimiter) {
   el.setAttribute(name, value);
 };
 
-},{}],165:[function(_dereq_,module,exports){
+},{}],166:[function(_dereq_,module,exports){
 module.exports = function forceCanvasResizeSafariMobile (canvasEl) {
   var width = canvasEl.style.width;
   var height = canvasEl.style.height;
@@ -77221,7 +77280,7 @@ module.exports = function forceCanvasResizeSafariMobile (canvasEl) {
   }, 200);
 };
 
-},{}],166:[function(_dereq_,module,exports){
+},{}],167:[function(_dereq_,module,exports){
 /* global CustomEvent, location */
 /* Centralized place to reference utilities since utils is exposed to the user. */
 var debug = _dereq_('./debug');
@@ -77489,7 +77548,7 @@ module.exports.findAllScenes = function (el) {
 // Must be at bottom to avoid circular dependency.
 module.exports.srcLoader = _dereq_('./src-loader');
 
-},{"./bind":160,"./coordinates":161,"./debug":162,"./device":163,"./entity":164,"./forceCanvasResizeSafariMobile":165,"./material":167,"./src-loader":168,"./styleParser":169,"./tracked-controls":170,"deep-assign":9,"object-assign":26}],167:[function(_dereq_,module,exports){
+},{"./bind":161,"./coordinates":162,"./debug":163,"./device":164,"./entity":165,"./forceCanvasResizeSafariMobile":166,"./material":168,"./src-loader":169,"./styleParser":170,"./tracked-controls":171,"deep-assign":9,"object-assign":26}],168:[function(_dereq_,module,exports){
 var THREE = _dereq_('../lib/three');
 
 /**
@@ -77600,7 +77659,7 @@ function handleTextureEvents (el, texture) {
 }
 module.exports.handleTextureEvents = handleTextureEvents;
 
-},{"../lib/three":145}],168:[function(_dereq_,module,exports){
+},{"../lib/three":146}],169:[function(_dereq_,module,exports){
 /* global Image */
 var debug = _dereq_('./debug');
 
@@ -77727,7 +77786,7 @@ module.exports = {
   validateCubemapSrc: validateCubemapSrc
 };
 
-},{"./debug":162}],169:[function(_dereq_,module,exports){
+},{"./debug":163}],170:[function(_dereq_,module,exports){
 /* Utils for parsing style-like strings (e.g., "primitive: box; width: 5; height: 4.5"). */
 var styleParser = _dereq_('style-attr');
 
@@ -77787,7 +77846,7 @@ function transformKeysToCamelCase (obj) {
 }
 module.exports.transformKeysToCamelCase = transformKeysToCamelCase;
 
-},{"style-attr":37}],170:[function(_dereq_,module,exports){
+},{"style-attr":37}],171:[function(_dereq_,module,exports){
 /**
  * Return enumerated gamepads matching id prefix.
  *
@@ -77850,7 +77909,7 @@ module.exports.isControllerPresent = function (sceneEl, idPrefix, queryObject) {
 };
 
 
-},{}],171:[function(_dereq_,module,exports){
+},{}],172:[function(_dereq_,module,exports){
 /**
  * @author dmarcos / https://github.com/dmarcos
  * @author mrdoob / http://mrdoob.com
@@ -78025,7 +78084,7 @@ THREE.VRControls = function ( object, onError ) {
 
 };
 
-},{}],172:[function(_dereq_,module,exports){
+},{}],173:[function(_dereq_,module,exports){
 /**
  * @author dmarcos / https://github.com/dmarcos
  * @author mrdoob / http://mrdoob.com
@@ -78504,7 +78563,7 @@ THREE.VREffect = function( renderer, onError ) {
 
 };
 
-},{}],173:[function(_dereq_,module,exports){
+},{}],174:[function(_dereq_,module,exports){
 window.glStats = function () {
 
     var _rS = null;
@@ -78769,7 +78828,7 @@ if (typeof module === 'object') {
   };
 }
 
-},{}],174:[function(_dereq_,module,exports){
+},{}],175:[function(_dereq_,module,exports){
 // performance.now() polyfill from https://gist.github.com/paulirish/5438650
 'use strict';
 
@@ -79223,7 +79282,7 @@ if (typeof module === 'object') {
   module.exports = window.rStats;
 }
 
-},{}],175:[function(_dereq_,module,exports){
+},{}],176:[function(_dereq_,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -79285,7 +79344,7 @@ Util.isLandscapeMode = function() {
 
 module.exports = Util;
 
-},{}],176:[function(_dereq_,module,exports){
+},{}],177:[function(_dereq_,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -79361,6 +79420,6 @@ function getWakeLock() {
 
 module.exports = getWakeLock();
 
-},{"./util.js":175}]},{},[143])(143)
+},{"./util.js":176}]},{},[144])(144)
 });
 //# sourceMappingURL=aframe-master.js.map
