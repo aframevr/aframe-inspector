@@ -271,14 +271,17 @@ input[type=color]::-moz-focus-inner {
 
 div.vec2,
 div.vec3,
-div.vec4, {
+div.vec4 {
   display: inline;
 }
 
 .vec2 input.number,
-.vec3 input.number,
-.vec4 input.number {
+.vec3 input.number {
   width: 46px;
+}
+
+.vec4 input.number {
+  width: 34px;
 }
 
 .collapsible-header {
