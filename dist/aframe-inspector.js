@@ -71,23 +71,25 @@
 
 	var _Sidebar2 = _interopRequireDefault(_Sidebar);
 
-	var _ModalTextures = __webpack_require__(235);
+	var _ModalTextures = __webpack_require__(236);
 
 	var _ModalTextures2 = _interopRequireDefault(_ModalTextures);
 
-	var _ModalHelp = __webpack_require__(238);
+	var _ModalHelp = __webpack_require__(240);
 
 	var _ModalHelp2 = _interopRequireDefault(_ModalHelp);
 
-	var _SceneGraph = __webpack_require__(239);
+	var _SceneGraph = __webpack_require__(241);
 
 	var _SceneGraph2 = _interopRequireDefault(_SceneGraph);
 
-	var _ToolBar = __webpack_require__(242);
+	var _ToolBar = __webpack_require__(244);
 
 	var _ToolBar2 = _interopRequireDefault(_ToolBar);
 
-	__webpack_require__(243);
+	var _utils = __webpack_require__(205);
+
+	__webpack_require__(245);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -98,7 +100,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	/* global VERSION BUILD_TIMESTAMP COMMIT_HASH */
-	__webpack_require__(245);
+	__webpack_require__(247);
 	var INSPECTOR = __webpack_require__(200);
 
 	THREE.ImageUtils.crossOrigin = '';
@@ -107,8 +109,8 @@
 
 
 	// Megahack to include font-awesome.
-	injectCSS('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
-	injectCSS('https://fonts.googleapis.com/css?family=Roboto:400,300,500');
+	(0, _utils.injectCSS)('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
+	(0, _utils.injectCSS)('https://fonts.googleapis.com/css?family=Roboto:400,300,500');
 
 	var Main = function (_React$Component) {
 	  _inherits(Main, _React$Component);
@@ -141,8 +143,27 @@
 	      inspectorEnabled: true,
 	      sceneEl: document.querySelector('a-scene'),
 	      entity: null,
-	      isModalTexturesOpen: false
+	      isModalTexturesOpen: false,
+	      visible: {
+	        scenegraph: true,
+	        attributes: true
+	      }
 	    };
+
+	    Events.on('togglesidebar', function (event) {
+	      if (event.which == 'all') {
+	        if (_this.state.visible.scenegraph || _this.state.visible.attributes) {
+	          _this.state.visible.scenegraph = _this.state.visible.attributes = false;
+	        } else {
+	          _this.state.visible.scenegraph = _this.state.visible.attributes = true;
+	        }
+	      } else if (event.which == 'attributes') {
+	        _this.state.visible.attributes = !_this.state.visible.attributes;
+	      } else if (event.which == 'scenegraph') {
+	        _this.state.visible.scenegraph = !_this.state.visible.scenegraph;
+	      }
+	      _this.forceUpdate();
+	    });
 	    return _this;
 	  }
 
@@ -183,11 +204,27 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this3 = this;
+
 	      var scene = this.state.sceneEl;
 	      var editButton = _react2.default.createElement(
 	        'a',
 	        { className: 'toggle-edit', onClick: this.toggleEdit },
 	        this.state.inspectorEnabled ? 'Back to Scene' : 'Inspect Scene'
+	      );
+	      var showScenegraph = this.state.visible.scenegraph ? null : _react2.default.createElement(
+	        'div',
+	        { className: 'toggle-sidebar left' },
+	        _react2.default.createElement('a', { onClick: function onClick() {
+	            _this3.state.visible.scenegraph = true;_this3.forceUpdate();
+	          }, className: 'fa fa-plus', title: 'Show scenegraph' })
+	      );
+	      var showAttributes = !this.state.entity || this.state.visible.attributes ? null : _react2.default.createElement(
+	        'div',
+	        { className: 'toggle-sidebar right' },
+	        _react2.default.createElement('a', { onClick: function onClick() {
+	            _this3.state.visible.attributes = true;_this3.forceUpdate();
+	          }, className: 'fa fa-plus', title: 'Show components' })
 	      );
 
 	      return _react2.default.createElement(
@@ -198,16 +235,14 @@
 	          'div',
 	          { id: 'aframe-inspector-panels', className: this.state.inspectorEnabled ? '' : 'hidden' },
 	          _react2.default.createElement(_ModalTextures2.default, { ref: 'modaltextures', isOpen: this.state.isModalTexturesOpen, selectedTexture: this.state.selectedTexture, onClose: this.onModalTextureOnClose }),
-	          _react2.default.createElement(
-	            'div',
-	            { id: 'left-sidebar' },
-	            _react2.default.createElement(_SceneGraph2.default, { scene: scene, selectedEntity: this.state.entity })
-	          ),
+	          _react2.default.createElement(_SceneGraph2.default, { id: 'left-sidebar', scene: scene, selectedEntity: this.state.entity, visible: this.state.visible.scenegraph }),
+	          showScenegraph,
+	          showAttributes,
 	          _react2.default.createElement(
 	            'div',
 	            { id: 'right-panels' },
 	            _react2.default.createElement(_ToolBar2.default, null),
-	            _react2.default.createElement(_Sidebar2.default, { entity: this.state.entity })
+	            _react2.default.createElement(_Sidebar2.default, { entity: this.state.entity, visible: this.state.visible.attributes })
 	          )
 	        ),
 	        _react2.default.createElement(_ModalHelp2.default, { isOpen: this.state.isHelpOpen, onClose: this.onCloseHelpModal })
@@ -220,16 +255,6 @@
 
 	exports.default = Main;
 
-
-	function injectCSS(url) {
-	  var link = document.createElement('link');
-	  link.href = url;
-	  link.type = 'text/css';
-	  link.rel = 'stylesheet';
-	  link.media = 'screen,print';
-	  link.setAttribute('data-aframe-inspector', 'style');
-	  document.head.appendChild(link);
-	}
 
 	(function init() {
 	  var webFontLoader = document.createElement('script');
@@ -254,7 +279,7 @@
 	  });
 	  AFRAME.INSPECTOR = INSPECTOR;
 
-	  console.log('A-Frame Inspector Version:', ("0.5.0"), '(' + ("08-02-2017") + ' Commit: ' + ("c2f7cee3a5e9e7e2203d42d8690292b7213abba1\n").substr(0, 7) + ')');
+	  console.log('A-Frame Inspector Version:', ("0.5.1"), '(' + ("13-02-2017") + ' Commit: ' + ("955865550a78a9d1b29d9d4f81fae60d75c8a2db\n").substr(0, 7) + ')');
 	})();
 
 /***/ },
@@ -21659,7 +21684,8 @@
 	    key: 'render',
 	    value: function render() {
 	      var entity = this.state.entity;
-	      if (entity) {
+	      var visible = this.props.visible;
+	      if (entity && visible) {
 	        return _react2.default.createElement(
 	          'div',
 	          { id: 'sidebar' },
@@ -21675,7 +21701,8 @@
 	}(_react2.default.Component);
 
 	Sidebar.propTypes = {
-	  entity: _react2.default.PropTypes.object
+	  entity: _react2.default.PropTypes.object,
+	  visible: _react2.default.PropTypes.bool
 	};
 	exports.default = Sidebar;
 
@@ -21703,11 +21730,11 @@
 
 	var _Component2 = _interopRequireDefault(_Component);
 
-	var _CommonComponents = __webpack_require__(231);
+	var _CommonComponents = __webpack_require__(232);
 
 	var _CommonComponents2 = _interopRequireDefault(_CommonComponents);
 
-	var _DefaultComponents = __webpack_require__(233);
+	var _DefaultComponents = __webpack_require__(234);
 
 	var _DefaultComponents2 = _interopRequireDefault(_DefaultComponents);
 
@@ -25087,6 +25114,7 @@
 	  removeObject: function removeObject(object) {
 	    // Remove just the helper as the object will be deleted by Aframe
 	    this.removeHelpers(object);
+	    Events.emit('objectremoved', object);
 	  },
 
 	  addHelper: function () {
@@ -25347,6 +25375,10 @@
 
 	/* global THREE CustomEvent */
 	var Events = __webpack_require__(182);
+	/* eslint-disable no-unused-vars */
+
+	/* eslint-disable no-unused-vars */
+
 
 	var gaTrackTransformEntity = (0, _lodash2.default)(function (transformMode) {
 	  ga('send', 'event', 'Viewport', 'transformEntity', transformMode);
@@ -25376,7 +25408,7 @@
 	  var sceneHelpers = inspector.sceneHelpers;
 	  var objects = [];
 
-	  var grid = new THREE.GridHelper(30, 60, 0xbbbbbb, 0x888888);
+	  var grid = new THREE.GridHelper(30, 60, 0x555555, 0x292929);
 
 	  sceneHelpers.add(grid);
 
@@ -25606,6 +25638,7 @@
 	    inspector.container.removeEventListener('mousedown', onMouseDown);
 	    inspector.container.removeEventListener('touchstart', onTouchStart);
 	    inspector.container.removeEventListener('dblclick', onDoubleClick);
+	    transformControls.dispose();
 	    controls.enabled = false;
 	  }
 
@@ -25613,6 +25646,7 @@
 	    inspector.container.addEventListener('mousedown', onMouseDown, false);
 	    inspector.container.addEventListener('touchstart', onTouchStart, false);
 	    inspector.container.addEventListener('dblclick', onDoubleClick, false);
+	    transformControls.activate();
 	    controls.enabled = true;
 	  }
 	  enableControls();
@@ -26333,13 +26367,13 @@
 			arrowGeometry.merge(mesh.geometry, mesh.matrix);
 
 			var lineXGeometry = new THREE.BufferGeometry();
-			lineXGeometry.addAttribute('position', new THREE.Float32Attribute([0, 0, 0, 1, 0, 0], 3));
+			lineXGeometry.addAttribute('position', new THREE.Float32BufferAttribute([0, 0, 0, 1, 0, 0], 3));
 
 			var lineYGeometry = new THREE.BufferGeometry();
-			lineYGeometry.addAttribute('position', new THREE.Float32Attribute([0, 0, 0, 0, 1, 0], 3));
+			lineYGeometry.addAttribute('position', new THREE.Float32BufferAttribute([0, 0, 0, 0, 1, 0], 3));
 
 			var lineZGeometry = new THREE.BufferGeometry();
-			lineZGeometry.addAttribute('position', new THREE.Float32Attribute([0, 0, 0, 0, 0, 1], 3));
+			lineZGeometry.addAttribute('position', new THREE.Float32BufferAttribute([0, 0, 0, 0, 0, 1], 3));
 
 			this.handleGizmos = {
 
@@ -26434,7 +26468,7 @@
 					if (facing === 'z') vertices.push(Math.sin(i / 32 * Math.PI) * radius, Math.cos(i / 32 * Math.PI) * radius, 0);
 				}
 
-				geometry.addAttribute('position', new THREE.Float32Attribute(vertices, 3));
+				geometry.addAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
 				return geometry;
 			};
 
@@ -26551,13 +26585,13 @@
 			arrowGeometry.merge(mesh.geometry, mesh.matrix);
 
 			var lineXGeometry = new THREE.BufferGeometry();
-			lineXGeometry.addAttribute('position', new THREE.Float32Attribute([0, 0, 0, 1, 0, 0], 3));
+			lineXGeometry.addAttribute('position', new THREE.Float32BufferAttribute([0, 0, 0, 1, 0, 0], 3));
 
 			var lineYGeometry = new THREE.BufferGeometry();
-			lineYGeometry.addAttribute('position', new THREE.Float32Attribute([0, 0, 0, 0, 1, 0], 3));
+			lineYGeometry.addAttribute('position', new THREE.Float32BufferAttribute([0, 0, 0, 0, 1, 0], 3));
 
 			var lineZGeometry = new THREE.BufferGeometry();
-			lineZGeometry.addAttribute('position', new THREE.Float32Attribute([0, 0, 0, 0, 0, 1], 3));
+			lineZGeometry.addAttribute('position', new THREE.Float32BufferAttribute([0, 0, 0, 0, 0, 1], 3));
 
 			this.handleGizmos = {
 
@@ -26696,20 +26730,24 @@
 			var camPosition = new THREE.Vector3();
 			var camRotation = new THREE.Euler();
 
-			domElement.addEventListener("mousedown", onPointerDown, false);
-			domElement.addEventListener("touchstart", onPointerDown, false);
+			this.activate = function () {
+				domElement.addEventListener("mousedown", onPointerDown, false);
+				domElement.addEventListener("touchstart", onPointerDown, false);
 
-			domElement.addEventListener("mousemove", onPointerHover, false);
-			domElement.addEventListener("touchmove", onPointerHover, false);
+				domElement.addEventListener("mousemove", onPointerHover, false);
+				domElement.addEventListener("touchmove", onPointerHover, false);
 
-			domElement.addEventListener("mousemove", onPointerMove, false);
-			domElement.addEventListener("touchmove", onPointerMove, false);
+				domElement.addEventListener("mousemove", onPointerMove, false);
+				domElement.addEventListener("touchmove", onPointerMove, false);
 
-			domElement.addEventListener("mouseup", onPointerUp, false);
-			domElement.addEventListener("mouseout", onPointerUp, false);
-			domElement.addEventListener("touchend", onPointerUp, false);
-			domElement.addEventListener("touchcancel", onPointerUp, false);
-			domElement.addEventListener("touchleave", onPointerUp, false);
+				domElement.addEventListener("mouseup", onPointerUp, false);
+				domElement.addEventListener("mouseout", onPointerUp, false);
+				domElement.addEventListener("touchend", onPointerUp, false);
+				domElement.addEventListener("touchcancel", onPointerUp, false);
+				domElement.addEventListener("touchleave", onPointerUp, false);
+			};
+
+			this.activate();
 
 			this.dispose = function () {
 
@@ -27485,10 +27523,55 @@
 	  return true;
 	}
 
+	function getOS() {
+	  var userAgent = window.navigator.userAgent;
+	  var platform = window.navigator.platform;
+	  var macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'];
+	  var windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'];
+	  var iosPlatforms = ['iPhone', 'iPad', 'iPod'];
+	  var os = null;
+
+	  if (macosPlatforms.indexOf(platform) !== -1) {
+	    os = 'macos';
+	  } else if (iosPlatforms.indexOf(platform) !== -1) {
+	    os = 'ios';
+	  } else if (windowsPlatforms.indexOf(platform) !== -1) {
+	    os = 'windows';
+	  } else if (/Android/.test(userAgent)) {
+	    os = 'android';
+	  } else if (!os && /Linux/.test(platform)) {
+	    os = 'linux';
+	  }
+
+	  return os;
+	}
+
+	function injectCSS(url) {
+	  var link = document.createElement('link');
+	  link.href = url;
+	  link.type = 'text/css';
+	  link.rel = 'stylesheet';
+	  link.media = 'screen,print';
+	  link.setAttribute('data-aframe-inspector', 'style');
+	  document.head.appendChild(link);
+	}
+
+	function injectJS(url) {
+	  var link = document.createElement('script');
+	  link.src = url;
+	  link.charset = 'utf-8';
+	  link.setAttribute('data-aframe-inspector', 'style');
+	  document.head.appendChild(link);
+	}
+
 	module.exports = {
 	  equal: equal,
 	  getNumber: getNumber,
-	  getMajorVersion: getMajorVersion
+	  getMajorVersion: getMajorVersion,
+	  getOS: getOS,
+	  os: getOS(),
+	  injectCSS: injectCSS,
+	  injectJS: injectJS
 	};
 
 /***/ },
@@ -27690,6 +27773,8 @@
 
 	var _entity = __webpack_require__(210);
 
+	var _utils = __webpack_require__(205);
+
 	/* globals AFRAME */
 	var Events = __webpack_require__(182);
 
@@ -27753,10 +27838,57 @@
 	      (0, _entity.cloneSelectedEntity)();
 	    }
 	  },
+	  onKeyDown: function onKeyDown(event) {
+
+	    if (event.ctrlKey && _utils.os === 'windows' || event.metaKey && _utils.os === 'macos') {
+	      if (AFRAME.INSPECTOR.selectedEntity && document.activeElement.tagName !== 'INPUT') {
+	        // x: cut selected entity
+	        if (event.keyCode === 88) {
+	          AFRAME.INSPECTOR.entityToCopy = AFRAME.INSPECTOR.selectedEntity;
+	          (0, _entity.removeSelectedEntity)(true);
+	        }
+
+	        // c: copy selected entity
+	        if (event.keyCode === 67) {
+	          AFRAME.INSPECTOR.entityToCopy = AFRAME.INSPECTOR.selectedEntity;
+	        }
+
+	        // v: paste copied entity
+	        if (event.keyCode === 86) {
+	          (0, _entity.cloneEntity)(AFRAME.INSPECTOR.entityToCopy);
+	        }
+	      }
+
+	      // f: focus filter input
+	      if (event.keyCode === 70) {
+	        event.preventDefault();
+	        event.stopPropagation();
+	        document.getElementById('filter').focus();
+	      }
+	    }
+	    // tab: toggle sidebars visibility
+	    if (event.keyCode === 9) {
+	      Events.emit('togglesidebar', { which: 'all' });
+	      event.preventDefault();
+	      event.stopPropagation();
+	    }
+
+	    // 1: toggle scenegraph visibility only
+	    if (event.keyCode === 49) {
+	      Events.emit('togglesidebar', { which: 'scenegraph' });
+	    }
+
+	    // 2: toggle sidebar visibility only
+	    if (event.keyCode === 50) {
+	      Events.emit('togglesidebar', { which: 'attributes' });
+	    }
+	  },
 	  enable: function enable() {
+	    window.addEventListener('keydown', this.onKeyDown, false);
 	    window.addEventListener('keyup', this.onKeyUp, false);
 	  },
 	  disable: function disable() {
+	    window.removeEventListener('keydown', this.onKeyDown);
 	    window.removeEventListener('keyup', this.onKeyUp);
 	  }
 	};
@@ -27861,7 +27993,7 @@
 	 */
 	function removeSelectedEntity(force) {
 	  if (AFRAME.INSPECTOR.selectedEntity) {
-	    removeEntity(AFRAME.INSPECTOR.selectedEntity);
+	    removeEntity(AFRAME.INSPECTOR.selectedEntity, force);
 	  }
 	}
 
@@ -27871,7 +28003,15 @@
 	 * @param  {Element} referenceNode Node used as reference to insert after it.
 	*/
 	function insertAfter(newNode, referenceNode) {
-	  referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+	  if (!referenceNode.parentNode) {
+	    referenceNode = AFRAME.INSPECTOR.selectedEntity;
+	  }
+
+	  if (!referenceNode) {
+	    AFRAME.INSPECTOR.sceneEl.appendChild(newNode);
+	  } else {
+	    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+	  }
 	}
 
 	/**
@@ -28038,15 +28178,15 @@
 
 	var _PropertyRow2 = _interopRequireDefault(_PropertyRow);
 
-	var _Collapsible = __webpack_require__(222);
+	var _Collapsible = __webpack_require__(223);
 
 	var _Collapsible2 = _interopRequireDefault(_Collapsible);
 
-	var _clipboard = __webpack_require__(223);
+	var _clipboard = __webpack_require__(224);
 
 	var _clipboard2 = _interopRequireDefault(_clipboard);
 
-	var _component = __webpack_require__(221);
+	var _component = __webpack_require__(222);
 
 	var _Events = __webpack_require__(182);
 
@@ -28263,17 +28403,21 @@
 
 	var _TextureWidget2 = _interopRequireDefault(_TextureWidget);
 
-	var _Vec3Widget = __webpack_require__(219);
+	var _Vec4Widget = __webpack_require__(219);
+
+	var _Vec4Widget2 = _interopRequireDefault(_Vec4Widget);
+
+	var _Vec3Widget = __webpack_require__(220);
 
 	var _Vec3Widget2 = _interopRequireDefault(_Vec3Widget);
 
-	var _Vec2Widget = __webpack_require__(220);
+	var _Vec2Widget = __webpack_require__(221);
 
 	var _Vec2Widget2 = _interopRequireDefault(_Vec2Widget);
 
 	var _entity = __webpack_require__(210);
 
-	var _component = __webpack_require__(221);
+	var _component = __webpack_require__(222);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28355,6 +28499,10 @@
 	        case 'vec3':
 	          {
 	            return _react2.default.createElement(_Vec3Widget2.default, widgetProps);
+	          }
+	        case 'vec4':
+	          {
+	            return _react2.default.createElement(_Vec4Widget2.default, widgetProps);
 	          }
 	        case 'color':
 	          {
@@ -29072,6 +29220,9 @@
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(newProps) {
 	      var component = this.props.entity.components[this.props.componentname];
+	      if (!component) {
+	        return;
+	      }
 	      var newValue = component.attrValue[this.props.name];
 
 	      // This will be triggered typically when the element is changed directly with element.setAttribute
@@ -29214,6 +29365,99 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var Vec4Widget = function (_React$Component) {
+	  _inherits(Vec4Widget, _React$Component);
+
+	  function Vec4Widget(props) {
+	    _classCallCheck(this, Vec4Widget);
+
+	    var _this = _possibleConstructorReturn(this, (Vec4Widget.__proto__ || Object.getPrototypeOf(Vec4Widget)).call(this, props));
+
+	    _this.onChange = function (name, value) {
+	      _this.setState(_defineProperty({}, name, value), function () {
+	        if (_this.props.onChange) {
+	          _this.props.onChange(name, _this.state);
+	        }
+	      });
+	    };
+
+	    _this.state = {
+	      x: props.value.x,
+	      y: props.value.y,
+	      z: props.value.z,
+	      w: props.value.w
+	    };
+	    return _this;
+	  }
+
+	  _createClass(Vec4Widget, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this.setState(nextProps.value);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var widgetProps = {
+	        componentname: this.props.componentname,
+	        entity: this.props.entity,
+	        onChange: this.onChange
+	      };
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'vec4' },
+	        _react2.default.createElement(_NumberWidget2.default, _extends({ name: 'x', value: this.state.x }, widgetProps)),
+	        _react2.default.createElement(_NumberWidget2.default, _extends({ name: 'y', value: this.state.y }, widgetProps)),
+	        _react2.default.createElement(_NumberWidget2.default, _extends({ name: 'z', value: this.state.z }, widgetProps)),
+	        _react2.default.createElement(_NumberWidget2.default, _extends({ name: 'w', value: this.state.w }, widgetProps))
+	      );
+	    }
+	  }]);
+
+	  return Vec4Widget;
+	}(_react2.default.Component);
+
+	Vec4Widget.propTypes = {
+	  componentname: _react2.default.PropTypes.string,
+	  entity: _react2.default.PropTypes.object,
+	  onChange: _react2.default.PropTypes.func,
+	  value: _react2.default.PropTypes.object.isRequired
+	};
+	exports.default = Vec4Widget;
+
+/***/ },
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _NumberWidget = __webpack_require__(216);
+
+	var _NumberWidget2 = _interopRequireDefault(_NumberWidget);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 	var Vec3Widget = function (_React$Component) {
 	  _inherits(Vec3Widget, _React$Component);
 
@@ -29274,7 +29518,7 @@
 	exports.default = Vec3Widget;
 
 /***/ },
-/* 220 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29363,7 +29607,7 @@
 	exports.default = Vec2Widget;
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29456,7 +29700,7 @@
 	}
 
 /***/ },
-/* 222 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29551,12 +29795,12 @@
 	exports.default = Collapsible;
 
 /***/ },
-/* 223 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(224), __webpack_require__(226), __webpack_require__(227)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(225), __webpack_require__(227), __webpack_require__(228)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof exports !== "undefined") {
 	        factory(module, require('./clipboard-action'), require('tiny-emitter'), require('good-listener'));
 	    } else {
@@ -29741,12 +29985,12 @@
 	});
 
 /***/ },
-/* 224 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(225)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(226)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof exports !== "undefined") {
 	        factory(module, require('select'));
 	    } else {
@@ -29975,7 +30219,7 @@
 	});
 
 /***/ },
-/* 225 */
+/* 226 */
 /***/ function(module, exports) {
 
 	function select(element) {
@@ -30014,7 +30258,7 @@
 
 
 /***/ },
-/* 226 */
+/* 227 */
 /***/ function(module, exports) {
 
 	function E () {
@@ -30086,11 +30330,11 @@
 
 
 /***/ },
-/* 227 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var is = __webpack_require__(228);
-	var delegate = __webpack_require__(229);
+	var is = __webpack_require__(229);
+	var delegate = __webpack_require__(230);
 
 	/**
 	 * Validates all params and calls the right
@@ -30187,7 +30431,7 @@
 
 
 /***/ },
-/* 228 */
+/* 229 */
 /***/ function(module, exports) {
 
 	/**
@@ -30242,10 +30486,10 @@
 
 
 /***/ },
-/* 229 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var closest = __webpack_require__(230);
+	var closest = __webpack_require__(231);
 
 	/**
 	 * Delegates event to a selector.
@@ -30292,7 +30536,7 @@
 
 
 /***/ },
-/* 230 */
+/* 231 */
 /***/ function(module, exports) {
 
 	/**
@@ -30326,7 +30570,7 @@
 
 
 /***/ },
-/* 231 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30341,9 +30585,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _widgets = __webpack_require__(232);
+	var _widgets = __webpack_require__(233);
 
-	var _DefaultComponents = __webpack_require__(233);
+	var _DefaultComponents = __webpack_require__(234);
 
 	var _DefaultComponents2 = _interopRequireDefault(_DefaultComponents);
 
@@ -30351,11 +30595,11 @@
 
 	var _PropertyRow2 = _interopRequireDefault(_PropertyRow);
 
-	var _Collapsible = __webpack_require__(222);
+	var _Collapsible = __webpack_require__(223);
 
 	var _Collapsible2 = _interopRequireDefault(_Collapsible);
 
-	var _Mixins = __webpack_require__(234);
+	var _Mixins = __webpack_require__(235);
 
 	var _Mixins2 = _interopRequireDefault(_Mixins);
 
@@ -30365,7 +30609,7 @@
 
 	var _Events2 = _interopRequireDefault(_Events);
 
-	var _clipboard = __webpack_require__(223);
+	var _clipboard = __webpack_require__(224);
 
 	var _clipboard2 = _interopRequireDefault(_clipboard);
 
@@ -30378,7 +30622,8 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	// @todo Take this out and use updateEntity?
-	function changeId(entity, componentName, propertyName, value) {
+	function changeId(componentName, value) {
+	  var entity = AFRAME.INSPECTOR.selectedEntity;
 	  if (entity.id !== value) {
 	    entity.id = value;
 	    _Events2.default.emit('entityidchanged', entity);
@@ -30488,7 +30733,7 @@
 	exports.default = CommonComponents;
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30500,12 +30745,13 @@
 	  NumberWidget: __webpack_require__(216).default,
 	  SelectWidget: __webpack_require__(217).default,
 	  TextureWidget: __webpack_require__(218).default,
-	  Vec3Widget: __webpack_require__(219).default,
-	  Vec2Widget: __webpack_require__(220).default
+	  Vec4Widget: __webpack_require__(219).default,
+	  Vec3Widget: __webpack_require__(220).default,
+	  Vec2Widget: __webpack_require__(221).default
 	};
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30516,7 +30762,7 @@
 	exports.default = ['visible', 'position', 'scale', 'rotation'];
 
 /***/ },
-/* 234 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30670,7 +30916,7 @@
 	exports.default = Mixin;
 
 /***/ },
-/* 235 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30689,13 +30935,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Modal = __webpack_require__(236);
+	var _Modal = __webpack_require__(237);
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
 	var _inspector = __webpack_require__(200);
 
 	var _inspector2 = _interopRequireDefault(_inspector);
+
+	var _uploadcare = __webpack_require__(238);
+
+	var _uploadcare2 = _interopRequireDefault(_uploadcare);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30706,7 +30956,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global uploadcare */
 
 
-	var insertNewAsset = __webpack_require__(237).insertNewAsset;
+	var insertNewAsset = __webpack_require__(239).insertNewAsset;
 
 
 	function getFilename(url) {
@@ -30735,6 +30985,8 @@
 
 	  function ModalTextures(props) {
 	    _classCallCheck(this, ModalTextures);
+
+	    (0, _uploadcare2.default)();
 
 	    var _this = _possibleConstructorReturn(this, (ModalTextures.__proto__ || Object.getPrototypeOf(ModalTextures)).call(this, props));
 
@@ -31034,7 +31286,7 @@
 
 	      return _react2.default.createElement(
 	        _Modal2.default,
-	        { title: 'Textures', isOpen: isOpen, onClose: this.onClose, closeOnClickOutside: false },
+	        { id: 'texture-modal', title: 'Textures', isOpen: isOpen, onClose: this.onClose, closeOnClickOutside: false },
 	        _react2.default.createElement(
 	          'button',
 	          { onClick: this.toggleNewDialog },
@@ -31147,7 +31399,7 @@
 	              return _react2.default.createElement(
 	                'li',
 	                { key: image.id, onClick: textureClick, className: selectedClass },
-	                _react2.default.createElement('a', { href: image.src, hint: 'Open image in a new tab', className: 'button fa fa-external-link', target: '_blank' }),
+	                _react2.default.createElement('a', { href: image.src, title: 'Open image in a new tab', className: 'button fa fa-external-link', target: '_blank' }),
 	                _react2.default.createElement('img', { width: '155px', height: '155px', src: image.src }),
 	                _react2.default.createElement(
 	                  'div',
@@ -31231,7 +31483,7 @@
 	exports.default = ModalTextures;
 
 /***/ },
-/* 236 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31321,7 +31573,7 @@
 	    value: function render() {
 	      return React.createElement(
 	        'div',
-	        { className: this.state.isOpen ? 'modal' : 'modal hide' },
+	        { id: this.props.id, className: this.state.isOpen ? 'modal' : 'modal hide' },
 	        React.createElement(
 	          'div',
 	          { className: 'modal-content', ref: 'self' },
@@ -31353,6 +31605,7 @@
 	}(React.Component);
 
 	Modal.propTypes = {
+	  id: React.PropTypes.string,
 	  children: React.PropTypes.oneOfType([React.PropTypes.array, React.PropTypes.element]).isRequired,
 	  isOpen: React.PropTypes.bool,
 	  extraCloseKeyCode: React.PropTypes.number,
@@ -31366,7 +31619,27 @@
 	exports.default = Modal;
 
 /***/ },
-/* 237 */
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = initUploadCare;
+
+	var _utils = __webpack_require__(205);
+
+	function initUploadCare() {
+	  window.UPLOADCARE_PUBLIC_KEY = 'f43ad452b58f9e853d05';
+	  if (!window.uploadcare) {
+	    (0, _utils.injectJS)('https://ucarecdn.com/widget/2.10.0/uploadcare/uploadcare.full.min.js');
+	  }
+	}
+
+/***/ },
+/* 239 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31400,7 +31673,7 @@
 	};
 
 /***/ },
-/* 238 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31415,7 +31688,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Modal = __webpack_require__(236);
+	var _Modal = __webpack_require__(237);
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -31457,7 +31730,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var shortcuts = [[{ key: ['w'], description: 'Translate' }, { key: ['e'], description: 'Rotate' }, { key: ['r'], description: 'Scale' }, { key: ['d'], description: 'Duplicate selected entity' }, { key: ['g'], description: 'Toggle grid visibility' }, { key: ['n'], description: 'Add new entity' }], [{ key: ['h'], description: 'Show this help' }, { key: ['supr'], description: 'Delete selected entity' }, { key: ['Esc'], description: 'Exit edit mode' }, { key: ['backspace'], description: 'Delete selected entity' }, { key: ['ctrl', 'alt', 'i'], description: 'Switch Edit and VR Modes' }]];
+	      var shortcuts = [[{ key: ['w'], description: 'Translate' }, { key: ['e'], description: 'Rotate' }, { key: ['r'], description: 'Scale' }, { key: ['d'], description: 'Duplicate selected entity' }, { key: ['g'], description: 'Toggle grid visibility' }, { key: ['n'], description: 'Add new entity' }, { key: ['supr | backspace'], description: 'Delete selected entity' }], [{ key: ['1'], description: 'Toggle scenegraph panel' }, { key: ['2'], description: 'Toggle components panel' }, { key: ['tab'], description: 'Toggle scenegraph and components panel' }, { key: ['ctrl | cmd', 'x'], description: 'Cut selected entity' }, { key: ['ctrl | cmd', 'c'], description: 'Copy selected entity' }, { key: ['ctrl | cmd', 'v'], description: 'Paste entity' }, { key: ['h'], description: 'Show this help' }, { key: ['Esc'], description: 'Exit edit mode' }, { key: ['ctrl', 'alt', 'i'], description: 'Switch Edit and VR Modes' }]];
 
 	      return _react2.default.createElement(
 	        _Modal2.default,
@@ -31508,7 +31781,7 @@
 	exports.default = ModalHelp;
 
 /***/ },
-/* 239 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31523,13 +31796,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _classnames = __webpack_require__(186);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
 	var _lodash = __webpack_require__(202);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
 	var _entity = __webpack_require__(210);
 
-	var _Toolbar = __webpack_require__(240);
+	var _Toolbar = __webpack_require__(242);
 
 	var _Toolbar2 = _interopRequireDefault(_Toolbar);
 
@@ -31588,7 +31865,7 @@
 	    };
 
 	    _this.rebuildOptions = function () {
-	      var options = [{ static: true, value: _this.props.scene, html: '&lt;a-scene&gt;' }];
+	      var options = [{ static: true, value: _this.props.scene, tagName: 'a-scene', hasChildren: true }];
 
 	      function treeIterate(element, depth) {
 	        if (!element) {
@@ -31623,12 +31900,15 @@
 
 	            var pad = '&nbsp;&nbsp;&nbsp;'.repeat(depth);
 	            var label = child.id ? child.id : '&lt;' + child.tagName.toLowerCase() + '&gt;';
-	            var html = pad + label + extra;
 
 	            options.push({
 	              static: true,
+	              depth: depth,
 	              value: child,
-	              html: html
+	              hasChildren: child.children.length > 0,
+	              tagName: child.tagName.toLowerCase(),
+	              id: child.id,
+	              extra: extra
 	            });
 
 	            treeIterate(child, depth);
@@ -31642,6 +31922,12 @@
 	    _this.selectIndex = function (index) {
 	      if (index >= 0 && index < _this.state.options.length) {
 	        _this.setValue(_this.state.options[index].value);
+	      }
+	    };
+
+	    _this.onFilterKeyUp = function (event) {
+	      if (event.keyCode === 27) {
+	        _this.clearFilter();
 	      }
 	    };
 
@@ -31679,9 +31965,18 @@
 	      ga('send', 'event', 'SceneGraph', 'cloneEntity');
 	    };
 
+	    _this.toggleVisibility = function (entity, event) {
+	      var visible = entity.tagName.toLowerCase() === 'a-scene' ? entity.object3D.visible : entity.getAttribute('visible');
+	      entity.setAttribute('visible', !visible);
+	    };
+
 	    _this.onChangeFilter = function (e) {
 	      _this.setState({ filterText: e.target.value });
 	      gaTrackSearchEntity();
+	    };
+
+	    _this.clearFilter = function () {
+	      _this.setState({ filterText: '' });
 	    };
 
 	    _this.state = {
@@ -31690,6 +31985,7 @@
 	      selectedIndex: -1,
 	      filterText: ''
 	    };
+
 	    return _this;
 	  }
 
@@ -31722,9 +32018,29 @@
 	      var filterText = this.state.filterText.toUpperCase();
 	      return this.state.options.filter(function (option, idx) {
 	        var value = option.value;
-	        return value.id.toUpperCase().indexOf(filterText) > -1 || value.tagName.toUpperCase().indexOf(filterText) > -1;
+	        // Check if the ID or the tagName includes the filterText
+	        if (value.id.toUpperCase().indexOf(filterText) > -1 || value.tagName.toUpperCase().indexOf(filterText) > -1) {
+	          return true;
+	        }
+
+	        // Check each component's name
+	        for (var i in value.components) {
+	          var component = value.components[i];
+	          if (component.attrName.toUpperCase().indexOf(filterText) > -1) {
+	            return true;
+	          }
+
+	          // @todo Use .data instead of attrValue ?
+	          for (var j in component.attrValue) {
+	            var attrValue = component.attrValue[j].toString();
+	            if (attrValue.toUpperCase().indexOf(filterText) > -1) {
+	              return true;
+	            }
+	          }
+	        }
+
+	        return false;
 	      }).map(function (option, idx) {
-	        var className = 'option' + (option.value === _this3.state.value ? ' active' : '');
 	        var cloneButton = _react2.default.createElement('a', { onClick: function onClick() {
 	            return _this3.cloneEntity(option.value);
 	          },
@@ -31739,13 +32055,45 @@
 	          removeButton = '';
 	        }
 
+	        var pad = '    '.repeat(option.depth);
+	        // const collapse = option.hasChildren ? <span className="collasespace fa fa-caret-down"></span> : <span className="collasespace"></span>;
+	        var collapse = null;
+	        var entity = option.value;
+	        var visible = entity.tagName.toLowerCase() == 'a-scene' ? entity.object3D.visible : entity.getAttribute('visible');
+	        var visibility = _react2.default.createElement('i', { title: 'Toggle entity visibility', className: 'fa ' + (visible ? 'fa-eye' : 'fa-eye-slash'),
+	          onClick: function onClick(event) {
+	            _this3.toggleVisibility(option.value, event);
+	          } });
+
+	        var className = (0, _classnames2.default)({
+	          option: true,
+	          active: option.value === _this3.state.value,
+	          novisible: !visible
+	        });
+
 	        return _react2.default.createElement(
 	          'div',
 	          { key: idx, className: className, value: option.value,
 	            onClick: function onClick() {
 	              return _this3.setValue(option.value);
 	            } },
-	          _react2.default.createElement('span', { dangerouslySetInnerHTML: { __html: option.html } }),
+	          _react2.default.createElement(
+	            'span',
+	            null,
+	            visibility,
+	            ' ',
+	            collapse,
+	            pad,
+	            ' <',
+	            option.tagName,
+	            _react2.default.createElement(
+	              'span',
+	              { className: 'id' },
+	              option.id ? ' ' + option.id : ''
+	            ),
+	            _react2.default.createElement('span', { dangerouslySetInnerHTML: { __html: option.extra } }),
+	            '>'
+	          ),
 	          _react2.default.createElement(
 	            'span',
 	            { className: 'icons' },
@@ -31758,9 +32106,16 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      // to hide the SceneGraph we have to hide its parent too (#left-sidebar)
+	      if (!this.props.visible) {
+	        return null;
+	      }
+
+	      var clearFilter = this.state.filterText ? _react2.default.createElement('a', { onClick: this.clearFilter, className: 'button fa fa-times' }) : null;
+
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'scenegraph' },
+	        { id: this.props.id, className: 'scenegraph' },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'scenegraph-toolbar' },
@@ -31768,8 +32123,9 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'search' },
-	            _react2.default.createElement('input', { placeholder: 'Search...', value: this.state.filterText,
-	              onChange: this.onChangeFilter }),
+	            _react2.default.createElement('input', { id: 'filter', placeholder: 'Search...', value: this.state.filterText,
+	              onChange: this.onChangeFilter, onKeyUp: this.onFilterKeyUp }),
+	            clearFilter,
 	            _react2.default.createElement('span', { className: 'fa fa-search' })
 	          )
 	        ),
@@ -31789,16 +32145,18 @@
 	SceneGraph.propTypes = {
 	  onChange: _react2.default.PropTypes.func,
 	  scene: _react2.default.PropTypes.object,
-	  value: _react2.default.PropTypes.string
+	  value: _react2.default.PropTypes.string,
+	  visible: _react2.default.PropTypes.bool
 	};
 	SceneGraph.defaultProps = {
 	  value: '',
-	  index: -1
+	  index: -1,
+	  id: 'left-sidebar'
 	};
 	exports.default = SceneGraph;
 
 /***/ },
-/* 240 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31813,11 +32171,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _clipboard = __webpack_require__(223);
+	var _clipboard = __webpack_require__(224);
 
 	var _clipboard2 = _interopRequireDefault(_clipboard);
 
-	var _exporter = __webpack_require__(241);
+	var _exporter = __webpack_require__(243);
 
 	var _Events = __webpack_require__(182);
 
@@ -31901,7 +32259,7 @@
 	exports.default = Toolbar;
 
 /***/ },
-/* 241 */
+/* 243 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31976,7 +32334,7 @@
 	}
 
 /***/ },
-/* 242 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32084,13 +32442,13 @@
 	exports.default = Toolbar;
 
 /***/ },
-/* 243 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(244);
+	var content = __webpack_require__(246);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(199)(content, {});
@@ -32110,7 +32468,7 @@
 	}
 
 /***/ },
-/* 244 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(198)();
@@ -32118,13 +32476,13 @@
 
 
 	// module
-	exports.push([module.id, "body.aframe-inspector-opened {\n  color: #fff;\n  font-family: 'Roboto', sans-serif;\n  font-size: 12px;\n  margin: 0;\n  overflow: hidden;\n}\n\n.toggle-edit {\n  background-color: #ed3160;\n  color: #fff;\n  font-family: 'Roboto', sans-serif;\n  font-size: 12px;\n  left: 3px;\n  margin: 0;\n  padding: 6px 10px;\n  position: fixed;\n  text-align: center;\n  text-decoration: none;\n  top: 3px;\n  width: 174px;\n  z-index: 99999;\n}\n\n.toggle-edit:hover {\n  background-color: rgb(228, 43, 90);\n}\n\nhr {\n  border: 0;\n  border-top: 1px solid #ccc;\n}\n\na {\n  cursor: pointer;\n}\n\nbutton {\n  position: relative;\n}\n\ncode {\n  font-family: Consolas, Andale Mono, Monaco, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;\n}\n\ntextarea {\n  -moz-tab-size: 4;\n    -o-tab-size: 4;\n       tab-size: 4;\n  white-space: pre;\n  word-wrap: normal;\n}\n\ntextarea.success {\n  border-color: #8b8 !important;\n}\n\ntextarea.fail {\n  background-color: rgba(255, 0, 0, 0.05);\n  border-color: #f00 !important;\n}\n\ntextarea,\ninput {\n  outline: none; /* osx */\n}\n\n#left-sidebar,\n#right-panels {\n  z-index: 9998;\n}\n\n#sidebar,\n#left-sidebar,\n.panel {\n  cursor: default;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.collapsible .static {\n  margin: 0;\n}\n\n.collapsible .static .collapse-button {\n  border: 6px solid transparent;\n  float: left;\n  height: 0;\n  margin-right: 6px;\n  width: 0;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #1faaf2;\n  margin-top: 2px;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #1faaf2;\n  margin-top: 6px;\n}\n\n.collapsible.collapsed .content {\n  display: none;\n}\n\n.toggle-edit {\n  background-color: #ed3160;\n  color: #fff;\n  left: 3px;\n  padding: 6px 10px;\n  position: fixed;\n  text-align: center;\n  text-decoration: none;\n  top: 3px;\n  width: 174px;\n  z-index: 9999;\n}\n\n.toggle-edit:hover {\n  background-color: rgb(228, 43, 90);\n}\n\n.scenegraph {\n  border-top: 1px solid #111;\n  padding-top: 32px;\n}\n\n.scenegraph .search {\n  padding: 5px;\n}\n\n.scenegraph-toolbar {\n  background-color: #333;\n  position: fixed;\n  top: 32px;\n}\n\n.scenegraph-actions {\n  padding: 9px 0 5px;\n}\n\n.search {\n  color: #aaa;\n  font-size: 16px;\n  position: relative;\n}\n\n.search input {\n  background: #222;\n  border-radius: 5px;\n  height: 22px;\n  width: 185px;\n}\n\n.search input {\n  text-indent: 10px;\n}\n\n.search .fa-search {\n  position: absolute;\n  right: 11px;\n  top: 10px;\n}\n\ninput {\n  background-color: transparent;\n  border: 1px solid #555;\n  color: #fff;\n}\n\ninput,\n.texture canvas {\n  -webkit-transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n  transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n}\n\ninput[type=text],\ninput[type=number],\ninput.string,\ninput.number {\n  min-height: 14px;\n  outline: none;\n}\n\ninput.number {\n  background-color: transparent !important;\n  border: 0;\n  color: #20b1fb !important;\n  cursor: col-resize;\n  font-size: 12px;\n  padding: 2px;\n}\n\ninput.string:focus,\ninput.number:focus {\n  border: 1px solid #20b1fb;\n  color: #fff;\n  cursor: auto;\n}\n\ninput.error {\n  border: 1px solid #a00;\n}\n\n#left-sidebar {\n  background: #2b2b2b;\n  bottom: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  height: 100%;\n  left: 0;\n  overflow: auto;\n  position: fixed;\n  top: 0;\n  width: 200px;\n}\n\n#sidebar {\n  background: #2b2b2b;\n  width: 330px;\n}\n\n#sidebar * {\n  vertical-align: middle;\n}\n\ninput,\ntextarea,\nselect {\n  background: #222;\n  border: 1px solid transparent;\n  color: #888;\n}\n\n.row {\n  margin-bottom: 10px;\n  min-height: 20px;\n}\n\ninput[type=color] {\n  background-color: #333;\n  border: 1px solid #111;\n  cursor: pointer;\n}\n\n.texture canvas {\n  border: 1px solid #222;\n  cursor: pointer;\n}\n\n.texture canvas:hover {\n  border-color: #1faaf2;\n}\n\ninput[type=color] {\n  cursor: pointer;\n  height: 16px;\n  padding: 0;\n  width: 64px;\n}\n\n/* Note: these vendor-prefixed selectors cannot be grouped! */\n\ninput[type=color]::-webkit-color-swatch {\n  border: 0;  /* To remove the gray border. */\n}\n\ninput[type=color]::-webkit-color-swatch-wrapper {\n  padding: 0;  /* To remove the inner padding. */\n}\n\ninput[type=color]::-moz-color-swatch {\n  border: 0;\n}\n\ninput[type=color]::-moz-focus-inner {\n  border: 0;  /* To remove the inner border (specific to Firefox). */\n  padding: 0;\n}\n\n.components {\n  background-color: #323232;\n  color: #bcbcbc;\n  height: 100%;\n  overflow: auto;\n  position: fixed;\n  width: 330px;\n}\n\ndiv.vec2,\ndiv.vec3 {\n  display: inline;\n}\n\n.vec2 input.number,\n.vec3 input.number {\n  width: 46px;\n}\n\n.collapsible-header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.component-title span {\n  float: left;\n  max-width: 110px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n\n.collapsible .static {\n  background-color: #323232;\n  border-bottom: 1px solid #262626;\n  border-top: 1px solid #262626;\n  color: #fff;\n  height: 16px;\n  padding: 10px;\n  vertical-align: middle;\n}\n\n.collapsible .menu {\n  text-align: right;\n}\n\n.collapsible .menu::after {\n  color: #bbb;\n  content: '\\2807';\n  font-size: 12px;\n  padding: 5px;\n  text-align: right;\n}\n\n.collapsible .static .collapse-button {\n  border-left: 5px solid transparent;\n  border-right: 5px solid transparent;\n  float: left;\n  height: 0;\n  margin-right: 10px;\n  margin-top: 2px;\n  width: 0;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #bbb;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #bbb;\n}\n\n.collapsible .content {\n  background-color: #2b2b2b;\n  padding: 10px;\n}\n\n.components .row {\n  margin-bottom: 10px;\n  min-height: 20px;\n}\n\n.components * {\n  vertical-align: middle;\n}\n\n.components .row .text {\n  cursor: default;\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  vertical-align: middle;\n  width: 120px;\n}\n\n.components .row .map_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n\n.hidden {\n  visibility: hidden;\n}\n\n.uploader-normal-button .hidden {\n  display: none;\n}\n\n.texture canvas + input {\n  margin-left: 5px;\n}\n\n.texture .fa {\n  padding-right: 5px;\n}\n\n.texture .fa-external-link {\n  font-size: 14px;\n  padding-top: 2px;\n}\n\n.scenegraph-bottom {\n  background-color: #323232;\n  border-top: 1px solid #111;\n  bottom: 10;\n  height: 40px;\n  left: 0;\n  z-index: 100;\n}\n\na.button {\n  color: #bcbcbc;\n  font-size: 16px;\n  margin-left: 10px;\n  text-decoration: none;\n}\n\na.button:hover {\n  color: #1faaf2;\n}\n\n.scenegraph-bottom a {\n  float: right;\n  margin: 10px;\n}\n\n.modal {\n  -webkit-animation: animateopacity 0.2s ease-out;\n          animation: animateopacity 0.2s ease-out;\n  background-color: rgb(0, 0, 0);\n  background-color: rgba(0, 0, 0, 0.6);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  height: 100%;\n  left: 0;\n  overflow: auto;\n  position: fixed;\n  top: 0;\n  width: 100%;\n  z-index: 9999;\n}\n\n.modal h3 {\n  font-size: 18px;\n  font-weight: 100;\n  margin: 0.6em 0;\n}\n\n.modal-content {\n  -webkit-animation: animatetop 0.2s ease-out;\n          animation: animatetop 0.2s ease-out;\n  -webkit-animation-duration: 0.2s;\n          animation-duration: 0.2s;\n  -webkit-animation-name: animatetop;\n          animation-name: animatetop;\n  background-color: #232323;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);\n  height: calc(100% - 50px);\n  margin: auto;\n  overflow: hidden;\n  padding: 0;\n  width: calc(100% - 50px);\n}\n\n@-webkit-keyframes animateopacity {\n  from { opacity: 0; }\n  to { opacity: 1; }\n}\n\n@keyframes animateopacity {\n  from { opacity: 0; }\n  to { opacity: 1; }\n}\n\n.close {\n  color: white;\n  float: right;\n  font-size: 28px;\n  font-weight: bold;\n}\n\n.close:hover,\n.close:focus {\n  color: #08f;\n  cursor: pointer;\n  text-decoration: none;\n}\n\n.modal-header {\n  color: white;\n  padding: 2px 16px;\n}\n\n.modal-body {\n  overflow: auto;\n  padding: 16px;\n}\n\n.modal-footer {\n  color: white;\n  padding: 2px 16px;\n}\n\n/* Gallery */\n\n.gallery {\n  background: #232323;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  margin: 15px auto 0;\n  max-height: 50vh;\n  overflow: auto;\n  padding: 15px 3px 3px;\n}\n\n.newimage .gallery {\n  padding: 16px;\n}\n\n.gallery li {\n  border-radius: 2px;\n  box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);\n  cursor: pointer;\n  margin: 8px;\n  overflow: hidden;\n  width: 155px;\n}\n\n.gallery li.selected,\n.gallery li:hover {\n  box-shadow: 0 0 0 2px #1eaaf1;\n}\n\n.gallery li .detail {\n  background-color: #323232;\n  margin: 0;\n  min-height: 60px;\n  padding: 3px 10px;\n}\n\n.gallery li .button.fa-external-link {\n  margin-left: 136px;\n  margin-top: 5px;\n  position: fixed;\n}\n\n.preview {\n  padding: 10px;\n  width: 150px;\n}\n\n.preview input {\n  display: block;\n  margin: 8px 0;\n  width: 144px;\n}\n\n.preview button {\n  width: 155px;\n}\n\n.preview .detail .title {\n  color: #fff;\n  display: inline-block;\n  max-width: 155px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.gallery li.selected .detail,\n.gallery li:hover .detail {\n  background-color: #444;\n}\n\n.gallery li .detail span {\n  color: #777;\n  display: block;\n  margin-top: 4px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  width: 140px;\n}\n\n.gallery li.selected .detail span,\n.gallery li:hover .detail span {\n  color: #888;\n}\n\n.gallery li .detail span.title {\n  color: #fff !important;\n}\n\n.modal button {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  border-radius: 0;\n  box-shadow: none;\n  cursor: pointer;\n  display: inline-block;\n  font-size: 12px;\n  line-height: 1.8;\n  margin: 0 10px 0 0;\n  padding: 5px 10px;\n}\n\n.modal button:focus {\n  outline: none;\n}\n\n.modal button {\n  background-color: #1eaaf1;\n  border: none;\n  color: #fff;\n}\n\n.modal button:hover,\n.modal button.hover {\n  background-color: #346392;\n  text-shadow: -1px 1px #27496d;\n}\n\n.modal button:active,\n.modal button.active {\n  background-color: #27496d;\n  text-shadow: -1px 1px #193047;\n}\n\n.modal button:disabled {\n  background-color: #888;\n  cursor: none;\n}\n\n.newimage {\n  background-color: #323232;\n  color: #bcbcbc;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  font-size: 13px;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  margin-top: 10px;\n  overflow: auto;\n  padding: 10px;\n}\n\n.newimage input {\n  color: #1eaaf1;\n  padding: 3px 5px;\n}\n\n.hide {\n  display: none;\n}\n\nspan.value {\n  color: #fff;\n  display: inline-block;\n}\n\nspan.mixinlist {\n  color: #888 !important;\n  display: inline-block;\n}\n\nspan.mixinlist ul {\n  background-color: #222;\n  list-style-type: none;\n  margin: 5px 0 0;\n  padding: 5px;\n}\n\nspan.mixinlist ul li {\n  font-size: 11px;\n  margin-bottom: 3px;\n}\n\nspan.mixinlist ul li:last-child {\n  margin-bottom: 0;\n}\n\nspan.mixin {\n  display: inline-block;\n  width: 100px;\n}\n\n.mixinlist {\n  margin-left: 120px;\n}\n\nspan.subcomponent {\n  color: #999;\n  float: none !important;\n  margin-left: 10px;\n  vertical-align: top !important;\n}\n\n.collapsible .static {\n  cursor: pointer;\n}\n\n.a-canvas.state-dragging {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n\ncode,\npre,\ninput,\ntextarea,\nselect {\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.Select,\n.wf-active code,\n.wf-active pre,\n.wf-active input,\n.wf-active textarea,\n.wf-active select {\n  font-family: Roboto Mono, Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.tagName {\n  font-weight: 500;\n}\n\n.sidebar-title {\n  background-color: #444;\n  color: #aaa;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  font-size: 12px;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  padding: 6px 10px;\n  position: relative;\n  text-align: center;\n}\n\n.toolbar {\n  background-color: #262626;\n  color: #333;\n  height: 32px;\n  position: relative;\n}\n\n.toolbar * {\n  margin-left: 0;\n  padding: 8px;\n  vertical-align: middle;\n}\n\n.toolbar a.button {\n  margin: 0 6px 0 0;\n}\n\n.toolbar .active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.toolbar .active:hover {\n  color: #fff !important;\n}\n\n.local-transform {\n  padding-left: 10px;\n}\n\n.local-transform label {\n  color: #aaa;\n  padding-left: 5px;\n}\n\n.local-transform a.button {\n  padding-top: 0;\n}\n\n.outliner {\n  background: #2b2b2b;\n  color: #868686;\n  cursor: default;\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 auto;\n          flex: 1 1 auto;\n  font-size: 12px;\n  height: calc(100% - 98px);\n  outline: none;\n  overflow-y: auto;\n  padding: 0;\n  position: fixed;\n  top: 98px;\n  width: 200px;\n}\n\n.outliner .option {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  padding: 4px;\n  white-space: nowrap;\n}\n\n.outliner .option.active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.outliner .option .component:hover {\n  color: #1faaf2;\n}\n\n.outliner .option.active .component:hover {\n  color: #1888c1;\n}\n\n.outliner .option .icons {\n  display: none;\n  margin: 0 3px 0 10px;\n}\n\n.outliner .option .icons .button {\n  color: #fff;\n  font-size: 12px;\n}\n\n.outliner .option.active .icons {\n  display: inline;\n}\n\n.outliner .fa {\n  color: #aaa;\n}\n\n.outliner .active .fa {\n  color: #fff;\n}\n\na.flat-button {\n  background-color: #262626;\n  color: #bcbcbc;\n  font-size: 11px;\n  margin-left: 10px;\n  padding: 5px;\n  text-decoration: none;\n}\n\na.flat-button:hover {\n  color: #1faaf2;\n}\n\n.component-title {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n\na.help-link {\n  opacity: 0.4;\n}\n\na.help-link:hover {\n  opacity: 1;\n}\n\n#right-panels {\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  position: fixed;\n  right: 0;\n  top: 0;\n}\n\n#aframe-inspector-panels {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n/* This is a temporaly hack, we should style the editor instead of overwriting\n   the a-scene to fix the \"display: block\" issue. */\n\n.aframe-inspector-opened a-scene {\n  display: inline !important;\n}\n\n.aframe-inspector-opened a-scene .a-canvas {\n  background-color: #191919;\n  z-index: 9998;\n}\n\n.uploadcare-widget-button-open {\n  background-color: #1eaaf1;\n  border-radius: 0;\n  cursor: pointer;\n  margin-left: 10px;\n  padding: 10px 15px;\n}\n\n.uploadcare-widget-button-open:hover {\n  background-color: #346392;\n}\n\n.new_asset_options {\n  margin: 10px;\n}\n\n.new_asset_options > ul {\n  margin-left: 10px;\n  padding: 5px;\n}\n\n.new_asset_options > ul > li {\n  padding: 10px 0;\n}\n\n.new_asset_options .imageUrl {\n  margin-left: 5px;\n  width: 350px;\n}\n\nspan.entity-name {\n  color: #fff;\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n  font-size: 16px;\n}\n\n.add-component {\n  width: 200px;\n}\n\n.Select-control {\n  background-color: #222 !important;\n  border: none;\n  border-radius: 0;\n  color: #1faaf2;\n}\n\n.Select-menu-outer {\n  border: none;\n}\n\n.Select-menu-outer .is-focused {\n  background-color: #1faaf2 !important;\n  color: #fff;\n}\n\n.Select-option {\n  background-color: #222 !important;\n}\n\n.select-widget {\n  display: inline-block;\n  width: 157px;\n}\n\n.Select-placeholder,\n.Select--single > .Select-control .Select-value {\n  color: #1faaf2 !important;\n}\n\n.Select-value-label {\n  color: #1faaf2 !important;\n}\n\n.row .Select-control {\n  font-size: 11px;\n  height: 24px;\n}\n\n.row .Select-placeholder,\n.row .Select--single > .Select-control .Select-value {\n  line-height: 19px;\n}\n\n.row .Select-input {\n  height: 22px;\n}\n\n.row input[type=text],\n.row input[type=number],\n.row input.string,\n.row input.number {\n  background: #222;\n  border: 1px solid transparent;\n  color: #1faaf2;\n  min-height: 20px;\n  padding-left: 5px;\n  padding-right: 5px;\n}\n\n.help-lists {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n\n.help-list {\n  list-style: none;\n  margin: 0;\n  padding: 0 0 10px;\n  width: 350px;\n}\n\n.help-list li {\n  margin-right: 40px;\n}\n\n.help-key-unit {\n  line-height: 1.8;\n  margin-right: 2em;\n  padding: 5px 0;\n}\n\n.help-key {\n  bottom: 2px;\n  margin-right: 4px;\n  min-width: 60px;\n  position: relative;\n}\n\n.help-key span {\n  background-color: #2e2e2e;\n  background-repeat: repeat-x;\n  border: 1px solid #666;\n  border-radius: 3px;\n  box-shadow: 0 0 5px #000;\n  color: #999;\n  display: inline-block;\n  font-size: 12px;\n  padding: 0 8px;\n  text-align: center;\n}\n\n.help-key-def {\n  color: #bbb;\n  display: inline-block;\n  margin-left: 1em;\n}\n\n.add-component {\n  text-align: left;\n}\n\n.add-component .option {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.add-component .option span {\n  color: #1faaf2;\n}\n\n.Select-menu-outer .is-focused span {\n  color: #fff;\n}\n\n.add-component-container {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-color: #2b2b2b;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  padding: 10px;\n}\n\n.aregistry-button {\n  font-size: 12px;\n  margin-left: 10px;\n  padding: 8px;\n}\n\n.aregistry-button:hover {\n  background-color: #1faaf2;\n}\n\n.aregistry-button img {\n  height: 20px;\n  width: 20px;\n}\n\n.components .row .color_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n\n.assets.search {\n  margin-top: 10px;\n  width: 200px;\n}\n\n.assets.search .fa-search {\n  top: 7px;\n}\n\n.gallery a.fa.texture-link {\n  box-shadow: 0 0 14px -1px rgba(0, 0, 0, 0.75);\n  position: fixed;\n}\n", ""]);
+	exports.push([module.id, "body.aframe-inspector-opened {\n  color: #fff;\n  font-family: 'Roboto', sans-serif;\n  font-size: 12px;\n  margin: 0;\n  overflow: hidden;\n}\n\nhr {\n  border: 0;\n  border-top: 1px solid #ccc;\n}\n\na {\n  cursor: pointer;\n}\n\nbutton {\n  position: relative;\n}\n\ncode {\n  font-family: Consolas, Andale Mono, Monaco, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;\n}\n\ntextarea {\n  -moz-tab-size: 4;\n    -o-tab-size: 4;\n       tab-size: 4;\n  white-space: pre;\n  word-wrap: normal;\n}\n\ntextarea.success {\n  border-color: #8b8 !important;\n}\n\ntextarea.fail {\n  background-color: rgba(255, 0, 0, 0.05);\n  border-color: #f00 !important;\n}\n\ntextarea,\ninput {\n  outline: none; /* osx */\n}\n\n#left-sidebar,\n#right-panels {\n  z-index: 9998;\n}\n\n#sidebar,\n#left-sidebar,\n.panel {\n  cursor: default;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.collapsible .static {\n  margin: 0;\n}\n\n.collapsible .static .collapse-button {\n  border: 6px solid transparent;\n  float: left;\n  height: 0;\n  margin-right: 6px;\n  width: 0;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #1faaf2;\n  margin-top: 2px;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #1faaf2;\n  margin-top: 6px;\n}\n\n.collapsible.collapsed .content {\n  display: none;\n}\n\n.toggle-edit {\n  background-color: #ed3160;\n  color: #fff;\n  font-family: 'Roboto', sans-serif;\n  font-size: 12px;\n  left: 3px;\n  margin: 0;\n  padding: 6px 10px;\n  position: fixed;\n  text-align: center;\n  text-decoration: none;\n  top: 3px;\n  width: 204px;\n  z-index: 99999;\n}\n\n.toggle-edit:hover {\n  background-color: rgb(228, 43, 90);\n}\n\n.scenegraph {\n  border-top: 1px solid #111;\n  padding-top: 32px;\n}\n\n.scenegraph .search {\n  padding: 5px;\n}\n\n.scenegraph-toolbar {\n  background-color: #333;\n  position: fixed;\n  top: 32px;\n}\n\n.scenegraph-actions {\n  padding: 9px 0 5px;\n}\n\n.search {\n  color: #aaa;\n  font-size: 16px;\n  position: relative;\n}\n\n.search input {\n  background: #222;\n  border-radius: 5px;\n  height: 22px;\n  text-indent: 10px;\n  width: 216px;\n}\n\n.search .fa-search {\n  position: absolute;\n  right: 11px;\n  top: 10px;\n}\n\n.search .fa-times {\n  position: absolute;\n  right: 32px;\n  top: 10px;\n}\n\ninput {\n  background-color: transparent;\n  border: 1px solid #555;\n  color: #fff;\n}\n\ninput,\n.texture canvas {\n  -webkit-transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n  transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n}\n\ninput[type=text],\ninput[type=number],\ninput.string,\ninput.number {\n  min-height: 14px;\n  outline: none;\n}\n\ninput.number {\n  background-color: transparent !important;\n  border: 0;\n  color: #20b1fb !important;\n  cursor: col-resize;\n  font-size: 12px;\n  padding: 2px;\n}\n\ninput.string:focus,\ninput.number:focus {\n  border: 1px solid #20b1fb;\n  color: #fff;\n  cursor: auto;\n}\n\ninput.error {\n  border: 1px solid #a00;\n}\n\n#left-sidebar {\n  background: #2b2b2b;\n  bottom: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  height: 100%;\n  left: 0;\n  overflow: auto;\n  position: fixed;\n  top: 0;\n  width: 230px;\n}\n\n#sidebar {\n  background: #2b2b2b;\n  width: 331px;\n}\n\n#sidebar * {\n  vertical-align: middle;\n}\n\ninput,\ntextarea,\nselect {\n  background: #222;\n  border: 1px solid transparent;\n  color: #888;\n}\n\n.row {\n  margin-bottom: 10px;\n  min-height: 20px;\n}\n\ninput[type=color] {\n  background-color: #333;\n  border: 1px solid #111;\n  cursor: pointer;\n}\n\n.texture canvas {\n  border: 1px solid #222;\n  cursor: pointer;\n}\n\n.texture canvas:hover {\n  border-color: #1faaf2;\n}\n\ninput[type=color] {\n  cursor: pointer;\n  height: 16px;\n  padding: 0;\n  width: 64px;\n}\n\n/* Note: these vendor-prefixed selectors cannot be grouped! */\n\ninput[type=color]::-webkit-color-swatch {\n  border: 0;  /* To remove the gray border. */\n}\n\ninput[type=color]::-webkit-color-swatch-wrapper {\n  padding: 0;  /* To remove the inner padding. */\n}\n\ninput[type=color]::-moz-color-swatch {\n  border: 0;\n}\n\ninput[type=color]::-moz-focus-inner {\n  border: 0;  /* To remove the inner border (specific to Firefox). */\n  padding: 0;\n}\n\n.components {\n  background-color: #323232;\n  color: #bcbcbc;\n  height: 100%;\n  overflow: auto;\n  position: fixed;\n  width: 331px;\n}\n\ndiv.vec2,\ndiv.vec3,\ndiv.vec4 {\n  display: inline;\n}\n\n.vec2 input.number,\n.vec3 input.number {\n  width: 46px;\n}\n\n.vec4 input.number {\n  width: 34px;\n}\n\n.collapsible-header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.component-title span {\n  float: left;\n  max-width: 110px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n\n.collapsible .static {\n  background-color: #323232;\n  border-bottom: 1px solid #262626;\n  border-top: 1px solid #262626;\n  color: #fff;\n  height: 16px;\n  padding: 10px;\n  vertical-align: middle;\n}\n\n.collapsible .menu {\n  text-align: right;\n}\n\n.collapsible .menu::after {\n  color: #bbb;\n  content: '\\2807';\n  font-size: 12px;\n  padding: 5px;\n  text-align: right;\n}\n\n.collapsible .static .collapse-button {\n  border-left: 5px solid transparent;\n  border-right: 5px solid transparent;\n  float: left;\n  height: 0;\n  margin-right: 10px;\n  margin-top: 2px;\n  width: 0;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #bbb;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #bbb;\n}\n\n.collapsible .content {\n  background-color: #2b2b2b;\n  padding: 10px;\n}\n\n.components .row {\n  margin-bottom: 10px;\n  min-height: 20px;\n}\n\n.components * {\n  vertical-align: middle;\n}\n\n.components .row .text {\n  cursor: default;\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  vertical-align: middle;\n  width: 120px;\n}\n\n.components .row .map_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n\n.hidden {\n  visibility: hidden;\n}\n\n.uploader-normal-button .hidden {\n  display: none;\n}\n\n.texture canvas + input {\n  margin-left: 5px;\n}\n\n.texture .fa {\n  padding-right: 5px;\n}\n\n.texture .fa-external-link {\n  font-size: 14px;\n  padding-top: 2px;\n}\n\n.scenegraph-bottom {\n  background-color: #323232;\n  border-top: 1px solid #111;\n  bottom: 10;\n  height: 40px;\n  left: 0;\n  z-index: 100;\n}\n\na.button {\n  color: #bcbcbc;\n  font-size: 16px;\n  margin-left: 10px;\n  text-decoration: none;\n}\n\na.button:hover {\n  color: #1faaf2;\n}\n\n.scenegraph-bottom a {\n  float: right;\n  margin: 10px;\n}\n\n.modal {\n  -webkit-animation: animateopacity 0.2s ease-out;\n          animation: animateopacity 0.2s ease-out;\n  background-color: rgb(0, 0, 0);\n  background-color: rgba(0, 0, 0, 0.6);\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  height: 100%;\n  left: 0;\n  overflow: auto;\n  position: fixed;\n  top: 0;\n  width: 100%;\n  z-index: 9999;\n}\n\n.modal h3 {\n  font-size: 18px;\n  font-weight: 100;\n  margin: 0.6em 0;\n}\n\n#texture-modal .modal-content {\n  height: calc(100% - 50px);\n  width: calc(100% - 50px);\n}\n\n.modal-content {\n  -webkit-animation: animatetop 0.2s ease-out;\n          animation: animatetop 0.2s ease-out;\n  -webkit-animation-duration: 0.2s;\n          animation-duration: 0.2s;\n  -webkit-animation-name: animatetop;\n          animation-name: animatetop;\n  background-color: #232323;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);\n  margin: auto;\n  overflow: hidden;\n  padding: 0;\n}\n\n@-webkit-keyframes animateopacity {\n  from { opacity: 0; }\n  to { opacity: 1; }\n}\n\n@keyframes animateopacity {\n  from { opacity: 0; }\n  to { opacity: 1; }\n}\n\n.close {\n  color: white;\n  float: right;\n  font-size: 28px;\n  font-weight: bold;\n}\n\n.close:hover,\n.close:focus {\n  color: #08f;\n  cursor: pointer;\n  text-decoration: none;\n}\n\n.modal-header {\n  color: white;\n  padding: 2px 16px;\n}\n\n.modal-body {\n  overflow: auto;\n  padding: 16px;\n}\n\n.modal-footer {\n  color: white;\n  padding: 2px 16px;\n}\n\n/* Gallery */\n\n.gallery {\n  background: #232323;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  margin: 15px auto 0;\n  max-height: 50vh;\n  overflow: auto;\n  padding: 15px 3px 3px;\n}\n\n.newimage .gallery {\n  padding: 16px;\n}\n\n.gallery li {\n  border-radius: 2px;\n  box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);\n  cursor: pointer;\n  margin: 8px;\n  overflow: hidden;\n  width: 155px;\n}\n\n.gallery li.selected,\n.gallery li:hover {\n  box-shadow: 0 0 0 2px #1eaaf1;\n}\n\n.gallery li .detail {\n  background-color: #323232;\n  margin: 0;\n  min-height: 60px;\n  padding: 3px 10px;\n}\n\n.gallery li .button.fa-external-link {\n  margin-left: 136px;\n  margin-top: 5px;\n  position: fixed;\n}\n\n.preview {\n  padding: 10px;\n  width: 150px;\n}\n\n.preview input {\n  display: block;\n  margin: 8px 0;\n  width: 144px;\n}\n\n.preview button {\n  width: 155px;\n}\n\n.preview .detail .title {\n  color: #fff;\n  display: inline-block;\n  max-width: 155px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.gallery li.selected .detail,\n.gallery li:hover .detail {\n  background-color: #444;\n}\n\n.gallery li .detail span {\n  color: #777;\n  display: block;\n  margin-top: 4px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  width: 140px;\n}\n\n.gallery li.selected .detail span,\n.gallery li:hover .detail span {\n  color: #888;\n}\n\n.gallery li .detail span.title {\n  color: #fff !important;\n}\n\n.modal button {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  border-radius: 0;\n  box-shadow: none;\n  cursor: pointer;\n  display: inline-block;\n  font-size: 12px;\n  line-height: 1.8;\n  margin: 0 10px 0 0;\n  padding: 5px 10px;\n}\n\n.modal button:focus {\n  outline: none;\n}\n\n.modal button {\n  background-color: #1eaaf1;\n  border: none;\n  color: #fff;\n}\n\n.modal button:hover,\n.modal button.hover {\n  background-color: #346392;\n  text-shadow: -1px 1px #27496d;\n}\n\n.modal button:active,\n.modal button.active {\n  background-color: #27496d;\n  text-shadow: -1px 1px #193047;\n}\n\n.modal button:disabled {\n  background-color: #888;\n  cursor: none;\n}\n\n.newimage {\n  background-color: #323232;\n  color: #bcbcbc;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  font-size: 13px;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  margin-top: 10px;\n  overflow: auto;\n  padding: 10px;\n}\n\n.newimage input {\n  color: #1eaaf1;\n  padding: 3px 5px;\n}\n\n.hide {\n  display: none;\n}\n\nspan.value {\n  color: #fff;\n  display: inline-block;\n}\n\nspan.mixinlist {\n  color: #888 !important;\n  display: inline-block;\n}\n\nspan.mixinlist ul {\n  background-color: #222;\n  list-style-type: none;\n  margin: 5px 0 0;\n  padding: 5px;\n}\n\nspan.mixinlist ul li {\n  font-size: 11px;\n  margin-bottom: 3px;\n}\n\nspan.mixinlist ul li:last-child {\n  margin-bottom: 0;\n}\n\nspan.mixin {\n  display: inline-block;\n  width: 100px;\n}\n\n.mixinlist {\n  margin-left: 120px;\n}\n\nspan.subcomponent {\n  color: #999;\n  float: none !important;\n  margin-left: 10px;\n  vertical-align: top !important;\n}\n\n.collapsible .static {\n  cursor: pointer;\n}\n\n.a-canvas.state-dragging {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n\ncode,\npre,\ninput,\ntextarea,\nselect {\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.Select,\n.wf-active code,\n.wf-active pre,\n.wf-active input,\n.wf-active textarea,\n.wf-active select {\n  font-family: Roboto Mono, Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.tagName {\n  font-weight: 500;\n}\n\n.sidebar-title {\n  background-color: #444;\n  color: #aaa;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  font-size: 12px;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  padding: 6px 10px;\n  position: relative;\n  text-align: center;\n}\n\n.toolbar {\n  background-color: #262626;\n  color: #333;\n  height: 32px;\n  position: relative;\n}\n\n.toolbar * {\n  margin-left: 0;\n  padding: 8px;\n  vertical-align: middle;\n}\n\n.toolbar a.button {\n  margin: 0 6px 0 0;\n}\n\n.toolbar .active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.toolbar .active:hover {\n  color: #fff !important;\n}\n\n.local-transform {\n  padding-left: 10px;\n}\n\n.local-transform label {\n  color: #aaa;\n  padding-left: 5px;\n}\n\n.local-transform a.button {\n  padding-top: 0;\n}\n\n.outliner {\n  background: #2b2b2b;\n  color: #868686;\n  cursor: default;\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 auto;\n          flex: 1 1 auto;\n  font-size: 12px;\n  height: calc(100% - 98px);\n  outline: none;\n  overflow-y: auto;\n  padding: 0;\n  position: fixed;\n  top: 98px;\n  width: 230px;\n}\n\n.outliner .option {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  padding: 4px;\n  white-space: nowrap;\n}\n\n.outliner .option.active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.outliner .option .component:hover {\n  color: #1faaf2;\n}\n\n.outliner .option.active .component:hover {\n  color: #1888c1;\n}\n\n.outliner .option .icons {\n  display: none;\n  margin: 0 3px 0 10px;\n}\n\n.outliner .option .icons .button {\n  color: #fff;\n  font-size: 12px;\n}\n\n.outliner .option.active .icons {\n  display: inline;\n}\n\n.outliner .fa {\n  color: #aaa;\n}\n\n.outliner .active .fa {\n  color: #fff;\n}\n\na.flat-button {\n  background-color: #262626;\n  color: #bcbcbc;\n  font-size: 11px;\n  margin-left: 10px;\n  padding: 5px;\n  text-decoration: none;\n}\n\na.flat-button:hover {\n  color: #1faaf2;\n}\n\n.component-title {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n\na.help-link {\n  opacity: 0.4;\n}\n\na.help-link:hover {\n  opacity: 1;\n}\n\n#right-panels {\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  position: fixed;\n  right: 0;\n  top: 0;\n}\n\n#aframe-inspector-panels {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n/* This is a temporaly hack, we should style the editor instead of overwriting\n   the a-scene to fix the \"display: block\" issue. */\n\n.aframe-inspector-opened a-scene {\n  display: inline !important;\n}\n\n.aframe-inspector-opened a-scene .a-canvas {\n  background-color: #191919;\n  z-index: 9998;\n}\n\n.uploadcare-widget-button-open {\n  background-color: #1eaaf1;\n  border-radius: 0;\n  cursor: pointer;\n  margin-left: 10px;\n  padding: 10px 15px;\n}\n\n.uploadcare-widget-button-open:hover {\n  background-color: #346392;\n}\n\n.new_asset_options {\n  margin: 10px;\n}\n\n.new_asset_options > ul {\n  margin-left: 10px;\n  padding: 5px;\n}\n\n.new_asset_options > ul > li {\n  padding: 10px 0;\n}\n\n.new_asset_options .imageUrl {\n  margin-left: 5px;\n  width: 350px;\n}\n\nspan.entity-name {\n  color: #fff;\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n  font-size: 16px;\n}\n\n.add-component {\n  width: 200px;\n}\n\n.Select-control {\n  background-color: #222 !important;\n  border: none;\n  border-radius: 0;\n  color: #1faaf2;\n}\n\n.Select-menu-outer {\n  border: none;\n}\n\n.Select-menu-outer .is-focused {\n  background-color: #1faaf2 !important;\n  color: #fff;\n}\n\n.Select-option {\n  background-color: #222 !important;\n}\n\n.select-widget {\n  display: inline-block;\n  width: 157px;\n}\n\n.Select-placeholder,\n.Select--single > .Select-control .Select-value {\n  color: #1faaf2 !important;\n}\n\n.Select-value-label {\n  color: #1faaf2 !important;\n}\n\n.row .Select-control {\n  font-size: 11px;\n  height: 24px;\n}\n\n.row .Select-placeholder,\n.row .Select--single > .Select-control .Select-value {\n  line-height: 19px;\n}\n\n.row .Select-input {\n  height: 22px;\n}\n\n.row input[type=text],\n.row input[type=number],\n.row input.string,\n.row input.number {\n  background: #222;\n  border: 1px solid transparent;\n  color: #1faaf2;\n  min-height: 20px;\n  padding-left: 5px;\n  padding-right: 5px;\n}\n\n.row input.string {\n  box-sizing: border-box;\n  width: 165px;\n}\n\n.help-lists {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n\n.help-list {\n  list-style: none;\n  margin: 0;\n  padding: 0 0 10px;\n  width: 350px;\n}\n\n.help-list li {\n  margin-right: 40px;\n}\n\n.help-key-unit {\n  line-height: 1.8;\n  margin-right: 2em;\n  padding: 5px 0;\n}\n\n.help-key {\n  bottom: 2px;\n  margin-right: 4px;\n  min-width: 60px;\n  position: relative;\n}\n\n.help-key span {\n  background-color: #2e2e2e;\n  background-repeat: repeat-x;\n  border: 1px solid #666;\n  border-radius: 3px;\n  box-shadow: 0 0 5px #000;\n  color: #999;\n  display: inline-block;\n  font-size: 12px;\n  padding: 0 8px;\n  text-align: center;\n}\n\n.help-key-def {\n  color: #bbb;\n  display: inline-block;\n  margin-left: 1em;\n}\n\n.add-component {\n  text-align: left;\n}\n\n.add-component .option {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.add-component .option span {\n  color: #1faaf2;\n}\n\n.Select-menu-outer .is-focused span {\n  color: #fff;\n}\n\n.add-component-container {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-color: #2b2b2b;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  padding: 10px;\n}\n\n.aregistry-button {\n  font-size: 12px;\n  margin-left: 10px;\n  padding: 8px;\n}\n\n.aregistry-button:hover {\n  background-color: #1faaf2;\n}\n\n.aregistry-button img {\n  height: 20px;\n  width: 20px;\n}\n\n.components .row .color_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n\n.assets.search {\n  margin-top: 10px;\n  width: 200px;\n}\n\n.assets.search .fa-search {\n  top: 7px;\n}\n\n.gallery a.fa.texture-link {\n  box-shadow: 0 0 14px -1px rgba(0, 0, 0, 0.75);\n  position: fixed;\n}\n\n.outliner .id {\n  color: #ccc;\n}\n\n.outliner .option.active .id {\n  color: #fff;\n}\n\n.outliner .collasespace {\n  color: #eee;\n  display: inline-block;\n  text-align: center;\n  width: 14px;\n}\n\n.outliner .fa-eye {\n  color: #bbb;\n}\n\n.outliner .option {\n  white-space: pre;\n}\n\n.option span:first-child {\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n.outliner .option.novisible span,\n.outliner .option.novisible .fa,\n.outliner .option.novisible .collasespace,\n.outliner .option.novisible .id {\n  color: #575757;\n}\n\n.outliner .option .icons a.button {\n  color: #fff;\n}\n\n.toggle-sidebar {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  height: 100%;\n  position: absolute;\n  z-index: 9998;\n}\n\n.toggle-sidebar.left {\n  left: 0;\n}\n\n.toggle-sidebar.right {\n  right: 0;\n}\n\n.toggle-sidebar a {\n  background-color: #262626;\n  color: #bcbcbc;\n  padding: 5px;\n  z-index: 9998;\n}\n\n.toggle-sidebar a:hover {\n  background-color: #1faaf2;\n  color: #fff;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 245 */
+/* 247 */
 /***/ function(module, exports) {
 
 	'use strict';
