@@ -279,7 +279,7 @@
 	  });
 	  AFRAME.INSPECTOR = INSPECTOR;
 
-	  console.log('A-Frame Inspector Version:', ("0.5.1"), '(' + ("13-02-2017") + ' Commit: ' + ("4932d73d4f9252114bb720cdd2fded6cccc23965\n").substr(0, 7) + ')');
+	  console.log('A-Frame Inspector Version:', ("0.5.1"), '(' + ("14-02-2017") + ' Commit: ' + ("e84c1f2970d4621cdf53679cbd072aa1ae48ad50\n").substr(0, 7) + ')');
 	})();
 
 /***/ },
@@ -30953,8 +30953,10 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global uploadcare */
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	/* global uploadcare */
+	window.UPLOADCARE_PUBLIC_KEY = 'f43ad452b58f9e853d05';
 
 	var insertNewAsset = __webpack_require__(239).insertNewAsset;
 
@@ -31272,10 +31274,6 @@
 	    key: 'render',
 	    value: function render() {
 	      var isOpen = this.state.isOpen;
-	      if (!isOpen) {
-	        return _react2.default.createElement('div', null);
-	      }
-
 	      var loadedTextures = this.state.loadedTextures;
 	      var preview = this.state.preview;
 
