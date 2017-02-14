@@ -1,4 +1,5 @@
 /* global uploadcare */
+window.UPLOADCARE_PUBLIC_KEY = 'f43ad452b58f9e853d05';
 import Events from '../../lib/Events';
 import React from 'react';
 import Modal from './Modal';
@@ -291,10 +292,6 @@ export default class ModalTextures extends React.Component {
 
   render () {
     let isOpen = this.state.isOpen;
-    if (!isOpen) {
-      return <div></div>;
-    }
-
     let loadedTextures = this.state.loadedTextures;
     let preview = this.state.preview;
 
