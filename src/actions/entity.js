@@ -140,76 +140,258 @@ export function cloneSelectedEntity () {
  * @return {string}        Entity clipboard representation
  */
 export function getClipboardRepresentation (entity) {
-  // entity.flushToDOM();
-  var clone = entity.cloneNode(true);
-  var defaultComponents = Object.keys(clone.defaultComponents);
-
-  removeDefaultAttributes(clone);
-  removeNotModifiedMixedinAttributes(entity, clone);
-  removeDefaultProperties(entity, clone);
-  clone.flushToDOM();
+  var clone = prepareForSerialization(entity);
+  clone.flushToDOM(true);
   return clone.outerHTML;
+}
 
-  function removeDefaultAttributes (el) {
-    for (let i = 0; i < el.childNodes.length; i++) {
-      var child = el.childNodes[i];
-      if (child.isEntity) {
-        removeDefaultAttributes(child);
-      }
-    }
+/**
+ * Returns a copy of the DOM hierarchy prepared for serialization.
+ * The process optimises component representation to avoid values coming from
+ * primitive attributes, mixins and defaults.
+ *
+ * @param {Element} entity Root of the DOM hierarchy.
+ * @return {Elment}        Copy of the DOM hierarchy ready for serialization.
+ */
+function prepareForSerialization(entity) {
+  var clone = entity.cloneNode(false);
+  var children = entity.childNodes;
+  for (var i = 0, l = children.length; i < l; i++) {
+    clone.appendChild(prepareForSerialization(children[i]));
+  }
+  optimizeComponents(clone, entity);
+  return clone;
+}
 
-    for (let i = 0; i < defaultComponents.length; i++) {
-      if (el.getAttribute(defaultComponents[i])) {
-        el.removeAttribute(defaultComponents[i]);
-      }
+/**
+ * Removes from copy those components or components' properties that comes from
+ * primitive attributes, mixins, injected default components or schema defaults.
+ *
+ * @param {Element} copy   Destinatary element for the optimization.
+ * @param {Element} source Element to be optimized.
+ */
+function optimizeComponents(copy, source) {
+  var components = source.components || {};
+  Object.keys(components).forEach(function (name) {
+    var component = components[name];
+    var implicitValue = getImplicitValue(component, source);
+    var currentValue = source.getAttribute(name);
+    var optimalUpdate = getOptimalUpdate(component, implicitValue, currentValue);
+    if (optimalUpdate === null) {
+      copy.removeAttribute(name);
     }
+    else {
+      copy.setAttribute(name, optimalUpdate, true);
+    }
+  });
+}
+
+/**
+ * Computes the value for a component coming from primitive attributes,
+ * mixins, primitive defaults, a-frame default components and schema defaults.
+ * In this specific order.
+ *
+ * In other words, it is the value of the component if the author would have not
+ * overridden it explicitly.
+ *
+ * @param {Component} component Component to calculate the value of.
+ * @param {Element}   source    Element owning the component.
+ * @return                      The computed value for the component of source.
+ */
+function getImplicitValue(component, source) {
+  return (isSingleProperty(component) ? _single : _multi)(component, source);
+
+  function _single() {
+    var value = getMixedValue(component, null, source);
+    if (value === undefined) {
+      value = getInjectedValue(component, null, source);
+    }
+    if (value === undefined) {
+      value = getDefaultValue(component, null, source);
+    }
+    if (value !== undefined) {
+      // XXX: This assumes parse is idempotent
+      return component.schema.parse(value);
+    }
+    return value;
   }
 
-  function removeNotModifiedMixedinAttributes (entity, clonedEntity) {
-    var mixinEls = entity.mixinEls;
-    mixinEls.forEach(function removeIfNoModified (mixinEl) {
-      var attributes = mixinEl.attributes;
-      var attrName;
-      var components = entity.components;
-      var componentAttrValue;
-      for (var i = 0; i < attributes.length; i++) {
-        attrName = attributes[i].name;
-        componentAttrValue = HTMLElement.prototype.getAttribute.call(entity, attrName);
-        // Not a component
-        if (!components[attrName]) { continue; }
-        // Value of the component has not changed
-        if (componentAttrValue && componentAttrValue !== attributes[i].value) { continue; }
-        clonedEntity.removeAttribute(attrName);
+  function _multi() {
+    var value;
+
+    Object.keys(component.schema).forEach(function (propertyName) {
+      var propertyValue = getFromAttribute(component, propertyName, source);
+      if (propertyValue === undefined) {
+        propertyValue = getMixedValue(component, propertyName, source);
+      }
+      if (propertyValue === undefined) {
+        propertyValue = getInjectedValue(component, propertyName, source);
+      }
+      if (propertyValue === undefined) {
+        propertyValue = getDefaultValue(component, propertyName, source);
+      }
+      if (propertyValue !== undefined) {
+        var parse = component.schema[propertyName].parse;
+        value = value || {};
+        // XXX: This assumes parse is idempotent
+        value[propertyName] = parse(propertyValue);
       }
     });
+
+    return value;
   }
+}
 
-  function removeDefaultProperties (entity, clonedEntity) {
-    var attributes = Array.prototype.slice.call(clonedEntity.attributes);
-    var attributesLength = attributes.length;
-    for (var i = 0; i < attributesLength; i++) {
-      if (!entity.components[attributes[i].name]) { continue; }
-      removeDefaultValues(attributes[i].name, entity, clonedEntity);
+/**
+ * Gets the value for the component's property coming from a primitive
+ * attribute.
+ *
+ * Primitives have mappings from attributes to component's properties.
+ * The function looks for a present attribute in the source element which
+ * maps to the specified component's property.
+ *
+ * @param  {Component} component    Component to be found.
+ * @param  {string}    propertyName Component's property to be found.
+ * @param  {Element}   source       Element owning the component.
+ * @return {any}                    The value of the component's property coming
+ *                                  from the primitive's attribute if any or
+ *                                  `undefined`, otherwise.
+ */
+function getFromAttribute(component, propertyName, source) {
+  var value;
+  var mappings = source.mappings || {};
+  var route = component.name + '.' + propertyName;
+  var primitiveAttribute = findAttribute(mappings, route);
+  if (primitiveAttribute && source.hasAttribute(primitiveAttribute)) {
+    value = source.getAttribute(primitiveAttribute);
+  }
+  return value;
+
+  function findAttribute(mappings, route) {
+    var attributes = Object.keys(mappings);
+    for (var i = 0, l = attributes.length; i < l; i++) {
+      var attribute = attributes[i];
+      if (mappings[attribute] === route) {
+        return attribute;
+      }
     }
+    return undefined;
+  }
+}
 
-    function removeDefaultValues (componentName, entity, clonedEntity) {
-      var schema = entity.components[componentName].schema;
-      var componentValues = entity.getAttribute(componentName);
-      var defaultValue;
-      if (schema.default) {
-        defaultValue = schema.default;
-        if (!equal(defaultValue, componentValues)) { return; }
-        clonedEntity.removeAttribute(componentName);
-      } else {
-        for (var property in schema) {
-          defaultValue = schema[property].default;
-          if (!equal(defaultValue, componentValues[property])) { continue; }
-          delete componentValues[property];
-        }
-        clonedEntity.setAttribute(componentName, componentValues, true);
+/**
+ * Gets the value for a component or component's property coming from mixins of
+ * an element.
+ *
+ * If the component or component's property is not provided by mixins, the
+ * functions will return `undefined`.
+ *
+ * @param {Component} component      Component to be found.
+ * @param {string}    [propertyName] If provided, component's property to be
+ *                                   found.
+ * @param {Element}   source         Element owning the component.
+ * @return                           The value of the component or components'
+ *                                   property coming from mixins of the source.
+ */
+function getMixedValue(component, propertyName, source) {
+  var value;
+  var reversedMixins = source.mixinEls.reverse();
+  for (var i = 0; value === undefined && i < reversedMixins.length; i++) {
+    var mixin = reversedMixins[i];
+    if (mixin.attributes.hasOwnProperty(component.name)) {
+      if (!propertyName) {
+        value = mixin.getAttribute(component.name);
+      }
+      else {
+        value = mixin.getAttribute(component.name)[propertyName];
       }
     }
   }
+  return value;
+}
+
+/**
+ * Gets the value for a component or component's property coming from primitive
+ * defaults or a-frame defaults. In this specific order.
+ *
+ * @param {Component} component      Component to be found.
+ * @param {string}    [propertyName] If provided, component's property to be
+ *                                   found.
+ * @param {Element}   source         Element owning the component.
+ * @return                           The component value coming from the
+ *                                   injected default components of source.
+ */
+function getInjectedValue(component, propertyName, source) {
+  var value;
+  var primitiveDefaults = source.defaultComponentsFromPrimitive || {};
+  var aFrameDefaults = source.defaultComponents || {};
+  var defaultSources = [primitiveDefaults, aFrameDefaults];
+  for (var i = 0; value === undefined && i < defaultSources.length; i++) {
+    var defaults = defaultSources[i];
+    if (defaults.hasOwnProperty(component.name)) {
+      if (!propertyName) {
+        value = defaults[component.name];
+      }
+      else {
+        value = defaults[component.name][propertyName];
+      }
+    }
+  }
+  return value;
+}
+
+/**
+ * Gets the value for a component or component's property coming from schema
+ * defaults.
+ *
+ * @param {Component} component      Component to be found.
+ * @param {string}    [propertyName] If provided, component's property to be
+ *                                   found.
+ * @param {Element}   source         Element owning the component.
+ * @return                           The component value coming from the schema
+ *                                   default.
+ */
+function getDefaultValue(component, propertyName, source) {
+  if (!propertyName) {
+    return component.schema.default;
+  }
+  return component.schema[propertyName].default;
+}
+
+/**
+ * Returns the minimum value for a component with an implicit value to equal a
+ * reference value. A `null` optimal value means that there is no need for an
+ * update since the implicit value and the reference are equal.
+ *
+ * @param {Component} component Component of the computed value.
+ * @param {any}       implicit  The implicit value of the component.
+ * @param {any}       reference The reference value for the component.
+ * @return                      the minimum value making the component to equal
+ *                              the reference value.
+ */
+function getOptimalUpdate(component, implicit, reference) {
+  if (equal(implicit, reference)) {
+    return null;
+  }
+  if (isSingleProperty(component)) {
+    return reference;
+  }
+  var optimal = {};
+  Object.keys(reference).forEach(function (key) {
+    var needsUpdate = !equal(reference[key], implicit[key]);
+    if (needsUpdate) {
+      optimal[key] = reference[key];
+    }
+  });
+  return optimal;
+}
+
+/**
+ * @param {Component} component Component to test if it is single property.
+ * @return                      `true` if component is single property.
+ */
+function isSingleProperty(component) {
+  return AFRAME.schema.isSingleProperty(component.schema);
 }
 
 /**
