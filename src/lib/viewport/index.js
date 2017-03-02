@@ -29,7 +29,11 @@ function Viewport (inspector) {
       if (event.detail.cameraEl !== inspector.inspectorCameraEl) {
         prevActivedCameraEl = event.detail.cameraEl;
       }
-      inspector.inspectorCameraEl.setAttribute('camera', 'active', 'true');
+
+      // If it's an inspector camera we just leave the active status as is
+      if (!event.detail.cameraEl.isInspector) {
+        inspector.inspectorCameraEl.setAttribute('camera', 'active', 'true');
+      }
     }
   });
 

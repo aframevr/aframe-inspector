@@ -6,6 +6,7 @@ var ShaderLoader = require('./shaderloader.js');
 var Shortcuts = require('./shortcuts.js');
 
 function Inspector () {
+  this.modules = [];
   this.opened = false;
   // Detect if the scene is already loaded
   if (document.readyState === 'complete' || document.readyState === 'loaded') {
@@ -51,10 +52,20 @@ Inspector.prototype = {
     this.inspectorCameraEl.addEventListener('loaded', entity => {
       this.EDITOR_CAMERA = this.inspectorCameraEl.getObject3D('camera');
       this.initUI();
+      this.initModules();
     });
     this.inspectorCameraEl.setAttribute('camera', {far: 10000, fov: 50, near: 0.05, active: true});
     document.querySelector('a-scene').appendChild(this.inspectorCameraEl);
   },
+
+  initModules: function () {
+    for (var moduleName in this.modules) {
+      var module = this.modules[moduleName];
+      console.log('Initializing module <%s>', moduleName);
+      module.init(this.sceneEl);
+    }
+  },
+
   initUI: function () {
     this.EDITOR_CAMERA.position.set(20, 10, 20);
     this.EDITOR_CAMERA.lookAt(new THREE.Vector3());
@@ -335,4 +346,9 @@ Inspector.prototype = {
   }
 };
 
-module.exports = new Inspector();
+var inspector = new Inspector();
+AFRAME.INSPECTOR = inspector;
+
+var Modules = require('./modules/index.js');
+
+module.exports = inspector;
