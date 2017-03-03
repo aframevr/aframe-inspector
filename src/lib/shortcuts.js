@@ -60,6 +60,7 @@ module.exports = {
     }
   },
   onKeyDown: function (event) {
+    if (!shouldCaptureKeyEvent(event)) { return; }
 
     if (event.ctrlKey && os === 'windows' || event.metaKey && os === 'macos') {
       if (AFRAME.INSPECTOR.selectedEntity && document.activeElement.tagName !== 'INPUT') {
