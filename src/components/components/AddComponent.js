@@ -4,6 +4,8 @@ var INSPECTOR = require('../../lib/inspector.js');
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
+var DELIMITER = ' ';
+
 export default class AddComponent extends React.Component {
   static propTypes = {
     entity: React.PropTypes.object
@@ -21,7 +23,7 @@ export default class AddComponent extends React.Component {
     })[0];
 
     if (selectedOption.origin === 'registry') {
-      [packageName, componentName] = selectedOption.value.split('.');
+      [packageName, componentName] = selectedOption.value.split(DELIMITER);
       INSPECTOR.componentLoader.addComponentToScene(packageName, componentName)
         .then(addComponent);
     } else {
@@ -70,7 +72,7 @@ export default class AddComponent extends React.Component {
       });
     var registryOptions = registryComponents
       .map(function (item) {
-        return {value: item.componentPackageName + '.' + item.componentName,
+        return {value: item.componentPackageName + DELIMITER + item.componentName,
           label: item.componentName, origin: 'registry'};
       });
 
