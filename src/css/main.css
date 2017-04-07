@@ -1,6 +1,33 @@
+body.aframe-inspector-opened,
+.toggle-edit {
+  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.wf-roboto-n4-active body.aframe-inspector-opened,
+.wf-roboto-n4-active .toggle-edit {
+  font-family: Roboto, BlinkMacSystemFont, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.Select,
+code,
+pre,
+input,
+textarea,
+select {
+  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;
+}
+
+.wf-robotomono-n4-active .Select,
+.wf-robotomono-n4-active code,
+.wf-robotomono-n4-active pre,
+.wf-robotomono-n4-active input,
+.wf-robotomono-n4-active textarea,
+.wf-robotomono-n4-active select {
+  font-family: Roboto Mono, Consolas, Andale Mono, Monaco, Courier New, monospace;
+}
+
 body.aframe-inspector-opened {
   color: #fff;
-  font-family: 'Roboto', sans-serif;
   font-size: 12px;
   margin: 0;
   overflow: hidden;
@@ -84,7 +111,6 @@ input {
 .toggle-edit {
   background-color: #ed3160;
   color: #fff;
-  font-family: 'Roboto', sans-serif;
   font-size: 12px;
   left: 3px;
   margin: 0;
@@ -679,23 +705,6 @@ span.subcomponent {
 
 .a-canvas.state-dragging {
   cursor: grabbing;
-}
-
-code,
-pre,
-input,
-textarea,
-select {
-  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;
-}
-
-.Select,
-.wf-active code,
-.wf-active pre,
-.wf-active input,
-.wf-active textarea,
-.wf-active select {
-  font-family: Roboto Mono, Consolas, Andale Mono, Monaco, Courier New, monospace;
 }
 
 .tagName {
