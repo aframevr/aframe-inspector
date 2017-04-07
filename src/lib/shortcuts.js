@@ -103,8 +103,9 @@ module.exports = {
         document.getElementById('filter').focus();
       }
     }
-    // tab: toggle sidebars visibility
-    if (event.keyCode === 9) {
+
+    // º: toggle sidebars visibility
+    if (event.keyCode === 192) {
       Events.emit('togglesidebar', {which:'all'});
       event.preventDefault();
       event.stopPropagation();
