@@ -128,7 +128,7 @@ export default class Main extends React.Component {
 
 (function init () {
   var webFontLoader = document.createElement('script');
-  webFontLoader.innerHTML = 'WebFont.load({google: {families: ["Roboto Mono"]}});';
+  webFontLoader.innerHTML = 'WebFont.load({google: {families: ["Roboto", "Roboto Mono"]}});';
 
   var webFont = document.createElement('script');
   webFont.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js';
