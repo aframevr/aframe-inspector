@@ -17,7 +17,7 @@ export default class NumberWidget extends React.Component {
     min: -Infinity,
     max: Infinity,
     value: 0,
-    precision: 2,
+    precision: 3,
     step: 1
   };
 
@@ -45,10 +45,10 @@ export default class NumberWidget extends React.Component {
     this.distance += delta;
 
     // Add minimum tolerance to reduce unintentional drags when clicking on input.
-    if (Math.abs(delta) <= 2) { return; }
+    //if (Math.abs(delta) <= 2) { return; }
 
     let value = this.onMouseDownValue + (this.distance / (event.shiftKey ? 5 : 50)) *
-                this.props.step;
+                this.props.step / 2;
     value = Math.min(this.props.max, Math.max(this.props.min, value));
     if (currentValue !== value) { this.setValue(value); }
     this.prevPointer = [event.clientX, event.clientY];

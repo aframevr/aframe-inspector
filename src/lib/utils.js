@@ -1,5 +1,5 @@
 function getNumber (value) {
-  return parseFloat(value.toFixed(2));
+  return parseFloat(value.toFixed(3));
 }
 
 function getMajorVersion (version) {
