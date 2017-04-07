@@ -195,12 +195,25 @@ function Viewport (inspector) {
     if (onDownPosition.distanceTo(onUpPosition) === 0) {
       var intersects = getIntersects(onUpPosition, objects);
       if (intersects.length > 0) {
-        var object = intersects[ 0 ].object;
-        if (object.userData.object !== undefined) {
-          // helper
-          inspector.selectEntity(object.userData.object.el);
-        } else {
-          inspector.selectEntity(object.el);
+        var selected = false;
+        for (var i = 0; i < intersects.length; i++) {
+          var object = intersects[i].object;
+          if (!object.el.getAttribute('visible')) {
+            continue;
+          }
+
+          selected = true;
+
+          if (object.userData.object !== undefined) {
+            // helper
+            inspector.selectEntity(object.userData.object.el);
+          } else {
+            inspector.selectEntity(object.el);
+          }
+        }
+
+        if (!selected) {
+          inspector.selectEntity(null);
         }
       } else {
         inspector.selectEntity(null);
