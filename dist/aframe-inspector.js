@@ -71,25 +71,25 @@
 
 	var _Sidebar2 = _interopRequireDefault(_Sidebar);
 
-	var _ModalTextures = __webpack_require__(236);
+	var _ModalTextures = __webpack_require__(239);
 
 	var _ModalTextures2 = _interopRequireDefault(_ModalTextures);
 
-	var _ModalHelp = __webpack_require__(240);
+	var _ModalHelp = __webpack_require__(243);
 
 	var _ModalHelp2 = _interopRequireDefault(_ModalHelp);
 
-	var _SceneGraph = __webpack_require__(241);
+	var _SceneGraph = __webpack_require__(244);
 
 	var _SceneGraph2 = _interopRequireDefault(_SceneGraph);
 
-	var _ToolBar = __webpack_require__(244);
+	var _ToolBar = __webpack_require__(247);
 
 	var _ToolBar2 = _interopRequireDefault(_ToolBar);
 
 	var _utils = __webpack_require__(205);
 
-	__webpack_require__(245);
+	__webpack_require__(248);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -100,7 +100,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	/* global VERSION BUILD_TIMESTAMP COMMIT_HASH */
-	__webpack_require__(247);
+	__webpack_require__(250);
 	var INSPECTOR = __webpack_require__(200);
 
 	THREE.ImageUtils.crossOrigin = '';
@@ -277,9 +277,7 @@
 	  window.addEventListener('inspector-loaded', function () {
 	    _reactDom2.default.render(_react2.default.createElement(Main, null), div);
 	  });
-	  AFRAME.INSPECTOR = INSPECTOR;
-
-	  console.log('A-Frame Inspector Version:', ("0.5.1"), '(' + ("14-02-2017") + ' Commit: ' + ("e84c1f2970d4621cdf53679cbd072aa1ae48ad50\n").substr(0, 7) + ')');
+	  console.log('A-Frame Inspector Version:', ("0.5.1"), '(' + ("18-04-2017") + ' Commit: ' + ("b066edba380db9aa6d48dd9b71c46e57330f7434\n").substr(0, 7) + ')');
 	})();
 
 /***/ },
@@ -21726,15 +21724,15 @@
 
 	var _AddComponent2 = _interopRequireDefault(_AddComponent);
 
-	var _Component = __webpack_require__(211);
+	var _Component = __webpack_require__(214);
 
 	var _Component2 = _interopRequireDefault(_Component);
 
-	var _CommonComponents = __webpack_require__(232);
+	var _CommonComponents = __webpack_require__(235);
 
 	var _CommonComponents2 = _interopRequireDefault(_CommonComponents);
 
-	var _DefaultComponents = __webpack_require__(234);
+	var _DefaultComponents = __webpack_require__(237);
 
 	var _DefaultComponents2 = _interopRequireDefault(_DefaultComponents);
 
@@ -25008,6 +25006,7 @@
 	var Shortcuts = __webpack_require__(209);
 
 	function Inspector() {
+	  this.modules = [];
 	  this.opened = false;
 	  // Detect if the scene is already loaded
 	  if (document.readyState === 'complete' || document.readyState === 'loaded') {
@@ -25055,10 +25054,20 @@
 	    this.inspectorCameraEl.addEventListener('loaded', function (entity) {
 	      _this.EDITOR_CAMERA = _this.inspectorCameraEl.getObject3D('camera');
 	      _this.initUI();
+	      _this.initModules();
 	    });
 	    this.inspectorCameraEl.setAttribute('camera', { far: 10000, fov: 50, near: 0.05, active: true });
 	    document.querySelector('a-scene').appendChild(this.inspectorCameraEl);
 	  },
+
+	  initModules: function initModules() {
+	    for (var moduleName in this.modules) {
+	      var module = this.modules[moduleName];
+	      console.log('Initializing module <%s>', moduleName);
+	      module.init(this.sceneEl);
+	    }
+	  },
+
 	  initUI: function initUI() {
 	    var _this2 = this;
 
@@ -25349,7 +25358,12 @@
 	  }
 	};
 
-	module.exports = new Inspector();
+	var inspector = new Inspector();
+	AFRAME.INSPECTOR = inspector;
+
+	var Modules = __webpack_require__(211);
+
+	module.exports = inspector;
 
 /***/ },
 /* 201 */
@@ -25400,7 +25414,11 @@
 	      if (event.detail.cameraEl !== inspector.inspectorCameraEl) {
 	        prevActivedCameraEl = event.detail.cameraEl;
 	      }
-	      inspector.inspectorCameraEl.setAttribute('camera', 'active', 'true');
+
+	      // If it's an inspector camera we just leave the active status as is
+	      if (!event.detail.cameraEl.isInspector) {
+	        inspector.inspectorCameraEl.setAttribute('camera', 'active', 'true');
+	      }
 	    }
 	  });
 
@@ -27483,7 +27501,7 @@
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	function getNumber(value) {
-	  return parseFloat(value.toFixed(2));
+	  return parseFloat(value.toFixed(3));
 	}
 
 	function getMajorVersion(version) {
@@ -27787,58 +27805,74 @@
 	}
 
 	module.exports = {
+	  shortcuts: {
+	    default: {},
+	    modules: {}
+	  },
 	  onKeyUp: function onKeyUp(event) {
 	    if (!shouldCaptureKeyEvent(event)) {
 	      return;
 	    }
 
+	    var keyCode = event.keyCode;
+
 	    // h: help
-	    if (event.keyCode === 72) {
+	    if (keyCode === 72) {
 	      Events.emit('openhelpmodal');
 	    }
 
 	    // esc: close inspector
-	    if (event.keyCode === 27) {
+	    if (keyCode === 27) {
 	      AFRAME.INSPECTOR.close();
 	      return;
 	    }
 
 	    // w: translate
-	    if (event.keyCode === 87) {
+	    if (keyCode === 87) {
 	      Events.emit('transformmodechanged', 'translate');
 	    }
 
 	    // e: rotate
-	    if (event.keyCode === 69) {
+	    if (keyCode === 69) {
 	      Events.emit('transformmodechanged', 'rotate');
 	    }
 
 	    // r: scale
-	    if (event.keyCode === 82) {
+	    if (keyCode === 82) {
 	      Events.emit('transformmodechanged', 'scale');
 	    }
 
 	    // g: toggle grid
-	    if (event.keyCode === 71) {
+	    if (keyCode === 71) {
 	      Events.emit('togglegrid');
 	    }
 
 	    // n: new entity
-	    if (event.keyCode === 78) {
+	    if (keyCode === 78) {
 	      Events.emit('createnewentity', { element: 'a-entity', components: {} });
 	    }
 
 	    // backspace & supr: remove selected entity
-	    if (event.keyCode === 8 || event.keyCode === 46) {
+	    if (keyCode === 8 || keyCode === 46) {
 	      (0, _entity.removeSelectedEntity)();
 	    }
 
 	    // d: clone selected entity
-	    if (event.keyCode === 68) {
+	    if (keyCode === 68) {
 	      (0, _entity.cloneSelectedEntity)();
+	    }
+
+	    for (var moduleName in this.shortcuts.modules) {
+	      var shortcutsModule = this.shortcuts.modules[moduleName];
+	      if (shortcutsModule[keyCode] && (!shortcutsModule[keyCode].mustBeActive || shortcutsModule[keyCode].mustBeActive && AFRAME.INSPECTOR.modules[moduleName].active)) {
+	        this.shortcuts.modules[moduleName][keyCode].callback();
+	      }
 	    }
 	  },
 	  onKeyDown: function onKeyDown(event) {
+	    if (!shouldCaptureKeyEvent(event)) {
+	      return;
+	    }
 
 	    if (event.ctrlKey && _utils.os === 'windows' || event.metaKey && _utils.os === 'macos') {
 	      if (AFRAME.INSPECTOR.selectedEntity && document.activeElement.tagName !== 'INPUT') {
@@ -27884,12 +27918,35 @@
 	    }
 	  },
 	  enable: function enable() {
-	    window.addEventListener('keydown', this.onKeyDown, false);
-	    window.addEventListener('keyup', this.onKeyUp, false);
+	    window.addEventListener('keydown', this.onKeyDown.bind(this), false);
+	    window.addEventListener('keyup', this.onKeyUp.bind(this), false);
 	  },
 	  disable: function disable() {
 	    window.removeEventListener('keydown', this.onKeyDown);
 	    window.removeEventListener('keyup', this.onKeyUp);
+	  },
+	  checkModuleShortcutCollision: function checkModuleShortcutCollision(keyCode, moduleName, mustBeActive) {
+	    if (this.shortcuts.modules[moduleName] && this.shortcuts.modules[moduleName][keyCode]) {
+	      console.warn('Keycode <%s> already registered as shorcut within the same module', keyCode);
+	    }
+	  },
+	  registerModuleShortcut: function registerModuleShortcut(keyCode, callback, moduleName, mustBeActive) {
+	    if (this.checkModuleShortcutCollision(keyCode, moduleName, mustBeActive)) {
+	      return;
+	    }
+
+	    if (!this.shortcuts.modules[moduleName]) {
+	      this.shortcuts.modules[moduleName] = {};
+	    }
+
+	    if (mustBeActive !== false) {
+	      mustBeActive = true;
+	    }
+
+	    this.shortcuts.modules[moduleName][keyCode] = {
+	      callback: callback,
+	      mustBeActive: mustBeActive
+	    };
 	  }
 	};
 
@@ -28164,6 +28221,79 @@
 
 	'use strict';
 
+	__webpack_require__(212);
+
+/***/ },
+/* 212 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var registerModule = __webpack_require__(213).registerModule;
+
+	registerModule('dummy', {
+	  init: function init() {
+	    var _this = this;
+
+	    this.registerShortcut(80, function () {
+	      _this.toggleActive();
+	    }, false);
+	  },
+	  activate: function activate() {
+	    console.log('Module activated');
+	  },
+	  deactivate: function deactivate() {
+	    console.log('Module deactivated');
+	  }
+	});
+
+/***/ },
+/* 213 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var Shortcuts = __webpack_require__(209);
+
+	module.exports.registerModule = function registerModule(name, definition) {
+	  name = name.toLowerCase();
+	  console.log('Registering module: <%s>', name);
+
+	  var common = {
+	    status: {
+	      active: false
+	    },
+	    registerShortcut: function registerShortcut(keyCode, callback, mustBeActive) {
+	      Shortcuts.registerModuleShortcut(keyCode, callback, this.moduleName, mustBeActive);
+	    },
+	    toggleActive: function toggleActive() {
+	      if (this.active) {
+	        this.deactivate();
+	      } else {
+	        this.activate();
+	      }
+	    },
+	    activate: function activate() {
+	      this.active = true;
+	      definition.activate.call(this);
+	    },
+	    deactivate: function deactivate() {
+	      this.active = false;
+	      definition.deactivate.call(this);
+	    }
+	  };
+
+	  var newModule = Object.assign({}, definition, common);
+
+	  AFRAME.INSPECTOR.modules[name] = newModule;
+	};
+
+/***/ },
+/* 214 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -28174,19 +28304,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _PropertyRow = __webpack_require__(212);
+	var _PropertyRow = __webpack_require__(215);
 
 	var _PropertyRow2 = _interopRequireDefault(_PropertyRow);
 
-	var _Collapsible = __webpack_require__(223);
+	var _Collapsible = __webpack_require__(226);
 
 	var _Collapsible2 = _interopRequireDefault(_Collapsible);
 
-	var _clipboard = __webpack_require__(224);
+	var _clipboard = __webpack_require__(227);
 
 	var _clipboard2 = _interopRequireDefault(_clipboard);
 
-	var _component = __webpack_require__(222);
+	var _component = __webpack_require__(225);
 
 	var _Events = __webpack_require__(182);
 
@@ -28358,7 +28488,7 @@
 	exports.default = Component;
 
 /***/ },
-/* 212 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28379,45 +28509,45 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _BooleanWidget = __webpack_require__(213);
+	var _BooleanWidget = __webpack_require__(216);
 
 	var _BooleanWidget2 = _interopRequireDefault(_BooleanWidget);
 
-	var _ColorWidget = __webpack_require__(214);
+	var _ColorWidget = __webpack_require__(217);
 
 	var _ColorWidget2 = _interopRequireDefault(_ColorWidget);
 
-	var _InputWidget = __webpack_require__(215);
+	var _InputWidget = __webpack_require__(218);
 
 	var _InputWidget2 = _interopRequireDefault(_InputWidget);
 
-	var _NumberWidget = __webpack_require__(216);
+	var _NumberWidget = __webpack_require__(219);
 
 	var _NumberWidget2 = _interopRequireDefault(_NumberWidget);
 
-	var _SelectWidget = __webpack_require__(217);
+	var _SelectWidget = __webpack_require__(220);
 
 	var _SelectWidget2 = _interopRequireDefault(_SelectWidget);
 
-	var _TextureWidget = __webpack_require__(218);
+	var _TextureWidget = __webpack_require__(221);
 
 	var _TextureWidget2 = _interopRequireDefault(_TextureWidget);
 
-	var _Vec4Widget = __webpack_require__(219);
+	var _Vec4Widget = __webpack_require__(222);
 
 	var _Vec4Widget2 = _interopRequireDefault(_Vec4Widget);
 
-	var _Vec3Widget = __webpack_require__(220);
+	var _Vec3Widget = __webpack_require__(223);
 
 	var _Vec3Widget2 = _interopRequireDefault(_Vec3Widget);
 
-	var _Vec2Widget = __webpack_require__(221);
+	var _Vec2Widget = __webpack_require__(224);
 
 	var _Vec2Widget2 = _interopRequireDefault(_Vec2Widget);
 
 	var _entity = __webpack_require__(210);
 
-	var _component = __webpack_require__(222);
+	var _component = __webpack_require__(225);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28551,7 +28681,7 @@
 	exports.default = PropertyRow;
 
 /***/ },
-/* 213 */
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28622,7 +28752,7 @@
 	exports.default = BooleanWidget;
 
 /***/ },
-/* 214 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28735,7 +28865,7 @@
 	exports.default = ColorWidget;
 
 /***/ },
-/* 215 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28801,7 +28931,7 @@
 	exports.default = InputWidget;
 
 /***/ },
-/* 216 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28839,11 +28969,9 @@
 	      _this.distance += delta;
 
 	      // Add minimum tolerance to reduce unintentional drags when clicking on input.
-	      if (Math.abs(delta) <= 2) {
-	        return;
-	      }
+	      //if (Math.abs(delta) <= 2) { return; }
 
-	      var value = _this.onMouseDownValue + _this.distance / (event.shiftKey ? 5 : 50) * _this.props.step;
+	      var value = _this.onMouseDownValue + _this.distance / (event.shiftKey ? 5 : 50) * _this.props.step / 2;
 	      value = Math.min(_this.props.max, Math.max(_this.props.min, value));
 	      if (currentValue !== value) {
 	        _this.setValue(value);
@@ -28974,13 +29102,13 @@
 	  min: -Infinity,
 	  max: Infinity,
 	  value: 0,
-	  precision: 2,
+	  precision: 3,
 	  step: 1
 	};
 	exports.default = NumberWidget;
 
 /***/ },
-/* 217 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29078,7 +29206,7 @@
 	exports.default = SelectWidget;
 
 /***/ },
-/* 218 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29334,7 +29462,7 @@
 	exports.default = TextureWidget;
 
 /***/ },
-/* 219 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29351,7 +29479,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _NumberWidget = __webpack_require__(216);
+	var _NumberWidget = __webpack_require__(219);
 
 	var _NumberWidget2 = _interopRequireDefault(_NumberWidget);
 
@@ -29427,7 +29555,7 @@
 	exports.default = Vec4Widget;
 
 /***/ },
-/* 220 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29444,7 +29572,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _NumberWidget = __webpack_require__(216);
+	var _NumberWidget = __webpack_require__(219);
 
 	var _NumberWidget2 = _interopRequireDefault(_NumberWidget);
 
@@ -29518,7 +29646,7 @@
 	exports.default = Vec3Widget;
 
 /***/ },
-/* 221 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29535,7 +29663,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _NumberWidget = __webpack_require__(216);
+	var _NumberWidget = __webpack_require__(219);
 
 	var _NumberWidget2 = _interopRequireDefault(_NumberWidget);
 
@@ -29607,7 +29735,7 @@
 	exports.default = Vec2Widget;
 
 /***/ },
-/* 222 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29700,7 +29828,7 @@
 	}
 
 /***/ },
-/* 223 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29795,12 +29923,12 @@
 	exports.default = Collapsible;
 
 /***/ },
-/* 224 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(225), __webpack_require__(227), __webpack_require__(228)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(228), __webpack_require__(230), __webpack_require__(231)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof exports !== "undefined") {
 	        factory(module, require('./clipboard-action'), require('tiny-emitter'), require('good-listener'));
 	    } else {
@@ -29985,12 +30113,12 @@
 	});
 
 /***/ },
-/* 225 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(226)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(229)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof exports !== "undefined") {
 	        factory(module, require('select'));
 	    } else {
@@ -30219,7 +30347,7 @@
 	});
 
 /***/ },
-/* 226 */
+/* 229 */
 /***/ function(module, exports) {
 
 	function select(element) {
@@ -30258,7 +30386,7 @@
 
 
 /***/ },
-/* 227 */
+/* 230 */
 /***/ function(module, exports) {
 
 	function E () {
@@ -30330,11 +30458,11 @@
 
 
 /***/ },
-/* 228 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var is = __webpack_require__(229);
-	var delegate = __webpack_require__(230);
+	var is = __webpack_require__(232);
+	var delegate = __webpack_require__(233);
 
 	/**
 	 * Validates all params and calls the right
@@ -30431,7 +30559,7 @@
 
 
 /***/ },
-/* 229 */
+/* 232 */
 /***/ function(module, exports) {
 
 	/**
@@ -30486,10 +30614,10 @@
 
 
 /***/ },
-/* 230 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var closest = __webpack_require__(231);
+	var closest = __webpack_require__(234);
 
 	/**
 	 * Delegates event to a selector.
@@ -30536,7 +30664,7 @@
 
 
 /***/ },
-/* 231 */
+/* 234 */
 /***/ function(module, exports) {
 
 	/**
@@ -30570,7 +30698,7 @@
 
 
 /***/ },
-/* 232 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30585,21 +30713,21 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _widgets = __webpack_require__(233);
+	var _widgets = __webpack_require__(236);
 
-	var _DefaultComponents = __webpack_require__(234);
+	var _DefaultComponents = __webpack_require__(237);
 
 	var _DefaultComponents2 = _interopRequireDefault(_DefaultComponents);
 
-	var _PropertyRow = __webpack_require__(212);
+	var _PropertyRow = __webpack_require__(215);
 
 	var _PropertyRow2 = _interopRequireDefault(_PropertyRow);
 
-	var _Collapsible = __webpack_require__(223);
+	var _Collapsible = __webpack_require__(226);
 
 	var _Collapsible2 = _interopRequireDefault(_Collapsible);
 
-	var _Mixins = __webpack_require__(235);
+	var _Mixins = __webpack_require__(238);
 
 	var _Mixins2 = _interopRequireDefault(_Mixins);
 
@@ -30609,7 +30737,7 @@
 
 	var _Events2 = _interopRequireDefault(_Events);
 
-	var _clipboard = __webpack_require__(224);
+	var _clipboard = __webpack_require__(227);
 
 	var _clipboard2 = _interopRequireDefault(_clipboard);
 
@@ -30733,25 +30861,25 @@
 	exports.default = CommonComponents;
 
 /***/ },
-/* 233 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = {
-	  BooleanWidget: __webpack_require__(213).default,
-	  ColorWidget: __webpack_require__(214).default,
-	  InputWidget: __webpack_require__(215).default,
-	  NumberWidget: __webpack_require__(216).default,
-	  SelectWidget: __webpack_require__(217).default,
-	  TextureWidget: __webpack_require__(218).default,
-	  Vec4Widget: __webpack_require__(219).default,
-	  Vec3Widget: __webpack_require__(220).default,
-	  Vec2Widget: __webpack_require__(221).default
+	  BooleanWidget: __webpack_require__(216).default,
+	  ColorWidget: __webpack_require__(217).default,
+	  InputWidget: __webpack_require__(218).default,
+	  NumberWidget: __webpack_require__(219).default,
+	  SelectWidget: __webpack_require__(220).default,
+	  TextureWidget: __webpack_require__(221).default,
+	  Vec4Widget: __webpack_require__(222).default,
+	  Vec3Widget: __webpack_require__(223).default,
+	  Vec2Widget: __webpack_require__(224).default
 	};
 
 /***/ },
-/* 234 */
+/* 237 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30762,7 +30890,7 @@
 	exports.default = ['visible', 'position', 'scale', 'rotation'];
 
 /***/ },
-/* 235 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30916,7 +31044,7 @@
 	exports.default = Mixin;
 
 /***/ },
-/* 236 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30935,7 +31063,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Modal = __webpack_require__(237);
+	var _Modal = __webpack_require__(240);
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -30943,7 +31071,7 @@
 
 	var _inspector2 = _interopRequireDefault(_inspector);
 
-	var _uploadcare = __webpack_require__(238);
+	var _uploadcare = __webpack_require__(241);
 
 	var _uploadcare2 = _interopRequireDefault(_uploadcare);
 
@@ -30958,7 +31086,7 @@
 	/* global uploadcare */
 	window.UPLOADCARE_PUBLIC_KEY = 'f43ad452b58f9e853d05';
 
-	var insertNewAsset = __webpack_require__(239).insertNewAsset;
+	var insertNewAsset = __webpack_require__(242).insertNewAsset;
 
 
 	function getFilename(url) {
@@ -31481,7 +31609,7 @@
 	exports.default = ModalTextures;
 
 /***/ },
-/* 237 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31617,7 +31745,7 @@
 	exports.default = Modal;
 
 /***/ },
-/* 238 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31637,7 +31765,7 @@
 	}
 
 /***/ },
-/* 239 */
+/* 242 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31671,7 +31799,7 @@
 	};
 
 /***/ },
-/* 240 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31686,7 +31814,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Modal = __webpack_require__(237);
+	var _Modal = __webpack_require__(240);
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -31779,7 +31907,7 @@
 	exports.default = ModalHelp;
 
 /***/ },
-/* 241 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31804,7 +31932,7 @@
 
 	var _entity = __webpack_require__(210);
 
-	var _Toolbar = __webpack_require__(242);
+	var _Toolbar = __webpack_require__(245);
 
 	var _Toolbar2 = _interopRequireDefault(_Toolbar);
 
@@ -32154,7 +32282,7 @@
 	exports.default = SceneGraph;
 
 /***/ },
-/* 242 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32169,11 +32297,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _clipboard = __webpack_require__(224);
+	var _clipboard = __webpack_require__(227);
 
 	var _clipboard2 = _interopRequireDefault(_clipboard);
 
-	var _exporter = __webpack_require__(243);
+	var _exporter = __webpack_require__(246);
 
 	var _Events = __webpack_require__(182);
 
@@ -32257,7 +32385,7 @@
 	exports.default = Toolbar;
 
 /***/ },
-/* 243 */
+/* 246 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -32332,7 +32460,7 @@
 	}
 
 /***/ },
-/* 244 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32440,13 +32568,13 @@
 	exports.default = Toolbar;
 
 /***/ },
-/* 245 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(246);
+	var content = __webpack_require__(249);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(199)(content, {});
@@ -32466,7 +32594,7 @@
 	}
 
 /***/ },
-/* 246 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(198)();
@@ -32480,7 +32608,7 @@
 
 
 /***/ },
-/* 247 */
+/* 250 */
 /***/ function(module, exports) {
 
 	'use strict';
