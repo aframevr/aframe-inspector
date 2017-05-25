@@ -157,7 +157,12 @@ function prepareForSerialization(entity) {
   var clone = entity.cloneNode(false);
   var children = entity.childNodes;
   for (var i = 0, l = children.length; i < l; i++) {
-    clone.appendChild(prepareForSerialization(children[i]));
+    var child = children[i];
+    if (child.nodeType !== Node.ELEMENT_NODE ||
+        !child.hasAttribute('aframe-injected') &&
+        !child.hasAttribute('data-aframe-canvas')) {
+      clone.appendChild(prepareForSerialization(children[i]));
+    }
   }
   optimizeComponents(clone, entity);
   return clone;
