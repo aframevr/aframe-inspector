@@ -210,6 +210,8 @@ function Viewport (inspector) {
           } else {
             inspector.selectEntity(object.el);
           }
+
+          break;
         }
 
         if (!selected) {
