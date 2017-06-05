@@ -21,7 +21,9 @@ function equal (var1, var2) {
   var type1 = typeof var1;
   var type2 = typeof var2;
   if (type1 !== type2) { return false; }
-  if (type1 !== 'object') { return var1 === var2; }
+  if (type1 !== 'object' || var1 === null || var2 === null) {
+    return var1 === var2;
+  }
   keys1 = Object.keys(var1);
   keys2 = Object.keys(var2);
   if (keys1.length !== keys2.length) { return false; }
