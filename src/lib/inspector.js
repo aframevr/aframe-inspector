@@ -6,7 +6,7 @@ var ShaderLoader = require('./shaderloader.js');
 var Shortcuts = require('./shortcuts.js');
 
 function Inspector () {
-  this.modules = [];
+  this.modules = {};
   this.opened = false;
   // Detect if the scene is already loaded
   if (document.readyState === 'complete' || document.readyState === 'loaded') {
