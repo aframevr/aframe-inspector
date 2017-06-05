@@ -160,6 +160,7 @@ function prepareForSerialization(entity) {
     var child = children[i];
     if (child.nodeType !== Node.ELEMENT_NODE ||
         !child.hasAttribute('aframe-injected') &&
+        !child.hasAttribute('data-aframe-inspector') &&
         !child.hasAttribute('data-aframe-canvas')) {
       clone.appendChild(prepareForSerialization(children[i]));
     }
