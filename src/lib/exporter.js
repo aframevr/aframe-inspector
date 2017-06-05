@@ -26,6 +26,9 @@ function slugify (text) {
  * @return {string} String that contains the filtered HTML of the current page
  */
 export function generateHtml () {
+  // flishToDOM first because the elements are posibilly modified by user in Inspector.
+  document.querySelector('a-scene').flushToDOM(true);
+
   var parser = new window.DOMParser();
   var xmlDoc = parser.parseFromString(document.documentElement.innerHTML, 'text/html');
 
