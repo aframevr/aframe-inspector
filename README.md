@@ -4,7 +4,7 @@
 
 A visual inspector tool for [A-Frame](https://aframe.io) scenes. Just hit
 `<ctrl> + <alt> + i` on any A-Frame scene to open up the Inspector. Check out
-[the guide](https://aframe.io/docs/master/guides/using-the-aframe-inspector.html).
+[the guide](https://aframe.io/docs/master/introduction/visual-inspector-and-dev-tools.html).
 
 [VIEW DEMO](https://aframe.io/aframe-inspector/example/)
 
