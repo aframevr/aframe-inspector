@@ -64,7 +64,10 @@ export default class TextureWidget extends React.Component {
     mapName: React.PropTypes.string,
     name: React.PropTypes.string.isRequired,
     onChange: React.PropTypes.func,
-    value: React.PropTypes.string
+    value: React.PropTypes.oneOfType([
+      React.PropTypes.object,
+      React.PropTypes.string
+    ]),
   };
 
   static defaultProps = {
@@ -124,7 +127,13 @@ export default class TextureWidget extends React.Component {
     }
 
     var url;
-    if (value[0] === '#') {
+    var isAssetHash = value[0] === '#';
+    var isAssetImg = value instanceof HTMLImageElement;
+
+    if (isAssetImg) {
+      url = value.src;
+    }
+    else if (isAssetHash) {
       url = getUrlFromId(value);
     } else {
       url = AFRAME.utils.srcLoader.parseUrl(value);
@@ -132,7 +141,7 @@ export default class TextureWidget extends React.Component {
 
     var texture = getTextureFromSrc(value);
     var valueType = null;
-    valueType = value[0] === '#' ? 'asset' : 'url';
+    valueType = (isAssetImg || isAssetHash) ? 'asset' : 'url';
     if (texture) {
       texture.then(paintPreview);
     } else if (url) {
@@ -144,7 +153,7 @@ export default class TextureWidget extends React.Component {
       context.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    this.setState({value: value, valueType: valueType, url: url});
+    this.setState({value: isAssetImg ? '#' + value.id : value, valueType: valueType, url: url});
   }
 
   notifyChanged = value => {
