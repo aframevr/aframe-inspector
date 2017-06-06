@@ -55,6 +55,7 @@ Inspector.prototype = {
       this.initModules();
     });
     this.inspectorCameraEl.setAttribute('camera', {far: 10000, fov: 50, near: 0.05, active: true});
+    this.inspectorCameraEl.setAttribute('data-aframe-inspector', 'camera');
     document.querySelector('a-scene').appendChild(this.inspectorCameraEl);
   },
 

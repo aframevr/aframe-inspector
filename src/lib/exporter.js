@@ -47,6 +47,7 @@ export function generateHtml () {
     'style[data-href$="aframe.css"]',
     // Injected by stats
     '.rs-base',
+    '.a-canvas',
     'style[data-href$="rStats.css"]'
   ].join(','));
   for (var i = 0; i < elementsToRemove.length; i++) {
