@@ -28,6 +28,8 @@ export default class Toolbar extends React.Component {
       // URL.revokeObjectURL(url); breaks Firefox...
     }
     function saveString (text, filename) {
+      text = text.replace("active:true", "active:false")
+      text = text.replace('camera="active:false"', 'camera="active:true"')
       save(new Blob([ text ], { type: 'text/html' }), filename);
     }
     var sceneName = getSceneName(document.querySelector('a-scene'));
