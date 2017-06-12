@@ -273,7 +273,7 @@
 	  window.addEventListener('inspector-loaded', function () {
 	    _reactDom2.default.render(_react2.default.createElement(Main, null), div);
 	  });
-	  console.log('A-Frame Inspector Version:', ("0.5.3"), '(' + ("12-06-2017") + ' Commit: ' + ("1b11fd3f39b96979a7a62b3d344b3c94e08fde8b\n").substr(0, 7) + ')');
+	  console.log('A-Frame Inspector Version:', ("0.5.3"), '(' + ("12-06-2017") + ' Commit: ' + ("de62679c7f543368b2f075a647767d2e9bcce726\n").substr(0, 7) + ')');
 	})();
 
 /***/ },
@@ -27828,7 +27828,8 @@
 	  return event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA';
 	}
 
-	module.exports = {
+	var Shortcuts = {
+	  enabled: false,
 	  shortcuts: {
 	    default: {},
 	    modules: {}
@@ -27943,12 +27944,18 @@
 	    }
 	  },
 	  enable: function enable() {
-	    window.addEventListener('keydown', this.onKeyDown.bind(this), false);
-	    window.addEventListener('keyup', this.onKeyUp.bind(this), false);
+	    if (this.enabled) {
+	      this.disable();
+	    }
+
+	    window.addEventListener('keydown', this.onKeyDown, false);
+	    window.addEventListener('keyup', this.onKeyUp, false);
+	    this.enabled = true;
 	  },
 	  disable: function disable() {
 	    window.removeEventListener('keydown', this.onKeyDown);
 	    window.removeEventListener('keyup', this.onKeyUp);
+	    this.enabled = false;
 	  },
 	  checkModuleShortcutCollision: function checkModuleShortcutCollision(keyCode, moduleName, mustBeActive) {
 	    if (this.shortcuts.modules[moduleName] && this.shortcuts.modules[moduleName][keyCode]) {
@@ -27972,8 +27979,16 @@
 	      callback: callback,
 	      mustBeActive: mustBeActive
 	    };
+	  },
+	  init: function init() {
+	    this.onKeyDown = this.onKeyDown.bind(this);
+	    this.onKeyUp = this.onKeyUp.bind(this);
 	  }
 	};
+
+	Shortcuts.init();
+
+	module.exports = Shortcuts;
 
 /***/ },
 /* 210 */
