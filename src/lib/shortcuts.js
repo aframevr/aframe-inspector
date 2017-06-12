@@ -9,7 +9,8 @@ function shouldCaptureKeyEvent (event) {
     event.target.tagName !== 'TEXTAREA';
 }
 
-module.exports = {
+var Shortcuts = {
+  enabled: false,
   shortcuts: {
     default: {},
     modules: {}
@@ -122,12 +123,18 @@ module.exports = {
     }
   },
   enable: function () {
-    window.addEventListener('keydown', this.onKeyDown.bind(this), false);
-    window.addEventListener('keyup', this.onKeyUp.bind(this), false);
+    if (this.enabled) {
+      this.disable();
+    }
+
+    window.addEventListener('keydown', this.onKeyDown, false);
+    window.addEventListener('keyup', this.onKeyUp, false);
+    this.enabled = true;
   },
   disable: function () {
     window.removeEventListener('keydown', this.onKeyDown);
     window.removeEventListener('keyup', this.onKeyUp);
+    this.enabled = false;
   },
   checkModuleShortcutCollision: function (keyCode, moduleName, mustBeActive) {
     if (this.shortcuts.modules[moduleName] && this.shortcuts.modules[moduleName][keyCode]) {
@@ -149,5 +156,13 @@ module.exports = {
       callback,
       mustBeActive
     };
+  },
+  init: function () {
+    this.onKeyDown = this.onKeyDown.bind(this);
+    this.onKeyUp = this.onKeyUp.bind(this);
   }
 };
+
+Shortcuts.init();
+
+module.exports = Shortcuts;
