@@ -257,18 +257,14 @@
 
 
 	(function init() {
-	  var webFontLoader = document.createElement('script');
-	  webFontLoader.innerHTML = 'WebFont.load({google: {families: ["Roboto", "Roboto Mono"]}});';
-
-	  var webFont = document.createElement('script');
-	  webFont.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js';
-	  webFont.addEventListener('load', function () {
+	  (0, _utils.injectJS)('https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js', function () {
+	    var webFontLoader = document.createElement('script');
+	    webFontLoader.setAttribute('data-aframe-inspector', 'webfont');
+	    webFontLoader.innerHTML = 'WebFont.load({google: {families: ["Roboto", "Roboto Mono"]}});';
 	    document.head.appendChild(webFontLoader);
-	  });
-	  webFont.addEventListener('error', function () {
+	  }, function () {
 	    console.warn('Could not load WebFont script:', webFont.src);
 	  });
-	  document.head.appendChild(webFont);
 
 	  var div = document.createElement('div');
 	  div.id = 'aframe-inspector';
@@ -277,7 +273,7 @@
 	  window.addEventListener('inspector-loaded', function () {
 	    _reactDom2.default.render(_react2.default.createElement(Main, null), div);
 	  });
-	  console.log('A-Frame Inspector Version:', ("0.5.3"), '(' + ("05-06-2017") + ' Commit: ' + ("4370f80aab6a88a979558c6b2963a9016863be94\n").substr(0, 7) + ')');
+	  console.log('A-Frame Inspector Version:', ("0.5.3"), '(' + ("12-06-2017") + ' Commit: ' + ("1b11fd3f39b96979a7a62b3d344b3c94e08fde8b\n").substr(0, 7) + ')');
 	})();
 
 /***/ },
@@ -25060,6 +25056,7 @@
 	      _this.initModules();
 	    });
 	    this.inspectorCameraEl.setAttribute('camera', { far: 10000, fov: 50, near: 0.05, active: true });
+	    this.inspectorCameraEl.setAttribute('data-aframe-inspector', 'camera');
 	    document.querySelector('a-scene').appendChild(this.inspectorCameraEl);
 	  },
 
@@ -27592,11 +27589,20 @@
 	  document.head.appendChild(link);
 	}
 
-	function injectJS(url) {
+	function injectJS(url, onLoad, onError) {
 	  var link = document.createElement('script');
 	  link.src = url;
 	  link.charset = 'utf-8';
 	  link.setAttribute('data-aframe-inspector', 'style');
+
+	  if (onLoad) {
+	    link.addEventListener('load', onLoad);
+	  }
+
+	  if (onError) {
+	    link.addEventListener('error', onError);
+	  }
+
 	  document.head.appendChild(link);
 	}
 
@@ -29582,7 +29588,12 @@
 	      }
 
 	      var url;
-	      if (value[0] === '#') {
+	      var isAssetHash = value[0] === '#';
+	      var isAssetImg = value instanceof HTMLImageElement;
+
+	      if (isAssetImg) {
+	        url = value.src;
+	      } else if (isAssetHash) {
 	        url = getUrlFromId(value);
 	      } else {
 	        url = AFRAME.utils.srcLoader.parseUrl(value);
@@ -29590,7 +29601,7 @@
 
 	      var texture = getTextureFromSrc(value);
 	      var valueType = null;
-	      valueType = value[0] === '#' ? 'asset' : 'url';
+	      valueType = isAssetImg || isAssetHash ? 'asset' : 'url';
 	      if (texture) {
 	        texture.then(paintPreview);
 	      } else if (url) {
@@ -29604,7 +29615,7 @@
 	        context.clearRect(0, 0, canvas.width, canvas.height);
 	      }
 
-	      this.setState({ value: value, valueType: valueType, url: url });
+	      this.setState({ value: isAssetImg ? '#' + value.id : value, valueType: valueType, url: url });
 	    }
 	  }, {
 	    key: 'render',
@@ -29643,7 +29654,7 @@
 	  mapName: _react2.default.PropTypes.string,
 	  name: _react2.default.PropTypes.string.isRequired,
 	  onChange: _react2.default.PropTypes.func,
-	  value: _react2.default.PropTypes.string
+	  value: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.object, _react2.default.PropTypes.string])
 	};
 	TextureWidget.defaultProps = {
 	  value: '',
@@ -32577,7 +32588,7 @@
 
 /***/ },
 /* 246 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -32586,6 +32597,9 @@
 	});
 	exports.getSceneName = getSceneName;
 	exports.generateHtml = generateHtml;
+
+	var _entity = __webpack_require__(210);
+
 	/**
 	 * Get scene name
 	 * @param  {Element} scene Scene element
@@ -32614,7 +32628,8 @@
 	 */
 	function generateHtml() {
 	  // flushToDOM first because the elements are posibilly modified by user in Inspector.
-	  document.querySelector('a-scene').flushToDOM(true);
+	  var sceneEl = document.querySelector('a-scene');
+	  sceneEl.flushToDOM(true);
 
 	  var parser = new window.DOMParser();
 	  var xmlDoc = parser.parseFromString(document.documentElement.innerHTML, 'text/html');
@@ -32623,17 +32638,25 @@
 	  // @todo Use custom class to prevent this hack
 	  var elementsToRemove = xmlDoc.querySelectorAll([
 	  // Injected by the inspector
-	  '[data-aframe-inspector]', 'script[src$="aframe-inspector.js"]', 'style[type="text/css"]',
+	  '[data-aframe-inspector]', 'script[src$="aframe-inspector.js"]', 'style[type="text/css"]', 'link[href="http://fonts.googleapis.com/css?family=Roboto%7CRoboto+Mono"]',
 	  // Injected by aframe
 	  '[aframe-injected]', 'style[data-href$="aframe.css"]',
 	  // Injected by stats
-	  '.rs-base', 'style[data-href$="rStats.css"]'].join(','));
+	  '.rs-base', '.a-canvas', 'style[data-href$="rStats.css"]'].join(','));
 	  for (var i = 0; i < elementsToRemove.length; i++) {
 	    var el = elementsToRemove[i];
 	    el.parentNode.removeChild(el);
 	  }
 
-	  return xmlToString(xmlDoc);
+	  var root = xmlDoc.documentElement;
+	  var sceneTemp = xmlDoc.createElement("a-scene-temp");
+
+	  var scene = xmlDoc.getElementsByTagName("a-scene")[0];
+
+	  scene.parentNode.replaceChild(sceneTemp, scene);
+	  var output = xmlToString(xmlDoc).replace('<a-scene-temp></a-scene-temp>', (0, _entity.getClipboardRepresentation)(sceneEl)).replace('aframe-inspector-opened', '');
+
+	  return output;
 	}
 
 	/**
@@ -32810,7 +32833,7 @@
 	(function (i, s, o, g, r, a, m) {
 	  i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
 	    (i[r].q = i[r].q || []).push(arguments);
-	  }, i[r].l = 1 * new Date();a = s.createElement(o), m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m);
+	  }, i[r].l = 1 * new Date();a = s.createElement(o), m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;a.setAttribute('data-aframe-inspector', '');m.parentNode.insertBefore(a, m);
 	})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
 	ga('create', 'UA-80530812-1', 'auto');
