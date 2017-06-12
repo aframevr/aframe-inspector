@@ -42,6 +42,7 @@ export function generateHtml () {
     '[data-aframe-inspector]',
     'script[src$="aframe-inspector.js"]',
     'style[type="text/css"]',
+    'link[href="http://fonts.googleapis.com/css?family=Roboto%7CRoboto+Mono"]',
     // Injected by aframe
     '[aframe-injected]',
     'style[data-href$="aframe.css"]',
