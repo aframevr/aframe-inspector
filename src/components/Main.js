@@ -13,7 +13,7 @@ import ModalTextures from './modals/ModalTextures';
 import ModalHelp from './modals/ModalHelp';
 import SceneGraph from './scenegraph/SceneGraph';
 import ToolBar from './ToolBar';
-import {injectCSS} from '../lib/utils';
+import {injectCSS, injectJS} from '../lib/utils';
 
 import '../css/main.css';
 
@@ -127,18 +127,14 @@ export default class Main extends React.Component {
 }
 
 (function init () {
-  var webFontLoader = document.createElement('script');
-  webFontLoader.innerHTML = 'WebFont.load({google: {families: ["Roboto", "Roboto Mono"]}});';
-
-  var webFont = document.createElement('script');
-  webFont.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js';
-  webFont.addEventListener('load', function () {
+  injectJS('https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js', function () {
+    var webFontLoader = document.createElement('script');
+    webFontLoader.setAttribute('data-aframe-inspector', 'webfont');
+    webFontLoader.innerHTML = 'WebFont.load({google: {families: ["Roboto", "Roboto Mono"]}});';
     document.head.appendChild(webFontLoader);
-  });
-  webFont.addEventListener('error', function () {
+  }, function () {
     console.warn('Could not load WebFont script:', webFont.src);
   });
-  document.head.appendChild(webFont);
 
   var div = document.createElement('div');
   div.id = 'aframe-inspector';

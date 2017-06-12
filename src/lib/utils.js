@@ -66,11 +66,20 @@ function injectCSS (url) {
   document.head.appendChild(link);
 }
 
-function injectJS (url) {
+function injectJS (url, onLoad, onError) {
   var link = document.createElement('script');
   link.src = url;
   link.charset = 'utf-8';
   link.setAttribute('data-aframe-inspector', 'style');
+
+  if (onLoad) {
+    link.addEventListener('load', onLoad);
+  }
+
+  if (onError) {
+    link.addEventListener('error', onError);
+  }
+
   document.head.appendChild(link);
 }
 

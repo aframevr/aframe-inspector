@@ -1,3 +1,5 @@
+import {getClipboardRepresentation} from '../actions/entity';
+
 /**
  * Get scene name
  * @param  {Element} scene Scene element
@@ -27,7 +29,8 @@ function slugify (text) {
  */
 export function generateHtml () {
   // flushToDOM first because the elements are posibilly modified by user in Inspector.
-  document.querySelector('a-scene').flushToDOM(true);
+  var sceneEl = document.querySelector('a-scene');
+  sceneEl.flushToDOM(true);
 
   var parser = new window.DOMParser();
   var xmlDoc = parser.parseFromString(document.documentElement.innerHTML, 'text/html');
@@ -39,11 +42,13 @@ export function generateHtml () {
     '[data-aframe-inspector]',
     'script[src$="aframe-inspector.js"]',
     'style[type="text/css"]',
+    'link[href="http://fonts.googleapis.com/css?family=Roboto%7CRoboto+Mono"]',
     // Injected by aframe
     '[aframe-injected]',
     'style[data-href$="aframe.css"]',
     // Injected by stats
     '.rs-base',
+    '.a-canvas',
     'style[data-href$="rStats.css"]'
   ].join(','));
   for (var i = 0; i < elementsToRemove.length; i++) {
@@ -51,7 +56,17 @@ export function generateHtml () {
     el.parentNode.removeChild(el);
   }
 
-  return xmlToString(xmlDoc);
+  var root = xmlDoc.documentElement;
+  var sceneTemp = xmlDoc.createElement("a-scene-temp");
+
+  var scene = xmlDoc.getElementsByTagName("a-scene")[0];
+
+  scene.parentNode.replaceChild(sceneTemp, scene);
+  var output = xmlToString(xmlDoc)
+    .replace('<a-scene-temp></a-scene-temp>', getClipboardRepresentation(sceneEl))
+    .replace('aframe-inspector-opened', '');
+
+  return output;
 }
 
 /**
