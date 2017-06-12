@@ -56,15 +56,17 @@ export function generateHtml () {
     el.parentNode.removeChild(el);
   }
 
-  // return xmlToString(xmlDoc);
-
   var root = xmlDoc.documentElement;
   var sceneTemp = xmlDoc.createElement("a-scene-temp");
 
   var scene = xmlDoc.getElementsByTagName("a-scene")[0];
 
   scene.parentNode.replaceChild(sceneTemp, scene);
-  return xmlToString(xmlDoc).replace('<a-scene-temp></a-scene-temp>', getClipboardRepresentation(sceneEl));
+  var output = xmlToString(xmlDoc)
+    .replace('<a-scene-temp></a-scene-temp>', getClipboardRepresentation(sceneEl))
+    .replace('aframe-inspector-opened', '');
+
+  return output;
 }
 
 /**
