@@ -29,7 +29,7 @@ function slugify (text) {
  */
 export function generateHtml () {
   // flushToDOM first because the elements are posibilly modified by user in Inspector.
-  var sceneEl = document.querySelector('a-scene');
+  var sceneEl = AFRAME.scenes[0];
   sceneEl.flushToDOM(true);
 
   var parser = new window.DOMParser();

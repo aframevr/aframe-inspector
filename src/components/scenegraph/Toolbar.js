@@ -30,7 +30,7 @@ export default class Toolbar extends React.Component {
     function saveString (text, filename) {
       save(new Blob([ text ], { type: 'text/html' }), filename);
     }
-    var sceneName = getSceneName(document.querySelector('a-scene'));
+    var sceneName = getSceneName(AFRAME.scenes[0]);
     saveString(generateHtml(), sceneName);
   }
 
