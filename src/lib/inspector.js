@@ -25,7 +25,7 @@ Inspector.prototype = {
     this.shaderLoader = new ShaderLoader();
     this.assetsLoader = new AssetsLoader();
 
-    this.sceneEl = document.querySelector('a-scene');
+    this.sceneEl = AFRAME.scenes[0];
     if (this.sceneEl.hasLoaded) {
       this.onSceneLoaded();
     } else {
@@ -56,7 +56,7 @@ Inspector.prototype = {
     });
     this.inspectorCameraEl.setAttribute('camera', {far: 10000, fov: 50, near: 0.05, active: true});
     this.inspectorCameraEl.setAttribute('data-aframe-inspector', 'camera');
-    document.querySelector('a-scene').appendChild(this.inspectorCameraEl);
+    AFRAME.scenes[0].appendChild(this.inspectorCameraEl);
   },
 
   initModules: function () {
@@ -261,7 +261,7 @@ Inspector.prototype = {
   clear: function () {
     this.camera.copy(this.EDITOR_CAMERA);
     this.deselect();
-    document.querySelector('a-scene').innerHTML = '';
+    AFRAME.scenes[0].innerHTML = '';
     Events.emit('inspectorcleared');
   },
   /**

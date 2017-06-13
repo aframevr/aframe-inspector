@@ -27,7 +27,7 @@ export default class Main extends React.Component {
 
     this.state = {
       inspectorEnabled: true,
-      sceneEl: document.querySelector('a-scene'),
+      sceneEl: AFRAME.scenes[0],
       entity: null,
       isModalTexturesOpen: false,
       visible: {
