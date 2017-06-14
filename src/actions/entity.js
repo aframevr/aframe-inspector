@@ -177,8 +177,6 @@ function prepareForSerialization(entity) {
  * @param {Element} source Element to be optimized.
  */
 function optimizeComponents(copy, source) {
-  var removeAttribute = HTMLElement.prototype.removeAttribute;
-  var setAttribute = HTMLElement.prototype.setAttribute;
   var components = source.components || {};
   Object.keys(components).forEach(function (name) {
     var component = components[name];
@@ -189,11 +187,10 @@ function optimizeComponents(copy, source) {
     var optimalUpdate = getOptimalUpdate(component, implicitValue, currentValue);
     var doesNotNeedUpdate = optimalUpdate === null;
     if (isInherited && doesNotNeedUpdate) {
-      removeAttribute.call(copy, name);
+      copy.removeAttribute(name);
     }
     else {
-      var strValue = AFRAME.utils.styleParser.stringify(optimalUpdate || {});
-      setAttribute.call(copy, name, strValue);
+      copy.setAttribute(name, optimalUpdate, true);
     }
   });
 }
