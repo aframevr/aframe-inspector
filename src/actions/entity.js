@@ -180,10 +180,13 @@ function optimizeComponents(copy, source) {
   var components = source.components || {};
   Object.keys(components).forEach(function (name) {
     var component = components[name];
-    var implicitValue = getImplicitValue(component, source);
+    var result = getImplicitValue(component, source);
+    var isInherited = result[1];
+    var implicitValue = result[0];
     var currentValue = source.getAttribute(name);
     var optimalUpdate = getOptimalUpdate(component, implicitValue, currentValue);
-    if (optimalUpdate === null) {
+    var doesNotNeedUpdate = optimalUpdate === null;
+    if (isInherited && doesNotNeedUpdate) {
       copy.removeAttribute(name);
     }
     else {
@@ -202,17 +205,22 @@ function optimizeComponents(copy, source) {
  *
  * @param {Component} component Component to calculate the value of.
  * @param {Element}   source    Element owning the component.
- * @return                      The computed value for the component of source.
+ * @return                      A pair with the computed value for the component of source and a flag indicating if the component is completely inherited from other sources (`true`) or genuinely owned by the source entity (`false`).
  */
 function getImplicitValue(component, source) {
-  return (isSingleProperty(component) ? _single : _multi)(component, source);
+  var isInherited = false;
+  var value = (isSingleProperty(component) ? _single : _multi)();
+  return [value, isInherited];
 
   function _single() {
     var value = getMixedValue(component, null, source);
     if (value === undefined) {
       value = getInjectedValue(component, null, source);
     }
-    if (value === undefined) {
+    if (value !== undefined) {
+      isInherited = true;
+    }
+    else {
       value = getDefaultValue(component, null, source);
     }
     if (value !== undefined) {
@@ -233,7 +241,10 @@ function getImplicitValue(component, source) {
       if (propertyValue === undefined) {
         propertyValue = getInjectedValue(component, propertyName, source);
       }
-      if (propertyValue === undefined) {
+      if (propertyValue !== undefined) {
+        isInherited = isInherited || true;
+      }
+      else {
         propertyValue = getDefaultValue(component, propertyName, source);
       }
       if (propertyValue !== undefined) {
