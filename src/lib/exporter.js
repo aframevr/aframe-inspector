@@ -1,4 +1,5 @@
 import {getClipboardRepresentation} from '../actions/entity';
+const INSPECTOR = require('../lib/inspector.js');
 
 /**
  * Get scene name
@@ -62,9 +63,18 @@ export function generateHtml () {
   var scene = xmlDoc.getElementsByTagName("a-scene")[0];
 
   scene.parentNode.replaceChild(sceneTemp, scene);
+
+  // Activate the previous scene camera, and prevent the inspector from reactive its camera
+  INSPECTOR.opened = false;
+  INSPECTOR.currentCameraEl.setAttribute('camera', 'active', true);
+
   var output = xmlToString(xmlDoc)
     .replace('<a-scene-temp></a-scene-temp>', getClipboardRepresentation(sceneEl))
     .replace('aframe-inspector-opened', '');
+
+  // Activate the inspector camera again
+  INSPECTOR.opened = true;
+  INSPECTOR.inspectorCameraEl.setAttribute('camera', 'active', true);
 
   return output;
 }
