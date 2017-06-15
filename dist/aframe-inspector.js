@@ -141,7 +141,7 @@
 
 	    _this.state = {
 	      inspectorEnabled: true,
-	      sceneEl: document.querySelector('a-scene'),
+	      sceneEl: AFRAME.scenes[0],
 	      entity: null,
 	      isModalTexturesOpen: false,
 	      visible: {
@@ -273,7 +273,7 @@
 	  window.addEventListener('inspector-loaded', function () {
 	    _reactDom2.default.render(_react2.default.createElement(Main, null), div);
 	  });
-	  console.log('A-Frame Inspector Version:', ("0.5.3"), '(' + ("12-06-2017") + ' Commit: ' + ("de62679c7f543368b2f075a647767d2e9bcce726\n").substr(0, 7) + ')');
+	  console.log('A-Frame Inspector Version:', ("0.5.3"), '(' + ("15-06-2017") + ' Commit: ' + ("6e6df091846801d6fccae679f166bdb67414ea66\n").substr(0, 7) + ')');
 	})();
 
 /***/ },
@@ -25024,7 +25024,7 @@
 	    this.shaderLoader = new ShaderLoader();
 	    this.assetsLoader = new AssetsLoader();
 
-	    this.sceneEl = document.querySelector('a-scene');
+	    this.sceneEl = AFRAME.scenes[0];
 	    if (this.sceneEl.hasLoaded) {
 	      this.onSceneLoaded();
 	    } else {
@@ -25057,7 +25057,7 @@
 	    });
 	    this.inspectorCameraEl.setAttribute('camera', { far: 10000, fov: 50, near: 0.05, active: true });
 	    this.inspectorCameraEl.setAttribute('data-aframe-inspector', 'camera');
-	    document.querySelector('a-scene').appendChild(this.inspectorCameraEl);
+	    AFRAME.scenes[0].appendChild(this.inspectorCameraEl);
 	  },
 
 	  initModules: function initModules() {
@@ -25270,7 +25270,7 @@
 	  clear: function clear() {
 	    this.camera.copy(this.EDITOR_CAMERA);
 	    this.deselect();
-	    document.querySelector('a-scene').innerHTML = '';
+	    AFRAME.scenes[0].innerHTML = '';
 	    Events.emit('inspectorcleared');
 	  },
 	  /**
@@ -28149,7 +28149,6 @@
 	 */
 	function getClipboardRepresentation(entity) {
 	  var clone = prepareForSerialization(entity);
-	  clone.flushToDOM(true);
 	  return clone.outerHTML;
 	}
 
@@ -28182,18 +28181,51 @@
 	 * @param {Element} source Element to be optimized.
 	 */
 	function optimizeComponents(copy, source) {
+	  var removeAttribute = HTMLElement.prototype.removeAttribute;
+	  var setAttribute = HTMLElement.prototype.setAttribute;
 	  var components = source.components || {};
 	  Object.keys(components).forEach(function (name) {
 	    var component = components[name];
-	    var implicitValue = getImplicitValue(component, source);
+	    var result = getImplicitValue(component, source);
+	    var isInherited = result[1];
+	    var implicitValue = result[0];
 	    var currentValue = source.getAttribute(name);
 	    var optimalUpdate = getOptimalUpdate(component, implicitValue, currentValue);
-	    if (optimalUpdate === null) {
-	      copy.removeAttribute(name);
+	    var doesNotNeedUpdate = optimalUpdate === null;
+	    if (isInherited && doesNotNeedUpdate) {
+	      removeAttribute.call(copy, name);
 	    } else {
-	      copy.setAttribute(name, optimalUpdate, true);
+	      var schema = component.schema;
+	      var value = stringifyComponentValue(schema, optimalUpdate);
+	      setAttribute.call(copy, name, value);
 	    }
 	  });
+	}
+
+	/**
+	 * @param  {Schema} schema The component schema.
+	 * @param  {any}    data   The component value.
+	 * @return {string}        The string representation of data according to the
+	 *                         passed component's schema.
+	 */
+	function stringifyComponentValue(schema, data) {
+	  data = typeof data === 'undefined' ? {} : data;
+	  if (data === null) {
+	    return '';
+	  }
+	  return (isSingleProperty(schema) ? _single : _multi)();
+
+	  function _single() {
+	    return schema.stringify(data);
+	  }
+
+	  function _multi() {
+	    var propertyBag = {};
+	    Object.keys(data).forEach(function (name) {
+	      propertyBag[name] = schema[name].stringify(data[name]);
+	    });
+	    return AFRAME.utils.styleParser.stringify(propertyBag);
+	  }
 	}
 
 	/**
@@ -28206,17 +28238,21 @@
 	 *
 	 * @param {Component} component Component to calculate the value of.
 	 * @param {Element}   source    Element owning the component.
-	 * @return                      The computed value for the component of source.
+	 * @return                      A pair with the computed value for the component of source and a flag indicating if the component is completely inherited from other sources (`true`) or genuinely owned by the source entity (`false`).
 	 */
 	function getImplicitValue(component, source) {
-	  return (isSingleProperty(component) ? _single : _multi)(component, source);
+	  var isInherited = false;
+	  var value = (isSingleProperty(component.schema) ? _single : _multi)();
+	  return [value, isInherited];
 
 	  function _single() {
 	    var value = getMixedValue(component, null, source);
 	    if (value === undefined) {
 	      value = getInjectedValue(component, null, source);
 	    }
-	    if (value === undefined) {
+	    if (value !== undefined) {
+	      isInherited = true;
+	    } else {
 	      value = getDefaultValue(component, null, source);
 	    }
 	    if (value !== undefined) {
@@ -28237,7 +28273,9 @@
 	      if (propertyValue === undefined) {
 	        propertyValue = getInjectedValue(component, propertyName, source);
 	      }
-	      if (propertyValue === undefined) {
+	      if (propertyValue !== undefined) {
+	        isInherited = isInherited || true;
+	      } else {
 	        propertyValue = getDefaultValue(component, propertyName, source);
 	      }
 	      if (propertyValue !== undefined) {
@@ -28381,7 +28419,7 @@
 	  if ((0, _utils.equal)(implicit, reference)) {
 	    return null;
 	  }
-	  if (isSingleProperty(component)) {
+	  if (isSingleProperty(component.schema)) {
 	    return reference;
 	  }
 	  var optimal = {};
@@ -28395,11 +28433,11 @@
 	}
 
 	/**
-	 * @param {Component} component Component to test if it is single property.
-	 * @return                      `true` if component is single property.
+	 * @param {Schema} schema Component's schema to test if it is single property.
+	 * @return                `true` if component is single property.
 	 */
-	function isSingleProperty(component) {
-	  return AFRAME.schema.isSingleProperty(component.schema);
+	function isSingleProperty(schema) {
+	  return AFRAME.schema.isSingleProperty(schema);
 	}
 
 	/**
@@ -32570,7 +32608,7 @@
 	      function saveString(text, filename) {
 	        save(new Blob([text], { type: 'text/html' }), filename);
 	      }
-	      var sceneName = (0, _exporter.getSceneName)(document.querySelector('a-scene'));
+	      var sceneName = (0, _exporter.getSceneName)(AFRAME.scenes[0]);
 	      saveString((0, _exporter.generateHtml)(), sceneName);
 	    }
 	  }, {
@@ -32615,6 +32653,8 @@
 
 	var _entity = __webpack_require__(210);
 
+	var INSPECTOR = __webpack_require__(200);
+
 	/**
 	 * Get scene name
 	 * @param  {Element} scene Scene element
@@ -32643,7 +32683,7 @@
 	 */
 	function generateHtml() {
 	  // flushToDOM first because the elements are posibilly modified by user in Inspector.
-	  var sceneEl = document.querySelector('a-scene');
+	  var sceneEl = AFRAME.scenes[0];
 	  sceneEl.flushToDOM(true);
 
 	  var parser = new window.DOMParser();
@@ -32669,7 +32709,16 @@
 	  var scene = xmlDoc.getElementsByTagName("a-scene")[0];
 
 	  scene.parentNode.replaceChild(sceneTemp, scene);
+
+	  // Activate the previous scene camera, and prevent the inspector from reactive its camera
+	  INSPECTOR.opened = false;
+	  INSPECTOR.currentCameraEl.setAttribute('camera', 'active', true);
+
 	  var output = xmlToString(xmlDoc).replace('<a-scene-temp></a-scene-temp>', (0, _entity.getClipboardRepresentation)(sceneEl)).replace('aframe-inspector-opened', '');
+
+	  // Activate the inspector camera again
+	  INSPECTOR.opened = true;
+	  INSPECTOR.inspectorCameraEl.setAttribute('camera', 'active', true);
 
 	  return output;
 	}
