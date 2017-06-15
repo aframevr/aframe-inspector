@@ -141,7 +141,6 @@ export function cloneSelectedEntity () {
  */
 export function getClipboardRepresentation (entity) {
   var clone = prepareForSerialization(entity);
-  clone.flushToDOM(true);
   return clone.outerHTML;
 }
 
@@ -177,6 +176,8 @@ function prepareForSerialization(entity) {
  * @param {Element} source Element to be optimized.
  */
 function optimizeComponents(copy, source) {
+  var removeAttribute = HTMLElement.prototype.removeAttribute;
+  var setAttribute = HTMLElement.prototype.setAttribute;
   var components = source.components || {};
   Object.keys(components).forEach(function (name) {
     var component = components[name];
@@ -187,12 +188,40 @@ function optimizeComponents(copy, source) {
     var optimalUpdate = getOptimalUpdate(component, implicitValue, currentValue);
     var doesNotNeedUpdate = optimalUpdate === null;
     if (isInherited && doesNotNeedUpdate) {
-      copy.removeAttribute(name);
+      removeAttribute.call(copy, name);
     }
     else {
-      copy.setAttribute(name, optimalUpdate, true);
+      var schema = component.schema;
+      var value = stringifyComponentValue(schema, optimalUpdate);
+      setAttribute.call(copy, name, value);
     }
   });
+}
+
+/**
+ * @param  {Schema} schema The component schema.
+ * @param  {any}    data   The component value.
+ * @return {string}        The string representation of data according to the
+ *                         passed component's schema.
+ */
+function stringifyComponentValue(schema, data) {
+  data = typeof data === 'undefined' ? {} : data;
+  if (data === null) {
+    return '';
+  }
+  return (isSingleProperty(schema) ? _single : _multi)();
+
+  function _single() {
+    return schema.stringify(data);
+  }
+
+  function _multi() {
+    var propertyBag = {};
+    Object.keys(data).forEach(function (name) {
+      propertyBag[name] = schema[name].stringify(data[name]);
+    });
+    return AFRAME.utils.styleParser.stringify(propertyBag);
+  }
 }
 
 /**
@@ -209,7 +238,7 @@ function optimizeComponents(copy, source) {
  */
 function getImplicitValue(component, source) {
   var isInherited = false;
-  var value = (isSingleProperty(component) ? _single : _multi)();
+  var value = (isSingleProperty(component.schema) ? _single : _multi)();
   return [value, isInherited];
 
   function _single() {
@@ -390,7 +419,7 @@ function getOptimalUpdate(component, implicit, reference) {
   if (equal(implicit, reference)) {
     return null;
   }
-  if (isSingleProperty(component)) {
+  if (isSingleProperty(component.schema)) {
     return reference;
   }
   var optimal = {};
@@ -404,11 +433,11 @@ function getOptimalUpdate(component, implicit, reference) {
 }
 
 /**
- * @param {Component} component Component to test if it is single property.
- * @return                      `true` if component is single property.
+ * @param {Schema} schema Component's schema to test if it is single property.
+ * @return                `true` if component is single property.
  */
-function isSingleProperty(component) {
-  return AFRAME.schema.isSingleProperty(component.schema);
+function isSingleProperty(schema) {
+  return AFRAME.schema.isSingleProperty(schema);
 }
 
 /**
