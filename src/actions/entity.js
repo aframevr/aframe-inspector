@@ -164,8 +164,100 @@ function prepareForSerialization(entity) {
       clone.appendChild(prepareForSerialization(children[i]));
     }
   }
+  flushMappings(clone, entity);
   optimizeComponents(clone, entity);
   return clone;
+}
+
+/**
+ * Set primitive attributes to the values of the properties they map to.
+ * It takes defaults in count avoiding setting the attribute if not needed.
+ *
+ * @param {Element} copy   Destinatary element for the mappings flush.
+ * @param {Element} source Element to be flushed.
+ */
+function flushMappings(copy, source) {
+  var mappings = source.mappings || {};
+  var getComponentPropertyPath = AFRAME.utils.entity.getComponentPropertyPath;
+  Object.keys(mappings).forEach(function (attributeName) {
+    var path = getComponentPropertyPath(mappings[attributeName]);
+    flush(attributeName, path, copy, source);
+  });
+
+  function flush(attributeName, path, copy, source) {
+    var implicitValue = getAttributeImplicitValue(path, source);
+    var currentValue = getAttributeCurrentValue(path, source);
+    if (!equal(implicitValue, currentValue)) {
+      var setAttribute = HTMLElement.prototype.setAttribute;
+      var attributeValue = getSchema(path, source).stringify(currentValue);
+      setAttribute.call(copy, attributeName, attributeValue);
+    }
+  }
+}
+
+/**
+ * @param  {String|String[]} path component's property descriptor.
+ * @param  {Primitive} source primitive with the component.
+ * @return {Any} the default value for the component's property in the context of a primitive.
+ */
+function getAttributeImplicitValue(path, source) {
+  var primitiveName = source.tagName.toLowerCase();
+  var primitive = AFRAME.primitives.primitives[primitiveName].prototype;
+  var defaults = primitive.defaultComponentsFromPrimitive;
+  return Array.isArray(path) ?
+         _multi(path[0], path[1], source) : _single(path, source);
+
+  function _multi(componentName, propertyName, source) {
+    var schema = getSchema([componentName, propertyName], source) || {};
+    return defaults[componentName][propertyName] || schema.default;
+  }
+
+  function _single(componentName, source) {
+    var schema = getSchema(componentName, source) || {};
+    return defaults[componentName] || schema.default;
+  }
+}
+
+/**
+ * @param  {String|String[]} path component's property descriptor.
+ * @param  {Primitive} source primitive with the component.
+ * @return {Any} the current value for the component's property in the  primitive.
+ */
+function getAttributeCurrentValue(path, source) {
+  return Array.isArray(path) ?
+         source.components[path[0]].data[path[1]] : source.components[path];
+}
+
+/**
+ * @param  {String|String[]} path component's property descriptor.
+ * @param  {Element} source primitive with the component.
+ * @return {Schema} the schema for the component or component's property.
+ */
+function getSchema(path, source) {
+  return (Array.isArray(path) ? _multi : _single)();
+
+  function _multi() {
+    var componentName = path[0];
+    var propertyName = path[1];
+    var schema = source.components[componentName].schema[propertyName];
+    // XXX: Some material component properties come from shaders definition.
+    if (!schema && componentName === 'material') {
+      return _fromShader(
+        source.components[componentName].data.shader,
+        propertyName
+      );
+    }
+    return schema;
+  }
+
+  function _single() {
+    var componentName = path;
+    return AFRAME.components[componentName].schema;
+  }
+
+  function _fromShader(shaderName, propertyName) {
+    return AFRAME.shaders[shaderName].schema[propertyName];
+  }
 }
 
 /**
@@ -181,7 +273,7 @@ function optimizeComponents(copy, source) {
   var components = source.components || {};
   Object.keys(components).forEach(function (name) {
     var component = components[name];
-    var result = getImplicitValue(component, source);
+    var result = getImplicitValue(component, copy, source);
     var isInherited = result[1];
     var implicitValue = result[0];
     var currentValue = source.getAttribute(name);
@@ -233,10 +325,11 @@ function stringifyComponentValue(schema, data) {
  * overridden it explicitly.
  *
  * @param {Component} component Component to calculate the value of.
+ * @param {Element}   primitive Primitive with flushed attributes.
  * @param {Element}   source    Element owning the component.
  * @return                      A pair with the computed value for the component of source and a flag indicating if the component is completely inherited from other sources (`true`) or genuinely owned by the source entity (`false`).
  */
-function getImplicitValue(component, source) {
+function getImplicitValue(component, primitive, source) {
   var isInherited = false;
   var value = (isSingleProperty(component.schema) ? _single : _multi)();
   return [value, isInherited];
@@ -263,7 +356,8 @@ function getImplicitValue(component, source) {
     var value;
 
     Object.keys(component.schema).forEach(function (propertyName) {
-      var propertyValue = getFromAttribute(component, propertyName, source);
+      var propertyValue =
+        getFromAttribute(component, propertyName, primitive);
       if (propertyValue === undefined) {
         propertyValue = getMixedValue(component, propertyName, source);
       }
