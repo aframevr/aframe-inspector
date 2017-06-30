@@ -234,30 +234,9 @@ function getAttributeCurrentValue(path, source) {
  * @return {Schema} the schema for the component or component's property.
  */
 function getSchema(path, source) {
-  return (Array.isArray(path) ? _multi : _single)();
-
-  function _multi() {
-    var componentName = path[0];
-    var propertyName = path[1];
-    var schema = source.components[componentName].schema[propertyName];
-    // XXX: Some material component properties come from shaders definition.
-    if (!schema && componentName === 'material') {
-      return _fromShader(
-        source.components[componentName].data.shader,
-        propertyName
-      );
-    }
-    return schema;
-  }
-
-  function _single() {
-    var componentName = path;
-    return AFRAME.components[componentName].schema;
-  }
-
-  function _fromShader(shaderName, propertyName) {
-    return AFRAME.shaders[shaderName].schema[propertyName];
-  }
+  return Array.isArray(path) ?
+         source.components[path[0]].schema[path[1]] :
+         AFRAME.components[path].schema;
 }
 
 /**
