@@ -8,8 +8,8 @@ var webpack = require('webpack');
 var entry = ['./src/components/Main.js'];
 if (process.env.NODE_ENV === 'dev') {
   entry = [
-    'webpack-dev-server/client?http://localhost:3333',
-    'webpack/hot/only-dev-server'
+    'webpack-dev-server/client?http://localhost:3333'
+    // 'webpack/hot/only-dev-server'
   ].concat(entry);
 }
 
@@ -56,7 +56,10 @@ if (process.env.AFRAME_DIST) {
 }
 
 module.exports = {
-  devServer: {port: 3333},
+  devServer: {
+    disableHostCheck: true,
+    port: 3333
+  },
   entry: entry,
   output: {
     path: path.join(__dirname, outPath),
