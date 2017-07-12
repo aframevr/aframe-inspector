@@ -1,1 +1,0 @@
-javascript:(function(){var script=document.createElement('script'); script.src='http://localhost:3333/dist/aframe-inspector.js';document.head.appendChild(script);})()
