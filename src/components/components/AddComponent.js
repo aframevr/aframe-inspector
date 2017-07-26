@@ -32,10 +32,10 @@ export default class AddComponent extends React.Component {
     }
 
     function addComponent (componentName) {
-      if (AFRAME.components[componentName].multiple &&
-          isComponentInstanced(entity, componentName)) {
-        componentName = componentName + '__' +
-                        generateComponentInstanceId(entity, componentName);
+      if (AFRAME.components[componentName].multiple) {
+        const id = prompt(
+          `Provide an ID for this component (e.g., 'foo' for ${componentName}__foo).`);
+        componentName = id ? `${componentName}__${id}` : componentName;
       }
 
       entity.setAttribute(componentName, '');
@@ -124,13 +124,4 @@ function isComponentInstanced (entity, componentName) {
       return true;
     }
   }
-}
-
-/**
- * Generate ID for instanced component.
- */
-function generateComponentInstanceId (entity, componentName) {
-  var i = 2;
-  while (entity.components[componentName + '__' + i]) { i++; }
-  return i;
 }
