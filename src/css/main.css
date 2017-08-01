@@ -216,7 +216,6 @@ input.error {
   bottom: 0;
   display: flex;
   flex-direction: column;
-  height: 100%;
   left: 0;
   overflow: auto;
   position: fixed;
