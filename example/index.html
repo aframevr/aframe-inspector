@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>Example Scene</title>
-    <script src="js/aframe-master.js"></script>
+    <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-master.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.0.0/dist/aframe-environment-component.min.js"></script>
   </head>
   <body>
     <a-scene debug="true">
@@ -21,6 +22,8 @@
         <img id="floorImg" src="https://aframe.io/sample-assets/assets/images/terrain/grasslight-big.jpg" crossOrigin="true">
       </a-assets>
 
+      <a-entity id="environment" environment="preset: forest; fog: false"></a-entity>
+
       <!-- Meshes. -->
       <a-entity id="blueBox" mixin="blueBox" position="0 8 0"></a-entity>
       <a-entity id="shortOrangeBox" mixin="short orange box" position="-5 2 0"></a-entity>
@@ -37,11 +40,11 @@
       <a-entity geometry="primitive: box" material="color: #0f0" position="4 2 4"></a-entity>
 
       <!-- Floor. -->
-      <a-entity id="floor" geometry="primitive: cylinder; height: .2; radius: 12"
-                material="src: #floorImg; color: #fafafa; metalness: .2; repeat: 50 20; roughness: .1"></a-entity>
+      <a-entity id="floor" geometry="primitive: box; height: .2; depth: 24; width: 24"
+                material="src: #floorImg; color: #fafafa; metalness: .1; repeat: 50 20; roughness: 1"></a-entity>
 
       <!-- Lights. -->
-      <a-entity id="pointLight" light="type: point" position="0 3 3"></a-entity>
+      <a-entity id="pointLight" light="type: point; intensity: 0.25" position="0 3 3"></a-entity>
 
       <!-- Camera. -->
       <a-entity id="cameraWrapper" position="0 1 8">
@@ -54,8 +57,6 @@
           </a-entity>
         </a-entity>
       </a-entity>
-
-      <a-sky color="#3c3c3c"></a-sky>
     </a-scene>
 
     <script src="../dist/aframe-inspector.js"></script>
