@@ -16,17 +16,21 @@ export default class ComponentsContainer extends React.Component {
   render () {
     const entity = this.props.entity;
     const components = entity ? entity.components : {};
-    const defaultComponents = Object.keys(components).filter(function (key) {
+    const renderedComponents = Object.keys(components).filter(function (key) {
       return DEFAULT_COMPONENTS.indexOf(key) === -1;
     }).sort().map(function (key) {
-      return <Component entity={entity} key={key} name={key} component={components[key]}/>;
+      return <Component
+        component={components[key]}
+        entity={entity}
+        key={key}
+        name={key}/>;
     });
 
     return (
       <div className='components'>
         <CommonComponents entity={entity}/>
         <AddComponent entity={entity}/>
-        {defaultComponents}
+        {renderedComponents}
       </div>
     );
   }

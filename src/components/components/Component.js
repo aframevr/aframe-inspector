@@ -73,7 +73,7 @@ export default class Component extends React.Component {
 
     if (isSingleProperty(componentData.schema)) {
       const componentName = this.props.name;
-      const schema = AFRAME.components[componentName].schema;
+      const schema = AFRAME.components[componentName.split('__')[0]].schema;
       return (
         <PropertyRow key={componentName} name={componentName} schema={schema}
           data={componentData.data} componentname={componentName}
