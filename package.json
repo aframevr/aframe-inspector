@@ -27,6 +27,7 @@
     "lodash.debounce": "^4.0.6",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
+    "react-file-reader-input": "^1.1.4",
     "react-select": "^1.0.0-rc.1"
   },
   "devDependencies": {
