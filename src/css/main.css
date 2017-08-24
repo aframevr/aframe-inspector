@@ -140,6 +140,7 @@ input {
   background-color: #333;
   position: fixed;
   top: 32px;
+  z-index: 999;
 }
 
 .scenegraph-actions {
@@ -1145,4 +1146,47 @@ span.entity-name {
 .toggle-sidebar a:hover {
   background-color: #1faaf2;
   color: #fff;
+}
+
+/* Dropdown menu */
+.dropbtn {
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.dropdown-content {
+  background-color: #f9f9f9;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  display: none;
+  left: 8px;
+  min-width: 38px;
+  position: absolute;
+  z-index: 999;
+}
+
+.dropdown-content a {
+  background-color: #232323;
+  color: #7d7d7d;
+  display: block;
+  padding: 10px 14px;
+  text-decoration: none;
+}
+
+.dropdown-content a:hover {
+  background-color: #4ecbff;
+  color: #fff;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  color: #1faaf2;
 }

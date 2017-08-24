@@ -4,6 +4,7 @@ import React from 'react';
 import Clipboard from 'clipboard';
 import {getSceneName, generateHtml} from '../../lib/exporter';
 import Events from '../../lib/Events.js';
+import {saveString} from '../../lib/utils';
 
 export default class Toolbar extends React.Component {
   componentDidMount () {
@@ -16,20 +17,13 @@ export default class Toolbar extends React.Component {
         // @todo Show Error on the UI
     });
   }
+  exportSceneToGLTF () {
+    console.log('asdfadsfsdaf');
+    // var sceneName = getSceneName(AFRAME.scenes[0]);
+    saveString('asdf', 'asdf');
+  }
 
-  saveSceneToHTML () {
-    var link = document.createElement('a');
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    function save (blob, filename) {
-      link.href = URL.createObjectURL(blob);
-      link.download = filename || 'ascene.html';
-      link.click();
-      // URL.revokeObjectURL(url); breaks Firefox...
-    }
-    function saveString (text, filename) {
-      save(new Blob([ text ], { type: 'text/html' }), filename);
-    }
+  exportSceneToHTML () {
     var sceneName = getSceneName(AFRAME.scenes[0]);
     saveString(generateHtml(), sceneName);
   }
@@ -46,7 +40,16 @@ export default class Toolbar extends React.Component {
     return (
       <div className='scenegraph-actions'>
         <a className='button fa fa-clipboard' title='Copy scene to clipboard' data-action='copy-scene-to-clipboard'></a>
-        <a className='button fa fa-download' title='Export to HTML' onClick={this.saveSceneToHTML}></a>
+        <div className="dropdown">
+          <a className='dropbtn button fa fa-download' title='Export'></a>
+          <div className="dropdown-content">
+            <a className='' title='Export to HTML' onClick={this.exportSceneToHTML}>HTML</a>
+            <a className='' title='Export to GLTF' onClick={this.exportSceneToGLTF}>GLTF</a>
+          </div>
+        </div>
+
+
+
         <a className='button fa fa-plus' title='Add a new entity' onClick={this.addEntity}></a>
       </div>
     );
