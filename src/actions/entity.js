@@ -218,7 +218,9 @@ function stringifyComponentValue(schema, data) {
   function _multi() {
     var propertyBag = {};
     Object.keys(data).forEach(function (name) {
-      propertyBag[name] = schema[name].stringify(data[name]);
+      if (schema[name]) {
+        propertyBag[name] = schema[name].stringify(data[name]);
+      }
     });
     return AFRAME.utils.styleParser.stringify(propertyBag);
   }
