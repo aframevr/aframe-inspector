@@ -83,8 +83,7 @@ function injectJS (url, onLoad, onError) {
   document.head.appendChild(link);
 }
 
-function saveString (text, filename) {
-  debugger;
+function saveString (text, filename, mimeType) {
   var link = document.createElement('a');
   link.style.display = 'none';
   document.body.appendChild(link);
@@ -95,7 +94,7 @@ function saveString (text, filename) {
     // URL.revokeObjectURL(url); breaks Firefox...
   }
 
-  save(new Blob([ text ], { type: 'text/html' }), filename);
+  save(new Blob([ text ], { type: mimeType }), filename);
 
 }
 
