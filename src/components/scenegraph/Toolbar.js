@@ -18,13 +18,10 @@ export default class Toolbar extends React.Component {
     });
   }
   exportSceneToGLTF () {
-    console.log(AFRAME.scenes[0].object3D);
-    
     INSPECTOR.exporters.gltf.parse(AFRAME.scenes[0].object3D, function (result) {
       var output = JSON.stringify(result, null, 2);
       saveString(output, 'scene.gltf', 'application/json');
     });
-
   }
 
   exportSceneToHTML () {
