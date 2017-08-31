@@ -83,6 +83,21 @@ function injectJS (url, onLoad, onError) {
   document.head.appendChild(link);
 }
 
+function saveString (text, filename, mimeType) {
+  var link = document.createElement('a');
+  link.style.display = 'none';
+  document.body.appendChild(link);
+  function save (blob, filename) {
+    link.href = URL.createObjectURL(blob);
+    link.download = filename || 'ascene.html';
+    link.click();
+    // URL.revokeObjectURL(url); breaks Firefox...
+  }
+
+  save(new Blob([ text ], { type: mimeType }), filename);
+
+}
+
 module.exports = {
   equal: equal,
   getNumber: getNumber,
@@ -90,5 +105,6 @@ module.exports = {
   getOS: getOS,
   os: getOS(),
   injectCSS: injectCSS,
-  injectJS: injectJS
+  injectJS: injectJS,
+  saveString: saveString
 };

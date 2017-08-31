@@ -7,6 +7,7 @@ import Mixins from './Mixins';
 import {updateEntity, getClipboardRepresentation} from '../../actions/entity';
 import Events from '../../lib/Events';
 import Clipboard from 'clipboard';
+import {saveString} from '../../lib/utils';
 
 // @todo Take this out and use updateEntity?
 function changeId (componentName, value) {
@@ -55,11 +56,20 @@ export default class CommonComponents extends React.Component {
     });
   }
 
+  exportToGLTF() {
+    const entity = this.props.entity;
+    AFRAME.INSPECTOR.exporters.gltf.parse(entity.object3D, function (result) {
+      var output = JSON.stringify(result, null, 2);
+      saveString(output, (entity.id || 'entity') + '.gltf', 'application/json');
+    });
+  }
+
   render () {
     const entity = this.props.entity;
     if (!entity) { return <div></div>; }
     const entityName = '<' + entity.tagName.toLowerCase() + '>';
     const entityButtons = <div>
+      <a title='Export entity to GLTF' className='button fa fa-download' onClick={event => {this.exportToGLTF(); event.stopPropagation()} }></a>
       <a href='#' title='Copy entity HTML to clipboard' data-action='copy-entity-to-clipboard'
         className='button fa fa-clipboard' onClick={event => event.stopPropagation()}></a>
     </div>;

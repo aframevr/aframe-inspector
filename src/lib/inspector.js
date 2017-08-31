@@ -4,8 +4,13 @@ var ComponentLoader = require('./componentloader.js');
 var AssetsLoader = require('./assetsLoader.js');
 var ShaderLoader = require('./shaderloader.js');
 var Shortcuts = require('./shortcuts.js');
+import {GLTFExporter} from './vendor/GLTFExporter';
 
 function Inspector () {
+
+  this.exporters = {
+    gltf: new THREE.GLTFExporter()
+  };
   this.modules = {};
   this.opened = false;
   // Detect if the scene is already loaded
