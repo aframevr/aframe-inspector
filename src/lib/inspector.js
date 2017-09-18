@@ -12,6 +12,7 @@ function Inspector () {
     gltf: new THREE.GLTFExporter()
   };
   this.modules = {};
+  this.on = Events.on;
   this.opened = false;
   // Detect if the scene is already loaded
   if (document.readyState === 'complete' || document.readyState === 'loaded') {
