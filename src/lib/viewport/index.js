@@ -198,7 +198,8 @@ function Viewport (inspector) {
         var selected = false;
         for (var i = 0; i < intersects.length; i++) {
           var object = intersects[i].object;
-          if (!object.el.getAttribute('visible')) {
+
+          if (object.el && !object.el.getAttribute('visible')) {
             continue;
           }
 
