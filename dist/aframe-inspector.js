@@ -273,7 +273,7 @@
 	  window.addEventListener('inspector-loaded', function () {
 	    _reactDom2.default.render(_react2.default.createElement(Main, null), div);
 	  });
-	  console.log('A-Frame Inspector Version:', ("0.6.0"), '(' + ("20-09-2017") + ' Commit: ' + ("59c8ec4357ab54043dd861ce31919347409c111e\n").substr(0, 7) + ')');
+	  console.log('A-Frame Inspector Version:', ("0.6.0"), '(' + ("20-09-2017") + ' Commit: ' + ("2d16c72bcc1f15ce31bf17844939d20720bcfb43\n").substr(0, 7) + ')');
 	})();
 
 /***/ }),
