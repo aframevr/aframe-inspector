@@ -273,7 +273,7 @@
 	  window.addEventListener('inspector-loaded', function () {
 	    _reactDom2.default.render(_react2.default.createElement(Main, null), div);
 	  });
-	  console.log('A-Frame Inspector Version:', ("0.6.0"), '(' + ("31-08-2017") + ' Commit: ' + ("f039fa68edbaa9665c889690332d9f995e9cd6c7\n").substr(0, 7) + ')');
+	  console.log('A-Frame Inspector Version:', ("0.6.0"), '(' + ("20-09-2017") + ' Commit: ' + ("59c8ec4357ab54043dd861ce31919347409c111e\n").substr(0, 7) + ')');
 	})();
 
 /***/ }),
@@ -22604,8 +22604,9 @@
 	      }
 
 	      function addComponent(componentName) {
-	        if (AFRAME.components[componentName].multiple && isComponentInstanced(entity, componentName)) {
-	          componentName = componentName + '__' + generateComponentInstanceId(entity, componentName);
+	        if (AFRAME.components[componentName].multiple) {
+	          var id = prompt('Provide an ID for this component (e.g., \'foo\' for ' + componentName + '__foo).');
+	          componentName = id ? componentName + '__' + id : componentName;
 	        }
 
 	        entity.setAttribute(componentName, '');
@@ -22724,17 +22725,6 @@
 	      return true;
 	    }
 	  }
-	}
-
-	/**
-	 * Generate ID for instanced component.
-	 */
-	function generateComponentInstanceId(entity, componentName) {
-	  var i = 2;
-	  while (entity.components[componentName + '__' + i]) {
-	    i++;
-	  }
-	  return i;
 	}
 
 /***/ }),
@@ -26155,6 +26145,7 @@
 	    gltf: new THREE.GLTFExporter()
 	  };
 	  this.modules = {};
+	  this.on = Events.on;
 	  this.opened = false;
 	  // Detect if the scene is already loaded
 	  if (document.readyState === 'complete' || document.readyState === 'loaded') {
@@ -27511,7 +27502,7 @@
 	      return;
 	    }
 
-	    selectionBox.update(object);
+	    selectionBox.setFromObject(object).update();
 
 	    updateHelpers(object);
 
@@ -27592,7 +27583,7 @@
 	      if (object !== null) {
 	        if (object.geometry !== undefined &&
 	          object instanceof THREE.Sprite === false) {
-	          selectionBox.update(object);
+	          selectionBox.setFromObject(object).update();
 	          selectionBox.visible = true;
 	        }
 	  
@@ -27634,7 +27625,8 @@
 	        var selected = false;
 	        for (var i = 0; i < intersects.length; i++) {
 	          var object = intersects[i].object;
-	          if (!object.el.getAttribute('visible')) {
+
+	          if (object.el && !object.el.getAttribute('visible')) {
 	            continue;
 	          }
 
@@ -27760,7 +27752,7 @@
 	    transformControls.detach();
 	    if (object && object.el) {
 	      if (object.el.getObject3D('mesh')) {
-	        selectionBox.update(object);
+	        selectionBox.setFromObject(object).update();
 	        selectionBox.visible = true;
 	      }
 
@@ -27775,7 +27767,7 @@
 
 	  Events.on('geometrychanged', function (object) {
 	    if (object !== null) {
-	      selectionBox.update(object);
+	      selectionBox.setFromObject(object).update();
 	    }
 	  });
 
@@ -27791,7 +27783,7 @@
 	    if (inspector.selected === object) {
 	      // Hack because object3D always has geometry :(
 	      if (object.geometry && object.geometry.vertices && object.geometry.vertices.length > 0) {
-	        selectionBox.update(object);
+	        selectionBox.setFromObject(object).update();
 	      }
 	      // transformControls.update();
 	    }
