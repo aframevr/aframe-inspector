@@ -75,7 +75,7 @@ function Viewport (inspector) {
     const object = transformControls.object;
     if (object === undefined) { return; }
 
-    selectionBox.update(object);
+    selectionBox.setFromObject(object).update();
 
     updateHelpers(object);
 
@@ -156,7 +156,7 @@ function Viewport (inspector) {
     if (object !== null) {
       if (object.geometry !== undefined &&
         object instanceof THREE.Sprite === false) {
-        selectionBox.update(object);
+        selectionBox.setFromObject(object).update();
         selectionBox.visible = true;
       }
 
@@ -324,7 +324,7 @@ function Viewport (inspector) {
     transformControls.detach();
     if (object && object.el) {
       if (object.el.getObject3D('mesh')) {
-        selectionBox.update(object);
+        selectionBox.setFromObject(object).update();
         selectionBox.visible = true;
       }
 
@@ -339,7 +339,7 @@ function Viewport (inspector) {
 
   Events.on('geometrychanged', object => {
     if (object !== null) {
-      selectionBox.update(object);
+      selectionBox.setFromObject(object).update();
     }
   });
 
@@ -355,7 +355,7 @@ function Viewport (inspector) {
     if (inspector.selected === object) {
       // Hack because object3D always has geometry :(
       if (object.geometry && object.geometry.vertices && object.geometry.vertices.length > 0) {
-        selectionBox.update(object);
+        selectionBox.setFromObject(object).update();
       }
       // transformControls.update();
     }
