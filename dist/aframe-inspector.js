@@ -295,7 +295,7 @@
 	  window.addEventListener('inspector-loaded', function () {
 	    _reactDom2.default.render(_react2.default.createElement(Main, null), div);
 	  });
-	  console.log('A-Frame Inspector Version:', ("0.7.0"), '(' + ("29-09-2017") + ' Commit: ' + ("16f9ad419a12492005758ed50811ad495e56ebd8\n").substr(0, 7) + ')');
+	  console.log('A-Frame Inspector Version:', ("0.7.0"), '(' + ("29-09-2017") + ' Commit: ' + ("2817e9b92f94abbff2cd1ba97f1c7b34ea21813c\n").substr(0, 7) + ')');
 	})();
 
 /***/ }),
@@ -34950,7 +34950,7 @@
 	var Events = __webpack_require__(188);
 
 
-	var SCRIPT = 'https://unpkg.com/aframe-motion-capture-components@0.2.5/dist/aframe-motion-capture-components.min.js';
+	var SCRIPT = 'https://unpkg.com/aframe-motion-capture-components@0.2.6/dist/aframe-motion-capture-components.min.js';
 	// const SCRIPT = 'http://localhost:8080/examples/js/build.js';
 	var LOCALSTORAGE_LOOP = 'aframeinspectormocaploopenabled';
 	var LOCALSTORAGE_SELECTED_RECORDING = 'aframeinspectorselectedrecording';
@@ -34976,6 +34976,14 @@
 	    _this.buttonPressRecording = function () {
 	      var self = _this;
 
+	      var textEntity = document.createElement('a-entity');
+	      textEntity.setAttribute('text', {
+	        align: 'center',
+	        color: 'red',
+	        value: 'Press any controller or keyboard button to record'
+	      });
+	      textEntity.setAttribute('position', '0 0 -1');
+
 	      // Resume the scene.
 	      sceneEl.play();
 
@@ -34985,14 +34993,22 @@
 	      if (cameraEl.getObject3D('replayermesh')) {
 	        cameraEl.getObject3D('replayermesh').visible = false;
 	      }
+	      cameraEl.appendChild(textEntity);
 
 	      // Enter VR.
 	      sceneEl.enterVR();
 
 	      // Start recording when a button is pressed.
 	      sceneEl.addEventListener('buttonup', function buttonStart() {
+	        textEntity.parentNode.removeChild(textEntity);
 	        self.countdownRecording();
 	        sceneEl.removeEventListener('buttonup', buttonStart);
+	      });
+	      // Start recording when keyboard is pressed.
+	      document.addEventListener('keyup', function keyboardStart() {
+	        textEntity.parentNode.removeChild(textEntity);
+	        self.countdownRecording();
+	        sceneEl.removeEventListener('keyup', buttonStart);
 	      });
 
 	      // Stop recording when a button is pressed 5 times in a row quickly.
