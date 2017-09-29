@@ -133,6 +133,14 @@ export default class MotionCapture extends React.Component {
   buttonPressRecording = () => {
     var self = this;
 
+    const textEntity = document.createElement('a-entity');
+    textEntity.setAttribute('text', {
+      align: 'center',
+      color: 'red',
+      value: 'Press any controller or keyboard button to record'
+    });
+    textEntity.setAttribute('position', '0 0 -1');
+
     // Resume the scene.
     sceneEl.play();
 
@@ -142,14 +150,22 @@ export default class MotionCapture extends React.Component {
     if (cameraEl.getObject3D('replayermesh')) {
       cameraEl.getObject3D('replayermesh').visible = false;
     }
+    cameraEl.appendChild(textEntity);
 
     // Enter VR.
     sceneEl.enterVR();
 
     // Start recording when a button is pressed.
     sceneEl.addEventListener('buttonup', function buttonStart () {
+      textEntity.parentNode.removeChild(textEntity);
       self.countdownRecording();
       sceneEl.removeEventListener('buttonup', buttonStart);
+    });
+    // Start recording when keyboard is pressed.
+    document.addEventListener('keyup', function keyboardStart () {
+      textEntity.parentNode.removeChild(textEntity);
+      self.countdownRecording();
+      sceneEl.removeEventListener('keyup', buttonStart);
     });
 
     // Stop recording when a button is pressed 5 times in a row quickly.
