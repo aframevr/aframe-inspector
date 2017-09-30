@@ -26,10 +26,12 @@ export default class Main extends React.Component {
     super(props);
 
     this.state = {
-      inspectorEnabled: true,
-      sceneEl: AFRAME.scenes[0],
       entity: null,
+      inspectorEnabled: true,
+      isMotionCaptureRecording: false,
       isModalTexturesOpen: false,
+      motionCaptureCountdown: -1,
+      sceneEl: AFRAME.scenes[0],
       visible: {
         scenegraph: true,
         attributes: true
@@ -76,6 +78,18 @@ export default class Main extends React.Component {
     Events.on('openhelpmodal', () => {
       this.setState({isHelpOpen: true});
     });
+
+    Events.on('motioncapturerecordstart', () => {
+      this.setState({isMotionCaptureRecording: true});
+    });
+
+    Events.on('motioncapturerecordstop', () => {
+      this.setState({isMotionCaptureRecording: false});
+    });
+
+    Events.on('motioncapturecountdown', val => {
+      this.setState({motionCaptureCountdown: val});
+    });
   }
 
   onCloseHelpModal = value => {
@@ -103,13 +117,22 @@ export default class Main extends React.Component {
 
   render () {
     var scene = this.state.sceneEl;
-    let editButton = <a className='toggle-edit' onClick={this.toggleEdit}>{(this.state.inspectorEnabled ? 'Back to Scene' : 'Inspect Scene')}</a>;
     const showScenegraph = this.state.visible.scenegraph ? null : <div className="toggle-sidebar left"><a onClick={() => {this.state.visible.scenegraph = true; this.forceUpdate()}} className='fa fa-plus' title='Show scenegraph'></a></div>;
     const showAttributes = !this.state.entity || this.state.visible.attributes ? null : <div className="toggle-sidebar right"><a onClick={() => {this.state.visible.attributes = true; this.forceUpdate()}} className='fa fa-plus' title='Show components'></a></div>;
 
+    let toggleButtonText = 'Inspect Scene';
+    if (this.state.motionCaptureCountdown !== -1) {
+      toggleButtonText = this.state.motionCaptureCountdown;
+    } else if (this.state.isMotionCaptureRecording) {
+      toggleButtonText = 'Stop Recording';
+    } else if (this.state.inspectorEnabled) {
+      toggleButtonText = 'Back to Scene';
+    }
+
     return (
       <div>
-        {editButton}
+        <a className='toggle-edit' onClick={this.toggleEdit}>{toggleButtonText}</a>
+
         <div id='aframe-inspector-panels' className={this.state.inspectorEnabled ? '' : 'hidden'}>
           <ModalTextures ref='modaltextures' isOpen={this.state.isModalTexturesOpen} selectedTexture={this.state.selectedTexture} onClose={this.onModalTextureOnClose}/>
           <SceneGraph id='left-sidebar' scene={scene} selectedEntity={this.state.entity} visible={this.state.visible.scenegraph}/>

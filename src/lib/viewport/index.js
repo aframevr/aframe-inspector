@@ -22,17 +22,18 @@ function Viewport (inspector) {
     dom: inspector.container
   };
 
-  var prevActivedCameraEl = inspector.currentCameraEl;
+  var prevActiveCameraEl = inspector.currentCameraEl;
   inspector.sceneEl.addEventListener('camera-set-active', event => {
     if (inspector.opened) {
-      // If we're in edit mode, just save the current active camera for later and activate again the editorCamera
+      // If we're in edit mode, save the newly active camera and activate when exiting.
       if (event.detail.cameraEl !== inspector.inspectorCameraEl) {
-        prevActivedCameraEl = event.detail.cameraEl;
+        prevActiveCameraEl = event.detail.cameraEl;
       }
 
-      // If it's an inspector camera we just leave the active status as is
+      // Force keep the Inspector camera as active.
       if (!event.detail.cameraEl.isInspector) {
-        inspector.inspectorCameraEl.setAttribute('camera', 'active', 'true');
+        // TODO: Motion capture.
+        // inspector.inspectorCameraEl.setAttribute('camera', 'active', 'true');
       }
     }
   });
@@ -406,7 +407,7 @@ function Viewport (inspector) {
       });
     } else {
       disableControls();
-      prevActivedCameraEl.setAttribute('camera', 'active', 'true');
+      prevActiveCameraEl.setAttribute('camera', 'active', 'true');
       Array.prototype.slice.call(document.querySelectorAll('.a-enter-vr,.rs-base')).forEach(element => {
         element.style.display = 'block';
       });

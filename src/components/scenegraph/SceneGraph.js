@@ -6,7 +6,7 @@ import Toolbar from './Toolbar';
 const Events = require('../../lib/Events.js');
 
 const ICONS = {
-  camera: 'fa-video-camera',
+  camera: 'fa-camera',
   geometry: 'fa-cube',
   light: 'fa-lightbulb-o',
   material: 'fa-picture-o'
@@ -104,6 +104,7 @@ export default class SceneGraph extends React.Component {
           for (let componentName in ICONS) {
             if (child.components && child.components[componentName]) {
               let properties = child.getAttribute(componentName);
+              if (!properties) { continue; }
               const titles = Object.keys(properties)
                 .sort()
                 .map(property => {
@@ -190,7 +191,8 @@ export default class SceneGraph extends React.Component {
         const value = option.value;
         // Check if the ID or the tagName includes the filterText
         if (value.id.toUpperCase().indexOf(filterText) > -1 ||
-            value.tagName.toUpperCase().indexOf(filterText) > -1) {
+            value.tagName.toUpperCase().indexOf(filterText) > -1 ||
+            value.getAttribute('class').indexOf(filterText) > -1) {
           return true;
         }
 
@@ -233,10 +235,15 @@ export default class SceneGraph extends React.Component {
           novisible: !visible
         });
 
+        let entityName = option.id;
+        if (!entity.isScene && !entityName && entity.getAttribute('class')) {
+          entityName = entity.getAttribute('class').split(' ')[0];
+        }
+
         return (
           <div key={idx} className={className} value={option.value}
             onClick={() => this.setValue(option.value)}>
-            <span>{visibility} {collapse}{pad} &lt;{option.tagName}<span className="id">{option.id ? ' ' + option.id : ''}</span>
+            <span>{visibility} {collapse}{pad} &lt;{option.tagName}<span className="name">{entityName ? ` ${entityName}` : ''}</span>
             <span dangerouslySetInnerHTML={{__html: option.extra}}></span>&gt;</span>
               <span className="icons">
                 {cloneButton}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Controllers</title>
+    <script src="https://rawgit.com/aframevr/aframe/master/dist/aframe-master.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.0.0/dist/aframe-environment-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-teleport-controls@0.2.0/dist/aframe-teleport-controls.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <a-mixin id="blue" material="color: #4CC3D9"></a-mixin>
+        <a-mixin id="box" geometry="primitive: box; depth: 1; height: 1; width: 1"></a-mixin>
+        <a-mixin id="cylinder" geometry="primitive: cylinder; height: 0.3; radius: 0.75; segmentsRadial: 6"></a-mixin>
+        <a-mixin id="green" material="color: #7BC8A4"></a-mixin>
+        <a-mixin id="orange" material="color: #F16745"></a-mixin>
+        <a-mixin id="purple" material="color: #93648D"></a-mixin>
+        <a-mixin id="short" scale="1 0.5 1"></a-mixin>
+        <a-mixin id="yellow" material="color: #FFC65D"></a-mixin>
+        <a-mixin id="interactable"
+          event-set__mouseenter="_event: mouseenter; material.opacity: 0.75"
+          event-set__mouseleave="_event: mouseleave; material.opacity: 1"
+          event-set__click="_event: click; scale: 1.1 1.1 1.1"></a-mixin>
+        <img id="crateImg" src="https://aframe.io/sample-assets/assets/images/wood/crate.gif" crossOrigin="true">
+        <img id="floorImg" src="https://aframe.io/sample-assets/assets/images/terrain/grasslight-big.jpg" crossOrigin="true">
+      </a-assets>
+
+      <a-entity id="environment" environment="preset: forest; fog: false" shadow="cast: true; receive: true"></a-entity>
+
+      <!-- Meshes. -->
+      <a-entity position="0 0 -8">
+        <a-entity id="blueBox" mixin="interactable" geometry="primitive: box; depth: 2; height: 5; width: 1" material="color: #4CC3D9" position="0 8 0"></a-entity>
+        <a-entity id="shortOrangeBox" mixin="interactable short orange box" position="-5 2 0"></a-entity>
+        <a-entity id="shortYellowBox" mixin="interactable short yellow box" position="5 2 0"></a-entity>
+        <a-entity id="redBox" mixin="interactable" geometry="primitive: box" material="color: #F00" position="-4 1 0">
+          <a-animation attribute="rotation" to="0 360 0" repeat="indefinite" easing="linear" dur="9600"></a-animation>
+        </a-entity>
+        <a-entity id="yellowSphere" mixin="interactable" geometry="primitive: sphere" material="color:#ff0; metalness:0.0; roughness:1.0" position="-2 2 -2"></a-entity>
+        <a-box id="brickBox" mixin="interactable" src="https://aframe.io/sample-assets/assets/images/bricks/brick_bump.jpg" position="-5 5 -2" width="1" color="#F16745"></a-box>
+        <a-box id="box" mixin="interactable" position="0 2 0" height="2" color="#FFC65D"></a-box>
+
+        <!-- Models. -->
+        <a-entity mixin="interactable" class="boxClass" geometry="primitive: box" material="src: #crateImg" position="3 4 0"></a-entity>
+        <a-entity mixin="interactable" class="boxClass" geometry="primitive: box" material="color: #0f0" position="4 2 4"></a-entity>
+
+      </a-entity>
+
+      <!-- Lights. -->
+      <a-entity id="pointLight" light="type: point; intensity: 0.25" position="0 3 3"></a-entity>
+
+      <!-- Hands. -->
+      <a-entity id="rightHand" laser-controls="hand: right"></a-entity>
+      <a-entity id="leftHand" hand-controls="left" teleport-controls></a-entity>
+    </a-scene>
+
+    <script src="../dist/aframe-inspector.js"></script>
+  </body>
+</html>

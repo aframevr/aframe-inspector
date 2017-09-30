@@ -43,8 +43,20 @@ Inspector.prototype = {
    * Callback when the a-scene is loaded
    */
   onSceneLoaded: function () {
+    var self = this;
     this.container = document.querySelector('.a-canvas');
-    this.currentCameraEl = document.querySelector('[camera]');
+
+    // Wait for camera if necessary.
+    if (!AFRAME.scenes[0].camera) {
+      AFRAME.scenes[0].addEventListener('camera-set-active', function waitForCamera () {
+        AFRAME.scenes[0].removeEventListener('camera-set-active', waitForCamera);
+        self.onSceneLoaded();
+      });
+      return;
+    }
+
+    this.currentCameraEl = AFRAME.scenes[0].camera.el;
+    this.currentCameraEl.setAttribute('data-aframe-inspector-original-camera', '');
 
     // If the current camera is the default, we should prevent AFRAME from
     // remove it once when we inject the editor's camera
@@ -55,7 +67,8 @@ Inspector.prototype = {
 
     this.inspectorCameraEl = document.createElement('a-entity');
     this.inspectorCameraEl.isInspector = true;
-    this.inspectorCameraEl.addEventListener('loaded', entity => {
+    this.inspectorCameraEl.addEventListener('componentinitialized', evt => {
+      if (evt.detail.name !== 'camera') { return; }
       this.EDITOR_CAMERA = this.inspectorCameraEl.getObject3D('camera');
       this.initUI();
       this.initModules();
@@ -136,7 +149,7 @@ Inspector.prototype = {
     return function (object) {
       var helper;
       if (object instanceof THREE.Camera) {
-        helper = new THREE.CameraHelper(object, 1);
+        this.cameraHelper = helper = new THREE.CameraHelper(object, 0.1);
       } else if (object instanceof THREE.PointLight) {
         helper = new THREE.PointLightHelper(object, 1);
       } else if (object instanceof THREE.DirectionalLight) {
@@ -313,13 +326,18 @@ Inspector.prototype = {
   open: function () {
     this.opened = true;
     Events.emit('inspectormodechanged', true);
-    this.sceneEl.pause();
-    this.sceneEl.exitVR();
+
+    if (!this.sceneEl.hasAttribute('aframe-inspector-motion-capture-replaying')) {
+      this.sceneEl.pause();
+      this.sceneEl.exitVR();
+    }
+
     if (this.sceneEl.hasAttribute('embedded')) {
       // Remove embedded styles, but keep track of it.
       this.sceneEl.removeAttribute('embedded');
       this.sceneEl.setAttribute('aframe-inspector-removed-embedded');
     }
+
     document.body.classList.add('aframe-inspector-opened');
     this.sceneEl.resize();
     Shortcuts.enable();

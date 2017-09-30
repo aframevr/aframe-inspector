@@ -36,8 +36,8 @@
       <a-box id="box" position="0 2 0" height="2" color="#FFC65D"></a-box>
 
       <!-- Models. -->
-      <a-entity geometry="primitive: box" material="src: #crateImg" position="3 4 0"></a-entity>
-      <a-entity geometry="primitive: box" material="color: #0f0" position="4 2 4"></a-entity>
+      <a-entity class="boxClass" geometry="primitive: box" material="src: #crateImg" position="3 4 0"></a-entity>
+      <a-entity class="boxClass" geometry="primitive: box" material="color: #0f0" position="4 2 4"></a-entity>
 
       <!-- Floor. -->
       <a-entity id="floor" geometry="primitive: box; height: .2; depth: 24; width: 24"
@@ -47,7 +47,7 @@
       <a-entity id="pointLight" light="type: point; intensity: 0.25" position="0 3 3"></a-entity>
 
       <!-- Camera. -->
-      <a-entity id="cameraWrapper" position="0 1 8">
+      <a-entity id="cameraWrapper" position="0 1.6 8">
         <a-entity id="camera" camera look-controls wasd-controls>
           <!-- Cursor. -->
           <a-entity id="cursor" position="0 0 -2"
@@ -57,6 +57,9 @@
           </a-entity>
         </a-entity>
       </a-entity>
+
+      <a-entity id="leftHand" laser-controls="hand: left"></a-entity>
+      <a-entity id="rightHand" laser-controls="hand: right"></a-entity>
     </a-scene>
 
     <script src="../dist/aframe-inspector.js"></script>
