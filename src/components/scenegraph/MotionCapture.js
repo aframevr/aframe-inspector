@@ -165,7 +165,7 @@ export default class MotionCapture extends React.Component {
     document.addEventListener('keyup', function keyboardStart () {
       textEntity.parentNode.removeChild(textEntity);
       self.countdownRecording();
-      sceneEl.removeEventListener('keyup', buttonStart);
+      document.removeEventListener('keyup', keyboardStart);
     });
 
     // Stop recording when a button is pressed 5 times in a row quickly.
