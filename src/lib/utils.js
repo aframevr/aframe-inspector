@@ -95,7 +95,6 @@ function saveString (text, filename, mimeType) {
   }
 
   save(new Blob([ text ], { type: mimeType }), filename);
-
 }
 
 module.exports = {

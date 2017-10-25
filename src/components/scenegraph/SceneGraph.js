@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars, react/no-danger */
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -19,6 +20,7 @@ const gaTrackSearchEntity = debounce(() => {
 
 export default class SceneGraph extends React.Component {
   static propTypes = {
+    id: PropTypes.string,
     onChange: PropTypes.func,
     scene: PropTypes.object,
     value: PropTypes.string,
@@ -39,7 +41,6 @@ export default class SceneGraph extends React.Component {
       selectedIndex: -1,
       filterText: ''
     };
-
   }
 
   componentDidMount () {
@@ -226,9 +227,9 @@ export default class SceneGraph extends React.Component {
         // const collapse = option.hasChildren ? <span className="collasespace fa fa-caret-down"></span> : <span className="collasespace"></span>;
         const collapse = null;
         let entity = option.value;
-        const visible = entity.tagName.toLowerCase() == 'a-scene' ? entity.object3D.visible : entity.getAttribute('visible');
+        const visible = entity.tagName.toLowerCase() === 'a-scene' ? entity.object3D.visible : entity.getAttribute('visible');
         let visibility = <i title="Toggle entity visibility" className={'fa ' + (visible ? 'fa-eye' : 'fa-eye-slash')}
-            onClick={ event => { this.toggleVisibility(option.value, event) } }></i>;
+          onClick={ event => { this.toggleVisibility(option.value, event); } }></i>;
 
         const className = classnames({
           option: true,

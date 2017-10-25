@@ -109,7 +109,7 @@ export default class MotionCapture extends React.Component {
     this.recordingdb = sceneEl.systems.recordingdb;
 
     // Populate recording names, select from last session if any.
-    this.refreshRecordingNames().then(recordingNames  => {
+    this.refreshRecordingNames().then(recordingNames => {
       var selectedRecording = localStorage.getItem(LOCALSTORAGE_SELECTED_RECORDING);
       if (selectedRecording && this.state.recordingNames.indexOf(selectedRecording) !== -1) {
         this.setState({selectedRecordingName: selectedRecording});
@@ -185,7 +185,7 @@ export default class MotionCapture extends React.Component {
         // First button press or different button pressed.
         counter = 1;
         lastButtonPressId = evt.detail.id;
-        lastButtonPressTime  = evt.timeStamp;
+        lastButtonPressTime = evt.timeStamp;
       }
 
       // Five presses reached. Stop recording.
@@ -371,7 +371,7 @@ export default class MotionCapture extends React.Component {
    * Delete selected recording from localStorage.
    */
   deleteRecording = () => {
-    var self = this;
+    var self = this; // eslint-disable-line no-unused-vars
 
     if (!this.state.selectedRecordingName) { return; }
 
@@ -424,7 +424,7 @@ export default class MotionCapture extends React.Component {
       const url = data.files[Object.keys(data.files)[0]].raw_url;
       console.log('Recording uploaded to', url);
       self.setState({isCurrentlyUploading: false, uploadedRecordingURL: url});
-    }
+    };
 
     this.recordingdb.getRecording(this.state.selectedRecordingName).then(data => {
       request.send(JSON.stringify({
@@ -487,7 +487,7 @@ export default class MotionCapture extends React.Component {
     let xhr = new XMLHttpRequest();
     xhr.addEventListener('load', function () {
       self.recordingdb.addRecording(
-        recordingName || `Recording #{self.state.recordingNames.length}`,
+        recordingName || `Recording ${self.state.recordingNames.length}`,
         JSON.parse(this.responseText));
       self.refreshRecordingNames().then(() => {
         self.setState({selectedRecordingName: recordingName});
@@ -565,12 +565,12 @@ export default class MotionCapture extends React.Component {
 
         <div style={{paddingTop: '8px', paddingLeft: '2px'}}>
           <FileReaderInput as="text" onChange={this.addRecordingFromFile} style={{display: 'inline-block', marginLeft: '1px'}}>
-            <a className="button fa fa-upload" title={`Add recording from file system`} style={{marginLeft: 0}}/>
+            <a className="button fa fa-upload" title="Add recording from file system" style={{marginLeft: 0}}/>
           </FileReaderInput>
-          <a className="button fa fa-link" title={`Add recording from URL`} onClick={this.addRecordingFromURL} style={{marginLeft: '10px', paddingRight: '60px'}}/>
+          <a className="button fa fa-link" title="Add recording from URL" onClick={this.addRecordingFromURL} style={{marginLeft: '10px', paddingRight: '60px'}}/>
 
           {state.selectedRecordingName && <span>
-            <a className="button fa fa-repeat" title={`Toggle loop of replaying`} onClick={this.toggleLoop} style={{[this.state.loopEnabled && 'color']: '#FFF'}}/>
+            <a className="button fa fa-repeat" title="Toggle loop of replaying" onClick={this.toggleLoop} style={{[this.state.loopEnabled && 'color']: '#FFF'}}/>
             <a className="button fa fa-save" title={`Download ${state.selectedRecordingName} recording`} onClick={this.downloadRecording}/>
             <a className={state.isCurrentlyUploading ? 'button fa fa-hourglass-half' : 'button fa fa-cloud-upload'} title={state.isCurrentlyUploading ? `Uploading ${state.selectedRecordingName}...` : `Upload ${state.selectedRecordingName} recording`} onClick={this.uploadRecording} style={{[state.isCurrentlyUploading && 'color']: '#24CAFF'}}/>
             <a className="button fa fa-trash" title={`Delete ${state.selectedRecordingName} recording`} onClick={this.deleteRecording}/>

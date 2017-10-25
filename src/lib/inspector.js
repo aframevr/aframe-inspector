@@ -4,10 +4,9 @@ var ComponentLoader = require('./componentloader.js');
 var AssetsLoader = require('./assetsLoader.js');
 var ShaderLoader = require('./shaderloader.js');
 var Shortcuts = require('./shortcuts.js');
-import {GLTFExporter} from './vendor/GLTFExporter';
+import {GLTFExporter} from './vendor/GLTFExporter'; // eslint-disable-line no-unused-vars
 
 function Inspector () {
-
   this.exporters = {
     gltf: new THREE.GLTFExporter()
   };
@@ -374,6 +373,6 @@ Inspector.prototype = {
 var inspector = new Inspector();
 AFRAME.INSPECTOR = inspector;
 
-var Modules = require('./modules/index.js');
+var Modules = require('./modules/index.js'); // eslint-disable-line no-unused-vars
 
 module.exports = inspector;

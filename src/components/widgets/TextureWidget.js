@@ -68,7 +68,7 @@ export default class TextureWidget extends React.Component {
     value: PropTypes.oneOfType([
       PropTypes.object,
       PropTypes.string
-    ]),
+    ])
   };
 
   static defaultProps = {
@@ -133,8 +133,7 @@ export default class TextureWidget extends React.Component {
 
     if (isAssetImg) {
       url = value.src;
-    }
-    else if (isAssetHash) {
+    } else if (isAssetHash) {
       url = getUrlFromId(value);
     } else {
       url = AFRAME.utils.srcLoader.parseUrl(value);

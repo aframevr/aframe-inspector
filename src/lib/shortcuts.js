@@ -112,19 +112,19 @@ var Shortcuts = {
 
     // º: toggle sidebars visibility
     if (event.keyCode === 192) {
-      Events.emit('togglesidebar', {which:'all'});
+      Events.emit('togglesidebar', {which: 'all'});
       event.preventDefault();
       event.stopPropagation();
     }
 
     // 1: toggle scenegraph visibility only
     if (event.keyCode === 49) {
-      Events.emit('togglesidebar', {which:'scenegraph'});
+      Events.emit('togglesidebar', {which: 'scenegraph'});
     }
 
     // 2: toggle sidebar visibility only
     if (event.keyCode === 50) {
-      Events.emit('togglesidebar', {which:'attributes'});
+      Events.emit('togglesidebar', {which: 'attributes'});
     }
   },
   enable: function () {

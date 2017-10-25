@@ -116,6 +116,7 @@ export default class AddComponent extends React.Component {
   }
 }
 
+/* eslint-disable no-unused-vars */
 /**
  * Check if component has multiplicity.
  */

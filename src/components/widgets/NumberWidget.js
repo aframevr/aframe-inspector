@@ -46,7 +46,7 @@ export default class NumberWidget extends React.Component {
     this.distance += delta;
 
     // Add minimum tolerance to reduce unintentional drags when clicking on input.
-    //if (Math.abs(delta) <= 2) { return; }
+    // if (Math.abs(delta) <= 2) { return; }
 
     let value = this.onMouseDownValue + (this.distance / (event.shiftKey ? 5 : 50)) *
                 this.props.step / 2;

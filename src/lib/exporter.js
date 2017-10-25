@@ -57,10 +57,10 @@ export function generateHtml () {
     el.parentNode.removeChild(el);
   }
 
-  var root = xmlDoc.documentElement;
-  var sceneTemp = xmlDoc.createElement("a-scene-temp");
+  var root = xmlDoc.documentElement; // eslint-disable-line no-unused-vars
+  var sceneTemp = xmlDoc.createElement('a-scene-temp');
 
-  var scene = xmlDoc.getElementsByTagName("a-scene")[0];
+  var scene = xmlDoc.getElementsByTagName('a-scene')[0];
 
   scene.parentNode.replaceChild(sceneTemp, scene);
 
