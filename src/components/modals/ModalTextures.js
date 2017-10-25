@@ -2,6 +2,7 @@
 window.UPLOADCARE_PUBLIC_KEY = 'f43ad452b58f9e853d05';
 import Events from '../../lib/Events';
 import React from 'react';
+import PropTypes from 'prop-types';
 import Modal from './Modal';
 var insertNewAsset = require('../../lib/assetsUtils').insertNewAsset;
 import INSPECTOR from '../../lib/inspector.js';
@@ -32,9 +33,9 @@ function getValidId (name) {
 
 export default class ModalTextures extends React.Component {
   static propTypes = {
-    isOpen: React.PropTypes.bool,
-    onClose: React.PropTypes.func,
-    selectedTexture: React.PropTypes.string
+    isOpen: PropTypes.bool,
+    onClose: PropTypes.func,
+    selectedTexture: PropTypes.string
   };
 
   constructor (props) {

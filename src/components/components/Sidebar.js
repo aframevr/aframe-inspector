@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ComponentsContainer from './ComponentsContainer';
 import Events from '../../lib/Events';
 
 export default class Sidebar extends React.Component {
   static propTypes = {
-    entity: React.PropTypes.object,
-    visible: React.PropTypes.bool
+    entity: PropTypes.object,
+    visible: PropTypes.bool
   };
 
   constructor (props) {

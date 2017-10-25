@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Modal from './Modal';
 
 export default class ModalHelp extends React.Component {
   static propTypes = {
-    isOpen: React.PropTypes.bool,
-    onClose: React.PropTypes.func
+    isOpen: PropTypes.bool,
+    onClose: PropTypes.func
   };
 
   constructor (props) {

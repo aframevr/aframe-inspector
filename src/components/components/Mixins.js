@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Events = require('../../lib/Events.js');
 
@@ -11,7 +12,7 @@ function trim (s) {
 
 export default class Mixin extends React.Component {
   static propTypes = {
-    entity: React.PropTypes.object.isRequired
+    entity: PropTypes.object.isRequired
   };
 
   removeMixin = mixin => {

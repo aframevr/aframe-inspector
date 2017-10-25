@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Events from '../../lib/Events';
 var INSPECTOR = require('../../lib/inspector.js');
 import Select from 'react-select';
@@ -8,7 +9,7 @@ var DELIMITER = ' ';
 
 export default class AddComponent extends React.Component {
   static propTypes = {
-    entity: React.PropTypes.object
+    entity: PropTypes.object
   };
 
   /**

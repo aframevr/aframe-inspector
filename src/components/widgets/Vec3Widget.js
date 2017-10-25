@@ -1,13 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import NumberWidget from './NumberWidget';
 
 export default class Vec3Widget extends React.Component {
   static propTypes = {
-    componentname: React.PropTypes.string,
-    entity: React.PropTypes.object,
-    onChange: React.PropTypes.func,
-    value: React.PropTypes.object.isRequired
+    componentname: PropTypes.string,
+    entity: PropTypes.object,
+    onChange: PropTypes.func,
+    value: PropTypes.object.isRequired
   };
 
   constructor (props) {

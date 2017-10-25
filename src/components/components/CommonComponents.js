@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {InputWidget} from '../widgets';
 import DEFAULT_COMPONENTS from './DefaultComponents';
 import PropertyRow from './PropertyRow';
@@ -20,7 +21,7 @@ function changeId (componentName, value) {
 
 export default class CommonComponents extends React.Component {
   static propTypes = {
-    entity: React.PropTypes.object
+    entity: PropTypes.object
   };
 
   componentDidMount () {

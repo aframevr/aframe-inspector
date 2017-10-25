@@ -1,12 +1,13 @@
 var React = require('react');
+import PropTypes from 'prop-types';
 
 export default class InputWidget extends React.Component {
   static propTypes = {
-    componentname: React.PropTypes.string,
-    entity: React.PropTypes.object,
-    name: React.PropTypes.string.isRequired,
-    onChange: React.PropTypes.func,
-    value: React.PropTypes.any
+    componentname: PropTypes.string,
+    entity: PropTypes.object,
+    name: PropTypes.string.isRequired,
+    onChange: PropTypes.func,
+    value: PropTypes.any
   };
 
   constructor (props) {

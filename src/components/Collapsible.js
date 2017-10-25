@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 export default class Collapsible extends React.Component {
   static propTypes = {
-    collapsed: React.PropTypes.bool,
-    children: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.element
+    collapsed: PropTypes.bool,
+    children: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.element
     ]).isRequired
   };
 

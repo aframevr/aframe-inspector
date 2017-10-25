@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import INSPECTOR from '../../lib/inspector';
 
 var Events = require('../../lib/Events.js');
@@ -59,14 +60,14 @@ function insertOrGetImageAsset (src) {
 
 export default class TextureWidget extends React.Component {
   static propTypes = {
-    componentname: React.PropTypes.string,
-    entity: React.PropTypes.object,
-    mapName: React.PropTypes.string,
-    name: React.PropTypes.string.isRequired,
-    onChange: React.PropTypes.func,
-    value: React.PropTypes.oneOfType([
-      React.PropTypes.object,
-      React.PropTypes.string
+    componentname: PropTypes.string,
+    entity: PropTypes.object,
+    mapName: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    onChange: PropTypes.func,
+    value: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.string
     ]),
   };
 
