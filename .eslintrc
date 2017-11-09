@@ -16,7 +16,7 @@
     "THREE": true
   },
   "parser": "babel-eslint",
-  "parserOptions": {,
+  "parserOptions": {
     "ecmaVersion": 7,
     "sourceType": "module",
     "ecmaFeatures": {

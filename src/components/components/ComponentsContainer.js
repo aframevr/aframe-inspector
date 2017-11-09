@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AddComponent from './AddComponent';
 import Component from './Component';
 import CommonComponents from './CommonComponents';
@@ -6,7 +7,7 @@ import DEFAULT_COMPONENTS from './DefaultComponents';
 
 export default class ComponentsContainer extends React.Component {
   static propTypes = {
-    entity: React.PropTypes.object
+    entity: PropTypes.object
   };
 
   refresh = () => {

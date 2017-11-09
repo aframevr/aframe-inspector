@@ -12,8 +12,8 @@ const LOCALSTORAGE_MOCAP_UI = 'aframeinspectormocapuienabled';
  * Tools and actions.
  */
 export default class Toolbar extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor (props) {
+    super(props);
 
     const clipboard = new Clipboard('[data-action="copy-scene-to-clipboard"]', {
       text: trigger => {
@@ -28,7 +28,7 @@ export default class Toolbar extends React.Component {
       this.toggleMotionCaptureUI();
     });
 
-    this.state ={
+    this.state = {
       motionCaptureUIEnabled: JSON.parse(localStorage.getItem(LOCALSTORAGE_MOCAP_UI))
     };
   }

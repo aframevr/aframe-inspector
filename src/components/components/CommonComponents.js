@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {InputWidget} from '../widgets';
 import DEFAULT_COMPONENTS from './DefaultComponents';
 import PropertyRow from './PropertyRow';
@@ -20,7 +21,7 @@ function changeId (componentName, value) {
 
 export default class CommonComponents extends React.Component {
   static propTypes = {
-    entity: React.PropTypes.object
+    entity: PropTypes.object
   };
 
   componentDidMount () {
@@ -56,7 +57,7 @@ export default class CommonComponents extends React.Component {
     });
   }
 
-  exportToGLTF() {
+  exportToGLTF () {
     const entity = this.props.entity;
     AFRAME.INSPECTOR.exporters.gltf.parse(entity.object3D, function (result) {
       var output = JSON.stringify(result, null, 2);
@@ -69,7 +70,7 @@ export default class CommonComponents extends React.Component {
     if (!entity) { return <div></div>; }
     const entityName = '<' + entity.tagName.toLowerCase() + '>';
     const entityButtons = <div>
-      <a title='Export entity to GLTF' className='button fa fa-download' onClick={event => {this.exportToGLTF(); event.stopPropagation()} }></a>
+      <a title='Export entity to GLTF' className='button fa fa-download' onClick={event => { this.exportToGLTF(); event.stopPropagation(); } }></a>
       <a href='#' title='Copy entity HTML to clipboard' data-action='copy-entity-to-clipboard'
         className='button fa fa-clipboard' onClick={event => event.stopPropagation()}></a>
     </div>;

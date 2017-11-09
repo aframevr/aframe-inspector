@@ -25,6 +25,7 @@
     "clipboard": "^1.5.12",
     "invariant": "^2.2.2",
     "lodash.debounce": "^4.0.6",
+    "prop-types": "^15.6.0",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-file-reader-input": "^1.1.4",

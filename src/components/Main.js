@@ -1,4 +1,4 @@
-/* global VERSION BUILD_TIMESTAMP COMMIT_HASH */
+/* global VERSION BUILD_TIMESTAMP COMMIT_HASH webFont */
 require('../lib/vendor/ga');
 const INSPECTOR = require('../lib/inspector.js');
 
@@ -39,19 +39,37 @@ export default class Main extends React.Component {
     };
 
     Events.on('togglesidebar', event => {
-      if (event.which == 'all') {
+      if (event.which === 'all') {
         if (this.state.visible.scenegraph || this.state.visible.attributes) {
-          this.state.visible.scenegraph = this.state.visible.attributes = false;
+          this.setState({
+            visible: {
+              scenegraph: false,
+              attributes: false
+            }
+          });
         } else {
-          this.state.visible.scenegraph = this.state.visible.attributes = true;
+          this.setState({
+            visible: {
+              scenegraph: true,
+              attributes: true
+            }
+          });
         }
-      } else if (event.which == 'attributes') {
-        this.state.visible.attributes = !this.state.visible.attributes;
-      } else if (event.which == 'scenegraph') {
-        this.state.visible.scenegraph = !this.state.visible.scenegraph;
+      } else if (event.which === 'attributes') {
+        this.setState((prevState) => ({
+          visible: {
+            attributes: !prevState.visible.attributes
+          }
+        }));
+      } else if (event.which === 'scenegraph') {
+        this.setState((prevState) => ({
+          visible: {
+            scenegraph: !prevState.visible.scenegraph
+          }
+        }));
       }
-      this.forceUpdate();
 
+      this.forceUpdate();
     });
   }
 
@@ -117,8 +135,8 @@ export default class Main extends React.Component {
 
   render () {
     var scene = this.state.sceneEl;
-    const showScenegraph = this.state.visible.scenegraph ? null : <div className="toggle-sidebar left"><a onClick={() => {this.state.visible.scenegraph = true; this.forceUpdate()}} className='fa fa-plus' title='Show scenegraph'></a></div>;
-    const showAttributes = !this.state.entity || this.state.visible.attributes ? null : <div className="toggle-sidebar right"><a onClick={() => {this.state.visible.attributes = true; this.forceUpdate()}} className='fa fa-plus' title='Show components'></a></div>;
+    const showScenegraph = this.state.visible.scenegraph ? null : <div className="toggle-sidebar left"><a onClick={() => { this.setState({visible: {scenegraph: true}}); this.forceUpdate(); }} className='fa fa-plus' title='Show scenegraph'></a></div>;
+    const showAttributes = !this.state.entity || this.state.visible.attributes ? null : <div className="toggle-sidebar right"><a onClick={() => { this.setState({visible: {attributes: true}}); this.forceUpdate(); }} className='fa fa-plus' title='Show components'></a></div>;
 
     let toggleButtonText = 'Inspect Scene';
     if (this.state.motionCaptureCountdown !== -1) {
@@ -156,7 +174,7 @@ export default class Main extends React.Component {
     webFontLoader.innerHTML = 'WebFont.load({google: {families: ["Roboto", "Roboto Mono"]}});';
     document.head.appendChild(webFontLoader);
   }, function () {
-    console.warn('Could not load WebFont script:', webFont.src);
+    console.warn('Could not load WebFont script:', webFont.src); // webFont or webFontLoader?
   });
 
   var div = document.createElement('div');

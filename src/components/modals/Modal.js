@@ -1,17 +1,18 @@
 var React = require('react');
+import PropTypes from 'prop-types';
 
 export default class Modal extends React.Component {
   static propTypes = {
-    id: React.PropTypes.string,
-    children: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.element
+    id: PropTypes.string,
+    children: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.element
     ]).isRequired,
-    isOpen: React.PropTypes.bool,
-    extraCloseKeyCode: React.PropTypes.number,
-    closeOnClickOutside: React.PropTypes.bool,
-    onClose: React.PropTypes.func,
-    title: React.PropTypes.string
+    isOpen: PropTypes.bool,
+    extraCloseKeyCode: PropTypes.number,
+    closeOnClickOutside: PropTypes.bool,
+    onClose: PropTypes.func,
+    title: PropTypes.string
   };
 
   static defaultProps = {

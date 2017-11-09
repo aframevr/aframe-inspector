@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 
 import BooleanWidget from '../widgets/BooleanWidget';
@@ -15,10 +16,10 @@ import {getComponentDocsHtmlLink} from '../../actions/component';
 
 export default class PropertyRow extends React.Component {
   static propTypes = {
-    componentname: React.PropTypes.string.isRequired,
-    id: React.PropTypes.string,
-    name: React.PropTypes.string.isRequired,
-    schema: React.PropTypes.object.isRequired
+    componentname: PropTypes.string.isRequired,
+    id: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    schema: PropTypes.object.isRequired
   };
 
   constructor (props) {

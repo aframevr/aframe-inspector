@@ -1,12 +1,13 @@
 var React = require('react');
+import PropTypes from 'prop-types';
 
 export default class ColorWidget extends React.Component {
   static propTypes = {
-    componentname: React.PropTypes.string.isRequired,
-    entity: React.PropTypes.object,
-    name: React.PropTypes.string.isRequired,
-    onChange: React.PropTypes.func,
-    value: React.PropTypes.string
+    componentname: PropTypes.string.isRequired,
+    entity: PropTypes.object,
+    name: PropTypes.string.isRequired,
+    onChange: PropTypes.func,
+    value: PropTypes.string
   };
 
   static defaultProps = {

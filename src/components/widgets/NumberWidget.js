@@ -1,16 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class NumberWidget extends React.Component {
   static propTypes = {
-    componentname: React.PropTypes.string,
-    entity: React.PropTypes.object,
-    max: React.PropTypes.number,
-    min: React.PropTypes.number,
-    name: React.PropTypes.string,
-    onChange: React.PropTypes.func,
-    precision: React.PropTypes.number,
-    step: React.PropTypes.number,
-    value: React.PropTypes.number
+    componentname: PropTypes.string,
+    entity: PropTypes.object,
+    max: PropTypes.number,
+    min: PropTypes.number,
+    name: PropTypes.string,
+    onChange: PropTypes.func,
+    precision: PropTypes.number,
+    step: PropTypes.number,
+    value: PropTypes.number
   };
 
   static defaultProps = {
@@ -45,7 +46,7 @@ export default class NumberWidget extends React.Component {
     this.distance += delta;
 
     // Add minimum tolerance to reduce unintentional drags when clicking on input.
-    //if (Math.abs(delta) <= 2) { return; }
+    // if (Math.abs(delta) <= 2) { return; }
 
     let value = this.onMouseDownValue + (this.distance / (event.shiftKey ? 5 : 50)) *
                 this.props.step / 2;

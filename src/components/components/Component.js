@@ -1,5 +1,6 @@
 /* global AFRAME */
 import React from 'react';
+import PropTypes from 'prop-types';
 import PropertyRow from './PropertyRow';
 import Collapsible from '../Collapsible';
 import Clipboard from 'clipboard';
@@ -13,9 +14,9 @@ const isSingleProperty = AFRAME.schema.isSingleProperty;
  */
 export default class Component extends React.Component {
   static propTypes = {
-    component: React.PropTypes.any,
-    entity: React.PropTypes.object,
-    name: React.PropTypes.string
+    component: PropTypes.any,
+    entity: PropTypes.object,
+    name: PropTypes.string
   };
 
   constructor (props) {

@@ -1,15 +1,16 @@
 var React = require('react');
+import PropTypes from 'prop-types';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
 export default class SelectWidget extends React.Component {
   static propTypes = {
-    componentname: React.PropTypes.string.isRequired,
-    entity: React.PropTypes.object,
-    name: React.PropTypes.string.isRequired,
-    onChange: React.PropTypes.func,
-    options: React.PropTypes.array.isRequired,
-    value: React.PropTypes.string
+    componentname: PropTypes.string.isRequired,
+    entity: PropTypes.object,
+    name: PropTypes.string.isRequired,
+    onChange: PropTypes.func,
+    options: PropTypes.array.isRequired,
+    value: PropTypes.string
   };
 
   constructor (props) {

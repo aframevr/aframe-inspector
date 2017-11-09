@@ -152,7 +152,7 @@ export function getClipboardRepresentation (entity) {
  * @param {Element} entity Root of the DOM hierarchy.
  * @return {Elment}        Copy of the DOM hierarchy ready for serialization.
  */
-function prepareForSerialization(entity) {
+function prepareForSerialization (entity) {
   var clone = entity.cloneNode(false);
   var children = entity.childNodes;
   for (var i = 0, l = children.length; i < l; i++) {
@@ -175,7 +175,7 @@ function prepareForSerialization(entity) {
  * @param {Element} copy   Destinatary element for the optimization.
  * @param {Element} source Element to be optimized.
  */
-function optimizeComponents(copy, source) {
+function optimizeComponents (copy, source) {
   var removeAttribute = HTMLElement.prototype.removeAttribute;
   var setAttribute = HTMLElement.prototype.setAttribute;
   var components = source.components || {};
@@ -189,8 +189,7 @@ function optimizeComponents(copy, source) {
     var doesNotNeedUpdate = optimalUpdate === null;
     if (isInherited && doesNotNeedUpdate) {
       removeAttribute.call(copy, name);
-    }
-    else {
+    } else {
       var schema = component.schema;
       var value = stringifyComponentValue(schema, optimalUpdate);
       setAttribute.call(copy, name, value);
@@ -204,18 +203,18 @@ function optimizeComponents(copy, source) {
  * @return {string}        The string representation of data according to the
  *                         passed component's schema.
  */
-function stringifyComponentValue(schema, data) {
+function stringifyComponentValue (schema, data) {
   data = typeof data === 'undefined' ? {} : data;
   if (data === null) {
     return '';
   }
   return (isSingleProperty(schema) ? _single : _multi)();
 
-  function _single() {
+  function _single () {
     return schema.stringify(data);
   }
 
-  function _multi() {
+  function _multi () {
     var propertyBag = {};
     Object.keys(data).forEach(function (name) {
       if (schema[name]) {
@@ -238,20 +237,19 @@ function stringifyComponentValue(schema, data) {
  * @param {Element}   source    Element owning the component.
  * @return                      A pair with the computed value for the component of source and a flag indicating if the component is completely inherited from other sources (`true`) or genuinely owned by the source entity (`false`).
  */
-function getImplicitValue(component, source) {
+function getImplicitValue (component, source) {
   var isInherited = false;
   var value = (isSingleProperty(component.schema) ? _single : _multi)();
   return [value, isInherited];
 
-  function _single() {
+  function _single () {
     var value = getMixedValue(component, null, source);
     if (value === undefined) {
       value = getInjectedValue(component, null, source);
     }
     if (value !== undefined) {
       isInherited = true;
-    }
-    else {
+    } else {
       value = getDefaultValue(component, null, source);
     }
     if (value !== undefined) {
@@ -261,7 +259,7 @@ function getImplicitValue(component, source) {
     return value;
   }
 
-  function _multi() {
+  function _multi () {
     var value;
 
     Object.keys(component.schema).forEach(function (propertyName) {
@@ -274,8 +272,7 @@ function getImplicitValue(component, source) {
       }
       if (propertyValue !== undefined) {
         isInherited = isInherited || true;
-      }
-      else {
+      } else {
         propertyValue = getDefaultValue(component, propertyName, source);
       }
       if (propertyValue !== undefined) {
@@ -305,7 +302,7 @@ function getImplicitValue(component, source) {
  *                                  from the primitive's attribute if any or
  *                                  `undefined`, otherwise.
  */
-function getFromAttribute(component, propertyName, source) {
+function getFromAttribute (component, propertyName, source) {
   var value;
   var mappings = source.mappings || {};
   var route = component.name + '.' + propertyName;
@@ -315,7 +312,7 @@ function getFromAttribute(component, propertyName, source) {
   }
   return value;
 
-  function findAttribute(mappings, route) {
+  function findAttribute (mappings, route) {
     var attributes = Object.keys(mappings);
     for (var i = 0, l = attributes.length; i < l; i++) {
       var attribute = attributes[i];
@@ -341,7 +338,7 @@ function getFromAttribute(component, propertyName, source) {
  * @return                           The value of the component or components'
  *                                   property coming from mixins of the source.
  */
-function getMixedValue(component, propertyName, source) {
+function getMixedValue (component, propertyName, source) {
   var value;
   var reversedMixins = source.mixinEls.reverse();
   for (var i = 0; value === undefined && i < reversedMixins.length; i++) {
@@ -349,8 +346,7 @@ function getMixedValue(component, propertyName, source) {
     if (mixin.attributes.hasOwnProperty(component.name)) {
       if (!propertyName) {
         value = mixin.getAttribute(component.name);
-      }
-      else {
+      } else {
         value = mixin.getAttribute(component.name)[propertyName];
       }
     }
@@ -369,7 +365,7 @@ function getMixedValue(component, propertyName, source) {
  * @return                           The component value coming from the
  *                                   injected default components of source.
  */
-function getInjectedValue(component, propertyName, source) {
+function getInjectedValue (component, propertyName, source) {
   var value;
   var primitiveDefaults = source.defaultComponentsFromPrimitive || {};
   var aFrameDefaults = source.defaultComponents || {};
@@ -379,8 +375,7 @@ function getInjectedValue(component, propertyName, source) {
     if (defaults.hasOwnProperty(component.name)) {
       if (!propertyName) {
         value = defaults[component.name];
-      }
-      else {
+      } else {
         value = defaults[component.name][propertyName];
       }
     }
@@ -399,7 +394,7 @@ function getInjectedValue(component, propertyName, source) {
  * @return                           The component value coming from the schema
  *                                   default.
  */
-function getDefaultValue(component, propertyName, source) {
+function getDefaultValue (component, propertyName, source) {
   if (!propertyName) {
     return component.schema.default;
   }
@@ -417,7 +412,7 @@ function getDefaultValue(component, propertyName, source) {
  * @return                      the minimum value making the component to equal
  *                              the reference value.
  */
-function getOptimalUpdate(component, implicit, reference) {
+function getOptimalUpdate (component, implicit, reference) {
   if (equal(implicit, reference)) {
     return null;
   }
@@ -438,7 +433,7 @@ function getOptimalUpdate(component, implicit, reference) {
  * @param {Schema} schema Component's schema to test if it is single property.
  * @return                `true` if component is single property.
  */
-function isSingleProperty(schema) {
+function isSingleProperty (schema) {
   return AFRAME.schema.isSingleProperty(schema);
 }
 
