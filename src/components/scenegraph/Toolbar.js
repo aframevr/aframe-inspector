@@ -17,6 +17,7 @@ export default class Toolbar extends React.Component {
 
     const clipboard = new Clipboard('[data-action="copy-scene-to-clipboard"]', {
       text: trigger => {
+        ga('send', 'event', 'SceneGraph', 'copySceneToClipboard');
         return generateHtml();
       }
     });
@@ -33,6 +34,7 @@ export default class Toolbar extends React.Component {
     };
   }
   exportSceneToGLTF () {
+    ga('send', 'event', 'SceneGraph', 'exportGLTF');
     INSPECTOR.exporters.gltf.parse(AFRAME.scenes[0].object3D, function (result) {
       var output = JSON.stringify(result, null, 2);
       saveString(output, 'scene.gltf', 'application/json');
@@ -40,6 +42,7 @@ export default class Toolbar extends React.Component {
   }
 
   exportSceneToHTML () {
+    ga('send', 'event', 'SceneGraph', 'exportHTML');
     var sceneName = getSceneName(AFRAME.scenes[0]);
     saveString(generateHtml(), sceneName, 'text/html');
   }
@@ -49,6 +52,7 @@ export default class Toolbar extends React.Component {
   }
 
   toggleMotionCaptureUI = () => {
+    ga('send', 'event', 'SceneGraph', 'openMotionCapture');
     localStorage.setItem(LOCALSTORAGE_MOCAP_UI, !this.state.motionCaptureUIEnabled);
     this.setState({motionCaptureUIEnabled: !this.state.motionCaptureUIEnabled});
   }
