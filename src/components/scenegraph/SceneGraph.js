@@ -194,7 +194,7 @@ export default class SceneGraph extends React.Component {
         // Check if the ID or the tagName includes the filterText
         if (value.id.toUpperCase().indexOf(filterText) > -1 ||
             value.tagName.toUpperCase().indexOf(filterText) > -1 ||
-            value.getAttribute('class').indexOf(filterText) > -1) {
+            (value.getAttribute('class') || '').indexOf(filterText) > -1) {
           return true;
         }
 
