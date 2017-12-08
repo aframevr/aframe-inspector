@@ -318,7 +318,7 @@
 	  window.addEventListener('inspector-loaded', function () {
 	    _reactDom2.default.render(_react2.default.createElement(Main, null), div);
 	  });
-	  console.log('A-Frame Inspector Version:', ("0.7.2"), '(' + ("07-12-2017") + ' Commit: ' + ("1d267c085e2a00c982d2f7f7b8455dd7d88e8ec0\n").substr(0, 7) + ')');
+	  console.log('A-Frame Inspector Version:', ("0.7.4"), '(' + ("08-12-2017") + ' Commit: ' + ("eac0f05ff67e5536c62278a96b0203ac1cb1d44a\n").substr(0, 7) + ')');
 	})();
 
 /***/ }),
@@ -34639,7 +34639,7 @@
 	      return this.state.options.filter(function (option, idx) {
 	        var value = option.value;
 	        // Check if the ID or the tagName includes the filterText
-	        if (value.id.toUpperCase().indexOf(filterText) > -1 || value.tagName.toUpperCase().indexOf(filterText) > -1 || value.getAttribute('class').indexOf(filterText) > -1) {
+	        if (value.id.toUpperCase().indexOf(filterText) > -1 || value.tagName.toUpperCase().indexOf(filterText) > -1 || (value.getAttribute('class') || '').indexOf(filterText) > -1) {
 	          return true;
 	        }
 
