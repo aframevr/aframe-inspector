@@ -71,6 +71,15 @@ var Shortcuts = {
       cloneSelectedEntity();
     }
 
+    // f: Focus on selected entity. Same hotkey as Enter-VR but inspector will disable 
+    // keyboard-shortcuts.
+    if (keyCode === 70) {
+      const selectedEntity = AFRAME.INSPECTOR.selectedEntity;
+      if (selectedEntity !== undefined){
+        Events.emit('objectfocused', selectedEntity.object3D);
+      }
+    }
+
     for (var moduleName in this.shortcuts.modules) {
       var shortcutsModule = this.shortcuts.modules[moduleName];
       if (shortcutsModule[keyCode] &&
