@@ -75,7 +75,7 @@ var Shortcuts = {
     // keyboard-shortcuts.
     if (keyCode === 70) {
       const selectedEntity = AFRAME.INSPECTOR.selectedEntity;
-      if (selectedEntity !== undefined){
+      if (selectedEntity !== undefined && selectedEntity !== null){
         Events.emit('objectfocused', selectedEntity.object3D);
       }
     }

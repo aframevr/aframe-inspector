@@ -36,9 +36,28 @@ THREE.EditorControls = function ( object, domElement ) {
 	var changeEvent = { type: 'change' };
 
 	this.focus = function ( target ) {
+		if (target === undefined || !target.isObject3D) {
+			return;
+		}
 
 		var box = new THREE.Box3().setFromObject( target );
-		object.lookAt( center.copy( box.getCenter() ) );
+		var targetDistance;
+		if (box.isEmpty()){
+			target.getWorldPosition( center );
+			targetDistance = 0.5;
+		} else {
+			center.copy( box.getCenter() );
+			targetDistance = box.getBoundingSphere().radius * 6;
+			console.log(Math.sqrt( box.getBoundingSphere().radius ))
+		}
+
+		object.lookAt( center );
+
+		var distance = object.position.distanceTo( center );
+		var delta = distance - targetDistance;
+		var forward = new THREE.Vector3( 0, 0, -1 ).applyQuaternion( object.quaternion );
+		object.position.add( forward.multiplyScalar( delta ) );
+
 		scope.dispatchEvent( changeEvent );
 
 	};
