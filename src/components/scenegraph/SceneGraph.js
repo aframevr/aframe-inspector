@@ -39,7 +39,8 @@ export default class SceneGraph extends React.Component {
       value: this.props.value || '',
       options: [],
       selectedIndex: -1,
-      filterText: ''
+      filterText: '',
+      expandedElements: new WeakMap([[props.scene, true]])
     };
   }
 
@@ -65,7 +66,10 @@ export default class SceneGraph extends React.Component {
       const element = this.state.options[i];
       if (element.value === value) {
         this.setState({value: value, selectedIndex: i});
-
+        if (this.state.filterText.length > 0){
+          // If we were filtering when we selected it then make sure its not under collapsed node in scenegraph
+          this.expandToRoot(element.value);
+        }
         if (this.props.onChange) {
           this.props.onChange(value);
         }
@@ -85,16 +89,12 @@ export default class SceneGraph extends React.Component {
   }
 
   rebuildOptions = () => {
-    const options = [{static: true, value: this.props.scene, tagName: 'a-scene', hasChildren: true}];
+    const options = [{static: true, value: this.props.scene, tagName: 'a-scene', hasChildren: true, depth: 0}];
 
     function treeIterate (element, depth) {
       if (!element) { return; }
-
-      if (depth === undefined) {
-        depth = 1;
-      } else {
-        depth += 1;
-      }
+      depth += 1;
+      
       let children = element.children;
       for (let i = 0; i < children.length; i++) {
         let child = children[i];
@@ -134,7 +134,8 @@ export default class SceneGraph extends React.Component {
         }
       }
     }
-    treeIterate(this.props.scene);
+    treeIterate(this.props.scene, 0);
+
     this.setState({options: options});
   }
 
@@ -188,6 +189,9 @@ export default class SceneGraph extends React.Component {
 
   renderOptions () {
     var filterText = this.state.filterText.toUpperCase();
+    var currentMaxDepth = 0;
+    var isFiltering = filterText.length > 0;
+
     return this.state.options
       .filter((option, idx) => {
         const value = option.value;
@@ -213,6 +217,18 @@ export default class SceneGraph extends React.Component {
         return false;
       })
       .map((option, idx) => {
+        // Check that our current depth doesn't exceed a limit set by a collapsed element
+        if (option.depth > currentMaxDepth) { 
+          return null; 
+        }
+        const isExpanded = this.isExpanded(option.value) || isFiltering; // If searching expand everything
+        if (isExpanded) {
+          currentMaxDepth = option.depth + 1;
+        }
+        else { 
+          currentMaxDepth = option.depth;
+        }
+
         let cloneButton = <a onClick={() => this.cloneEntity(option.value)}
           title="Clone entity" className="button fa fa-clone"></a>;
         let removeButton = <a onClick={event => { event.stopPropagation(); removeEntity(option.value); } }
@@ -224,8 +240,15 @@ export default class SceneGraph extends React.Component {
         }
 
         const pad = '    '.repeat(option.depth);
-        // const collapse = option.hasChildren ? <span className="collasespace fa fa-caret-down"></span> : <span className="collasespace"></span>;
-        const collapse = null;
+        let collapse;
+        if (option.hasChildren && !isFiltering) {
+          const expandedElements = this.state.expandedElements;
+          collapse = <span 
+            onClick={() => this.toggleExpandedCollapsed(option.value)}
+            className={`collasespace fa ${isExpanded ? 'fa-caret-down' : 'fa-caret-right'}`}></span> ;
+        } else {
+          collapse = <span className="collasespace"></span>;
+        }
         let entity = option.value;
         const visible = entity.tagName.toLowerCase() === 'a-scene' ? entity.object3D.visible : entity.getAttribute('visible');
         let visibility = <i title="Toggle entity visibility" className={'fa ' + (visible ? 'fa-eye' : 'fa-eye-slash')}
@@ -245,7 +268,7 @@ export default class SceneGraph extends React.Component {
         return (
           <div key={idx} className={className} value={option.value}
             onClick={() => this.setValue(option.value)}>
-            <span>{visibility} {collapse}{pad} &lt;{option.tagName}<span className="name">{entityName ? ` ${entityName}` : ''}</span>
+            <span>{visibility} {pad} {collapse}&lt;{option.tagName}<span className="name">{entityName ? ` ${entityName}` : ''}</span>
             <span dangerouslySetInnerHTML={{__html: option.extra}}></span>&gt;</span>
               <span className="icons">
                 {cloneButton}
@@ -254,6 +277,22 @@ export default class SceneGraph extends React.Component {
           </div>
         );
       });
+  }
+
+  isExpanded = x => this.state.expandedElements.get(x) === true
+
+  toggleExpandedCollapsed = x => {
+    this.setState({expandedElements: this.state.expandedElements.set(x, !this.isExpanded(x))})
+  }
+
+  expandToRoot = x => {
+    // Expand element all the way to the scene element
+    let curr = x;
+    while (curr !== undefined && curr.isEntity) {
+      this.state.expandedElements.set(curr, true);
+      curr = curr.parentEl;
+    }
+    this.setState({expandedElements: this.state.expandedElements});
   }
 
   onChangeFilter = e => {
