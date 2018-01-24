@@ -318,7 +318,7 @@
 	  window.addEventListener('inspector-loaded', function () {
 	    _reactDom2.default.render(_react2.default.createElement(Main, null), div);
 	  });
-	  console.log('A-Frame Inspector Version:', ("0.7.4"), '(' + ("08-12-2017") + ' Commit: ' + ("eac0f05ff67e5536c62278a96b0203ac1cb1d44a\n").substr(0, 7) + ')');
+	  console.log('A-Frame Inspector Version:', ("0.7.4"), '(' + ("23-01-2018") + ' Commit: ' + ("f687d150a8a090c5606299a135d3b25904d86015\n").substr(0, 7) + ')');
 	})();
 
 /***/ }),
@@ -34461,7 +34461,10 @@
 	        var element = _this.state.options[i];
 	        if (element.value === value) {
 	          _this.setState({ value: value, selectedIndex: i });
-
+	          if (_this.state.filterText.length > 0) {
+	            // If we were filtering when we selected it then make sure its not under collapsed node in scenegraph
+	            _this.expandToRoot(element.value);
+	          }
 	          if (_this.props.onChange) {
 	            _this.props.onChange(value);
 	          }
@@ -34481,18 +34484,14 @@
 	    };
 
 	    _this.rebuildOptions = function () {
-	      var options = [{ static: true, value: _this.props.scene, tagName: 'a-scene', hasChildren: true }];
+	      var options = [{ static: true, value: _this.props.scene, tagName: 'a-scene', hasChildren: true, depth: 0 }];
 
 	      function treeIterate(element, depth) {
 	        if (!element) {
 	          return;
 	        }
+	        depth += 1;
 
-	        if (depth === undefined) {
-	          depth = 1;
-	        } else {
-	          depth += 1;
-	        }
 	        var children = element.children;
 	        for (var i = 0; i < children.length; i++) {
 	          var child = children[i];
@@ -34536,7 +34535,8 @@
 	          }
 	        }
 	      }
-	      treeIterate(_this.props.scene);
+	      treeIterate(_this.props.scene, 0);
+
 	      _this.setState({ options: options });
 	    };
 
@@ -34591,6 +34591,24 @@
 	      entity.setAttribute('visible', !visible);
 	    };
 
+	    _this.isExpanded = function (x) {
+	      return _this.state.expandedElements.get(x) === true;
+	    };
+
+	    _this.toggleExpandedCollapsed = function (x) {
+	      _this.setState({ expandedElements: _this.state.expandedElements.set(x, !_this.isExpanded(x)) });
+	    };
+
+	    _this.expandToRoot = function (x) {
+	      // Expand element all the way to the scene element
+	      var curr = x;
+	      while (curr !== undefined && curr.isEntity) {
+	        _this.state.expandedElements.set(curr, true);
+	        curr = curr.parentEl;
+	      }
+	      _this.setState({ expandedElements: _this.state.expandedElements });
+	    };
+
 	    _this.onChangeFilter = function (e) {
 	      _this.setState({ filterText: e.target.value });
 	      gaTrackSearchEntity();
@@ -34604,7 +34622,8 @@
 	      value: _this.props.value || '',
 	      options: [],
 	      selectedIndex: -1,
-	      filterText: ''
+	      filterText: '',
+	      expandedElements: new WeakMap([[props.scene, true]])
 	    };
 	    return _this;
 	  }
@@ -34636,6 +34655,9 @@
 	      var _this3 = this;
 
 	      var filterText = this.state.filterText.toUpperCase();
+	      var currentMaxDepth = 0;
+	      var isFiltering = filterText.length > 0;
+
 	      return this.state.options.filter(function (option, idx) {
 	        var value = option.value;
 	        // Check if the ID or the tagName includes the filterText
@@ -34661,6 +34683,17 @@
 
 	        return false;
 	      }).map(function (option, idx) {
+	        // Check that our current depth doesn't exceed a limit set by a collapsed element
+	        if (option.depth > currentMaxDepth) {
+	          return null;
+	        }
+	        var isExpanded = _this3.isExpanded(option.value) || isFiltering; // If searching expand everything
+	        if (isExpanded) {
+	          currentMaxDepth = option.depth + 1;
+	        } else {
+	          currentMaxDepth = option.depth;
+	        }
+
 	        var cloneButton = _react2.default.createElement('a', { onClick: function onClick() {
 	            return _this3.cloneEntity(option.value);
 	          },
@@ -34676,8 +34709,17 @@
 	        }
 
 	        var pad = '    '.repeat(option.depth);
-	        // const collapse = option.hasChildren ? <span className="collasespace fa fa-caret-down"></span> : <span className="collasespace"></span>;
-	        var collapse = null;
+	        var collapse = void 0;
+	        if (option.hasChildren && !isFiltering) {
+	          var expandedElements = _this3.state.expandedElements;
+	          collapse = _react2.default.createElement('span', {
+	            onClick: function onClick() {
+	              return _this3.toggleExpandedCollapsed(option.value);
+	            },
+	            className: 'collasespace fa ' + (isExpanded ? 'fa-caret-down' : 'fa-caret-right') });
+	        } else {
+	          collapse = _react2.default.createElement('span', { className: 'collasespace' });
+	        }
 	        var entity = option.value;
 	        var visible = entity.tagName.toLowerCase() === 'a-scene' ? entity.object3D.visible : entity.getAttribute('visible');
 	        var visibility = _react2.default.createElement('i', { title: 'Toggle entity visibility', className: 'fa ' + (visible ? 'fa-eye' : 'fa-eye-slash'),
@@ -34707,9 +34749,10 @@
 	            null,
 	            visibility,
 	            ' ',
-	            collapse,
 	            pad,
-	            ' <',
+	            ' ',
+	            collapse,
+	            '<',
 	            option.tagName,
 	            _react2.default.createElement(
 	              'span',
