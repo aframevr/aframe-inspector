@@ -217,16 +217,19 @@ export default class SceneGraph extends React.Component {
         return false;
       })
       .map((option, idx) => {
-        // Check that our current depth doesn't exceed a limit set by a collapsed element
-        if (option.depth > currentMaxDepth) { 
-          return null; 
-        }
         const isExpanded = this.isExpanded(option.value) || isFiltering; // If searching expand everything
-        if (isExpanded) {
-          currentMaxDepth = option.depth + 1;
-        }
-        else { 
-          currentMaxDepth = option.depth;
+
+        if (!isFiltering) {
+          // Check that our current depth doesn't exceed a limit set by a collapsed element
+          if (option.depth > currentMaxDepth) { 
+            return null; 
+          }
+          if (isExpanded) {
+            currentMaxDepth = option.depth + 1;
+          }
+          else { 
+            currentMaxDepth = option.depth;
+          }
         }
 
         let cloneButton = <a onClick={() => this.cloneEntity(option.value)}
