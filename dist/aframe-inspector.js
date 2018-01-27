@@ -318,7 +318,7 @@
 	  window.addEventListener('inspector-loaded', function () {
 	    _reactDom2.default.render(_react2.default.createElement(Main, null), div);
 	  });
-	  console.log('A-Frame Inspector Version:', ("0.7.4"), '(' + ("23-01-2018") + ' Commit: ' + ("f687d150a8a090c5606299a135d3b25904d86015\n").substr(0, 7) + ')');
+	  console.log('A-Frame Inspector Version:', ("0.7.5"), '(' + ("27-01-2018") + ' Commit: ' + ("69d755337382eba127de4222b1a66f8f30d2a319\n").substr(0, 7) + ')');
 	})();
 
 /***/ }),
@@ -34683,15 +34683,18 @@
 
 	        return false;
 	      }).map(function (option, idx) {
-	        // Check that our current depth doesn't exceed a limit set by a collapsed element
-	        if (option.depth > currentMaxDepth) {
-	          return null;
-	        }
 	        var isExpanded = _this3.isExpanded(option.value) || isFiltering; // If searching expand everything
-	        if (isExpanded) {
-	          currentMaxDepth = option.depth + 1;
-	        } else {
-	          currentMaxDepth = option.depth;
+
+	        if (!isFiltering) {
+	          // Check that our current depth doesn't exceed a limit set by a collapsed element
+	          if (option.depth > currentMaxDepth) {
+	            return null;
+	          }
+	          if (isExpanded) {
+	            currentMaxDepth = option.depth + 1;
+	          } else {
+	            currentMaxDepth = option.depth;
+	          }
 	        }
 
 	        var cloneButton = _react2.default.createElement('a', { onClick: function onClick() {
