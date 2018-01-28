@@ -66,10 +66,7 @@ export default class SceneGraph extends React.Component {
       const element = this.state.options[i];
       if (element.value === value) {
         this.setState({value: value, selectedIndex: i});
-        if (this.state.filterText.length > 0){
-          // If we were filtering when we selected it then make sure its not under collapsed node in scenegraph
-          this.expandToRoot(element.value);
-        }
+        this.expandToRoot(element.value); // Make sure selected value is visible in scenegraph
         if (this.props.onChange) {
           this.props.onChange(value);
         }
@@ -304,7 +301,7 @@ export default class SceneGraph extends React.Component {
 
   expandToRoot = x => {
     // Expand element all the way to the scene element
-    let curr = x;
+    let curr = x.parentEl;
     while (curr !== undefined && curr.isEntity) {
       this.state.expandedElements.set(curr, true);
       curr = curr.parentEl;
