@@ -153,7 +153,9 @@ export default class SceneGraph extends React.Component {
 
   onKeyDown = event => {
     switch (event.keyCode) {
+      case 37: // left
       case 38: // up
+      case 39: // right
       case 40: // down
         event.preventDefault();
         event.stopPropagation();
@@ -166,12 +168,24 @@ export default class SceneGraph extends React.Component {
       return;
     }
     switch (event.keyCode) {
+      case 37: // left
+        if (this.isExpanded(this.state.value)) {
+          this.toggleExpandedCollapsed(this.state.value);
+        }
+        ga('send', 'event', 'SceneGraph', 'navigateWithKeyboard');
+        break;
       case 38: // up
-        this.selectIndex(this.state.selectedIndex - 1);
+        this.selectIndex(this.previousExpandedIndexTo(this.state.selectedIndex));
+        ga('send', 'event', 'SceneGraph', 'navigateWithKeyboard');
+        break;
+      case 39: // right
+        if (!this.isExpanded(this.state.value)) {
+          this.toggleExpandedCollapsed(this.state.value);
+        }
         ga('send', 'event', 'SceneGraph', 'navigateWithKeyboard');
         break;
       case 40: // down
-        this.selectIndex(this.state.selectedIndex + 1);
+        this.selectIndex(this.nextExpandedIndexTo(this.state.selectedIndex));
         ga('send', 'event', 'SceneGraph', 'navigateWithKeyboard');
         break;
     }
@@ -189,7 +203,6 @@ export default class SceneGraph extends React.Component {
 
   renderOptions () {
     var filterText = this.state.filterText.toUpperCase();
-    var currentMaxDepth = 0;
     var isFiltering = filterText.length > 0;
 
     return this.state.options
@@ -218,18 +231,8 @@ export default class SceneGraph extends React.Component {
       })
       .map((option, idx) => {
         const isExpanded = this.isExpanded(option.value) || isFiltering; // If searching expand everything
-
-        if (!isFiltering) {
-          // Check that our current depth doesn't exceed a limit set by a collapsed element
-          if (option.depth > currentMaxDepth) { 
-            return null; 
-          }
-          if (isExpanded) {
-            currentMaxDepth = option.depth + 1;
-          }
-          else { 
-            currentMaxDepth = option.depth;
-          }
+        if (!isFiltering && !this.isVisibleInSceneGraph(option.value)) {
+           return null;
         }
 
         let cloneButton = <a onClick={() => this.cloneEntity(option.value)}
@@ -282,6 +285,17 @@ export default class SceneGraph extends React.Component {
       });
   }
 
+  isVisibleInSceneGraph = x => {
+    let curr = x.parentEl;
+    while (curr !== undefined && curr.isEntity) {
+      if (!this.isExpanded(curr)) {
+        return false;
+      }
+      curr = curr.parentEl;
+    }
+    return true;
+  }
+
   isExpanded = x => this.state.expandedElements.get(x) === true
 
   toggleExpandedCollapsed = x => {
@@ -296,6 +310,26 @@ export default class SceneGraph extends React.Component {
       curr = curr.parentEl;
     }
     this.setState({expandedElements: this.state.expandedElements});
+  }
+
+  previousExpandedIndexTo = i => {
+    for (let prevIter = i - 1; prevIter >= 0; prevIter--) {
+      const prevEl = this.state.options[prevIter].value;
+      if (this.isVisibleInSceneGraph(prevEl)) {
+        return prevIter;
+      }
+    }
+    return -1;
+  }
+
+  nextExpandedIndexTo = i => {
+    for (let nextIter = i + 1; nextIter < this.state.options.length; nextIter++) {
+      const nextEl = this.state.options[nextIter].value;
+      if (this.isVisibleInSceneGraph(nextEl)) {
+        return nextIter;
+      }
+    }
+    return -1;
   }
 
   onChangeFilter = e => {
