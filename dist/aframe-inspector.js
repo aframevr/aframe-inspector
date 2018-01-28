@@ -318,7 +318,7 @@
 	  window.addEventListener('inspector-loaded', function () {
 	    _reactDom2.default.render(_react2.default.createElement(Main, null), div);
 	  });
-	  console.log('A-Frame Inspector Version:', ("0.7.5"), '(' + ("27-01-2018") + ' Commit: ' + ("69d755337382eba127de4222b1a66f8f30d2a319\n").substr(0, 7) + ')');
+	  console.log('A-Frame Inspector Version:', ("0.7.7"), '(' + ("28-01-2018") + ' Commit: ' + ("1b0d0cb63b6e9fca2f4ec65efea9d2b4b464b128\n").substr(0, 7) + ')');
 	})();
 
 /***/ }),
@@ -34461,10 +34461,7 @@
 	        var element = _this.state.options[i];
 	        if (element.value === value) {
 	          _this.setState({ value: value, selectedIndex: i });
-	          if (_this.state.filterText.length > 0) {
-	            // If we were filtering when we selected it then make sure its not under collapsed node in scenegraph
-	            _this.expandToRoot(element.value);
-	          }
+	          _this.expandToRoot(element.value); // Make sure selected value is visible in scenegraph
 	          if (_this.props.onChange) {
 	            _this.props.onChange(value);
 	          }
@@ -34554,7 +34551,9 @@
 
 	    _this.onKeyDown = function (event) {
 	      switch (event.keyCode) {
+	        case 37: // left
 	        case 38: // up
+	        case 39: // right
 	        case 40:
 	          // down
 	          event.preventDefault();
@@ -34568,14 +34567,28 @@
 	        return;
 	      }
 	      switch (event.keyCode) {
+	        case 37:
+	          // left
+	          if (_this.isExpanded(_this.state.value)) {
+	            _this.toggleExpandedCollapsed(_this.state.value);
+	          }
+	          ga('send', 'event', 'SceneGraph', 'navigateWithKeyboard');
+	          break;
 	        case 38:
 	          // up
-	          _this.selectIndex(_this.state.selectedIndex - 1);
+	          _this.selectIndex(_this.previousExpandedIndexTo(_this.state.selectedIndex));
+	          ga('send', 'event', 'SceneGraph', 'navigateWithKeyboard');
+	          break;
+	        case 39:
+	          // right
+	          if (!_this.isExpanded(_this.state.value)) {
+	            _this.toggleExpandedCollapsed(_this.state.value);
+	          }
 	          ga('send', 'event', 'SceneGraph', 'navigateWithKeyboard');
 	          break;
 	        case 40:
 	          // down
-	          _this.selectIndex(_this.state.selectedIndex + 1);
+	          _this.selectIndex(_this.nextExpandedIndexTo(_this.state.selectedIndex));
 	          ga('send', 'event', 'SceneGraph', 'navigateWithKeyboard');
 	          break;
 	      }
@@ -34591,6 +34604,17 @@
 	      entity.setAttribute('visible', !visible);
 	    };
 
+	    _this.isVisibleInSceneGraph = function (x) {
+	      var curr = x.parentEl;
+	      while (curr !== undefined && curr.isEntity) {
+	        if (!_this.isExpanded(curr)) {
+	          return false;
+	        }
+	        curr = curr.parentEl;
+	      }
+	      return true;
+	    };
+
 	    _this.isExpanded = function (x) {
 	      return _this.state.expandedElements.get(x) === true;
 	    };
@@ -34601,12 +34625,32 @@
 
 	    _this.expandToRoot = function (x) {
 	      // Expand element all the way to the scene element
-	      var curr = x;
+	      var curr = x.parentEl;
 	      while (curr !== undefined && curr.isEntity) {
 	        _this.state.expandedElements.set(curr, true);
 	        curr = curr.parentEl;
 	      }
 	      _this.setState({ expandedElements: _this.state.expandedElements });
+	    };
+
+	    _this.previousExpandedIndexTo = function (i) {
+	      for (var prevIter = i - 1; prevIter >= 0; prevIter--) {
+	        var prevEl = _this.state.options[prevIter].value;
+	        if (_this.isVisibleInSceneGraph(prevEl)) {
+	          return prevIter;
+	        }
+	      }
+	      return -1;
+	    };
+
+	    _this.nextExpandedIndexTo = function (i) {
+	      for (var nextIter = i + 1; nextIter < _this.state.options.length; nextIter++) {
+	        var nextEl = _this.state.options[nextIter].value;
+	        if (_this.isVisibleInSceneGraph(nextEl)) {
+	          return nextIter;
+	        }
+	      }
+	      return -1;
 	    };
 
 	    _this.onChangeFilter = function (e) {
@@ -34655,7 +34699,6 @@
 	      var _this3 = this;
 
 	      var filterText = this.state.filterText.toUpperCase();
-	      var currentMaxDepth = 0;
 	      var isFiltering = filterText.length > 0;
 
 	      return this.state.options.filter(function (option, idx) {
@@ -34684,17 +34727,8 @@
 	        return false;
 	      }).map(function (option, idx) {
 	        var isExpanded = _this3.isExpanded(option.value) || isFiltering; // If searching expand everything
-
-	        if (!isFiltering) {
-	          // Check that our current depth doesn't exceed a limit set by a collapsed element
-	          if (option.depth > currentMaxDepth) {
-	            return null;
-	          }
-	          if (isExpanded) {
-	            currentMaxDepth = option.depth + 1;
-	          } else {
-	            currentMaxDepth = option.depth;
-	          }
+	        if (!isFiltering && !_this3.isVisibleInSceneGraph(option.value)) {
+	          return null;
 	        }
 
 	        var cloneButton = _react2.default.createElement('a', { onClick: function onClick() {
