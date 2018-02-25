@@ -16,6 +16,7 @@ ComponentLoader.prototype = {
    * XHR the registry JSON.
    */
   loadFromRegistry: function () {
+    /*
     var xhr = new XMLHttpRequest();
 
     // @todo Remove the sync call and use a callback
@@ -31,6 +32,7 @@ ComponentLoader.prototype = {
     };
     xhr.onerror = () => { console.error('Error loading registry file.'); };
     xhr.send();
+    */
   },
 
   /**
