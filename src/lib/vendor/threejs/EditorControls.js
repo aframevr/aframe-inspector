@@ -48,6 +48,7 @@ THREE.EditorControls = function ( object, domElement ) {
 		} else {
 			center.copy( box.getCenter() );
 			targetDistance = box.getBoundingSphere().radius * 6;
+			console.log(Math.sqrt( box.getBoundingSphere().radius ))
 		}
 
 		object.lookAt( center );
