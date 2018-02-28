@@ -36,27 +36,30 @@ THREE.EditorControls = function ( object, domElement ) {
 	var changeEvent = { type: 'change' };
 
 	this.focus = function ( target ) {
-		if (target === undefined || !target.isObject3D) {
-			return;
-		}
 
 		var box = new THREE.Box3().setFromObject( target );
-		var targetDistance;
-		if (box.isEmpty()){
-			target.getWorldPosition( center );
-			targetDistance = 0.5;
-		} else {
+
+		var distance;
+
+		if ( box.isEmpty() === false ) {
+
 			center.copy( box.getCenter() );
-			targetDistance = box.getBoundingSphere().radius * 6;
-			console.log(Math.sqrt( box.getBoundingSphere().radius ))
+			distance = box.getBoundingSphere().radius;
+
+		} else {
+
+			// Focusing on an Group, AmbientLight, etc
+
+			center.setFromMatrixPosition( target.matrixWorld );
+			distance = 0.1;
+
 		}
 
-		object.lookAt( center );
+		var delta = new THREE.Vector3( 0, 0, 1 );
+		delta.applyQuaternion( object.quaternion );
+		delta.multiplyScalar( distance * 4 );
 
-		var distance = object.position.distanceTo( center );
-		var delta = distance - targetDistance;
-		var forward = new THREE.Vector3( 0, 0, -1 ).applyQuaternion( object.quaternion );
-		object.position.add( forward.multiplyScalar( delta ) );
+		object.position.copy( center ).add( delta );
 
 		scope.dispatchEvent( changeEvent );
 
@@ -217,8 +220,6 @@ THREE.EditorControls = function ( object, domElement ) {
 	domElement.addEventListener( 'wheel', onMouseWheel, false );
 
 	// touch
-
-	var touch = new THREE.Vector3();
 
 	var touches = [ new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3() ];
 	var prevTouches = [ new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3() ];
