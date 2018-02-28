@@ -271,12 +271,17 @@ export default class SceneGraph extends React.Component {
         return (
           <div key={idx} className={className} value={option.value}
             onClick={() => this.setValue(option.value)}>
-            <span>{visibility} {pad} {collapse}&lt;{option.tagName}<span className="name">{entityName ? ` ${entityName}` : ''}</span>
-            <span dangerouslySetInnerHTML={{__html: option.extra}}></span>&gt;</span>
-              <span className="icons">
-                {cloneButton}
-                {removeButton}
+            <span>
+              {visibility} {pad} {collapse}&lt;
+              <span onDoubleClick={() => Events.emit('objectfocused', entity.object3D)}>
+                {option.tagName}<span className="name">{entityName ? ` ${entityName}` : ''}</span>
               </span>
+              <span dangerouslySetInnerHTML={{__html: option.extra}}></span>&gt;
+            </span>
+            <span className="icons">
+              {cloneButton}
+              {removeButton}
+            </span>
           </div>
         );
       });
