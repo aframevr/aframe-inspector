@@ -398,7 +398,6 @@ function Viewport (inspector) {
     grid.visible = !grid.visible;
   });
 
-  let originalKeyboardShortcuts;
   Events.on('inspectormodechanged', active => {
     if (active) {
       enableControls();
@@ -406,17 +405,12 @@ function Viewport (inspector) {
       Array.prototype.slice.call(document.querySelectorAll('.a-enter-vr,.rs-base')).forEach(element => {
         element.style.display = 'none';
       });
-      // Disable keyboard shortcuts while inspector is active so we can't enter vr mode
-      originalKeyboardShortcuts = inspector.sceneEl.getAttribute("keyboard-shortcuts");
-      inspector.sceneEl.setAttribute("keyboard-shortcuts", {enterVR: false});
     } else {
       disableControls();
       prevActiveCameraEl.setAttribute('camera', 'active', 'true');
       Array.prototype.slice.call(document.querySelectorAll('.a-enter-vr,.rs-base')).forEach(element => {
         element.style.display = 'block';
       });
-      // Reset keyboard shortcuts component with its original parameters
-      inspector.sceneEl.setAttribute("keyboard-shortcuts", originalKeyboardShortcuts);
     }
     ga('send', 'event', 'Viewport', 'toggleEditor', active);
   });
