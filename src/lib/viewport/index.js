@@ -204,6 +204,12 @@ function Viewport (inspector) {
             continue;
           }
 
+          if (object.type === 'PerspectiveCamera' ||
+              (object.el && object.el.getObject3D('camera')) ||
+              object.parent.camera) {
+            continue;
+          }
+
           selected = true;
 
           if (object.userData.object !== undefined) {
