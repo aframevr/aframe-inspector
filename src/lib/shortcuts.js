@@ -71,6 +71,14 @@ var Shortcuts = {
       cloneSelectedEntity();
     }
 
+    // f: Focus on selected entity.
+    if (keyCode === 70) {
+      const selectedEntity = AFRAME.INSPECTOR.selectedEntity;
+      if (selectedEntity !== undefined && selectedEntity !== null){
+        Events.emit('objectfocused', selectedEntity.object3D);
+      }
+    }
+
     for (var moduleName in this.shortcuts.modules) {
       var shortcutsModule = this.shortcuts.modules[moduleName];
       if (shortcutsModule[keyCode] &&

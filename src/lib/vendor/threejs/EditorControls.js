@@ -38,7 +38,29 @@ THREE.EditorControls = function ( object, domElement ) {
 	this.focus = function ( target ) {
 
 		var box = new THREE.Box3().setFromObject( target );
-		object.lookAt( center.copy( box.getCenter() ) );
+
+		var distance;
+
+		if ( box.isEmpty() === false ) {
+
+			center.copy( box.getCenter() );
+			distance = box.getBoundingSphere().radius;
+
+		} else {
+
+			// Focusing on an Group, AmbientLight, etc
+
+			center.setFromMatrixPosition( target.matrixWorld );
+			distance = 0.1;
+
+		}
+
+		var delta = new THREE.Vector3( 0, 0, 1 );
+		delta.applyQuaternion( object.quaternion );
+		delta.multiplyScalar( distance * 4 );
+
+		object.position.copy( center ).add( delta );
+
 		scope.dispatchEvent( changeEvent );
 
 	};
@@ -198,8 +220,6 @@ THREE.EditorControls = function ( object, domElement ) {
 	domElement.addEventListener( 'wheel', onMouseWheel, false );
 
 	// touch
-
-	var touch = new THREE.Vector3();
 
 	var touches = [ new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3() ];
 	var prevTouches = [ new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3() ];
