@@ -33,7 +33,7 @@ export default class Sidebar extends React.Component {
   }
 
   componentChanged = (event) => {
-    Events.emit('selectedentitycomponentchanged', event.detail);
+    Events.emit('selectedentitycomponentchanged', event);
   }
 
   componentWillReceiveProps (newProps) {

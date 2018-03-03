@@ -31,6 +31,10 @@ export default class CommonComponents extends React.Component {
       }
     });
 
+    Events.on('refreshsidebarobject3d', () => {
+      this.forceUpdate();
+    });
+
     var clipboard = new Clipboard('[data-action="copy-entity-to-clipboard"]', {
       text: trigger => {
         return getClipboardRepresentation(this.props.entity);
