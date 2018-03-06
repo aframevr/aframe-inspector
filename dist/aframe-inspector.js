@@ -318,7 +318,7 @@
 	  window.addEventListener('inspector-loaded', function () {
 	    _reactDom2.default.render(_react2.default.createElement(Main, null), div);
 	  });
-	  console.log('A-Frame Inspector Version:', ("0.7.9"), '(' + ("03-03-2018") + ' Commit: ' + ("0ceaeeee9acd77755ab7d406bc065b3e63c42d0c\n").substr(0, 7) + ')');
+	  console.log('A-Frame Inspector Version:', ("0.7.9"), '(' + ("06-03-2018") + ' Commit: ' + ("f441c40056fac237b4f34d640ed5256d0dc398d7\n").substr(0, 7) + ')');
 	})();
 
 /***/ }),
@@ -26528,6 +26528,7 @@
 	   * Open the editor UI
 	   */
 	  open: function open() {
+	    this.sceneEl = AFRAME.scenes[0];
 	    this.opened = true;
 	    Events.emit('inspectormodechanged', true);
 
@@ -34745,10 +34746,12 @@
 	            return true;
 	          }
 
-	          // @todo Use .data instead of attrValue ?
-	          for (var j in component.attrValue) {
-	            var attrValue = component.attrValue[j].toString();
-	            if (attrValue.toUpperCase().indexOf(filterText) > -1) {
+	          for (var j in component.data) {
+	            if (!component.data[j]) {
+	              continue;
+	            }
+	            var data = component.data[j].toString();
+	            if (data.toUpperCase().indexOf(filterText) > -1) {
 	              return true;
 	            }
 	          }

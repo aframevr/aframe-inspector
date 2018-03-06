@@ -91,7 +91,7 @@ export default class SceneGraph extends React.Component {
     function treeIterate (element, depth) {
       if (!element) { return; }
       depth += 1;
-      
+
       let children = element.children;
       for (let i = 0; i < children.length; i++) {
         let child = children[i];
@@ -217,10 +217,10 @@ export default class SceneGraph extends React.Component {
           var component = value.components[i];
           if (component.attrName.toUpperCase().indexOf(filterText) > -1) { return true; }
 
-          // @todo Use .data instead of attrValue ?
-          for (var j in component.attrValue) {
-            var attrValue = component.attrValue[j].toString();
-            if (attrValue.toUpperCase().indexOf(filterText) > -1) { return true; }
+          for (var j in component.data) {
+            if (!component.data[j]) { continue; }
+            var data = component.data[j].toString();
+            if (data .toUpperCase().indexOf(filterText) > -1) { return true; }
           }
         }
 
@@ -246,7 +246,7 @@ export default class SceneGraph extends React.Component {
         let collapse;
         if (option.hasChildren && !isFiltering) {
           const expandedElements = this.state.expandedElements;
-          collapse = <span 
+          collapse = <span
             onClick={() => this.toggleExpandedCollapsed(option.value)}
             className={`collasespace fa ${isExpanded ? 'fa-caret-down' : 'fa-caret-right'}`}></span> ;
         } else {

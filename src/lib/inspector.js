@@ -323,6 +323,7 @@ Inspector.prototype = {
    * Open the editor UI
    */
   open: function () {
+    this.sceneEl = AFRAME.scenes[0];
     this.opened = true;
     Events.emit('inspectormodechanged', true);
 
