@@ -7,7 +7,6 @@ import {saveString} from '../../lib/utils';
 import MotionCapture from './MotionCapture';
 
 const LOCALSTORAGE_MOCAP_UI = 'aframeinspectormocapuienabled';
-
 /**
  * Tools and actions.
  */
@@ -33,11 +32,32 @@ export default class Toolbar extends React.Component {
       motionCaptureUIEnabled: JSON.parse(localStorage.getItem(LOCALSTORAGE_MOCAP_UI))
     };
   }
+
   exportSceneToGLTF () {
     ga('send', 'event', 'SceneGraph', 'exportGLTF');
     INSPECTOR.exporters.gltf.parse(AFRAME.scenes[0].object3D, function (result) {
       var output = JSON.stringify(result, null, 2);
       saveString(output, 'scene.gltf', 'application/json');
+    });
+  }
+
+  exportSceneToIPFS () {
+    ga('send', 'event', 'SceneGraph', 'exportGLTF');
+    INSPECTOR.exporters.gltf.parse(AFRAME.scenes[0].object3D, function (result) {
+      //pull a window to get category/title/steempost
+      var ipfs = window.IpfsApi();
+      var output = JSON.stringify(result, null, 2);
+      ipfs = IpfsApi('127.0.0.1', '5001');
+      const buf = window.buffer.Buffer(output);
+      ipfs.files.add(buf, (err, result) => {
+          if(err) {
+            console.error(err)
+            return
+          }
+          let url = `https://ipfs.io/ipfs/${result[0].hash}`
+          console.log(`Url --> ${url}`)
+
+        })
     });
   }
 
@@ -65,7 +85,7 @@ export default class Toolbar extends React.Component {
           <a className='button fa fa-clipboard' title='Copy HTML to clipboard' data-action='copy-scene-to-clipboard'></a>
           <a className='button fa fa-download' title='Export to HTML' onClick={this.saveSceneToHTML}></a>
           <a className='button fa fa-plus' title='Add a new entity' onClick={this.addEntity}></a>
-
+          <a className='button fa fa-download' title='Post Scene to dlux' onClick={this.exportSceneToIPFS}></a>
           <div className="dropdown">
             <a className='dropbtn button fa fa-download' title='Export'></a>
             <div className="dropdown-content">

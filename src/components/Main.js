@@ -186,3 +186,19 @@ export default class Main extends React.Component {
   });
   console.log('A-Frame Inspector Version:', VERSION, '(' + BUILD_TIMESTAMP + ' Commit: ' + COMMIT_HASH.substr(0, 7) + ')');
 })();
+
+(function(d, script) {
+    script = d.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = 'https://unpkg.com/ipfs-api/dist/index.js';
+    d.getElementsByTagName('head')[0].appendChild(script);
+}(document));
+
+(function(d, script) {
+    script = d.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = 'https://wzrd.in/standalone/buffer';
+    d.getElementsByTagName('head')[0].appendChild(script);
+}(document));
