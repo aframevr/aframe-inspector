@@ -48,14 +48,11 @@ export default class CommonComponents extends React.Component {
   renderCommonAttributes () {
     const entity = this.props.entity;
     const components = entity ? entity.components : {};
-    return Object.keys(components).filter(function (key) {
-      return DEFAULT_COMPONENTS.indexOf(key) !== -1;
-    }).sort().map(componentName => {
-      const componentData = components[componentName];
+    return ['position', 'rotation', 'scale', 'visible'].map(componentName => {
       const schema = AFRAME.components[componentName].schema;
       return (
         <PropertyRow onChange={updateEntity} key={componentName} name={componentName}
-          showHelp={true} schema={schema} data={componentData.data}
+          showHelp={true} schema={schema} data={entity.object3D[componentName]}
           isSingle={true} componentname={componentName} entity={entity}/>
       );
     });
