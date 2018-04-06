@@ -29,10 +29,10 @@ export default class ColorWidget extends React.Component {
   setValue (value) {
     var pickerValue = this.getHexString(value);
 
-    this.state = {
+    this.setState({
       value: value,
       pickerValue: pickerValue
-    };
+    });
 
     if (this.props.onChange) {
       this.props.onChange(this.props.name, value);
