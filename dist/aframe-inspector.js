@@ -318,7 +318,7 @@
 	  window.addEventListener('inspector-loaded', function () {
 	    _reactDom2.default.render(_react2.default.createElement(Main, null), div);
 	  });
-	  console.log('A-Frame Inspector Version:', ("0.8.0"), '(' + ("09-03-2018") + ' Commit: ' + ("adea5e603527752b50f82a4463d8466a915712be\n").substr(0, 7) + ')');
+	  console.log('A-Frame Inspector Version:', ("0.8.2"), '(' + ("24-04-2018") + ' Commit: ' + ("e77ef6d171efacc3bea035e84f5900c64862ecda\n").substr(0, 7) + ')');
 	})();
 
 /***/ }),
@@ -31206,10 +31206,10 @@
 	    value: function setValue(value) {
 	      var pickerValue = this.getHexString(value);
 
-	      this.state = {
+	      this.setState({
 	        value: value,
 	        pickerValue: pickerValue
-	      };
+	      });
 
 	      if (this.props.onChange) {
 	        this.props.onChange(this.props.name, value);
@@ -33276,13 +33276,10 @@
 	    value: function renderCommonAttributes() {
 	      var entity = this.props.entity;
 	      var components = entity ? entity.components : {};
-	      return Object.keys(components).filter(function (key) {
-	        return _DefaultComponents2.default.indexOf(key) !== -1;
-	      }).sort().map(function (componentName) {
-	        var componentData = components[componentName];
+	      return ['position', 'rotation', 'scale', 'visible'].map(function (componentName) {
 	        var schema = AFRAME.components[componentName].schema;
 	        return _react2.default.createElement(_PropertyRow2.default, { onChange: _entity.updateEntity, key: componentName, name: componentName,
-	          showHelp: true, schema: schema, data: componentData.data,
+	          showHelp: true, schema: schema, data: entity.object3D[componentName],
 	          isSingle: true, componentname: componentName, entity: entity });
 	      });
 	    }
