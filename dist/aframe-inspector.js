@@ -318,7 +318,7 @@
 	  window.addEventListener('inspector-loaded', function () {
 	    _reactDom2.default.render(_react2.default.createElement(Main, null), div);
 	  });
-	  console.log('A-Frame Inspector Version:', ("0.8.2"), '(' + ("24-04-2018") + ' Commit: ' + ("e77ef6d171efacc3bea035e84f5900c64862ecda\n").substr(0, 7) + ')');
+	  console.log('A-Frame Inspector Version:', ("0.8.3"), '(' + ("09-05-2018") + ' Commit: ' + ("4f48127dd1514c1850f2609c51034a5a5a064c10\n").substr(0, 7) + ')');
 	})();
 
 /***/ }),
@@ -27585,32 +27585,7 @@
 
 	    updateHelpers(object);
 
-	    var transformMode = transformControls.getMode();
-	    switch (transformMode) {
-	      case 'translate':
-	        object.el.setAttribute('position', {
-	          x: (0, _utils.getNumber)(object.position.x),
-	          y: (0, _utils.getNumber)(object.position.y),
-	          z: (0, _utils.getNumber)(object.position.z)
-	        });
-	        break;
-	      case 'rotate':
-	        object.el.setAttribute('rotation', {
-	          x: THREE.Math.radToDeg((0, _utils.getNumber)(object.rotation.x)),
-	          y: THREE.Math.radToDeg((0, _utils.getNumber)(object.rotation.y)),
-	          z: THREE.Math.radToDeg((0, _utils.getNumber)(object.rotation.z))
-	        });
-	        break;
-	      case 'scale':
-	        object.el.setAttribute('scale', {
-	          x: (0, _utils.getNumber)(object.scale.x),
-	          y: (0, _utils.getNumber)(object.scale.y),
-	          z: (0, _utils.getNumber)(object.scale.z)
-	        });
-	        break;
-	    }
 	    Events.emit('refreshsidebarobject3d', object);
-	    gaTrackTransformEntity(transformMode);
 	  });
 
 	  transformControls.addEventListener('mouseDown', function () {
@@ -33278,8 +33253,16 @@
 	      var components = entity ? entity.components : {};
 	      return ['position', 'rotation', 'scale', 'visible'].map(function (componentName) {
 	        var schema = AFRAME.components[componentName].schema;
+	        var data = entity.object3D[componentName];
+	        if (componentName === 'rotation') {
+	          data = {
+	            x: THREE.Math.radToDeg(entity.object3D.rotation.x),
+	            y: THREE.Math.radToDeg(entity.object3D.rotation.y),
+	            z: THREE.Math.radToDeg(entity.object3D.rotation.z)
+	          };
+	        }
 	        return _react2.default.createElement(_PropertyRow2.default, { onChange: _entity.updateEntity, key: componentName, name: componentName,
-	          showHelp: true, schema: schema, data: entity.object3D[componentName],
+	          showHelp: true, schema: schema, data: data,
 	          isSingle: true, componentname: componentName, entity: entity });
 	      });
 	    }

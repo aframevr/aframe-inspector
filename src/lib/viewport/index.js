@@ -80,32 +80,7 @@ function Viewport (inspector) {
 
     updateHelpers(object);
 
-    const transformMode = transformControls.getMode();
-    switch (transformMode) {
-      case 'translate':
-        object.el.setAttribute('position', {
-          x: getNumber(object.position.x),
-          y: getNumber(object.position.y),
-          z: getNumber(object.position.z)
-        });
-        break;
-      case 'rotate':
-        object.el.setAttribute('rotation', {
-          x: THREE.Math.radToDeg(getNumber(object.rotation.x)),
-          y: THREE.Math.radToDeg(getNumber(object.rotation.y)),
-          z: THREE.Math.radToDeg(getNumber(object.rotation.z))
-        });
-        break;
-      case 'scale':
-        object.el.setAttribute('scale', {
-          x: getNumber(object.scale.x),
-          y: getNumber(object.scale.y),
-          z: getNumber(object.scale.z)
-        });
-        break;
-    }
     Events.emit('refreshsidebarobject3d', object);
-    gaTrackTransformEntity(transformMode);
   });
 
   transformControls.addEventListener('mouseDown', () => {

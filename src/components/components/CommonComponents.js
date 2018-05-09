@@ -50,9 +50,17 @@ export default class CommonComponents extends React.Component {
     const components = entity ? entity.components : {};
     return ['position', 'rotation', 'scale', 'visible'].map(componentName => {
       const schema = AFRAME.components[componentName].schema;
+      var data = entity.object3D[componentName];
+      if (componentName === 'rotation') {
+        data = {
+          x: THREE.Math.radToDeg(entity.object3D.rotation.x),
+          y: THREE.Math.radToDeg(entity.object3D.rotation.y),
+          z: THREE.Math.radToDeg(entity.object3D.rotation.z)
+        };
+      }
       return (
         <PropertyRow onChange={updateEntity} key={componentName} name={componentName}
-          showHelp={true} schema={schema} data={entity.object3D[componentName]}
+          showHelp={true} schema={schema} data={data}
           isSingle={true} componentname={componentName} entity={entity}/>
       );
     });
