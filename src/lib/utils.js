@@ -84,17 +84,17 @@ function injectJS (url, onLoad, onError) {
 }
 
 function saveString (text, filename, mimeType) {
+  saveBlob(new Blob([ text ], { type: mimeType }), filename);
+}
+
+function saveBlob (blob, filename) {
   var link = document.createElement('a');
   link.style.display = 'none';
   document.body.appendChild(link);
-  function save (blob, filename) {
-    link.href = URL.createObjectURL(blob);
-    link.download = filename || 'ascene.html';
-    link.click();
-    // URL.revokeObjectURL(url); breaks Firefox...
-  }
-
-  save(new Blob([ text ], { type: mimeType }), filename);
+  link.href = URL.createObjectURL(blob);
+  link.download = filename || 'ascene.html';
+  link.click();
+  // URL.revokeObjectURL(url); breaks Firefox...
 }
 
 module.exports = {
@@ -105,5 +105,6 @@ module.exports = {
   os: getOS(),
   injectCSS: injectCSS,
   injectJS: injectJS,
-  saveString: saveString
+  saveString: saveString,
+  saveBlob: saveBlob,
 };

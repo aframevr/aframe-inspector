@@ -8,7 +8,7 @@ import Mixins from './Mixins';
 import {updateEntity, getClipboardRepresentation} from '../../actions/entity';
 import Events from '../../lib/Events';
 import Clipboard from 'clipboard';
-import {saveString} from '../../lib/utils';
+import {saveBlob} from '../../lib/utils';
 
 // @todo Take this out and use updateEntity?
 function changeId (componentName, value) {
@@ -68,10 +68,10 @@ export default class CommonComponents extends React.Component {
 
   exportToGLTF () {
     const entity = this.props.entity;
-    AFRAME.INSPECTOR.exporters.gltf.parse(entity.object3D, function (result) {
-      var output = JSON.stringify(result, null, 2);
-      saveString(output, (entity.id || 'entity') + '.gltf', 'application/json');
-    });
+    AFRAME.INSPECTOR.exporters.gltf.parse(entity.object3D, function (buffer) {
+      var blob = new Blob([buffer], {type: 'application/octet-stream'});
+      saveBlob(blob, (entity.id || 'entity') + '.glb');
+    }, {binary: true});
   }
 
   render () {
