@@ -100,6 +100,7 @@ Inspector.prototype = {
     this.scene = this.sceneEl.object3D;
     this.helpers = {};
     this.sceneHelpers = new THREE.Scene();
+    this.sceneHelpers.userData.source = 'INSPECTOR';
     this.sceneHelpers.visible = true; // false;
     this.inspectorActive = false;
 
@@ -178,8 +179,10 @@ Inspector.prototype = {
       var picker = new THREE.Mesh(geometry, material);
       picker.name = 'picker';
       picker.userData.object = object;
+      picker.userData.source = 'INSPECTOR';
       helper.add(picker);
       helper.fromObject = object;
+      helper.userData.source = 'INSPECTOR';
 
       this.sceneHelpers.add(helper);
       this.helpers[parentId][object.id] = helper;

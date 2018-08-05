@@ -8,6 +8,12 @@ import MotionCapture from './MotionCapture';
 
 const LOCALSTORAGE_MOCAP_UI = 'aframeinspectormocapuienabled';
 
+function filterHelpers (scene, visible) {
+  scene.traverse((o) => {
+    if (o.userData.source === 'INSPECTOR') { o.visible = visible; }
+  });
+}
+
 /**
  * Tools and actions.
  */
@@ -35,9 +41,13 @@ export default class Toolbar extends React.Component {
   }
   exportSceneToGLTF () {
     ga('send', 'event', 'SceneGraph', 'exportGLTF');
-    INSPECTOR.exporters.gltf.parse(AFRAME.scenes[0].object3D, function (buffer) {
-      var blob = new Blob([buffer], {type: 'application/octet-stream'});
-      saveBlob(blob, 'scene.glb');
+    const sceneName = getSceneName(AFRAME.scenes[0]);
+    const scene = AFRAME.scenes[0].object3D;
+    filterHelpers(scene, false);
+    INSPECTOR.exporters.gltf.parse(scene, function (buffer) {
+      filterHelpers(scene, true);
+      const blob = new Blob([buffer], {type: 'application/octet-stream'});
+      saveBlob(blob, sceneName + '.glb');
     }, {binary: true});
   }
 
