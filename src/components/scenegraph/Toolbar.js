@@ -3,10 +3,16 @@ import React from 'react';
 import Clipboard from 'clipboard';
 import {getSceneName, generateHtml} from '../../lib/exporter';
 import Events from '../../lib/Events.js';
-import {saveString} from '../../lib/utils';
+import {saveBlob, saveString} from '../../lib/utils';
 import MotionCapture from './MotionCapture';
 
 const LOCALSTORAGE_MOCAP_UI = 'aframeinspectormocapuienabled';
+
+function filterHelpers (scene, visible) {
+  scene.traverse((o) => {
+    if (o.userData.source === 'INSPECTOR') { o.visible = visible; }
+  });
+}
 
 /**
  * Tools and actions.
@@ -35,10 +41,14 @@ export default class Toolbar extends React.Component {
   }
   exportSceneToGLTF () {
     ga('send', 'event', 'SceneGraph', 'exportGLTF');
-    INSPECTOR.exporters.gltf.parse(AFRAME.scenes[0].object3D, function (result) {
-      var output = JSON.stringify(result, null, 2);
-      saveString(output, 'scene.gltf', 'application/json');
-    });
+    const sceneName = getSceneName(AFRAME.scenes[0]);
+    const scene = AFRAME.scenes[0].object3D;
+    filterHelpers(scene, false);
+    INSPECTOR.exporters.gltf.parse(scene, function (buffer) {
+      filterHelpers(scene, true);
+      const blob = new Blob([buffer], {type: 'application/octet-stream'});
+      saveBlob(blob, sceneName + '.glb');
+    }, {binary: true});
   }
 
   exportSceneToHTML () {
