@@ -12,7 +12,6 @@ import Vec4Widget from '../widgets/Vec4Widget';
 import Vec3Widget from '../widgets/Vec3Widget';
 import Vec2Widget from '../widgets/Vec2Widget';
 import {updateEntity} from '../../actions/entity';
-import {getComponentDocsHtmlLink} from '../../actions/component';
 
 export default class PropertyRow extends React.Component {
   static propTypes = {
@@ -100,10 +99,9 @@ export default class PropertyRow extends React.Component {
     const props = this.props;
     const value = props.schema.type === 'selector' ? props.entity.getDOMAttribute(props.componentname)[props.name] : JSON.stringify(props.data);
     const title = props.name + '\n - type: ' + props.schema.type + '\n - value: ' + value;
-    const helpLink = props.showHelp ? getComponentDocsHtmlLink(props.name) : '';
     return (
       <div className='row'>
-        <label htmlFor={this.id} className='text' title={title}>{props.name}{helpLink}</label>
+        <label htmlFor={this.id} className='text' title={title}>{props.name}</label>
         {this.getWidget(props.schema.type)}
       </div>
     );

@@ -23,15 +23,6 @@ export default class AddComponent extends React.Component {
       return option.value === componentName;
     })[0];
 
-    if (selectedOption.origin === 'registry') {
-      [packageName, componentName] = selectedOption.value.split(DELIMITER);
-      INSPECTOR.componentLoader.addComponentToScene(packageName, componentName)
-        .then(addComponent);
-    } else {
-      componentName = selectedOption.value;
-      addComponent(componentName);
-    }
-
     function addComponent (componentName) {
       if (AFRAME.components[componentName].multiple) {
         const id = prompt(
@@ -60,24 +51,7 @@ export default class AddComponent extends React.Component {
         return {value: value, label: value, origin: 'loaded'};
       });
 
-    // Create the list of components that should appear in the registry group
-    var registryComponents = [];
-    Object.keys(INSPECTOR.componentLoader.components)
-      .forEach(function (componentPackageName) {
-        var componentPackage = INSPECTOR.componentLoader.components[componentPackageName];
-        componentPackage.names.forEach(function (componentName) {
-          if (usedComponents.indexOf(componentName) === -1) {
-            registryComponents.push({componentPackageName, componentName});
-          }
-        });
-      });
-    var registryOptions = registryComponents
-      .map(function (item) {
-        return {value: item.componentPackageName + DELIMITER + item.componentName,
-          label: item.componentName, origin: 'registry'};
-      });
-
-    this.options = commonOptions.concat(registryOptions);
+    this.options = commonOptions;
     this.options = this.options.sort(function (a, b) {
       return a.label === b.label ? 0 : a.label < b.label ? -1 : 1;
     });
@@ -108,9 +82,6 @@ export default class AddComponent extends React.Component {
             optionRenderer={this.renderOption}
             searchable={true}
           />
-          <a href="https://aframe.io/aframe-registry" target="_blank" title="A-Frame Registry" className="aregistry-button">
-            <img src="https://aframe.io/aframe-inspector/assets/a-registry-logo-min.svg"/>
-          </a>
         </div>
     );
   }

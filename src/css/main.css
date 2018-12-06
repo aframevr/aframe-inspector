@@ -1038,21 +1038,6 @@ span.entity-name {
   padding: 10px;
 }
 
-.aregistry-button {
-  font-size: 12px;
-  margin-left: 10px;
-  padding: 8px;
-}
-
-.aregistry-button:hover {
-  background-color: #1faaf2;
-}
-
-.aregistry-button img {
-  height: 20px;
-  width: 20px;
-}
-
 .components .row .color_value {
   margin: 0 0 0 5px;
   width: 68px;
