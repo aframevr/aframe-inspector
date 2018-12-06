@@ -314,7 +314,7 @@ div.vec4 {
 }
 
 .componentTitle span {
-  max-width: 150px;
+  max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
   text-transform: uppercase;
@@ -812,19 +812,6 @@ span.subcomponent {
 
 .outliner .active .fa {
   color: #fff;
-}
-
-a.flat-button {
-  background-color: #262626;
-  color: #bcbcbc;
-  font-size: 11px;
-  margin-left: 10px;
-  padding: 5px;
-  text-decoration: none;
-}
-
-a.flat-button:hover {
-  color: #1faaf2;
 }
 
 .component-title {

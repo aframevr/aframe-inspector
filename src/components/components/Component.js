@@ -107,11 +107,9 @@ export default class Component extends React.Component {
           <div>
             <a title='Copy to clipboard' data-action='copy-component-to-clipboard'
               data-component={subComponentName || componentName}
-              className='flat-button' onClick={event => event.stopPropagation()}>
-              Copy
-            </a>
-            <a title='Remove component' className='flat-button'
-              onClick={this.removeComponent}>Remove</a>
+              className='button fa fa-clipboard' href="#"/>
+            <a title='Remove component' className='button fa fa-trash-o'
+              onClick={this.removeComponent}/>
           </div>
         </div>
         <div className='collapsible-content'>
