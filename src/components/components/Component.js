@@ -100,8 +100,8 @@ export default class Component extends React.Component {
 
     return (
       <Collapsible collapsed={true}>
-        <div className='collapsible-header'>
-          <span className='component-title' title={subComponentName || componentName}>
+        <div className='componentHeader collapsible-header'>
+          <span className='componentTitle' title={subComponentName || componentName}>
             <span>{subComponentName || componentName}</span>
           </span>
           <div>

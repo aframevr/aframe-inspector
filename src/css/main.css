@@ -313,9 +313,8 @@ div.vec4 {
   justify-content: space-between;
 }
 
-.component-title span {
-  float: left;
-  max-width: 110px;
+.componentTitle span {
+  max-width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
   text-transform: uppercase;

@@ -89,14 +89,16 @@ export default class Mixin extends React.Component {
 
   render () {
     return (
-      <div className='row'>
-        <span className='text'>mixins</span>
-        <span className='value'>
-          <select ref='select'>
-            {this.renderMixinOptions()}
-          </select>
-          <a className='button fa fa-plus-circle' onClick={this.addMixin}></a>
-        </span>
+      <div className='mixinOptions'>
+        <div className='row'>
+          <span className='text'>mixins</span>
+          <span className='value'>
+            <select ref='select'>
+              {this.renderMixinOptions()}
+            </select>
+            <a className='button fa fa-plus-circle' onClick={this.addMixin}></a>
+          </span>
+        </div>
         {this.renderMixins()}
       </div>
     );
