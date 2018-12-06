@@ -9,18 +9,8 @@ import EditorControls from '../vendor/threejs/EditorControls.js';
 import {getNumber} from '../utils';
 var Events = require('../Events');
 
-const gaTrackTransformEntity = debounce(transformMode => {
-  ga('send', 'event', 'Viewport', 'transformEntity', transformMode);
-}, 3000);
-
-const gaTrackChangeEditorCamera = debounce(() => {
-  ga('send', 'event', 'Viewport', 'changeEditorCamera');
-}, 3000);
-
 function Viewport (inspector) {
-  var container = {
-    dom: inspector.container
-  };
+  var container = {dom: inspector.container};
 
   var prevActiveCameraEl = inspector.currentCameraEl;
   inspector.sceneEl.addEventListener('camera-set-active', event => {
@@ -98,7 +88,6 @@ function Viewport (inspector) {
     if (object !== null) {
       switch (transformControls.getMode()) {
         case 'translate':
-
           if (!objectPositionOnDown.equals(object.position)) {
             // @todo
           }
@@ -121,25 +110,6 @@ function Viewport (inspector) {
   });
 
   sceneHelpers.add(transformControls);
-/*
-  signals.objectSelected.add(function (object) {
-    selectionBox.visible = false;
-    if (!inspector.selected) {
-      // if (!inspector.selected || inspector.selected.el.helper) {
-      return;
-    }
-
-    if (object !== null) {
-      if (object.geometry !== undefined &&
-        object instanceof THREE.Sprite === false) {
-        selectionBox.setFromObject(object).update();
-        selectionBox.visible = true;
-      }
-
-      transformControls.attach(object);
-    }
-  });
-*/
 
   Events.on('objectchanged', () => {
     if (inspector.selectedEntity.object3DMap['mesh']) {
@@ -282,8 +252,6 @@ function Viewport (inspector) {
 
   controls.addEventListener('change', () => {
     transformControls.update();
-    gaTrackChangeEditorCamera();
-    // inspector.signals.cameraChanged.dispatch(camera);
   });
 
   Events.on('inspectorcleared', () => {
@@ -340,7 +308,6 @@ function Viewport (inspector) {
       if (object.geometry && object.geometry.vertices && object.geometry.vertices.length > 0) {
         selectionBox.setFromObject(object).update();
       }
-      // transformControls.update();
     }
 
     transformControls.update();
@@ -370,7 +337,6 @@ function Viewport (inspector) {
   Events.on('windowresize', () => {
     camera.aspect = container.dom.offsetWidth / container.dom.offsetHeight;
     camera.updateProjectionMatrix();
-    // renderer.setSize(container.dom.offsetWidth, container.dom.offsetHeight);
   });
   Events.on('gridvisibilitychanged', showGrid => {
     grid.visible = showGrid;

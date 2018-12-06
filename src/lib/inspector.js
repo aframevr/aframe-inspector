@@ -72,7 +72,7 @@ Inspector.prototype = {
       this.initUI();
       this.initModules();
     });
-    this.inspectorCameraEl.setAttribute('camera', {far: 10000, fov: 50, near: 0.05, active: true});
+    this.inspectorCameraEl.setAttribute('camera', {far: 10000, near: 0.01, active: true});
     this.inspectorCameraEl.setAttribute('data-aframe-inspector', 'camera');
     AFRAME.scenes[0].appendChild(this.inspectorCameraEl);
   },
@@ -86,8 +86,8 @@ Inspector.prototype = {
   },
 
   initUI: function () {
-    this.EDITOR_CAMERA.position.set(20, 10, 20);
-    this.EDITOR_CAMERA.lookAt(new THREE.Vector3());
+    this.EDITOR_CAMERA.position.set(0, 1.6, 2);
+    this.EDITOR_CAMERA.lookAt(new THREE.Vector3(0, 1.6, -10));
     this.EDITOR_CAMERA.updateMatrixWorld();
     this.camera = this.EDITOR_CAMERA;
 
