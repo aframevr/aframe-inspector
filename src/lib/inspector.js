@@ -150,6 +150,7 @@ Inspector.prototype = {
       var helper;
       if (object instanceof THREE.Camera) {
         this.cameraHelper = helper = new THREE.CameraHelper(object, 0.1);
+        this.cameraHelper.visible = false;
       } else if (object instanceof THREE.PointLight) {
         helper = new THREE.PointLightHelper(object, 1);
       } else if (object instanceof THREE.DirectionalLight) {
@@ -211,9 +212,11 @@ Inspector.prototype = {
       this.select(null);
     }
 
-    if (emit === undefined) {
-      Events.emit('entityselected', entity);
-    }
+    if (emit === undefined) { Events.emit('entityselected', entity); }
+
+    // Update camera helper visibility.
+    this.cameraHelper.visible = entity === this.currentCameraEl;
+
   },
   initEvents: function () {
     window.addEventListener('keydown', evt => {
