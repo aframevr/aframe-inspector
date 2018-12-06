@@ -37,11 +37,14 @@ export default class SceneGraph extends React.Component {
     super(props);
     this.state = {
       value: this.props.value || '',
+      filteredOptions: [],
       options: [],
       selectedIndex: -1,
       filterText: '',
       expandedElements: new WeakMap([[props.scene, true]])
     };
+
+    this.handleSceneGraphFilter = debounce(this.handleSceneGraphFilter.bind(this), 500);
   }
 
   componentDidMount () {
@@ -133,7 +136,9 @@ export default class SceneGraph extends React.Component {
     }
     treeIterate(this.props.scene, 0);
 
-    this.setState({options: options});
+    this.setState({filteredOptions: options, options: options}, () => {
+      this.handleSceneGraphFilter();
+    });
   }
 
   selectIndex = index => {
@@ -194,48 +199,63 @@ export default class SceneGraph extends React.Component {
   }
 
   toggleVisibility = (entity, event) => {
-    var visible = entity.tagName.toLowerCase() === 'a-scene' ? entity.object3D.visible : entity.getAttribute('visible');
+    var visible = entity.tagName.toLowerCase() === 'a-scene'
+      ? entity.object3D.visible
+      : entity.getAttribute('visible');
     entity.setAttribute('visible', !visible);
   }
 
-  renderOptions () {
-    var filterText = this.state.filterText.toUpperCase();
-    var isFiltering = filterText.length > 0;
-
-    return this.state.options
-      .filter((option, idx) => {
+  handleSceneGraphFilter () {
+    const filterText = this.state.filterText.toUpperCase();
+    const isFiltering = filterText.length > 0;
+    this.setState({
+      filteredOptions: this.state.options.filter((option, idx) => {
         const value = option.value;
-        // Check if the ID or the tagName includes the filterText
+
+        // Check if the ID, tagName, class, selector includes the filterText.
         if (value.id.toUpperCase().indexOf(filterText) > -1 ||
             value.tagName.toUpperCase().indexOf(filterText) > -1 ||
-            (value.getAttribute('class') || '').indexOf(filterText) > -1) {
+            (value.getAttribute('class') || '').indexOf(filterText) > -1 ||
+            value.matches(this.state.filterText)) {
           return true;
         }
 
         // Check each component's name
-        for (var i in value.components) {
-          var component = value.components[i];
+        for (let i in value.components) {
+          const component = value.components[i];
           if (component.attrName.toUpperCase().indexOf(filterText) > -1) { return true; }
 
-          for (var j in component.data) {
+          for (let j in component.data) {
             if (!component.data[j]) { continue; }
-            var data = component.data[j].toString();
-            if (data .toUpperCase().indexOf(filterText) > -1) { return true; }
+            const data = component.data[j].toString();
+            if (data.toUpperCase().indexOf(filterText) > -1) { return true; }
           }
         }
-
         return false;
       })
+    });
+  }
+
+  renderSceneGraph () {
+    var filterText = this.state.filterText.toUpperCase();
+    var isFiltering = filterText.length > 0;
+
+    return this.state.filteredOptions
       .map((option, idx) => {
-        const isExpanded = this.isExpanded(option.value) || isFiltering; // If searching expand everything
+        // If searching expand everything.
+        const isExpanded = this.isExpanded(option.value) || isFiltering;
         if (!isFiltering && !this.isVisibleInSceneGraph(option.value)) {
            return null;
         }
 
-        let cloneButton = <a onClick={() => this.cloneEntity(option.value)}
-          title="Clone entity" className="button fa fa-clone"></a>;
-        let removeButton = <a onClick={event => { event.stopPropagation(); removeEntity(option.value); } }
-          title="Remove entity" className="button fa fa-trash-o"></a>;
+        let cloneButton = (
+          <a onClick={() => this.cloneEntity(option.value)}
+             title="Clone entity" className="button fa fa-clone"></a>
+        );
+        let removeButton = (
+          <a onClick={event => { event.stopPropagation(); removeEntity(option.value); }}
+             title="Remove entity" className="button fa fa-trash-o"></a>
+        );
 
         if (option.value.tagName === 'A-SCENE') {
           cloneButton = '';
@@ -246,16 +266,19 @@ export default class SceneGraph extends React.Component {
         let collapse;
         if (option.hasChildren && !isFiltering) {
           const expandedElements = this.state.expandedElements;
-          collapse = <span
-            onClick={() => this.toggleExpandedCollapsed(option.value)}
-            className={`collasespace fa ${isExpanded ? 'fa-caret-down' : 'fa-caret-right'}`}></span> ;
+          collapse = (
+            <span onClick={() => this.toggleExpandedCollapsed(option.value)}
+                  className={`collapsespace fa ${isExpanded ? 'fa-caret-down' : 'fa-caret-right'}`}></span>
+          );
         } else {
-          collapse = <span className="collasespace"></span>;
+          collapse = <span className="collapsespace"></span>;
         }
         let entity = option.value;
         const visible = entity.tagName.toLowerCase() === 'a-scene' ? entity.object3D.visible : entity.getAttribute('visible');
-        let visibility = <i title="Toggle entity visibility" className={'fa ' + (visible ? 'fa-eye' : 'fa-eye-slash')}
-          onClick={ event => { this.toggleVisibility(option.value, event); } }></i>;
+        let visibility = (
+          <i title="Toggle entity visibility" className={'fa ' + (visible ? 'fa-eye' : 'fa-eye-slash')}
+             onClick={event => { this.toggleVisibility(option.value, event); }}></i>
+        );
 
         const className = classnames({
           option: true,
@@ -336,7 +359,7 @@ export default class SceneGraph extends React.Component {
 
   onChangeFilter = e => {
     this.setState({filterText: e.target.value});
-    gaTrackSearchEntity();
+    this.handleSceneGraphFilter();
   }
 
   clearFilter = () => {
@@ -344,12 +367,12 @@ export default class SceneGraph extends React.Component {
   }
 
   render () {
-    // to hide the SceneGraph we have to hide its parent too (#left-sidebar)
-    if (!this.props.visible) {
-      return null;
-    }
+    // To hide the SceneGraph we have to hide its parent too (#left-sidebar).
+    if (!this.props.visible) { return null; }
 
-    let clearFilter = this.state.filterText ? <a onClick={this.clearFilter} className='button fa fa-times'></a> : null;
+    let clearFilter = this.state.filterText
+      ? <a onClick={this.clearFilter} className='button fa fa-times'></a>
+      : null;
 
     return (
       <div id={this.props.id} className='scenegraph'>
@@ -357,14 +380,14 @@ export default class SceneGraph extends React.Component {
           <Toolbar/>
           <div className='search'>
             <input id="filter" placeholder='Search...' value={this.state.filterText}
-              onChange={this.onChangeFilter} onKeyUp={this.onFilterKeyUp}/>
+                   onChange={this.onChangeFilter} onKeyUp={this.onFilterKeyUp}/>
             {clearFilter}
             <span className='fa fa-search'></span>
           </div>
         </div>
         <div className='outliner' tabIndex='0' onKeyDown={this.onKeyDown}
-          onKeyUp={this.onKeyUp}>
-          {this.renderOptions()}
+             onKeyUp={this.onKeyUp}>
+          {this.renderSceneGraph()}
         </div>
       </div>
     );
