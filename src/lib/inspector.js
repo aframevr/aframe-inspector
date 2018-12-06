@@ -278,7 +278,7 @@ Inspector.prototype = {
     if (this.selected === object3D) { return; }
     this.selected = object3D;
     if (object3D) { this.bboxHelper.setFromObject(object3D); }
-    Events.emit('objectselected', object);
+    Events.emit('objectselected', object3D);
   },
 
   deselect: function () {
@@ -338,7 +338,7 @@ Inspector.prototype = {
   /**
    * Open the editor UI
    */
-  open: function () {
+  open: function (focusEl) {
     this.sceneEl = AFRAME.scenes[0];
     this.opened = true;
     Events.emit('inspectormodechanged', true);
@@ -357,6 +357,8 @@ Inspector.prototype = {
     document.body.classList.add('aframe-inspector-opened');
     this.sceneEl.resize();
     Shortcuts.enable();
+
+    if (focusEl) { this.selectEntity(focusEl); }
   },
 
   /**
