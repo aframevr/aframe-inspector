@@ -63,24 +63,20 @@ Inspector.prototype = {
       this.currentCameraEl.setAttribute('data-aframe-inspector', 'default-camera');
     }
 
-    this.inspectorCameraEl = document.createElement('a-entity');
-    this.inspectorCameraEl.isInspector = true;
-    this.inspectorCameraEl.addEventListener('componentinitialized', evt => {
-      if (evt.detail.name !== 'camera') { return; }
+    this.currentCameraEl.setAttribute('camera', 'active', false);
 
-      // Set editor camera.
-      this.EDITOR_CAMERA = this.inspectorCameraEl.getObject3D('camera');
-      this.EDITOR_CAMERA.position.set(0, 1.6, 2);
-      this.EDITOR_CAMERA.lookAt(new THREE.Vector3(0, 1.6, -1));
-      this.EDITOR_CAMERA.updateMatrixWorld();
-      this.camera = this.EDITOR_CAMERA;
+    // Create Inspector camera.
+    const camera = this.camera = new THREE.PerspectiveCamera();
+    camera.far = 10000;
+    camera.near = 0.01;
+    camera.position.set(0, 1.6, 2);
+    camera.lookAt(new THREE.Vector3(0, 1.6, -1));
+    camera.updateMatrixWorld();
+    this.sceneEl.object3D.add(camera);
+    this.sceneEl.camera = camera;
 
-      this.initUI();
-      this.initModules();
-    });
-    this.inspectorCameraEl.setAttribute('camera', {far: 10000, near: 0.01, active: true});
-    this.inspectorCameraEl.setAttribute('data-aframe-inspector', 'camera');
-    AFRAME.scenes[0].appendChild(this.inspectorCameraEl);
+    this.initUI();
+    this.initModules();
   },
 
   initModules: function () {
@@ -96,7 +92,9 @@ Inspector.prototype = {
 
     this.selected = null;
 
-    window.dispatchEvent(new Event('inspector-loaded'));
+    setTimeout(() => {
+      window.dispatchEvent(new Event('inspector-loaded'));
+    });
 
     this.scene = this.sceneEl.object3D;
     this.helpers = {};
@@ -215,8 +213,9 @@ Inspector.prototype = {
     if (emit === undefined) { Events.emit('entityselected', entity); }
 
     // Update camera helper visibility.
-    this.cameraHelper.visible = entity === this.currentCameraEl;
-
+    if (this.cameraHelper) {
+      this.cameraHelper.visible = entity === this.currentCameraEl;
+    }
   },
 
   initEvents: function () {
@@ -277,22 +276,11 @@ Inspector.prototype = {
   select: function (object3D) {
     if (this.selected === object3D) { return; }
     this.selected = object3D;
-    if (object3D) { this.bboxHelper.setFromObject(object3D); }
     Events.emit('objectselected', object3D);
   },
 
   deselect: function () {
     this.select(null);
-  },
-
-  /**
-   * Reset the current scene, removing its content.
-   */
-  clear: function () {
-    this.camera.copy(this.EDITOR_CAMERA);
-    this.deselect();
-    AFRAME.scenes[0].innerHTML = '';
-    Events.emit('inspectorcleared');
   },
 
   /**
@@ -358,7 +346,12 @@ Inspector.prototype = {
     this.sceneEl.resize();
     Shortcuts.enable();
 
-    if (focusEl) { this.selectEntity(focusEl); }
+    if (focusEl) {
+      setTimeout(() => {
+        this.selectEntity(focusEl);
+        // Events.emit('objectfocus', focusEl.object3D);
+      }, 1000);
+    }
   },
 
   /**

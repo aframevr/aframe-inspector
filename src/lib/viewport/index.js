@@ -2,8 +2,8 @@
 import debounce from 'lodash.debounce';
 
 /* eslint-disable no-unused-vars */
-import TransformControls from '../vendor/threejs/TransformControls.js';
-import EditorControls from '../vendor/threejs/EditorControls.js';
+import TransformControls from '../vendor/TransformControls.js';
+import EditorControls from '../vendor/EditorControls.js';
 /* eslint-disable no-unused-vars */
 
 import {getNumber} from '../utils';
@@ -16,15 +16,7 @@ function Viewport (inspector) {
   inspector.sceneEl.addEventListener('camera-set-active', event => {
     if (inspector.opened) {
       // If we're in edit mode, save the newly active camera and activate when exiting.
-      if (event.detail.cameraEl !== inspector.inspectorCameraEl) {
-        prevActiveCameraEl = event.detail.cameraEl;
-      }
-
-      // Force keep the Inspector camera as active.
-      if (!event.detail.cameraEl.isInspector) {
-        // TODO: Motion capture.
-        // inspector.inspectorCameraEl.setAttribute('camera', 'active', 'true');
-      }
+      prevActiveCameraEl = event.detail.cameraEl;
     }
   });
 
@@ -36,7 +28,7 @@ function Viewport (inspector) {
 
   sceneHelpers.add(grid);
 
-  var camera = inspector.inspectorCameraEl.getObject3D('camera');
+  var camera = inspector.camera;
 
   var selectionBox = new THREE.BoxHelper();
   selectionBox.material.depthTest = false;
@@ -225,7 +217,7 @@ function Viewport (inspector) {
 
     if (intersects.length > 0) {
       var intersect = intersects[ 0 ];
-      Events.emit('objectfocused', intersect.object);
+      Events.emit('objectfocus', intersect.object);
     }
   }
 
@@ -233,6 +225,8 @@ function Viewport (inspector) {
   // otherwise controls.enabled doesn't work.
   var controls = new THREE.EditorControls(camera, inspector.container);
   controls.center.set(0, 1.6, 0);
+	controls.rotationSpeed = 0.0035;
+  controls.zoomSpeed = 0.05;
 
   function disableControls () {
     inspector.container.removeEventListener('mousedown', onMouseDown);
@@ -284,7 +278,7 @@ function Viewport (inspector) {
     }
   });
 
-  Events.on('objectfocused', object => {
+  Events.on('objectfocus', object => {
     controls.focus(object);
     ga('send', 'event', 'Viewport', 'selectEntity');
   });
@@ -349,13 +343,14 @@ function Viewport (inspector) {
   Events.on('inspectormodechanged', active => {
     if (active) {
       enableControls();
-      inspector.inspectorCameraEl.setAttribute('camera', 'active', 'true');
+      AFRAME.scenes[0].camera = inspector.camera;
       Array.prototype.slice.call(document.querySelectorAll('.a-enter-vr,.rs-base')).forEach(element => {
         element.style.display = 'none';
       });
     } else {
       disableControls();
       prevActiveCameraEl.setAttribute('camera', 'active', 'true');
+      AFRAME.scenes[0].camera = prevActiveCameraEl.getObject3D('camera');
       Array.prototype.slice.call(document.querySelectorAll('.a-enter-vr,.rs-base')).forEach(element => {
         element.style.display = 'block';
       });
