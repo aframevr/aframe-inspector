@@ -4,16 +4,16 @@ var ComponentLoader = require('./componentloader.js');
 var AssetsLoader = require('./assetsLoader.js');
 var ShaderLoader = require('./shaderloader.js');
 var Shortcuts = require('./shortcuts.js');
-import {GLTFExporter} from './vendor/GLTFExporter'; // eslint-disable-line no-unused-vars
+import {GLTFExporter} from './vendor/GLTFExporter';  // eslint-disable-line no-unused-vars
 
 function Inspector () {
-  this.exporters = {
-    gltf: new THREE.GLTFExporter()
-  };
+  this.bboxHelper = new THREE.BoxHelper(new THREE.Object3D(), 0xFAFAFA);
+  this.exporters = {gltf: new THREE.GLTFExporter()};
   this.modules = {};
   this.on = Events.on;
   this.opened = false;
-  // Detect if the scene is already loaded
+
+  // Detect if the scene is already loaded.
   if (document.readyState === 'complete' || document.readyState === 'loaded') {
     this.onDomLoaded();
   } else {
@@ -23,12 +23,12 @@ function Inspector () {
 
 Inspector.prototype = {
   /**
-   * Callback once the DOM is completely loaded so we could query the scene
+   * Callback once the DOM is completely loaded so we could query the scene.
    */
   onDomLoaded: function () {
+    this.assetsLoader = new AssetsLoader();
     this.componentLoader = new ComponentLoader();
     this.shaderLoader = new ShaderLoader();
-    this.assetsLoader = new AssetsLoader();
 
     this.sceneEl = AFRAME.scenes[0];
     if (this.sceneEl.hasLoaded) {
@@ -47,10 +47,9 @@ Inspector.prototype = {
 
     // Wait for camera if necessary.
     if (!AFRAME.scenes[0].camera) {
-      AFRAME.scenes[0].addEventListener('camera-set-active', function waitForCamera () {
-        AFRAME.scenes[0].removeEventListener('camera-set-active', waitForCamera);
+      AFRAME.scenes[0].addEventListener('camera-set-active', () => {
         self.onSceneLoaded();
-      });
+      }, {once: true});
       return;
     }
 
@@ -58,7 +57,7 @@ Inspector.prototype = {
     this.currentCameraEl.setAttribute('data-aframe-inspector-original-camera', '');
 
     // If the current camera is the default, we should prevent AFRAME from
-    // remove it once when we inject the editor's camera
+    // remove it once when we inject the editor's camera.
     if (this.currentCameraEl.hasAttribute('data-aframe-default-camera')) {
       this.currentCameraEl.removeAttribute('data-aframe-default-camera');
       this.currentCameraEl.setAttribute('data-aframe-inspector', 'default-camera');
@@ -68,7 +67,14 @@ Inspector.prototype = {
     this.inspectorCameraEl.isInspector = true;
     this.inspectorCameraEl.addEventListener('componentinitialized', evt => {
       if (evt.detail.name !== 'camera') { return; }
+
+      // Set editor camera.
       this.EDITOR_CAMERA = this.inspectorCameraEl.getObject3D('camera');
+      this.EDITOR_CAMERA.position.set(0, 1.6, 2);
+      this.EDITOR_CAMERA.lookAt(new THREE.Vector3(0, 1.6, -1));
+      this.EDITOR_CAMERA.updateMatrixWorld();
+      this.camera = this.EDITOR_CAMERA;
+
       this.initUI();
       this.initModules();
     });
@@ -86,11 +92,6 @@ Inspector.prototype = {
   },
 
   initUI: function () {
-    this.EDITOR_CAMERA.position.set(0, 1.6, 2);
-    this.EDITOR_CAMERA.lookAt(new THREE.Vector3(0, 1.6, -1));
-    this.EDITOR_CAMERA.updateMatrixWorld();
-    this.camera = this.EDITOR_CAMERA;
-
     this.initEvents();
 
     this.selected = null;
@@ -102,18 +103,18 @@ Inspector.prototype = {
     this.sceneHelpers = new THREE.Scene();
     this.sceneHelpers.userData.source = 'INSPECTOR';
     this.sceneHelpers.visible = true; // false;
+    this.sceneHelpers.add(this.bboxHelper);
     this.inspectorActive = false;
 
     this.viewport = new Viewport(this);
     Events.emit('windowresize');
 
-    var scope = this;
-
+    const self = this;
     function addObjects (object) {
-      for (var i = 0; i < object.children.length; i++) {
-        var obj = object.children[i];
-        for (var j = 0; j < obj.children.length; j++) {
-          scope.addObject(obj.children[j]);
+      for (let i = 0; i < object.children.length; i++) {
+        const obj = object.children[i];
+        for (let j = 0; j < obj.children.length; j++) {
+          self.addObject(obj.children[j]);
         }
       }
     }
@@ -132,7 +133,6 @@ Inspector.prototype = {
     });
 
     this.scene.add(this.sceneHelpers);
-
     this.open();
   },
 
@@ -143,8 +143,8 @@ Inspector.prototype = {
   },
 
   addHelper: (function () {
-    var geometry = new THREE.SphereBufferGeometry(2, 4, 2);
-    var material = new THREE.MeshBasicMaterial({ color: 0xff0000, visible: false });
+    const geometry = new THREE.SphereBufferGeometry(2, 4, 2);
+    const material = new THREE.MeshBasicMaterial({color: 0xff0000, visible: false});
 
     return function (object) {
       var helper;
@@ -177,7 +177,7 @@ Inspector.prototype = {
         this.helpers[parentId] = {};
       }
 
-      var picker = new THREE.Mesh(geometry, material);
+      const picker = new THREE.Mesh(geometry, material);
       picker.name = 'picker';
       picker.userData.object = object;
       picker.userData.source = 'INSPECTOR';
@@ -218,6 +218,7 @@ Inspector.prototype = {
     this.cameraHelper.visible = entity === this.currentCameraEl;
 
   },
+
   initEvents: function () {
     window.addEventListener('keydown', evt => {
       // Alt + Ctrl + i: Shorcut to toggle the inspector
@@ -261,6 +262,7 @@ Inspector.prototype = {
       });
     });
   },
+
   selectById: function (id) {
     if (id === this.camera.id) {
       this.select(this.camera);
@@ -268,17 +270,21 @@ Inspector.prototype = {
     }
     this.select(this.scene.getObjectById(id, true));
   },
-  // Change to select object
-  select: function (object) {
-    if (this.selected === object) {
-      return;
-    }
-    this.selected = object;
+
+  /**
+   * Change to select object.
+   */
+  select: function (object3D) {
+    if (this.selected === object3D) { return; }
+    this.selected = object3D;
+    if (object3D) { this.bboxHelper.setFromObject(object3D); }
     Events.emit('objectselected', object);
   },
+
   deselect: function () {
     this.select(null);
   },
+
   /**
    * Reset the current scene, removing its content.
    */
@@ -288,6 +294,7 @@ Inspector.prototype = {
     AFRAME.scenes[0].innerHTML = '';
     Events.emit('inspectorcleared');
   },
+
   /**
    * Helper function to add a new entity with a list of components
    * @param  {object} definition Entity definition to add:
@@ -311,10 +318,12 @@ Inspector.prototype = {
 
     return entity;
   },
+
   addEntity: function (entity) {
     this.addObject(entity.object3D);
     this.selectEntity(entity);
   },
+
   /**
    * Toggle the editor
    */
@@ -325,6 +334,7 @@ Inspector.prototype = {
       this.open();
     }
   },
+
   /**
    * Open the editor UI
    */
@@ -348,6 +358,7 @@ Inspector.prototype = {
     this.sceneEl.resize();
     Shortcuts.enable();
   },
+
   /**
    * Closes the editor and gives the control back to the scene
    * @return {[type]} [description]
@@ -364,11 +375,12 @@ Inspector.prototype = {
     this.sceneEl.resize();
     Shortcuts.disable();
   },
+
   addObject: function (object) {
-    var scope = this;
+    const self = this;
     object.traverse(child => {
       if (!child.el || !child.el.isInspector) {
-        scope.addHelper(child, object);
+        self.addHelper(child, object);
       }
     });
 
@@ -377,9 +389,8 @@ Inspector.prototype = {
   }
 };
 
-var inspector = new Inspector();
+const inspector = new Inspector();
 AFRAME.INSPECTOR = inspector;
 
-var Modules = require('./modules/index.js'); // eslint-disable-line no-unused-vars
-
+const Modules = require('./modules/index.js');  // eslint-disable-line no-unused-vars
 module.exports = inspector;
