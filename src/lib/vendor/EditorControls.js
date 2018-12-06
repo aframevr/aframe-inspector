@@ -44,7 +44,7 @@ THREE.EditorControls = function ( object, domElement ) {
 
 		box.setFromObject( target );
 
-		if ( box.isEmpty() === false ) {
+		if ( box.isEmpty() === false && !isNaN(box.min.x) ) {
 
 			box.getCenter( center );
 			distance = box.getBoundingSphere( sphere ).radius;

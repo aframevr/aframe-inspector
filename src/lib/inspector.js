@@ -7,7 +7,6 @@ var Shortcuts = require('./shortcuts.js');
 import {GLTFExporter} from './vendor/GLTFExporter';  // eslint-disable-line no-unused-vars
 
 function Inspector () {
-  this.bboxHelper = new THREE.BoxHelper(new THREE.Object3D(), 0xFAFAFA);
   this.exporters = {gltf: new THREE.GLTFExporter()};
   this.modules = {};
   this.on = Events.on;
@@ -94,14 +93,13 @@ Inspector.prototype = {
 
     setTimeout(() => {
       window.dispatchEvent(new Event('inspector-loaded'));
-    });
+    }, 50);
 
     this.scene = this.sceneEl.object3D;
     this.helpers = {};
     this.sceneHelpers = new THREE.Scene();
     this.sceneHelpers.userData.source = 'INSPECTOR';
     this.sceneHelpers.visible = true; // false;
-    this.sceneHelpers.add(this.bboxHelper);
     this.inspectorActive = false;
 
     this.viewport = new Viewport(this);
