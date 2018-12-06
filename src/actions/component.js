@@ -39,34 +39,6 @@ export function getClipboardRepresentation (entity, componentName) {
   return `${componentName}="${attributes}"`;
 }
 
-/**
- * Get the component docs link
- * @param  {string} componentName Component's name
- * @return {string}               URL to the documentation
- */
-export function getComponentDocsUrl (componentName) {
-  if (AFRAME.components[componentName]) {
-    // Returns link from the core components
-    return 'https://aframe.io/docs/' + getMajorVersion(AFRAME.version) + '/components/' +
-      (componentName === 'camera' ? '' : componentName.toLowerCase() + '.html');
-  }
-}
-
-/**
- * Get component documentation html link
- * @param  {string} componentName Component's name
- * @return {string}               Html icon link to the documentation
- */
-export function getComponentDocsHtmlLink (componentName) {
-  let url = getComponentDocsUrl(componentName);
-  if (url) {
-    return <a title='Help' className='button help-link fa fa-question-circle'
-      target='_blank' onClick={event => event.stopPropagation()}
-      href={url}></a>;
-  }
-  return '';
-}
-
 function isEmpty (string) {
   return string === null || string === '';
 }

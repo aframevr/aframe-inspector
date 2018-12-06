@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import PropertyRow from './PropertyRow';
 import Collapsible from '../Collapsible';
 import Clipboard from 'clipboard';
-import {getClipboardRepresentation, getComponentDocsHtmlLink} from '../../actions/component';
+import {getClipboardRepresentation} from '../../actions/component';
 import Events from '../../lib/Events';
 
 const isSingleProperty = AFRAME.schema.isSingleProperty;
@@ -98,19 +98,17 @@ export default class Component extends React.Component {
       componentName = componentName.substr(0, componentName.indexOf('__'));
     }
 
-    const componentHelp = getComponentDocsHtmlLink(componentName.toLowerCase());
-
     return (
       <Collapsible collapsed={true}>
         <div className='collapsible-header'>
           <span className='component-title' title={subComponentName || componentName}>
-            <span>{subComponentName || componentName}</span> {componentHelp}
+            <span>{subComponentName || componentName}</span>
           </span>
           <div>
             <a title='Copy to clipboard' data-action='copy-component-to-clipboard'
               data-component={subComponentName || componentName}
               className='flat-button' onClick={event => event.stopPropagation()}>
-              Copy Attributes
+              Copy
             </a>
             <a title='Remove component' className='flat-button'
               onClick={this.removeComponent}>Remove</a>
