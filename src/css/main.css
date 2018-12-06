@@ -658,6 +658,7 @@ a.button:hover {
 span.value {
   color: #fff;
   display: flex;
+  max-width: 150px;
 }
 
 span.mixinlist {

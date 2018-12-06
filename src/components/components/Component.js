@@ -101,7 +101,7 @@ export default class Component extends React.Component {
     const componentHelp = getComponentDocsHtmlLink(componentName.toLowerCase());
 
     return (
-      <Collapsible>
+      <Collapsible collapsed={true}>
         <div className='collapsible-header'>
           <span className='component-title' title={subComponentName || componentName}>
             <span>{subComponentName || componentName}</span> {componentHelp}
