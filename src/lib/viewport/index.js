@@ -232,6 +232,7 @@ function Viewport (inspector) {
   // controls need to be added *after* main logic,
   // otherwise controls.enabled doesn't work.
   var controls = new THREE.EditorControls(camera, inspector.container);
+  controls.center.set(0, 1.6, 0);
 
   function disableControls () {
     inspector.container.removeEventListener('mousedown', onMouseDown);
