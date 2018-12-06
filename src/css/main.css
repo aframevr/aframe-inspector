@@ -239,6 +239,7 @@ select {
 }
 
 .row {
+  display: flex;
   margin-bottom: 10px;
   min-height: 20px;
 }
@@ -656,7 +657,7 @@ a.button:hover {
 
 span.value {
   color: #fff;
-  display: inline-block;
+  display: flex;
 }
 
 span.mixinlist {
