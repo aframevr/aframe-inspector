@@ -1051,7 +1051,7 @@ span.entity-name {
   color: #fff;
 }
 
-.outliner .collasespace {
+.outliner .collapsespace {
   color: #eee;
   display: inline-block;
   text-align: center;
@@ -1073,7 +1073,7 @@ span.entity-name {
 
 .outliner .option.novisible span,
 .outliner .option.novisible .fa,
-.outliner .option.novisible .collasespace,
+.outliner .option.novisible .collapsespace,
 .outliner .option.novisible .id {
   color: #575757;
 }
