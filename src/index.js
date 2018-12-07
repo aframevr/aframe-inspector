@@ -2,10 +2,8 @@
 require('./lib/vendor/ga');
 
 var Events = require('./lib/Events');
-var Viewport = require('./lib/viewport/index');
-var ComponentLoader = require('./lib/componentloader');
+var Viewport = require('./lib/viewport');
 var AssetsLoader = require('./lib/assetsLoader');
-var ShaderLoader = require('./lib/shaderloader');
 var Shortcuts = require('./lib/shortcuts');
 
 import React from 'react';
@@ -36,8 +34,6 @@ Inspector.prototype = {
    */
   onDomLoaded: function () {
     this.assetsLoader = new AssetsLoader();
-    this.componentLoader = new ComponentLoader();
-    this.shaderLoader = new ShaderLoader();
 
     this.sceneEl = AFRAME.scenes[0];
     if (this.sceneEl.hasLoaded) {

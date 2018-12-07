@@ -2,12 +2,12 @@
 import debounce from 'lodash.debounce';
 
 /* eslint-disable no-unused-vars */
-import TransformControls from '../vendor/TransformControls.js';
-import EditorControls from '../vendor/EditorControls.js';
+import TransformControls from './vendor/TransformControls.js';
+import EditorControls from './EditorControls.js';
 /* eslint-disable no-unused-vars */
 
-import {getNumber} from '../utils';
-var Events = require('../Events');
+import {getNumber} from './utils';
+var Events = require('./Events');
 
 function Viewport (inspector) {
   var container = {dom: inspector.container};
