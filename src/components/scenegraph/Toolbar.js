@@ -1,4 +1,3 @@
-var INSPECTOR = require('../../lib/inspector.js');
 import React from 'react';
 import Events from '../../lib/Events.js';
 import {saveBlob, saveString} from '../../lib/utils';
@@ -32,7 +31,7 @@ export default class Toolbar extends React.Component {
     const sceneName = getSceneName(AFRAME.scenes[0]);
     const scene = AFRAME.scenes[0].object3D;
     filterHelpers(scene, false);
-    INSPECTOR.exporters.gltf.parse(scene, function (buffer) {
+    AFRAME.INSPECTOR.exporters.gltf.parse(scene, function (buffer) {
       filterHelpers(scene, true);
       const blob = new Blob([buffer], {type: 'application/octet-stream'});
       saveBlob(blob, sceneName + '.glb');

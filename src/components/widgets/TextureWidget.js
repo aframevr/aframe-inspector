@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import INSPECTOR from '../../lib/inspector';
 
 var Events = require('../../lib/Events.js');
 
@@ -119,9 +118,9 @@ export default class TextureWidget extends React.Component {
     }
 
     function getTextureFromSrc (src) {
-      for (var hash in INSPECTOR.sceneEl.systems.material.textureCache) {
+      for (var hash in AFRAME.INSPECTOR.sceneEl.systems.material.textureCache) {
         if (JSON.parse(hash).src === src) {
-          return INSPECTOR.sceneEl.systems.material.textureCache[hash];
+          return AFRAME.INSPECTOR.sceneEl.systems.material.textureCache[hash];
         }
       }
       return null;

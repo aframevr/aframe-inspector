@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Events from '../../lib/Events';
-var INSPECTOR = require('../../lib/inspector.js');
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 

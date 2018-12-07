@@ -1,10 +1,20 @@
-var Events = require('./Events');
-var Viewport = require('./viewport/index.js');
-var ComponentLoader = require('./componentloader.js');
-var AssetsLoader = require('./assetsLoader.js');
-var ShaderLoader = require('./shaderloader.js');
-var Shortcuts = require('./shortcuts.js');
-import {GLTFExporter} from './vendor/GLTFExporter';  // eslint-disable-line no-unused-vars
+/* global VERSION BUILD_TIMESTAMP COMMIT_HASH webFont */
+require('./lib/vendor/ga');
+
+var Events = require('./lib/Events');
+var Viewport = require('./lib/viewport/index');
+var ComponentLoader = require('./lib/componentloader');
+var AssetsLoader = require('./lib/assetsLoader');
+var ShaderLoader = require('./lib/shaderloader');
+var Shortcuts = require('./lib/shortcuts');
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Main from './components/Main';
+import {injectCSS, injectJS} from './lib/utils';
+import {GLTFExporter} from './lib/vendor/GLTFExporter';  // eslint-disable-line no-unused-vars
+
+import './css/main.css';
 
 function Inspector () {
   this.exporters = {gltf: new THREE.GLTFExporter()};
@@ -91,9 +101,22 @@ Inspector.prototype = {
 
     this.selected = null;
 
-    setTimeout(() => {
-      window.dispatchEvent(new Event('inspector-loaded'));
-    }, 50);
+    // Some Web font thing.
+    injectJS('https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js', () => {
+      const webFontLoader = document.createElement('script');
+      webFontLoader.setAttribute('data-aframe-inspector', 'webfont');
+      webFontLoader.innerHTML = 'WebFont.load({google: {families: ["Roboto", "Roboto Mono"]}});';
+      document.head.appendChild(webFontLoader);
+    }, () => {
+      console.warn('Could not load WebFont script:', webFont.src);
+    });
+
+    // Init React.
+    const div = document.createElement('div');
+    div.id = 'aframe-inspector';
+    div.setAttribute('data-aframe-inspector', 'app');
+    document.body.appendChild(div);
+    ReactDOM.render(<Main/>, div);
 
     this.scene = this.sceneEl.object3D;
     this.helpers = {};
@@ -384,6 +407,4 @@ Inspector.prototype = {
 
 const inspector = new Inspector();
 AFRAME.INSPECTOR = inspector;
-
-const Modules = require('./modules/index.js');  // eslint-disable-line no-unused-vars
-module.exports = inspector;
+const Modules = require('./lib/modules/index.js');  // eslint-disable-line no-unused-vars

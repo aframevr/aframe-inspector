@@ -1,9 +1,4 @@
-/* global VERSION BUILD_TIMESTAMP COMMIT_HASH webFont */
-require('../lib/vendor/ga');
-const INSPECTOR = require('../lib/inspector.js');
-
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 THREE.ImageUtils.crossOrigin = '';
 
@@ -13,9 +8,7 @@ import ModalTextures from './modals/ModalTextures';
 import ModalHelp from './modals/ModalHelp';
 import SceneGraph from './scenegraph/SceneGraph';
 import ToolBar from './ToolBar';
-import {injectCSS, injectJS} from '../lib/utils';
-
-import '../css/main.css';
+import {injectCSS} from '../lib/utils';
 
 // Megahack to include font-awesome.
 injectCSS('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
@@ -166,23 +159,3 @@ export default class Main extends React.Component {
     );
   }
 }
-
-(function init () {
-  injectJS('https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js', function () {
-    var webFontLoader = document.createElement('script');
-    webFontLoader.setAttribute('data-aframe-inspector', 'webfont');
-    webFontLoader.innerHTML = 'WebFont.load({google: {families: ["Roboto", "Roboto Mono"]}});';
-    document.head.appendChild(webFontLoader);
-  }, function () {
-    console.warn('Could not load WebFont script:', webFont.src); // webFont or webFontLoader?
-  });
-
-  var div = document.createElement('div');
-  div.id = 'aframe-inspector';
-  div.setAttribute('data-aframe-inspector', 'app');
-  document.body.appendChild(div);
-  window.addEventListener('inspector-loaded', function () {
-    ReactDOM.render(<Main/>, div);
-  });
-  console.log('A-Frame Inspector Version:', VERSION, '(' + BUILD_TIMESTAMP + ' Commit: ' + COMMIT_HASH.substr(0, 7) + ')');
-})();

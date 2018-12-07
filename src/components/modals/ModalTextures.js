@@ -5,7 +5,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from './Modal';
 var insertNewAsset = require('../../lib/assetsUtils').insertNewAsset;
-import INSPECTOR from '../../lib/inspector.js';
 import initUploadCare from '../../lib/uploadcare';
 
 function getFilename (url, converted = false) {
@@ -118,7 +117,7 @@ export default class ModalTextures extends React.Component {
 
   generateFromRegistry = () => {
     var self = this;
-    INSPECTOR.assetsLoader.images.forEach((imageData) => {
+    AFRAME.INSPECTOR.assetsLoader.images.forEach((imageData) => {
       var image = new Image();
       image.addEventListener('load', () => {
         self.state.registryImages.push({
