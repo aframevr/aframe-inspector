@@ -40,7 +40,7 @@ export default class NumberWidget extends React.Component {
   }
 
   onMouseMove = event => {
-    const currentValue = parseFloat(this.value);
+    const currentValue = parseFloat(this.state.value);
     const pointer = [event.clientX, event.clientY];
     const delta = (pointer[0] - this.prevPointer[0]) - (pointer[1] - this.prevPointer[1]);
     this.distance += delta;
@@ -121,9 +121,36 @@ export default class NumberWidget extends React.Component {
 
   onKeyDown = event => {
     event.stopPropagation();
+
+    // enter.
     if (event.keyCode === 13) {
       this.setValue(parseFloat(this.refs.input.value));
       this.refs.input.blur();
+      return;
+    }
+
+    // up.
+    if (event.keyCode === 38) {
+      this.setValue(parseFloat(this.state.value) + 0.01);
+      return;
+    }
+
+    // down.
+    if (event.keyCode === 40) {
+      this.setValue(parseFloat(this.state.value) - 0.01);
+      return;
+    }
+
+    // left.
+    if (event.keyCode === 37) {
+      this.setValue(parseFloat(this.state.value) - 0.1);
+      return;
+    }
+
+    // right.
+    if (event.keyCode === 39) {
+      this.setValue(parseFloat(this.state.value) + 0.1);
+      return;
     }
   }
 
