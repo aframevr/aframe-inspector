@@ -1,3 +1,5 @@
+import debounce from 'lodash.debounce';
+
 THREE.Box3.prototype.expandByObject = (function () {
   // Computes the world-axis-aligned bounding box of an object (including its children),
   // accounting for both the object's, and children's, world transforms
@@ -103,6 +105,10 @@ THREE.EditorControls = function ( object, domElement ) {
 
 	var changeEvent = { type: 'change' };
 
+  this.dispatchChange = debounce(() => {
+    scope.dispatchEvent(changeEvent);
+  }, 100);
+
 	this.focus = function ( target ) {
 
 		var distance;
@@ -143,7 +149,7 @@ THREE.EditorControls = function ( object, domElement ) {
 		object.position.add( delta );
 		center.add( delta );
 
-		scope.dispatchEvent( changeEvent );
+		scope.dispatchChange();
 
 	};
 
@@ -159,7 +165,7 @@ THREE.EditorControls = function ( object, domElement ) {
 
 		object.position.add( delta );
 
-		scope.dispatchEvent( changeEvent );
+		scope.dispatchChange();
 
 	};
 
@@ -180,7 +186,7 @@ THREE.EditorControls = function ( object, domElement ) {
 
 		object.lookAt( center );
 
-		scope.dispatchEvent( changeEvent );
+		scope.dispatchChange();
 
 	};
 
