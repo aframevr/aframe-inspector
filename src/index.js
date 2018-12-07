@@ -50,14 +50,6 @@ Inspector.prototype = {
     var self = this;
     this.container = document.querySelector('.a-canvas');
 
-    // Wait for camera if necessary.
-    if (!AFRAME.scenes[0].camera) {
-      AFRAME.scenes[0].addEventListener('camera-set-active', () => {
-        self.onSceneLoaded();
-      }, {once: true});
-      return;
-    }
-
     this.currentCameraEl = AFRAME.scenes[0].camera.el;
     this.currentCameraEl.setAttribute('data-aframe-inspector-original-camera', '');
 
