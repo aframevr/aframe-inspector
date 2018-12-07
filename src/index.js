@@ -370,7 +370,7 @@ Inspector.prototype = {
     if (focusEl) {
       setTimeout(() => {
         this.selectEntity(focusEl);
-        // Events.emit('objectfocus', focusEl.object3D);
+        Events.emit('objectfocus', focusEl.object3D);
       }, 1000);
     }
   },

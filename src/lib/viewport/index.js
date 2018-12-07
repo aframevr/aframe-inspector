@@ -54,7 +54,7 @@ function Viewport (inspector) {
   }
 
   const transformControls = new THREE.TransformControls(camera, inspector.container);
-  transformControls.addEventListener('change', () => {
+  transformControls.addEventListener('objectChange', () => {
     const object = transformControls.object;
     if (object === undefined) { return; }
 
@@ -245,10 +245,6 @@ function Viewport (inspector) {
   }
   enableControls();
 
-  controls.addEventListener('change', () => {
-    transformControls.update();
-  });
-
   Events.on('inspectorcleared', () => {
     controls.center.set(0, 0, 0);
   });
@@ -300,7 +296,9 @@ function Viewport (inspector) {
   Events.on('objectchanged', object => {
     if (inspector.selected === object) {
       // Hack because object3D always has geometry :(
-      if (object.geometry && object.geometry.vertices && object.geometry.vertices.length > 0) {
+      if (object.geometry &&
+          ((object.geometry.vertices && object.geometry.vertices.length > 0) ||
+           (object.geometry.attributes && object.geometry.attributes.position && object.geometry.attributes.position.array.length))) {
         selectionBox.setFromObject(object).update();
       }
     }

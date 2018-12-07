@@ -296,7 +296,7 @@ export default class SceneGraph extends React.Component {
             onClick={() => this.setValue(option.value)}>
             <span>
               {visibility} {pad} {collapse}&lt;
-              <span onDoubleClick={() => Events.emit('objectfocused', entity.object3D)}>
+              <span onDoubleClick={() => Events.emit('objectfocus', entity.object3D)}>
                 {option.tagName}<span className="name">{entityName ? ` ${entityName}` : ''}</span>
               </span>
               <span dangerouslySetInnerHTML={{__html: option.extra}}></span>&gt;
