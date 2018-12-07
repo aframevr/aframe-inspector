@@ -9,9 +9,9 @@ const Events = require('../../lib/Events.js');
 
 const ICONS = {
   camera: 'fa-camera',
-  geometry: 'fa-cube',
+  mesh: 'fa-cube',
   light: 'fa-lightbulb-o',
-  material: 'fa-picture-o'
+  text: 'fa-font'
 };
 
 const gaTrackSearchEntity = debounce(() => {
@@ -99,26 +99,13 @@ export default class SceneGraph extends React.Component {
       for (let i = 0; i < children.length; i++) {
         let child = children[i];
 
-        // filter out all entities added by inspector and the canvas added by aframe-core
         if (!child.dataset.isInspector && child.isEntity && !child.isInspector) {
           let extra = '';
 
-          for (let componentName in ICONS) {
-            if (child.components && child.components[componentName]) {
-              let properties = child.getAttribute(componentName);
-              if (!properties) { continue; }
-              const titles = Object.keys(properties)
-                .sort()
-                .map(property => {
-                  return ' - ' + property + ': ' + properties[property];
-                });
-              let componentTitle = componentName + (titles.length ? '\n' + titles.join('\n') : '');
-              extra += ' <i class="component fa ' + ICONS[componentName] + '" title="' + componentTitle + '"></i>';
-            }
+          for (let objType in ICONS) {
+            if (!child.getObject3D(objType)) { continue; }
+            extra += '&nbsp;<i class="component fa ' + ICONS[objType] + '" title="' + objType + '"></i>';
           }
-
-          const pad = '&nbsp;&nbsp;&nbsp;'.repeat(depth);
-          const label = child.id ? child.id : '&lt;' + child.tagName.toLowerCase() + '&gt;';
 
           options.push({
             static: true,
@@ -289,6 +276,9 @@ export default class SceneGraph extends React.Component {
         let entityName = option.id;
         if (!entity.isScene && !entityName && entity.getAttribute('class')) {
           entityName = entity.getAttribute('class').split(' ')[0];
+        }
+        if (!entity.isScene && !entityName && entity.getAttribute('mixin')) {
+          entityName = entity.getAttribute('mixin').split(' ')[0];
         }
 
         return (
