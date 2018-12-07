@@ -131,55 +131,45 @@ input
   border-top 1px solid #111
   padding-top 32px
 
-
-.scenegraph .search
-  padding 5px
-
+  .search
+    padding 5px
 
 .scenegraph-toolbar
   background-color #333
 
-
 .scenegraph-actions
   padding 9px 0 5px
-
 
 .search
   color #aaa
   font-size 16px
   position relative
 
+  input
+    background #222
+    border-radius 5px
+    height 22px
+    text-indent 10px
+    width 216px
 
-.search input
-  background #222
-  border-radius 5px
-  height 22px
-  text-indent 10px
-  width 216px
+  .fa-search
+    position absolute
+    right 11px
+    top 10px
 
-
-.search .fa-search
-  position absolute
-  right 11px
-  top 10px
-
-
-.search .fa-times
-  position absolute
-  right 32px
-  top 10px
-
+  .fa-times
+    position absolute
+    right 32px
+    top 10px
 
 input
   background-color transparent
   border 1px solid #555
   color #fff
 
-
 input,
 .texture canvas
   transition 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out
-
 
 input[type=text],
 input[type=number],
@@ -773,45 +763,50 @@ span.subcomponent
   width 230px
 
 
-.outliner .option
+.scenegraph .entity
+  background #2b2b2b
+  cursor pointer
   display flex
   justify-content space-between
   padding 4px
   white-space nowrap
+  transition background .1s
+  &:hover
+    background #444
 
 
-.outliner .option.active
+.scenegraph .entity.active
   background-color #1faaf2
   color #fff
 
 
-.outliner .option .componenthover
+.scenegraph .entity .componenthover
   color #1faaf2
 
 
-.outliner .option.active .componenthover
+.scenegraph .entity.active .componenthover
   color #1888c1
 
 
-.outliner .option .icons
+.scenegraph .entity .icons
   display none
   margin 0 3px 0 10px
 
 
-.outliner .option .icons .button
+.scenegraph .entity .icons .button
   color #fff
   font-size 12px
 
 
-.outliner .option.active .icons
+.scenegraph .entity.active .icons
   display inline
 
 
-.outliner .fa
+.scenegraph .fa
   color #aaa
 
 
-.outliner .active .fa
+.scenegraph .active .fa
   color #fff
 
 
@@ -1044,26 +1039,26 @@ span.entity-name
   position fixed
 
 
-.outliner .id
+.scenegraph .id
   color #ccc
 
 
-.outliner .option.active .id
+.scenegraph .option.active .id
   color #fff
 
 
-.outliner .collapsespace
+.scenegraph .collapsespace
   color #eee
   display inline-block
   text-align center
   width 14px
 
 
-.outliner .fa-eye
+.scenegraph .fa-eye
   color #bbb
 
 
-.outliner .option
+.scenegraph .option
   white-space pre
 
 
@@ -1072,14 +1067,14 @@ span.entity-name
   text-overflow ellipsis
 
 
-.outliner .option.novisible span,
-.outliner .option.novisible .fa,
-.outliner .option.novisible .collapsespace,
-.outliner .option.novisible .id
+.scenegraph .option.novisible span,
+.scenegraph .option.novisible .fa,
+.scenegraph .option.novisible .collapsespace,
+.scenegraph .option.novisible .id
   color #575757
 
 
-.outliner .option .icons a.button
+.scenegraph .option .icons a.button
   color #fff
 
 

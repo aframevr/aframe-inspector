@@ -269,6 +269,7 @@ export default class SceneGraph extends React.Component {
 
         const className = classnames({
           option: true,
+          entity: true,
           active: option.value === this.state.value,
           novisible: !visible
         });
