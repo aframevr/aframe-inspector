@@ -129,11 +129,8 @@ THREE.EditorControls = function ( object, domElement ) {
 
 		}
 
-		delta.set( 0, 0, 1 );
-		delta.applyQuaternion( object.quaternion );
-		delta.multiplyScalar( distance * 2 );
-
-		object.position.copy( center ).add( delta );
+    object.position.copy(target.localToWorld(new THREE.Vector3(0, 0, distance * 2)));
+    object.lookAt(target.getWorldPosition(new THREE.Vector3()));
 
 		scope.dispatchEvent( changeEvent );
 
