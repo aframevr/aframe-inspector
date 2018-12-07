@@ -19,22 +19,15 @@ function Inspector () {
   this.modules = {};
   this.on = Events.on;
   this.opened = false;
-
-  // Detect if the scene is already loaded.
-  if (document.readyState === 'complete' || document.readyState === 'loaded') {
-    this.onDomLoaded();
-  } else {
-    document.addEventListener('DOMContentLoaded', this.onDomLoaded.bind(this));
-  }
+  this.init();
 }
 
 Inspector.prototype = {
   /**
    * Callback once the DOM is completely loaded so we could query the scene.
    */
-  onDomLoaded: function () {
+  init: function () {
     this.assetsLoader = new AssetsLoader();
-
     this.sceneEl = AFRAME.scenes[0];
     if (this.sceneEl.hasLoaded) {
       this.onSceneLoaded();
