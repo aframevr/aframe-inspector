@@ -12,7 +12,7 @@ import Main from './components/Main';
 import {injectCSS, injectJS} from './lib/utils';
 import {GLTFExporter} from './lib/vendor/GLTFExporter';  // eslint-disable-line no-unused-vars
 
-import './css/main.css';
+require('./index.styl');
 
 function Inspector () {
   this.exporters = {gltf: new THREE.GLTFExporter()};
@@ -101,7 +101,7 @@ Inspector.prototype = {
 
     // Init React.
     const div = document.createElement('div');
-    div.id = 'aframe-inspector';
+    div.id = 'aframeInspector';
     div.setAttribute('data-aframe-inspector', 'app');
     document.body.appendChild(div);
     ReactDOM.render(<Main/>, div);

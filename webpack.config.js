@@ -1,6 +1,6 @@
-var path = require('path');
-var childProcess = require('child_process');
 var autoprefixer = require('autoprefixer');
+var childProcess = require('child_process');
+var path = require('path');
 var postcssImport = require('postcss-import');
 var webpack = require('webpack');
 
@@ -67,27 +67,39 @@ module.exports = {
     publicPath: '/dist/'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js?$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel',
-        query: {
-          plugins: ['transform-class-properties'],
-          presets: ['es2015', 'react']
-        }
+        loader: 'babel-loader'
       },
       {
         test: /\.css$/,
-        loader:'style!css!postcss'
+        loader:'style-loader!css-loader!postcss-loader'
+      },
+      {
+        test: /\.styl$/,
+        exclude: /(node_modules)/,
+        loaders: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {url: false}
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: (loader) => [require('autoprefixer')()]
+            }
+          },
+          'stylus-loader'
+        ]
       }
     ]
   },
   plugins: plugins,
-  postcss: function (webpack) {
-    return [
-      postcssImport({addDependencyTo: webpack}),  // postcss/postcss-loader/issues/8
-      autoprefixer
-    ];
+  resolve: {
+    modules: [path.join(__dirname, 'node_modules')]
   }
 };

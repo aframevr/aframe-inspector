@@ -1,0 +1,1161 @@
+body.aframe-inspector-opened,
+.toggle-edit
+  font-family BlinkMacSystemFont, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif
+
+
+.wf-roboto-n4-active body.aframe-inspector-opened,
+.wf-roboto-n4-active .toggle-edit
+  font-family Roboto, BlinkMacSystemFont, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif
+
+
+.Select,
+code,
+pre,
+input,
+textarea,
+select
+  font-family Consolas, Andale Mono, Monaco, Courier New, monospace
+
+
+.wf-robotomono-n4-active .Select,
+.wf-robotomono-n4-active code,
+.wf-robotomono-n4-active pre,
+.wf-robotomono-n4-active input,
+.wf-robotomono-n4-active textarea,
+.wf-robotomono-n4-active select
+  font-family Roboto Mono, Consolas, Andale Mono, Monaco, Courier New, monospace
+
+
+body.aframe-inspector-opened
+  color #fff
+  font-size 12px
+  margin 0
+  overflow hidden
+
+
+hr
+  border 0
+  border-top 1px solid #ccc
+
+
+a
+  cursor pointer
+
+
+button
+  position relative
+
+
+code
+  font-family Consolas, Andale Mono, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace
+
+
+textarea
+  tab-size 4
+  white-space pre
+  word-wrap normal
+
+
+textarea.success
+  border-color #8b8 !important
+
+
+textarea.fail
+  background-color rgba(255, 0, 0, 0.05)
+  border-color #f00 !important
+
+
+textarea,
+input
+  outline none /* osx */
+
+
+#left-sidebar,
+#right-panels
+  z-index 9998
+
+
+#sidebar,
+#left-sidebar,
+.panel
+  cursor default
+  user-select none
+
+
+.collapsible .static
+  margin 0
+
+
+.collapsible .static .collapse-button
+  border 6px solid transparent
+  float left
+  height 0
+  margin-right 6px
+  width 0
+
+
+.collapsible.collapsed .static .collapse-button
+  border-left-color #1faaf2
+  margin-top 2px
+
+
+.collapsiblenot(.collapsed) .static .collapse-button
+  border-top-color #1faaf2
+  margin-top 6px
+
+
+.collapsible.collapsed .content
+  display none
+
+
+.toggle-edit
+  background-color #ed3160
+  color #fff
+  font-size 12px
+  left 3px
+  margin 0
+  padding 6px 10px
+  position fixed
+  text-align center
+  text-decoration none
+  top 3px
+  width 204px
+  z-index 99999
+
+
+.toggle-edithover
+  background-color rgb(228, 43, 90)
+
+
+.scenegraph
+  border-top 1px solid #111
+  padding-top 32px
+
+
+.scenegraph .search
+  padding 5px
+
+
+.scenegraph-toolbar
+  background-color #333
+
+
+.scenegraph-actions
+  padding 9px 0 5px
+
+
+.search
+  color #aaa
+  font-size 16px
+  position relative
+
+
+.search input
+  background #222
+  border-radius 5px
+  height 22px
+  text-indent 10px
+  width 216px
+
+
+.search .fa-search
+  position absolute
+  right 11px
+  top 10px
+
+
+.search .fa-times
+  position absolute
+  right 32px
+  top 10px
+
+
+input
+  background-color transparent
+  border 1px solid #555
+  color #fff
+
+
+input,
+.texture canvas
+  transition 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out
+
+
+input[type=text],
+input[type=number],
+input.string,
+input.number
+  min-height 14px
+  outline none
+
+
+input.number
+  background-color transparent !important
+  border 0
+  color #20b1fb !important
+  cursor col-resize
+  font-size 12px
+  padding 2px
+
+
+input.stringfocus,
+input.numberfocus
+  border 1px solid #20b1fb
+  color #fff
+  cursor auto
+
+
+input.error
+  border 1px solid #a00
+
+
+#left-sidebar
+  background #2b2b2b
+  bottom 0
+  display flex
+  flex-direction column
+  left 0
+  overflow auto
+  position fixed
+  top 0
+  width 230px
+
+
+#sidebar
+  background #2b2b2b
+  width 331px
+
+
+#sidebar *
+  vertical-align middle
+
+
+input,
+textarea,
+select
+  background #222
+  border 1px solid transparent
+  color #888
+
+
+.row
+  display flex
+  margin-bottom 10px
+  min-height 20px
+
+
+input[type=color]
+  background-color #333
+  border 1px solid #111
+  cursor pointer
+
+
+.texture canvas
+  border 1px solid #222
+  cursor pointer
+
+
+.texture canvashover
+  border-color #1faaf2
+
+
+input[type=color]
+  cursor pointer
+  height 16px
+  padding 0
+  width 64px
+
+
+/* Note these vendor-prefixed selectors cannot be grouped! */
+input[type=color]-webkit-color-swatch
+  border 0  /* To remove the gray border. */
+
+
+input[type=color]-webkit-color-swatch-wrapper
+  padding 0  /* To remove the inner padding. */
+
+
+input[type=color]-moz-color-swatch
+  border 0
+
+
+input[type=color]-moz-focus-inner
+  border 0  /* To remove the inner border (specific to Firefox). */
+  padding 0
+
+
+.components
+  background-color #323232
+  color #bcbcbc
+  height 100%
+  overflow auto
+  position fixed
+  width 331px
+
+
+div.vec2,
+div.vec3,
+div.vec4
+  display inline
+
+
+.vec2 input.number,
+.vec3 input.number
+  width 46px
+
+
+.vec4 input.number
+  width 34px
+
+
+.collapsible-header
+  display flex
+  justify-content space-between
+
+
+.componentTitle span
+  max-width 200px
+  overflow hidden
+  text-overflow ellipsis
+  text-transform uppercase
+  white-space nowrap
+
+
+.collapsible .static
+  background-color #323232
+  border-bottom 1px solid #262626
+  border-top 1px solid #262626
+  color #fff
+  height 16px
+  padding 10px
+  vertical-align middle
+
+
+.collapsible .menu
+  text-align right
+
+
+.collapsible .menuafter
+  color #bbb
+  content '\2807'
+  font-size 12px
+  padding 5px
+  text-align right
+
+
+.collapsible .static .collapse-button
+  border-left 5px solid transparent
+  border-right 5px solid transparent
+  float left
+  height 0
+  margin-right 10px
+  margin-top 2px
+  width 0
+
+
+.collapsible.collapsed .static .collapse-button
+  border-left-color #bbb
+
+
+.collapsiblenot(.collapsed) .static .collapse-button
+  border-top-color #bbb
+
+
+.collapsible .content
+  background-color #2b2b2b
+  padding 10px
+
+
+.components .row
+  margin-bottom 10px
+  min-height 20px
+
+
+.components *
+  vertical-align middle
+
+
+.components .row .text
+  cursor default
+  display inline-block
+  overflow hidden
+  text-overflow ellipsis
+  vertical-align middle
+  width 120px
+
+
+.components .row .map_value
+  margin 0 0 0 5px
+  width 68px
+
+
+.hidden
+  visibility hidden
+
+
+.uploader-normal-button .hidden
+  display none
+
+
+.texture canvas + input
+  margin-left 5px
+
+
+.texture .fa
+  padding-right 5px
+
+
+.texture .fa-external-link
+  font-size 14px
+  padding-top 2px
+
+
+.scenegraph-bottom
+  background-color #323232
+  border-top 1px solid #111
+  bottom 10
+  height 40px
+  left 0
+  z-index 100
+
+
+a.button
+  color #bcbcbc
+  font-size 16px
+  margin-left 10px
+  text-decoration none
+
+
+a.buttonhover
+  color #1faaf2
+
+
+.scenegraph-bottom a
+  float right
+  margin 10px
+
+
+.modal
+  animation animateopacity 0.2s ease-out
+  background-color rgb(0, 0, 0)
+  background-color rgba(0, 0, 0, 0.6)
+  display flex
+  height 100%
+  left 0
+  overflow auto
+  position fixed
+  top 0
+  width 100%
+  z-index 9999
+
+
+.modal h3
+  font-size 18px
+  font-weight 100
+  margin 0.6em 0
+
+
+#texture-modal .modal-content
+  height calc(100% - 50px)
+  width calc(100% - 50px)
+
+
+.modal-content
+  animation animatetop 0.2s ease-out
+  animation-duration 0.2s
+  animation-name animatetop
+  background-color #232323
+  box-shadow 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5)
+  margin auto
+  overflow hidden
+  padding 0
+
+
+@keyframes animateopacity
+  from { opacity: 0 }
+  to { opacity: 1 }
+
+
+.close
+  color white
+  float right
+  font-size 28px
+  font-weight bold
+
+
+.closehover,
+.closefocus
+  color #08f
+  cursor pointer
+  text-decoration none
+
+
+.modal-header
+  color white
+  padding 2px 16px
+
+
+.modal-body
+  overflow auto
+  padding 16px
+
+
+.modal-footer
+  color white
+  padding 2px 16px
+
+
+/* Gallery */
+.gallery
+  background #232323
+  display flex
+  flex-wrap wrap
+  margin 15px auto 0
+  max-height 50vh
+  overflow auto
+  padding 15px 3px 3px
+
+
+.newimage .gallery
+  padding 16px
+
+
+.gallery li
+  border-radius 2px
+  box-shadow 0 0 6px rgba(0, 0, 0, 0.6)
+  cursor pointer
+  margin 8px
+  overflow hidden
+  width 155px
+
+
+.gallery li.selected,
+.gallery lihover
+  box-shadow 0 0 0 2px #1eaaf1
+
+
+.gallery li .detail
+  background-color #323232
+  margin 0
+  min-height 60px
+  padding 3px 10px
+
+
+.gallery li .button.fa-external-link
+  margin-left 136px
+  margin-top 5px
+  position fixed
+
+
+.preview
+  padding 10px
+  width 150px
+
+
+.preview input
+  display block
+  margin 8px 0
+  width 144px
+
+
+.preview button
+  width 155px
+
+
+.preview .detail .title
+  color #fff
+  display inline-block
+  max-width 155px
+  overflow hidden
+  text-overflow ellipsis
+  white-space nowrap
+
+
+.gallery li.selected .detail,
+.gallery lihover .detail
+  background-color #444
+
+
+.gallery li .detail span
+  color #777
+  display block
+  margin-top 4px
+  overflow hidden
+  text-overflow ellipsis
+  white-space nowrap
+  width 140px
+
+
+.gallery li.selected .detail span,
+.gallery lihover .detail span
+  color #888
+
+
+.gallery li .detail span.title
+  color #fff !important
+
+
+.modal button
+  appearance none
+  border-radius 0
+  box-shadow none
+  cursor pointer
+  display inline-block
+  font-size 12px
+  line-height 1.8
+  margin 0 10px 0 0
+  padding 5px 10px
+
+
+.modal buttonfocus
+  outline none
+
+
+.modal button
+  background-color #1eaaf1
+  border none
+  color #fff
+
+
+.modal buttonhover,
+.modal button.hover
+  background-color #346392
+  text-shadow -1px 1px #27496d
+
+
+.modal buttonactive,
+.modal button.active
+  background-color #27496d
+  text-shadow -1px 1px #193047
+
+
+.modal buttondisabled
+  background-color #888
+  cursor none
+
+
+.newimage
+  background-color #323232
+  color #bcbcbc
+  display flex
+  font-size 13px
+  justify-content space-between
+  margin-top 10px
+  overflow auto
+  padding 10px
+
+
+.newimage input
+  color #1eaaf1
+  padding 3px 5px
+
+
+.hide
+  display none
+
+
+span.value
+  color #fff
+  display flex
+  max-width 150px
+
+
+span.mixinlist
+  color #888 !important
+  display inline-block
+
+
+span.mixinlist ul
+  background-color #222
+  list-style-type none
+  margin 5px 0 0
+  padding 5px
+
+
+span.mixinlist ul li
+  font-size 11px
+  margin-bottom 3px
+
+
+span.mixinlist ul lilast-child
+  margin-bottom 0
+
+
+span.mixin
+  display inline-block
+  width 100px
+
+
+.mixinlist
+  margin-left 120px
+
+
+span.subcomponent
+  color #999
+  float none !important
+  margin-left 10px
+  vertical-align top !important
+
+
+.collapsible .static
+  cursor pointer
+
+
+.a-canvas.state-dragging
+  cursor grabbing
+
+
+.tagName
+  font-weight 500
+
+
+.sidebar-title
+  background-color #444
+  color #aaa
+  display flex
+  font-size 12px
+  justify-content space-between
+  padding 6px 10px
+  position relative
+  text-align center
+
+
+.toolbar
+  background-color #262626
+  color #333
+  height 32px
+  position relative
+
+
+.toolbar *
+  margin-left 0
+  padding 8px
+  vertical-align middle
+
+
+.toolbar a.button
+  margin 0 6px 0 0
+
+
+.toolbar .active
+  background-color #1faaf2
+  color #fff
+
+
+.toolbar .activehover
+  color #fff !important
+
+
+.local-transform
+  padding-left 10px
+
+
+.local-transform label
+  color #aaa
+  padding-left 5px
+
+
+.local-transform a.button
+  padding-top 0
+
+
+.outliner
+  background #2b2b2b
+  color #868686
+  cursor default
+  flex 1 1 auto
+  font-size 12px
+  height calc(100% - 98px)
+  outline none
+  overflow-y auto
+  padding 0
+  width 230px
+
+
+.outliner .option
+  display flex
+  justify-content space-between
+  padding 4px
+  white-space nowrap
+
+
+.outliner .option.active
+  background-color #1faaf2
+  color #fff
+
+
+.outliner .option .componenthover
+  color #1faaf2
+
+
+.outliner .option.active .componenthover
+  color #1888c1
+
+
+.outliner .option .icons
+  display none
+  margin 0 3px 0 10px
+
+
+.outliner .option .icons .button
+  color #fff
+  font-size 12px
+
+
+.outliner .option.active .icons
+  display inline
+
+
+.outliner .fa
+  color #aaa
+
+
+.outliner .active .fa
+  color #fff
+
+
+.component-title
+  align-items center
+  display flex
+
+
+a.help-link
+  opacity 0.4
+
+
+a.help-linkhover
+  opacity 1
+
+
+#right-panels
+  align-items stretch
+  display flex
+  justify-content flex-end
+  position fixed
+  right 0
+  top 0
+
+
+#aframe-inspector-panels
+  display flex
+  justify-content space-between
+
+
+.aframe-inspector-opened a-scene .a-canvas
+  background-color #191919
+  z-index 9998
+
+
+.uploadcare-widget-button-open
+  background-color #1eaaf1
+  border-radius 0
+  cursor pointer
+  margin-left 10px
+  padding 10px 15px
+
+
+.uploadcare-widget-button-openhover
+  background-color #346392
+
+
+.new_asset_options
+  margin 10px
+
+
+.new_asset_options > ul
+  margin-left 10px
+  padding 5px
+
+
+.new_asset_options > ul > li
+  padding 10px 0
+
+
+.new_asset_options .imageUrl
+  margin-left 5px
+  width 350px
+
+
+span.entity-name
+  color #fff
+  font-family Consolas, Andale Mono, Monaco, Courier New, monospace
+  font-size 16px
+
+
+.add-component
+  width 200px
+
+
+.Select-control
+  background-color #222 !important
+  border none
+  border-radius 0
+  color #1faaf2
+
+
+.Select-menu-outer
+  border none
+
+
+.Select-menu-outer .is-focused
+  background-color #1faaf2 !important
+  color #fff
+
+
+.Select-option
+  background-color #222 !important
+
+
+.select-widget
+  display inline-block
+  width 157px
+
+
+.Select-placeholder,
+.Select--single > .Select-control .Select-value
+  color #1faaf2 !important
+
+
+.Select-value-label
+  color #1faaf2 !important
+
+
+.row .Select-control
+  font-size 11px
+  height 24px
+
+
+.row .Select-placeholder,
+.row .Select--single > .Select-control .Select-value
+  line-height 19px
+
+
+.row .Select-input
+  height 22px
+
+
+.row input[type=text],
+.row input[type=number],
+.row input.string,
+.row input.number
+  background #222
+  border 1px solid transparent
+  color #1faaf2
+  min-height 20px
+  padding-left 5px
+  padding-right 5px
+
+
+.row input.string
+  box-sizing border-box
+  width 165px
+
+
+.help-lists
+  display flex
+  justify-content space-around
+
+
+.help-list
+  list-style none
+  margin 0
+  padding 0 0 10px
+  width 350px
+
+
+.help-list li
+  margin-right 40px
+
+
+.help-key-unit
+  line-height 1.8
+  margin-right 2em
+  padding 5px 0
+
+
+.help-key
+  bottom 2px
+  margin-right 4px
+  min-width 60px
+  position relative
+
+
+.help-key span
+  background-color #2e2e2e
+  background-repeat repeat-x
+  border 1px solid #666
+  border-radius 3px
+  box-shadow 0 0 5px #000
+  color #999
+  display inline-block
+  font-size 12px
+  padding 0 8px
+  text-align center
+
+
+.help-key-def
+  color #bbb
+  display inline-block
+  margin-left 1em
+
+
+.add-component
+  text-align left
+
+
+.add-component .option
+  display flex
+  justify-content space-between
+
+
+.add-component .option span
+  color #1faaf2
+
+
+.Select-menu-outer .is-focused span
+  color #fff
+
+
+.add-component-container
+  align-items center
+  background-color #2b2b2b
+  display flex
+  justify-content center
+  padding 10px
+
+
+.components .row .color_value
+  margin 0 0 0 5px
+  width 68px
+
+
+.assets.search
+  margin-top 10px
+  width 200px
+
+
+.assets.search .fa-search
+  top 7px
+
+
+.gallery a.fa.texture-link
+  box-shadow 0 0 14px -1px rgba(0, 0, 0, 0.75)
+  position fixed
+
+
+.outliner .id
+  color #ccc
+
+
+.outliner .option.active .id
+  color #fff
+
+
+.outliner .collapsespace
+  color #eee
+  display inline-block
+  text-align center
+  width 14px
+
+
+.outliner .fa-eye
+  color #bbb
+
+
+.outliner .option
+  white-space pre
+
+
+.option spanfirst-child
+  overflow hidden
+  text-overflow ellipsis
+
+
+.outliner .option.novisible span,
+.outliner .option.novisible .fa,
+.outliner .option.novisible .collapsespace,
+.outliner .option.novisible .id
+  color #575757
+
+
+.outliner .option .icons a.button
+  color #fff
+
+
+.toggle-sidebar
+  align-items center
+  display flex
+  height 100%
+  position absolute
+  z-index 9998
+
+
+.toggle-sidebar.left
+  left 0
+
+
+.toggle-sidebar.right
+  right 0
+
+
+.toggle-sidebar a
+  background-color #262626
+  color #bcbcbc
+  padding 5px
+  z-index 9998
+
+
+.toggle-sidebar ahover
+  background-color #1faaf2
+  color #fff
+
+
+/* Dropdown menu */
+.dropbtn
+  border none
+  color white
+  cursor pointer
+
+
+.dropdown
+  display inline-block
+  position relative
+
+
+.dropdown-content
+  background-color #f9f9f9
+  box-shadow 0 8px 16px 0 rgba(0, 0, 0, 0.2)
+  display none
+  left 8px
+  min-width 38px
+  position absolute
+  z-index 999
+
+
+.dropdown-content a
+  background-color #232323
+  color #7d7d7d
+  display block
+  padding 10px 14px
+  text-decoration none
+
+
+.dropdown-content ahover
+  background-color #4ecbff
+  color #fff
+
+
+.dropdownhover .dropdown-content
+  display block
+
+
+.dropdownhover .dropbtn
+  color #1faaf2
+
+
+.savedRecordings
+  display inline-block
+  margin-top 10px
+  vertical-align middle
+  width 80%
+
