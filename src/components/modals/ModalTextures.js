@@ -69,9 +69,13 @@ export default class ModalTextures extends React.Component {
 
     this.uploadcareWidget = null;
     this.generateFromAssets();
-    this.generateFromTextureCache();
   }
+
   componentDidUpdate () {
+    if (this.state.isOpen && !AFRAME.INSPECTOR.assetsLoader.hasLoaded) {
+      AFRAME.INSPECTOR.assetsLoader.load();
+    }
+
     if (!this.uploadcareWidget && this.state.isOpen) {
       this.uploadcareWidget = uploadcare.SingleWidget('[role=uploadcare-uploader]');
       this.uploadcareWidget.onUploadComplete(info => {
@@ -94,6 +98,7 @@ export default class ModalTextures extends React.Component {
       });
     }
   }
+
   componentWillReceiveProps (newProps) {
     if (this.state.isOpen !== newProps.isOpen) {
       this.setState({isOpen: newProps.isOpen});
@@ -129,7 +134,7 @@ export default class ModalTextures extends React.Component {
           type: 'registry',
           tags: imageData.tags,
           value: 'url(' + imageData.fullPath + ')'});
-        self.setState({registryImages: self.state.registryImages});
+        self.setState({registryImages: self.state.registryImages.slice()});
       });
       image.src = imageData.fullThumbPath;
     });
@@ -142,29 +147,19 @@ export default class ModalTextures extends React.Component {
     Array.prototype.slice.call(document.querySelectorAll('a-assets img')).map((asset) => {
       var image = new Image();
       image.addEventListener('load', () => {
-        self.state.assetsImages.push({id: asset.id, src: image.src, width: image.width, height: image.height, name: asset.id, type: 'asset', value: '#' + asset.id});
+        self.state.assetsImages.push({
+          id: asset.id,
+          src: image.src,
+          width: image.width,
+          height: image.height,
+          name: asset.id,
+          type: 'asset',
+          value: '#' + asset.id
+        });
         self.setState({assetsImages: self.state.assetsImages});
       });
       image.src = asset.src;
     });
-  }
-
-  generateFromTextureCache () {
-    /*
-    Object.keys(inspector.sceneEl.systems.material.textureCache).map((hash) => {
-      var texturePromise = inspector.sceneEl.systems.material.textureCache[hash];
-      texturePromise.then(texture => {
-        var elementPos = self.state.loadedTextures.map(function(x) {return x.image.src; }).indexOf(texture.image.src);
-        if (elementPos === -1) {
-          var newTextures = self.state.loadedTextures.slice();
-          newTextures.push(texture);
-          self.setState({
-            loadedTextures: newTextures
-          });
-        }
-      })
-    });
-    */
   }
 
   onNewUrl = event => {
@@ -173,8 +168,8 @@ export default class ModalTextures extends React.Component {
     var self = this;
     function onImageLoaded (img) {
       var src = self.refs.preview.src;
-      self.setState(
-        { preview: {
+      self.setState({
+        preview: {
           width: self.refs.preview.naturalWidth,
           height: self.refs.preview.naturalHeight,
           src: src,
@@ -199,6 +194,7 @@ export default class ModalTextures extends React.Component {
       this.addNewAsset();
     }
   }
+
   onNameChanged = event => {
     var state = this.state.preview;
     state.name = event.target.value;
@@ -252,17 +248,18 @@ export default class ModalTextures extends React.Component {
   renderRegistryImages () {
     var self = this;
     let selectSample = function (image) {
-      self.setState({preview: {
-        width: image.width,
-        height: image.height,
-        src: image.src,
-        id: '',
-        name: getFilename(image.name, true),
-        filename: getFilename(image.src),
-        type: 'registry',
-        loaded: true,
-        value: 'url(' + image.src + ')'
-      }
+      self.setState({
+        preview: {
+          width: image.width,
+          height: image.height,
+          src: image.src,
+          id: '',
+          name: getFilename(image.name, true),
+          filename: getFilename(image.src),
+          type: 'registry',
+          loaded: true,
+          value: 'url(' + image.src + ')'
+        }
       });
       self.refs.imageName.focus();
     };
@@ -355,7 +352,6 @@ export default class ModalTextures extends React.Component {
                   var selectedClass = (this.props.selectedTexture === '#' + image.id) ? 'selected' : '';
                   return (
                    <li key={image.id} onClick={textureClick} className={selectedClass}>
-                     <a href={image.src} title="Open image in a new tab" className="button fa fa-external-link" target="_blank"></a>
                      <img width="155px" height="155px" src={image.src}/>
                      <div className="detail">
                        <span className="title">{image.name}</span>

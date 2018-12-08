@@ -2,16 +2,14 @@
 import Events from './Events';
 
 const assetsBaseUrl = 'https://aframe.io/sample-assets/';
-const assetsRelativeUrl = {
-  'images': 'dist/images.json'
-};
+const assetsRelativeUrl = {images: 'dist/images.json'};
 
 /**
  * Asynchronously load and register components from the registry.
  */
 function AssetsLoader () {
   this.images = [];
-  this.load();
+  this.hasLoaded = false;
 }
 
 AssetsLoader.prototype = {
@@ -36,6 +34,8 @@ AssetsLoader.prototype = {
     };
     xhr.onerror = () => { console.error('Error loading registry file.'); };
     xhr.send();
+
+    this.hasLoaded = true;
   }
 };
 
