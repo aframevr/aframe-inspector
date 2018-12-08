@@ -8,7 +8,7 @@ var TransformButtons = [
   {value: 'scale', icon: 'fa-expand'}
 ];
 
-export default class Toolbar extends React.Component {
+export default class TransformToolbar extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -54,7 +54,7 @@ export default class Toolbar extends React.Component {
 
   render () {
     return (
-      <div className='toolbar'>
+      <div className='transformToolbar'>
         {this.renderTransformButtons()}
         <span className='local-transform'>
           <input id='local' type='checkbox'

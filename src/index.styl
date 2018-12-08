@@ -710,30 +710,29 @@ span.subcomponent
   text-align center
 
 
-.toolbar
+.transformToolbar
   background-color #262626
   color #333
   height 32px
   position relative
 
+  *
+    margin-left 0
+    padding 8px
+    vertical-align middle
 
-.toolbar *
-  margin-left 0
-  padding 8px
-  vertical-align middle
+  a.button
+    margin 0 6px 0 0
+    transition background-color .1s
+    &:not(.active):hover
+      background-color #444
 
+  .active
+    background-color #1faaf2
+    color #fff
 
-.toolbar a.button
-  margin 0 6px 0 0
-
-
-.toolbar .active
-  background-color #1faaf2
-  color #fff
-
-
-.toolbar .activehover
-  color #fff !important
+  .activehover
+    color #fff !important
 
 
 .local-transform

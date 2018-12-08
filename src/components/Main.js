@@ -7,7 +7,7 @@ import ComponentsSidebar from './components/Sidebar';
 import ModalTextures from './modals/ModalTextures';
 import ModalHelp from './modals/ModalHelp';
 import SceneGraph from './scenegraph/SceneGraph';
-import ToolBar from './ToolBar';
+import TransformToolBar from './TransformToolBar';
 import {injectCSS} from '../lib/utils';
 
 // Megahack to include font-awesome.
@@ -150,7 +150,7 @@ export default class Main extends React.Component {
           {showScenegraph}
           {showAttributes}
           <div id='right-panels'>
-            <ToolBar/>
+            <TransformToolBar/>
             <ComponentsSidebar entity={this.state.entity} visible={this.state.visible.attributes}/>
           </div>
         </div>
