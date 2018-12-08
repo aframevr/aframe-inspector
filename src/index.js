@@ -349,10 +349,8 @@ Inspector.prototype = {
     Shortcuts.enable();
 
     if (focusEl) {
-      setTimeout(() => {
-        this.selectEntity(focusEl);
-        Events.emit('objectfocus', focusEl.object3D);
-      }, 1000);
+      this.selectEntity(focusEl);
+      Events.emit('objectfocus', focusEl.object3D);
     }
   },
 
