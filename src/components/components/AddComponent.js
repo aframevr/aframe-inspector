@@ -22,17 +22,15 @@ export default class AddComponent extends React.Component {
       return option.value === componentName;
     })[0];
 
-    function addComponent (componentName) {
-      if (AFRAME.components[componentName].multiple) {
-        const id = prompt(
-          `Provide an ID for this component (e.g., 'foo' for ${componentName}__foo).`);
-        componentName = id ? `${componentName}__${id}` : componentName;
-      }
-
-      entity.setAttribute(componentName, '');
-      Events.emit('componentadd', {entity: entity, component: componentName});
-      ga('send', 'event', 'Components', 'addComponent', componentName);
+    if (AFRAME.components[componentName].multiple) {
+      const id = prompt(
+        `Provide an ID for this component (e.g., 'foo' for ${componentName}__foo).`);
+      componentName = id ? `${componentName}__${id}` : componentName;
     }
+
+    entity.setAttribute(componentName, '');
+    Events.emit('componentadd', {entity: entity, component: componentName});
+    ga('send', 'event', 'Components', 'addComponent', componentName);
   }
 
   /**
