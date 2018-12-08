@@ -11,9 +11,11 @@ import {equal} from '../lib/utils.js';
  * @param {string|number} value - New value.
  */
 export function updateEntity (entity, propertyName, value) {
+  var splitName;
+
   if (propertyName.indexOf('.') !== -1) {
     // Multi-prop
-    const splitName = propertyName.split('.');
+    splitName = propertyName.split('.');
 
     if (value === null || value === undefined) {
       // Remove property.
@@ -39,8 +41,9 @@ export function updateEntity (entity, propertyName, value) {
   // For exporting updates to watcher.
   Events.emit('entityupdate', {
     component: propertyName,
+    componentName: splitName ? splitName[0] : propertyName,
     entity: entity,
-    property: '',
+    propertyName: splitName && splitName[1],
     value: value
   });
 }
