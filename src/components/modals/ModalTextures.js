@@ -1,11 +1,8 @@
-/* global uploadcare */
-window.UPLOADCARE_PUBLIC_KEY = 'f43ad452b58f9e853d05';
 import Events from '../../lib/Events';
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from './Modal';
 var insertNewAsset = require('../../lib/assetsUtils').insertNewAsset;
-import initUploadCare from '../../lib/uploadcare';
 
 function getFilename (url, converted = false) {
   var filename = url.split('/').pop();
@@ -38,7 +35,6 @@ export default class ModalTextures extends React.Component {
   };
 
   constructor (props) {
-    initUploadCare();
     super(props);
     this.state = {
       filterText: '',
@@ -67,35 +63,12 @@ export default class ModalTextures extends React.Component {
       this.generateFromRegistry();
     });
 
-    this.uploadcareWidget = null;
     this.generateFromAssets();
   }
 
   componentDidUpdate () {
     if (this.state.isOpen && !AFRAME.INSPECTOR.assetsLoader.hasLoaded) {
       AFRAME.INSPECTOR.assetsLoader.load();
-    }
-
-    if (!this.uploadcareWidget && this.state.isOpen) {
-      this.uploadcareWidget = uploadcare.SingleWidget('[role=uploadcare-uploader]');
-      this.uploadcareWidget.onUploadComplete(info => {
-        if (info.isImage) {
-          this.setState({preview: {
-            width: info.originalImageInfo.height,
-            height: info.originalImageInfo.height,
-            src: info.cdnUrl,
-            id: '',
-            filename: info.name,
-            name: getFilename(info.name, true),
-            type: 'uploaded',
-            loaded: true,
-            value: 'url(' + info.cdnUrl + ')'
-          }
-          });
-          this.uploadcareWidget.value(null);
-          this.refs.imageName.focus();
-        }
-      });
     }
   }
 
@@ -306,11 +279,6 @@ export default class ModalTextures extends React.Component {
               <span>Load a new texture from one of these sources:</span>
               <ul>
                 <li><span>From URL (and press Enter):</span> <input type="text" className='imageUrl' value={this.state.newUrl} onChange={this.onUrlChange} onKeyUp={this.onNewUrl}/></li>
-                <li>
-                  <div className="uploader-normal-button">
-                    From a file: <input type="hidden" role="uploadcare-uploader"/>
-                  </div>
-                </li>
                 <li><span>From assets registry: </span>
                   <div className='assets search'>
                     <input placeholder='Filter...' value={this.state.filterText}

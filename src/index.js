@@ -15,31 +15,22 @@ import {GLTFExporter} from './lib/vendor/GLTFExporter';  // eslint-disable-line 
 require('./index.styl');
 
 function Inspector () {
+  this.assetsLoader = new AssetsLoader();
   this.exporters = {gltf: new THREE.GLTFExporter()};
   this.modules = {};
   this.on = Events.on;
   this.opened = false;
-  this.init();
+  this.sceneEl = AFRAME.scenes[0];
+
+  if (this.sceneEl.hasLoaded) {
+    this.init();
+    return;
+  }
+  this.sceneEl.addEventListener('loaded', this.init.bind(this));
 }
 
 Inspector.prototype = {
-  /**
-   * Callback once the DOM is completely loaded so we could query the scene.
-   */
   init: function () {
-    this.assetsLoader = new AssetsLoader();
-    this.sceneEl = AFRAME.scenes[0];
-    if (this.sceneEl.hasLoaded) {
-      this.onSceneLoaded();
-    } else {
-      this.sceneEl.addEventListener('loaded', this.onSceneLoaded.bind(this));
-    }
-  },
-
-  /**
-   * Callback when the a-scene is loaded
-   */
-  onSceneLoaded: function () {
     var self = this;
     this.container = document.querySelector('.a-canvas');
 
@@ -382,6 +373,5 @@ Inspector.prototype = {
   }
 };
 
-const inspector = new Inspector();
-AFRAME.INSPECTOR = inspector;
+const inspector = AFRAME.INSPECTOR = new Inspector();
 const Modules = require('./lib/modules/index.js');  // eslint-disable-line no-unused-vars

@@ -2,7 +2,7 @@
 import debounce from 'lodash.debounce';
 
 /* eslint-disable no-unused-vars */
-import TransformControls from './vendor/TransformControls.js';
+import TransformControls from './TransformControls.js';
 import EditorControls from './EditorControls.js';
 /* eslint-disable no-unused-vars */
 
