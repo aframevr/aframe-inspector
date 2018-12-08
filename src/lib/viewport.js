@@ -54,6 +54,7 @@ function Viewport (inspector) {
   }
 
   const transformControls = new THREE.TransformControls(camera, inspector.container);
+  transformControls.size = 0.5;
   transformControls.addEventListener('objectChange', () => {
     const object = transformControls.object;
     if (object === undefined) { return; }
@@ -276,7 +277,7 @@ function Viewport (inspector) {
 
   Events.on('objectfocus', object => {
     controls.focus(object);
-    ga('send', 'event', 'Viewport', 'selectEntity');
+    transformControls.update();
   });
 
   Events.on('geometrychanged', object => {

@@ -110,20 +110,16 @@ function insertAfter (newNode, referenceNode) {
  */
 export function cloneEntity (entity) {
   entity.flushToDOM();
-  var copy = entity.cloneNode(true);
-  copy.addEventListener('loaded', function (e) {
-    AFRAME.INSPECTOR.selectEntity(copy);
+
+  const clone = entity.cloneNode(true);
+  clone.addEventListener('loaded', function (e) {
+    AFRAME.INSPECTOR.selectEntity(clone);
+    Events.emit('entityclone');
   });
 
   // Get a valid unique ID for the entity
-  if (entity.id) {
-    copy.id = getUniqueId(entity.id);
-  }
-  copy.addEventListener('loaded', function () {
-    Events.emit('dommodify');
-    AFRAME.INSPECTOR.selectEntity(copy);
-  });
-  insertAfter(copy, entity);
+  if (entity.id) { clone.id = getUniqueId(entity.id); }
+  insertAfter(clone, entity);
 }
 
 /**

@@ -360,7 +360,6 @@ Inspector.prototype = {
    */
   close: function () {
     this.opened = false;
-    Events.emit('inspectortoggle', false);
     this.sceneEl.play();
     if (this.sceneEl.hasAttribute('aframe-inspector-removed-embedded')) {
       this.sceneEl.setAttribute('embedded', '');

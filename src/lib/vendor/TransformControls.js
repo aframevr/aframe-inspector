@@ -716,7 +716,7 @@
 
 			this.object = object;
 			this.visible = true;
-			this.update();
+			this.update(true);
 
 		};
 
@@ -762,7 +762,7 @@
 		this.setSize = function ( size ) {
 
 			scope.size = size;
-			this.update();
+			this.update(true);
 			scope.dispatchEvent( changeEvent );
 
 		};
@@ -775,7 +775,7 @@
 
 		};
 
-		this.update = function () {
+		this.update = function (updateScale) {
 
 			if ( scope.object === undefined ) return;
 
@@ -789,7 +789,7 @@
 
 			scale = worldPosition.distanceTo( camPosition ) / 6 * scope.size;
 			this.position.copy( worldPosition );
-			this.scale.set( scale, scale, scale );
+      if (updateScale) { this.scale.set( scale, scale, scale ); }
 
 			if ( camera instanceof THREE.PerspectiveCamera ) {
 
