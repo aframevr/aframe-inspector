@@ -13,7 +13,8 @@ import {equal} from '../lib/utils.js';
 export function updateEntity (entity, propertyName, value) {
   if (propertyName.indexOf('.') !== -1) {
     // Multi-prop
-    var splitName = propertyName.split('.');
+    const splitName = propertyName.split('.');
+
     if (value === null || value === undefined) {
       // Remove property.
       var parameters = entity.getAttribute(splitName[0]);
@@ -32,7 +33,16 @@ export function updateEntity (entity, propertyName, value) {
       entity.setAttribute(propertyName, value);
     }
   }
+
   Events.emit('entitychange', entity);
+
+  // For exporting updates to watcher.
+  Events.emit('entityupdate', {
+    component: propertyName,
+    entity: entity,
+    property: '',
+    value: value
+  });
 }
 
 /**

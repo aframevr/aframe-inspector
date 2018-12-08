@@ -74,9 +74,9 @@ export default class Toolbar extends React.Component {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:51234/save');
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({
-      message: 'hello'
-    }));
+    xhr.send(JSON.stringify(
+      AFRAME.INSPECTOR.history.updates
+    ));
   }
 
   render () {

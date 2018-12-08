@@ -17,6 +17,7 @@ require('./index.styl');
 function Inspector () {
   this.assetsLoader = new AssetsLoader();
   this.exporters = {gltf: new THREE.GLTFExporter()};
+  this.history = require('./lib/history');
   this.modules = {};
   this.on = Events.on;
   this.opened = false;
