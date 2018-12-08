@@ -21,13 +21,21 @@ function Inspector () {
   this.modules = {};
   this.on = Events.on;
   this.opened = false;
-  this.sceneEl = AFRAME.scenes[0];
 
-  if (this.sceneEl.hasLoaded) {
-    this.init();
+  // Wait for stuff.
+  const doInit = () => {
+    this.sceneEl = AFRAME.scenes[0];
+    if (this.sceneEl.hasLoaded) {
+      this.init();
+      return;
+    }
+    this.sceneEl.addEventListener('loaded', this.init.bind(this));
+  };
+  if (!AFRAME.scenes.length) {
+    document.addEventListener('loaded', () => { doInit(); });
     return;
   }
-  this.sceneEl.addEventListener('loaded', this.init.bind(this));
+  doInit();
 }
 
 Inspector.prototype = {
