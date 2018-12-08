@@ -103,7 +103,7 @@ function Viewport (inspector) {
 
   sceneHelpers.add(transformControls);
 
-  Events.on('objectchanged', () => {
+  Events.on('entitychange', el => {
     if (inspector.selectedEntity.object3DMap['mesh']) {
       selectionBox.update(inspector.selected);
     }
@@ -293,7 +293,8 @@ function Viewport (inspector) {
     });
   });
 
-  Events.on('objectchanged', object => {
+  Events.on('entitychange', el => {
+    const object = el.object3D;
     if (inspector.selected === object) {
       // Hack because object3D always has geometry :(
       if (object.geometry &&
@@ -312,7 +313,7 @@ function Viewport (inspector) {
   });
 
   Events.on('selectedentitycomponentchanged', () => {
-    Events.emit('objectchanged', inspector.selectedEntity.object3D);
+    Events.emit('entitychange', inspector.selectedEntity);
   });
 
   Events.on('objectremoved', object => {

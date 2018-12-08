@@ -32,7 +32,7 @@ export function updateEntity (entity, propertyName, value) {
       entity.setAttribute(propertyName, value);
     }
   }
-  Events.emit('objectchanged', entity.object3D);
+  Events.emit('entitychange', entity);
 }
 
 /**

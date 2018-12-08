@@ -44,6 +44,7 @@ export default class Toolbar extends React.Component {
       motionCaptureUIEnabled: JSON.parse(localStorage.getItem(LOCALSTORAGE_MOCAP_UI))
     };
   }
+
   exportSceneToGLTF () {
     ga('send', 'event', 'SceneGraph', 'exportGLTF');
     const sceneName = getSceneName(AFRAME.scenes[0]);
@@ -66,6 +67,18 @@ export default class Toolbar extends React.Component {
     this.setState({motionCaptureUIEnabled: !this.state.motionCaptureUIEnabled});
   }
 
+  /**
+   * Try to write changes with aframe-inspector-watcher.
+   */
+  writeChanges = () => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:51234/save');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+      message: 'hello'
+    }));
+  }
+
   render () {
     return (
       <div id="scenegraphToolbar">
@@ -73,6 +86,7 @@ export default class Toolbar extends React.Component {
           <a className='button fa fa-plus' title='Add a new entity' onClick={this.addEntity}></a>
           <a className='button fa fa-video-camera' title='Open motion capture development tools' onClick={this.toggleMotionCaptureUI} style={this.state.motionCaptureUIEnabled ? {color: '#FFF'} : {}}></a>
           <a className='button fa fa-download' title='Export to GLTF' onClick={this.exportSceneToGLTF}></a>
+          <a className='button fa fa-save' title='Write changes with aframe-inspector-watcher' onClick={this.writeChanges}></a>
         </div>
 
         {this.state.motionCaptureUIEnabled && <MotionCapture/>}
