@@ -28,7 +28,6 @@ AssetsLoader.prototype = {
     xhr.onload = () => {
       var data = JSON.parse(xhr.responseText);
       this.images = data.images;
-      console.info('Images in registry:', Object.keys(this.images).length);
       this.images.forEach(image => {
         image.fullPath = assetsBaseUrl + data.basepath.images + image.path;
         image.fullThumbPath = assetsBaseUrl + data.basepath.images_thumbnails + image.thumbnail;
