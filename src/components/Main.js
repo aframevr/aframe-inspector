@@ -120,9 +120,9 @@ export default class Main extends React.Component {
 */
   toggleEdit = () => {
     if (this.state.inspectorEnabled) {
-      INSPECTOR.close();
+      AFRAME.INSPECTOR.close();
     } else {
-      INSPECTOR.open();
+      AFRAME.INSPECTOR.open();
     }
   }
 
