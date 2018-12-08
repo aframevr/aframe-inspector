@@ -30,7 +30,7 @@ AssetsLoader.prototype = {
         image.fullPath = assetsBaseUrl + data.basepath.images + image.path;
         image.fullThumbPath = assetsBaseUrl + data.basepath.images_thumbnails + image.thumbnail;
       });
-      Events.emit('assetsimagesloaded', this.images);
+      Events.emit('assetsimagesload', this.images);
     };
     xhr.onerror = () => { console.error('Error loading registry file.'); };
     xhr.send();

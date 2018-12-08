@@ -15,7 +15,7 @@ function changeId (componentName, value) {
   var entity = AFRAME.INSPECTOR.selectedEntity;
   if (entity.id !== value) {
     entity.id = value;
-    Events.emit('entityidchanged', entity);
+    Events.emit('entityidchange', entity);
   }
 }
 
@@ -25,7 +25,7 @@ export default class CommonComponents extends React.Component {
   };
 
   componentDidMount () {
-    Events.on('selectedentitycomponentchanged', detail => {
+    Events.on('selectedentitycomponentchange', detail => {
       if (DEFAULT_COMPONENTS.indexOf(detail.name) !== -1) {
         this.forceUpdate();
       }

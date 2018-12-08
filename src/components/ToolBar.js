@@ -17,21 +17,21 @@ export default class Toolbar extends React.Component {
     };
   }
   componentDidMount () {
-    Events.on('transformmodechanged', (mode) => {
+    Events.on('transformmodechange', (mode) => {
       this.setState({selectedTransform: mode});
     });
   }
 
   changeTransformMode = mode => {
     this.setState({selectedTransform: mode});
-    Events.emit('transformmodechanged', mode);
+    Events.emit('transformmodechange', mode);
     ga('send', 'event', 'Toolbar', 'selectHelper', mode);
   }
 
   onLocalChange = e => {
     const local = e.target.checked;
     this.setState({localSpace: local});
-    Events.emit('spacechanged', local ? 'local' : 'world');
+    Events.emit('transformspacechange', local ? 'local' : 'world');
     ga('send', 'event', 'Toolbar', 'toggleLocal', local);
   }
 

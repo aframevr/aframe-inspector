@@ -120,7 +120,7 @@ export function cloneEntity (entity) {
     copy.id = getUniqueId(entity.id);
   }
   copy.addEventListener('loaded', function () {
-    Events.emit('dommodified');
+    Events.emit('dommodify');
     AFRAME.INSPECTOR.selectEntity(copy);
   });
   insertAfter(copy, entity);

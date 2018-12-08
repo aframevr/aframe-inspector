@@ -40,7 +40,7 @@ export default class Component extends React.Component {
       console.error(e);
     });
 
-    Events.on('selectedentitycomponentchanged', detail => {
+    Events.on('selectedentitycomponentchange', detail => {
       if (detail.name === this.props.name) {
         this.forceUpdate();
       }
@@ -61,7 +61,7 @@ export default class Component extends React.Component {
     event.stopPropagation();
     if (confirm('Do you really want to remove component `' + componentName + '`?')) {
       this.props.entity.removeAttribute(componentName);
-      Events.emit('componentremoved', {entity: this.props.entity, component: componentName});
+      Events.emit('componentremove', {entity: this.props.entity, component: componentName});
       ga('send', 'event', 'Components', 'removeComponent', componentName);
     }
   }

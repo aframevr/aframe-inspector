@@ -45,7 +45,7 @@ export default class MotionCapture extends React.Component {
       this.stopReplaying();
     });
 
-    Events.on('inspectormodechanged', isOpen => {
+    Events.on('inspectortoggle', isOpen => {
       this.setState({inspectorOpened: isOpen});
 
       // During replay, hide the replayer mesh (pink box) if switching to first-person view.
@@ -229,7 +229,7 @@ export default class MotionCapture extends React.Component {
     sceneEl.enterVR();
 
     // Leave Inspector to remove all of its helpers.
-    Events.emit('inspectormodechanged', false);
+    Events.emit('inspectortoggle', false);
 
     // Update countdown both in VR and in Inspector UI.
     this.setState({countdown: COUNTDOWN.toString()});
@@ -287,7 +287,7 @@ export default class MotionCapture extends React.Component {
         selectedRecordingName: this.state.recordingName
       }, () => {
         // Re-enter Inspector. Do this after setting `isRecording` to false.
-        Events.emit('inspectormodechanged', true);
+        Events.emit('inspectortoggle', true);
       });
     });
 

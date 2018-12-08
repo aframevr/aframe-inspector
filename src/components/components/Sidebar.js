@@ -18,11 +18,11 @@ export default class Sidebar extends React.Component {
   }
 
   componentDidMount () {
-    Events.on('componentremoved', event => {
+    Events.on('componentremove', event => {
       this.forceUpdate();
     });
 
-    Events.on('componentadded', event => {
+    Events.on('componentadd', event => {
       this.forceUpdate();
     });
   }
@@ -33,17 +33,17 @@ export default class Sidebar extends React.Component {
   }
 
   componentChanged = (event) => {
-    Events.emit('selectedentitycomponentchanged', event);
+    Events.emit('selectedentitycomponentchange', event);
   }
 
   componentWillReceiveProps (newProps) {
     if (this.state.entity !== newProps.entity) {
       if (this.state.entity) {
-        this.state.entity.removeEventListener('componentchanged', this.componentChanged);
+        this.state.entity.removeEventListener('componentchange', this.componentChanged);
         this.state.entity.removeEventListener('componentinitialized', this.componentCreated);
       }
       if (newProps.entity) {
-        newProps.entity.addEventListener('componentchanged', this.componentChanged);
+        newProps.entity.addEventListener('componentchange', this.componentChanged);
         newProps.entity.addEventListener('componentinitialized', this.componentCreated);
       }
       this.setState({entity: newProps.entity});

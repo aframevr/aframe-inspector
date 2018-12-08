@@ -33,17 +33,17 @@ var Shortcuts = {
 
     // w: translate
     if (keyCode === 87) {
-      Events.emit('transformmodechanged', 'translate');
+      Events.emit('transformmodechange', 'translate');
     }
 
     // e: rotate
     if (keyCode === 69) {
-      Events.emit('transformmodechanged', 'rotate');
+      Events.emit('transformmodechange', 'rotate');
     }
 
     // r: scale
     if (keyCode === 82) {
-      Events.emit('transformmodechanged', 'scale');
+      Events.emit('transformmodechange', 'scale');
     }
 
     // g: toggle grid

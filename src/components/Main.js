@@ -69,7 +69,7 @@ export default class Main extends React.Component {
   componentDidMount () {
     // Create an observer to notify the changes in the scene
     var observer = new MutationObserver(function (mutations) {
-      Events.emit('dommodified', mutations);
+      Events.emit('dommodify', mutations);
     });
     var config = {attributes: true, childList: true, characterData: true};
     observer.observe(this.state.sceneEl, config);
@@ -78,11 +78,11 @@ export default class Main extends React.Component {
       this.setState({selectedTexture: selectedTexture, isModalTexturesOpen: true, textureOnClose: textureOnClose});
     }.bind(this));
 
-    Events.on('entityselected', entity => {
+    Events.on('entityselect', entity => {
       this.setState({entity: entity});
     });
 
-    Events.on('inspectormodechanged', enabled => {
+    Events.on('inspectortoggle', enabled => {
       this.setState({inspectorEnabled: enabled});
     });
 

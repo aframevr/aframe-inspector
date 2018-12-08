@@ -249,7 +249,7 @@ function Viewport (inspector) {
     controls.center.set(0, 0, 0);
   });
 
-  Events.on('transformmodechanged', mode => {
+  Events.on('transformmodechange', mode => {
     transformControls.setMode(mode);
   });
 
@@ -257,11 +257,11 @@ function Viewport (inspector) {
     transformControls.setTranslationSnap(dist);
   });
 
-  Events.on('spacechanged', space => {
+  Events.on('transformspacechange', space => {
     transformControls.setSpace(space);
   });
 
-  Events.on('objectselected', object => {
+  Events.on('objectselect', object => {
     selectionBox.visible = false;
     transformControls.detach();
     if (object && object.el) {
@@ -285,7 +285,7 @@ function Viewport (inspector) {
     }
   });
 
-  Events.on('objectadded', object => {
+  Events.on('entityadd', object => {
     object.traverse(child => {
       if (objects.indexOf(child) === -1) {
         objects.push(child);
@@ -312,11 +312,11 @@ function Viewport (inspector) {
     updateHelpers(object);
   });
 
-  Events.on('selectedentitycomponentchanged', () => {
+  Events.on('selectedentitycomponentchange', () => {
     Events.emit('entitychange', inspector.selectedEntity);
   });
 
-  Events.on('objectremoved', object => {
+  Events.on('objectremove', object => {
     object.traverse(child => {
       objects.splice(objects.indexOf(child), 1);
     });
@@ -325,7 +325,7 @@ function Viewport (inspector) {
     objects.push(helper.getObjectByName('picker'));
     updateHelpers(helper.fromObject.parent);
   });
-  Events.on('helperremoved', object => {
+  Events.on('helperremove', object => {
     objects.splice(objects.indexOf(object.getObjectByName('picker')), 1);
   });
   Events.on('windowresize', () => {
@@ -339,7 +339,7 @@ function Viewport (inspector) {
     grid.visible = !grid.visible;
   });
 
-  Events.on('inspectormodechanged', active => {
+  Events.on('inspectortoggle', active => {
     if (active) {
       enableControls();
       AFRAME.scenes[0].camera = inspector.camera;

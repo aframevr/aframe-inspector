@@ -124,7 +124,7 @@ Inspector.prototype = {
       this.addObject(event.target.object3D);
     });
 
-    Events.on('selectedentitycomponentchanged', event => {
+    Events.on('selectedentitycomponentchange', event => {
       this.addObject(event.target.object3D);
     });
 
@@ -139,7 +139,7 @@ Inspector.prototype = {
   removeObject: function (object) {
     // Remove just the helper as the object will be deleted by Aframe
     this.removeHelpers(object);
-    Events.emit('objectremoved', object);
+    Events.emit('objectremove', object);
   },
 
   addHelper: (function () {
@@ -197,7 +197,7 @@ Inspector.prototype = {
     if (this.helpers[parentId]) {
       for (var objectId in this.helpers[parentId]) {
         var helper = this.helpers[parentId][objectId];
-        Events.emit('helperremoved', helper);
+        Events.emit('helperremove', helper);
         this.sceneHelpers.remove(helper);
       }
       delete this.helpers[parentId];
@@ -212,7 +212,7 @@ Inspector.prototype = {
       this.select(null);
     }
 
-    if (emit === undefined) { Events.emit('entityselected', entity); }
+    if (emit === undefined) { Events.emit('entityselect', entity); }
 
     // Update camera helper visibility.
     if (this.cameraHelper) {
@@ -229,11 +229,11 @@ Inspector.prototype = {
       }
     });
 
-    Events.on('entityselected', entity => {
+    Events.on('entityselect', entity => {
       this.selectEntity(entity, false);
     });
 
-    Events.on('inspectormodechanged', active => {
+    Events.on('inspectortoggle', active => {
       this.inspectorActive = active;
       this.sceneHelpers.visible = this.inspectorActive;
     });
@@ -242,7 +242,7 @@ Inspector.prototype = {
       this.createNewEntity(definition);
     });
 
-    Events.on('selectedentitycomponentchanged', event => {
+    Events.on('selectedentitycomponentchange', event => {
       this.addObject(event.target.object3D);
     });
 
@@ -251,7 +251,7 @@ Inspector.prototype = {
       AFRAME.INSPECTOR.removeObject(entity.object3D);
     });
 
-    Events.on('dommodified', mutations => {
+    Events.on('dommodify', mutations => {
       if (!mutations) { return; }
       mutations.forEach(mutation => {
         if (mutation.type !== 'childList') { return; }
@@ -278,7 +278,7 @@ Inspector.prototype = {
   select: function (object3D) {
     if (this.selected === object3D) { return; }
     this.selected = object3D;
-    Events.emit('objectselected', object3D);
+    Events.emit('objectselect', object3D);
   },
 
   deselect: function () {
@@ -331,7 +331,7 @@ Inspector.prototype = {
   open: function (focusEl) {
     this.sceneEl = AFRAME.scenes[0];
     this.opened = true;
-    Events.emit('inspectormodechanged', true);
+    Events.emit('inspectortoggle', true);
 
     if (!this.sceneEl.hasAttribute('aframe-inspector-motion-capture-replaying')) {
       this.sceneEl.pause();
@@ -360,7 +360,7 @@ Inspector.prototype = {
    */
   close: function () {
     this.opened = false;
-    Events.emit('inspectormodechanged', false);
+    Events.emit('inspectortoggle', false);
     this.sceneEl.play();
     if (this.sceneEl.hasAttribute('aframe-inspector-removed-embedded')) {
       this.sceneEl.setAttribute('embedded', '');
@@ -379,8 +379,7 @@ Inspector.prototype = {
       }
     });
 
-    Events.emit('objectadded', object);
-    Events.emit('scenegraphchanged');
+    Events.emit('entityadd', object);
   }
 };
 

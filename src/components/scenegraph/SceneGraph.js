@@ -50,17 +50,17 @@ export default class SceneGraph extends React.Component {
   componentDidMount () {
     this.rebuildOptions();
 
-    document.addEventListener('componentremoved', () => {
+    document.addEventListener('componentremove', () => {
       this.forceUpdate();
     });
 
-    Events.on('entityselected', (entity, self) => {
+    Events.on('entityselect', (entity, self) => {
       if (self) { return; }
       this.setValue(entity);
     });
-    Events.on('entityidchanged', this.rebuildOptions);
-    document.addEventListener('componentremoved', this.rebuildOptions);
-    Events.on('dommodified', this.rebuildOptions);
+    Events.on('entityidchange', this.rebuildOptions);
+    document.addEventListener('componentremove', this.rebuildOptions);
+    Events.on('dommodify', this.rebuildOptions);
   }
 
   setValue = value => {
@@ -73,7 +73,7 @@ export default class SceneGraph extends React.Component {
         if (this.props.onChange) {
           this.props.onChange(value);
         }
-        Events.emit('entityselected', value, true);
+        Events.emit('entityselect', value, true);
         found = true;
       }
     }
