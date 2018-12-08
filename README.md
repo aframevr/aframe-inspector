@@ -4,9 +4,11 @@
 
 A visual inspector tool for [A-Frame](https://aframe.io) scenes. Just hit
 `<ctrl> + <alt> + i` on any A-Frame scene to open up the Inspector. Check out
-[the guide](https://aframe.io/docs/master/introduction/visual-inspector-and-dev-tools.html).
+[the
+guide](https://aframe.io/docs/master/introduction/visual-inspector-and-dev-tools.html).
 
-[VIEW DEMO](https://aframe.io/aframe-inspector/example/)
+- [Documentation](https://aframe.io/docs/master/introduction/visual-inspector-and-dev-tools.html)
+- [Example](https://aframe.io/aframe-inspector/examples/)
 
 ![Inspector Preview](https://cloud.githubusercontent.com/assets/674727/17754902/b9f6f09a-648b-11e6-8319-a4344744fed7.png)
 
@@ -18,10 +20,10 @@ up any A-Frame scene (running at least A-Frame v0.3.0) and press **`<ctrl> +
 
 This is done with the `inspector` component. By default, this is set on the
 scene already. If we want, we can specify a specific build of the Inspector to
-inject by passing a URL.
+inject by passing a URL. For debugging:
 
 ```html
-<a-scene inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js">
+<a-scene inspector="url: http://localhost:3333/dist/aframe-inspector.js">
   <!-- Scene... -->
 </a-scene>
 ```
