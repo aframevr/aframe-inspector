@@ -13,7 +13,7 @@
     "lint": "npm run lintfile src/",
     "lint:css": "stylelint src/css/main.css",
     "lintfile": "node --harmony node_modules/.bin/eslint",
-    "preghpages": "npm run dist && shx rm -rf gh-pages && shx mkdir gh-pages && shx cp -r assets dist example index.html gh-pages && shx sed -i http://localhost:3333 .. gh-pages/example/index.html",
+    "preghpages": "npm run dist && shx rm -rf gh-pages && shx mkdir gh-pages && shx cp -r assets dist example sindex.html gh-pages && shx sed -i http://localhost:3333 .. gh-pages/examples/index.html",
     "start": "cross-env NODE_ENV=dev webpack-dev-server --progress --colors -d --host 0.0.0.0",
     "test": "jest --watch",
     "test:ci": "jest"
