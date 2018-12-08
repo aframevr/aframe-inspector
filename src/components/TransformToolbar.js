@@ -3,9 +3,9 @@ var Events = require('../lib/Events.js');
 var classNames = require('classnames');
 
 var TransformButtons = [
-  {value: 'translate', icon: 'fa-arrows'},
-  {value: 'rotate', icon: 'fa-repeat'},
-  {value: 'scale', icon: 'fa-expand'}
+  {value: 'translate', icon: 'fa-arrows-alt'},
+  {value: 'rotate', icon: 'fa-redo'},
+  {value: 'scale', icon: 'fa-expand-arrows-alt'}
 ];
 
 export default class TransformToolbar extends React.Component {

@@ -8,7 +8,7 @@ const Events = require('../../lib/Events.js');
 const ICONS = {
   camera: 'fa-camera',
   mesh: 'fa-cube',
-  light: 'fa-lightbulb-o',
+  light: 'fa-lightbulb',
   text: 'fa-font'
 };
 
@@ -53,7 +53,7 @@ export default class Entity extends React.Component {
     );
     const removeButton = tagName === 'a-scene' ? null : (
       <a onClick={event => { event.stopPropagation(); removeEntity(entity); }}
-         title="Remove entity" className="button fa fa-trash-o"></a>
+         title="Remove entity" className="button fa fa-trash"></a>
     );
 
     // Add spaces depending on depth.
@@ -106,9 +106,9 @@ export default class Entity extends React.Component {
           <span onDoubleClick={this.onDoubleClick}>
             {tagName}<span className="name">{entityName ? ` ${entityName}` : ''}</span>
           </span>
-          <span dangerouslySetInnerHTML={{__html: icons}}></span>&gt;
+          <span className="entityIcons" dangerouslySetInnerHTML={{__html: icons}}></span>&gt;
         </span>
-        <span className="icons">
+        <span className="entityActions">
           {cloneButton}
           {removeButton}
         </span>

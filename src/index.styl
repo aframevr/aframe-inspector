@@ -154,8 +154,8 @@ input
 
   .fa-search
     position absolute
-    right 11px
-    top 10px
+    right 14px
+    top 8px
 
   .fa-times
     position absolute
@@ -787,18 +787,23 @@ span.subcomponent
   color #1888c1
 
 
-.scenegraph .entity .icons
-  display none
-  margin 0 3px 0 10px
+.scenegraph
+  .entity
+    .entityIcons
+      margin-left 2px
 
+    .entityActions
+      display none
+      margin 0 14px 0 14px
 
-.scenegraph .entity .icons .button
-  color #fff
-  font-size 12px
+      .button
+        color #fff
+        font-size 12px
+        margin-left 6px
 
-
-.scenegraph .entity.active .icons
-  display inline
+    &.active
+      .entityActions
+        display inline
 
 
 .scenegraph .fa
