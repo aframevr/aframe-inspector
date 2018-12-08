@@ -11,7 +11,7 @@ import TextureWidget from '../widgets/TextureWidget';
 import Vec4Widget from '../widgets/Vec4Widget';
 import Vec3Widget from '../widgets/Vec3Widget';
 import Vec2Widget from '../widgets/Vec2Widget';
-import {updateEntity} from '../../actions/entity';
+import {updateEntity} from '../../lib/entity';
 
 export default class PropertyRow extends React.Component {
   static propTypes = {

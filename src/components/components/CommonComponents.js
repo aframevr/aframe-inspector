@@ -5,7 +5,7 @@ import DEFAULT_COMPONENTS from './DefaultComponents';
 import PropertyRow from './PropertyRow';
 import Collapsible from '../Collapsible';
 import Mixins from './Mixins';
-import {updateEntity, getClipboardRepresentation} from '../../actions/entity';
+import {updateEntity, getEntityClipboardRepresentation} from '../../lib/entity';
 import Events from '../../lib/Events';
 import Clipboard from 'clipboard';
 import {saveBlob} from '../../lib/utils';
@@ -37,7 +37,7 @@ export default class CommonComponents extends React.Component {
 
     var clipboard = new Clipboard('[data-action="copy-entity-to-clipboard"]', {
       text: trigger => {
-        return getClipboardRepresentation(this.props.entity);
+        return getEntityClipboardRepresentation(this.props.entity);
       }
     });
     clipboard.on('error', e => {

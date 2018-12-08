@@ -36,9 +36,10 @@ export function updateEntity (entity, propertyName, value) {
 }
 
 /**
- * Remove an entity
- * @param  {Element} entity Entity to remove.
- * @param  {boolean} force (Optional) If true it won't ask for confirmation
+ * Remove an entity.
+ *
+ * @param {Element} entity Entity to remove.
+ * @param {boolean} force (Optional) If true it won't ask for confirmation.
  */
 export function removeEntity (entity, force) {
   if (entity) {
@@ -135,11 +136,11 @@ export function cloneSelectedEntity () {
 }
 
 /**
- * Returns the clipboard representation to be used to copy to the clipboard
+ * Return the clipboard representation to be used to copy to the clipboard
  * @param  {Element} entity Entity to copy to clipboard
  * @return {string}        Entity clipboard representation
  */
-export function getClipboardRepresentation (entity) {
+export function getEntityClipboardRepresentation (entity) {
   var clone = prepareForSerialization(entity);
   return clone.outerHTML;
 }
@@ -458,4 +459,39 @@ function getUniqueId (baseId) {
   while (document.getElementById(baseId + '-' + i)) { i++; }
 
   return baseId + '-' + i;
+}
+
+export function getComponentClipboardRepresentation (entity, componentName) {
+  /**
+   * Get the list of modified properties
+   * @param  {Element} entity        Entity where the component belongs
+   * @param  {string} componentName Component name
+   * @return {object}               List of modified properties with their value
+   */
+  function getModifiedProperties (entity, componentName) {
+    var data = entity.components[componentName].data;
+    var defaultData = entity.components[componentName].schema;
+    var diff = {};
+    for (var key in data) {
+      // Prevent adding unknown attributes
+      if (!defaultData[key]) { continue; }
+
+      var defaultValue = defaultData[key].default;
+      var currentValue = data[key];
+
+      // Some parameters could be null and '' like mergeTo
+      if ((currentValue || defaultValue) && currentValue !== defaultValue) {
+        diff[key] = data[key];
+      }
+    }
+    return diff;
+  }
+
+  const diff = getModifiedProperties(entity, componentName);
+  const attributes = AFRAME.utils.styleParser.stringify(diff).replace(/;|:/g, '$& ');
+  return `${componentName}="${attributes}"`;
+}
+
+function isEmpty (string) {
+  return string === null || string === '';
 }

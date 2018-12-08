@@ -1,6 +1,6 @@
 /* globals AFRAME */
 var Events = require('./Events');
-import {removeSelectedEntity, cloneSelectedEntity, cloneEntity} from '../actions/entity';
+import {removeSelectedEntity, cloneSelectedEntity, cloneEntity} from '../lib/entity';
 import {os} from '../lib/utils.js';
 
 function shouldCaptureKeyEvent (event) {

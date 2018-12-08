@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import PropertyRow from './PropertyRow';
 import Collapsible from '../Collapsible';
 import Clipboard from 'clipboard';
-import {getClipboardRepresentation} from '../../actions/component';
+import {getComponentClipboardRepresentation} from '../../lib/entity';
 import Events from '../../lib/Events';
 
 const isSingleProperty = AFRAME.schema.isSingleProperty;
@@ -32,7 +32,7 @@ export default class Component extends React.Component {
       text: trigger => {
         var componentName = trigger.getAttribute('data-component').toLowerCase();
         ga('send', 'event', 'Components', 'copyComponentToClipboard', componentName);
-        return getClipboardRepresentation(this.state.entity, componentName);
+        return getComponentClipboardRepresentation(this.state.entity, componentName);
       }
     });
     clipboard.on('error', e => {

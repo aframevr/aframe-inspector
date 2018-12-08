@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import debounce from 'lodash.debounce';
-import {removeEntity, cloneEntity} from '../../actions/entity';
+import {removeEntity, cloneEntity} from '../../lib/entity';
 import Toolbar from './Toolbar';
 const Events = require('../../lib/Events.js');
 
