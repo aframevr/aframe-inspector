@@ -30,7 +30,6 @@ export default class SceneGraph extends React.Component {
       expandedElements: new WeakMap([[props.scene, true]]),
       filter: '',
       filteredEntities: [],
-      selectedEntity: this.props.selectedEntity,
       selectedIndex: -1
     };
 
@@ -40,11 +39,11 @@ export default class SceneGraph extends React.Component {
 
   componentDidMount () {
     this.rebuildEntityOptions();
-    Events.on('entityselect', (entity, self) => {
-      if (self) { return; }
-      this.selectEntity(entity);
-    });
     Events.on('entityidchange', this.rebuildEntityOptions);
+  }
+
+  componentDidUpdate (prevProps) {
+    if (prevProps.entity !== this.props.entity) { this.selectEntity(this.props.entity); }
   }
 
   selectEntity = entity => {
@@ -116,20 +115,20 @@ export default class SceneGraph extends React.Component {
   }
 
   onKeyUp = event => {
-    if (this.state.selectedEntity === null) { return; }
+    if (this.props.selectedEntity === null) { return; }
 
     switch (event.keyCode) {
       case 37:  // left
-        if (this.isExpanded(this.state.selectedEntity)) {
-          this.toggleExpandedCollapsed(this.state.selectedEntity);
+        if (this.isExpanded(this.props.selectedEntity)) {
+          this.toggleExpandedCollapsed(this.props.selectedEntity);
         }
         break;
       case 38:  // up
         this.selectIndex(this.previousExpandedIndexTo(this.state.selectedIndex));
         break;
       case 39:  // right
-        if (!this.isExpanded(this.state.selectedEntity)) {
-          this.toggleExpandedCollapsed(this.state.selectedEntity);
+        if (!this.isExpanded(this.props.selectedEntity)) {
+          this.toggleExpandedCollapsed(this.props.selectedEntity);
         }
         break;
       case 40:  // down
@@ -224,7 +223,7 @@ export default class SceneGraph extends React.Component {
             key={idx}
             isFiltering={!!this.state.filter}
             isExpanded={this.isExpanded(entityOption.entity)}
-            isSelected={this.state.selectedEntity === entityOption.entity}
+            isSelected={this.props.selectedEntity === entityOption.entity}
             selectEntity={this.selectEntity}
             toggleExpandedCollapsed={this.toggleExpandedCollapsed}/>
         );
