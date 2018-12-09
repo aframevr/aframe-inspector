@@ -960,7 +960,6 @@
 					}
 
 				}
-
 			} else if ( _mode === "scale" ) {
 
 				point.sub( offset );
@@ -1094,8 +1093,8 @@
 
 			scope.update();
 			scope.dispatchEvent( changeEvent );
+      objectChangeEvent.mode = _mode;
 			scope.dispatchEvent( objectChangeEvent );
-
 		}
 
 		function onPointerUp( event ) {

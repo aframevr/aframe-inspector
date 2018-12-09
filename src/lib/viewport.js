@@ -55,7 +55,7 @@ function Viewport (inspector) {
 
   const transformControls = new THREE.TransformControls(camera, inspector.container);
   transformControls.size = 0.5;
-  transformControls.addEventListener('objectChange', () => {
+  transformControls.addEventListener('objectChange', evt => {
     const object = transformControls.object;
     if (object === undefined) { return; }
 
@@ -64,6 +64,28 @@ function Viewport (inspector) {
     updateHelpers(object);
 
     Events.emit('refreshsidebarobject3d', object);
+
+    // Emit update event for watcher.
+    let component;
+    let value;
+    if (evt.mode === 'translate') {
+      component = 'position';
+      value = `${object.position.x} ${object.position.y} ${object.position.z}`;
+    } else if (evt.mode === 'rotate') {
+      component = 'rotation';
+      const d = THREE.Math.radToDeg;
+      value = `${d(object.rotation.x)} ${d(object.rotation.y)} ${d(object.rotation.z)}`;
+    } else if (evt.mode === 'scale') {
+      component = 'scale';
+      value = `${object.scale.x} ${object.scale.y} ${object.scale.z}`;
+    }
+    Events.emit('entityupdate', {
+      component: component,
+      componentName: component,
+      entity: transformControls.object.el,
+      propertyName: '',
+      value: value
+    });
   });
 
   transformControls.addEventListener('mouseDown', () => {
