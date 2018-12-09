@@ -40,8 +40,9 @@ export default class Component extends React.Component {
       console.error(e);
     });
 
-    Events.on('selectedentitycomponentchange', detail => {
-      if (detail.name === this.props.name) {
+    Events.on('entityupdate', detail => {
+      if (detail.entity !== this.props.entity) { return; }
+      if (detail.component === this.props.name) {
         this.forceUpdate();
       }
     });

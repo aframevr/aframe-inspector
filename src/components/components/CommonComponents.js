@@ -25,8 +25,9 @@ export default class CommonComponents extends React.Component {
   };
 
   componentDidMount () {
-    Events.on('selectedentitycomponentchange', detail => {
-      if (DEFAULT_COMPONENTS.indexOf(detail.name) !== -1) {
+    Events.on('entityupdate', detail => {
+      if (detail.entity !== this.props.entity) { return; }
+      if (DEFAULT_COMPONENTS.indexOf(detail.component) !== -1) {
         this.forceUpdate();
       }
     });

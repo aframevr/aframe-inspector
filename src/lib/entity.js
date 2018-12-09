@@ -36,9 +36,6 @@ export function updateEntity (entity, propertyName, value) {
     }
   }
 
-  Events.emit('entitychange', entity);
-
-  // For exporting updates to watcher.
   Events.emit('entityupdate', {
     component: splitName ? splitName[0] : propertyName,
     entity: entity,

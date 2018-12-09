@@ -111,26 +111,22 @@ Inspector.prototype = {
     Events.emit('windowresize');
 
     const self = this;
-    function addObjects (object) {
+    function addHelpers (object) {
       for (let i = 0; i < object.children.length; i++) {
         const obj = object.children[i];
         for (let j = 0; j < obj.children.length; j++) {
-          self.addObject(obj.children[j]);
+          self.addHelperTraverse(obj.children[j]);
         }
       }
     }
-    addObjects(this.sceneEl.object3D);
+    addHelpers(this.sceneEl.object3D);
 
     document.addEventListener('model-loaded', event => {
-      this.addObject(event.target.object3D);
+      this.addHelperTraverse(event.target.object3D);
     });
 
-    Events.on('selectedentitycomponentchange', event => {
-      this.addObject(event.target.object3D);
-    });
-
-    Events.on('selectedentitycomponentcreated', event => {
-      this.addObject(event.target.object3D);
+    Events.on('entityselect', entity => {
+      this.addHelperTraverse(entity.object3D);
     });
 
     this.scene.add(this.sceneHelpers);
@@ -243,10 +239,6 @@ Inspector.prototype = {
       this.createNewEntity(definition);
     });
 
-    Events.on('selectedentitycomponentchange', event => {
-      this.addObject(event.target.object3D);
-    });
-
     document.addEventListener('child-detached', event => {
       var entity = event.detail.el;
       AFRAME.INSPECTOR.removeObject(entity.object3D);
@@ -311,7 +303,6 @@ Inspector.prototype = {
   },
 
   addEntity: function (entity) {
-    this.addObject(entity.object3D);
     this.selectEntity(entity);
   },
 
@@ -377,15 +368,14 @@ Inspector.prototype = {
     Shortcuts.disable();
   },
 
-  addObject: function (object) {
+  addHelperTraverse: function (object) {
     const self = this;
     object.traverse(child => {
       if (!child.el || !child.el.isInspector) {
         self.addHelper(child, object);
       }
     });
-
-    Events.emit('entityadd', object);
+    Events.emit('helperadd', object);
   }
 };
 

@@ -11,10 +11,7 @@ export default class Sidebar extends React.Component {
 
   constructor (props) {
     super(props);
-    this.state = {
-      open: false,
-      entity: props.entity
-    };
+    this.state = {open: false};
   }
 
   componentDidMount () {
@@ -32,31 +29,13 @@ export default class Sidebar extends React.Component {
     ga('send', 'event', 'Components', 'toggleSidebar');
   }
 
-  componentChanged = (event) => {
-    Events.emit('selectedentitycomponentchange', event);
-  }
-
-  componentWillReceiveProps (newProps) {
-    if (this.state.entity !== newProps.entity) {
-      if (this.state.entity) {
-        this.state.entity.removeEventListener('componentchange', this.componentChanged);
-        this.state.entity.removeEventListener('componentinitialized', this.componentCreated);
-      }
-      if (newProps.entity) {
-        newProps.entity.addEventListener('componentchange', this.componentChanged);
-        newProps.entity.addEventListener('componentinitialized', this.componentCreated);
-      }
-      this.setState({entity: newProps.entity});
-    }
-  }
-
   render () {
-    const entity = this.state.entity;
+    const entity = this.props.entity;
     const visible = this.props.visible;
     if (entity && visible) {
       return (
         <div id='sidebar'>
-          <ComponentsContainer entity={this.state.entity}/>
+          <ComponentsContainer entity={entity}/>
         </div>
       );
     } else {

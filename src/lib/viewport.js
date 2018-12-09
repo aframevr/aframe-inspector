@@ -54,7 +54,7 @@ function Viewport (inspector) {
   }
 
   const transformControls = new THREE.TransformControls(camera, inspector.container);
-  transformControls.size = 0.5;
+  transformControls.size = 0.75;
   transformControls.addEventListener('objectChange', evt => {
     const object = transformControls.object;
     if (object === undefined) { return; }
@@ -125,7 +125,7 @@ function Viewport (inspector) {
 
   sceneHelpers.add(transformControls);
 
-  Events.on('entitychange', el => {
+  Events.on('entityupdate', detail => {
     if (inspector.selectedEntity.object3DMap['mesh']) {
       selectionBox.update(inspector.selected);
     }
@@ -307,7 +307,7 @@ function Viewport (inspector) {
     }
   });
 
-  Events.on('entityadd', object => {
+  Events.on('helperadd', object => {
     object.traverse(child => {
       if (objects.indexOf(child) === -1) {
         objects.push(child);
@@ -315,8 +315,8 @@ function Viewport (inspector) {
     });
   });
 
-  Events.on('entitychange', el => {
-    const object = el.object3D;
+  Events.on('entityupdate', detail => {
+    const object = detail.entity.object3D;
     if (inspector.selected === object) {
       // Hack because object3D always has geometry :(
       if (object.geometry &&
@@ -332,10 +332,6 @@ function Viewport (inspector) {
     }
 
     updateHelpers(object);
-  });
-
-  Events.on('selectedentitycomponentchange', () => {
-    Events.emit('entitychange', inspector.selectedEntity);
   });
 
   Events.on('objectremove', object => {
