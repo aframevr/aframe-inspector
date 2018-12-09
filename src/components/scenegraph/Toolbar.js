@@ -112,7 +112,7 @@ export default class Toolbar extends React.Component {
         <div className='toolbarActions'>
           <a className='button fa fa-plus' title='Add a new entity' onClick={this.addEntity}></a>
           <a className='button fa fa-video' title='Open motion capture development tools' onClick={this.toggleMotionCaptureUI} style={this.state.motionCaptureUIEnabled ? {color: '#FFF'} : {}}></a>
-          <a className='button fa fa-file-export' title='Export to GLTF' onClick={this.exportSceneToGLTF}></a>
+          <a className='button fab fa-goodreads-g' title='Export to GLTF' onClick={this.exportSceneToGLTF}></a>
           <a className={watcherClassNames} title={watcherTitle} onClick={this.writeChanges}></a>
         </div>
 

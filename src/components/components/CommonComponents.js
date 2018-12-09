@@ -80,7 +80,7 @@ export default class CommonComponents extends React.Component {
     if (!entity) { return <div></div>; }
     const entityName = '<' + entity.tagName.toLowerCase() + '>';
     const entityButtons = <div>
-      <a title='Export entity to GLTF' className='button fa fa-download' onClick={event => { this.exportToGLTF(); event.stopPropagation(); } }></a>
+      <a title='Export entity to GLTF' className='button fab fa-goodreads-g' onClick={event => { this.exportToGLTF(); event.stopPropagation(); } }></a>
       <a href='#' title='Copy entity HTML to clipboard' data-action='copy-entity-to-clipboard'
         className='button fa fa-clipboard' onClick={event => event.stopPropagation()}></a>
     </div>;
