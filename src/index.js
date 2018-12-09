@@ -17,6 +17,7 @@ require('./index.styl');
 function Inspector () {
   this.assetsLoader = new AssetsLoader();
   this.exporters = {gltf: new THREE.GLTFExporter()};
+  this.firstOpen = true;
   this.history = require('./lib/history');
   this.modules = {};
   this.on = Events.on;
@@ -29,10 +30,10 @@ function Inspector () {
       this.init();
       return;
     }
-    this.sceneEl.addEventListener('loaded', this.init.bind(this));
+    this.sceneEl.addEventListener('loaded', this.init.bind(this), {once: true});
   };
   if (!AFRAME.scenes.length) {
-    document.addEventListener('loaded', () => { doInit(); });
+    document.addEventListener('loaded', () => { doInit(); }, {once: true});
     return;
   }
   doInit();
@@ -348,10 +349,11 @@ Inspector.prototype = {
     this.sceneEl.resize();
     Shortcuts.enable();
 
-    if (focusEl) {
+    if (focusEl && this.isFirstOpen) {
       this.selectEntity(focusEl);
       Events.emit('objectfocus', focusEl.object3D);
     }
+    this.firstOpen = false;
   },
 
   /**
@@ -360,6 +362,7 @@ Inspector.prototype = {
    */
   close: function () {
     this.opened = false;
+    Events.emit('inspectortoggle', false);
     this.sceneEl.play();
     if (this.sceneEl.hasAttribute('aframe-inspector-removed-embedded')) {
       this.sceneEl.setAttribute('embedded', '');
