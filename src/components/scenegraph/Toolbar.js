@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import React from 'react';
 import Events from '../../lib/Events.js';
 import {saveBlob, saveString} from '../../lib/utils';
@@ -41,8 +42,11 @@ export default class Toolbar extends React.Component {
     });
 
     this.state = {
-      motionCaptureUIEnabled: JSON.parse(localStorage.getItem(LOCALSTORAGE_MOCAP_UI))
+      motionCaptureUIEnabled: JSON.parse(localStorage.getItem(LOCALSTORAGE_MOCAP_UI)),
+      watcherActive: false
     };
+
+    this.checkWatcherActive();
   }
 
   exportSceneToGLTF () {
@@ -71,6 +75,7 @@ export default class Toolbar extends React.Component {
    * Try to write changes with aframe-inspector-watcher.
    */
   writeChanges = () => {
+    if (!this.state.watcherActive) { return; }
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:51234/save');
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -79,14 +84,36 @@ export default class Toolbar extends React.Component {
     ));
   }
 
+  checkWatcherActive = () => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:51234/');
+    xhr.addEventListener('load', () => {
+      this.setState({watcherActive: xhr.status === 200});
+    });
+    xhr.send();
+  }
+
   render () {
+    const watcherClassNames = classnames({
+      button: true,
+      fa: true,
+      'fa-save': true,
+      disabled: !this.state.watcherActive
+    });
+    let watcherTitle;
+    if (this.state.watcherActive) {
+      watcherTitle = 'Write changes with aframe-watcher.';
+    } else {
+      watcherTitle = 'aframe-watcher not running. npm install aframe-watcher to save changes back to file. supermedium.com/aframe-watcher';
+    }
+
     return (
-      <div id="scenegraphToolbar">
-        <div className='scenegraph-actions'>
+      <div id="toolbar">
+        <div className='toolbarActions'>
           <a className='button fa fa-plus' title='Add a new entity' onClick={this.addEntity}></a>
           <a className='button fa fa-video' title='Open motion capture development tools' onClick={this.toggleMotionCaptureUI} style={this.state.motionCaptureUIEnabled ? {color: '#FFF'} : {}}></a>
-          <a className='button fa fa-download' title='Export to GLTF' onClick={this.exportSceneToGLTF}></a>
-          <a className='button fa fa-save' title='Write changes with aframe-inspector-watcher' onClick={this.writeChanges}></a>
+          <a className='button fa fa-file-export' title='Export to GLTF' onClick={this.exportSceneToGLTF}></a>
+          <a className={watcherClassNames} title={watcherTitle} onClick={this.writeChanges}></a>
         </div>
 
         {this.state.motionCaptureUIEnabled && <MotionCapture/>}
