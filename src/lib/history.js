@@ -16,9 +16,9 @@ Events.on('entityupdate', payload => {
   const component = AFRAME.components[payload.component];
   if (component) {
     if (payload.property) {
-      const componentUpdate = updates[entity.id][payload.component] || {};
+      updates[entity.id][payload.component] = updates[entity.id][payload.component] || {};
       value = component.schema[payload.property].stringify(payload.value);
-      componentUpdate[payload.property] = componentUpdate;
+      updates[entity.id][payload.component][payload.property] = value;
     } else {
       value = component.schema.stringify(payload.value);
       updates[entity.id][payload.component] = value;

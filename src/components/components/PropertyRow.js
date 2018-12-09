@@ -32,10 +32,6 @@ export default class PropertyRow extends React.Component {
                                                          props.name === 'src');
     const type = props.schema.type;
 
-    const gaTrackComponentUpdate = debounce(() => {
-      ga('send', 'event', 'Components', 'changeProperty', this.id);
-    });
-
     const value = props.schema.type === 'selector' ? props.entity.getDOMAttribute(props.componentname)[props.name] : props.data;
 
     const widgetProps = {
@@ -51,7 +47,6 @@ export default class PropertyRow extends React.Component {
         }
 
         updateEntity.apply(this, [props.entity, propertyName, value]);
-        gaTrackComponentUpdate();
       },
       value: value
     };

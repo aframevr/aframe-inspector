@@ -20,7 +20,7 @@ export default class Vec2Widget extends React.Component {
   }
 
   onChange = (name, value) => {
-    this.setState({[name]: value}, () => {
+    this.setState({[name]: parseFloat(value.toFixed(5))}, () => {
       if (this.props.onChange) {
         this.props.onChange(name, this.state);
       }
