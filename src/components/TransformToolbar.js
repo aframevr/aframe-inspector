@@ -58,10 +58,11 @@ export default class TransformToolbar extends React.Component {
         {this.renderTransformButtons()}
         <span className='local-transform'>
           <input id='local' type='checkbox'
+            title='Toggle between local and world space transforms'
             checked={this.state.localSpace || this.state.selectedTransform === 'scale'}
             disabled={this.state.selectedTransform === 'scale'}
             onChange={this.onLocalChange}/>
-          <label htmlFor='local'>local</label>
+          <label htmlFor='local' title='Toggle between local and world space transforms'>local</label>
         </span>
       </div>
     );
