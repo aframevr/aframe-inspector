@@ -85,7 +85,7 @@ export default class CommonComponents extends React.Component {
     </div>;
 
     return (
-      <Collapsible>
+      <Collapsible className='commonComponents'>
         <div className='collapsible-header'>
           <span className='entity-name'>{entityName}</span>
           {entityButtons}

@@ -32,11 +32,16 @@ export default class Collapsible extends React.Component {
   }
 
   render () {
-    const rootClasses = classnames({
+    const rootClassNames = {
       collapsible: true,
       component: true,
       collapsed: this.state.collapsed
-    });
+    };
+    if (this.props.className) {
+      rootClassNames[this.props.className] = true;
+    }
+    const rootClasses = classnames(rootClassNames);
+
     const contentClasses = classnames({
       content: true,
       hide: this.state.collapsed
