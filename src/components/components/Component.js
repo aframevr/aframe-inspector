@@ -83,7 +83,7 @@ export default class Component extends React.Component {
       );
     }
 
-    return Object.keys(componentData.schema).map(propertyName => (
+    return Object.keys(componentData.schema).sort().map(propertyName => (
       <PropertyRow key={propertyName} name={propertyName}
         schema={componentData.schema[propertyName]}
         data={componentData.data[propertyName]} componentname={this.props.name}
