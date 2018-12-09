@@ -5,7 +5,7 @@ const updates = {}
 /**
  * Store change to export.
  *
- * payload: component, entity, value.
+ * payload: entity, component, property, value.
  */
 Events.on('entityupdate', payload => {
   let value = payload.value;
@@ -13,12 +13,12 @@ Events.on('entityupdate', payload => {
   const entity = payload.entity;
   updates[entity.id] = updates[entity.id] || {};
 
-  const component = AFRAME.components[payload.componentName];
+  const component = AFRAME.components[payload.component];
   if (component) {
-    if (payload.propertyName) {
-      const componentUpdate = updates[entity.id][payload.componentName] || {};
-      value = component.schema[propertyName].stringify(payload.value);
-      componentUpdate[payload.propertyName] = componentUpdate;
+    if (payload.property) {
+      const componentUpdate = updates[entity.id][payload.component] || {};
+      value = component.schema[property].stringify(payload.value);
+      componentUpdate[payload.property] = componentUpdate;
     } else {
       value = component.schema.stringify(payload.value);
       updates[entity.id][payload.component] = value;

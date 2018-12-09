@@ -81,9 +81,8 @@ function Viewport (inspector) {
     }
     Events.emit('entityupdate', {
       component: component,
-      componentName: component,
       entity: transformControls.object.el,
-      propertyName: '',
+      property: '',
       value: value
     });
   });
