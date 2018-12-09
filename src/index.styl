@@ -672,10 +672,23 @@ body.aframe-inspector-opened
     transition background .1s
     &:hover
       background #444
+    &.active
+      background-color #1faaf2
+      color #fff
+    &.novisible
+      &.active
+        span,
+        .fa,
+        .collapsespace,
+        .id
+          color #AAA
+      &:not(.active)
+        span,
+        .fa,
+        .collapsespace,
+        .id
+          color #575757
 
-  .scenegraph .entity.active
-    background-color #1faaf2
-    color #fff
 
   .scenegraph .entity .componenthover
     color #1faaf2
@@ -905,12 +918,6 @@ body.aframe-inspector-opened
   .option spanfirst-child
     overflow hidden
     text-overflow ellipsis
-
-  .scenegraph .option.novisible span,
-  .scenegraph .option.novisible .fa,
-  .scenegraph .option.novisible .collapsespace,
-  .scenegraph .option.novisible .id
-    color #575757
 
   .scenegraph .option .icons a.button
     color #fff

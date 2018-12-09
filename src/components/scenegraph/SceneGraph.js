@@ -44,7 +44,6 @@ export default class SceneGraph extends React.Component {
       if (self) { return; }
       this.selectEntity(entity);
     });
-    Events.on('entityclone', this.rebuildEntityOptions);
     Events.on('entityidchange', this.rebuildEntityOptions);
   }
 
@@ -117,20 +116,20 @@ export default class SceneGraph extends React.Component {
   }
 
   onKeyUp = event => {
-    if (this.state.value === null) { return; }
+    if (this.state.selectedEntity === null) { return; }
 
     switch (event.keyCode) {
       case 37:  // left
-        if (this.isExpanded(this.state.value)) {
-          this.toggleExpandedCollapsed(this.state.value);
+        if (this.isExpanded(this.state.selectedEntity)) {
+          this.toggleExpandedCollapsed(this.state.selectedEntity);
         }
         break;
       case 38:  // up
         this.selectIndex(this.previousExpandedIndexTo(this.state.selectedIndex));
         break;
       case 39:  // right
-        if (!this.isExpanded(this.state.value)) {
-          this.toggleExpandedCollapsed(this.state.value);
+        if (!this.isExpanded(this.state.selectedEntity)) {
+          this.toggleExpandedCollapsed(this.state.selectedEntity);
         }
         break;
       case 40:  // down
@@ -148,13 +147,13 @@ export default class SceneGraph extends React.Component {
   }
 
   isVisibleInSceneGraph = x => {
-    let curr = x.parentEl;
+    let curr = x.parentNode;
     if (!curr) { return false; }
     while (curr !== undefined && curr.isEntity) {
       if (!this.isExpanded(curr)) {
         return false;
       }
-      curr = curr.parentEl;
+      curr = curr.parentNode;
     }
     return true;
   }
@@ -169,17 +168,17 @@ export default class SceneGraph extends React.Component {
 
   expandToRoot = x => {
     // Expand element all the way to the scene element
-    let curr = x.parentEl;
+    let curr = x.parentNode;
     while (curr !== undefined && curr.isEntity) {
       this.state.expandedElements.set(curr, true);
-      curr = curr.parentEl;
+      curr = curr.parentNode;
     }
     this.setState({expandedElements: this.state.expandedElements});
   }
 
   previousExpandedIndexTo = i => {
     for (let prevIter = i - 1; prevIter >= 0; prevIter--) {
-      const prevEl = this.state.entities[prevIter].value;
+      const prevEl = this.state.entities[prevIter].entity;
       if (this.isVisibleInSceneGraph(prevEl)) {
         return prevIter;
       }
@@ -189,7 +188,7 @@ export default class SceneGraph extends React.Component {
 
   nextExpandedIndexTo = i => {
     for (let nextIter = i + 1; nextIter < this.state.entities.length; nextIter++) {
-      const nextEl = this.state.entities[nextIter].value;
+      const nextEl = this.state.entities[nextIter].entity;
       if (this.isVisibleInSceneGraph(nextEl)) {
         return nextIter;
       }
