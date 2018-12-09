@@ -39,7 +39,7 @@ export function updateEntity (entity, propertyName, value) {
   Events.emit('entityupdate', {
     component: splitName ? splitName[0] : propertyName,
     entity: entity,
-    propertyName: splitName ? splitName[1] : '',
+    property: splitName ? splitName[1] : '',
     value: value
   });
 }

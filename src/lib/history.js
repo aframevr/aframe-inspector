@@ -17,7 +17,7 @@ Events.on('entityupdate', payload => {
   if (component) {
     if (payload.property) {
       const componentUpdate = updates[entity.id][payload.component] || {};
-      value = component.schema[property].stringify(payload.value);
+      value = component.schema[payload.property].stringify(payload.value);
       componentUpdate[payload.property] = componentUpdate;
     } else {
       value = component.schema.stringify(payload.value);
