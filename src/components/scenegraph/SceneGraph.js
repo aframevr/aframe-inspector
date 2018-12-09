@@ -246,7 +246,7 @@ export default class SceneGraph extends React.Component {
           <div className='search'>
             <input id="filter" placeholder='Search...' onChange={this.onChangeFilter} onKeyUp={this.onFilterKeyUp}/>
             {clearFilter}
-            <span className='fa fa-search'></span>
+            {!this.state.filter && <span className='fa fa-search'></span>}
           </div>
         </div>
         <div className='outliner' tabIndex='0' onKeyDown={this.onKeyDown}
