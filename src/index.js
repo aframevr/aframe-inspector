@@ -17,8 +17,8 @@ require('./index.styl');
 function Inspector () {
   this.assetsLoader = new AssetsLoader();
   this.exporters = {gltf: new THREE.GLTFExporter()};
-  this.firstOpen = true;
   this.history = require('./lib/history');
+  this.isFirstOpen = true;
   this.modules = {};
   this.on = Events.on;
   this.opened = false;
@@ -349,11 +349,15 @@ Inspector.prototype = {
     this.sceneEl.resize();
     Shortcuts.enable();
 
-    if (focusEl && this.isFirstOpen) {
+    if (!focusEl && this.isFirstOpen && AFRAME.utils.getUrlParameter('inspector')) {
+      // Focus entity with URL parameter on first open.
+      focusEl = document.getElementById(AFRAME.utils.getUrlParameter('inspector'));
+    }
+    if (focusEl) {
       this.selectEntity(focusEl);
       Events.emit('objectfocus', focusEl.object3D);
     }
-    this.firstOpen = false;
+    this.isFirstOpen = false;
   },
 
   /**
