@@ -16,6 +16,7 @@ export default class Component extends React.Component {
   static propTypes = {
     component: PropTypes.any,
     entity: PropTypes.object,
+    isCollapsed: PropTypes.bool,
     name: PropTypes.string
   };
 
@@ -100,7 +101,7 @@ export default class Component extends React.Component {
     }
 
     return (
-      <Collapsible collapsed={true}>
+      <Collapsible collapsed={this.props.isCollapsed}>
         <div className='componentHeader collapsible-header'>
           <span className='componentTitle' title={subComponentName || componentName}>
             <span>{subComponentName || componentName}</span>
