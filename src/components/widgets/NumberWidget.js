@@ -140,18 +140,6 @@ export default class NumberWidget extends React.Component {
       this.setValue(parseFloat(this.state.value) - 0.01);
       return;
     }
-
-    // left.
-    if (event.keyCode === 37) {
-      this.setValue(parseFloat(this.state.value) - 0.1);
-      return;
-    }
-
-    // right.
-    if (event.keyCode === 39) {
-      this.setValue(parseFloat(this.state.value) + 0.1);
-      return;
-    }
   }
 
   render () {
