@@ -3,20 +3,22 @@
 [![build status][travis-image]][travis-url]
 
 A visual inspector tool for [A-Frame](https://aframe.io) scenes. Just hit
-`<ctrl> + <alt> + i` on any A-Frame scene to open up the Inspector. Check out
-[the
-guide](https://aframe.io/docs/master/introduction/visual-inspector-and-dev-tools.html).
+`<ctrl> + <alt> + i` on any A-Frame scene to open up the Inspector.
 
-- [Documentation](https://aframe.io/docs/master/introduction/visual-inspector-and-dev-tools.html)
+- [Documentation / Guide](https://aframe.io/docs/master/introduction/visual-inspector-and-dev-tools.html)
 - [Example](https://aframe.io/aframe-inspector/examples/)
 
 ![Inspector Preview](https://cloud.githubusercontent.com/assets/674727/17754902/b9f6f09a-648b-11e6-8319-a4344744fed7.png)
 
 ## Using the Inspector
 
+### Keyboard Shortcut
+
 A-Frame comes with a **keyboard shortcut** to inject the inspector. Just open
 up any A-Frame scene (running at least A-Frame v0.3.0) and press **`<ctrl> +
 <alt> + i`** to inject the inspector, just like you would use a DOM inspector:
+
+### Specifying Inspector Build
 
 This is done with the `inspector` component. By default, this is set on the
 scene already. If we want, we can specify a specific build of the Inspector to
@@ -25,6 +27,13 @@ inject by passing a URL. For debugging:
 ```html
 <a-scene inspector="url: http://localhost:3333/dist/aframe-inspector.js">
   <!-- Scene... -->
+</a-scene>
+```
+
+To use the master branch of the Inspector:
+
+```html
+<a-scene inspector="https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js">
 </a-scene>
 ```
 
