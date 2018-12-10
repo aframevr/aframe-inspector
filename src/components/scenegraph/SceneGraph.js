@@ -42,8 +42,13 @@ export default class SceneGraph extends React.Component {
     Events.on('entityidchange', this.rebuildEntityOptions);
   }
 
+  /**
+   * Selected entity updated from somewhere else in the app.
+   */
   componentDidUpdate (prevProps) {
-    if (prevProps.entity !== this.props.entity) { this.selectEntity(this.props.entity); }
+    if (prevProps.selectedEntity !== this.props.selectedEntity) {
+      this.selectEntity(this.props.selectedEntity);
+    }
   }
 
   selectEntity = entity => {
