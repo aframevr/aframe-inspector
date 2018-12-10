@@ -47,6 +47,9 @@ export default class Toolbar extends React.Component {
     };
 
     this.checkWatcherActive();
+    setInterval(() => {
+      this.checkWatcherActive();
+    }, 5000);
   }
 
   exportSceneToGLTF () {
