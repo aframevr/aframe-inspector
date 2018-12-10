@@ -1092,11 +1092,11 @@
       }
 
       // Trim decimals.
-      if (_mode === 'translation') {
+      if (_mode === 'translate') {
         scope.object.position.x = parseFloat(scope.object.position.x.toFixed(5));
         scope.object.position.y = parseFloat(scope.object.position.y.toFixed(5));
         scope.object.position.z = parseFloat(scope.object.position.z.toFixed(5));
-      } else if (_mode === 'rotation') {
+      } else if (_mode === 'rotate') {
         scope.object.rotation.x = parseFloat(scope.object.rotation.x.toFixed(5));
         scope.object.rotation.y = parseFloat(scope.object.rotation.y.toFixed(5));
         scope.object.rotation.z = parseFloat(scope.object.rotation.z.toFixed(5));
