@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {removeEntity, cloneEntity} from '../../lib/entity';
+import {getEntityName, removeEntity, cloneEntity} from '../../lib/entity';
 
 const Events = require('../../lib/Events.js');
 
@@ -83,15 +83,6 @@ export default class Entity extends React.Component {
       option: true
     });
 
-    // Representation.
-    let entityName = entity.id;
-    if (!entity.isScene && !entityName && entity.getAttribute('class')) {
-      entityName = entity.getAttribute('class').split(' ')[0];
-    }
-    if (!entity.isScene && !entityName && entity.getAttribute('mixin')) {
-      entityName = entity.getAttribute('mixin').split(' ')[0];
-    }
-
     // Icons.
     let icons = '';
     for (let objType in ICONS) {
@@ -104,7 +95,7 @@ export default class Entity extends React.Component {
         <span>
           {visibilityButton} {pad} {collapse}&lt;
           <span onDoubleClick={this.onDoubleClick}>
-            {tagName}<span className="name">{entityName ? ` ${entityName}` : ''}</span>
+            {tagName}<span className="name">{getEntityName(entity)}</span>
           </span>
           <span className="entityIcons" dangerouslySetInnerHTML={{__html: icons}}></span>&gt;
         </span>

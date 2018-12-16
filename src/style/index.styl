@@ -87,7 +87,7 @@ body.aframe-inspector-opened
     text-decoration none
     top 3px
     width 204px
-    z-index 99999
+    z-index 999999999
 
   .toggle-edithover
     background-color rgb(228, 43, 90)
@@ -196,13 +196,16 @@ body.aframe-inspector-opened
     align-items stretch
     display flex
     justify-content flex-end
-    position fixed
-    right 0
-    top 0
 
-  #aframe-inspector-panels
+  #inspectorContainer
     display flex
     justify-content space-between
+    left 0
+    height 100%
+    position fixed
+    top 0
+    width 100%
+    z-index 999999
 
   .aframe-inspector-opened a-scene .a-canvas
     background-color #191919

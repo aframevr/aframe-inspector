@@ -1,6 +1,6 @@
 var React = require('react');
 var Events = require('../../lib/Events.js');
-var classNames = require('classnames');
+import {getEntityName} from '../../lib/entity';
 
 export default class ViewportHUD extends React.Component {
   constructor (props) {
@@ -13,16 +13,15 @@ export default class ViewportHUD extends React.Component {
 
   componentDidMount () {
     Events.on('entityselect', el => {
-      console.log(el);
       this.setState({selectedEntity: el});
     });
   }
 
   renderActiveEntityName () {
     if (this.state.hoveredEntity) {
-
+      return getEntityName(this.state.hoveredEntity);
     } else if (this.state.selectedEntity) {
-      return this.state.selectedEntity.id;
+      return getEntityName(this.state.selectedEntity);
     } else {
       return '';
     }

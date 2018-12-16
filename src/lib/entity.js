@@ -500,3 +500,15 @@ export function getComponentClipboardRepresentation (entity, componentName) {
 function isEmpty (string) {
   return string === null || string === '';
 }
+
+export function getEntityName (entity) {
+  // Representation.
+  let entityName = entity.id;
+  if (!entity.isScene && !entityName && entity.getAttribute('class')) {
+    entityName = entity.getAttribute('class').split(' ')[0];
+  }
+  if (!entity.isScene && !entityName && entity.getAttribute('mixin')) {
+    entityName = entity.getAttribute('mixin').split(' ')[0];
+  }
+  return entityName || '';
+}

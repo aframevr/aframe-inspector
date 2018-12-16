@@ -129,20 +129,24 @@ export default class Main extends React.Component {
       <div>
         <a className='toggle-edit' onClick={this.toggleEdit}>{toggleButtonText}</a>
 
-        <div id='aframe-inspector-panels' className={this.state.inspectorEnabled ? '' : 'hidden'}>
-          <ModalTextures ref='modaltextures' isOpen={this.state.isModalTexturesOpen} selectedTexture={this.state.selectedTexture} onClose={this.onModalTextureOnClose}/>
+        {this.renderSceneGraphToggle()}
+        {this.renderComponentsToggle()}
 
+        <div id='inspectorContainer' className={this.state.inspectorEnabled ? '' : 'hidden'}>
           <SceneGraph scene={scene} selectedEntity={this.state.entity} visible={this.state.visible.scenegraph}/>
 
-          {this.renderSceneGraphToggle()}
-          {this.renderComponentsToggle()}
+          <div id="viewportBar">
+            <ViewportHUD/>
+            <TransformToolBar/>
+          </div>
 
           <div id='rightPanel'>
-            <TransformToolBar/>
             <ComponentsSidebar entity={this.state.entity} visible={this.state.visible.attributes}/>
           </div>
         </div>
+
         <ModalHelp isOpen={this.state.isHelpOpen} onClose={this.onCloseHelpModal}/>
+        <ModalTextures ref='modaltextures' isOpen={this.state.isModalTexturesOpen} selectedTexture={this.state.selectedTexture} onClose={this.onModalTextureOnClose}/>
       </div>
     );
   }
