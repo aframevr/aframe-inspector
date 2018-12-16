@@ -8,6 +8,10 @@ A visual inspector tool for [A-Frame](https://aframe.io) scenes. Just hit
 - [Documentation / Guide](https://aframe.io/docs/master/introduction/visual-inspector-and-dev-tools.html)
 - [Example](https://aframe.io/aframe-inspector/examples/)
 
+Also check out:
+
+- [A-Frame Watcher](https://github.com/supermedium/aframe-watcher) - Companion server to sync changes to HTML files.
+
 ![Inspector Preview](https://cloud.githubusercontent.com/assets/674727/17754902/b9f6f09a-648b-11e6-8319-a4344744fed7.png)
 
 ## Using the Inspector
