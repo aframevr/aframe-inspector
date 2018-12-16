@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Example Scene</title>
-    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe/dist/aframe-master.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@master/dist/aframe-master.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.0.0/dist/aframe-environment-component.min.js"></script>
   </head>
   <body>
@@ -28,9 +28,7 @@
       <a-entity id="blueBox" mixin="blueBox" position="0 8 0"></a-entity>
       <a-entity id="shortOrangeBox" mixin="short orange box" position="-5 2 0"></a-entity>
       <a-entity id="shortYellowBox" mixin="short yellow box" position="5 2 0"></a-entity>
-      <a-entity id="redBox" geometry="primitive: box" material="color:#f00" position="-4 1 0">
-        <a-animation attribute="rotation" to="0 360 0" repeat="indefinite" easing="linear" dur="9600"></a-animation>
-      </a-entity>
+      <a-entity id="redBox" geometry="primitive: box" material="color:#f00" position="-4 1 0" animation="property: object3D.rotation.y; to: 360; loop: true; easing: linear; dur: 9600"></a-entity>
       <a-entity id="yellowSphere" geometry="primitive: sphere" material="color:#ff0; metalness:0.0; roughness:1.0" position="-2 2 -2"></a-entity>
       <a-box src="https://aframe.io/sample-assets/assets/images/bricks/brick_bump.jpg" position="-5 5 -2" width="1" color="#F16745"></a-box>
       <a-box id="box" position="0 2 0" height="2" color="#FFC65D"></a-box>
