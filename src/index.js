@@ -12,7 +12,7 @@ import Main from './components/Main';
 import {injectCSS, injectJS} from './lib/utils';
 import {GLTFExporter} from './lib/vendor/GLTFExporter';  // eslint-disable-line no-unused-vars
 
-require('./index.styl');
+require('./style/index.styl');
 
 function Inspector () {
   this.assetsLoader = new AssetsLoader();

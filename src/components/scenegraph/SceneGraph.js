@@ -245,7 +245,7 @@ export default class SceneGraph extends React.Component {
       : null;
 
     return (
-      <div id={this.props.id} className='scenegraph'>
+      <div id='scenegraph' className='scenegraph'>
         <div className='scenegraph-toolbar'>
           <Toolbar/>
           <div className='search'>
