@@ -340,11 +340,7 @@ function Viewport (inspector) {
     });
   });
   Events.on('helperadded', helper => {
-    objects.push(helper.getObjectByName('picker'));
     updateHelpers(helper.fromObject.parent);
-  });
-  Events.on('helperremove', object => {
-    objects.splice(objects.indexOf(object.getObjectByName('picker')), 1);
   });
   Events.on('windowresize', () => {
     camera.aspect = container.dom.offsetWidth / container.dom.offsetHeight;
