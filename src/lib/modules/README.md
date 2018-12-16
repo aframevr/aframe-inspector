@@ -1,3 +1,4 @@
+```
 var registerModule = require('../modules').registerModule;
 
 registerModule('dummy', {
@@ -13,3 +14,4 @@ registerModule('dummy', {
     console.log('Module deactivated');
   }
 });
+```

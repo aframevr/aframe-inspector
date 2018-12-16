@@ -67,9 +67,11 @@ Inspector.prototype = {
     this.sceneEl.camera = camera;
 
     this.initUI();
-    this.initModules();
   },
 
+  /**
+   * Currently not used.
+   */
   initModules: function () {
     for (var moduleName in this.modules) {
       var module = this.modules[moduleName];

@@ -6,31 +6,30 @@ import TransformControls from './TransformControls.js';
 import EditorControls from './EditorControls.js';
 /* eslint-disable no-unused-vars */
 
+import {initRaycaster} from './raycaster';
+
 import {getNumber} from './utils';
-var Events = require('./Events');
+const Events = require('./Events');
 
+/**
+ * Transform controls stuff mostly.
+ */
 function Viewport (inspector) {
-  var container = {dom: inspector.container};
+  // Initialize raycaster and picking in differentpmodule.
+  const mouseCursor = initRaycaster(inspector);
 
-  var prevActiveCameraEl = inspector.currentCameraEl;
+  let prevActiveCameraEl = inspector.currentCameraEl;
   inspector.sceneEl.addEventListener('camera-set-active', event => {
-    if (inspector.opened) {
-      // If we're in edit mode, save the newly active camera and activate when exiting.
-      prevActiveCameraEl = event.detail.cameraEl;
-    }
+    // If we're in edit mode, save the newly active camera and activate when exiting.
+    if (inspector.opened) { prevActiveCameraEl = event.detail.cameraEl; }
   });
 
-  // helpers
-  var sceneHelpers = inspector.sceneHelpers;
-  var objects = [];
-
-  var grid = new THREE.GridHelper(30, 60, 0x555555, 0x292929);
-
+  // Helpers.
+  const sceneHelpers = inspector.sceneHelpers;
+  const grid = new THREE.GridHelper(30, 60, 0x555555, 0x292929);
   sceneHelpers.add(grid);
 
-  var camera = inspector.camera;
-
-  var selectionBox = new THREE.BoxHelper();
+  const selectionBox = new THREE.BoxHelper();
   selectionBox.material.depthTest = false;
   selectionBox.material.transparent = true;
   selectionBox.material.color.set(0x1faaf2);
@@ -49,6 +48,7 @@ function Viewport (inspector) {
     }
   }
 
+  const camera = inspector.camera;
   const transformControls = new THREE.TransformControls(camera, inspector.container);
   transformControls.size = 0.75;
   transformControls.addEventListener('objectChange', evt => {
@@ -99,137 +99,20 @@ function Viewport (inspector) {
     }
   });
 
-  // object picking
-  var raycaster = new THREE.Raycaster();
-  var mouse = new THREE.Vector2();
-
-  // events
-  function getIntersects (point, objects) {
-    mouse.set((point.x * 2) - 1, -(point.y * 2) + 1);
-    raycaster.setFromCamera(mouse, camera);
-    return raycaster.intersectObjects(objects);
-  }
-
-  var onDownPosition = new THREE.Vector2();
-  var onUpPosition = new THREE.Vector2();
-  var onDoubleClickPosition = new THREE.Vector2();
-
-  function getMousePosition (dom, x, y) {
-    var rect = dom.getBoundingClientRect();
-    return [ (x - rect.left) / rect.width, (y - rect.top) / rect.height ];
-  }
-
-  function handleClick () {
-    if (onDownPosition.distanceTo(onUpPosition) === 0) {
-      var intersects = getIntersects(onUpPosition, objects);
-      if (intersects.length > 0) {
-        var selected = false;
-        for (var i = 0; i < intersects.length; i++) {
-          var object = intersects[i].object;
-
-          if (object.el && !object.el.getAttribute('visible')) {
-            continue;
-          }
-
-          if (object.type === 'PerspectiveCamera' ||
-              (object.el && object.el.getObject3D('camera')) ||
-              object.parent.camera) {
-            continue;
-          }
-
-          selected = true;
-
-          if (object.userData.object !== undefined) {
-            // helper
-            inspector.selectEntity(object.userData.object.el);
-          } else {
-            inspector.selectEntity(object.el);
-          }
-
-          break;
-        }
-
-        if (!selected) {
-          inspector.selectEntity(null);
-        }
-      } else {
-        inspector.selectEntity(null);
-      }
-    }
-  }
-
-  function onMouseDown (event) {
-    if (event instanceof CustomEvent) {
-      return;
-    }
-
-    event.preventDefault();
-
-    var array = getMousePosition(inspector.container, event.clientX, event.clientY);
-    onDownPosition.fromArray(array);
-
-    document.addEventListener('mouseup', onMouseUp, false);
-  }
-
-  function onMouseUp (event) {
-    if (event instanceof CustomEvent) {
-      return;
-    }
-
-    var array = getMousePosition(inspector.container, event.clientX, event.clientY);
-    onUpPosition.fromArray(array);
-    handleClick();
-
-    document.removeEventListener('mouseup', onMouseUp, false);
-  }
-
-  function onTouchStart (event) {
-    var touch = event.changedTouches[ 0 ];
-    var array = getMousePosition(inspector.container, touch.clientX, touch.clientY);
-    onDownPosition.fromArray(array);
-
-    document.addEventListener('touchend', onTouchEnd, false);
-  }
-
-  function onTouchEnd (event) {
-    var touch = event.changedTouches[ 0 ];
-    var array = getMousePosition(inspector.container, touch.clientX, touch.clientY);
-    onUpPosition.fromArray(array);
-    handleClick();
-    document.removeEventListener('touchend', onTouchEnd, false);
-  }
-
-  function onDoubleClick (event) {
-    var array = getMousePosition(inspector.container, event.clientX, event.clientY);
-    onDoubleClickPosition.fromArray(array);
-
-    var intersects = getIntersects(onDoubleClickPosition, objects);
-
-    if (intersects.length > 0) {
-      var intersect = intersects[ 0 ];
-      Events.emit('objectfocus', intersect.object);
-    }
-  }
-
-  // controls need to be added *after* main logic,
-  // otherwise controls.enabled doesn't work.
-  var controls = new THREE.EditorControls(camera, inspector.container);
+  // Controls need to be added *after* main logic.
+  const controls = new THREE.EditorControls(camera, inspector.container);
   controls.center.set(0, 1.6, 0);
 	controls.rotationSpeed = 0.0035;
   controls.zoomSpeed = 0.05;
 
   function disableControls () {
-    inspector.container.removeEventListener('mousedown', onMouseDown);
-    inspector.container.removeEventListener('touchstart', onTouchStart);
-    inspector.container.removeEventListener('dblclick', onDoubleClick);
+    mouseCursor.disable();
     transformControls.dispose();
     controls.enabled = false;
   }
 
   function enableControls () {
-    inspector.container.addEventListener('mousedown', onMouseDown, false);
-    inspector.container.addEventListener('touchstart', onTouchStart, false);
-    inspector.container.addEventListener('dblclick', onDoubleClick, false);
+    mouseCursor.enable();
     transformControls.activate();
     controls.enabled = true;
   }
@@ -275,21 +158,14 @@ function Viewport (inspector) {
     }
   });
 
-  Events.on('helperadd', object => {
-    object.traverse(child => {
-      if (objects.indexOf(child) === -1) {
-        objects.push(child);
-      }
-    });
-  });
-
   Events.on('entityupdate', detail => {
     const object = detail.entity.object3D;
     if (inspector.selected === object) {
       // Hack because object3D always has geometry :(
       if (object.geometry &&
           ((object.geometry.vertices && object.geometry.vertices.length > 0) ||
-           (object.geometry.attributes && object.geometry.attributes.position && object.geometry.attributes.position.array.length))) {
+           (object.geometry.attributes && object.geometry.attributes.position &&
+            object.geometry.attributes.position.array.length))) {
         selectionBox.setFromObject(object).update();
       }
     }
@@ -302,21 +178,19 @@ function Viewport (inspector) {
     updateHelpers(object);
   });
 
-  Events.on('objectremove', object => {
-    object.traverse(child => {
-      objects.splice(objects.indexOf(child), 1);
-    });
-  });
   Events.on('helperadded', helper => {
     updateHelpers(helper.fromObject.parent);
   });
+
   Events.on('windowresize', () => {
-    camera.aspect = container.dom.offsetWidth / container.dom.offsetHeight;
+    camera.aspect = inspector.container.offsetWidth / inspector.container.offsetHeight;
     camera.updateProjectionMatrix();
   });
+
   Events.on('gridvisibilitychanged', showGrid => {
     grid.visible = showGrid;
   });
+
   Events.on('togglegrid', () => {
     grid.visible = !grid.visible;
   });

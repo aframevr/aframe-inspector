@@ -60,6 +60,7 @@ module.exports = {
     disableHostCheck: true,
     port: 3333
   },
+  devtool: 'source-map',
   entry: entry,
   output: {
     path: path.join(__dirname, outPath),
