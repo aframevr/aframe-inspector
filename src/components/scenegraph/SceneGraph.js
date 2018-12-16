@@ -78,7 +78,8 @@ export default class SceneGraph extends React.Component {
       for (let i = 0; i < element.children.length; i++) {
         let entity = element.children[i];
 
-        if (entity.dataset.isInspector || !entity.isEntity || entity.isInspector) {
+        if (entity.dataset.isInspector || !entity.isEntity || entity.isInspector ||
+            'aframeInspector' in entity.dataset) {
           continue;
         }
 

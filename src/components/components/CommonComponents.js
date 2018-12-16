@@ -78,7 +78,6 @@ export default class CommonComponents extends React.Component {
   render () {
     const entity = this.props.entity;
     if (!entity) { return <div></div>; }
-    const entityName = '<' + entity.tagName.toLowerCase() + '>';
     const entityButtons = <div>
       <a title='Export entity to GLTF' className='button fab fa-goodreads-g' onClick={event => { this.exportToGLTF(); event.stopPropagation(); } }></a>
       <a href='#' title='Copy entity HTML to clipboard' data-action='copy-entity-to-clipboard'
@@ -88,7 +87,9 @@ export default class CommonComponents extends React.Component {
     return (
       <Collapsible className='commonComponents'>
         <div className='collapsible-header'>
-          <span className='entity-name'>{entityName}</span>
+          <span id='entityName'>
+            {`<${entity.tagName.toLowerCase()}${entity.id ? ' ' + entity.id : ''}>`}
+          </span>
           {entityButtons}
         </div>
         <div className='collapsible-content'>

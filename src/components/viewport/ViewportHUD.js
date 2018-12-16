@@ -12,7 +12,9 @@ export default class ViewportHUD extends React.Component {
   }
 
   componentDidMount () {
-    Events.on('', () => {
+    Events.on('entityselect', el => {
+      console.log(el);
+      this.setState({selectedEntity: el});
     });
   }
 
@@ -20,7 +22,7 @@ export default class ViewportHUD extends React.Component {
     if (this.state.hoveredEntity) {
 
     } else if (this.state.selectedEntity) {
-
+      return this.state.selectedEntity.id;
     } else {
       return '';
     }

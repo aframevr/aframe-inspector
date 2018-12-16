@@ -59,15 +59,15 @@ body.aframe-inspector-opened
   input
     outline none /* osx */
 
-#left-sidebar,
-#right-panels
+  #leftPanel,
+  #rightPanel
     z-index 9998
 
-#sidebar,
-#left-sidebar,
-  .panel
-    cursor default
-    user-select none
+  #sidebar,
+  #leftPanel,
+    .panel
+      cursor default
+      user-select none
 
   .collapsible .static
     margin 0
@@ -114,7 +114,7 @@ body.aframe-inspector-opened
     .search
       padding 5px
 
-#toolbar
+  #toolbar
     background-color #333
 
     .toolbarActions
@@ -179,7 +179,7 @@ body.aframe-inspector-opened
   input.error
     border 1px solid #a00
 
-#left-sidebar
+  #leftPanel
     background #2b2b2b
     bottom 0
     display flex
@@ -190,11 +190,11 @@ body.aframe-inspector-opened
     top 0
     width 230px
 
-#sidebar
+  #sidebar
     background #2b2b2b
     width 331px
 
-#sidebar *
+  #sidebar *
     vertical-align middle
 
   input,
@@ -397,7 +397,7 @@ body.aframe-inspector-opened
     font-weight 100
     margin 0.6em 0
 
-#textureModal .modal-content
+  #textureModal .modal-content
     height calc(100% - 50px)
     width calc(100% - 50px)
 
@@ -728,7 +728,7 @@ body.aframe-inspector-opened
   a.help-linkhover
     opacity 1
 
-#right-panels
+  #rightPanel
     align-items stretch
     display flex
     justify-content flex-end
@@ -736,7 +736,7 @@ body.aframe-inspector-opened
     right 0
     top 0
 
-#aframe-inspector-panels
+  #aframe-inspector-panels
     display flex
     justify-content space-between
 
@@ -758,12 +758,16 @@ body.aframe-inspector-opened
     margin-left 5px
     width 350px
 
-  span.entity-name
+  #entityName
+    bottom 2px
     color #fff
     font-family Consolas, Andale Mono, Monaco, Courier New, monospace
-    font-size 16px
+    font-size 14px
+    max-width 80%
+    overflow hidden
     position relative
-    bottom 2px
+    text-overflow ellipsis
+    white-space nowrap
 
   .add-component
     width 200px
