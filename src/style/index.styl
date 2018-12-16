@@ -14,7 +14,11 @@ body.aframe-inspector-opened
 
 #aframeInspector
   @import './scenegraph';
+  @import './components';
+  @import './help';
   @import './textureModal';
+  @import './viewport';
+  @import './widgets';
 
   .Select,
   code,
@@ -71,27 +75,6 @@ body.aframe-inspector-opened
       cursor default
       user-select none
 
-  .collapsible .static
-    margin 0
-
-  .collapsible .static .collapse-button
-    border 6px solid transparent
-    float left
-    height 0
-    margin-right 6px
-    width 0
-
-  .collapsible.collapsed .static .collapse-button
-    border-left-color #1faaf2
-    margin-top 2px
-
-  .collapsiblenot(.collapsed) .static .collapse-button
-    border-top-color #1faaf2
-    margin-top 6px
-
-  .collapsible.collapsed .content
-    display none
-
   .toggle-edit
     background-color #ed3160
     color #fff
@@ -108,16 +91,6 @@ body.aframe-inspector-opened
 
   .toggle-edithover
     background-color rgb(228, 43, 90)
-
-  #toolbar
-    background-color #333
-
-    .toolbarActions
-      padding 9px 0 5px
-
-      a.disabled
-        color #666
-        cursor default
 
   input
     background-color transparent
@@ -197,106 +170,6 @@ body.aframe-inspector-opened
     border 0  /* To remove the inner border (specific to Firefox). */
     padding 0
 
-  .components
-    background-color #323232
-    color #bcbcbc
-    height 100%
-    overflow auto
-    position fixed
-    width 331px
-
-  div.vec2,
-  div.vec3,
-  div.vec4
-    display inline
-
-  .vec2 input.number,
-  .vec3 input.number
-    width 45px
-
-  .commonComponents .vec3 input.number
-    border 1px solid #24CAFF
-    border-radius 5px
-    margin-right 2px
-    transition border-color .1s
-    &:hover
-      border-color #44EAFF
-
-  .vec4 input.number
-    width 34px
-
-  .collapsible-header
-    display flex
-    justify-content space-between
-
-  .componentTitle span
-    max-width 200px
-    overflow hidden
-    text-overflow ellipsis
-    text-transform uppercase
-    white-space nowrap
-
-  .collapsible .static
-    background-color #323232
-    border-bottom 1px solid #262626
-    border-top 1px solid #262626
-    cursor pointer
-    color #fff
-    height 16px
-    padding 10px
-    transition background-color .1s
-    vertical-align middle
-    &:hover
-      background-color #444
-
-  .collapsible .menu
-    text-align right
-
-  .collapsible .menuafter
-    color #bbb
-    content '\2807'
-    font-size 12px
-    padding 5px
-    text-align right
-
-  .collapsible .static .collapse-button
-    border-left 5px solid transparent
-    border-right 5px solid transparent
-    float left
-    height 0
-    margin-right 10px
-    margin-top 2px
-    width 0
-
-  .collapsible.collapsed .static .collapse-button
-    border-left-color #bbb
-
-  .collapsiblenot(.collapsed) .static .collapse-button
-    border-top-color #bbb
-
-  .collapsible .content
-    background-color #2b2b2b
-    padding 10px
-
-  .components .row
-    margin-bottom 10px
-    min-height 20px
-
-  .components *
-    vertical-align middle
-
-  .components .row .text
-    cursor default
-    display inline-block
-    overflow hidden
-    text-overflow ellipsis
-    vertical-align middle
-    width 120px
-
-  .components .row .map_value
-    margin 0 0 0 5px
-    width 68px
-
   .hidden
     visibility hidden
 
@@ -316,112 +189,8 @@ body.aframe-inspector-opened
   .hide
     display none
 
-  span.value
-    color #fff
-    display flex
-    max-width 150px
-
-  span.mixinlist
-    color #888 !important
-    display inline-block
-
-  span.mixinlist ul
-    background-color #222
-    list-style-type none
-    margin 5px 0 0
-    padding 5px
-
-  span.mixinlist ul li
-    font-size 11px
-    margin-bottom 3px
-
-  span.mixinlist ul lilast-child
-    margin-bottom 0
-
-  span.mixin
-    display inline-block
-    width 100px
-
-  .mixinlist
-    margin-left 120px
-
-  span.subcomponent
-    color #999
-    float none !important
-    margin-left 10px
-    vertical-align top !important
-
   .a-canvas.state-dragging
     cursor grabbing
-
-  .tagName
-    font-weight 500
-
-  .sidebar-title
-    background-color #444
-    color #aaa
-    display flex
-    font-size 12px
-    justify-content space-between
-    padding 6px 10px
-    position relative
-    text-align center
-
-  .transformToolbar
-    background-color #262626
-    color #333
-    height 32px
-    position relative
-
-    *
-      margin-left 0
-      padding 8px
-      vertical-align middle
-
-    a.button
-      margin 0 6px 0 0
-      transition background-color .1s
-      &:not(.active):hover
-        background-color #444
-
-    .active
-      background-color #1faaf2
-      color #fff
-
-    .activehover
-      color #fff !important
-
-  .local-transform
-    padding-left 10px
-
-  .local-transform label
-    color #aaa
-    padding-left 5px
-
-  .local-transform a.button
-    padding-top 0
-
-  .outliner
-    background #2b2b2b
-    color #868686
-    cursor default
-    flex 1 1 auto
-    font-size 12px
-    height calc(100% - 98px)
-    outline none
-    overflow-y auto
-    padding 0
-    width 230px
-
-  .component-title
-    align-items center
-    display flex
-
-  a.help-link
-    opacity 0.4
-
-  a.help-linkhover
-    opacity 1
 
   #rightPanel
     align-items stretch
@@ -439,138 +208,6 @@ body.aframe-inspector-opened
     background-color #191919
     z-index 9998
 
-  #entityName
-    bottom 2px
-    color #fff
-    font-family Consolas, Andale Mono, Monaco, Courier New, monospace
-    font-size 14px
-    max-width 80%
-    overflow hidden
-    position relative
-    text-overflow ellipsis
-    white-space nowrap
-
-  .add-component
-    width 200px
-
-  .Select-control
-    background-color #222 !important
-    border none
-    border-radius 0
-    color #1faaf2
-
-  .Select-menu-outer
-    border none
-
-  .Select-menu-outer .is-focused
-    background-color #1faaf2 !important
-    color #fff
-
-  .Select-option
-    background-color #222 !important
-
-  .select-widget
-    display inline-block
-    width 157px
-
-  .Select-placeholder,
-  .Select--single > .Select-control .Select-value
-    color #1faaf2 !important
-
-  .Select-value-label
-    color #1faaf2 !important
-
-  .row .Select-control
-    font-size 11px
-    height 24px
-
-  .row .Select-placeholder,
-  .row .Select--single > .Select-control .Select-value
-    line-height 19px
-
-  .row .Select-input
-    height 22px
-
-  .row input[type=text],
-  .row input[type=number],
-  .row input.string,
-  .row input.number
-    background #222
-    border 1px solid transparent
-    color #1faaf2
-    min-height 20px
-    padding-left 5px
-    padding-right 5px
-
-  .row input.string
-    box-sizing border-box
-    width 165px
-
-  .help-lists
-    display flex
-    justify-content space-around
-
-  .help-list
-    list-style none
-    margin 0
-    padding 0 0 10px
-    width 350px
-
-  .help-list li
-    margin-right 40px
-
-  .help-key-unit
-    line-height 1.8
-    margin-right 2em
-    padding 5px 0
-
-  .help-key
-    bottom 2px
-    margin-right 4px
-    min-width 60px
-    position relative
-
-  .help-key span
-    background-color #2e2e2e
-    background-repeat repeat-x
-    border 1px solid #666
-    border-radius 3px
-    box-shadow 0 0 5px #000
-    color #999
-    display inline-block
-    font-size 12px
-    padding 0 8px
-    text-align center
-
-  .help-key-def
-    color #bbb
-    display inline-block
-    margin-left 1em
-
-  .add-component
-    text-align left
-
-  .add-component .option
-    display flex
-    justify-content space-between
-
-  .add-component .option span
-    color #1faaf2
-
-  .Select-menu-outer .is-focused span
-    color #fff
-
-  .add-component-container
-    align-items center
-    background-color #2b2b2b
-    display flex
-    justify-content center
-    padding 10px
-
-  .components .row .color_value
-    margin 0 0 0 5px
-    width 68px
-
   .toggle-sidebar
     align-items center
     display flex
@@ -578,63 +215,18 @@ body.aframe-inspector-opened
     position absolute
     z-index 9998
 
-  .toggle-sidebar.left
-    left 0
+    .left
+      left 0
 
-  .toggle-sidebar.right
-    right 0
+    .right
+      right 0
 
-  .toggle-sidebar a
-    background-color #262626
-    color #bcbcbc
-    padding 5px
-    z-index 9998
+    a
+      background-color #262626
+      color #bcbcbc
+      padding 5px
+      z-index 9998
 
-  .toggle-sidebar ahover
-    background-color #1faaf2
-    color #fff
-
-  /* Dropdown menu */
-  .dropbtn
-    border none
-    color white
-    cursor pointer
-
-  .dropdown
-    display inline-block
-    position relative
-
-  .dropdown-content
-    background-color #f9f9f9
-    box-shadow 0 8px 16px 0 rgba(0, 0, 0, 0.2)
-    display none
-    left 8px
-    min-width 38px
-    position absolute
-    z-index 999
-
-  .dropdown-content a
-    background-color #232323
-    color #7d7d7d
-    display block
-    padding 10px 14px
-    text-decoration none
-
-  .dropdown-content ahover
-    background-color #4ecbff
-    color #fff
-
-  .dropdownhover .dropdown-content
-    display block
-
-  .dropdownhover .dropbtn
-    color #1faaf2
-
-  .savedRecordings
-    display inline-block
-    margin-top 10px
-    vertical-align middle
-    width 80%
-
-  .mixinOptions select
-    max-width 150px
+    a.hover
+      background-color #1faaf2
+      color #fff

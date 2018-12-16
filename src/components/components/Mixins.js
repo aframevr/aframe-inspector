@@ -100,7 +100,7 @@ export default class Mixin extends React.Component {
       <div className='mixinOptions'>
         <div className='row'>
           <span className='text'>mixins</span>
-          <span className='value'>
+          <span className='mixinValue'>
             <select ref='select'>
               {this.renderMixinOptions()}
             </select>

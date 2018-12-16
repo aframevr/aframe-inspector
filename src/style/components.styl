@@ -1,0 +1,211 @@
+.components
+  background-color #323232
+  color #bcbcbc
+  height 100%
+  overflow auto
+  position fixed
+  width 331px
+
+div.vec2,
+div.vec3,
+div.vec4
+  display inline
+
+.vec2 input.number,
+.vec3 input.number
+  width 45px
+
+.commonComponents .vec3 input.number
+  border 1px solid #24CAFF
+  border-radius 5px
+  margin-right 2px
+  transition border-color .1s
+  &:hover
+    border-color #44EAFF
+
+.vec4 input.number
+  width 34px
+
+.collapsible-header
+  display flex
+  justify-content space-between
+
+.componentTitle span
+  max-width 200px
+  overflow hidden
+  text-overflow ellipsis
+  text-transform uppercase
+  white-space nowrap
+
+.collapsible .static
+  background-color #323232
+  border-bottom 1px solid #262626
+  border-top 1px solid #262626
+  cursor pointer
+  color #fff
+  height 16px
+  padding 10px
+  transition background-color .1s
+  vertical-align middle
+  &:hover
+    background-color #444
+
+.collapsible .menu
+  text-align right
+
+.collapsible .menuafter
+  color #bbb
+  content '\2807'
+  font-size 12px
+  padding 5px
+  text-align right
+
+.collapsible .static .collapse-button
+  border-left 5px solid transparent
+  border-right 5px solid transparent
+  float left
+  height 0
+  margin-right 10px
+  margin-top 2px
+  width 0
+
+.collapsible.collapsed .static .collapse-button
+  border-left-color #bbb
+
+.collapsiblenot(.collapsed) .static .collapse-button
+  border-top-color #bbb
+
+.collapsible .content
+  background-color #2b2b2b
+  padding 10px
+
+.components .row
+  margin-bottom 10px
+  min-height 20px
+
+.components *
+  vertical-align middle
+
+.components .row .text
+  cursor default
+  display inline-block
+  overflow hidden
+  text-overflow ellipsis
+  vertical-align middle
+  width 120px
+
+.components .row .map_value
+  margin 0 0 0 5px
+  width 68px
+
+span.mixinValue
+  color #fff
+  display flex
+  max-width 150px
+
+span.mixinlist
+  color #888 !important
+  display inline-block
+
+span.mixinlist ul
+  background-color #222
+  list-style-type none
+  margin 5px 0 0
+  padding 5px
+
+span.mixinlist ul li
+  font-size 11px
+  margin-bottom 3px
+
+span.mixinlist ul lilast-child
+  margin-bottom 0
+
+span.mixin
+  display inline-block
+  width 100px
+
+.mixinlist
+  margin-left 120px
+
+span.subcomponent
+  color #999
+  float none !important
+  margin-left 10px
+  vertical-align top !important
+
+a.help-link
+  opacity 0.4
+
+a.help-linkhover
+  opacity 1
+
+#entityName
+  bottom 2px
+  color #fff
+  font-family Consolas, Andale Mono, Monaco, Courier New, monospace
+  font-size 14px
+  max-width 80%
+  overflow hidden
+  position relative
+  text-overflow ellipsis
+  white-space nowrap
+
+.add-component
+  width 200px
+
+.row .Select-control
+  font-size 11px
+  height 24px
+
+.row .Select-placeholder,
+.row .Select--single > .Select-control .Select-value
+  line-height 19px
+
+.row .Select-input
+  height 22px
+
+.row input[type=text],
+.row input[type=number],
+.row input.string,
+.row input.number
+  background #222
+  border 1px solid transparent
+  color #1faaf2
+  min-height 20px
+  padding-left 5px
+  padding-right 5px
+
+.row input.string
+  box-sizing border-box
+  width 165px
+
+.add-component
+  text-align left
+
+.add-component .option
+  display flex
+  justify-content space-between
+
+.add-component .option span
+  color #1faaf2
+
+.Select-menu-outer .is-focused span
+  color #fff
+
+.add-component-container
+  align-items center
+  background-color #2b2b2b
+  display flex
+  justify-content center
+  padding 10px
+
+.components .row .color_value
+  margin 0 0 0 5px
+  width 68px
+
+.mixinOptions select
+  max-width 150px
+
+.component-title
+  align-items center
+  display flex
