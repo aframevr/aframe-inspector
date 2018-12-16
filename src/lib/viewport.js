@@ -37,10 +37,6 @@ function Viewport (inspector) {
   selectionBox.visible = false;
   sceneHelpers.add(selectionBox);
 
-  var objectPositionOnDown = null;
-  var objectRotationOnDown = null;
-  var objectScaleOnDown = null;
-
   /**
    * Update the helpers of the object and it childrens
    * @param  {object3D} object Object to update
@@ -88,38 +84,10 @@ function Viewport (inspector) {
   });
 
   transformControls.addEventListener('mouseDown', () => {
-    var object = transformControls.object;
-
-    objectPositionOnDown = object.position.clone();
-    objectRotationOnDown = object.rotation.clone();
-    objectScaleOnDown = object.scale.clone();
-
     controls.enabled = false;
   });
 
   transformControls.addEventListener('mouseUp', () => {
-    var object = transformControls.object;
-    if (object !== null) {
-      switch (transformControls.getMode()) {
-        case 'translate':
-          if (!objectPositionOnDown.equals(object.position)) {
-            // @todo
-          }
-          break;
-
-        case 'rotate':
-          if (!objectRotationOnDown.equals(object.rotation)) {
-            // @todo
-          }
-          break;
-
-        case 'scale':
-          if (!objectScaleOnDown.equals(object.scale)) {
-            // @todo
-          }
-          break;
-      }
-    }
     controls.enabled = true;
   });
 
