@@ -1,0 +1,222 @@
+.modal
+  animation animateopacity 0.2s ease-out
+  background-color rgb(0, 0, 0)
+  background-color rgba(0, 0, 0, 0.6)
+  display flex
+  height 100%
+  left 0
+  overflow auto
+  position fixed
+  top 0
+  width 100%
+  z-index 9999
+
+.modal h3
+  font-size 18px
+  font-weight 100
+  margin 0.6em 0
+
+#textureModal .modal-content
+  height calc(100% - 50px)
+  width calc(100% - 50px)
+
+.modal-content
+  animation animatetop 0.2s ease-out
+  animation-duration 0.2s
+  animation-name animatetop
+  background-color #232323
+  box-shadow 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5)
+  margin auto
+  overflow hidden
+  padding 0
+
+.close
+  color white
+  float right
+  font-size 28px
+  font-weight bold
+
+.closehover,
+.closefocus
+  color #08f
+  cursor pointer
+  text-decoration none
+
+.modal-header
+  color white
+  padding 2px 16px
+
+.modal-body
+  overflow auto
+  padding 16px
+
+.modal-footer
+  color white
+  padding 2px 16px
+
+/* Gallery */
+.gallery
+  background #232323
+  display flex
+  flex-wrap wrap
+  margin 15px auto 0
+  overflow auto
+  padding 15px 3px 3px
+
+.newimage .gallery
+  padding 16px
+
+.gallery li
+  border-radius 2px
+  box-shadow 0 0 6px rgba(0, 0, 0, 0.6)
+  cursor pointer
+  margin 8px
+  overflow hidden
+  width 155px
+
+.gallery li.selected,
+.gallery lihover
+  box-shadow 0 0 0 2px #1eaaf1
+
+.gallery li .detail
+  background-color #323232
+  margin 0
+  min-height 60px
+  padding 3px 10px
+
+.gallery li .button.fa-external-link
+  margin-left 136px
+  margin-top 5px
+  position fixed
+
+.preview
+  padding 10px
+  width 150px
+
+.preview input
+  display block
+  margin 8px 0
+  width 144px
+
+.preview button
+  width 155px
+
+.preview .detail .title
+  color #fff
+  display inline-block
+  max-width 155px
+  overflow hidden
+  text-overflow ellipsis
+  white-space nowrap
+
+.gallery li.selected .detail,
+.gallery lihover .detail
+  background-color #444
+
+.gallery li .detail span
+  color #777
+  display block
+  margin-top 4px
+  overflow hidden
+  text-overflow ellipsis
+  white-space nowrap
+  width 140px
+
+.gallery li.selected .detail span,
+.gallery lihover .detail span
+  color #888
+
+.gallery li .detail span.title
+  color #fff !important
+
+.modal button
+  appearance none
+  border-radius 0
+  box-shadow none
+  cursor pointer
+  display inline-block
+  font-size 12px
+  line-height 1.8
+  margin 0 10px 0 0
+  padding 5px 10px
+
+.modal buttonfocus
+  outline none
+
+.modal button
+  background-color #1eaaf1
+  border none
+  color #fff
+
+.modal buttonhover,
+.modal button.hover
+  background-color #346392
+  text-shadow -1px 1px #27496d
+
+.modal buttonactive,
+.modal button.active
+  background-color #27496d
+  text-shadow -1px 1px #193047
+
+.modal buttondisabled
+  background-color #888
+  cursor none
+
+.newimage
+  background-color #323232
+  color #bcbcbc
+  display flex
+  font-size 13px
+  justify-content space-between
+  margin-top 10px
+  overflow auto
+  padding 10px
+
+.newimage input
+  color #1eaaf1
+  padding 3px 5px
+
+.texture canvas + input
+  margin-left 5px
+
+.texture .fa
+  padding-right 5px
+
+.texture .fa-external-link
+  font-size 14px
+  padding-top 2px
+
+.uploader-normal-button .hidden
+  display none
+
+.gallery a.fa.texture-link
+  box-shadow 0 0 14px -1px rgba(0, 0, 0, 0.75)
+  position fixed
+
+.assets.search
+  margin-top 10px
+  width 200px
+
+.assets.search .fa-search
+  top 7px
+
+.new_asset_options
+  margin 10px
+
+.new_asset_options > ul
+  margin-left 10px
+  padding 5px
+
+.new_asset_options > ul > li
+  padding 10px 0
+
+.new_asset_options .imageUrl
+  margin-left 5px
+  width 350px
+
+.texture canvas
+  border 1px solid #222
+  cursor pointer
+
+.texture canvashover
+  border-color #1faaf2
