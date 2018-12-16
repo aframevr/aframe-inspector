@@ -2,7 +2,6 @@ import classnames from 'classnames';
 import React from 'react';
 import Events from '../../lib/Events.js';
 import {saveBlob, saveString} from '../../lib/utils';
-import MotionCapture from './MotionCapture';
 
 const LOCALSTORAGE_MOCAP_UI = 'aframeinspectormocapuienabled';
 
@@ -37,12 +36,7 @@ export default class Toolbar extends React.Component {
   constructor (props) {
     super(props);
 
-    Events.on('togglemotioncapture', () => {
-      this.toggleMotionCaptureUI();
-    });
-
     this.state = {
-      motionCaptureUIEnabled: JSON.parse(localStorage.getItem(LOCALSTORAGE_MOCAP_UI)),
       watcherActive: false
     };
 
@@ -66,12 +60,6 @@ export default class Toolbar extends React.Component {
 
   addEntity () {
     Events.emit('createnewentity', {element: 'a-entity', components: {}});
-  }
-
-  toggleMotionCaptureUI = () => {
-    ga('send', 'event', 'SceneGraph', 'openMotionCapture');
-    localStorage.setItem(LOCALSTORAGE_MOCAP_UI, !this.state.motionCaptureUIEnabled);
-    this.setState({motionCaptureUIEnabled: !this.state.motionCaptureUIEnabled});
   }
 
   /**
@@ -114,12 +102,9 @@ export default class Toolbar extends React.Component {
       <div id="toolbar">
         <div className='toolbarActions'>
           <a className='button fa fa-plus' title='Add a new entity' onClick={this.addEntity}></a>
-          <a className='button fa fa-video' title='Open motion capture development tools' onClick={this.toggleMotionCaptureUI} style={this.state.motionCaptureUIEnabled ? {color: '#FFF'} : {}}></a>
           <a className='button fab fa-goodreads-g' title='Export to GLTF' onClick={this.exportSceneToGLTF}></a>
           <a className={watcherClassNames} title={watcherTitle} onClick={this.writeChanges}></a>
         </div>
-
-        {this.state.motionCaptureUIEnabled && <MotionCapture/>}
       </div>
     );
   }

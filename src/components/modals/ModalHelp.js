@@ -43,7 +43,6 @@ export default class ModalHelp extends React.Component {
         {key: ['1'], description: 'Toggle scenegraph panel'},
         {key: ['2'], description: 'Toggle components panel'},
         {key: ['tab'], description: 'Toggle scenegraph and components panel'},
-        {key: ['m'], description: 'Toggle motion capture tools'},
 
         {key: ['ctrl | cmd', 'x'], description: 'Cut selected entity'},
         {key: ['ctrl | cmd', 'c'], description: 'Copy selected entity'},

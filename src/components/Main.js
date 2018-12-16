@@ -21,9 +21,7 @@ export default class Main extends React.Component {
     this.state = {
       entity: null,
       inspectorEnabled: true,
-      isMotionCaptureRecording: false,
       isModalTexturesOpen: false,
-      motionCaptureCountdown: -1,
       sceneEl: AFRAME.scenes[0],
       visible: {
         scenegraph: true,
@@ -89,18 +87,6 @@ export default class Main extends React.Component {
     Events.on('openhelpmodal', () => {
       this.setState({isHelpOpen: true});
     });
-
-    Events.on('motioncapturerecordstart', () => {
-      this.setState({isMotionCaptureRecording: true});
-    });
-
-    Events.on('motioncapturerecordstop', () => {
-      this.setState({isMotionCaptureRecording: false});
-    });
-
-    Events.on('motioncapturecountdown', val => {
-      this.setState({motionCaptureCountdown: val});
-    });
   }
 
   onCloseHelpModal = value => {
@@ -132,11 +118,7 @@ export default class Main extends React.Component {
     const showAttributes = !this.state.entity || this.state.visible.attributes ? null : <div className="toggle-sidebar right"><a onClick={() => { this.setState({visible: {attributes: true}}); this.forceUpdate(); }} className='fa fa-plus' title='Show components'></a></div>;
 
     let toggleButtonText = 'Inspect Scene';
-    if (this.state.motionCaptureCountdown !== -1) {
-      toggleButtonText = this.state.motionCaptureCountdown;
-    } else if (this.state.isMotionCaptureRecording) {
-      toggleButtonText = 'Stop Recording';
-    } else if (this.state.inspectorEnabled) {
+    if (this.state.inspectorEnabled) {
       toggleButtonText = 'Back to Scene';
     }
 
