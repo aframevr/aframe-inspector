@@ -1,7 +1,6 @@
 var React = require('react');
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import 'react-select/dist/react-select.css';
 
 export default class SelectWidget extends React.Component {
   static propTypes = {
@@ -15,40 +14,32 @@ export default class SelectWidget extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { value: this.props.value || '' };
+    const value = this.props.value || '';
+    this.state = {value: {value: value, label: value}};
   }
 
   onChange = value => {
     this.setState({ value: value });
     if (this.props.onChange) {
-      this.props.onChange(this.props.name, value);
+      this.props.onChange(this.props.name, value.value);
     }
   };
 
   componentWillReceiveProps(newProps) {
-    if (newProps.value !== this.state.value) {
-      this.setState({ value: newProps.value });
+    if (newProps.value !== this.state.value.value) {
+      this.setState({ value: {value: newProps.value, label: newProps.value }});
     }
   }
 
-  renderOptions = () => {
-    return this.props.options.map(value => {
-      return (
-        <option key={value} value={value}>
-          {value}
-        </option>
-      );
-    });
-  };
-
   render() {
-    var options = this.props.options.map(value => {
+    const options = this.props.options.map(value => {
       return { value: value, label: value };
     });
 
     return (
       <Select
         className="select-widget"
+        classNamePrefix="select"
         options={options}
         simpleValue
         clearable={true}

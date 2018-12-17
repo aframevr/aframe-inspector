@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Events from '../../lib/Events';
 import Select from 'react-select';
-import 'react-select/dist/react-select.css';
 
 var DELIMITER = ' ';
 
@@ -80,6 +79,7 @@ export default class AddComponent extends React.Component {
       <div className="add-component-container">
         <Select
           className="add-component"
+          classNamePrefix="select"
           ref="select"
           options={this.options}
           simpleValue

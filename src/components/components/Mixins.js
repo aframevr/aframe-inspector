@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
 
 const Events = require('../../lib/Events.js');
 
@@ -15,98 +16,51 @@ export default class Mixin extends React.Component {
     entity: PropTypes.object.isRequired
   };
 
-  removeMixin = mixin => {
-    const entity = this.props.entity;
-    const newMixins = trim(entity.getAttribute('mixin').replace(mixin, ''));
-    if (newMixins.length === 0) {
-      entity.removeAttribute('mixin');
-    } else {
-      entity.setAttribute('mixin', newMixins);
-    }
-    ga('send', 'event', 'Components', 'removeMixin');
+  constructor(props) {
+    super(props);
+    this.state = {mixins: this.getMixinValue()};
+  }
 
-    Events.emit('entityupdate', {
-      component: 'mixin',
-      entity: entity,
-      propertyname: '',
-      value: entity.getAttribute('mixin')
-    });
-  };
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.entity === prevProps.entity) { return; }
+    this.setState({mixins: this.getMixinValue()});
+  }
 
-  addMixin = () => {
-    const entity = this.props.entity;
-    entity.setAttribute(
-      'mixin',
-      trim(entity.getAttribute('mixin') + ' ' + this.refs.select.value)
-    );
+  getMixinValue () {
+    return (this.props.entity.getAttribute('mixin') || '')
+      .split(/\s+/g)
+      .filter(v => !!v)
+      .map(v => ({label: v, value: v}));
+  }
 
-    Events.emit('entityupdate', {
-      component: 'mixin',
-      entity: entity,
-      propertyname: '',
-      value: entity.getAttribute('mixin')
-    });
-    ga('send', 'event', 'Components', 'addMixin');
-  };
-
-  renderMixinOptions = () => {
+  getMixinOptions = () => {
     const mixinIds = this.props.entity.mixinEls.map(function(mixin) {
       return mixin.id;
     });
-    const allMixins = Array.prototype.slice.call(
-      document.querySelectorAll('a-mixin')
-    );
 
-    return allMixins
+    return Array.prototype.slice.call(document.querySelectorAll('a-mixin'))
       .filter(function(mixin) {
         return mixinIds.indexOf(mixin.id) === -1;
       })
       .sort()
-      .map(function(value) {
-        return (
-          <option key={value.id} value={value.id}>
-            {value.id}
-          </option>
-        );
+      .map(function(mixin) {
+        return {value: mixin.id, label: mixin.id};
       });
   };
 
-  renderMixins = () => {
-    const mixins = this.props.entity.mixinEls;
-    if (mixins.length === 0) {
-      return <span />;
-    }
-    return (
-      <span className="mixinlist">
-        <ul>{mixins.map(this.renderMixin)}</ul>
-      </span>
-    );
-  };
+  updateMixins = value => {
+    const entity = this.props.entity;
 
-  renderMixin = mixin => {
-    const titles = Object.keys(mixin.attributes)
-      .filter(function(i) {
-        return mixin.attributes[i].name !== 'id';
-      })
-      .map(function(i) {
-        const title = '- ' + mixin.attributes[i].name + ':\n';
-        const titles = mixin.attributes[i].value
-          .split(';')
-          .map(function(value) {
-            return '  - ' + trim(value);
-          });
-        return title + titles.join('\n');
-      });
-    const mixinClick = this.removeMixin.bind(this, mixin.id);
+    this.setState({mixins: value});
+    entity.setAttribute('mixin', value.split(',').join(' '));
 
-    return (
-      <li key={mixin.id}>
-        <span className="mixin" title={titles.join('\n')}>
-          {mixin.id}
-        </span>
-        <a className="button fa fa-trash-o" onClick={mixinClick} />
-      </li>
-    );
+    Events.emit('entityupdate', {
+      component: 'mixin',
+      entity: entity,
+      property: '',
+      value: value.split(',').join(' ')
+    });
+    ga('send', 'event', 'Components', 'addMixin');
   };
 
   render() {
@@ -115,11 +69,20 @@ export default class Mixin extends React.Component {
         <div className="row">
           <span className="text">mixins</span>
           <span className="mixinValue">
-            <select ref="select">{this.renderMixinOptions()}</select>
-            <a className="button fa fa-plus-circle" onClick={this.addMixin} />
+            <Select
+              id="mixinSelect"
+              classNamePrefix="select"
+              ref="select"
+              options={this.getMixinOptions()}
+              isMulti={true}
+              placeholder="Add mixin..."
+              noResultsText="No mixins found"
+              onChange={this.updateMixins.bind(this)}
+              simpleValue
+              value={this.state.mixins}
+            />
           </span>
         </div>
-        {this.renderMixins()}
       </div>
     );
   }
