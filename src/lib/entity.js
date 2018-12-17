@@ -1,3 +1,4 @@
+import React from 'react';
 var Events = require('../lib/Events.js');
 
 import { equal } from '../lib/utils.js';
@@ -522,14 +523,46 @@ function isEmpty(string) {
   return string === null || string === '';
 }
 
-export function getEntityName(entity) {
-  // Representation.
+/**
+ * Entity representation.
+ */
+const ICONS = {
+  camera: 'fa-camera',
+  mesh: 'fa-cube',
+  light: 'fa-lightbulb',
+  text: 'fa-font'
+};
+export function printEntity (entity, onDoubleClick) {
+  if (!entity) { return ''; }
+
+  // Icons.
+  let icons = '';
+  for (let objType in ICONS) {
+    if (!entity.getObject3D(objType)) { continue; }
+    icons += `&nbsp;<i class="fa ${ICONS[objType]}" title="${objType}"></i>`;
+  }
+
+  // Name.
   let entityName = entity.id;
+  let type = 'id';
   if (!entity.isScene && !entityName && entity.getAttribute('class')) {
     entityName = entity.getAttribute('class').split(' ')[0];
-  }
-  if (!entity.isScene && !entityName && entity.getAttribute('mixin')) {
+    type = 'class';
+  } else if (!entity.isScene && !entityName && entity.getAttribute('mixin')) {
     entityName = entity.getAttribute('mixin').split(' ')[0];
+    type = 'mixin';
   }
-  return entityName || '';
+
+  return (
+    <span className="entityPrint" onDoubleClick={onDoubleClick}>
+      <span className='entityTagName'>{'<' + entity.tagName.toLowerCase()}</span>
+      {entityName && (
+        <span className='entityName' data-entity-name-type={type}>
+          &nbsp;{entityName}
+        </span>
+      )}
+      <span className="entityIcons" dangerouslySetInnerHTML={{ __html: icons }} />
+      <span className="entityCloseTag">{'>'}</span>
+    </span>
+  );
 }

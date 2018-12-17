@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { getEntityName, removeEntity, cloneEntity } from '../../lib/entity';
+import { printEntity, removeEntity, cloneEntity } from '../../lib/entity';
 
 const Events = require('../../lib/Events.js');
 
@@ -105,33 +105,11 @@ export default class Entity extends React.Component {
       option: true
     });
 
-    // Icons.
-    let icons = '';
-    for (let objType in ICONS) {
-      if (!entity.getObject3D(objType)) {
-        continue;
-      }
-      icons +=
-        '&nbsp;<i class="fa ' +
-        ICONS[objType] +
-        '" title="' +
-        objType +
-        '"></i>';
-    }
-
     return (
       <div className={className} onClick={this.onClick}>
         <span>
-          {visibilityButton} {pad} {collapse}&lt;
-          <span onDoubleClick={this.onDoubleClick}>
-            {tagName}
-            <span className="name">{' ' + getEntityName(entity)}</span>
-          </span>
-          <span
-            className="entityIcons"
-            dangerouslySetInnerHTML={{ __html: icons }}
-          />
-          &gt;
+          {visibilityButton} {pad} {collapse}
+          {printEntity(entity, this.onDoubleClick)}
         </span>
         <span className="entityActions">
           {cloneButton}

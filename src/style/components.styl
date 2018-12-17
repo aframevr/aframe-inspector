@@ -140,17 +140,6 @@ a.help-link
 a.help-linkhover
   opacity 1
 
-#entityName
-  bottom 2px
-  color #fff
-  font-family Consolas, Andale Mono, Monaco, Courier New, monospace
-  font-size 14px
-  max-width 80%
-  overflow hidden
-  position relative
-  text-overflow ellipsis
-  white-space nowrap
-
 .add-component
   width 200px
 
@@ -208,9 +197,18 @@ a.help-linkhover
   align-items center
   display flex
 
-#componentEntityHeader .static
-  background #222
-  height 10px
+#componentEntityHeader
+  .collapsible-header
+    bottom 4px
+    position relative
+  .static
+    background #222
+    height 10px
+  .entityPrint
+    font-size 14px
+  .entityName
+    max-width 130px
+    top 0
 
 #mixinSelect
   width 175px

@@ -296,8 +296,7 @@ export default class SceneGraph extends React.Component {
           className="outliner"
           tabIndex="0"
           onKeyDown={this.onKeyDown}
-          onKeyUp={this.onKeyUp}
-        >
+          onKeyUp={this.onKeyUp}>
           {this.renderEntities()}
         </div>
       </div>

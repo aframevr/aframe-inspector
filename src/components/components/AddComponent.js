@@ -14,7 +14,9 @@ export default class AddComponent extends React.Component {
    * Add blank component.
    * If component is instanced, generate an ID.
    */
-  addComponent = componentName => {
+  addComponent = value => {
+    let componentName = value.value;
+
     var entity = this.props.entity;
     var packageName;
     var selectedOption = this.options.filter(function(option) {

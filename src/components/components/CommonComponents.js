@@ -7,7 +7,8 @@ import Collapsible from '../Collapsible';
 import Mixins from './Mixins';
 import {
   updateEntity,
-  getEntityClipboardRepresentation
+  getEntityClipboardRepresentation,
+  printEntity
 } from '../../lib/entity';
 import Events from '../../lib/Events';
 import Clipboard from 'clipboard';
@@ -120,11 +121,7 @@ export default class CommonComponents extends React.Component {
     return (
       <Collapsible id="componentEntityHeader" className="commonComponents">
         <div className="collapsible-header">
-          <span id="entityName">
-            {`<${entity.tagName.toLowerCase()}${
-              entity.id ? ' ' + entity.id : ''
-            }>`}
-          </span>
+          {printEntity(entity)}
           {entityButtons}
         </div>
         <div className="collapsible-content">

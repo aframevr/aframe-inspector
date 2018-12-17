@@ -1,0 +1,25 @@
+@import './lib';
+
+.entityPrint
+  font-family Consolas, Andale Mono, Monaco, Courier New, monospace
+
+.entityName
+  display inline-block
+  overflow hidden
+  position relative
+  text-overflow ellipsis
+  top 3px
+  white-space nowrap
+
+.entityTagName,
+.entityCloseTag
+  color $white
+
+[data-entity-name-type="id"]
+  color $red
+
+[data-entity-name-type="class"]
+  color $green
+
+[data-entity-name-type="mixin"]
+  color $orange
