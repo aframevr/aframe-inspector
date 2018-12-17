@@ -8,7 +8,8 @@ export default class Collapsible extends React.Component {
     children: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.element
-    ]).isRequired
+    ]).isRequired,
+    id: PropTypes.string
   };
 
   static defaultProps = {
@@ -20,10 +21,6 @@ export default class Collapsible extends React.Component {
     this.state = {
       collapsed: this.props.collapsed
     };
-  }
-
-  shouldComponentUpdate (nextProps, nextState) {
-    return this.props !== nextProps || this.state !== nextState;
   }
 
   toggleVisibility = () => {
@@ -48,7 +45,7 @@ export default class Collapsible extends React.Component {
     });
 
     return (
-      <div className={rootClasses}>
+      <div id={this.props.id} className={rootClasses}>
         <div className='static' onClick={this.toggleVisibility}>
           <div className='collapse-button'/>
           {this.props.children[0]}

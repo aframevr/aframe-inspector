@@ -95,7 +95,7 @@ export default class Entity extends React.Component {
         <span>
           {visibilityButton} {pad} {collapse}&lt;
           <span onDoubleClick={this.onDoubleClick}>
-            {tagName}<span className="name">{getEntityName(entity)}</span>
+            {tagName}<span className="name">{' ' + getEntityName(entity)}</span>
           </span>
           <span className="entityIcons" dangerouslySetInnerHTML={{__html: icons}}></span>&gt;
         </span>

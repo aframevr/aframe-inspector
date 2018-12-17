@@ -26,7 +26,9 @@ export default class NumberWidget extends React.Component {
     super(props);
     this.state = {
       value: this.props.value,
-      displayValue: this.props.value.toFixed(this.props.precision)
+      displayValue: typeof(this.props.value) === 'number'
+        ? this.props.value.toFixed(this.props.precision)
+        : ''
     };
   }
 
