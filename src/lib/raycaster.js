@@ -105,7 +105,7 @@ function initRaycaster(inspector) {
       event.clientY
     );
     onDoubleClickPosition.fromArray(array);
-    intersectedEl = mouseCursor.components.cursor.intersectedEl;
+    const intersectedEl = mouseCursor.components.cursor.intersectedEl;
     if (!intersectedEl) {
       return;
     }
