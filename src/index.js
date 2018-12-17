@@ -25,6 +25,11 @@ function Inspector () {
 
   // Wait for stuff.
   const doInit = () => {
+    if (!AFRAME.scenes.length) {
+      setTimeout(() => { doInit() }, 100);
+      return;
+    }
+
     this.sceneEl = AFRAME.scenes[0];
     if (this.sceneEl.hasLoaded) {
       this.init();
@@ -32,10 +37,6 @@ function Inspector () {
     }
     this.sceneEl.addEventListener('loaded', this.init.bind(this), {once: true});
   };
-  if (!AFRAME.scenes.length) {
-    document.addEventListener('loaded', () => { doInit(); }, {once: true});
-    return;
-  }
   doInit();
 }
 

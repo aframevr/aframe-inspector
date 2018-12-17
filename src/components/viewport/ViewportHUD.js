@@ -12,16 +12,18 @@ export default class ViewportHUD extends React.Component {
   }
 
   componentDidMount () {
-    Events.on('entityselect', el => {
-      this.setState({selectedEntity: el});
+    Events.on('raycastermouseenter', el => {
+      this.setState({hoveredEntity: el});
+    });
+
+    Events.on('raycastermouseleave', el => {
+      this.setState({hoveredEntity: el});
     });
   }
 
   renderActiveEntityName () {
     if (this.state.hoveredEntity) {
-      return getEntityName(this.state.hoveredEntity);
-    } else if (this.state.selectedEntity) {
-      return getEntityName(this.state.selectedEntity);
+      return `<${this.state.hoveredEntity.tagName.toLowerCase()} ${getEntityName(this.state.hoveredEntity)}>`.replace(' >', '>');
     } else {
       return '';
     }
@@ -29,7 +31,7 @@ export default class ViewportHUD extends React.Component {
 
   render () {
     return (
-      <div id ='viewportHud'>
+      <div id='viewportHud'>
         <p>{this.renderActiveEntityName()}</p>
       </div>
     );

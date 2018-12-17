@@ -12,13 +12,27 @@ function initRaycaster (inspector) {
   inspector.sceneEl.appendChild(mouseCursor);
 
   mouseCursor.addEventListener('click', handleClick);
+  mouseCursor.addEventListener('mouseenter', onMouseEnter);
+  mouseCursor.addEventListener('mouseleave', onMouseLeave);
   inspector.container.addEventListener('mousedown', onMouseDown);
   inspector.container.addEventListener('mouseup', onMouseUp);
   inspector.container.addEventListener('dblclick', onDoubleClick);
 
+  inspector.sceneEl.canvas.addEventListener('mouseleave', () => {
+    setTimeout(() => { Events.emit('raycastermouseleave', null); });
+  });
+
   const onDownPosition = new THREE.Vector2();
   const onUpPosition = new THREE.Vector2();
   const onDoubleClickPosition = new THREE.Vector2();
+
+  function onMouseEnter (evt) {
+    Events.emit('raycastermouseenter', evt.detail.intersectedEl);
+  }
+
+  function onMouseLeave () {
+    Events.emit('raycastermouseleave', mouseCursor.components.cursor.intersectedEl);
+  }
 
   function handleClick (evt) {
     // Check to make sure not dragging.

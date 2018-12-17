@@ -14,6 +14,7 @@
     "lint:css": "stylelint src/css/main.css",
     "lintfile": "node --harmony node_modules/.bin/eslint",
     "preghpages": "npm run dist && shx rm -rf gh-pages && shx mkdir gh-pages && shx cp -r assets dist example sindex.html gh-pages && shx sed -i http://localhost:3333 .. gh-pages/examples/index.html",
+    "prettier": "prettier --single-quote es5 --write 'src/**/*.js'",
     "start": "cross-env NODE_ENV=dev webpack-dev-server --progress --colors -d --host 0.0.0.0",
     "test": "jest --watch",
     "test:ci": "jest"
@@ -46,6 +47,7 @@
     "object-assign": "^4.1.0",
     "open": "0.0.5",
     "postcss-loader": "^0.9.1",
+    "prettier": "^1.15.3",
     "prop-types": "^15.6.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.0",

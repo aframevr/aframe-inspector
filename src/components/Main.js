@@ -136,6 +136,7 @@ export default class Main extends React.Component {
           <SceneGraph scene={scene} selectedEntity={this.state.entity} visible={this.state.visible.scenegraph}/>
 
           <div id="viewportBar">
+            <div/>
             <ViewportHUD/>
             <TransformToolBar/>
           </div>
