@@ -9,14 +9,14 @@ var Shortcuts = require('./lib/shortcuts');
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Main from './components/Main';
-import {injectCSS, injectJS} from './lib/utils';
-import {GLTFExporter} from './lib/vendor/GLTFExporter';  // eslint-disable-line no-unused-vars
+import { injectCSS, injectJS } from './lib/utils';
+import { GLTFExporter } from './lib/vendor/GLTFExporter'; // eslint-disable-line no-unused-vars
 
 require('./style/index.styl');
 
-function Inspector () {
+function Inspector() {
   this.assetsLoader = new AssetsLoader();
-  this.exporters = {gltf: new THREE.GLTFExporter()};
+  this.exporters = { gltf: new THREE.GLTFExporter() };
   this.history = require('./lib/history');
   this.isFirstOpen = true;
   this.modules = {};
@@ -26,7 +26,9 @@ function Inspector () {
   // Wait for stuff.
   const doInit = () => {
     if (!AFRAME.scenes.length) {
-      setTimeout(() => { doInit() }, 100);
+      setTimeout(() => {
+        doInit();
+      }, 100);
       return;
     }
 
@@ -35,30 +37,38 @@ function Inspector () {
       this.init();
       return;
     }
-    this.sceneEl.addEventListener('loaded', this.init.bind(this), {once: true});
+    this.sceneEl.addEventListener('loaded', this.init.bind(this), {
+      once: true
+    });
   };
   doInit();
 }
 
 Inspector.prototype = {
-  init: function () {
+  init: function() {
     var self = this;
     this.container = document.querySelector('.a-canvas');
 
     this.currentCameraEl = AFRAME.scenes[0].camera.el;
-    this.currentCameraEl.setAttribute('data-aframe-inspector-original-camera', '');
+    this.currentCameraEl.setAttribute(
+      'data-aframe-inspector-original-camera',
+      ''
+    );
 
     // If the current camera is the default, we should prevent AFRAME from
     // remove it once when we inject the editor's camera.
     if (this.currentCameraEl.hasAttribute('data-aframe-default-camera')) {
       this.currentCameraEl.removeAttribute('data-aframe-default-camera');
-      this.currentCameraEl.setAttribute('data-aframe-inspector', 'default-camera');
+      this.currentCameraEl.setAttribute(
+        'data-aframe-inspector',
+        'default-camera'
+      );
     }
 
     this.currentCameraEl.setAttribute('camera', 'active', false);
 
     // Create Inspector camera.
-    const camera = this.camera = new THREE.PerspectiveCamera();
+    const camera = (this.camera = new THREE.PerspectiveCamera());
     camera.far = 10000;
     camera.near = 0.01;
     camera.position.set(0, 1.6, 2);
@@ -73,7 +83,7 @@ Inspector.prototype = {
   /**
    * Currently not used.
    */
-  initModules: function () {
+  initModules: function() {
     for (var moduleName in this.modules) {
       var module = this.modules[moduleName];
       console.log('Initializing module <%s>', moduleName);
@@ -81,27 +91,32 @@ Inspector.prototype = {
     }
   },
 
-  initUI: function () {
+  initUI: function() {
     this.initEvents();
 
     this.selected = null;
 
     // Some Web font thing.
-    injectJS('https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js', () => {
-      const webFontLoader = document.createElement('script');
-      webFontLoader.setAttribute('data-aframe-inspector', 'webfont');
-      webFontLoader.innerHTML = 'WebFont.load({google: {families: ["Roboto", "Roboto Mono"]}});';
-      document.head.appendChild(webFontLoader);
-    }, () => {
-      console.warn('Could not load WebFont script:', webFont.src);
-    });
+    injectJS(
+      'https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js',
+      () => {
+        const webFontLoader = document.createElement('script');
+        webFontLoader.setAttribute('data-aframe-inspector', 'webfont');
+        webFontLoader.innerHTML =
+          'WebFont.load({google: {families: ["Roboto", "Roboto Mono"]}});';
+        document.head.appendChild(webFontLoader);
+      },
+      () => {
+        console.warn('Could not load WebFont script:', webFont.src);
+      }
+    );
 
     // Init React.
     const div = document.createElement('div');
     div.id = 'aframeInspector';
     div.setAttribute('data-aframe-inspector', 'app');
     document.body.appendChild(div);
-    ReactDOM.render(<Main/>, div);
+    ReactDOM.render(<Main />, div);
 
     this.scene = this.sceneEl.object3D;
     this.helpers = {};
@@ -114,7 +129,7 @@ Inspector.prototype = {
     Events.emit('windowresize');
 
     const self = this;
-    function addHelpers (object) {
+    function addHelpers(object) {
       for (let i = 0; i < object.children.length; i++) {
         const obj = object.children[i];
         for (let j = 0; j < obj.children.length; j++) {
@@ -136,17 +151,20 @@ Inspector.prototype = {
     this.open();
   },
 
-  removeObject: function (object) {
+  removeObject: function(object) {
     // Remove just the helper as the object will be deleted by Aframe
     this.removeHelpers(object);
     Events.emit('objectremove', object);
   },
 
-  addHelper: (function () {
+  addHelper: (function() {
     const geometry = new THREE.SphereBufferGeometry(2, 4, 2);
-    const material = new THREE.MeshBasicMaterial({color: 0xff0000, visible: false});
+    const material = new THREE.MeshBasicMaterial({
+      color: 0xff0000,
+      visible: false
+    });
 
-    return function (object) {
+    return function(object) {
       var helper;
       if (object instanceof THREE.Camera) {
         this.cameraHelper = helper = new THREE.CameraHelper(object, 0.1);
@@ -192,7 +210,7 @@ Inspector.prototype = {
     };
   })(),
 
-  removeHelpers: function (object) {
+  removeHelpers: function(object) {
     var parentId = object.id;
     if (this.helpers[parentId]) {
       for (var objectId in this.helpers[parentId]) {
@@ -204,7 +222,7 @@ Inspector.prototype = {
     }
   },
 
-  selectEntity: function (entity, emit) {
+  selectEntity: function(entity, emit) {
     this.selectedEntity = entity;
     if (entity) {
       this.select(entity.object3D);
@@ -212,7 +230,9 @@ Inspector.prototype = {
       this.select(null);
     }
 
-    if (emit === undefined) { Events.emit('entityselect', entity); }
+    if (emit === undefined) {
+      Events.emit('entityselect', entity);
+    }
 
     // Update camera helper visibility.
     if (this.cameraHelper) {
@@ -220,7 +240,7 @@ Inspector.prototype = {
     }
   },
 
-  initEvents: function () {
+  initEvents: function() {
     window.addEventListener('keydown', evt => {
       // Alt + Ctrl + i: Shorcut to toggle the inspector
       var shortcutPressed = evt.keyCode === 73 && evt.ctrlKey && evt.altKey;
@@ -248,19 +268,25 @@ Inspector.prototype = {
     });
 
     Events.on('dommodify', mutations => {
-      if (!mutations) { return; }
+      if (!mutations) {
+        return;
+      }
       mutations.forEach(mutation => {
-        if (mutation.type !== 'childList') { return; }
-        Array.prototype.slice.call(mutation.removedNodes).forEach(removedNode => {
-          if (this.selectedEntity === removedNode) {
-            this.selectEntity(null);
-          }
-        });
+        if (mutation.type !== 'childList') {
+          return;
+        }
+        Array.prototype.slice
+          .call(mutation.removedNodes)
+          .forEach(removedNode => {
+            if (this.selectedEntity === removedNode) {
+              this.selectEntity(null);
+            }
+          });
       });
     });
   },
 
-  selectById: function (id) {
+  selectById: function(id) {
     if (id === this.camera.id) {
       this.select(this.camera);
       return;
@@ -271,13 +297,15 @@ Inspector.prototype = {
   /**
    * Change to select object.
    */
-  select: function (object3D) {
-    if (this.selected === object3D) { return; }
+  select: function(object3D) {
+    if (this.selected === object3D) {
+      return;
+    }
     this.selected = object3D;
     Events.emit('objectselect', object3D);
   },
 
-  deselect: function () {
+  deselect: function() {
     this.select(null);
   },
 
@@ -287,7 +315,7 @@ Inspector.prototype = {
    *                             {element: 'a-entity', components: {geometry: 'primitive:box'}}
    * @return {Element}            Entity created
    */
-  createNewEntity: function (definition) {
+  createNewEntity: function(definition) {
     var entity = document.createElement(definition.element);
 
     // load default attributes
@@ -305,14 +333,14 @@ Inspector.prototype = {
     return entity;
   },
 
-  addEntity: function (entity) {
+  addEntity: function(entity) {
     this.selectEntity(entity);
   },
 
   /**
    * Toggle the editor
    */
-  toggle: function () {
+  toggle: function() {
     if (this.opened) {
       this.close();
     } else {
@@ -323,12 +351,14 @@ Inspector.prototype = {
   /**
    * Open the editor UI
    */
-  open: function (focusEl) {
+  open: function(focusEl) {
     this.sceneEl = AFRAME.scenes[0];
     this.opened = true;
     Events.emit('inspectortoggle', true);
 
-    if (!this.sceneEl.hasAttribute('aframe-inspector-motion-capture-replaying')) {
+    if (
+      !this.sceneEl.hasAttribute('aframe-inspector-motion-capture-replaying')
+    ) {
       this.sceneEl.pause();
       this.sceneEl.exitVR();
     }
@@ -343,9 +373,15 @@ Inspector.prototype = {
     this.sceneEl.resize();
     Shortcuts.enable();
 
-    if (!focusEl && this.isFirstOpen && AFRAME.utils.getUrlParameter('inspector')) {
+    if (
+      !focusEl &&
+      this.isFirstOpen &&
+      AFRAME.utils.getUrlParameter('inspector')
+    ) {
       // Focus entity with URL parameter on first open.
-      focusEl = document.getElementById(AFRAME.utils.getUrlParameter('inspector'));
+      focusEl = document.getElementById(
+        AFRAME.utils.getUrlParameter('inspector')
+      );
     }
     if (focusEl) {
       this.selectEntity(focusEl);
@@ -358,7 +394,7 @@ Inspector.prototype = {
    * Closes the editor and gives the control back to the scene
    * @return {[type]} [description]
    */
-  close: function () {
+  close: function() {
     this.opened = false;
     Events.emit('inspectortoggle', false);
     this.sceneEl.play();
@@ -371,7 +407,7 @@ Inspector.prototype = {
     Shortcuts.disable();
   },
 
-  addHelperTraverse: function (object) {
+  addHelperTraverse: function(object) {
     const self = this;
     object.traverse(child => {
       if (!child.el || !child.el.isInspector) {
@@ -382,5 +418,5 @@ Inspector.prototype = {
   }
 };
 
-const inspector = AFRAME.INSPECTOR = new Inspector();
-const Modules = require('./lib/modules/index.js');  // eslint-disable-line no-unused-vars
+const inspector = (AFRAME.INSPECTOR = new Inspector());
+const Modules = require('./lib/modules/index.js'); // eslint-disable-line no-unused-vars

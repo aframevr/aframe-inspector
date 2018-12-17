@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Events = require('../../lib/Events.js');
 
-function trim (s) {
+function trim(s) {
   s = s.replace(/(^\s*)|(\s*$)/gi, '');
   s = s.replace(/[ ]{2,}/gi, ' ');
   s = s.replace(/\n /, '\n');
@@ -31,12 +31,14 @@ export default class Mixin extends React.Component {
       propertyname: '',
       value: entity.getAttribute('mixin')
     });
-  }
+  };
 
   addMixin = () => {
     const entity = this.props.entity;
-    entity.setAttribute('mixin',
-                        trim(entity.getAttribute('mixin') + ' ' + this.refs.select.value));
+    entity.setAttribute(
+      'mixin',
+      trim(entity.getAttribute('mixin') + ' ' + this.refs.select.value)
+    );
 
     Events.emit('entityupdate', {
       component: 'mixin',
@@ -45,66 +47,76 @@ export default class Mixin extends React.Component {
       value: entity.getAttribute('mixin')
     });
     ga('send', 'event', 'Components', 'addMixin');
-  }
+  };
 
   renderMixinOptions = () => {
-    const mixinIds = this.props.entity.mixinEls.map(function (mixin) { return mixin.id; });
-    const allMixins = Array.prototype.slice.call(document.querySelectorAll('a-mixin'));
+    const mixinIds = this.props.entity.mixinEls.map(function(mixin) {
+      return mixin.id;
+    });
+    const allMixins = Array.prototype.slice.call(
+      document.querySelectorAll('a-mixin')
+    );
 
     return allMixins
-      .filter(function (mixin) {
+      .filter(function(mixin) {
         return mixinIds.indexOf(mixin.id) === -1;
       })
       .sort()
-      .map(function (value) {
-        return <option key={value.id} value={value.id}>{value.id}</option>;
+      .map(function(value) {
+        return (
+          <option key={value.id} value={value.id}>
+            {value.id}
+          </option>
+        );
       });
-  }
+  };
 
   renderMixins = () => {
     const mixins = this.props.entity.mixinEls;
-    if (mixins.length === 0) { return <span></span>; }
+    if (mixins.length === 0) {
+      return <span />;
+    }
     return (
-      <span className='mixinlist'>
-        <ul>
-          {mixins.map(this.renderMixin)}
-        </ul>
+      <span className="mixinlist">
+        <ul>{mixins.map(this.renderMixin)}</ul>
       </span>
     );
-  }
+  };
 
   renderMixin = mixin => {
     const titles = Object.keys(mixin.attributes)
-      .filter(function (i) {
+      .filter(function(i) {
         return mixin.attributes[i].name !== 'id';
       })
-      .map(function (i) {
+      .map(function(i) {
         const title = '- ' + mixin.attributes[i].name + ':\n';
-        const titles = mixin.attributes[i].value.split(';').map(function (value) {
-          return '  - ' + trim(value);
-        });
+        const titles = mixin.attributes[i].value
+          .split(';')
+          .map(function(value) {
+            return '  - ' + trim(value);
+          });
         return title + titles.join('\n');
       });
     const mixinClick = this.removeMixin.bind(this, mixin.id);
 
     return (
       <li key={mixin.id}>
-        <span className='mixin' title={titles.join('\n')}>{mixin.id}</span>
-        <a className='button fa fa-trash-o' onClick={mixinClick}></a>
+        <span className="mixin" title={titles.join('\n')}>
+          {mixin.id}
+        </span>
+        <a className="button fa fa-trash-o" onClick={mixinClick} />
       </li>
     );
-  }
+  };
 
-  render () {
+  render() {
     return (
-      <div className='mixinOptions'>
-        <div className='row'>
-          <span className='text'>mixins</span>
-          <span className='mixinValue'>
-            <select ref='select'>
-              {this.renderMixinOptions()}
-            </select>
-            <a className='button fa fa-plus-circle' onClick={this.addMixin}></a>
+      <div className="mixinOptions">
+        <div className="row">
+          <span className="text">mixins</span>
+          <span className="mixinValue">
+            <select ref="select">{this.renderMixinOptions()}</select>
+            <a className="button fa fa-plus-circle" onClick={this.addMixin} />
           </span>
         </div>
         {this.renderMixins()}

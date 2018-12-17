@@ -13,33 +13,37 @@ export default class SelectWidget extends React.Component {
     value: PropTypes.string
   };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
-    this.state = {value: this.props.value || ''};
+    this.state = { value: this.props.value || '' };
   }
 
   onChange = value => {
-    this.setState({value: value});
+    this.setState({ value: value });
     if (this.props.onChange) {
       this.props.onChange(this.props.name, value);
     }
-  }
+  };
 
-  componentWillReceiveProps (newProps) {
+  componentWillReceiveProps(newProps) {
     if (newProps.value !== this.state.value) {
-      this.setState({value: newProps.value});
+      this.setState({ value: newProps.value });
     }
   }
 
   renderOptions = () => {
     return this.props.options.map(value => {
-      return <option key={value} value={value}>{value}</option>;
+      return (
+        <option key={value} value={value}>
+          {value}
+        </option>
+      );
     });
-  }
+  };
 
-  render () {
+  render() {
     var options = this.props.options.map(value => {
-      return {value: value, label: value};
+      return { value: value, label: value };
     });
 
     return (
@@ -54,7 +58,6 @@ export default class SelectWidget extends React.Component {
         onChange={this.onChange}
         searchable={true}
       />
-
     );
   }
 }

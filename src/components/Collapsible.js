@@ -5,10 +5,8 @@ import classnames from 'classnames';
 export default class Collapsible extends React.Component {
   static propTypes = {
     collapsed: PropTypes.bool,
-    children: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.element
-    ]).isRequired,
+    children: PropTypes.oneOfType([PropTypes.array, PropTypes.element])
+      .isRequired,
     id: PropTypes.string
   };
 
@@ -16,7 +14,7 @@ export default class Collapsible extends React.Component {
     collapsed: false
   };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       collapsed: this.props.collapsed
@@ -24,11 +22,11 @@ export default class Collapsible extends React.Component {
   }
 
   toggleVisibility = () => {
-    this.setState({collapsed: !this.state.collapsed});
+    this.setState({ collapsed: !this.state.collapsed });
     ga('send', 'event', 'Components', 'collapse');
-  }
+  };
 
-  render () {
+  render() {
     const rootClassNames = {
       collapsible: true,
       component: true,
@@ -46,13 +44,11 @@ export default class Collapsible extends React.Component {
 
     return (
       <div id={this.props.id} className={rootClasses}>
-        <div className='static' onClick={this.toggleVisibility}>
-          <div className='collapse-button'/>
+        <div className="static" onClick={this.toggleVisibility}>
+          <div className="collapse-button" />
           {this.props.children[0]}
         </div>
-        <div className={contentClasses}>
-          {this.props.children[1]}
-        </div>
+        <div className={contentClasses}>{this.props.children[1]}</div>
       </div>
     );
   }

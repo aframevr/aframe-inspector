@@ -9,12 +9,12 @@ export default class Sidebar extends React.Component {
     visible: PropTypes.bool
   };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
-    this.state = {open: false};
+    this.state = { open: false };
   }
 
-  componentDidMount () {
+  componentDidMount() {
     Events.on('componentremove', event => {
       this.forceUpdate();
     });
@@ -25,21 +25,21 @@ export default class Sidebar extends React.Component {
   }
 
   handleToggle = () => {
-    this.setState({open: !this.state.open});
+    this.setState({ open: !this.state.open });
     ga('send', 'event', 'Components', 'toggleSidebar');
-  }
+  };
 
-  render () {
+  render() {
     const entity = this.props.entity;
     const visible = this.props.visible;
     if (entity && visible) {
       return (
-        <div id='sidebar'>
-          <ComponentsContainer entity={entity}/>
+        <div id="sidebar">
+          <ComponentsContainer entity={entity} />
         </div>
       );
     } else {
-      return <div/>;
+      return <div />;
     }
   }
 }

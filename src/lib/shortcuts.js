@@ -1,12 +1,19 @@
 /* globals AFRAME */
 var Events = require('./Events');
-import {removeSelectedEntity, cloneSelectedEntity, cloneEntity} from '../lib/entity';
-import {os} from '../lib/utils.js';
+import {
+  removeSelectedEntity,
+  cloneSelectedEntity,
+  cloneEntity
+} from '../lib/entity';
+import { os } from '../lib/utils.js';
 
-function shouldCaptureKeyEvent (event) {
-  if (event.metaKey) { return false; }
-  return event.target.tagName !== 'INPUT' &&
-    event.target.tagName !== 'TEXTAREA';
+function shouldCaptureKeyEvent(event) {
+  if (event.metaKey) {
+    return false;
+  }
+  return (
+    event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA'
+  );
 }
 
 var Shortcuts = {
@@ -15,8 +22,10 @@ var Shortcuts = {
     default: {},
     modules: {}
   },
-  onKeyUp: function (event) {
-    if (!shouldCaptureKeyEvent(event)) { return; }
+  onKeyUp: function(event) {
+    if (!shouldCaptureKeyEvent(event)) {
+      return;
+    }
 
     var keyCode = event.keyCode;
 
@@ -58,7 +67,7 @@ var Shortcuts = {
 
     // n: new entity
     if (keyCode === 78) {
-      Events.emit('createnewentity', {element: 'a-entity', components: {}});
+      Events.emit('createnewentity', { element: 'a-entity', components: {} });
     }
 
     // backspace & supr: remove selected entity
@@ -74,25 +83,36 @@ var Shortcuts = {
     // f: Focus on selected entity.
     if (keyCode === 70) {
       const selectedEntity = AFRAME.INSPECTOR.selectedEntity;
-      if (selectedEntity !== undefined && selectedEntity !== null){
+      if (selectedEntity !== undefined && selectedEntity !== null) {
         Events.emit('objectfocus', selectedEntity.object3D);
       }
     }
 
     for (var moduleName in this.shortcuts.modules) {
       var shortcutsModule = this.shortcuts.modules[moduleName];
-      if (shortcutsModule[keyCode] &&
-          (!shortcutsModule[keyCode].mustBeActive ||
-            shortcutsModule[keyCode].mustBeActive && AFRAME.INSPECTOR.modules[moduleName].active)) {
+      if (
+        shortcutsModule[keyCode] &&
+        (!shortcutsModule[keyCode].mustBeActive ||
+          (shortcutsModule[keyCode].mustBeActive &&
+            AFRAME.INSPECTOR.modules[moduleName].active))
+      ) {
         this.shortcuts.modules[moduleName][keyCode].callback();
       }
     }
   },
-  onKeyDown: function (event) {
-    if (!shouldCaptureKeyEvent(event)) { return; }
+  onKeyDown: function(event) {
+    if (!shouldCaptureKeyEvent(event)) {
+      return;
+    }
 
-    if (event.ctrlKey && os === 'windows' || event.metaKey && os === 'macos') {
-      if (AFRAME.INSPECTOR.selectedEntity && document.activeElement.tagName !== 'INPUT') {
+    if (
+      (event.ctrlKey && os === 'windows') ||
+      (event.metaKey && os === 'macos')
+    ) {
+      if (
+        AFRAME.INSPECTOR.selectedEntity &&
+        document.activeElement.tagName !== 'INPUT'
+      ) {
         // x: cut selected entity
         if (event.keyCode === 88) {
           AFRAME.INSPECTOR.entityToCopy = AFRAME.INSPECTOR.selectedEntity;
@@ -120,22 +140,22 @@ var Shortcuts = {
 
     // º: toggle sidebars visibility
     if (event.keyCode === 192) {
-      Events.emit('togglesidebar', {which: 'all'});
+      Events.emit('togglesidebar', { which: 'all' });
       event.preventDefault();
       event.stopPropagation();
     }
 
     // 1: toggle scenegraph visibility only
     if (event.keyCode === 49) {
-      Events.emit('togglesidebar', {which: 'scenegraph'});
+      Events.emit('togglesidebar', { which: 'scenegraph' });
     }
 
     // 2: toggle sidebar visibility only
     if (event.keyCode === 50) {
-      Events.emit('togglesidebar', {which: 'attributes'});
+      Events.emit('togglesidebar', { which: 'attributes' });
     }
   },
-  enable: function () {
+  enable: function() {
     if (this.enabled) {
       this.disable();
     }
@@ -144,17 +164,28 @@ var Shortcuts = {
     window.addEventListener('keyup', this.onKeyUp, false);
     this.enabled = true;
   },
-  disable: function () {
+  disable: function() {
     window.removeEventListener('keydown', this.onKeyDown);
     window.removeEventListener('keyup', this.onKeyUp);
     this.enabled = false;
   },
-  checkModuleShortcutCollision: function (keyCode, moduleName, mustBeActive) {
-    if (this.shortcuts.modules[moduleName] && this.shortcuts.modules[moduleName][keyCode]) {
-      console.warn('Keycode <%s> already registered as shorcut within the same module', keyCode);
+  checkModuleShortcutCollision: function(keyCode, moduleName, mustBeActive) {
+    if (
+      this.shortcuts.modules[moduleName] &&
+      this.shortcuts.modules[moduleName][keyCode]
+    ) {
+      console.warn(
+        'Keycode <%s> already registered as shorcut within the same module',
+        keyCode
+      );
     }
   },
-  registerModuleShortcut: function (keyCode, callback, moduleName, mustBeActive) {
+  registerModuleShortcut: function(
+    keyCode,
+    callback,
+    moduleName,
+    mustBeActive
+  ) {
     if (this.checkModuleShortcutCollision(keyCode, moduleName, mustBeActive)) {
       return;
     }
@@ -163,14 +194,16 @@ var Shortcuts = {
       this.shortcuts.modules[moduleName] = {};
     }
 
-    if (mustBeActive !== false) { mustBeActive = true; }
+    if (mustBeActive !== false) {
+      mustBeActive = true;
+    }
 
     this.shortcuts.modules[moduleName][keyCode] = {
       callback,
       mustBeActive
     };
   },
-  init: function () {
+  init: function() {
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
   }

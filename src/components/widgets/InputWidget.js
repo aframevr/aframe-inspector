@@ -10,26 +10,33 @@ export default class InputWidget extends React.Component {
     value: PropTypes.any
   };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
-    this.state = {value: this.props.value || ''};
+    this.state = { value: this.props.value || '' };
   }
 
   onChange = e => {
     var value = e.target.value;
-    this.setState({value: value});
+    this.setState({ value: value });
     if (this.props.onChange) {
       this.props.onChange(this.props.name, value);
     }
-  }
+  };
 
-  componentWillReceiveProps (newProps) {
+  componentWillReceiveProps(newProps) {
     if (newProps.value !== this.state.value) {
-      this.setState({value: newProps.value});
+      this.setState({ value: newProps.value });
     }
   }
 
-  render () {
-    return <input type="text" className="string" value={this.state.value || ''} onChange={this.onChange}/>;
+  render() {
+    return (
+      <input
+        type="text"
+        className="string"
+        value={this.state.value || ''}
+        onChange={this.onChange}
+      />
+    );
   }
 }

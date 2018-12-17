@@ -1,6 +1,6 @@
 const Events = require('./Events');
 
-const updates = {}
+const updates = {};
 
 /**
  * Store change to export.
@@ -16,7 +16,8 @@ Events.on('entityupdate', payload => {
   const component = AFRAME.components[payload.component];
   if (component) {
     if (payload.property) {
-      updates[entity.id][payload.component] = updates[entity.id][payload.component] || {};
+      updates[entity.id][payload.component] =
+        updates[entity.id][payload.component] || {};
       value = component.schema[payload.property].stringify(payload.value);
       updates[entity.id][payload.component][payload.property] = value;
     } else {

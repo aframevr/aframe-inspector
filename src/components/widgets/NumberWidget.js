@@ -22,17 +22,18 @@ export default class NumberWidget extends React.Component {
     step: 1
   };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       value: this.props.value,
-      displayValue: typeof(this.props.value) === 'number'
-        ? this.props.value.toFixed(this.props.precision)
-        : ''
+      displayValue:
+        typeof this.props.value === 'number'
+          ? this.props.value.toFixed(this.props.precision)
+          : ''
     };
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.distance = 0;
     this.onMouseDownValue = 0;
     this.prevPointer = [0, 0];
@@ -44,18 +45,22 @@ export default class NumberWidget extends React.Component {
   onMouseMove = event => {
     const currentValue = parseFloat(this.state.value);
     const pointer = [event.clientX, event.clientY];
-    const delta = (pointer[0] - this.prevPointer[0]) - (pointer[1] - this.prevPointer[1]);
+    const delta =
+      pointer[0] - this.prevPointer[0] - (pointer[1] - this.prevPointer[1]);
     this.distance += delta;
 
     // Add minimum tolerance to reduce unintentional drags when clicking on input.
     // if (Math.abs(delta) <= 2) { return; }
 
-    let value = this.onMouseDownValue + (this.distance / (event.shiftKey ? 5 : 50)) *
-                this.props.step / 2;
+    let value =
+      this.onMouseDownValue +
+      ((this.distance / (event.shiftKey ? 5 : 50)) * this.props.step) / 2;
     value = Math.min(this.props.max, Math.max(this.props.min, value));
-    if (currentValue !== value) { this.setValue(value); }
+    if (currentValue !== value) {
+      this.setValue(value);
+    }
     this.prevPointer = [event.clientX, event.clientY];
-  }
+  };
 
   onMouseDown = event => {
     event.preventDefault();
@@ -64,7 +69,7 @@ export default class NumberWidget extends React.Component {
     this.prevPointer = [event.clientX, event.clientY];
     document.addEventListener('mousemove', this.onMouseMove, false);
     document.addEventListener('mouseup', this.onMouseUp, false);
-  }
+  };
 
   onMouseUp = event => {
     document.removeEventListener('mousemove', this.onMouseMove, false);
@@ -74,9 +79,9 @@ export default class NumberWidget extends React.Component {
       this.refs.input.focus();
       this.refs.input.select();
     }
-  }
+  };
 
-  setValue (value) {
+  setValue(value) {
     if (value === this.state.value) return;
 
     if (value !== undefined) {
@@ -93,7 +98,10 @@ export default class NumberWidget extends React.Component {
         value = this.props.max;
       }
 
-      this.setState({value: value, displayValue: value.toFixed(this.props.precision)});
+      this.setState({
+        value: value,
+        displayValue: value.toFixed(this.props.precision)
+      });
 
       if (this.props.onChange) {
         this.props.onChange(this.props.name, parseFloat(value.toFixed(5)));
@@ -101,7 +109,7 @@ export default class NumberWidget extends React.Component {
     }
   }
 
-  componentWillReceiveProps (newProps) {
+  componentWillReceiveProps(newProps) {
     // This will be triggered typically when the element is changed directly with
     // element.setAttribute.
     if (newProps.value !== this.state.value) {
@@ -114,12 +122,12 @@ export default class NumberWidget extends React.Component {
 
   onBlur = () => {
     this.setValue(parseFloat(this.refs.input.value));
-    this.setState({class: ''});
-  }
+    this.setState({ class: '' });
+  };
 
   onChange = e => {
-    this.setState({value: e.target.value, displayValue: e.target.value});
-  }
+    this.setState({ value: e.target.value, displayValue: e.target.value });
+  };
 
   onKeyDown = event => {
     event.stopPropagation();
@@ -142,11 +150,14 @@ export default class NumberWidget extends React.Component {
       this.setValue(parseFloat(this.state.value) - 0.01);
       return;
     }
-  }
+  };
 
-  render () {
+  render() {
     return (
-      <input ref='input' className='number' type='text'
+      <input
+        ref="input"
+        className="number"
+        type="text"
         value={this.state.displayValue}
         onKeyDown={this.onKeyDown}
         onChange={this.onChange}

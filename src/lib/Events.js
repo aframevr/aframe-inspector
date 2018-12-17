@@ -4,20 +4,19 @@ var Emitter = require('events').EventEmitter;
 var emitter = new Emitter();
 emitter.setMaxListeners(0);
 
-function Events () {
-}
+function Events() {}
 
-Events.prototype.on = function () {
+Events.prototype.on = function() {
   emitter.on.apply(emitter, arguments);
   return this;
 };
 
-Events.prototype.emit = function () {
+Events.prototype.emit = function() {
   emitter.emit.apply(emitter, arguments);
   return this;
 };
 
-Events.prototype.removeListener = function () {
+Events.prototype.removeListener = function() {
   emitter.removeListener.apply(emitter, arguments);
   return this;
 };

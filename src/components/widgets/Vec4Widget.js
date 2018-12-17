@@ -11,7 +11,7 @@ export default class Vec4Widget extends React.Component {
     value: PropTypes.object.isRequired
   };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       x: props.value.x,
@@ -22,18 +22,18 @@ export default class Vec4Widget extends React.Component {
   }
 
   onChange = (name, value) => {
-    this.setState({[name]: parseFloat(value.toFixed(5))}, () => {
+    this.setState({ [name]: parseFloat(value.toFixed(5)) }, () => {
       if (this.props.onChange) {
         this.props.onChange(name, this.state);
       }
     });
-  }
+  };
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.setState(nextProps.value);
   }
 
-  render () {
+  render() {
     const widgetProps = {
       componentname: this.props.componentname,
       entity: this.props.entity,
@@ -41,11 +41,11 @@ export default class Vec4Widget extends React.Component {
     };
 
     return (
-      <div className='vec4'>
-        <NumberWidget name='x' value={this.state.x} {...widgetProps}/>
-        <NumberWidget name='y' value={this.state.y} {...widgetProps}/>
-        <NumberWidget name='z' value={this.state.z} {...widgetProps}/>
-        <NumberWidget name='w' value={this.state.w} {...widgetProps}/>
+      <div className="vec4">
+        <NumberWidget name="x" value={this.state.x} {...widgetProps} />
+        <NumberWidget name="y" value={this.state.y} {...widgetProps} />
+        <NumberWidget name="z" value={this.state.z} {...widgetProps} />
+        <NumberWidget name="w" value={this.state.w} {...widgetProps} />
       </div>
     );
   }

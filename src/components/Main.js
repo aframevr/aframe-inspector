@@ -9,14 +9,14 @@ import ModalHelp from './modals/ModalHelp';
 import SceneGraph from './scenegraph/SceneGraph';
 import TransformToolBar from './viewport/TransformToolBar';
 import ViewportHUD from './viewport/ViewportHUD';
-import {injectCSS} from '../lib/utils';
+import { injectCSS } from '../lib/utils';
 
 // Megahack to include font-awesome.
 injectCSS('https://use.fontawesome.com/releases/v5.5.0/css/all.css');
 injectCSS('https://fonts.googleapis.com/css?family=Roboto:400,300,500');
 
 export default class Main extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -48,13 +48,13 @@ export default class Main extends React.Component {
           });
         }
       } else if (event.which === 'attributes') {
-        this.setState((prevState) => ({
+        this.setState(prevState => ({
           visible: {
             attributes: !prevState.visible.attributes
           }
         }));
       } else if (event.which === 'scenegraph') {
-        this.setState((prevState) => ({
+        this.setState(prevState => ({
           visible: {
             scenegraph: !prevState.visible.scenegraph
           }
@@ -65,33 +65,40 @@ export default class Main extends React.Component {
     });
   }
 
-  componentDidMount () {
-    Events.on('opentexturesmodal', function (selectedTexture, textureOnClose) {
-      this.setState({selectedTexture: selectedTexture, isModalTexturesOpen: true, textureOnClose: textureOnClose});
-    }.bind(this));
+  componentDidMount() {
+    Events.on(
+      'opentexturesmodal',
+      function(selectedTexture, textureOnClose) {
+        this.setState({
+          selectedTexture: selectedTexture,
+          isModalTexturesOpen: true,
+          textureOnClose: textureOnClose
+        });
+      }.bind(this)
+    );
 
     Events.on('entityselect', entity => {
-      this.setState({entity: entity});
+      this.setState({ entity: entity });
     });
 
     Events.on('inspectortoggle', enabled => {
-      this.setState({inspectorEnabled: enabled});
+      this.setState({ inspectorEnabled: enabled });
     });
 
     Events.on('openhelpmodal', () => {
-      this.setState({isHelpOpen: true});
+      this.setState({ isHelpOpen: true });
     });
   }
   onCloseHelpModal = value => {
-    this.setState({isHelpOpen: false});
-  }
+    this.setState({ isHelpOpen: false });
+  };
 
   onModalTextureOnClose = value => {
-    this.setState({isModalTexturesOpen: false});
+    this.setState({ isModalTexturesOpen: false });
     if (this.state.textureOnClose) {
       this.state.textureOnClose(value);
     }
-  }
+  };
 
   toggleEdit = () => {
     if (this.state.inspectorEnabled) {
@@ -99,55 +106,93 @@ export default class Main extends React.Component {
     } else {
       AFRAME.INSPECTOR.open();
     }
-  }
+  };
 
-  renderComponentsToggle () {
-    if (!this.state.entity || this.state.visible.attributes) { return null; }
+  renderComponentsToggle() {
+    if (!this.state.entity || this.state.visible.attributes) {
+      return null;
+    }
     return (
       <div className="toggle-sidebar right">
-        <a onClick={() => { this.setState({visible: {attributes: true}}); this.forceUpdate(); }}
-        className='fa fa-plus' title='Show components'></a>
+        <a
+          onClick={() => {
+            this.setState({ visible: { attributes: true } });
+            this.forceUpdate();
+          }}
+          className="fa fa-plus"
+          title="Show components"
+        />
       </div>
     );
   }
 
-  renderSceneGraphToggle () {
-    if (this.state.visible.scenegraph) { return null; }
+  renderSceneGraphToggle() {
+    if (this.state.visible.scenegraph) {
+      return null;
+    }
     return (
       <div className="toggle-sidebar left">
-        <a onClick={() => { this.setState({visible: {scenegraph: true}}); this.forceUpdate(); }}
-           className='fa fa-plus' title='Show scenegraph'></a>
+        <a
+          onClick={() => {
+            this.setState({ visible: { scenegraph: true } });
+            this.forceUpdate();
+          }}
+          className="fa fa-plus"
+          title="Show scenegraph"
+        />
       </div>
     );
   }
 
-  render () {
+  render() {
     const scene = this.state.sceneEl;
-    const toggleButtonText = this.state.inspectorEnabled ? 'Inspect Scene' : 'Back to Scene';
+    const toggleButtonText = this.state.inspectorEnabled
+      ? 'Inspect Scene'
+      : 'Back to Scene';
 
     return (
       <div>
-        <a className='toggle-edit' onClick={this.toggleEdit}>{toggleButtonText}</a>
+        <a className="toggle-edit" onClick={this.toggleEdit}>
+          {toggleButtonText}
+        </a>
 
         {this.renderSceneGraphToggle()}
         {this.renderComponentsToggle()}
 
-        <div id='inspectorContainer' className={this.state.inspectorEnabled ? '' : 'hidden'}>
-          <SceneGraph scene={scene} selectedEntity={this.state.entity} visible={this.state.visible.scenegraph}/>
+        <div
+          id="inspectorContainer"
+          className={this.state.inspectorEnabled ? '' : 'hidden'}
+        >
+          <SceneGraph
+            scene={scene}
+            selectedEntity={this.state.entity}
+            visible={this.state.visible.scenegraph}
+          />
 
           <div id="viewportBar">
-            <div/>
-            <ViewportHUD/>
-            <TransformToolBar/>
+            <div />
+            <ViewportHUD />
+            <TransformToolBar />
           </div>
 
-          <div id='rightPanel'>
-            <ComponentsSidebar entity={this.state.entity} visible={this.state.visible.attributes}/>
+          <div id="rightPanel">
+            <ComponentsSidebar
+              entity={this.state.entity}
+              visible={this.state.visible.attributes}
+            />
           </div>
         </div>
 
-        <ModalHelp isOpen={this.state.isHelpOpen} onClose={this.onCloseHelpModal}/>
-        <ModalTextures ref='modaltextures' isOpen={this.state.isModalTexturesOpen} selectedTexture={this.state.selectedTexture} onClose={this.onModalTextureOnClose}/>
+        <ModalHelp
+          isOpen={this.state.isHelpOpen}
+          onClose={this.onCloseHelpModal}
+        />
+        <ModalTextures
+          ref="modaltextures"
+          isOpen={this.state.isModalTexturesOpen}
+          selectedTexture={this.state.selectedTexture}
+          onClose={this.onModalTextureOnClose}
+        />
       </div>
     );
   }

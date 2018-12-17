@@ -15,71 +15,82 @@ export default class AddComponent extends React.Component {
    * Add blank component.
    * If component is instanced, generate an ID.
    */
-  addComponent = (componentName) => {
+  addComponent = componentName => {
     var entity = this.props.entity;
     var packageName;
-    var selectedOption = this.options.filter(function (option) {
+    var selectedOption = this.options.filter(function(option) {
       return option.value === componentName;
     })[0];
 
     if (AFRAME.components[componentName].multiple) {
       const id = prompt(
-        `Provide an ID for this component (e.g., 'foo' for ${componentName}__foo).`);
+        `Provide an ID for this component (e.g., 'foo' for ${componentName}__foo).`
+      );
       componentName = id ? `${componentName}__${id}` : componentName;
     }
 
     entity.setAttribute(componentName, '');
-    Events.emit('componentadd', {entity: entity, component: componentName});
+    Events.emit('componentadd', { entity: entity, component: componentName });
     ga('send', 'event', 'Components', 'addComponent', componentName);
-  }
+  };
 
   /**
    * Component dropdown options.
    */
-  getComponentsOptions () {
+  getComponentsOptions() {
     const usedComponents = Object.keys(this.props.entity.components);
     var commonOptions = Object.keys(AFRAME.components)
-      .filter(function (componentName) {
-        return AFRAME.components[componentName].multiple ||
-               usedComponents.indexOf(componentName) === -1;
+      .filter(function(componentName) {
+        return (
+          AFRAME.components[componentName].multiple ||
+          usedComponents.indexOf(componentName) === -1
+        );
       })
       .sort()
-      .map(function (value) {
-        return {value: value, label: value, origin: 'loaded'};
+      .map(function(value) {
+        return { value: value, label: value, origin: 'loaded' };
       });
 
     this.options = commonOptions;
-    this.options = this.options.sort(function (a, b) {
+    this.options = this.options.sort(function(a, b) {
       return a.label === b.label ? 0 : a.label < b.label ? -1 : 1;
     });
   }
 
-  renderOption (option) {
-    var bullet = <span title="Component already loaded in the scene">&#9679;</span>;
-    return <strong className="option">{option.label} {option.origin === 'loaded' ? bullet : ''}</strong>;
+  renderOption(option) {
+    var bullet = (
+      <span title="Component already loaded in the scene">&#9679;</span>
+    );
+    return (
+      <strong className="option">
+        {option.label} {option.origin === 'loaded' ? bullet : ''}
+      </strong>
+    );
   }
 
-  render () {
+  render() {
     const entity = this.props.entity;
-    if (!entity) { return <div></div>; }
+    if (!entity) {
+      return <div />;
+    }
 
     this.getComponentsOptions();
 
     return (
-        <div className='add-component-container'>
-          <Select
-            className="add-component"
-            ref="select"
-            options={this.options}
-            simpleValue
-            clearable={true}
-            placeholder="Add component..."
-            noResultsText="No components found"
-            onChange={this.addComponent}
-            optionRenderer={this.renderOption}
-            searchable={true}
-          />
-        </div>
+      <div className="add-component-container">
+        <Select
+          className="add-component"
+          ref="select"
+          options={this.options}
+          simpleValue
+          clearable={true}
+          placeholder="Add component..."
+          noResultsText="No components found"
+          onChange={this.addComponent}
+          optionRenderer={this.renderOption}
+          searchable={true}
+        />
+      </div>
     );
   }
 }
@@ -88,7 +99,7 @@ export default class AddComponent extends React.Component {
 /**
  * Check if component has multiplicity.
  */
-function isComponentInstanced (entity, componentName) {
+function isComponentInstanced(entity, componentName) {
   for (var component in entity.components) {
     if (component.substr(0, component.indexOf('__')) === componentName) {
       return true;

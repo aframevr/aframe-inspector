@@ -14,7 +14,7 @@ export default class ColorWidget extends React.Component {
     value: '#ffffff'
   };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     var value = this.props.value;
@@ -26,7 +26,7 @@ export default class ColorWidget extends React.Component {
     };
   }
 
-  setValue (value) {
+  setValue(value) {
     var pickerValue = this.getHexString(value);
 
     this.setState({
@@ -39,7 +39,7 @@ export default class ColorWidget extends React.Component {
     }
   }
 
-  componentWillReceiveProps (newProps) {
+  componentWillReceiveProps(newProps) {
     if (newProps.value !== this.state.value) {
       this.setState({
         value: newProps.value,
@@ -48,30 +48,37 @@ export default class ColorWidget extends React.Component {
     }
   }
 
-  getHexString (value) {
+  getHexString(value) {
     return '#' + this.color.set(value).getHexString();
   }
 
   onChange = e => {
     this.setValue(e.target.value);
-  }
+  };
 
   onKeyUp = e => {
     e.stopPropagation();
     // if (e.keyCode === 13)
     this.setValue(e.target.value);
-  }
+  };
 
   onChangeText = e => {
-    this.setState({value: e.target.value});
-  }
+    this.setState({ value: e.target.value });
+  };
 
-  render () {
+  render() {
     return (
-      <span className='color-widget'>
-        <input type='color' className="color" value={this.state.pickerValue}
-          title={this.state.value} onChange={this.onChange}/>
-        <input type="text" className="color_value"
+      <span className="color-widget">
+        <input
+          type="color"
+          className="color"
+          value={this.state.pickerValue}
+          title={this.state.value}
+          onChange={this.onChange}
+        />
+        <input
+          type="text"
+          className="color_value"
           value={this.state.value}
           onKeyUp={this.onKeyUp}
           onChange={this.onChangeText}

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Modal from './Modal';
 var insertNewAsset = require('../../lib/assetsUtils').insertNewAsset;
 
-function getFilename (url, converted = false) {
+function getFilename(url, converted = false) {
   var filename = url.split('/').pop();
   if (converted) {
     filename = getValidId(filename);
@@ -12,19 +12,21 @@ function getFilename (url, converted = false) {
   return filename;
 }
 
-function isValidId (id) {
+function isValidId(id) {
   // The correct re should include : and . but A-frame seems to fail while accessing them
-  var re = (/^[A-Za-z]+[\w\-]*$/);
+  var re = /^[A-Za-z]+[\w\-]*$/;
   return re.test(id);
 }
 
-function getValidId (name) {
+function getValidId(name) {
   // info.name.replace(/\.[^/.]+$/, '').replace(/\s+/g, '')
-  return name.split('.').shift()
-          .replace(/\s/, '-')
-          .replace(/^\d+\s*/, '')
-          .replace(/[\W]/, '')
-          .toLowerCase();
+  return name
+    .split('.')
+    .shift()
+    .replace(/\s/, '-')
+    .replace(/^\d+\s*/, '')
+    .replace(/[\W]/, '')
+    .toLowerCase();
 }
 
 export default class ModalTextures extends React.Component {
@@ -34,7 +36,7 @@ export default class ModalTextures extends React.Component {
     selectedTexture: PropTypes.string
   };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       filterText: '',
@@ -58,23 +60,23 @@ export default class ModalTextures extends React.Component {
     };
   }
 
-  componentDidMount () {
-    Events.on('assetsimagesload', (images) => {
+  componentDidMount() {
+    Events.on('assetsimagesload', images => {
       this.generateFromRegistry();
     });
 
     this.generateFromAssets();
   }
 
-  componentDidUpdate () {
+  componentDidUpdate() {
     if (this.state.isOpen && !AFRAME.INSPECTOR.assetsLoader.hasLoaded) {
       AFRAME.INSPECTOR.assetsLoader.load();
     }
   }
 
-  componentWillReceiveProps (newProps) {
+  componentWillReceiveProps(newProps) {
     if (this.state.isOpen !== newProps.isOpen) {
-      this.setState({isOpen: newProps.isOpen});
+      this.setState({ isOpen: newProps.isOpen });
       if (newProps.isOpen) {
         this.generateFromAssets();
       }
@@ -85,17 +87,17 @@ export default class ModalTextures extends React.Component {
     if (this.props.onClose) {
       this.props.onClose();
     }
-  }
+  };
 
   selectTexture = value => {
     if (this.props.onClose) {
       this.props.onClose(value);
     }
-  }
+  };
 
   generateFromRegistry = () => {
     var self = this;
-    AFRAME.INSPECTOR.assetsLoader.images.forEach((imageData) => {
+    AFRAME.INSPECTOR.assetsLoader.images.forEach(imageData => {
       var image = new Image();
       image.addEventListener('load', () => {
         self.state.registryImages.push({
@@ -106,40 +108,45 @@ export default class ModalTextures extends React.Component {
           name: imageData.id,
           type: 'registry',
           tags: imageData.tags,
-          value: 'url(' + imageData.fullPath + ')'});
-        self.setState({registryImages: self.state.registryImages.slice()});
+          value: 'url(' + imageData.fullPath + ')'
+        });
+        self.setState({ registryImages: self.state.registryImages.slice() });
       });
       image.src = imageData.fullThumbPath;
     });
-  }
+  };
 
   generateFromAssets = () => {
-    this.setState({assetsImages: []});
+    this.setState({ assetsImages: [] });
 
     var self = this;
-    Array.prototype.slice.call(document.querySelectorAll('a-assets img')).map((asset) => {
-      var image = new Image();
-      image.addEventListener('load', () => {
-        self.state.assetsImages.push({
-          id: asset.id,
-          src: image.src,
-          width: image.width,
-          height: image.height,
-          name: asset.id,
-          type: 'asset',
-          value: '#' + asset.id
+    Array.prototype.slice
+      .call(document.querySelectorAll('a-assets img'))
+      .map(asset => {
+        var image = new Image();
+        image.addEventListener('load', () => {
+          self.state.assetsImages.push({
+            id: asset.id,
+            src: image.src,
+            width: image.width,
+            height: image.height,
+            name: asset.id,
+            type: 'asset',
+            value: '#' + asset.id
+          });
+          self.setState({ assetsImages: self.state.assetsImages });
         });
-        self.setState({assetsImages: self.state.assetsImages});
+        image.src = asset.src;
       });
-      image.src = asset.src;
-    });
-  }
+  };
 
   onNewUrl = event => {
-    if (event.keyCode !== 13) { return; }
+    if (event.keyCode !== 13) {
+      return;
+    }
 
     var self = this;
-    function onImageLoaded (img) {
+    function onImageLoaded(img) {
       var src = self.refs.preview.src;
       self.setState({
         preview: {
@@ -160,25 +167,25 @@ export default class ModalTextures extends React.Component {
     this.refs.preview.src = event.target.value;
 
     this.refs.imageName.focus();
-  }
+  };
 
   onNameKeyUp = event => {
     if (event.keyCode === 13 && this.isValidAsset()) {
       this.addNewAsset();
     }
-  }
+  };
 
   onNameChanged = event => {
     var state = this.state.preview;
     state.name = event.target.value;
-    this.setState({preview: state});
-  }
+    this.setState({ preview: state });
+  };
 
   toggleNewDialog = () => {
-    this.setState({addNewDialogOpened: !this.state.addNewDialogOpened});
-  }
+    this.setState({ addNewDialogOpened: !this.state.addNewDialogOpened });
+  };
 
-  clear () {
+  clear() {
     this.setState({
       preview: {
         width: 0,
@@ -195,11 +202,11 @@ export default class ModalTextures extends React.Component {
     });
   }
 
-  onUrlChange = (e) => {
-    this.setState({newUrl: e.target.value});
-  }
+  onUrlChange = e => {
+    this.setState({ newUrl: e.target.value });
+  };
 
-  isValidAsset () {
+  isValidAsset() {
     let validUrl = isValidId(this.state.preview.name);
     let validAsset = this.state.preview.loaded && validUrl;
     return validAsset;
@@ -207,20 +214,26 @@ export default class ModalTextures extends React.Component {
 
   addNewAsset = () => {
     var self = this;
-    insertNewAsset('img', this.state.preview.name, this.state.preview.src, true, function () {
-      self.generateFromAssets();
-      self.setState({addNewDialogOpened: false});
-      self.clear();
-    });
-  }
+    insertNewAsset(
+      'img',
+      this.state.preview.name,
+      this.state.preview.src,
+      true,
+      function() {
+        self.generateFromAssets();
+        self.setState({ addNewDialogOpened: false });
+        self.clear();
+      }
+    );
+  };
 
   onChangeFilter = e => {
-    this.setState({filterText: e.target.value});
-  }
+    this.setState({ filterText: e.target.value });
+  };
 
-  renderRegistryImages () {
+  renderRegistryImages() {
     var self = this;
-    let selectSample = function (image) {
+    let selectSample = function(image) {
       self.setState({
         preview: {
           width: image.width,
@@ -240,27 +253,31 @@ export default class ModalTextures extends React.Component {
     var filterText = this.state.filterText.toUpperCase();
 
     return this.state.registryImages
-      .filter((image) => {
-        return image.id.toUpperCase().indexOf(filterText) > -1 ||
-               image.name.toUpperCase().indexOf(filterText) > -1 ||
-               image.tags.indexOf(filterText) > -1;
+      .filter(image => {
+        return (
+          image.id.toUpperCase().indexOf(filterText) > -1 ||
+          image.name.toUpperCase().indexOf(filterText) > -1 ||
+          image.tags.indexOf(filterText) > -1
+        );
       })
-      .map(function (image) {
+      .map(function(image) {
         let imageClick = selectSample.bind(this, image);
         return (
           <li key={image.src} onClick={imageClick}>
-            <img width="155px" height="155px" src={image.src}/>
+            <img width="155px" height="155px" src={image.src} />
             <div className="detail">
               <span className="title">{image.name}</span>
               <span>{getFilename(image.src)}</span>
-              <span>{image.width} x {image.height}</span>
+              <span>
+                {image.width} x {image.height}
+              </span>
             </div>
           </li>
         );
       });
   }
 
-  render () {
+  render() {
     let isOpen = this.state.isOpen;
     let loadedTextures = this.state.loadedTextures;
     let preview = this.state.preview;
@@ -268,84 +285,137 @@ export default class ModalTextures extends React.Component {
     let validUrl = isValidId(this.state.preview.name);
     let validAsset = this.isValidAsset();
 
-    let addNewAssetButton = this.state.addNewDialogOpened ? 'BACK' : 'LOAD TEXTURE';
+    let addNewAssetButton = this.state.addNewDialogOpened
+      ? 'BACK'
+      : 'LOAD TEXTURE';
 
     return (
-      <Modal id="textureModal" title="Textures" isOpen={isOpen} onClose={this.onClose} closeOnClickOutside={false}>
+      <Modal
+        id="textureModal"
+        title="Textures"
+        isOpen={isOpen}
+        onClose={this.onClose}
+        closeOnClickOutside={false}
+      >
         <button onClick={this.toggleNewDialog}>{addNewAssetButton}</button>
         <div className={this.state.addNewDialogOpened ? '' : 'hide'}>
           <div className="newimage">
             <div className="new_asset_options">
               <span>Load a new texture from one of these sources:</span>
               <ul>
-                <li><span>From URL (and press Enter):</span> <input type="text" className='imageUrl' value={this.state.newUrl} onChange={this.onUrlChange} onKeyUp={this.onNewUrl}/></li>
-                <li><span>From assets registry: </span>
-                  <div className='assets search'>
-                    <input placeholder='Filter...' value={this.state.filterText}
-                      onChange={this.onChangeFilter}/>
-                    <span className='fa fa-search'></span>
+                <li>
+                  <span>From URL (and press Enter):</span>{' '}
+                  <input
+                    type="text"
+                    className="imageUrl"
+                    value={this.state.newUrl}
+                    onChange={this.onUrlChange}
+                    onKeyUp={this.onNewUrl}
+                  />
+                </li>
+                <li>
+                  <span>From assets registry: </span>
+                  <div className="assets search">
+                    <input
+                      placeholder="Filter..."
+                      value={this.state.filterText}
+                      onChange={this.onChangeFilter}
+                    />
+                    <span className="fa fa-search" />
                   </div>
                   <ul ref="registryGallery" className="gallery">
-                    { this.renderRegistryImages() }
+                    {this.renderRegistryImages()}
                   </ul>
                 </li>
               </ul>
             </div>
             <div className="preview">
-              Name: <input ref="imageName" className={this.state.preview.name.length > 0 && !validUrl ? 'error' : ''} type="text" value={this.state.preview.name} onChange={this.onNameChanged} onKeyUp={this.onNameKeyUp}/>
-              <img ref="preview" width="155px" height="155px" src={preview.src}/>
-              {
-                this.state.preview.loaded
-                 ? (
-                  <div className="detail">
-                    <span className="title" title={preview.filename}>{preview.filename}</span><br/>
-                    <span>{preview.width} x {preview.height}</span>
-                  </div>
-                ) : <span></span>
-              }
-              <br/>
-              <button disabled={!validAsset} onClick={this.addNewAsset}>LOAD THIS TEXTURE</button>
+              Name:{' '}
+              <input
+                ref="imageName"
+                className={
+                  this.state.preview.name.length > 0 && !validUrl ? 'error' : ''
+                }
+                type="text"
+                value={this.state.preview.name}
+                onChange={this.onNameChanged}
+                onKeyUp={this.onNameKeyUp}
+              />
+              <img
+                ref="preview"
+                width="155px"
+                height="155px"
+                src={preview.src}
+              />
+              {this.state.preview.loaded ? (
+                <div className="detail">
+                  <span className="title" title={preview.filename}>
+                    {preview.filename}
+                  </span>
+                  <br />
+                  <span>
+                    {preview.width} x {preview.height}
+                  </span>
+                </div>
+              ) : (
+                <span />
+              )}
+              <br />
+              <button disabled={!validAsset} onClick={this.addNewAsset}>
+                LOAD THIS TEXTURE
+              </button>
             </div>
           </div>
         </div>
         <div className={this.state.addNewDialogOpened ? 'hide' : ''}>
           <ul className="gallery">
-            {
-              this.state.assetsImages
-                .sort(function (a, b) {
-                  return a.id > b.id;
-                })
-                .map(function (image) {
-                  let textureClick = this.selectTexture.bind(this, image);
-                  var selectedClass = (this.props.selectedTexture === '#' + image.id) ? 'selected' : '';
-                  return (
-                   <li key={image.id} onClick={textureClick} className={selectedClass}>
-                     <img width="155px" height="155px" src={image.src}/>
-                     <div className="detail">
-                       <span className="title">{image.name}</span>
-                       <span>{getFilename(image.src)}</span>
-                       <span>{image.width} x {image.height}</span>
-                     </div>
-                   </li>
-                  );
-                }.bind(this))
-            }
-            {
-              loadedTextures.map(function (texture) {
-                var image = texture.image;
-                let textureClick = this.selectTexture.bind(this, texture);
-                return (
-                 <li key={texture.uuid} onClick={textureClick}>
-                   <img width="155px" height="155px" src={image.src}/>
-                   <div className="detail">
-                     <span className="title">Name:</span> <span>{image.name}</span>
-                     <span className="title">Filename:</span> <span>{getFilename(image.src)}</span>
-                     <span>{image.width} x {image.height}</span>
-                   </div>
-                 </li>
-                );
+            {this.state.assetsImages
+              .sort(function(a, b) {
+                return a.id > b.id;
               })
-            }
+              .map(
+                function(image) {
+                  let textureClick = this.selectTexture.bind(this, image);
+                  var selectedClass =
+                    this.props.selectedTexture === '#' + image.id
+                      ? 'selected'
+                      : '';
+                  return (
+                    <li
+                      key={image.id}
+                      onClick={textureClick}
+                      className={selectedClass}
+                    >
+                      <img width="155px" height="155px" src={image.src} />
+                      <div className="detail">
+                        <span className="title">{image.name}</span>
+                        <span>{getFilename(image.src)}</span>
+                        <span>
+                          {image.width} x {image.height}
+                        </span>
+                      </div>
+                    </li>
+                  );
+                }.bind(this)
+              )}
+            {loadedTextures.map(function(texture) {
+              var image = texture.image;
+              let textureClick = this.selectTexture.bind(this, texture);
+              return (
+                <li key={texture.uuid} onClick={textureClick}>
+                  <img width="155px" height="155px" src={image.src} />
+                  <div className="detail">
+                    <span className="title">Name:</span>{' '}
+                    <span>{image.name}</span>
+                    <span className="title">Filename:</span>{' '}
+                    <span>{getFilename(image.src)}</span>
+                    <span>
+                      {image.width} x {image.height}
+                    </span>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </Modal>

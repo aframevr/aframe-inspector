@@ -11,7 +11,7 @@ import TextureWidget from '../widgets/TextureWidget';
 import Vec4Widget from '../widgets/Vec4Widget';
 import Vec3Widget from '../widgets/Vec3Widget';
 import Vec2Widget from '../widgets/Vec2Widget';
-import {updateEntity} from '../../lib/entity';
+import { updateEntity } from '../../lib/entity';
 
 export default class PropertyRow extends React.Component {
   static propTypes = {
@@ -21,18 +21,22 @@ export default class PropertyRow extends React.Component {
     schema: PropTypes.object.isRequired
   };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.id = props.componentname + ':' + props.name;
   }
 
-  getWidget () {
+  getWidget() {
     const props = this.props;
-    const isMap = props.componentname === 'material' && (props.name === 'envMap' ||
-                                                         props.name === 'src');
+    const isMap =
+      props.componentname === 'material' &&
+      (props.name === 'envMap' || props.name === 'src');
     const type = props.schema.type;
 
-    const value = props.schema.type === 'selector' ? props.entity.getDOMAttribute(props.componentname)[props.name] : props.data;
+    const value =
+      props.schema.type === 'selector'
+        ? props.entity.getDOMAttribute(props.componentname)[props.name]
+        : props.data;
 
     const widgetProps = {
       componentname: props.componentname,
@@ -40,7 +44,7 @@ export default class PropertyRow extends React.Component {
       isSingle: props.isSingle,
       name: props.name,
       // Wrap updateEntity for tracking.
-      onChange: function (name, value) {
+      onChange: function(name, value) {
         var propertyName = props.componentname;
         if (!props.isSingle) {
           propertyName += '.' + props.name;
@@ -56,47 +60,55 @@ export default class PropertyRow extends React.Component {
     };
 
     if (props.schema.oneOf && props.schema.oneOf.length > 0) {
-      return <SelectWidget {...widgetProps} options={props.schema.oneOf}/>;
+      return <SelectWidget {...widgetProps} options={props.schema.oneOf} />;
     }
     if (type === 'map' || isMap) {
-      return <TextureWidget {...widgetProps}/>;
+      return <TextureWidget {...widgetProps} />;
     }
 
     switch (type) {
       case 'number': {
-        return <NumberWidget {...widgetProps} {...numberWidgetProps}/>;
+        return <NumberWidget {...widgetProps} {...numberWidgetProps} />;
       }
       case 'int': {
-        return <NumberWidget {...widgetProps} {...numberWidgetProps} precision={0}/>;
+        return (
+          <NumberWidget {...widgetProps} {...numberWidgetProps} precision={0} />
+        );
       }
       case 'vec2': {
-        return <Vec2Widget {...widgetProps}/>;
+        return <Vec2Widget {...widgetProps} />;
       }
       case 'vec3': {
-        return <Vec3Widget {...widgetProps}/>;
+        return <Vec3Widget {...widgetProps} />;
       }
       case 'vec4': {
-        return <Vec4Widget {...widgetProps}/>;
+        return <Vec4Widget {...widgetProps} />;
       }
       case 'color': {
-        return <ColorWidget {...widgetProps}/>;
+        return <ColorWidget {...widgetProps} />;
       }
       case 'boolean': {
-        return <BooleanWidget {...widgetProps}/>;
+        return <BooleanWidget {...widgetProps} />;
       }
       default: {
-        return <InputWidget {...widgetProps}/>;
+        return <InputWidget {...widgetProps} />;
       }
     }
   }
 
-  render () {
+  render() {
     const props = this.props;
-    const value = props.schema.type === 'selector' ? props.entity.getDOMAttribute(props.componentname)[props.name] : JSON.stringify(props.data);
-    const title = props.name + '\n - type: ' + props.schema.type + '\n - value: ' + value;
+    const value =
+      props.schema.type === 'selector'
+        ? props.entity.getDOMAttribute(props.componentname)[props.name]
+        : JSON.stringify(props.data);
+    const title =
+      props.name + '\n - type: ' + props.schema.type + '\n - value: ' + value;
     return (
-      <div className='row'>
-        <label htmlFor={this.id} className='text' title={title}>{props.name}</label>
+      <div className="row">
+        <label htmlFor={this.id} className="text" title={title}>
+          {props.name}
+        </label>
         {this.getWidget(props.schema.type)}
       </div>
     );

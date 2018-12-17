@@ -1,9 +1,9 @@
 var React = require('react');
 var Events = require('../../lib/Events.js');
-import {getEntityName} from '../../lib/entity';
+import { getEntityName } from '../../lib/entity';
 
 export default class ViewportHUD extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       hoveredEntity: null,
@@ -11,27 +11,29 @@ export default class ViewportHUD extends React.Component {
     };
   }
 
-  componentDidMount () {
+  componentDidMount() {
     Events.on('raycastermouseenter', el => {
-      this.setState({hoveredEntity: el});
+      this.setState({ hoveredEntity: el });
     });
 
     Events.on('raycastermouseleave', el => {
-      this.setState({hoveredEntity: el});
+      this.setState({ hoveredEntity: el });
     });
   }
 
-  renderActiveEntityName () {
+  renderActiveEntityName() {
     if (this.state.hoveredEntity) {
-      return `<${this.state.hoveredEntity.tagName.toLowerCase()} ${getEntityName(this.state.hoveredEntity)}>`.replace(' >', '>');
+      return `<${this.state.hoveredEntity.tagName.toLowerCase()} ${getEntityName(
+        this.state.hoveredEntity
+      )}>`.replace(' >', '>');
     } else {
       return '';
     }
   }
 
-  render () {
+  render() {
     return (
-      <div id='viewportHud'>
+      <div id="viewportHud">
         <p>{this.renderActiveEntityName()}</p>
       </div>
     );

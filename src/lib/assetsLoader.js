@@ -2,12 +2,12 @@
 import Events from './Events';
 
 const assetsBaseUrl = 'https://aframe.io/sample-assets/';
-const assetsRelativeUrl = {images: 'dist/images.json'};
+const assetsRelativeUrl = { images: 'dist/images.json' };
 
 /**
  * Asynchronously load and register components from the registry.
  */
-function AssetsLoader () {
+function AssetsLoader() {
   this.images = [];
   this.hasLoaded = false;
 }
@@ -16,7 +16,7 @@ AssetsLoader.prototype = {
   /**
    * XHR the assets JSON.
    */
-  load: function () {
+  load: function() {
     var xhr = new XMLHttpRequest();
     var url = assetsBaseUrl + assetsRelativeUrl['images'];
 
@@ -28,11 +28,14 @@ AssetsLoader.prototype = {
       this.images = data.images;
       this.images.forEach(image => {
         image.fullPath = assetsBaseUrl + data.basepath.images + image.path;
-        image.fullThumbPath = assetsBaseUrl + data.basepath.images_thumbnails + image.thumbnail;
+        image.fullThumbPath =
+          assetsBaseUrl + data.basepath.images_thumbnails + image.thumbnail;
       });
       Events.emit('assetsimagesload', this.images);
     };
-    xhr.onerror = () => { console.error('Error loading registry file.'); };
+    xhr.onerror = () => {
+      console.error('Error loading registry file.');
+    };
     xhr.send();
 
     this.hasLoaded = true;

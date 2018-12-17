@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 
 var Events = require('../../lib/Events.js');
 
-function getUrlFromId (assetId) {
-  return assetId.length > 1 && document.querySelector(assetId) && document.querySelector(assetId).getAttribute('src');
+function getUrlFromId(assetId) {
+  return (
+    assetId.length > 1 &&
+    document.querySelector(assetId) &&
+    document.querySelector(assetId).getAttribute('src')
+  );
 }
 
-function GetFilename (url) {
+function GetFilename(url) {
   if (url) {
     var m = url.toString().match(/.*\/(.+?)\./);
     if (m && m.length > 1) {
@@ -17,24 +21,26 @@ function GetFilename (url) {
   return '';
 }
 
-function insertNewAsset (type, id, src) {
+function insertNewAsset(type, id, src) {
   var element = null;
   switch (type) {
-    case 'img': {
-      element = document.createElement('img');
-      element.id = id;
-      element.src = src;
-    } break;
+    case 'img':
+      {
+        element = document.createElement('img');
+        element.id = id;
+        element.src = src;
+      }
+      break;
   }
   if (element) {
     document.getElementsByTagName('a-assets')[0].appendChild(element);
   }
 }
 
-function insertOrGetImageAsset (src) {
+function insertOrGetImageAsset(src) {
   var id = GetFilename(src);
   // Search for already loaded asset by src
-  var element = document.querySelector('a-assets > img[src=\'' + src + '\']');
+  var element = document.querySelector("a-assets > img[src='" + src + "']");
 
   if (element) {
     id = element.id;
@@ -64,10 +70,7 @@ export default class TextureWidget extends React.Component {
     mapName: PropTypes.string,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func,
-    value: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.string
-    ])
+    value: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
   };
 
   static defaultProps = {
@@ -76,18 +79,20 @@ export default class TextureWidget extends React.Component {
     dataURL: ''
   };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
-    this.state = {value: this.props.value || ''};
+    this.state = { value: this.props.value || '' };
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.setValue(this.props.value || '');
   }
 
-  componentWillReceiveProps (newProps) {
+  componentWillReceiveProps(newProps) {
     var component = this.props.entity.components[this.props.componentname];
-    if (!component) { return; }
+    if (!component) {
+      return;
+    }
     var newValue = component.attrValue[this.props.name];
 
     // This will be triggered typically when the element is changed directly with element.setAttribute
@@ -96,28 +101,34 @@ export default class TextureWidget extends React.Component {
     }
   }
 
-  setValue (value) {
+  setValue(value) {
     var canvas = this.refs.canvas;
     var context = canvas.getContext('2d');
 
-    function paintPreviewWithImage (image) {
+    function paintPreviewWithImage(image) {
       var filename = image.src.replace(/^.*[\\\/]/, '');
       if (image !== undefined && image.width > 0) {
         canvas.title = filename;
         var scale = canvas.width / image.width;
-        context.drawImage(image, 0, 0, image.width * scale, image.height * scale);
+        context.drawImage(
+          image,
+          0,
+          0,
+          image.width * scale,
+          image.height * scale
+        );
         // self.setState({dataURL: canvas.toDataURL()});
       } else {
         context.clearRect(0, 0, canvas.width, canvas.height);
       }
     }
 
-    function paintPreview (texture) {
+    function paintPreview(texture) {
       var image = texture.image;
       paintPreviewWithImage(image);
     }
 
-    function getTextureFromSrc (src) {
+    function getTextureFromSrc(src) {
       for (var hash in AFRAME.INSPECTOR.sceneEl.systems.material.textureCache) {
         if (JSON.parse(hash).src === src) {
           return AFRAME.INSPECTOR.sceneEl.systems.material.textureCache[hash];
@@ -140,38 +151,48 @@ export default class TextureWidget extends React.Component {
 
     var texture = getTextureFromSrc(value);
     var valueType = null;
-    valueType = (isAssetImg || isAssetHash) ? 'asset' : 'url';
+    valueType = isAssetImg || isAssetHash ? 'asset' : 'url';
     if (texture) {
       texture.then(paintPreview);
     } else if (url) {
       // The image still didn't load
       var image = new Image();
-      image.addEventListener('load', () => { paintPreviewWithImage(image); }, false);
+      image.addEventListener(
+        'load',
+        () => {
+          paintPreviewWithImage(image);
+        },
+        false
+      );
       image.src = url;
     } else {
       context.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    this.setState({value: isAssetImg ? '#' + value.id : value, valueType: valueType, url: url});
+    this.setState({
+      value: isAssetImg ? '#' + value.id : value,
+      valueType: valueType,
+      url: url
+    });
   }
 
   notifyChanged = value => {
     if (this.props.onChange) {
       this.props.onChange(this.props.name, value);
     }
-    this.setState({value: value});
-  }
+    this.setState({ value: value });
+  };
 
   onChange = e => {
     var value = e.target.value;
-    this.setState({value: value});
+    this.setState({ value: value });
     this.notifyChanged(value);
-  }
+  };
 
   removeMap = e => {
     this.setValue('');
     this.notifyChanged('');
-  }
+  };
 
   openDialog = () => {
     Events.emit('opentexturesmodal', this.state.value, image => {
@@ -190,9 +211,9 @@ export default class TextureWidget extends React.Component {
 
       this.setValue(value);
     });
-  }
+  };
 
-  render () {
+  render() {
     let hint = '';
     let openLink = '';
 
@@ -202,17 +223,34 @@ export default class TextureWidget extends React.Component {
       } else {
         hint = 'URL: ' + this.state.value;
       }
-      openLink = <a target="_blank" className="button fa fa-external-link"
-        title="Open image in a new tab"
-        href={this.state.url}></a>;
+      openLink = (
+        <a
+          target="_blank"
+          className="button fa fa-external-link"
+          title="Open image in a new tab"
+          href={this.state.url}
+        />
+      );
     }
 
     return (
-      <span className='texture'>
-        <canvas ref='canvas' width='32' height='16' title={hint} onClick={this.openDialog}></canvas>
-        <input className='map_value string' type='text' title={hint} value={this.state.value} onChange={this.onChange}/>
+      <span className="texture">
+        <canvas
+          ref="canvas"
+          width="32"
+          height="16"
+          title={hint}
+          onClick={this.openDialog}
+        />
+        <input
+          className="map_value string"
+          type="text"
+          title={hint}
+          value={this.state.value}
+          onChange={this.onChange}
+        />
         {openLink}
-        <a onClick={this.removeMap} className='button fa fa-times'></a>
+        <a onClick={this.removeMap} className="button fa fa-times" />
       </span>
     );
   }

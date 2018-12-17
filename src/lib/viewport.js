@@ -6,22 +6,24 @@ import TransformControls from './TransformControls.js';
 import EditorControls from './EditorControls.js';
 /* eslint-disable no-unused-vars */
 
-import {initRaycaster} from './raycaster';
+import { initRaycaster } from './raycaster';
 
-import {getNumber} from './utils';
+import { getNumber } from './utils';
 const Events = require('./Events');
 
 /**
  * Transform controls stuff mostly.
  */
-function Viewport (inspector) {
+function Viewport(inspector) {
   // Initialize raycaster and picking in differentpmodule.
   const mouseCursor = initRaycaster(inspector);
 
   let prevActiveCameraEl = inspector.currentCameraEl;
   inspector.sceneEl.addEventListener('camera-set-active', event => {
     // If we're in edit mode, save the newly active camera and activate when exiting.
-    if (inspector.opened) { prevActiveCameraEl = event.detail.cameraEl; }
+    if (inspector.opened) {
+      prevActiveCameraEl = event.detail.cameraEl;
+    }
   });
 
   // Helpers.
@@ -40,7 +42,7 @@ function Viewport (inspector) {
    * Update the helpers of the object and it childrens
    * @param  {object3D} object Object to update
    */
-  function updateHelpers (object) {
+  function updateHelpers(object) {
     if (inspector.helpers[object.id] !== undefined) {
       for (var objectId in inspector.helpers[object.id]) {
         inspector.helpers[object.id][objectId].update();
@@ -49,11 +51,16 @@ function Viewport (inspector) {
   }
 
   const camera = inspector.camera;
-  const transformControls = new THREE.TransformControls(camera, inspector.container);
+  const transformControls = new THREE.TransformControls(
+    camera,
+    inspector.container
+  );
   transformControls.size = 0.75;
   transformControls.addEventListener('objectChange', evt => {
     const object = transformControls.object;
-    if (object === undefined) { return; }
+    if (object === undefined) {
+      return;
+    }
 
     selectionBox.setFromObject(object).update();
 
@@ -70,7 +77,9 @@ function Viewport (inspector) {
     } else if (evt.mode === 'rotate') {
       component = 'rotation';
       const d = THREE.Math.radToDeg;
-      value = `${d(object.rotation.x)} ${d(object.rotation.y)} ${d(object.rotation.z)}`;
+      value = `${d(object.rotation.x)} ${d(object.rotation.y)} ${d(
+        object.rotation.z
+      )}`;
     } else if (evt.mode === 'scale') {
       component = 'scale';
       value = `${object.scale.x} ${object.scale.y} ${object.scale.z}`;
@@ -102,16 +111,16 @@ function Viewport (inspector) {
   // Controls need to be added *after* main logic.
   const controls = new THREE.EditorControls(camera, inspector.container);
   controls.center.set(0, 1.6, 0);
-	controls.rotationSpeed = 0.0035;
+  controls.rotationSpeed = 0.0035;
   controls.zoomSpeed = 0.05;
 
-  function disableControls () {
+  function disableControls() {
     mouseCursor.disable();
     transformControls.dispose();
     controls.enabled = false;
   }
 
-  function enableControls () {
+  function enableControls() {
     mouseCursor.enable();
     transformControls.activate();
     controls.enabled = true;
@@ -162,10 +171,13 @@ function Viewport (inspector) {
     const object = detail.entity.object3D;
     if (inspector.selected === object) {
       // Hack because object3D always has geometry :(
-      if (object.geometry &&
-          ((object.geometry.vertices && object.geometry.vertices.length > 0) ||
-           (object.geometry.attributes && object.geometry.attributes.position &&
-            object.geometry.attributes.position.array.length))) {
+      if (
+        object.geometry &&
+        ((object.geometry.vertices && object.geometry.vertices.length > 0) ||
+          (object.geometry.attributes &&
+            object.geometry.attributes.position &&
+            object.geometry.attributes.position.array.length))
+      ) {
         selectionBox.setFromObject(object).update();
       }
     }
@@ -183,7 +195,8 @@ function Viewport (inspector) {
   });
 
   Events.on('windowresize', () => {
-    camera.aspect = inspector.container.offsetWidth / inspector.container.offsetHeight;
+    camera.aspect =
+      inspector.container.offsetWidth / inspector.container.offsetHeight;
     camera.updateProjectionMatrix();
   });
 
@@ -199,16 +212,20 @@ function Viewport (inspector) {
     if (active) {
       enableControls();
       AFRAME.scenes[0].camera = inspector.camera;
-      Array.prototype.slice.call(document.querySelectorAll('.a-enter-vr,.rs-base')).forEach(element => {
-        element.style.display = 'none';
-      });
+      Array.prototype.slice
+        .call(document.querySelectorAll('.a-enter-vr,.rs-base'))
+        .forEach(element => {
+          element.style.display = 'none';
+        });
     } else {
       disableControls();
       prevActiveCameraEl.setAttribute('camera', 'active', 'true');
       AFRAME.scenes[0].camera = prevActiveCameraEl.getObject3D('camera');
-      Array.prototype.slice.call(document.querySelectorAll('.a-enter-vr,.rs-base')).forEach(element => {
-        element.style.display = 'block';
-      });
+      Array.prototype.slice
+        .call(document.querySelectorAll('.a-enter-vr,.rs-base'))
+        .forEach(element => {
+          element.style.display = 'block';
+        });
     }
     ga('send', 'event', 'Viewport', 'toggleEditor', active);
   });
