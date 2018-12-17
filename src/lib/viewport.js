@@ -38,16 +38,12 @@ function Viewport(inspector) {
   selectionBox.visible = false;
   sceneHelpers.add(selectionBox);
 
-  /**
-   * Update the helpers of the object and it childrens
-   * @param  {object3D} object Object to update
-   */
   function updateHelpers(object) {
-    if (inspector.helpers[object.id] !== undefined) {
-      for (var objectId in inspector.helpers[object.id]) {
-        inspector.helpers[object.id][objectId].update();
+    object.traverse(node => {
+      if (inspector.helpers[node.uuid]) {
+        inspector.helpers[node.uuid].update();
       }
-    }
+    });
   }
 
   const camera = inspector.camera;
@@ -188,10 +184,6 @@ function Viewport(inspector) {
     }
 
     updateHelpers(object);
-  });
-
-  Events.on('helperadded', helper => {
-    updateHelpers(helper.fromObject.parent);
   });
 
   Events.on('windowresize', () => {

@@ -10,7 +10,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Main from './components/Main';
 import { injectCSS, injectJS } from './lib/utils';
-import { GLTFExporter } from './lib/vendor/GLTFExporter'; // eslint-disable-line no-unused-vars
+import { GLTFExporter } from './lib/vendor/GLTFExporter';  // eslint-disable-line no-unused-vars
 
 require('./style/index.styl');
 
@@ -122,29 +122,14 @@ Inspector.prototype = {
     this.helpers = {};
     this.sceneHelpers = new THREE.Scene();
     this.sceneHelpers.userData.source = 'INSPECTOR';
-    this.sceneHelpers.visible = true; // false;
+    this.sceneHelpers.visible = true;
     this.inspectorActive = false;
 
     this.viewport = new Viewport(this);
     Events.emit('windowresize');
 
-    const self = this;
-    function addHelpers(object) {
-      for (let i = 0; i < object.children.length; i++) {
-        const obj = object.children[i];
-        for (let j = 0; j < obj.children.length; j++) {
-          self.addHelperTraverse(obj.children[j]);
-        }
-      }
-    }
-    addHelpers(this.sceneEl.object3D);
-
-    document.addEventListener('model-loaded', event => {
-      this.addHelperTraverse(event.target.object3D);
-    });
-
-    Events.on('entityselect', entity => {
-      this.addHelperTraverse(entity.object3D);
+    this.sceneEl.object3D.traverse(node => {
+      this.addHelper(node);
     });
 
     this.scene.add(this.sceneHelpers);
@@ -152,7 +137,7 @@ Inspector.prototype = {
   },
 
   removeObject: function(object) {
-    // Remove just the helper as the object will be deleted by Aframe
+    // Remove just the helper as the object will be deleted by A-Frame
     this.removeHelpers(object);
     Events.emit('objectremove', object);
   },
@@ -165,10 +150,10 @@ Inspector.prototype = {
     });
 
     return function(object) {
-      var helper;
+      let helper;
+
       if (object instanceof THREE.Camera) {
         this.cameraHelper = helper = new THREE.CameraHelper(object, 0.1);
-        this.cameraHelper.visible = false;
       } else if (object instanceof THREE.PointLight) {
         helper = new THREE.PointLightHelper(object, 1);
       } else if (object instanceof THREE.DirectionalLight) {
@@ -184,42 +169,22 @@ Inspector.prototype = {
         return;
       }
 
-      var parentId = object.parent.id;
-
-      // Helpers for object already created, remove every helper
-      if (this.helpers[parentId]) {
-        for (var objectId in this.helpers[parentId]) {
-          this.sceneHelpers.remove(this.helpers[parentId][objectId]);
-        }
-      } else {
-        this.helpers[parentId] = {};
-      }
-
-      const picker = new THREE.Mesh(geometry, material);
-      picker.name = 'picker';
-      picker.userData.object = object;
-      picker.userData.source = 'INSPECTOR';
-      helper.add(picker);
-      helper.fromObject = object;
-      helper.userData.source = 'INSPECTOR';
-
+      helper.visible = false;
       this.sceneHelpers.add(helper);
-      this.helpers[parentId][object.id] = helper;
-
-      Events.emit('helperadded', helper);
+      this.helpers[object.uuid] = helper;
+      helper.update();
     };
   })(),
 
   removeHelpers: function(object) {
-    var parentId = object.id;
-    if (this.helpers[parentId]) {
-      for (var objectId in this.helpers[parentId]) {
-        var helper = this.helpers[parentId][objectId];
-        Events.emit('helperremove', helper);
+    object.traverse(node => {
+      const helper = this.helpers[node.uuid];
+      if (helper) {
         this.sceneHelpers.remove(helper);
+        delete this.helpers[node.uuid];
+        Events.emit('helperremove', this.helpers[node.uuid]);
       }
-      delete this.helpers[parentId];
-    }
+    });
   },
 
   selectEntity: function(entity, emit) {
@@ -234,10 +199,17 @@ Inspector.prototype = {
       Events.emit('entityselect', entity);
     }
 
-    // Update camera helper visibility.
-    if (this.cameraHelper) {
-      this.cameraHelper.visible = entity === this.currentCameraEl;
+    // Update helper visibilities.
+    for (let id in this.helpers) {
+      this.helpers[id].visible = false;
     }
+
+    if (entity === this.sceneEl) { return; }
+    entity.object3D.traverse(node => {
+      if (this.helpers[node.uuid]) {
+        this.helpers[node.uuid].visible = true;
+      }
+    });
   },
 
   initEvents: function() {
@@ -265,24 +237,6 @@ Inspector.prototype = {
     document.addEventListener('child-detached', event => {
       var entity = event.detail.el;
       AFRAME.INSPECTOR.removeObject(entity.object3D);
-    });
-
-    Events.on('dommodify', mutations => {
-      if (!mutations) {
-        return;
-      }
-      mutations.forEach(mutation => {
-        if (mutation.type !== 'childList') {
-          return;
-        }
-        Array.prototype.slice
-          .call(mutation.removedNodes)
-          .forEach(removedNode => {
-            if (this.selectedEntity === removedNode) {
-              this.selectEntity(null);
-            }
-          });
-      });
     });
   },
 
@@ -312,8 +266,8 @@ Inspector.prototype = {
   /**
    * Helper function to add a new entity with a list of components
    * @param  {object} definition Entity definition to add:
-   *                             {element: 'a-entity', components: {geometry: 'primitive:box'}}
-   * @return {Element}            Entity created
+   *   {element: 'a-entity', components: {geometry: 'primitive:box'}}
+   * @return {Element} Entity created
    */
   createNewEntity: function(definition) {
     var entity = document.createElement(definition.element);
@@ -405,18 +359,8 @@ Inspector.prototype = {
     document.body.classList.remove('aframe-inspector-opened');
     this.sceneEl.resize();
     Shortcuts.disable();
-  },
-
-  addHelperTraverse: function(object) {
-    const self = this;
-    object.traverse(child => {
-      if (!child.el || !child.el.isInspector) {
-        self.addHelper(child, object);
-      }
-    });
-    Events.emit('helperadd', object);
   }
 };
 
 const inspector = (AFRAME.INSPECTOR = new Inspector());
-const Modules = require('./lib/modules/index.js'); // eslint-disable-line no-unused-vars
+const Modules = require('./lib/modules/index.js');  // eslint-disable-line no-unused-vars
