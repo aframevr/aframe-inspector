@@ -12,7 +12,7 @@ Also check out:
 
 - [A-Frame Watcher](https://github.com/supermedium/aframe-watcher) - Companion server to sync changes to HTML files.
 
-![Inspector Preview](https://cloud.githubusercontent.com/assets/674727/17754902/b9f6f09a-648b-11e6-8319-a4344744fed7.png)
+![Inspector Preview](https://user-images.githubusercontent.com/674727/50143582-e0e99b00-0261-11e9-944a-15995cf819fc.png)
 
 ## Using the Inspector
 
