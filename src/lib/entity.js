@@ -561,7 +561,7 @@ export function printEntity (entity, onDoubleClick) {
           &nbsp;{entityName}
         </span>
       )}
-      <span className="entityIcons" dangerouslySetInnerHTML={{ __html: icons }} />
+      {!!icons && (<span className="entityIcons" dangerouslySetInnerHTML={{ __html: icons }} />)}
       <span className="entityCloseTag">{'>'}</span>
     </span>
   );
