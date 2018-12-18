@@ -36,7 +36,12 @@ var Shortcuts = {
 
     // esc: close inspector
     if (keyCode === 27) {
-      AFRAME.INSPECTOR.close();
+      // unselect first.
+      if (this.inspector.selectedEntity) {
+        this.inspector.selectEntity(null);
+        return;
+      }
+      this.inspector.close();
       return;
     }
 
@@ -203,12 +208,11 @@ var Shortcuts = {
       mustBeActive
     };
   },
-  init: function() {
+  init: function(inspector) {
+    this.inspector = inspector;
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
   }
 };
-
-Shortcuts.init();
 
 module.exports = Shortcuts;

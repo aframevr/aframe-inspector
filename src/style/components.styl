@@ -19,7 +19,7 @@ div.vec4
   border-radius 5px
   margin-right 2px
   transition border-color .1s
-  width 53px
+  width 41px
   &:hover
     border-color $primaryhover
 
@@ -31,26 +31,41 @@ div.vec4
   display flex
   justify-content space-between
 
-.componentTitle
-  span
-    max-width 200px
-    overflow hidden
-    text-overflow ellipsis
-    text-transform uppercase
-    white-space nowrap
+.componentTitle span
+  max-width 200px
+  overflow hidden
+  text-overflow ellipsis
+  text-transform uppercase
+  white-space nowrap
 
 .collapsible .static
-  background-color $white
   border-bottom 1px solid $gray
   border-top 1px solid $gray
   cursor pointer
-  color $gray
   height 16px
   padding 10px
-  transition background-color .1s
+  transition background-color .05s
   vertical-align middle
   &:hover
     background-color lighten($lightgray, 10%)
+
+.collapsible
+  background-color $white
+  &.collapsed
+    background-color $grayalt
+    .static,
+    .fa
+      color $white
+    &:hover
+      background-color $grayhover
+      .static,
+      .fa
+        color $gray
+  .static,
+  .fa
+    color $gray
+    &:hover
+      background-color lighten($white, 10%)
 
 .collapsible .menu
   text-align right
@@ -203,6 +218,3 @@ a.help-linkhover
 
 #mixinSelect
   width 160px
-
-.componentHeader .fa
-  color $gray

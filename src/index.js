@@ -55,6 +55,8 @@ Inspector.prototype = {
       return;
     }
 
+    Shortcuts.init(this);
+
     this.container = document.querySelector('.a-canvas');
     this.currentCameraEl = this.sceneEl.camera.el;
     this.currentCameraEl.setAttribute(
@@ -202,7 +204,7 @@ Inspector.prototype = {
       this.select(null);
     }
 
-    if (emit === undefined) {
+    if (entity && emit === undefined) {
       Events.emit('entityselect', entity);
     }
 
