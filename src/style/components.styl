@@ -46,8 +46,6 @@ div.vec4
   padding 10px
   transition background-color .05s
   vertical-align middle
-  &:hover
-    background-color lighten($lightgray, 10%)
 
 .collapsible
   background-color $white
@@ -58,14 +56,12 @@ div.vec4
       color $white
     &:hover
       background-color $grayhover
-      .static,
-      .fa
-        color $gray
-  .static,
-  .fa
-    color $gray
-    &:hover
-      background-color lighten($white, 10%)
+  &:not(.collapsed)
+    .static,
+    .fa
+      color $gray
+      &:hover
+        background-color lighten($white, 10%)
 
 .collapsible .menu
   text-align right
@@ -218,3 +214,10 @@ a.help-linkhover
 
 #mixinSelect
   width 160px
+
+.propertyRow .texture
+  display flex
+  input
+    padding-left 0
+    margin-left 0
+    width 120px

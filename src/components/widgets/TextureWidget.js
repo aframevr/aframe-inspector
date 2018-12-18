@@ -215,33 +215,16 @@ export default class TextureWidget extends React.Component {
 
   render() {
     let hint = '';
-    let openLink = '';
-
     if (this.state.value) {
       if (this.state.valueType === 'asset') {
         hint = 'Asset ID: ' + this.state.value + '\nURL: ' + this.state.url;
       } else {
         hint = 'URL: ' + this.state.value;
       }
-      openLink = (
-        <a
-          target="_blank"
-          className="button fa fa-external-link"
-          title="Open image in a new tab"
-          href={this.state.url}
-        />
-      );
     }
 
     return (
       <span className="texture">
-        <canvas
-          ref="canvas"
-          width="32"
-          height="16"
-          title={hint}
-          onClick={this.openDialog}
-        />
         <input
           className="map_value string"
           type="text"
@@ -249,8 +232,13 @@ export default class TextureWidget extends React.Component {
           value={this.state.value}
           onChange={this.onChange}
         />
-        {openLink}
-        <a onClick={this.removeMap} className="button fa fa-times" />
+        <canvas
+          ref="canvas"
+          width="32"
+          height="16"
+          title={hint}
+          onClick={this.openDialog}
+        />
       </span>
     );
   }
