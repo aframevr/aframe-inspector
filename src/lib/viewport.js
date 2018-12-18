@@ -86,6 +86,8 @@ function Viewport(inspector) {
       property: '',
       value: value
     });
+
+    Events.emit('entitytransformed', transformControls.object.el);
   });
 
   transformControls.addEventListener('mouseDown', () => {
