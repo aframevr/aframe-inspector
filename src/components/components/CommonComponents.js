@@ -125,8 +125,8 @@ export default class CommonComponents extends React.Component {
           {entityButtons}
         </div>
         <div className="collapsible-content">
-          <div className="row">
-            <span className="text">ID</span>
+          <div className="propertyRow">
+            <label for="id" className="text">ID</label>
             <InputWidget
               onChange={changeId}
               entity={entity}
@@ -134,8 +134,8 @@ export default class CommonComponents extends React.Component {
               value={entity.id}
             />
           </div>
-          <div className="row">
-            <span className="text">class</span>
+          <div className="propertyRow">
+            <label className="text">class</label>
             <span>{entity.getAttribute('class')}</span>
           </div>
           {this.renderCommonAttributes()}

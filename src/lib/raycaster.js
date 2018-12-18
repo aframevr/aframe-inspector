@@ -1,4 +1,5 @@
 const Events = require('./Events');
+const debounce = require('lodash.debounce');
 
 function initRaycaster(inspector) {
   // Use cursor="rayOrigin: mouse".
@@ -11,6 +12,10 @@ function initRaycaster(inspector) {
     objects: 'a-scene :not([data-aframe-inspector])'
   });
   inspector.sceneEl.appendChild(mouseCursor);
+
+  inspector.sceneEl.addEventListener('child-attached', debounce(function () {
+    mouseCursor.components.raycaster.refreshObjects();
+  }, 250));
 
   mouseCursor.addEventListener('click', handleClick);
   mouseCursor.addEventListener('mouseenter', onMouseEnter);

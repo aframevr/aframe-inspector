@@ -78,9 +78,11 @@ export default class AddComponent extends React.Component {
     this.getComponentsOptions();
 
     return (
-      <div className="add-component-container">
+      <div id="addComponentContainer">
+        <p id="addComponentHeader">COMPONENTS</p>
         <Select
-          className="add-component"
+          id="addComponent"
+          className="addComponent"
           classNamePrefix="select"
           ref="select"
           options={this.options}

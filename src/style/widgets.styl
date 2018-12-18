@@ -1,15 +1,18 @@
+@import './lib';
+
 .Select-control
   background-color #222 !important
   border none
   border-radius 0
-  color #1faaf2
+  color $primary
+  font-family $monosapce
 
 .Select-menu-outer
   border none
 
 .Select-menu-outer .is-focused
-  background-color #1faaf2 !important
-  color #fff
+  background-color $primary !important
+  color $white
 
 .Select-option
   background-color #222 !important
@@ -20,15 +23,15 @@
 
 .Select-placeholder,
 .Select--single > .Select-control .Select-value
-  color #1faaf2 !important
+  color $primary !important
 
 .Select-value-label
-  color #1faaf2 !important
+  color $primary !important
 
 /* Dropdown menu */
 .dropbtn
   border none
-  color white
+  color $white
   cursor pointer
 
 .dropdown
@@ -51,33 +54,12 @@
   padding 10px 14px
   text-decoration none
 
-.dropdown-content ahover
+.dropdown-content a:hover
   background-color #4ecbff
-  color #fff
+  color $white
 
 .dropdownhover .dropdown-content
   display block
 
 .dropdownhover .dropbtn
-  color #1faaf2
-
-.collapsible .static
-  margin 0
-
-.collapsible .static .collapse-button
-  border 6px solid transparent
-  float left
-  height 0
-  margin-right 6px
-  width 0
-
-.collapsible.collapsed .static .collapse-button
-  border-left-color #1faaf2
-  margin-top 2px
-
-.collapsiblenot(.collapsed) .static .collapse-button
-  border-top-color #1faaf2
-  margin-top 6px
-
-.collapsible.collapsed .content
-  display none
+  color $primary

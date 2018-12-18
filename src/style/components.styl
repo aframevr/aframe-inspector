@@ -1,6 +1,8 @@
+@import './lib';
+
 .components
-  background-color #323232
-  color #bcbcbc
+  background-color $grayalt
+  color $white
   height 100%
   overflow auto
   position fixed
@@ -13,15 +15,13 @@ div.vec4
 
 .vec2 input.number,
 .vec3 input.number
-  width 53px
-
-.commonComponents .vec3 input.number
-  border 1px solid #24CAFF
+  border 1px solid $primary
   border-radius 5px
   margin-right 2px
   transition border-color .1s
+  width 53px
   &:hover
-    border-color #44EAFF
+    border-color $primaryhover
 
 .vec4 input.number
   width 34px
@@ -31,25 +31,26 @@ div.vec4
   display flex
   justify-content space-between
 
-.componentTitle span
-  max-width 200px
-  overflow hidden
-  text-overflow ellipsis
-  text-transform uppercase
-  white-space nowrap
+.componentTitle
+  span
+    max-width 200px
+    overflow hidden
+    text-overflow ellipsis
+    text-transform uppercase
+    white-space nowrap
 
 .collapsible .static
-  background-color #323232
-  border-bottom 1px solid #262626
-  border-top 1px solid #262626
+  background-color $white
+  border-bottom 1px solid $gray
+  border-top 1px solid $gray
   cursor pointer
-  color #fff
+  color $gray
   height 16px
   padding 10px
   transition background-color .1s
   vertical-align middle
   &:hover
-    background-color #444
+    background-color lighten($lightgray, 10%)
 
 .collapsible .menu
   text-align right
@@ -61,9 +62,11 @@ div.vec4
   padding 5px
   text-align right
 
+.collapsible .static
+  margin 0
+
 .collapsible .static .collapse-button
-  border-left 5px solid transparent
-  border-right 5px solid transparent
+  border 6px solid transparent
   float left
   height 0
   margin-right 10px
@@ -71,63 +74,74 @@ div.vec4
   width 0
 
 .collapsible.collapsed .static .collapse-button
-  border-left-color #bbb
+  border-left-color $gray
+  margin-top 2px
 
-.collapsiblenot(.collapsed) .static .collapse-button
-  border-top-color #bbb
+.collapsible:not(.collapsed) .static .collapse-button
+  border-top-color $gray
+  margin-top 6px
 
 .collapsible .content
-  background-color #2b2b2b
-  padding 10px
+  background-color $gray
 
-.components .row
-  margin-bottom 10px
+.propertyRow
+  align-items center
+  display flex
+  font-family $monospace
+  font-size 10px
   min-height 20px
+  padding 6px 15px
+
+  &:nth-child(odd)
+    background lighten($gray, 1%)
+
+  &:nth-child(even)
+    background $gray
+
+  .text
+    cursor default
+    display inline-block
+    overflow hidden
+    padding-right 10px
+    text-overflow ellipsis
+    vertical-align middle
+    width 125px
+
+  .map_value
+    margin 0 0 0 5px
+    width 68px
+
+  .Select-control
+    font-size 11px
+    height 24px
+
+  .Select-placeholder,
+  .Select--single > .Select-control .Select-value
+    line-height 19px
+
+  .Select-input
+    height 22px
+
+  input[type=text],
+  input[type=number],
+  input.string,
+  input.number
+    background #222
+    color #1faaf2
+    min-height 26px
+    padding-left 5px
+    padding-right 5px
+
+  input.string
+    box-sizing border-box
+    width 165px
+
+  .color_value
+    margin 0 0 0 5px
+    width 68px
 
 .components *
   vertical-align middle
-
-.components .row .text
-  cursor default
-  display inline-block
-  overflow hidden
-  padding-right 10px
-  text-overflow ellipsis
-  vertical-align middle
-  width 120px
-
-.components .row .map_value
-  margin 0 0 0 5px
-  width 68px
-
-span.mixinValue
-  color #fff
-  display flex
-  max-width 150px
-
-span.mixinlist
-  color #888 !important
-  display inline-block
-
-span.mixinlist ul
-  background-color #222
-  list-style-type none
-  margin 5px 0 0
-  padding 5px
-
-span.mixinlist ul li
-  font-size 11px
-  margin-bottom 3px
-
-span.mixinlist ul lilast-child
-  margin-bottom 0
-
-span.mixin
-  display inline-block
-  width 100px
-
-.mixinlist
-  margin-left 120px
 
 span.subcomponent
   color #999
@@ -141,58 +155,29 @@ a.help-link
 a.help-linkhover
   opacity 1
 
-.add-component
-  width 200px
-
-.row .Select-control
-  font-size 11px
-  height 24px
-
-.row .Select-placeholder,
-.row .Select--single > .Select-control .Select-value
-  line-height 19px
-
-.row .Select-input
-  height 22px
-
-.row input[type=text],
-.row input[type=number],
-.row input.string,
-.row input.number
-  background #222
-  border 1px solid transparent
-  color #1faaf2
-  min-height 26px
-  padding-left 5px
-  padding-right 5px
-
-.row input.string
-  box-sizing border-box
-  width 165px
-
-.add-component
-  text-align left
-
-.add-component .option
+#addComponentContainer
+  align-items center
+  background-color $gray
   display flex
-  justify-content space-between
+  flex-direction column
+  justify-content center
+  padding 15px 10px 10px 10px
 
-.add-component .option span
-  color #1faaf2
+  #addComponentHeader
+    font-family $monospace
+    text-decoration underline
+
+  #addComponent
+    text-align left
+    width 200px
+    .option
+      display flex
+      justify-content space-between
+      span
+        color #1faaf2
 
 .Select-menu-outer .is-focused span
   color #fff
-
-.add-component-container
-  align-items center
-  background-color #2b2b2b
-  display flex
-  justify-content center
-  padding 10px
-
-.components .row .color_value
-  margin 0 0 0 5px
-  width 68px
 
 .component-title
   align-items center
@@ -202,14 +187,19 @@ a.help-linkhover
   .collapsible-header
     bottom 4px
     position relative
+  .collapse-button
+    display none
   .static
     background #222
     height 10px
   .entityPrint
     font-size 14px
   .entityName
-    max-width 130px
+    max-width 160px
     top 0
 
 #mixinSelect
-  width 175px
+  width 160px
+
+.componentHeader .fa
+  color $gray

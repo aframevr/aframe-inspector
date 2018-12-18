@@ -1,7 +1,9 @@
+@import './lib';
+
 #viewportBar
   align-items center
-  background-color #323232
-  color #FAFAFA
+  background-color $grayalt
+  color $white
   display flex
   flex-grow 2
   height 32px
@@ -23,20 +25,21 @@
     margin 0 6px 0 0
     transition background-color .1s
     &:not(.active):hover
-      background-color #444
+      background-color $grayhover
 
   .active
-    background-color #1faaf2
-    color #fff
+    background-color $primary
+    color $white
 
-  .activehover
-    color #fff !important
+  .active:hover
+    color $white !important
 
 .local-transform
   padding-left 10px
 
 .local-transform label
-  color #aaa
+  color $ligtgray
+  font-family $monospace
   padding-left 5px
 
 .local-transform a.button

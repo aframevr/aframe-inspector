@@ -105,7 +105,7 @@ export default class PropertyRow extends React.Component {
     const title =
       props.name + '\n - type: ' + props.schema.type + '\n - value: ' + value;
     return (
-      <div className="row">
+      <div className="propertyRow">
         <label htmlFor={this.id} className="text" title={title}>
           {props.name}
         </label>
