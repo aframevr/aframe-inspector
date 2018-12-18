@@ -10,6 +10,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Main from './components/Main';
 import { injectCSS, injectJS } from './lib/utils';
+import { createEntity } from './lib/entity';
 import { GLTFExporter } from './lib/vendor/GLTFExporter';  // eslint-disable-line no-unused-vars
 
 require('./style/index.styl');
@@ -236,8 +237,8 @@ Inspector.prototype = {
       this.sceneHelpers.visible = this.inspectorActive;
     });
 
-    Events.on('createnewentity', definition => {
-      this.createNewEntity(definition);
+    Events.on('entitycreate', definition => {
+      createEntity(definition, entity => { this.selectEntity(entity); });
     });
 
     document.addEventListener('child-detached', event => {
@@ -267,34 +268,6 @@ Inspector.prototype = {
 
   deselect: function() {
     this.select(null);
-  },
-
-  /**
-   * Helper function to add a new entity with a list of components
-   * @param  {object} definition Entity definition to add:
-   *   {element: 'a-entity', components: {geometry: 'primitive:box'}}
-   * @return {Element} Entity created
-   */
-  createNewEntity: function(definition) {
-    var entity = document.createElement(definition.element);
-
-    // load default attributes
-    for (var attr in definition.components) {
-      entity.setAttribute(attr, definition.components[attr]);
-    }
-
-    // Ensure the components are loaded before update the UI
-    entity.addEventListener('loaded', () => {
-      this.addEntity(entity);
-    });
-
-    this.sceneEl.appendChild(entity);
-
-    return entity;
-  },
-
-  addEntity: function(entity) {
-    this.selectEntity(entity);
   },
 
   /**

@@ -46,6 +46,7 @@ export default class SceneGraph extends React.Component {
   componentDidMount() {
     this.rebuildEntityOptions();
     Events.on('entityidchange', this.rebuildEntityOptions);
+    Events.on('entitycreated', this.rebuildEntityOptions);
   }
 
   /**

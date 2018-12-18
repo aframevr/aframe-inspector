@@ -566,3 +566,28 @@ export function printEntity (entity, onDoubleClick) {
     </span>
   );
 }
+
+/**
+ * Helper function to add a new entity with a list of components
+ * @param  {object} definition Entity definition to add:
+ *   {element: 'a-entity', components: {geometry: 'primitive:box'}}
+ * @return {Element} Entity created
+ */
+export function createEntity (definition, cb) {
+  const entity = document.createElement(definition.element);
+
+  // load default attributes
+  for (let attr in definition.components) {
+    entity.setAttribute(attr, definition.components[attr]);
+  }
+
+  // Ensure the components are loaded before update the UI
+  entity.addEventListener('loaded', () => {
+    Events.emit('entitycreated', entity);
+    cb(entity);
+  });
+
+  AFRAME.scenes[0].appendChild(entity);
+
+  return entity;
+}

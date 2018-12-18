@@ -67,7 +67,7 @@ var Shortcuts = {
 
     // n: new entity
     if (keyCode === 78) {
-      Events.emit('createnewentity', { element: 'a-entity', components: {} });
+      Events.emit('entitycreate', { element: 'a-entity', components: {} });
     }
 
     // backspace & supr: remove selected entity
