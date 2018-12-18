@@ -3,13 +3,13 @@ var Events = require('../../lib/Events.js');
 var classNames = require('classnames');
 
 var cameraButtons = [
-  { value: 'perspective', event: 'cameraperspectivetoggle', payload: null, icon: 'camera' },
-  { value: 'ortholeft', event: 'cameraorthographictoggle', payload: 'left', icon: 'arrow-left'},
-  { value: 'orthoright', event: 'cameraorthographictoggle', payload: 'right', icon: 'arrow-right'},
-  { value: 'orthotop', event: 'cameraorthographictoggle', payload: 'top', icon: 'arrow-up' },
-  { value: 'orthobottom', event: 'cameraorthographictoggle', payload: 'bottom', icon: 'arrow-down' },
-  { value: 'orthoback', event: 'cameraorthographictoggle', payload: 'back', icon: 'arrow-circle-up'},
-  { value: 'orthofront', event: 'cameraorthographictoggle', payload: 'front', icon: 'arrow-circle-down'},
+  { value: 'perspective', event: 'cameraperspectivetoggle', payload: null, icon: 'camera', label: 'Perspective Camera' },
+  { value: 'ortholeft', event: 'cameraorthographictoggle', payload: 'left', icon: 'arrow-left', label: 'Left Camera View' },
+  { value: 'orthoright', event: 'cameraorthographictoggle', payload: 'right', icon: 'arrow-right', label: 'Right Camera View' },
+  { value: 'orthotop', event: 'cameraorthographictoggle', payload: 'top', icon: 'arrow-up', label: 'Top Camera View' },
+  { value: 'orthobottom', event: 'cameraorthographictoggle', payload: 'bottom', icon: 'arrow-down', label: 'Bottom Camera View' },
+  { value: 'orthoback', event: 'cameraorthographictoggle', payload: 'back', icon: 'arrow-circle-up', label: 'Back Camera View' },
+  { value: 'orthofront', event: 'cameraorthographictoggle', payload: 'front', icon: 'arrow-circle-down', label: 'Front Camera View' },
 ];
 
 export default class CameraToolbar extends React.Component {
@@ -43,6 +43,7 @@ export default class CameraToolbar extends React.Component {
           title={option.value}
           key={i}
           onClick={this.changeCamera.bind(this, option)}
+          title={option.label}
           className={classes}
         />
       );
