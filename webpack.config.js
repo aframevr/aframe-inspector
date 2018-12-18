@@ -37,7 +37,9 @@ var plugins = [
     VERSION: JSON.stringify(require('./package.json').version),
     BUILD_TIMESTAMP: JSON.stringify(getBuildTimestamp()),
     COMMIT_HASH: JSON.stringify(commitHash)
+
   }),
+  new webpack.EnvironmentPlugin(['NODE_ENV'])
 ];
 if (process.env.NODE_ENV === 'production') {
   plugins.push(new webpack.optimize.UglifyJsPlugin({

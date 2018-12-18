@@ -102,12 +102,13 @@ export default class CommonComponents extends React.Component {
       <div>
         <a
           title="Export entity to GLTF"
-          className="button fab fa-goodreads-g"
+          className="gltfIcon"
           onClick={event => {
             this.exportToGLTF();
             event.stopPropagation();
-          }}
-        />
+          }} >
+          <img src={process.env.NODE_ENV === 'production' ? 'https://aframe.io/aframe-inspector/assets/gltf.svg' : '../assets/gltf.svg'} />
+        </a>
         <a
           href="#"
           title="Copy entity HTML to clipboard"
