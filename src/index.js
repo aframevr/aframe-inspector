@@ -346,4 +346,3 @@ Inspector.prototype = {
 };
 
 const inspector = (AFRAME.INSPECTOR = new Inspector());
-const Modules = require('./lib/modules/index.js'); // eslint-disable-line no-unused-vars
