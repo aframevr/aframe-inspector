@@ -12,7 +12,8 @@ function shouldCaptureKeyEvent(event) {
     return false;
   }
   return (
-    event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA'
+    event.target.closest('#cameraToolbar') ||
+    (event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA')
   );
 }
 

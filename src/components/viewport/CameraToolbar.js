@@ -1,16 +1,21 @@
 var React = require('react');
 var Events = require('../../lib/Events.js');
 var classNames = require('classnames');
+import Select from 'react-select';
 
-var cameraButtons = [
-  { value: 'perspective', event: 'cameraperspectivetoggle', payload: null, icon: 'camera', label: 'Perspective Camera' },
-  { value: 'ortholeft', event: 'cameraorthographictoggle', payload: 'left', icon: 'arrow-left', label: 'Left Camera View' },
-  { value: 'orthoright', event: 'cameraorthographictoggle', payload: 'right', icon: 'arrow-right', label: 'Right Camera View' },
-  { value: 'orthotop', event: 'cameraorthographictoggle', payload: 'top', icon: 'arrow-up', label: 'Top Camera View' },
-  { value: 'orthobottom', event: 'cameraorthographictoggle', payload: 'bottom', icon: 'arrow-down', label: 'Bottom Camera View' },
-  { value: 'orthoback', event: 'cameraorthographictoggle', payload: 'back', icon: 'arrow-circle-up', label: 'Back Camera View' },
-  { value: 'orthofront', event: 'cameraorthographictoggle', payload: 'front', icon: 'arrow-circle-down', label: 'Front Camera View' },
+const options = [
+  { value: 'perspective', event: 'cameraperspectivetoggle', payload: null, label: 'Perspective' },
+  { value: 'ortholeft', event: 'cameraorthographictoggle', payload: 'left', label: 'Left View' },
+  { value: 'orthoright', event: 'cameraorthographictoggle', payload: 'right', label: 'Right View' },
+  { value: 'orthotop', event: 'cameraorthographictoggle', payload: 'top', label: 'Top View' },
+  { value: 'orthobottom', event: 'cameraorthographictoggle', payload: 'bottom', label: 'Bottom View' },
+  { value: 'orthoback', event: 'cameraorthographictoggle', payload: 'back', label: 'Back View' },
+  { value: 'orthofront', event: 'cameraorthographictoggle', payload: 'front', label: 'Front View' },
 ];
+
+function getOption (value) {
+  return options.filter(opt => opt.value === value)[0];
+}
 
 export default class CameraToolbar extends React.Component {
   constructor(props) {
@@ -32,38 +37,25 @@ export default class CameraToolbar extends React.Component {
     });
   }
 
-  changeCamera(option) {
+  onChange(option) {
+    console.log(option);
     this.justChangedCamera = true;
     this.setState({selectedCamera: option.value});
     Events.emit(option.event, option.payload);
   }
 
-  renderCameraButtons = () => {
-    return cameraButtons.map((option, i) => {
-      const selected = option.value === this.state.selectedCamera;
-      const classes = classNames({
-        button: true,
-        fa: true,
-        ['fa-' + option.icon]: true,
-        active: selected
-      });
-
-      return (
-        <a
-          title={option.value}
-          key={i}
-          onClick={this.changeCamera.bind(this, option)}
-          title={option.label}
-          className={classes}
-        />
-      );
-    });
-  };
-
   render() {
     return (
-      <div id="cameraToolbar" className="toolbarButtons">
-        {this.renderCameraButtons()}
+      <div id="cameraToolbar">
+        <a href="#" className="button fa fa-camera" />
+        <Select
+          id="cameraSelect"
+          classNamePrefix="select"
+          options={options}
+          simpleValue
+          value={getOption(this.state.selectedCamera)}
+          isSearchable={false}
+          onChange={this.onChange.bind(this)} />
       </div>
     );
   }
