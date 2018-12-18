@@ -147,8 +147,8 @@ export default class Main extends React.Component {
   render() {
     const scene = this.state.sceneEl;
     const toggleButtonText = this.state.inspectorEnabled
-      ? 'Inspect Scene'
-      : 'Back to Scene';
+      ? 'Back to Scene'
+      : 'Inspect Scene';
 
     return (
       <div>

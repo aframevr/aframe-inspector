@@ -12,6 +12,7 @@ function initRaycaster(inspector) {
     objects: 'a-scene :not([data-aframe-inspector])'
   });
   inspector.sceneEl.appendChild(mouseCursor);
+  inspector.cursor = mouseCursor;
 
   inspector.sceneEl.addEventListener('child-attached', debounce(function () {
     mouseCursor.components.raycaster.refreshObjects();

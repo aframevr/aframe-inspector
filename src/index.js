@@ -288,13 +288,6 @@ Inspector.prototype = {
     this.opened = true;
     Events.emit('inspectortoggle', true);
 
-    if (
-      !this.sceneEl.hasAttribute('aframe-inspector-motion-capture-replaying')
-    ) {
-      this.sceneEl.pause();
-      this.sceneEl.exitVR();
-    }
-
     if (this.sceneEl.hasAttribute('embedded')) {
       // Remove embedded styles, but keep track of it.
       this.sceneEl.removeAttribute('embedded');
@@ -304,6 +297,7 @@ Inspector.prototype = {
     document.body.classList.add('aframe-inspector-opened');
     this.sceneEl.resize();
     Shortcuts.enable();
+    this.cursor.play();
 
     if (
       !focusEl &&
@@ -330,6 +324,7 @@ Inspector.prototype = {
     this.opened = false;
     Events.emit('inspectortoggle', false);
     this.sceneEl.play();
+    this.cursor.pause();
     if (this.sceneEl.hasAttribute('aframe-inspector-removed-embedded')) {
       this.sceneEl.setAttribute('embedded', '');
       this.sceneEl.removeAttribute('aframe-inspector-removed-embedded');
