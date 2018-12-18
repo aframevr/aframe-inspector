@@ -7,6 +7,7 @@ import ComponentsSidebar from './components/Sidebar';
 import ModalTextures from './modals/ModalTextures';
 import ModalHelp from './modals/ModalHelp';
 import SceneGraph from './scenegraph/SceneGraph';
+import CameraToolbar from './viewport/CameraToolbar';
 import TransformToolBar from './viewport/TransformToolBar';
 import ViewportHUD from './viewport/ViewportHUD';
 import { injectCSS } from '../lib/utils';
@@ -170,7 +171,7 @@ export default class Main extends React.Component {
           />
 
           <div id="viewportBar">
-            <div />
+            <CameraToolbar />
             <ViewportHUD />
             <TransformToolBar />
           </div>

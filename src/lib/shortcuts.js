@@ -12,7 +12,8 @@ function shouldCaptureKeyEvent(event) {
     return false;
   }
   return (
-    event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA'
+    event.target.closest('#cameraToolbar') ||
+    (event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA')
   );
 }
 
@@ -94,6 +95,22 @@ var Shortcuts = {
       }
     }
 
+    if (keyCode === 49) {
+      Events.emit('cameraperspectivetoggle');
+    } else if (keyCode === 50) {
+      Events.emit('cameraorthographictoggle', 'left');
+    } else if (keyCode === 51) {
+      Events.emit('cameraorthographictoggle', 'right');
+    } else if (keyCode === 52) {
+      Events.emit('cameraorthographictoggle', 'top');
+    } else if (keyCode === 53) {
+      Events.emit('cameraorthographictoggle', 'bottom');
+    } else if (keyCode === 54) {
+      Events.emit('cameraorthographictoggle', 'back');
+    } else if (keyCode === 55) {
+      Events.emit('cameraorthographictoggle', 'front');
+    }
+
     for (var moduleName in this.shortcuts.modules) {
       var shortcutsModule = this.shortcuts.modules[moduleName];
       if (
@@ -136,8 +153,8 @@ var Shortcuts = {
         }
       }
 
-      // f: focus filter input
-      if (event.keyCode === 70) {
+      // s: focus search input
+      if (event.keyCode === 83) {
         event.preventDefault();
         event.stopPropagation();
         document.getElementById('filter').focus();
@@ -145,20 +162,10 @@ var Shortcuts = {
     }
 
     // º: toggle sidebars visibility
-    if (event.keyCode === 192) {
+    if (event.keyCode === 48) {
       Events.emit('togglesidebar', { which: 'all' });
       event.preventDefault();
       event.stopPropagation();
-    }
-
-    // 1: toggle scenegraph visibility only
-    if (event.keyCode === 49) {
-      Events.emit('togglesidebar', { which: 'scenegraph' });
-    }
-
-    // 2: toggle sidebar visibility only
-    if (event.keyCode === 50) {
-      Events.emit('togglesidebar', { which: 'attributes' });
     }
   },
   enable: function() {
@@ -166,8 +173,8 @@ var Shortcuts = {
       this.disable();
     }
 
-    window.addEventListener('keydown', this.onKeyDown, false);
-    window.addEventListener('keyup', this.onKeyUp, false);
+    window.addEventListener('keydown', this.onKeyDown.bind(this), false);
+    window.addEventListener('keyup', this.onKeyUp.bind(this), false);
     this.enabled = true;
   },
   disable: function() {

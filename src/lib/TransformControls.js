@@ -769,7 +769,7 @@
   );
   THREE.TransformGizmoScale.prototype.constructor = THREE.TransformGizmoScale;
 
-  THREE.TransformControls = function(camera, domElement) {
+  THREE.TransformControls = function(_camera, domElement) {
     // TODO: Make non-uniform scale and rotate play nice in hierarchies
     // TODO: ADD RXYZ contol
 
@@ -785,6 +785,7 @@
     this.size = 1;
     this.axis = null;
 
+    var camera = _camera;
     var scope = this;
 
     var _mode = 'translate';
@@ -845,6 +846,10 @@
     var worldRotationMatrix = new THREE.Matrix4();
     var camPosition = new THREE.Vector3();
     var camRotation = new THREE.Euler();
+
+    this.setCamera = function (_camera) {
+      camera = _camera;
+    }
 
     this.activate = function() {
       domElement.addEventListener('mousedown', onPointerDown, false);

@@ -13,7 +13,7 @@
   right 0
   top 0
 
-.transformToolbar
+.toolbarButtons
   position relative
 
   *
@@ -38,9 +38,22 @@
   padding-left 10px
 
 .local-transform label
-  color $ligtgray
+  color $lightgray
   font-family $monospace
   padding-left 5px
 
 .local-transform a.button
   padding-top 0
+
+#cameraSelect
+  cursor pointer
+  width 126px
+  .select__dropdown-indicator
+    padding-left 3px
+    padding-right 3px
+
+#cameraToolbar
+  align-items center
+  display flex
+  a
+    margin-right 10px

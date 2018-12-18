@@ -18,11 +18,11 @@ function Viewport(inspector) {
   // Initialize raycaster and picking in differentpmodule.
   const mouseCursor = initRaycaster(inspector);
 
-  let prevActiveCameraEl = inspector.currentCameraEl;
+  let originalCamera = inspector.cameras.original;
   inspector.sceneEl.addEventListener('camera-set-active', event => {
     // If we're in edit mode, save the newly active camera and activate when exiting.
     if (inspector.opened) {
-      prevActiveCameraEl = event.detail.cameraEl;
+      originalCamera = event.detail.cameraEl;
     }
   });
 
@@ -111,6 +111,11 @@ function Viewport(inspector) {
   controls.center.set(0, 1.6, 0);
   controls.rotationSpeed = 0.0035;
   controls.zoomSpeed = 0.05;
+
+  Events.on('cameratoggle', data => {
+    controls.setCamera(data.camera);
+    transformControls.setCamera(data.camera);
+  });
 
   function disableControls() {
     mouseCursor.disable();

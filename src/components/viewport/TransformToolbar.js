@@ -68,7 +68,7 @@ export default class TransformToolbar extends React.Component {
 
   render() {
     return (
-      <div className="transformToolbar">
+      <div id="transformToolbar" className="toolbarButtons">
         {this.renderTransformButtons()}
         <span className="local-transform">
           <input
