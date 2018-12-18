@@ -46,10 +46,16 @@ function Inspector() {
 
 Inspector.prototype = {
   init: function() {
-    var self = this;
-    this.container = document.querySelector('.a-canvas');
+    // Wait for camera.
+    if (!this.sceneEl.camera) {
+      this.sceneEl.addEventListener('camera-set-active', () => {
+        this.init();
+      }, {once: true});
+      return;
+    }
 
-    this.currentCameraEl = AFRAME.scenes[0].camera.el;
+    this.container = document.querySelector('.a-canvas');
+    this.currentCameraEl = this.sceneEl.camera.el;
     this.currentCameraEl.setAttribute(
       'data-aframe-inspector-original-camera',
       ''
@@ -306,7 +312,6 @@ Inspector.prototype = {
    * Open the editor UI
    */
   open: function(focusEl) {
-    this.sceneEl = AFRAME.scenes[0];
     this.opened = true;
     Events.emit('inspectortoggle', true);
 
