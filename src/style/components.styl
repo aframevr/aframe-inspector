@@ -1,5 +1,11 @@
 @import './lib';
 
+propertyRowDefined() {
+  .propertyRowDefined {
+    {block}
+  }
+}
+
 .components
   background-color $grayalt
   color $white
@@ -150,6 +156,10 @@ div.vec4
   .color_value
     margin 0 0 0 5px
     width 68px
+
+.propertyRowDefined .text
+  color $orange
+  font-weight bold
 
 .components *
   vertical-align middle

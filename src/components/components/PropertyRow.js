@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 
@@ -104,8 +105,16 @@ export default class PropertyRow extends React.Component {
         : JSON.stringify(props.data);
     const title =
       props.name + '\n - type: ' + props.schema.type + '\n - value: ' + value;
+
+    const className = classnames({
+      propertyRow: true,
+      propertyRowDefined: props.isSingle
+        ? !!props.entity.getDOMAttribute(props.componentname)
+        : props.name in (props.entity.getDOMAttribute(props.componentname) || {})
+    });
+
     return (
-      <div className="propertyRow">
+      <div className={className}>
         <label htmlFor={this.id} className="text" title={title}>
           {props.name}
         </label>
