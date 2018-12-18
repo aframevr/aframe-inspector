@@ -1,5 +1,5 @@
 /* global VERSION BUILD_TIMESTAMP COMMIT_HASH webFont */
-require('./lib/vendor/ga');
+require('../vendor/ga');
 
 var Events = require('./lib/Events');
 var Viewport = require('./lib/viewport');
@@ -11,7 +11,7 @@ import ReactDOM from 'react-dom';
 import Main from './components/Main';
 import { injectCSS, injectJS } from './lib/utils';
 import { createEntity } from './lib/entity';
-import { GLTFExporter } from './lib/vendor/GLTFExporter'; // eslint-disable-line no-unused-vars
+import { GLTFExporter } from '../vendor/GLTFExporter'; // eslint-disable-line no-unused-vars
 
 require('./style/index.styl');
 
