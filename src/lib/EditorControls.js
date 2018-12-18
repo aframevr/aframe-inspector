@@ -59,7 +59,7 @@ THREE.Box3.prototype.expandByObject = (function() {
  * @author WestLangley / http://github.com/WestLangley
  */
 
-THREE.EditorControls = function(object, domElement) {
+THREE.EditorControls = function(_object, domElement) {
   domElement = domElement !== undefined ? domElement : document;
 
   // API
@@ -69,6 +69,8 @@ THREE.EditorControls = function(object, domElement) {
   this.panSpeed = 0.001;
   this.zoomSpeed = 0.1;
   this.rotationSpeed = 0.005;
+
+  var object = _object;
 
   // internals
 
@@ -86,6 +88,20 @@ THREE.EditorControls = function(object, domElement) {
   var pointerOld = new THREE.Vector2();
   var spherical = new THREE.Spherical();
   var sphere = new THREE.Sphere();
+
+  this.isOrthographic = false;
+  this.rotationEnabled = true;
+  this.setCamera = function (_object) {
+    object = _object;
+    if (object.type === 'OrthographicCamera') {
+      this.rotationEnabled = false;
+      this.isOrthographic = true;
+    } else {
+      this.rotationEnabled = true;
+      this.isOrthographic = false;
+    }
+  };
+  this.setCamera(_object);
 
   // events
 
@@ -139,12 +155,29 @@ THREE.EditorControls = function(object, domElement) {
 
     delta.applyMatrix3(normalMatrix.getNormalMatrix(object.matrix));
 
-    object.position.add(delta);
+    if (this.isOrthographic) {
+      // Change FOV for ortho.
+      let factor = 1;
+      if ((delta.x + delta.y + delta.z) < 0) {
+        factor = -1;
+      }
+      delta = distance * scope.zoomSpeed * factor;
+      object.left -= delta;
+      object.bottom -= delta;
+      object.right += delta;
+      object.top += delta;
+      if (object.left >= -0.0001) { return; }
+      object.updateProjectionMatrix();
+    } else {
+      object.position.add(delta);
+    }
 
     scope.dispatchChange();
   };
 
   this.rotate = function(delta) {
+    if (!this.rotationEnabled) { return; }
+
     vector.copy(object.position).sub(center);
 
     spherical.setFromVector3(vector);

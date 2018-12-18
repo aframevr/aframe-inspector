@@ -166,8 +166,8 @@ var Shortcuts = {
       this.disable();
     }
 
-    window.addEventListener('keydown', this.onKeyDown, false);
-    window.addEventListener('keyup', this.onKeyUp, false);
+    window.addEventListener('keydown', this.onKeyDown.bind(this), false);
+    window.addEventListener('keyup', this.onKeyUp.bind(this), false);
     this.enabled = true;
   },
   disable: function() {

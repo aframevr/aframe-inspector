@@ -9,6 +9,7 @@ var Shortcuts = require('./lib/shortcuts');
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Main from './components/Main';
+import { initCameras } from './lib/cameras';
 import { injectCSS, injectJS } from './lib/utils';
 import { createEntity } from './lib/entity';
 import { GLTFExporter } from '../vendor/GLTFExporter'; // eslint-disable-line no-unused-vars
@@ -59,52 +60,13 @@ Inspector.prototype = {
       return;
     }
 
-    Shortcuts.init(this);
-
     this.container = document.querySelector('.a-canvas');
-    this.currentCameraEl = this.sceneEl.camera.el;
-    this.currentCameraEl.setAttribute(
-      'data-aframe-inspector-original-camera',
-      ''
-    );
-
-    // If the current camera is the default, we should prevent AFRAME from
-    // remove it once when we inject the editor's camera.
-    if (this.currentCameraEl.hasAttribute('data-aframe-default-camera')) {
-      this.currentCameraEl.removeAttribute('data-aframe-default-camera');
-      this.currentCameraEl.setAttribute(
-        'data-aframe-inspector',
-        'default-camera'
-      );
-    }
-
-    this.currentCameraEl.setAttribute('camera', 'active', false);
-
-    // Create Inspector camera.
-    const camera = (this.camera = new THREE.PerspectiveCamera());
-    camera.far = 10000;
-    camera.near = 0.01;
-    camera.position.set(0, 1.6, 2);
-    camera.lookAt(new THREE.Vector3(0, 1.6, -1));
-    camera.updateMatrixWorld();
-    this.sceneEl.object3D.add(camera);
-    this.sceneEl.camera = camera;
-
+    initCameras(this);
     this.initUI();
   },
 
-  /**
-   * Currently not used.
-   */
-  initModules: function() {
-    for (var moduleName in this.modules) {
-      var module = this.modules[moduleName];
-      console.log('Initializing module <%s>', moduleName);
-      module.init(this.sceneEl);
-    }
-  },
-
   initUI: function() {
+    Shortcuts.init(this);
     this.initEvents();
 
     this.selected = null;
