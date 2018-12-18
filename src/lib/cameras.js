@@ -43,7 +43,7 @@ export function initCameras (inspector) {
 
   Events.on('cameraperspectivetoggle', () => {
     inspector.sceneEl.camera = inspector.camera = cameras.perspective;
-    Events.emit('cameratoggle', inspector.camera);
+    Events.emit('cameratoggle', {camera: inspector.camera, value: 'perspective'});
   });
 
   Events.on('cameraorthographictoggle', dir => {
@@ -62,7 +62,7 @@ export function initCameras (inspector) {
       cameras.ortho.position.set(0, 0, 10);
     }
     cameras.ortho.lookAt(0, 0, 0);
-    Events.emit('cameratoggle', inspector.camera);
+    Events.emit('cameratoggle', {camera: inspector.camera, value: `ortho${dir}`});
   });
 
   return inspector.cameras;
