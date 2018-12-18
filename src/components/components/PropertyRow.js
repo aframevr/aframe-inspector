@@ -27,10 +27,17 @@ export default class PropertyRow extends React.Component {
     super(props);
     this.id = props.componentname + ':' + props.name;
 
-    if (['position', 'rotation', 'scale'].indexOf(this.props.componentname) !== -1) {
-      Events.on('entitytransformed', debounce(entity => {
-        if (entity === props.entity) { this.forceUpdate(); }
-      }, 250));
+    if (
+      ['position', 'rotation', 'scale'].indexOf(this.props.componentname) !== -1
+    ) {
+      Events.on(
+        'entitytransformed',
+        debounce(entity => {
+          if (entity === props.entity) {
+            this.forceUpdate();
+          }
+        }, 250)
+      );
     }
   }
 
@@ -117,7 +124,8 @@ export default class PropertyRow extends React.Component {
       propertyRow: true,
       propertyRowDefined: props.isSingle
         ? !!props.entity.getDOMAttribute(props.componentname)
-        : props.name in (props.entity.getDOMAttribute(props.componentname) || {})
+        : props.name in
+          (props.entity.getDOMAttribute(props.componentname) || {})
     });
 
     return (

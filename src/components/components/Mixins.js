@@ -18,19 +18,21 @@ export default class Mixin extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {mixins: this.getMixinValue()};
+    this.state = { mixins: this.getMixinValue() };
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.entity === prevProps.entity) { return; }
-    this.setState({mixins: this.getMixinValue()});
+    if (this.props.entity === prevProps.entity) {
+      return;
+    }
+    this.setState({ mixins: this.getMixinValue() });
   }
 
-  getMixinValue () {
+  getMixinValue() {
     return (this.props.entity.getAttribute('mixin') || '')
       .split(/\s+/g)
       .filter(v => !!v)
-      .map(v => ({label: v, value: v}));
+      .map(v => ({ label: v, value: v }));
   }
 
   getMixinOptions = () => {
@@ -38,20 +40,21 @@ export default class Mixin extends React.Component {
       return mixin.id;
     });
 
-    return Array.prototype.slice.call(document.querySelectorAll('a-mixin'))
+    return Array.prototype.slice
+      .call(document.querySelectorAll('a-mixin'))
       .filter(function(mixin) {
         return mixinIds.indexOf(mixin.id) === -1;
       })
       .sort()
       .map(function(mixin) {
-        return {value: mixin.id, label: mixin.id};
+        return { value: mixin.id, label: mixin.id };
       });
   };
 
   updateMixins = value => {
     const entity = this.props.entity;
 
-    this.setState({mixins: value});
+    this.setState({ mixins: value });
     entity.setAttribute('mixin', value.split(',').join(' '));
 
     Events.emit('entityupdate', {

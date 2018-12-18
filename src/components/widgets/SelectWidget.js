@@ -15,7 +15,7 @@ export default class SelectWidget extends React.Component {
   constructor(props) {
     super(props);
     const value = this.props.value || '';
-    this.state = {value: {value: value, label: value}};
+    this.state = { value: { value: value, label: value } };
   }
 
   onChange = value => {
@@ -27,7 +27,9 @@ export default class SelectWidget extends React.Component {
 
   componentWillReceiveProps(newProps) {
     if (newProps.value !== this.state.value.value) {
-      this.setState({ value: {value: newProps.value, label: newProps.value }});
+      this.setState({
+        value: { value: newProps.value, label: newProps.value }
+      });
     }
   }
 

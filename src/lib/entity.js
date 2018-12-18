@@ -532,13 +532,17 @@ const ICONS = {
   light: 'fa-lightbulb',
   text: 'fa-font'
 };
-export function printEntity (entity, onDoubleClick) {
-  if (!entity) { return ''; }
+export function printEntity(entity, onDoubleClick) {
+  if (!entity) {
+    return '';
+  }
 
   // Icons.
   let icons = '';
   for (let objType in ICONS) {
-    if (!entity.getObject3D(objType)) { continue; }
+    if (!entity.getObject3D(objType)) {
+      continue;
+    }
     icons += `&nbsp;<i class="fa ${ICONS[objType]}" title="${objType}"></i>`;
   }
 
@@ -555,13 +559,20 @@ export function printEntity (entity, onDoubleClick) {
 
   return (
     <span className="entityPrint" onDoubleClick={onDoubleClick}>
-      <span className='entityTagName'>{'<' + entity.tagName.toLowerCase()}</span>
+      <span className="entityTagName">
+        {'<' + entity.tagName.toLowerCase()}
+      </span>
       {entityName && (
-        <span className='entityName' data-entity-name-type={type}>
+        <span className="entityName" data-entity-name-type={type}>
           &nbsp;{entityName}
         </span>
       )}
-      {!!icons && (<span className="entityIcons" dangerouslySetInnerHTML={{ __html: icons }} />)}
+      {!!icons && (
+        <span
+          className="entityIcons"
+          dangerouslySetInnerHTML={{ __html: icons }}
+        />
+      )}
       <span className="entityCloseTag">{'>'}</span>
     </span>
   );
@@ -573,7 +584,7 @@ export function printEntity (entity, onDoubleClick) {
  *   {element: 'a-entity', components: {geometry: 'primitive:box'}}
  * @return {Element} Entity created
  */
-export function createEntity (definition, cb) {
+export function createEntity(definition, cb) {
   const entity = document.createElement(definition.element);
 
   // load default attributes

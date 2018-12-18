@@ -11,7 +11,7 @@ import ReactDOM from 'react-dom';
 import Main from './components/Main';
 import { injectCSS, injectJS } from './lib/utils';
 import { createEntity } from './lib/entity';
-import { GLTFExporter } from './lib/vendor/GLTFExporter';  // eslint-disable-line no-unused-vars
+import { GLTFExporter } from './lib/vendor/GLTFExporter'; // eslint-disable-line no-unused-vars
 
 require('./style/index.styl');
 
@@ -49,9 +49,13 @@ Inspector.prototype = {
   init: function() {
     // Wait for camera.
     if (!this.sceneEl.camera) {
-      this.sceneEl.addEventListener('camera-set-active', () => {
-        this.init();
-      }, {once: true});
+      this.sceneEl.addEventListener(
+        'camera-set-active',
+        () => {
+          this.init();
+        },
+        { once: true }
+      );
       return;
     }
 
@@ -213,7 +217,9 @@ Inspector.prototype = {
       this.helpers[id].visible = false;
     }
 
-    if (entity === this.sceneEl) { return; }
+    if (entity === this.sceneEl) {
+      return;
+    }
     entity.object3D.traverse(node => {
       if (this.helpers[node.uuid]) {
         this.helpers[node.uuid].visible = true;
@@ -240,7 +246,9 @@ Inspector.prototype = {
     });
 
     Events.on('entitycreate', definition => {
-      createEntity(definition, entity => { this.selectEntity(entity); });
+      createEntity(definition, entity => {
+        this.selectEntity(entity);
+      });
     });
 
     document.addEventListener('child-detached', event => {
@@ -338,4 +346,4 @@ Inspector.prototype = {
 };
 
 const inspector = (AFRAME.INSPECTOR = new Inspector());
-const Modules = require('./lib/modules/index.js');  // eslint-disable-line no-unused-vars
+const Modules = require('./lib/modules/index.js'); // eslint-disable-line no-unused-vars

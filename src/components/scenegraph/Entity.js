@@ -109,7 +109,10 @@ export default class Entity extends React.Component {
       <div className={className} onClick={this.onClick}>
         <span>
           {visibilityButton}
-          <span className="entityChildPadding" dangerouslySetInnerHTML={{ __html: pad }} />
+          <span
+            className="entityChildPadding"
+            dangerouslySetInnerHTML={{ __html: pad }}
+          />
           {collapse}
           {printEntity(entity, this.onDoubleClick)}
         </span>

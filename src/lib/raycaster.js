@@ -14,9 +14,12 @@ function initRaycaster(inspector) {
   inspector.sceneEl.appendChild(mouseCursor);
   inspector.cursor = mouseCursor;
 
-  inspector.sceneEl.addEventListener('child-attached', debounce(function () {
-    mouseCursor.components.raycaster.refreshObjects();
-  }, 250));
+  inspector.sceneEl.addEventListener(
+    'child-attached',
+    debounce(function() {
+      mouseCursor.components.raycaster.refreshObjects();
+    }, 250)
+  );
 
   mouseCursor.addEventListener('click', handleClick);
   mouseCursor.addEventListener('mouseenter', onMouseEnter);

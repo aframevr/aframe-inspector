@@ -23,7 +23,10 @@ export default class TransformToolbar extends React.Component {
     });
 
     Events.on('transformspacechange', () => {
-      Events.emit('transformspacechanged', this.state.localSpace ? 'world' : 'local');
+      Events.emit(
+        'transformspacechanged',
+        this.state.localSpace ? 'world' : 'local'
+      );
       this.setState({ localSpace: !this.state.localSpace });
     });
   }
