@@ -1,1 +1,0 @@
-require('./dummy/index.js');
