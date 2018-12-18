@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 269);
+/******/ 	return __webpack_require__(__webpack_require__.s = 268);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -275,7 +275,7 @@ if (undefined !== 'production') {
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(174)();
+  module.exports = __webpack_require__(173)();
 }
 
 
@@ -1046,7 +1046,7 @@ module.exports = ReactComponentTreeHook;
 var debugTool = null;
 
 if (undefined !== 'production') {
-  var ReactDebugTool = __webpack_require__(204);
+  var ReactDebugTool = __webpack_require__(203);
   debugTool = ReactDebugTool;
 }
 
@@ -3263,7 +3263,7 @@ module.exports = DOMLazyTree;
 
 
 
-var ReactRef = __webpack_require__(218);
+var ReactRef = __webpack_require__(217);
 var ReactInstrumentation = __webpack_require__(10);
 
 var warning = __webpack_require__(1);
@@ -3435,14 +3435,14 @@ module.exports = ReactReconciler;
 var _assign = __webpack_require__(5);
 
 var ReactBaseClasses = __webpack_require__(106);
-var ReactChildren = __webpack_require__(253);
-var ReactDOMFactories = __webpack_require__(254);
+var ReactChildren = __webpack_require__(252);
+var ReactDOMFactories = __webpack_require__(253);
 var ReactElement = __webpack_require__(19);
-var ReactPropTypes = __webpack_require__(256);
-var ReactVersion = __webpack_require__(258);
+var ReactPropTypes = __webpack_require__(255);
+var ReactVersion = __webpack_require__(257);
 
-var createReactClass = __webpack_require__(260);
-var onlyChild = __webpack_require__(262);
+var createReactClass = __webpack_require__(259);
+var onlyChild = __webpack_require__(261);
 
 var createElement = ReactElement.createElement;
 var createFactory = ReactElement.createFactory;
@@ -4926,7 +4926,7 @@ module.exports = emptyObject;
 "use strict";
 
 
-module.exports = __webpack_require__(189);
+module.exports = __webpack_require__(188);
 
 
 /***/ }),
@@ -5203,10 +5203,10 @@ module.exports = EventPluginRegistry;
 var _assign = __webpack_require__(5);
 
 var EventPluginRegistry = __webpack_require__(34);
-var ReactEventEmitterMixin = __webpack_require__(208);
+var ReactEventEmitterMixin = __webpack_require__(207);
 var ViewportMetrics = __webpack_require__(92);
 
-var getVendorPrefixedEventName = __webpack_require__(243);
+var getVendorPrefixedEventName = __webpack_require__(242);
 var isEventSupported = __webpack_require__(55);
 
 /**
@@ -6179,7 +6179,7 @@ module.exports = ReactPropTypesSecret;
 
 
 var DOMLazyTree = __webpack_require__(21);
-var Danger = __webpack_require__(181);
+var Danger = __webpack_require__(180);
 var ReactDOMComponentTree = __webpack_require__(6);
 var ReactInstrumentation = __webpack_require__(10);
 
@@ -7872,19 +7872,19 @@ module.exports = validateDOMNesting;
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_raf__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_raf__ = __webpack_require__(174);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_raf___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_raf__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_emotion__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_emotion__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_dom__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_prop_types__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_input_autosize__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_input_autosize__ = __webpack_require__(245);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_input_autosize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react_input_autosize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_memoize_one__ = __webpack_require__(171);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_transition_group__ = __webpack_require__(249);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_memoize_one__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_transition_group__ = __webpack_require__(248);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_transition_group___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_react_transition_group__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectBase", function() { return Select; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Async", function() { return Async; });
@@ -14206,7 +14206,7 @@ exports.default = Vec4Widget;
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
     if (true) {
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(144), __webpack_require__(268), __webpack_require__(170)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(143), __webpack_require__(267), __webpack_require__(169)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -14918,7 +14918,7 @@ module.exports = function(isValidElement) {
 var assign = __webpack_require__(5);
 
 var ReactPropTypesSecret = __webpack_require__(42);
-var checkPropTypes = __webpack_require__(173);
+var checkPropTypes = __webpack_require__(172);
 
 var printWarning = function() {};
 
@@ -15762,7 +15762,7 @@ var DOMProperty = __webpack_require__(15);
 var ReactDOMComponentTree = __webpack_require__(6);
 var ReactInstrumentation = __webpack_require__(10);
 
-var quoteAttributeValueForBrowser = __webpack_require__(244);
+var quoteAttributeValueForBrowser = __webpack_require__(243);
 var warning = __webpack_require__(1);
 
 var VALID_ATTRIBUTE_NAME_REGEX = new RegExp('^[' + DOMProperty.ATTRIBUTE_NAME_START_CHAR + '][' + DOMProperty.ATTRIBUTE_NAME_CHAR + ']*$');
@@ -16349,9 +16349,9 @@ module.exports = ReactHostComponent;
 
 
 
-var ReactDOMSelection = __webpack_require__(199);
+var ReactDOMSelection = __webpack_require__(198);
 
-var containsNode = __webpack_require__(157);
+var containsNode = __webpack_require__(156);
 var focusNode = __webpack_require__(76);
 var getActiveElement = __webpack_require__(77);
 
@@ -16483,12 +16483,12 @@ var React = __webpack_require__(23);
 var ReactBrowserEventEmitter = __webpack_require__(35);
 var ReactCurrentOwner = __webpack_require__(13);
 var ReactDOMComponentTree = __webpack_require__(6);
-var ReactDOMContainerInfo = __webpack_require__(191);
-var ReactDOMFeatureFlags = __webpack_require__(193);
+var ReactDOMContainerInfo = __webpack_require__(190);
+var ReactDOMFeatureFlags = __webpack_require__(192);
 var ReactFeatureFlags = __webpack_require__(86);
 var ReactInstanceMap = __webpack_require__(30);
 var ReactInstrumentation = __webpack_require__(10);
-var ReactMarkupChecksum = __webpack_require__(213);
+var ReactMarkupChecksum = __webpack_require__(212);
 var ReactReconciler = __webpack_require__(22);
 var ReactUpdateQueue = __webpack_require__(50);
 var ReactUpdates = __webpack_require__(12);
@@ -17400,11 +17400,11 @@ module.exports = inputValueTracking;
 var _prodInvariant = __webpack_require__(3),
     _assign = __webpack_require__(5);
 
-var ReactCompositeComponent = __webpack_require__(188);
+var ReactCompositeComponent = __webpack_require__(187);
 var ReactEmptyComponent = __webpack_require__(85);
 var ReactHostComponent = __webpack_require__(87);
 
-var getNextDebugID = __webpack_require__(261);
+var getNextDebugID = __webpack_require__(260);
 var invariant = __webpack_require__(0);
 var warning = __webpack_require__(1);
 
@@ -17641,9 +17641,9 @@ module.exports = setTextContent;
 var _prodInvariant = __webpack_require__(3);
 
 var ReactCurrentOwner = __webpack_require__(13);
-var REACT_ELEMENT_TYPE = __webpack_require__(207);
+var REACT_ELEMENT_TYPE = __webpack_require__(206);
 
-var getIteratorFn = __webpack_require__(241);
+var getIteratorFn = __webpack_require__(240);
 var invariant = __webpack_require__(0);
 var KeyEscapeUtils = __webpack_require__(46);
 var warning = __webpack_require__(1);
@@ -18593,7 +18593,7 @@ var _react = _interopRequireDefault(__webpack_require__(2));
 
 var _reactLifecyclesCompat = __webpack_require__(102);
 
-var _ChildMapping = __webpack_require__(250);
+var _ChildMapping = __webpack_require__(249);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19035,7 +19035,7 @@ var ReactCurrentOwner = __webpack_require__(13);
 var ReactComponentTreeHook = __webpack_require__(9);
 var ReactElement = __webpack_require__(19);
 
-var checkReactTypeSpec = __webpack_require__(259);
+var checkReactTypeSpec = __webpack_require__(258);
 
 var canDefineProperty = __webpack_require__(40);
 var getIteratorFn = __webpack_require__(110);
@@ -19440,13 +19440,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 __webpack_require__(142);
 
 var Events = __webpack_require__(7);
-var Viewport = __webpack_require__(143);
+var Viewport = __webpack_require__(140);
 var AssetsLoader = __webpack_require__(134);
-var Shortcuts = __webpack_require__(140);
+var Shortcuts = __webpack_require__(139);
 
 // eslint-disable-line no-unused-vars
 
-__webpack_require__(266);
+__webpack_require__(265);
 
 function Inspector() {
   var _this = this;
@@ -19770,7 +19770,6 @@ Inspector.prototype = {
 };
 
 var inspector = AFRAME.INSPECTOR = new Inspector();
-var Modules = __webpack_require__(138); // eslint-disable-line no-unused-vars
 
 /***/ }),
 /* 112 */
@@ -21372,8 +21371,7 @@ var Component = function (_React$Component) {
             'span',
             {
               className: 'componentTitle',
-              title: subComponentName || componentName
-            },
+              title: subComponentName || componentName },
             _react2.default.createElement(
               'span',
               null,
@@ -21382,7 +21380,7 @@ var Component = function (_React$Component) {
           ),
           _react2.default.createElement(
             'div',
-            null,
+            { className: 'componentHeaderActions' },
             _react2.default.createElement('a', {
               title: 'Copy to clipboard',
               'data-action': 'copy-component-to-clipboard',
@@ -24750,13 +24748,6 @@ module.exports = {
 "use strict";
 
 
-/***/ }),
-/* 139 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 var Events = __webpack_require__(7);
 var debounce = __webpack_require__(26);
 
@@ -24872,7 +24863,7 @@ function getMousePosition(dom, x, y) {
 }
 
 /***/ }),
-/* 140 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25072,6 +25063,237 @@ var Shortcuts = {
 };
 
 module.exports = Shortcuts;
+
+/***/ }),
+/* 140 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _lodash = __webpack_require__(26);
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _TransformControls = __webpack_require__(133);
+
+var _TransformControls2 = _interopRequireDefault(_TransformControls);
+
+var _EditorControls = __webpack_require__(132);
+
+var _EditorControls2 = _interopRequireDefault(_EditorControls);
+
+var _raycaster = __webpack_require__(138);
+
+var _utils = __webpack_require__(17);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* eslint-disable no-unused-vars */
+
+/* eslint-disable no-unused-vars */
+var Events = __webpack_require__(7);
+
+/**
+ * Transform controls stuff mostly.
+ */
+/* global THREE CustomEvent */
+function Viewport(inspector) {
+  // Initialize raycaster and picking in differentpmodule.
+  var mouseCursor = (0, _raycaster.initRaycaster)(inspector);
+
+  var prevActiveCameraEl = inspector.currentCameraEl;
+  inspector.sceneEl.addEventListener('camera-set-active', function (event) {
+    // If we're in edit mode, save the newly active camera and activate when exiting.
+    if (inspector.opened) {
+      prevActiveCameraEl = event.detail.cameraEl;
+    }
+  });
+
+  // Helpers.
+  var sceneHelpers = inspector.sceneHelpers;
+  var grid = new THREE.GridHelper(30, 60, 0xaaaaaa, 0x262626);
+  sceneHelpers.add(grid);
+
+  var selectionBox = new THREE.BoxHelper();
+  selectionBox.material.depthTest = false;
+  selectionBox.material.transparent = true;
+  selectionBox.material.color.set(0x1faaf2);
+  selectionBox.visible = false;
+  sceneHelpers.add(selectionBox);
+
+  function updateHelpers(object) {
+    object.traverse(function (node) {
+      if (inspector.helpers[node.uuid]) {
+        inspector.helpers[node.uuid].update();
+      }
+    });
+  }
+
+  var camera = inspector.camera;
+  var transformControls = new THREE.TransformControls(camera, inspector.container);
+  transformControls.size = 0.75;
+  transformControls.addEventListener('objectChange', function (evt) {
+    var object = transformControls.object;
+    if (object === undefined) {
+      return;
+    }
+
+    selectionBox.setFromObject(object).update();
+
+    updateHelpers(object);
+
+    Events.emit('refreshsidebarobject3d', object);
+
+    // Emit update event for watcher.
+    var component = void 0;
+    var value = void 0;
+    if (evt.mode === 'translate') {
+      component = 'position';
+      value = object.position.x + ' ' + object.position.y + ' ' + object.position.z;
+    } else if (evt.mode === 'rotate') {
+      component = 'rotation';
+      var d = THREE.Math.radToDeg;
+      value = d(object.rotation.x) + ' ' + d(object.rotation.y) + ' ' + d(object.rotation.z);
+    } else if (evt.mode === 'scale') {
+      component = 'scale';
+      value = object.scale.x + ' ' + object.scale.y + ' ' + object.scale.z;
+    }
+    Events.emit('entityupdate', {
+      component: component,
+      entity: transformControls.object.el,
+      property: '',
+      value: value
+    });
+
+    Events.emit('entitytransformed', transformControls.object.el);
+  });
+
+  transformControls.addEventListener('mouseDown', function () {
+    controls.enabled = false;
+  });
+
+  transformControls.addEventListener('mouseUp', function () {
+    controls.enabled = true;
+  });
+
+  sceneHelpers.add(transformControls);
+
+  Events.on('entityupdate', function (detail) {
+    if (inspector.selectedEntity.object3DMap['mesh']) {
+      selectionBox.update(inspector.selected);
+    }
+  });
+
+  // Controls need to be added *after* main logic.
+  var controls = new THREE.EditorControls(camera, inspector.container);
+  controls.center.set(0, 1.6, 0);
+  controls.rotationSpeed = 0.0035;
+  controls.zoomSpeed = 0.05;
+
+  function disableControls() {
+    mouseCursor.disable();
+    transformControls.dispose();
+    controls.enabled = false;
+  }
+
+  function enableControls() {
+    mouseCursor.enable();
+    transformControls.activate();
+    controls.enabled = true;
+  }
+  enableControls();
+
+  Events.on('inspectorcleared', function () {
+    controls.center.set(0, 0, 0);
+  });
+
+  Events.on('transformmodechange', function (mode) {
+    transformControls.setMode(mode);
+  });
+
+  Events.on('snapchanged', function (dist) {
+    transformControls.setTranslationSnap(dist);
+  });
+
+  Events.on('transformspacechanged', function (space) {
+    transformControls.setSpace(space);
+  });
+
+  Events.on('objectselect', function (object) {
+    selectionBox.visible = false;
+    transformControls.detach();
+    if (object && object.el) {
+      if (object.el.getObject3D('mesh')) {
+        selectionBox.setFromObject(object).update();
+        selectionBox.visible = true;
+      }
+
+      transformControls.attach(object);
+    }
+  });
+
+  Events.on('objectfocus', function (object) {
+    controls.focus(object);
+    transformControls.update();
+  });
+
+  Events.on('geometrychanged', function (object) {
+    if (object !== null) {
+      selectionBox.setFromObject(object).update();
+    }
+  });
+
+  Events.on('entityupdate', function (detail) {
+    var object = detail.entity.object3D;
+    if (inspector.selected === object) {
+      // Hack because object3D always has geometry :(
+      if (object.geometry && (object.geometry.vertices && object.geometry.vertices.length > 0 || object.geometry.attributes && object.geometry.attributes.position && object.geometry.attributes.position.array.length)) {
+        selectionBox.setFromObject(object).update();
+      }
+    }
+
+    transformControls.update();
+    if (object instanceof THREE.PerspectiveCamera) {
+      object.updateProjectionMatrix();
+    }
+
+    updateHelpers(object);
+  });
+
+  Events.on('windowresize', function () {
+    camera.aspect = inspector.container.offsetWidth / inspector.container.offsetHeight;
+    camera.updateProjectionMatrix();
+  });
+
+  Events.on('gridvisibilitychanged', function (showGrid) {
+    grid.visible = showGrid;
+  });
+
+  Events.on('togglegrid', function () {
+    grid.visible = !grid.visible;
+  });
+
+  Events.on('inspectortoggle', function (active) {
+    if (active) {
+      enableControls();
+      AFRAME.scenes[0].camera = inspector.camera;
+      Array.prototype.slice.call(document.querySelectorAll('.a-enter-vr,.rs-base')).forEach(function (element) {
+        element.style.display = 'none';
+      });
+    } else {
+      disableControls();
+      prevActiveCameraEl.setAttribute('camera', 'active', 'true');
+      AFRAME.scenes[0].camera = prevActiveCameraEl.getObject3D('camera');
+      Array.prototype.slice.call(document.querySelectorAll('.a-enter-vr,.rs-base')).forEach(function (element) {
+        element.style.display = 'block';
+      });
+    }
+    ga('send', 'event', 'Viewport', 'toggleEditor', active);
+  });
+}
+
+module.exports = Viewport;
 
 /***/ }),
 /* 141 */
@@ -26491,240 +26713,9 @@ ga('send', 'pageview');
 /* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-var _lodash = __webpack_require__(26);
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
-var _TransformControls = __webpack_require__(133);
-
-var _TransformControls2 = _interopRequireDefault(_TransformControls);
-
-var _EditorControls = __webpack_require__(132);
-
-var _EditorControls2 = _interopRequireDefault(_EditorControls);
-
-var _raycaster = __webpack_require__(139);
-
-var _utils = __webpack_require__(17);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/* eslint-disable no-unused-vars */
-
-/* eslint-disable no-unused-vars */
-var Events = __webpack_require__(7);
-
-/**
- * Transform controls stuff mostly.
- */
-/* global THREE CustomEvent */
-function Viewport(inspector) {
-  // Initialize raycaster and picking in differentpmodule.
-  var mouseCursor = (0, _raycaster.initRaycaster)(inspector);
-
-  var prevActiveCameraEl = inspector.currentCameraEl;
-  inspector.sceneEl.addEventListener('camera-set-active', function (event) {
-    // If we're in edit mode, save the newly active camera and activate when exiting.
-    if (inspector.opened) {
-      prevActiveCameraEl = event.detail.cameraEl;
-    }
-  });
-
-  // Helpers.
-  var sceneHelpers = inspector.sceneHelpers;
-  var grid = new THREE.GridHelper(30, 60, 0xaaaaaa, 0x262626);
-  sceneHelpers.add(grid);
-
-  var selectionBox = new THREE.BoxHelper();
-  selectionBox.material.depthTest = false;
-  selectionBox.material.transparent = true;
-  selectionBox.material.color.set(0x1faaf2);
-  selectionBox.visible = false;
-  sceneHelpers.add(selectionBox);
-
-  function updateHelpers(object) {
-    object.traverse(function (node) {
-      if (inspector.helpers[node.uuid]) {
-        inspector.helpers[node.uuid].update();
-      }
-    });
-  }
-
-  var camera = inspector.camera;
-  var transformControls = new THREE.TransformControls(camera, inspector.container);
-  transformControls.size = 0.75;
-  transformControls.addEventListener('objectChange', function (evt) {
-    var object = transformControls.object;
-    if (object === undefined) {
-      return;
-    }
-
-    selectionBox.setFromObject(object).update();
-
-    updateHelpers(object);
-
-    Events.emit('refreshsidebarobject3d', object);
-
-    // Emit update event for watcher.
-    var component = void 0;
-    var value = void 0;
-    if (evt.mode === 'translate') {
-      component = 'position';
-      value = object.position.x + ' ' + object.position.y + ' ' + object.position.z;
-    } else if (evt.mode === 'rotate') {
-      component = 'rotation';
-      var d = THREE.Math.radToDeg;
-      value = d(object.rotation.x) + ' ' + d(object.rotation.y) + ' ' + d(object.rotation.z);
-    } else if (evt.mode === 'scale') {
-      component = 'scale';
-      value = object.scale.x + ' ' + object.scale.y + ' ' + object.scale.z;
-    }
-    Events.emit('entityupdate', {
-      component: component,
-      entity: transformControls.object.el,
-      property: '',
-      value: value
-    });
-
-    Events.emit('entitytransformed', transformControls.object.el);
-  });
-
-  transformControls.addEventListener('mouseDown', function () {
-    controls.enabled = false;
-  });
-
-  transformControls.addEventListener('mouseUp', function () {
-    controls.enabled = true;
-  });
-
-  sceneHelpers.add(transformControls);
-
-  Events.on('entityupdate', function (detail) {
-    if (inspector.selectedEntity.object3DMap['mesh']) {
-      selectionBox.update(inspector.selected);
-    }
-  });
-
-  // Controls need to be added *after* main logic.
-  var controls = new THREE.EditorControls(camera, inspector.container);
-  controls.center.set(0, 1.6, 0);
-  controls.rotationSpeed = 0.0035;
-  controls.zoomSpeed = 0.05;
-
-  function disableControls() {
-    mouseCursor.disable();
-    transformControls.dispose();
-    controls.enabled = false;
-  }
-
-  function enableControls() {
-    mouseCursor.enable();
-    transformControls.activate();
-    controls.enabled = true;
-  }
-  enableControls();
-
-  Events.on('inspectorcleared', function () {
-    controls.center.set(0, 0, 0);
-  });
-
-  Events.on('transformmodechange', function (mode) {
-    transformControls.setMode(mode);
-  });
-
-  Events.on('snapchanged', function (dist) {
-    transformControls.setTranslationSnap(dist);
-  });
-
-  Events.on('transformspacechanged', function (space) {
-    transformControls.setSpace(space);
-  });
-
-  Events.on('objectselect', function (object) {
-    selectionBox.visible = false;
-    transformControls.detach();
-    if (object && object.el) {
-      if (object.el.getObject3D('mesh')) {
-        selectionBox.setFromObject(object).update();
-        selectionBox.visible = true;
-      }
-
-      transformControls.attach(object);
-    }
-  });
-
-  Events.on('objectfocus', function (object) {
-    controls.focus(object);
-    transformControls.update();
-  });
-
-  Events.on('geometrychanged', function (object) {
-    if (object !== null) {
-      selectionBox.setFromObject(object).update();
-    }
-  });
-
-  Events.on('entityupdate', function (detail) {
-    var object = detail.entity.object3D;
-    if (inspector.selected === object) {
-      // Hack because object3D always has geometry :(
-      if (object.geometry && (object.geometry.vertices && object.geometry.vertices.length > 0 || object.geometry.attributes && object.geometry.attributes.position && object.geometry.attributes.position.array.length)) {
-        selectionBox.setFromObject(object).update();
-      }
-    }
-
-    transformControls.update();
-    if (object instanceof THREE.PerspectiveCamera) {
-      object.updateProjectionMatrix();
-    }
-
-    updateHelpers(object);
-  });
-
-  Events.on('windowresize', function () {
-    camera.aspect = inspector.container.offsetWidth / inspector.container.offsetHeight;
-    camera.updateProjectionMatrix();
-  });
-
-  Events.on('gridvisibilitychanged', function (showGrid) {
-    grid.visible = showGrid;
-  });
-
-  Events.on('togglegrid', function () {
-    grid.visible = !grid.visible;
-  });
-
-  Events.on('inspectortoggle', function (active) {
-    if (active) {
-      enableControls();
-      AFRAME.scenes[0].camera = inspector.camera;
-      Array.prototype.slice.call(document.querySelectorAll('.a-enter-vr,.rs-base')).forEach(function (element) {
-        element.style.display = 'none';
-      });
-    } else {
-      disableControls();
-      prevActiveCameraEl.setAttribute('camera', 'active', 'true');
-      AFRAME.scenes[0].camera = prevActiveCameraEl.getObject3D('camera');
-      Array.prototype.slice.call(document.querySelectorAll('.a-enter-vr,.rs-base')).forEach(function (element) {
-        element.style.display = 'block';
-      });
-    }
-    ga('send', 'event', 'Viewport', 'toggleEditor', active);
-  });
-}
-
-module.exports = Viewport;
-
-/***/ }),
-/* 144 */
-/***/ (function(module, exports, __webpack_require__) {
-
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
     if (true) {
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(264)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(263)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -26956,7 +26947,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 });
 
 /***/ }),
-/* 145 */
+/* 144 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -26964,7 +26955,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__emotion_unitless__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__emotion_hash__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__emotion_stylis__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_stylis_rule_sheet__ = __webpack_require__(267);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_stylis_rule_sheet__ = __webpack_require__(266);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_stylis_rule_sheet___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_stylis_rule_sheet__);
 
 
@@ -27488,7 +27479,7 @@ function createEmotion(context, options) {
 
 
 /***/ }),
-/* 146 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28421,21 +28412,21 @@ module.exports = factory;
 
 
 /***/ }),
-/* 147 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(148)();
+exports = module.exports = __webpack_require__(147)();
 // imports
 
 
 // module
-exports.push([module.i, "body.aframe-inspector-opened,\n.toggle-edit {\n  font-family: BlinkMacSystemFont, -apple-system, \"Segoe UI\", Helvetica, Arial, sans-serif;\n}\n.wf-roboto-n4-active body.aframe-inspector-opened,\n.wf-roboto-n4-active .toggle-edit {\n  font-family: Roboto, BlinkMacSystemFont, -apple-system, \"Segoe UI\", Helvetica, Arial, sans-serif;\n}\nbody.aframe-inspector-opened {\n  color: #fff;\n  font-size: 12px;\n  margin: 0;\n  overflow: hidden;\n}\n#aframeInspector #toolbar {\n  background-color: #333;\n}\n#aframeInspector #toolbar .toolbarActions {\n  padding: 9px 0 5px;\n}\n#aframeInspector #toolbar .toolbarActions a.disabled {\n  color: #666;\n  cursor: default;\n}\n#aframeInspector #scenegraph {\n  background: #2b2b2b;\n  border-top: 1px solid #111;\n  display: flex;\n  flex-direction: column;\n  overflow: auto;\n  padding-top: 32px;\n  width: 230px;\n}\n#aframeInspector #scenegraph .entity {\n  background: #2b2b2b;\n  cursor: pointer;\n  display: flex;\n  justify-content: space-between;\n  padding: 4px;\n  width: 100%;\n  white-space: nowrap;\n  transition: background 0.1s;\n}\n#aframeInspector #scenegraph .entity:hover {\n  background: #444;\n}\n#aframeInspector #scenegraph .entity.active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n#aframeInspector #scenegraph .entity.active .component:hover {\n  color: #1888c1;\n}\n#aframeInspector #scenegraph .entity.active .entityActions {\n  display: inline;\n}\n#aframeInspector #scenegraph .entity.novisible.active span,\n#aframeInspector #scenegraph .entity.novisible.active .fa,\n#aframeInspector #scenegraph .entity.novisible.active .collapsespace,\n#aframeInspector #scenegraph .entity.novisible.active .id {\n  color: #aaa;\n}\n#aframeInspector #scenegraph .entity.novisible:not(.active) span,\n#aframeInspector #scenegraph .entity.novisible:not(.active) .fa,\n#aframeInspector #scenegraph .entity.novisible:not(.active) .collapsespace,\n#aframeInspector #scenegraph .entity.novisible:not(.active) .id {\n  color: #575757;\n}\n#aframeInspector #scenegraph .component:hover {\n  color: #1faaf2;\n}\n#aframeInspector #scenegraph .entityIcons {\n  margin-left: 2px;\n}\n#aframeInspector #scenegraph .entityActions {\n  display: none;\n  margin: 0 14px 0 14px;\n  position: relative;\n  top: 2px;\n}\n#aframeInspector #scenegraph .entityActions .button {\n  color: #fff;\n  font-size: 12px;\n  margin-left: 6px;\n}\n#aframeInspector #scenegraph .fa {\n  color: #ccc;\n}\n#aframeInspector #scenegraph .fa:hover {\n  color: #1faaf2;\n}\n#aframeInspector #scenegraph .active .fa {\n  color: #fafafa;\n}\n#aframeInspector #scenegraph .id {\n  color: #ccc;\n}\n#aframeInspector #scenegraph .option.active .id {\n  color: #fff;\n}\n#aframeInspector #scenegraph .collapsespace {\n  color: #eee;\n  display: inline-block;\n  text-align: center;\n  width: 14px;\n}\n#aframeInspector #scenegraph .fa-eye {\n  color: #bbb;\n}\n#aframeInspector #scenegraph .icons a.button {\n  color: #fff;\n}\n#aframeInspector #scenegraph .search {\n  padding: 5px;\n  color: #aaa;\n  font-size: 16px;\n  position: relative;\n}\n#aframeInspector #scenegraph .search input {\n  background: #222;\n  border-radius: 5px;\n  height: 22px;\n  text-indent: 10px;\n  width: 216px;\n}\n#aframeInspector #scenegraph .search .fa-search {\n  position: absolute;\n  right: 14px;\n  top: 8px;\n}\n#aframeInspector #scenegraph .search .fa-times {\n  position: absolute;\n  right: 15px;\n  top: 9px;\n}\n#aframeInspector #scenegraph .outliner {\n  background: #2b2b2b;\n  color: #868686;\n  cursor: default;\n  flex: 1 1 auto;\n  font-size: 12px;\n  height: calc(100% - 98px);\n  outline: none;\n  overflow-y: auto;\n  padding: 0;\n  width: 230px;\n}\n#aframeInspector .scenegraph-bottom {\n  background-color: #323232;\n  border-top: 1px solid #111;\n  bottom: 10;\n  height: 40px;\n  left: 0;\n  z-index: 100;\n}\n#aframeInspector .scenegraph-bottom a {\n  float: right;\n  margin: 10px;\n}\n#aframeInspector .components {\n  background-color: #323232;\n  color: #fafafa;\n  height: 100%;\n  overflow: auto;\n  position: fixed;\n  width: 331px;\n}\n#aframeInspector div.vec2,\n#aframeInspector div.vec3,\n#aframeInspector div.vec4 {\n  display: inline;\n}\n#aframeInspector .vec2 input.number,\n#aframeInspector .vec3 input.number {\n  border: 1px solid #1faaf2;\n  border-radius: 5px;\n  margin-right: 2px;\n  transition: border-color 0.1s;\n  width: 41px;\n}\n#aframeInspector .vec2 input.number:hover,\n#aframeInspector .vec3 input.number:hover {\n  border-color: #6dc8f7;\n}\n#aframeInspector .vec4 input.number {\n  width: 34px;\n}\n#aframeInspector .collapsible-header {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n}\n#aframeInspector .componentTitle span {\n  max-width: 200px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n#aframeInspector .collapsible .static {\n  border-bottom: 1px solid #262626;\n  border-top: 1px solid #262626;\n  cursor: pointer;\n  height: 16px;\n  padding: 10px;\n  transition: background-color 0.05s;\n  vertical-align: middle;\n}\n#aframeInspector .collapsible.collapsed {\n  background-color: #323232;\n}\n#aframeInspector .collapsible.collapsed .static,\n#aframeInspector .collapsible.collapsed .fa {\n  color: #fafafa;\n}\n#aframeInspector .collapsible.collapsed:hover {\n  background-color: #444;\n}\n#aframeInspector .collapsible:not(.collapsed) {\n  background-color: #aaa;\n}\n#aframeInspector .collapsible:not(.collapsed) .static,\n#aframeInspector .collapsible:not(.collapsed) .fa {\n  color: #262626;\n}\n#aframeInspector .collapsible:not(.collapsed) .static:hover,\n#aframeInspector .collapsible:not(.collapsed) .fa:hover {\n  background-color: #b2b2b2;\n}\n#aframeInspector .collapsible .menu {\n  text-align: right;\n}\n#aframeInspector .collapsible .menuafter {\n  color: #bbb;\n  content: '\\2807';\n  font-size: 12px;\n  padding: 5px;\n  text-align: right;\n}\n#aframeInspector .collapsible .static {\n  margin: 0;\n}\n#aframeInspector .collapsible .static .collapse-button {\n  border: 6px solid transparent;\n  float: left;\n  height: 0;\n  margin-right: 10px;\n  margin-top: 2px;\n  width: 0;\n}\n#aframeInspector .collapsible.collapsed .static .collapse-button {\n  border-left-color: #262626;\n  margin-top: 2px;\n}\n#aframeInspector .collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #262626;\n  margin-top: 6px;\n}\n#aframeInspector .collapsible .content {\n  background-color: #262626;\n}\n#aframeInspector .propertyRow {\n  align-items: center;\n  display: flex;\n  font-family: font-family Consolas, Andale Mono, Monaco, Courier New, monospace;\n  font-size: 11px;\n  min-height: 20px;\n  padding: 6px 15px;\n}\n#aframeInspector .propertyRow:nth-child(odd) {\n  background: #282828;\n}\n#aframeInspector .propertyRow:nth-child(even) {\n  background: #262626;\n}\n#aframeInspector .propertyRow .text {\n  cursor: default;\n  display: inline-block;\n  overflow: hidden;\n  padding-right: 10px;\n  text-overflow: ellipsis;\n  vertical-align: middle;\n  width: 125px;\n}\n#aframeInspector .propertyRow .map_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n#aframeInspector .propertyRow .Select-control {\n  font-size: 11px;\n  height: 24px;\n}\n#aframeInspector .propertyRow .Select-placeholder,\n#aframeInspector .propertyRow .Select--single > .Select-control .Select-value {\n  line-height: 19px;\n}\n#aframeInspector .propertyRow .Select-input {\n  height: 22px;\n}\n#aframeInspector .propertyRow input[type=text],\n#aframeInspector .propertyRow input[type=number],\n#aframeInspector .propertyRow input.string,\n#aframeInspector .propertyRow input.number {\n  background: #222;\n  color: #1faaf2;\n  min-height: 26px;\n  padding-left: 5px;\n  padding-right: 5px;\n}\n#aframeInspector .propertyRow input.string {\n  box-sizing: border-box;\n  width: 165px;\n}\n#aframeInspector .propertyRow .color_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n#aframeInspector .propertyRowDefined .text {\n  color: #f3ca40;\n}\n#aframeInspector .components * {\n  vertical-align: middle;\n}\n#aframeInspector span.subcomponent {\n  color: #999;\n  float: none !important;\n  margin-left: 10px;\n  vertical-align: top !important;\n}\n#aframeInspector a.help-link {\n  opacity: 0.4;\n}\n#aframeInspector a.help-linkhover {\n  opacity: 1;\n}\n#aframeInspector #addComponentContainer {\n  align-items: center;\n  background-color: #262626;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding: 15px 10px 10px 10px;\n}\n#aframeInspector #addComponentContainer #addComponentHeader {\n  font-family: font-family Consolas, Andale Mono, Monaco, Courier New, monospace;\n  text-decoration: underline;\n}\n#aframeInspector #addComponentContainer #addComponent {\n  text-align: left;\n  width: 200px;\n}\n#aframeInspector #addComponentContainer #addComponent .option {\n  display: flex;\n  justify-content: space-between;\n}\n#aframeInspector #addComponentContainer #addComponent .option span {\n  color: #1faaf2;\n}\n#aframeInspector .Select-menu-outer .is-focused span {\n  color: #fff;\n}\n#aframeInspector .component-title {\n  align-items: center;\n  display: flex;\n}\n#aframeInspector #componentEntityHeader .collapsible-header {\n  bottom: 4px;\n  position: relative;\n}\n#aframeInspector #componentEntityHeader .collapse-button {\n  display: none;\n}\n#aframeInspector #componentEntityHeader .static {\n  background: #222;\n  height: 10px;\n}\n#aframeInspector #componentEntityHeader .entityPrint {\n  font-size: 14px;\n  padding-left: 5px;\n}\n#aframeInspector #componentEntityHeader .entityName {\n  max-width: 160px;\n  top: 0;\n}\n#aframeInspector #componentEntityHeader .entityIcons {\n  color: #fafafa;\n}\n#aframeInspector #mixinSelect {\n  width: 160px;\n}\n#aframeInspector .propertyRow .texture {\n  display: flex;\n}\n#aframeInspector .propertyRow .texture input {\n  padding-left: 0;\n  margin-left: 0;\n  width: 120px;\n}\n#aframeInspector .entityPrint {\n  font-family: font-family Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n#aframeInspector .entityName {\n  display: inline-block;\n  overflow: hidden;\n  position: relative;\n  text-overflow: ellipsis;\n  top: 3px;\n  white-space: nowrap;\n}\n#aframeInspector .entityTagName,\n#aframeInspector .entityCloseTag {\n  color: #fafafa;\n}\n#aframeInspector [data-entity-name-type=\"id\"] {\n  color: #a74482;\n}\n#aframeInspector [data-entity-name-type=\"class\"] {\n  color: #a6ebc9;\n}\n#aframeInspector [data-entity-name-type=\"mixin\"] {\n  color: #f3ca40;\n}\n#aframeInspector .help-lists {\n  display: flex;\n  justify-content: space-around;\n}\n#aframeInspector .help-list {\n  list-style: none;\n  margin: 0;\n  padding: 0 0 10px;\n  width: 350px;\n}\n#aframeInspector .help-list li {\n  margin-right: 40px;\n}\n#aframeInspector .help-key-unit {\n  line-height: 1.8;\n  margin-right: 2em;\n  padding: 5px 0;\n}\n#aframeInspector .help-key {\n  bottom: 2px;\n  margin-right: 4px;\n  min-width: 60px;\n  position: relative;\n}\n#aframeInspector .help-key span {\n  background-color: #2e2e2e;\n  background-repeat: repeat-x;\n  border: 1px solid #666;\n  border-radius: 3px;\n  box-shadow: 0 0 5px #000;\n  color: #999;\n  display: inline-block;\n  font-size: 12px;\n  padding: 0 8px;\n  text-align: center;\n}\n#aframeInspector .help-key-def {\n  color: #bbb;\n  display: inline-block;\n  margin-left: 1em;\n}\n#aframeInspector .select__control {\n  font-family: font-family Consolas, Andale Mono, Monaco, Courier New, monospace;\n  min-height: 26px;\n}\n#aframeInspector .select__indicator {\n  height: 26px;\n}\n#aframeInspector .select__control,\n#aframeInspector .select__menu {\n  background: #363636;\n}\n#aframeInspector .select__placeholder,\n#aframeInspector .select__menu,\n#aframeInspector .select__single-value {\n  color: #cacaca;\n}\n#aframeInspector .select__option {\n  cursor: pointer;\n}\n#aframeInspector .select__clear-indicator {\n  display: none;\n}\n#aframeInspector .select__label {\n  font-size: 11px;\n}\n#aframeInspector .select__option--is-focused {\n  background: #444;\n}\n#aframeInspector .select__value-container {\n  height: 26px;\n  position: static;\n}\n#aframeInspector .select__value-container.select__value-container--is-multi {\n  height: auto;\n}\n#aframeInspector .select__dropdown-indicator {\n  padding: 3px 8px;\n}\n#aframeInspector .modal {\n  animation: animateopacity 0.2s ease-out;\n  background-color: #000;\n  background-color: rgba(0,0,0,0.6);\n  display: flex;\n  height: 100%;\n  left: 0;\n  overflow: auto;\n  position: fixed;\n  top: 0;\n  width: 100%;\n  z-index: 9999999999;\n}\n#aframeInspector .modal h3 {\n  font-size: 18px;\n  font-weight: 100;\n  margin: 0.6em 0;\n}\n#aframeInspector #textureModal .modal-content {\n  height: calc(100% - 50px);\n  width: calc(100% - 50px);\n}\n#aframeInspector .modal-content {\n  animation: animatetop 0.2s ease-out;\n  animation-duration: 0.2s;\n  animation-name: animatetop;\n  background-color: #232323;\n  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5), 0 6px 20px 0 rgba(0,0,0,0.5);\n  margin: auto;\n  overflow: hidden;\n  padding: 0;\n}\n#aframeInspector .close {\n  color: #fff;\n  float: right;\n  font-size: 28px;\n  font-weight: bold;\n}\n#aframeInspector .closehover,\n#aframeInspector .closefocus {\n  color: #08f;\n  cursor: pointer;\n  text-decoration: none;\n}\n#aframeInspector .modal-header {\n  color: #fff;\n  padding: 2px 16px;\n}\n#aframeInspector .modal-body {\n  overflow: auto;\n  padding: 16px;\n}\n#aframeInspector .modal-footer {\n  color: #fff;\n  padding: 2px 16px;\n}\n#aframeInspector .gallery {\n  background: #232323;\n  display: flex;\n  flex-wrap: wrap;\n  margin: 15px auto 0;\n  overflow: auto;\n  padding: 15px 3px 3px;\n}\n#aframeInspector .newimage .gallery {\n  padding: 16px;\n}\n#aframeInspector .gallery li {\n  border-radius: 2px;\n  box-shadow: 0 0 6px rgba(0,0,0,0.6);\n  cursor: pointer;\n  margin: 8px;\n  overflow: hidden;\n  width: 155px;\n}\n#aframeInspector .gallery li.selected,\n#aframeInspector .gallery li:hover {\n  box-shadow: 0 0 0 2px #1eaaf1;\n}\n#aframeInspector .gallery li .detail {\n  background-color: #323232;\n  margin: 0;\n  min-height: 60px;\n  padding: 3px 10px;\n}\n#aframeInspector .gallery li .button.fa-external-link {\n  margin-left: 136px;\n  margin-top: 5px;\n  position: fixed;\n}\n#aframeInspector .preview {\n  padding: 10px;\n  width: 150px;\n}\n#aframeInspector .preview input {\n  display: block;\n  margin: 8px 0;\n  width: 144px;\n}\n#aframeInspector .preview button {\n  width: 155px;\n}\n#aframeInspector .preview .detail .title {\n  color: #fff;\n  display: inline-block;\n  max-width: 155px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n#aframeInspector .gallery li.selected .detail,\n#aframeInspector .gallery li:hover .detail {\n  background-color: #444;\n}\n#aframeInspector .gallery li .detail span {\n  color: #777;\n  display: block;\n  margin-top: 4px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  width: 140px;\n}\n#aframeInspector .gallery li.selected .detail span,\n#aframeInspector .gallery li:hover .detail span {\n  color: #888;\n}\n#aframeInspector .gallery li .detail span.title {\n  color: #fff !important;\n}\n#aframeInspector .modal button {\n  appearance: none;\n  border-radius: 0;\n  box-shadow: none;\n  cursor: pointer;\n  display: inline-block;\n  font-size: 12px;\n  line-height: 1.8;\n  margin: 0 10px 0 0;\n  padding: 5px 10px;\n}\n#aframeInspector .modal buttonfocus {\n  outline: none;\n}\n#aframeInspector .modal button {\n  background-color: #1eaaf1;\n  border: none;\n  color: #fff;\n}\n#aframeInspector .modal buttonhover,\n#aframeInspector .modal button.hover {\n  background-color: #346392;\n  text-shadow: -1px 1px #27496d;\n}\n#aframeInspector .modal buttonactive,\n#aframeInspector .modal button.active {\n  background-color: #27496d;\n  text-shadow: -1px 1px #193047;\n}\n#aframeInspector .modal buttondisabled {\n  background-color: #888;\n  cursor: none;\n}\n#aframeInspector .newimage {\n  background-color: #323232;\n  color: #bcbcbc;\n  display: flex;\n  font-size: 13px;\n  justify-content: space-between;\n  margin-top: 10px;\n  overflow: auto;\n  padding: 10px;\n}\n#aframeInspector .newimage input {\n  color: #1eaaf1;\n  padding: 3px 5px;\n}\n#aframeInspector .texture canvas + input {\n  margin-left: 5px;\n}\n#aframeInspector .texture .fa {\n  padding-right: 5px;\n}\n#aframeInspector .texture .fa-external-link {\n  font-size: 14px;\n  padding-top: 2px;\n}\n#aframeInspector .uploader-normal-button .hidden {\n  display: none;\n}\n#aframeInspector .gallery a.fa.texture-link {\n  box-shadow: 0 0 14px -1px rgba(0,0,0,0.75);\n  position: fixed;\n}\n#aframeInspector .assets.search {\n  margin-top: 10px;\n  width: 200px;\n}\n#aframeInspector .assets.search .fa-search {\n  top: 7px;\n}\n#aframeInspector .new_asset_options {\n  margin: 10px;\n}\n#aframeInspector .new_asset_options > ul {\n  margin-left: 10px;\n  padding: 5px;\n}\n#aframeInspector .new_asset_options > ul > li {\n  padding: 10px 0;\n}\n#aframeInspector .new_asset_options .imageUrl {\n  margin-left: 5px;\n  width: 350px;\n}\n#aframeInspector .texture canvas {\n  border: 1px solid #222;\n  cursor: pointer;\n}\n#aframeInspector .texture canvashover {\n  border-color: #1faaf2;\n}\n#aframeInspector #viewportBar {\n  align-items: center;\n  background-color: #323232;\n  color: #fafafa;\n  display: flex;\n  flex-grow: 2;\n  height: 32px;\n  justify-content: space-between;\n  left: 0;\n  margin: 0 auto;\n  right: 0;\n  top: 0;\n}\n#aframeInspector .transformToolbar {\n  position: relative;\n}\n#aframeInspector .transformToolbar * {\n  margin-left: 0;\n  padding: 8px;\n  vertical-align: middle;\n}\n#aframeInspector .transformToolbar a.button {\n  margin: 0 6px 0 0;\n  transition: background-color 0.1s;\n}\n#aframeInspector .transformToolbar a.button:not(.active):hover {\n  background-color: #444;\n}\n#aframeInspector .transformToolbar .active {\n  background-color: #1faaf2;\n  color: #fafafa;\n}\n#aframeInspector .transformToolbar .active:hover {\n  color: #fafafa !important;\n}\n#aframeInspector .local-transform {\n  padding-left: 10px;\n}\n#aframeInspector .local-transform label {\n  color: $ligtgray;\n  font-family: font-family Consolas, Andale Mono, Monaco, Courier New, monospace;\n  padding-left: 5px;\n}\n#aframeInspector .local-transform a.button {\n  padding-top: 0;\n}\n#aframeInspector .Select-control {\n  background-color: #222 !important;\n  border: none;\n  border-radius: 0;\n  color: #1faaf2;\n  font-family: $monosapce;\n}\n#aframeInspector .Select-menu-outer {\n  border: none;\n}\n#aframeInspector .Select-menu-outer .is-focused {\n  background-color: #1faaf2 !important;\n  color: #fafafa;\n}\n#aframeInspector .Select-option {\n  background-color: #222 !important;\n}\n#aframeInspector .select-widget {\n  display: inline-block;\n  width: 157px;\n}\n#aframeInspector .Select-placeholder,\n#aframeInspector .Select--single > .Select-control .Select-value {\n  color: #1faaf2 !important;\n}\n#aframeInspector .Select-value-label {\n  color: #1faaf2 !important;\n}\n#aframeInspector .dropbtn {\n  border: none;\n  color: #fafafa;\n  cursor: pointer;\n}\n#aframeInspector .dropdown {\n  display: inline-block;\n  position: relative;\n}\n#aframeInspector .dropdown-content {\n  background-color: #f9f9f9;\n  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);\n  display: none;\n  left: 8px;\n  min-width: 38px;\n  position: absolute;\n  z-index: 999;\n}\n#aframeInspector .dropdown-content a {\n  background-color: #232323;\n  color: #7d7d7d;\n  display: block;\n  padding: 10px 14px;\n  text-decoration: none;\n}\n#aframeInspector .dropdown-content a:hover {\n  background-color: #4ecbff;\n  color: #fafafa;\n}\n#aframeInspector .dropdownhover .dropdown-content {\n  display: block;\n}\n#aframeInspector .dropdownhover .dropbtn {\n  color: #1faaf2;\n}\n#aframeInspector .Select,\n#aframeInspector code,\n#aframeInspector pre,\n#aframeInspector input,\n#aframeInspector textarea,\n#aframeInspector select {\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n#aframeInspector .wf-robotomono-n4-active .Select,\n#aframeInspector .wf-robotomono-n4-active code,\n#aframeInspector .wf-robotomono-n4-active pre,\n#aframeInspector .wf-robotomono-n4-active input,\n#aframeInspector .wf-robotomono-n4-active textarea,\n#aframeInspector .wf-robotomono-n4-active select {\n  font-family: Roboto Mono, Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n#aframeInspector hr {\n  border: 0;\n  border-top: 1px solid #ccc;\n}\n#aframeInspector a {\n  cursor: pointer;\n}\n#aframeInspector button {\n  position: relative;\n}\n#aframeInspector code {\n  font-family: Consolas, Andale Mono, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;\n}\n#aframeInspector textarea {\n  tab-size: 4;\n  white-space: pre;\n  word-wrap: normal;\n}\n#aframeInspector textarea.success {\n  border-color: #8b8 !important;\n}\n#aframeInspector textarea.fail {\n  background-color: rgba(255,0,0,0.05);\n  border-color: #f00 !important;\n}\n#aframeInspector textarea,\n#aframeInspector input {\n  outline: none /* osx */;\n}\n#aframeInspector #scenegraph,\n#aframeInspector #rightPanel {\n  z-index: 9998;\n}\n#aframeInspector #sidebar,\n#aframeInspector #scenegraph,\n#aframeInspector .panel {\n  cursor: default;\n  user-select: none;\n}\n#aframeInspector .toggle-edit {\n  background-color: #ed3160;\n  color: #fff;\n  font-size: 12px;\n  left: 3px;\n  margin: 0;\n  padding: 6px 10px;\n  position: fixed;\n  text-align: center;\n  text-decoration: none;\n  top: 3px;\n  width: 204px;\n  z-index: 999999999;\n}\n#aframeInspector .toggle-edithover {\n  background-color: #e42b5a;\n}\n#aframeInspector input {\n  background-color: transparent;\n  border: 1px solid #555;\n  color: #fff;\n}\n#aframeInspector input,\n#aframeInspector .texture canvas {\n  transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n}\n#aframeInspector input[type=text],\n#aframeInspector input[type=number],\n#aframeInspector input.string,\n#aframeInspector input.number {\n  min-height: 14px;\n  outline: none;\n}\n#aframeInspector input[type=\"checkbox\"] {\n  cursor: pointer;\n  margin: 0;\n  height: 22px;\n  width: 22px;\n}\n#aframeInspector input.number {\n  background-color: transparent !important;\n  border: 0;\n  color: #20b1fb !important;\n  cursor: col-resize;\n  font-size: 12px;\n  padding: 2px;\n}\n#aframeInspector input.stringfocus,\n#aframeInspector input.numberfocus {\n  border: 1px solid #20b1fb;\n  color: #fff;\n  cursor: auto;\n}\n#aframeInspector input.error {\n  border: 1px solid #a00;\n}\n#aframeInspector #sidebar {\n  background: #2b2b2b;\n  width: 331px;\n}\n#aframeInspector #sidebar * {\n  vertical-align: middle;\n}\n#aframeInspector input,\n#aframeInspector textarea,\n#aframeInspector select {\n  background: #222;\n  border: 1px solid transparent;\n  color: #888;\n}\n#aframeInspector input[type=color] {\n  background-color: #333;\n  border: 1px solid #111;\n  cursor: pointer;\n}\n#aframeInspector input[type=color] {\n  cursor: pointer;\n  height: 16px;\n  padding: 0;\n  width: 64px;\n}\n#aframeInspector input[type=color]-webkit-color-swatch {\n  border: 0 /* To remove the gray border. */;\n}\n#aframeInspector input[type=color]-webkit-color-swatch-wrapper {\n  padding: 0 /* To remove the inner padding. */;\n}\n#aframeInspector input[type=color]-moz-color-swatch {\n  border: 0;\n}\n#aframeInspector input[type=color]-moz-focus-inner {\n  border: 0 /* To remove the inner border (specific to Firefox). */;\n  padding: 0;\n}\n#aframeInspector .hidden {\n  visibility: hidden;\n}\n#aframeInspector a.button {\n  color: #bcbcbc;\n  font-size: 16px;\n  margin-left: 10px;\n  text-decoration: none;\n}\n#aframeInspector a.buttonhover {\n  color: #1faaf2;\n}\n#aframeInspector .hide {\n  display: none;\n}\n#aframeInspector .a-canvas.state-dragging {\n  cursor: grabbing;\n}\n#aframeInspector #rightPanel {\n  align-items: stretch;\n  display: flex;\n  justify-content: flex-end;\n}\n#aframeInspector #inspectorContainer {\n  display: flex;\n  justify-content: space-between;\n  left: 0;\n  height: 100%;\n  pointer-events: none;\n  position: fixed;\n  top: 0;\n  width: 100%;\n  z-index: 999999;\n}\n#aframeInspector #scenegraph,\n#aframeInspector #viewportBar,\n#aframeInspector #rightPanel {\n  pointer-events: all;\n}\n#aframeInspector .aframe-inspector-opened a-scene .a-canvas {\n  background-color: #191919;\n  z-index: 9998;\n}\n#aframeInspector .toggle-sidebar {\n  align-items: center;\n  display: flex;\n  height: 100%;\n  position: absolute;\n  z-index: 9998;\n}\n#aframeInspector .toggle-sidebar .left {\n  left: 0;\n}\n#aframeInspector .toggle-sidebar .right {\n  right: 0;\n}\n#aframeInspector .toggle-sidebar a {\n  background-color: #262626;\n  color: #bcbcbc;\n  padding: 5px;\n  z-index: 9998;\n}\n#aframeInspector .toggle-sidebar a.hover {\n  background-color: #1faaf2;\n  color: #fff;\n}\n@-moz-keyframes animateopacity {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@-webkit-keyframes animateopacity {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@-o-keyframes animateopacity {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@keyframes animateopacity {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n", ""]);
+exports.push([module.i, "body.aframe-inspector-opened,\n.toggle-edit {\n  font-family: BlinkMacSystemFont, -apple-system, \"Segoe UI\", Helvetica, Arial, sans-serif;\n}\n.wf-roboto-n4-active body.aframe-inspector-opened,\n.wf-roboto-n4-active .toggle-edit {\n  font-family: Roboto, BlinkMacSystemFont, -apple-system, \"Segoe UI\", Helvetica, Arial, sans-serif;\n}\nbody.aframe-inspector-opened {\n  color: #fff;\n  font-size: 12px;\n  margin: 0;\n  overflow: hidden;\n}\n#aframeInspector #toolbar {\n  background-color: #333;\n}\n#aframeInspector #toolbar .toolbarActions {\n  padding: 9px 0 5px;\n}\n#aframeInspector #toolbar .toolbarActions a.disabled {\n  color: #666;\n  cursor: default;\n}\n#aframeInspector #scenegraph {\n  background: #2b2b2b;\n  border-top: 1px solid #111;\n  display: flex;\n  flex-direction: column;\n  overflow: auto;\n  padding-top: 32px;\n  width: 230px;\n}\n#aframeInspector #scenegraph .entity {\n  background: #2b2b2b;\n  cursor: pointer;\n  display: flex;\n  justify-content: space-between;\n  padding: 4px;\n  width: 100%;\n  white-space: nowrap;\n  transition: background 0.1s;\n}\n#aframeInspector #scenegraph .entity:hover {\n  background: #444;\n}\n#aframeInspector #scenegraph .entity.active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n#aframeInspector #scenegraph .entity.active .component:hover {\n  color: #1888c1;\n}\n#aframeInspector #scenegraph .entity.active .entityActions {\n  display: inline;\n}\n#aframeInspector #scenegraph .entity.novisible.active span,\n#aframeInspector #scenegraph .entity.novisible.active .fa,\n#aframeInspector #scenegraph .entity.novisible.active .collapsespace,\n#aframeInspector #scenegraph .entity.novisible.active .id {\n  color: #aaa;\n}\n#aframeInspector #scenegraph .entity.novisible:not(.active) span,\n#aframeInspector #scenegraph .entity.novisible:not(.active) .fa,\n#aframeInspector #scenegraph .entity.novisible:not(.active) .collapsespace,\n#aframeInspector #scenegraph .entity.novisible:not(.active) .id {\n  color: #575757;\n}\n#aframeInspector #scenegraph .component:hover {\n  color: #1faaf2;\n}\n#aframeInspector #scenegraph .entityIcons {\n  margin-left: 2px;\n}\n#aframeInspector #scenegraph .entityActions {\n  display: none;\n  margin: 0 14px 0 14px;\n  position: relative;\n  top: 2px;\n}\n#aframeInspector #scenegraph .entityActions .button {\n  color: #fff;\n  font-size: 12px;\n  margin-left: 6px;\n}\n#aframeInspector #scenegraph .fa {\n  color: #ccc;\n}\n#aframeInspector #scenegraph .fa:hover {\n  color: #1faaf2;\n}\n#aframeInspector #scenegraph .active .fa {\n  color: #fafafa;\n}\n#aframeInspector #scenegraph .id {\n  color: #ccc;\n}\n#aframeInspector #scenegraph .option.active .id {\n  color: #fff;\n}\n#aframeInspector #scenegraph .collapsespace {\n  color: #eee;\n  display: inline-block;\n  text-align: center;\n  width: 14px;\n}\n#aframeInspector #scenegraph .fa-eye {\n  color: #bbb;\n}\n#aframeInspector #scenegraph .icons a.button {\n  color: #fff;\n}\n#aframeInspector #scenegraph .search {\n  padding: 5px;\n  color: #aaa;\n  font-size: 16px;\n  position: relative;\n}\n#aframeInspector #scenegraph .search input {\n  background: #222;\n  border-radius: 5px;\n  height: 22px;\n  text-indent: 10px;\n  width: 216px;\n}\n#aframeInspector #scenegraph .search .fa-search {\n  position: absolute;\n  right: 14px;\n  top: 8px;\n}\n#aframeInspector #scenegraph .search .fa-times {\n  position: absolute;\n  right: 15px;\n  top: 9px;\n}\n#aframeInspector #scenegraph .outliner {\n  background: #2b2b2b;\n  color: #868686;\n  cursor: default;\n  flex: 1 1 auto;\n  font-size: 12px;\n  height: calc(100% - 98px);\n  outline: none;\n  overflow-y: auto;\n  padding: 0;\n  width: 230px;\n}\n#aframeInspector .scenegraph-bottom {\n  background-color: #323232;\n  border-top: 1px solid #111;\n  bottom: 10;\n  height: 40px;\n  left: 0;\n  z-index: 100;\n}\n#aframeInspector .scenegraph-bottom a {\n  float: right;\n  margin: 10px;\n}\n#aframeInspector .components {\n  background-color: #323232;\n  color: #fafafa;\n  height: 100%;\n  overflow: auto;\n  position: fixed;\n  width: 331px;\n}\n#aframeInspector div.vec2,\n#aframeInspector div.vec3,\n#aframeInspector div.vec4 {\n  display: inline;\n}\n#aframeInspector .vec2 input.number,\n#aframeInspector .vec3 input.number {\n  border: 1px solid #1faaf2;\n  border-radius: 5px;\n  margin-right: 2px;\n  transition: border-color 0.1s;\n  width: 41px;\n}\n#aframeInspector .vec2 input.number:hover,\n#aframeInspector .vec3 input.number:hover {\n  border-color: #6dc8f7;\n}\n#aframeInspector .vec4 input.number {\n  width: 34px;\n}\n#aframeInspector .collapsible-header {\n  align-items: center;\n  display: flex;\n  justify-content: space-between;\n}\n#aframeInspector .componentTitle span {\n  max-width: 200px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n#aframeInspector .collapsible .static {\n  border-bottom: 1px solid #262626;\n  border-top: 1px solid #262626;\n  cursor: pointer;\n  height: 16px;\n  padding: 10px;\n  transition: background-color 0.05s;\n  vertical-align: middle;\n}\n#aframeInspector .collapsible.collapsed {\n  background-color: #323232;\n}\n#aframeInspector .collapsible.collapsed .static,\n#aframeInspector .collapsible.collapsed .componentHeaderActions {\n  color: #fafafa;\n}\n#aframeInspector .collapsible.collapsed:hover {\n  background-color: #444;\n}\n#aframeInspector .collapsible .menu {\n  text-align: right;\n}\n#aframeInspector .collapsible .menuafter {\n  color: #bbb;\n  content: '\\2807';\n  font-size: 12px;\n  padding: 5px;\n  text-align: right;\n}\n#aframeInspector .collapsible .static {\n  margin: 0;\n}\n#aframeInspector .collapsible .static .collapse-button {\n  border: 6px solid transparent;\n  float: left;\n  height: 0;\n  margin-right: 10px;\n  margin-top: 2px;\n  width: 0;\n}\n#aframeInspector .collapsible.collapsed .static .collapse-button {\n  border-left-color: #262626;\n  margin-top: 2px;\n}\n#aframeInspector .collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #262626;\n  margin-top: 6px;\n}\n#aframeInspector .collapsible .content {\n  background-color: #262626;\n}\n#aframeInspector .propertyRow {\n  align-items: center;\n  display: flex;\n  font-size: 12px;\n  min-height: 20px;\n  padding: 6px 15px;\n}\n#aframeInspector .propertyRow:nth-child(odd) {\n  background: #282828;\n}\n#aframeInspector .propertyRow:nth-child(even) {\n  background: #262626;\n}\n#aframeInspector .propertyRow .text {\n  cursor: default;\n  display: inline-block;\n  overflow: hidden;\n  padding-right: 10px;\n  text-overflow: ellipsis;\n  vertical-align: middle;\n  width: 125px;\n}\n#aframeInspector .propertyRow .map_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n#aframeInspector .propertyRow .Select-control {\n  font-size: 11px;\n  height: 24px;\n}\n#aframeInspector .propertyRow .Select-placeholder,\n#aframeInspector .propertyRow .Select--single > .Select-control .Select-value {\n  line-height: 19px;\n}\n#aframeInspector .propertyRow .Select-input {\n  height: 22px;\n}\n#aframeInspector .propertyRow input[type=text],\n#aframeInspector .propertyRow input[type=number],\n#aframeInspector .propertyRow input.string,\n#aframeInspector .propertyRow input.number {\n  background: #222;\n  color: #1faaf2;\n  min-height: 26px;\n  padding-left: 5px;\n  padding-right: 5px;\n}\n#aframeInspector .propertyRow input.string {\n  box-sizing: border-box;\n  width: 165px;\n}\n#aframeInspector .propertyRow .color_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n#aframeInspector .propertyRowDefined .text {\n  color: #f3ca40;\n}\n#aframeInspector .components * {\n  vertical-align: middle;\n}\n#aframeInspector span.subcomponent {\n  color: #999;\n  float: none !important;\n  margin-left: 10px;\n  vertical-align: top !important;\n}\n#aframeInspector a.help-link {\n  opacity: 0.4;\n}\n#aframeInspector a.help-linkhover {\n  opacity: 1;\n}\n#aframeInspector #addComponentContainer {\n  align-items: center;\n  background-color: #262626;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding: 15px 10px 10px 10px;\n}\n#aframeInspector #addComponentContainer #addComponentHeader {\n  text-decoration: underline;\n}\n#aframeInspector #addComponentContainer #addComponent {\n  text-align: left;\n  width: 200px;\n}\n#aframeInspector #addComponentContainer #addComponent .option {\n  display: flex;\n  justify-content: space-between;\n}\n#aframeInspector #addComponentContainer #addComponent .option span {\n  color: #1faaf2;\n}\n#aframeInspector .Select-menu-outer .is-focused span {\n  color: #fff;\n}\n#aframeInspector .component-title {\n  align-items: center;\n  display: flex;\n}\n#aframeInspector #componentEntityHeader .collapsible-header {\n  bottom: 4px;\n  position: relative;\n}\n#aframeInspector #componentEntityHeader .collapse-button {\n  display: none;\n}\n#aframeInspector #componentEntityHeader .static {\n  background: #222;\n  height: 10px;\n}\n#aframeInspector #componentEntityHeader .entityPrint {\n  font-size: 14px;\n  padding-left: 5px;\n}\n#aframeInspector #componentEntityHeader .entityName {\n  max-width: 160px;\n  top: 0;\n}\n#aframeInspector #componentEntityHeader .entityIcons {\n  color: #fafafa;\n}\n#aframeInspector #mixinSelect {\n  width: 160px;\n}\n#aframeInspector .propertyRow .texture {\n  display: flex;\n}\n#aframeInspector .propertyRow .texture input {\n  padding-left: 0;\n  margin-left: 0;\n  width: 120px;\n}\n#aframeInspector .entityPrint {\n  font-family: font-family Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n#aframeInspector .entityName {\n  display: inline-block;\n  overflow: hidden;\n  position: relative;\n  text-overflow: ellipsis;\n  top: 3px;\n  white-space: nowrap;\n}\n#aframeInspector .entityTagName,\n#aframeInspector .entityCloseTag {\n  color: #fafafa;\n}\n#aframeInspector [data-entity-name-type=\"id\"] {\n  color: #a74482;\n}\n#aframeInspector [data-entity-name-type=\"class\"] {\n  color: #a6ebc9;\n}\n#aframeInspector [data-entity-name-type=\"mixin\"] {\n  color: #f3ca40;\n}\n#aframeInspector .help-lists {\n  display: flex;\n  justify-content: space-around;\n}\n#aframeInspector .help-list {\n  list-style: none;\n  margin: 0;\n  padding: 0 0 10px;\n  width: 350px;\n}\n#aframeInspector .help-list li {\n  margin-right: 40px;\n}\n#aframeInspector .help-key-unit {\n  line-height: 1.8;\n  margin-right: 2em;\n  padding: 5px 0;\n}\n#aframeInspector .help-key {\n  bottom: 2px;\n  margin-right: 4px;\n  min-width: 60px;\n  position: relative;\n}\n#aframeInspector .help-key span {\n  background-color: #2e2e2e;\n  background-repeat: repeat-x;\n  border: 1px solid #666;\n  border-radius: 3px;\n  box-shadow: 0 0 5px #000;\n  color: #999;\n  display: inline-block;\n  font-size: 12px;\n  padding: 0 8px;\n  text-align: center;\n}\n#aframeInspector .help-key-def {\n  color: #bbb;\n  display: inline-block;\n  margin-left: 1em;\n}\n#aframeInspector .select__control {\n  font-family: font-family Consolas, Andale Mono, Monaco, Courier New, monospace;\n  min-height: 26px;\n}\n#aframeInspector .select__indicator {\n  height: 26px;\n}\n#aframeInspector .select__control,\n#aframeInspector .select__menu {\n  background: #363636;\n}\n#aframeInspector .select__placeholder,\n#aframeInspector .select__menu,\n#aframeInspector .select__single-value {\n  color: #cacaca;\n}\n#aframeInspector .select__option {\n  cursor: pointer;\n}\n#aframeInspector .select__clear-indicator {\n  display: none;\n}\n#aframeInspector .select__label {\n  font-size: 11px;\n}\n#aframeInspector .select__option--is-focused {\n  background: #444;\n}\n#aframeInspector .select__value-container {\n  height: 26px;\n  position: static;\n}\n#aframeInspector .select__value-container.select__value-container--is-multi {\n  height: auto;\n}\n#aframeInspector .select__dropdown-indicator {\n  padding: 3px 8px;\n}\n#aframeInspector .modal {\n  animation: animateopacity 0.2s ease-out;\n  background-color: #000;\n  background-color: rgba(0,0,0,0.6);\n  display: flex;\n  height: 100%;\n  left: 0;\n  overflow: auto;\n  position: fixed;\n  top: 0;\n  width: 100%;\n  z-index: 9999999999;\n}\n#aframeInspector .modal h3 {\n  font-size: 18px;\n  font-weight: 100;\n  margin: 0.6em 0;\n}\n#aframeInspector #textureModal .modal-content {\n  height: calc(100% - 50px);\n  width: calc(100% - 50px);\n}\n#aframeInspector .modal-content {\n  animation: animatetop 0.2s ease-out;\n  animation-duration: 0.2s;\n  animation-name: animatetop;\n  background-color: #232323;\n  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5), 0 6px 20px 0 rgba(0,0,0,0.5);\n  margin: auto;\n  overflow: hidden;\n  padding: 0;\n}\n#aframeInspector .close {\n  color: #fff;\n  float: right;\n  font-size: 28px;\n  font-weight: bold;\n}\n#aframeInspector .closehover,\n#aframeInspector .closefocus {\n  color: #08f;\n  cursor: pointer;\n  text-decoration: none;\n}\n#aframeInspector .modal-header {\n  color: #fff;\n  padding: 2px 16px;\n}\n#aframeInspector .modal-body {\n  overflow: auto;\n  padding: 16px;\n}\n#aframeInspector .modal-footer {\n  color: #fff;\n  padding: 2px 16px;\n}\n#aframeInspector .gallery {\n  background: #232323;\n  display: flex;\n  flex-wrap: wrap;\n  margin: 15px auto 0;\n  overflow: auto;\n  padding: 15px 3px 3px;\n}\n#aframeInspector .newimage .gallery {\n  padding: 16px;\n}\n#aframeInspector .gallery li {\n  border-radius: 2px;\n  box-shadow: 0 0 6px rgba(0,0,0,0.6);\n  cursor: pointer;\n  margin: 8px;\n  overflow: hidden;\n  width: 155px;\n}\n#aframeInspector .gallery li.selected,\n#aframeInspector .gallery li:hover {\n  box-shadow: 0 0 0 2px #1eaaf1;\n}\n#aframeInspector .gallery li .detail {\n  background-color: #323232;\n  margin: 0;\n  min-height: 60px;\n  padding: 3px 10px;\n}\n#aframeInspector .gallery li .button.fa-external-link {\n  margin-left: 136px;\n  margin-top: 5px;\n  position: fixed;\n}\n#aframeInspector .preview {\n  padding: 10px;\n  width: 150px;\n}\n#aframeInspector .preview input {\n  display: block;\n  margin: 8px 0;\n  width: 144px;\n}\n#aframeInspector .preview button {\n  width: 155px;\n}\n#aframeInspector .preview .detail .title {\n  color: #fff;\n  display: inline-block;\n  max-width: 155px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n#aframeInspector .gallery li.selected .detail,\n#aframeInspector .gallery li:hover .detail {\n  background-color: #444;\n}\n#aframeInspector .gallery li .detail span {\n  color: #777;\n  display: block;\n  margin-top: 4px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  width: 140px;\n}\n#aframeInspector .gallery li.selected .detail span,\n#aframeInspector .gallery li:hover .detail span {\n  color: #888;\n}\n#aframeInspector .gallery li .detail span.title {\n  color: #fff !important;\n}\n#aframeInspector .modal button {\n  appearance: none;\n  border-radius: 0;\n  box-shadow: none;\n  cursor: pointer;\n  display: inline-block;\n  font-size: 12px;\n  line-height: 1.8;\n  margin: 0 10px 0 0;\n  padding: 5px 10px;\n}\n#aframeInspector .modal buttonfocus {\n  outline: none;\n}\n#aframeInspector .modal button {\n  background-color: #1eaaf1;\n  border: none;\n  color: #fff;\n}\n#aframeInspector .modal buttonhover,\n#aframeInspector .modal button.hover {\n  background-color: #346392;\n  text-shadow: -1px 1px #27496d;\n}\n#aframeInspector .modal buttonactive,\n#aframeInspector .modal button.active {\n  background-color: #27496d;\n  text-shadow: -1px 1px #193047;\n}\n#aframeInspector .modal buttondisabled {\n  background-color: #888;\n  cursor: none;\n}\n#aframeInspector .newimage {\n  background-color: #323232;\n  color: #bcbcbc;\n  display: flex;\n  font-size: 13px;\n  justify-content: space-between;\n  margin-top: 10px;\n  overflow: auto;\n  padding: 10px;\n}\n#aframeInspector .newimage input {\n  color: #1eaaf1;\n  padding: 3px 5px;\n}\n#aframeInspector .texture canvas + input {\n  margin-left: 5px;\n}\n#aframeInspector .texture .fa {\n  padding-right: 5px;\n}\n#aframeInspector .texture .fa-external-link {\n  font-size: 14px;\n  padding-top: 2px;\n}\n#aframeInspector .uploader-normal-button .hidden {\n  display: none;\n}\n#aframeInspector .gallery a.fa.texture-link {\n  box-shadow: 0 0 14px -1px rgba(0,0,0,0.75);\n  position: fixed;\n}\n#aframeInspector .assets.search {\n  margin-top: 10px;\n  width: 200px;\n}\n#aframeInspector .assets.search .fa-search {\n  top: 7px;\n}\n#aframeInspector .new_asset_options {\n  margin: 10px;\n}\n#aframeInspector .new_asset_options > ul {\n  margin-left: 10px;\n  padding: 5px;\n}\n#aframeInspector .new_asset_options > ul > li {\n  padding: 10px 0;\n}\n#aframeInspector .new_asset_options .imageUrl {\n  margin-left: 5px;\n  width: 350px;\n}\n#aframeInspector .texture canvas {\n  border: 1px solid #222;\n  cursor: pointer;\n}\n#aframeInspector .texture canvashover {\n  border-color: #1faaf2;\n}\n#aframeInspector #viewportBar {\n  align-items: center;\n  background-color: #323232;\n  color: #fafafa;\n  display: flex;\n  flex-grow: 2;\n  height: 32px;\n  justify-content: space-between;\n  left: 0;\n  margin: 0 auto;\n  right: 0;\n  top: 0;\n}\n#aframeInspector .transformToolbar {\n  position: relative;\n}\n#aframeInspector .transformToolbar * {\n  margin-left: 0;\n  padding: 8px;\n  vertical-align: middle;\n}\n#aframeInspector .transformToolbar a.button {\n  margin: 0 6px 0 0;\n  transition: background-color 0.1s;\n}\n#aframeInspector .transformToolbar a.button:not(.active):hover {\n  background-color: #444;\n}\n#aframeInspector .transformToolbar .active {\n  background-color: #1faaf2;\n  color: #fafafa;\n}\n#aframeInspector .transformToolbar .active:hover {\n  color: #fafafa !important;\n}\n#aframeInspector .local-transform {\n  padding-left: 10px;\n}\n#aframeInspector .local-transform label {\n  color: $ligtgray;\n  font-family: font-family Consolas, Andale Mono, Monaco, Courier New, monospace;\n  padding-left: 5px;\n}\n#aframeInspector .local-transform a.button {\n  padding-top: 0;\n}\n#aframeInspector .Select-control {\n  background-color: #222 !important;\n  border: none;\n  border-radius: 0;\n  color: #1faaf2;\n  font-family: $monosapce;\n}\n#aframeInspector .Select-menu-outer {\n  border: none;\n}\n#aframeInspector .Select-menu-outer .is-focused {\n  background-color: #1faaf2 !important;\n  color: #fafafa;\n}\n#aframeInspector .Select-option {\n  background-color: #222 !important;\n}\n#aframeInspector .select-widget {\n  display: inline-block;\n  width: 157px;\n}\n#aframeInspector .Select-placeholder,\n#aframeInspector .Select--single > .Select-control .Select-value {\n  color: #1faaf2 !important;\n}\n#aframeInspector .Select-value-label {\n  color: #1faaf2 !important;\n}\n#aframeInspector .dropbtn {\n  border: none;\n  color: #fafafa;\n  cursor: pointer;\n}\n#aframeInspector .dropdown {\n  display: inline-block;\n  position: relative;\n}\n#aframeInspector .dropdown-content {\n  background-color: #f9f9f9;\n  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);\n  display: none;\n  left: 8px;\n  min-width: 38px;\n  position: absolute;\n  z-index: 999;\n}\n#aframeInspector .dropdown-content a {\n  background-color: #232323;\n  color: #7d7d7d;\n  display: block;\n  padding: 10px 14px;\n  text-decoration: none;\n}\n#aframeInspector .dropdown-content a:hover {\n  background-color: #4ecbff;\n  color: #fafafa;\n}\n#aframeInspector .dropdownhover .dropdown-content {\n  display: block;\n}\n#aframeInspector .dropdownhover .dropbtn {\n  color: #1faaf2;\n}\n#aframeInspector .Select,\n#aframeInspector code,\n#aframeInspector pre,\n#aframeInspector input,\n#aframeInspector textarea,\n#aframeInspector select {\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n#aframeInspector .wf-robotomono-n4-active .Select,\n#aframeInspector .wf-robotomono-n4-active code,\n#aframeInspector .wf-robotomono-n4-active pre,\n#aframeInspector .wf-robotomono-n4-active input,\n#aframeInspector .wf-robotomono-n4-active textarea,\n#aframeInspector .wf-robotomono-n4-active select {\n  font-family: Roboto Mono, Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n#aframeInspector hr {\n  border: 0;\n  border-top: 1px solid #ccc;\n}\n#aframeInspector a {\n  cursor: pointer;\n}\n#aframeInspector button {\n  position: relative;\n}\n#aframeInspector code {\n  font-family: Consolas, Andale Mono, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;\n}\n#aframeInspector textarea {\n  tab-size: 4;\n  white-space: pre;\n  word-wrap: normal;\n}\n#aframeInspector textarea.success {\n  border-color: #8b8 !important;\n}\n#aframeInspector textarea.fail {\n  background-color: rgba(255,0,0,0.05);\n  border-color: #f00 !important;\n}\n#aframeInspector textarea,\n#aframeInspector input {\n  outline: none /* osx */;\n}\n#aframeInspector #scenegraph,\n#aframeInspector #rightPanel {\n  z-index: 9998;\n}\n#aframeInspector #sidebar,\n#aframeInspector #scenegraph,\n#aframeInspector .panel {\n  cursor: default;\n  user-select: none;\n}\n#aframeInspector .toggle-edit {\n  background-color: #ed3160;\n  color: #fff;\n  font-size: 12px;\n  left: 3px;\n  margin: 0;\n  padding: 6px 10px;\n  position: fixed;\n  text-align: center;\n  text-decoration: none;\n  top: 3px;\n  width: 204px;\n  z-index: 999999999;\n}\n#aframeInspector .toggle-edithover {\n  background-color: #e42b5a;\n}\n#aframeInspector input {\n  background-color: transparent;\n  border: 1px solid #555;\n  color: #fff;\n}\n#aframeInspector input,\n#aframeInspector .texture canvas {\n  transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n}\n#aframeInspector input[type=text],\n#aframeInspector input[type=number],\n#aframeInspector input.string,\n#aframeInspector input.number {\n  min-height: 14px;\n  outline: none;\n}\n#aframeInspector input[type=\"checkbox\"] {\n  cursor: pointer;\n  margin: 0;\n  height: 22px;\n  width: 22px;\n}\n#aframeInspector input.number {\n  background-color: transparent !important;\n  border: 0;\n  color: #20b1fb !important;\n  cursor: col-resize;\n  font-size: 12px;\n  padding: 2px;\n}\n#aframeInspector input.stringfocus,\n#aframeInspector input.numberfocus {\n  border: 1px solid #20b1fb;\n  color: #fff;\n  cursor: auto;\n}\n#aframeInspector input.error {\n  border: 1px solid #a00;\n}\n#aframeInspector #sidebar {\n  background: #2b2b2b;\n  width: 331px;\n}\n#aframeInspector #sidebar * {\n  vertical-align: middle;\n}\n#aframeInspector input,\n#aframeInspector textarea,\n#aframeInspector select {\n  background: #222;\n  border: 1px solid transparent;\n  color: #888;\n}\n#aframeInspector input[type=color] {\n  background-color: #333;\n  border: 1px solid #111;\n  cursor: pointer;\n}\n#aframeInspector input[type=color] {\n  cursor: pointer;\n  height: 16px;\n  padding: 0;\n  width: 64px;\n}\n#aframeInspector input[type=color]-webkit-color-swatch {\n  border: 0 /* To remove the gray border. */;\n}\n#aframeInspector input[type=color]-webkit-color-swatch-wrapper {\n  padding: 0 /* To remove the inner padding. */;\n}\n#aframeInspector input[type=color]-moz-color-swatch {\n  border: 0;\n}\n#aframeInspector input[type=color]-moz-focus-inner {\n  border: 0 /* To remove the inner border (specific to Firefox). */;\n  padding: 0;\n}\n#aframeInspector .hidden {\n  visibility: hidden;\n}\n#aframeInspector a.button {\n  color: #bcbcbc;\n  font-size: 16px;\n  margin-left: 10px;\n  text-decoration: none;\n}\n#aframeInspector a.buttonhover {\n  color: #1faaf2;\n}\n#aframeInspector .hide {\n  display: none;\n}\n#aframeInspector .a-canvas.state-dragging {\n  cursor: grabbing;\n}\n#aframeInspector #rightPanel {\n  align-items: stretch;\n  display: flex;\n  justify-content: flex-end;\n}\n#aframeInspector #inspectorContainer {\n  display: flex;\n  justify-content: space-between;\n  left: 0;\n  height: 100%;\n  pointer-events: none;\n  position: fixed;\n  top: 0;\n  width: 100%;\n  z-index: 999999;\n}\n#aframeInspector #scenegraph,\n#aframeInspector #viewportBar,\n#aframeInspector #rightPanel {\n  pointer-events: all;\n}\n#aframeInspector .aframe-inspector-opened a-scene .a-canvas {\n  background-color: #191919;\n  z-index: 9998;\n}\n#aframeInspector .toggle-sidebar {\n  align-items: center;\n  display: flex;\n  height: 100%;\n  position: absolute;\n  z-index: 9998;\n}\n#aframeInspector .toggle-sidebar .left {\n  left: 0;\n}\n#aframeInspector .toggle-sidebar .right {\n  right: 0;\n}\n#aframeInspector .toggle-sidebar a {\n  background-color: #262626;\n  color: #bcbcbc;\n  padding: 5px;\n  z-index: 9998;\n}\n#aframeInspector .toggle-sidebar a.hover {\n  background-color: #1faaf2;\n  color: #fff;\n}\n@-moz-keyframes animateopacity {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@-webkit-keyframes animateopacity {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@-o-keyframes animateopacity {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n@keyframes animateopacity {\n  from {\n    opacity: 0;\n  }\n  to {\n    opacity: 1;\n  }\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 148 */
+/* 147 */
 /***/ (function(module, exports) {
 
 /*
@@ -28491,7 +28482,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 149 */
+/* 148 */
 /***/ (function(module, exports) {
 
 var DOCUMENT_NODE_TYPE = 9;
@@ -28530,10 +28521,10 @@ module.exports = closest;
 
 
 /***/ }),
-/* 150 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var closest = __webpack_require__(149);
+var closest = __webpack_require__(148);
 
 /**
  * Delegates event to a selector.
@@ -28614,7 +28605,7 @@ module.exports = delegate;
 
 
 /***/ }),
-/* 151 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28625,7 +28616,7 @@ var _interopRequireDefault = __webpack_require__(112);
 exports.__esModule = true;
 exports.default = addClass;
 
-var _hasClass = _interopRequireDefault(__webpack_require__(152));
+var _hasClass = _interopRequireDefault(__webpack_require__(151));
 
 function addClass(element, className) {
   if (element.classList) element.classList.add(className);else if (!(0, _hasClass.default)(element, className)) if (typeof element.className === 'string') element.className = element.className + ' ' + className;else element.setAttribute('class', (element.className && element.className.baseVal || '') + ' ' + className);
@@ -28634,7 +28625,7 @@ function addClass(element, className) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 152 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28650,7 +28641,7 @@ function hasClass(element, className) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 153 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28665,11 +28656,11 @@ module.exports = function removeClass(element, className) {
 };
 
 /***/ }),
-/* 154 */
+/* 153 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_create_emotion__ = __webpack_require__(145);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_create_emotion__ = __webpack_require__(144);
 /* unused harmony export flush */
 /* unused harmony export hydrate */
 /* unused harmony export cx */
@@ -28701,7 +28692,7 @@ var _createEmotion = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_create_em
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(60)))
 
 /***/ }),
-/* 155 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28736,7 +28727,7 @@ function camelize(string) {
 module.exports = camelize;
 
 /***/ }),
-/* 156 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28751,7 +28742,7 @@ module.exports = camelize;
 
 
 
-var camelize = __webpack_require__(155);
+var camelize = __webpack_require__(154);
 
 var msPattern = /^-ms-/;
 
@@ -28779,7 +28770,7 @@ function camelizeStyleName(string) {
 module.exports = camelizeStyleName;
 
 /***/ }),
-/* 157 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28794,7 +28785,7 @@ module.exports = camelizeStyleName;
  * 
  */
 
-var isTextNode = __webpack_require__(165);
+var isTextNode = __webpack_require__(164);
 
 /*eslint-disable no-bitwise */
 
@@ -28822,7 +28813,7 @@ function containsNode(outerNode, innerNode) {
 module.exports = containsNode;
 
 /***/ }),
-/* 158 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28952,7 +28943,7 @@ function createArrayFromMixed(obj) {
 module.exports = createArrayFromMixed;
 
 /***/ }),
-/* 159 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28971,8 +28962,8 @@ module.exports = createArrayFromMixed;
 
 var ExecutionEnvironment = __webpack_require__(8);
 
-var createArrayFromMixed = __webpack_require__(158);
-var getMarkupWrap = __webpack_require__(160);
+var createArrayFromMixed = __webpack_require__(157);
+var getMarkupWrap = __webpack_require__(159);
 var invariant = __webpack_require__(0);
 
 /**
@@ -29039,7 +29030,7 @@ function createNodesFromMarkup(markup, handleScript) {
 module.exports = createNodesFromMarkup;
 
 /***/ }),
-/* 160 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29137,7 +29128,7 @@ function getMarkupWrap(nodeName) {
 module.exports = getMarkupWrap;
 
 /***/ }),
-/* 161 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29179,7 +29170,7 @@ function getUnboundedScrollPosition(scrollable) {
 module.exports = getUnboundedScrollPosition;
 
 /***/ }),
-/* 162 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29215,7 +29206,7 @@ function hyphenate(string) {
 module.exports = hyphenate;
 
 /***/ }),
-/* 163 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29230,7 +29221,7 @@ module.exports = hyphenate;
 
 
 
-var hyphenate = __webpack_require__(162);
+var hyphenate = __webpack_require__(161);
 
 var msPattern = /^ms-/;
 
@@ -29257,7 +29248,7 @@ function hyphenateStyleName(string) {
 module.exports = hyphenateStyleName;
 
 /***/ }),
-/* 164 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29285,7 +29276,7 @@ function isNode(object) {
 module.exports = isNode;
 
 /***/ }),
-/* 165 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29300,7 +29291,7 @@ module.exports = isNode;
  * @typechecks
  */
 
-var isNode = __webpack_require__(164);
+var isNode = __webpack_require__(163);
 
 /**
  * @param {*} object The object to check.
@@ -29313,7 +29304,7 @@ function isTextNode(object) {
 module.exports = isTextNode;
 
 /***/ }),
-/* 166 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29346,7 +29337,7 @@ function memoizeStringOnly(callback) {
 module.exports = memoizeStringOnly;
 
 /***/ }),
-/* 167 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29372,7 +29363,7 @@ if (ExecutionEnvironment.canUseDOM) {
 module.exports = performance || {};
 
 /***/ }),
-/* 168 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29387,7 +29378,7 @@ module.exports = performance || {};
  * @typechecks
  */
 
-var performance = __webpack_require__(167);
+var performance = __webpack_require__(166);
 
 var performanceNow;
 
@@ -29409,7 +29400,7 @@ if (performance.now) {
 module.exports = performanceNow;
 
 /***/ }),
-/* 169 */
+/* 168 */
 /***/ (function(module, exports) {
 
 /**
@@ -29464,11 +29455,11 @@ exports.fn = function(value) {
 
 
 /***/ }),
-/* 170 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var is = __webpack_require__(169);
-var delegate = __webpack_require__(150);
+var is = __webpack_require__(168);
+var delegate = __webpack_require__(149);
 
 /**
  * Validates all params and calls the right
@@ -29565,7 +29556,7 @@ module.exports = listen;
 
 
 /***/ }),
-/* 171 */
+/* 170 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29610,7 +29601,7 @@ function index (resultFn, isEqual) {
 
 
 /***/ }),
-/* 172 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {// Generated by CoffeeScript 1.12.2
@@ -29653,7 +29644,7 @@ function index (resultFn, isEqual) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
 
 /***/ }),
-/* 173 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29751,7 +29742,7 @@ module.exports = checkPropTypes;
 
 
 /***/ }),
-/* 174 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29817,10 +29808,10 @@ module.exports = function() {
 
 
 /***/ }),
-/* 175 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {var now = __webpack_require__(172)
+/* WEBPACK VAR INJECTION */(function(global) {var now = __webpack_require__(171)
   , root = typeof window === 'undefined' ? global : window
   , vendors = ['moz', 'webkit']
   , suffix = 'AnimationFrame'
@@ -29899,7 +29890,7 @@ module.exports.polyfill = function(object) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(60)))
 
 /***/ }),
-/* 176 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29976,7 +29967,7 @@ var ARIADOMPropertyConfig = {
 module.exports = ARIADOMPropertyConfig;
 
 /***/ }),
-/* 177 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30003,7 +29994,7 @@ var AutoFocusUtils = {
 module.exports = AutoFocusUtils;
 
 /***/ }),
-/* 178 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30019,9 +30010,9 @@ module.exports = AutoFocusUtils;
 
 var EventPropagators = __webpack_require__(29);
 var ExecutionEnvironment = __webpack_require__(8);
-var FallbackCompositionState = __webpack_require__(184);
-var SyntheticCompositionEvent = __webpack_require__(227);
-var SyntheticInputEvent = __webpack_require__(230);
+var FallbackCompositionState = __webpack_require__(183);
+var SyntheticCompositionEvent = __webpack_require__(226);
+var SyntheticInputEvent = __webpack_require__(229);
 
 var END_KEYCODES = [9, 13, 27, 32]; // Tab, Return, Esc, Space
 var START_KEYCODE = 229;
@@ -30390,7 +30381,7 @@ var BeforeInputEventPlugin = {
 module.exports = BeforeInputEventPlugin;
 
 /***/ }),
-/* 179 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30408,10 +30399,10 @@ var CSSProperty = __webpack_require__(80);
 var ExecutionEnvironment = __webpack_require__(8);
 var ReactInstrumentation = __webpack_require__(10);
 
-var camelizeStyleName = __webpack_require__(156);
-var dangerousStyleValue = __webpack_require__(237);
-var hyphenateStyleName = __webpack_require__(163);
-var memoizeStringOnly = __webpack_require__(166);
+var camelizeStyleName = __webpack_require__(155);
+var dangerousStyleValue = __webpack_require__(236);
+var hyphenateStyleName = __webpack_require__(162);
+var memoizeStringOnly = __webpack_require__(165);
 var warning = __webpack_require__(1);
 
 var processStyleName = memoizeStringOnly(function (styleName) {
@@ -30608,7 +30599,7 @@ var CSSPropertyOperations = {
 module.exports = CSSPropertyOperations;
 
 /***/ }),
-/* 180 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30923,7 +30914,7 @@ var ChangeEventPlugin = {
 module.exports = ChangeEventPlugin;
 
 /***/ }),
-/* 181 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30942,7 +30933,7 @@ var _prodInvariant = __webpack_require__(3);
 var DOMLazyTree = __webpack_require__(21);
 var ExecutionEnvironment = __webpack_require__(8);
 
-var createNodesFromMarkup = __webpack_require__(159);
+var createNodesFromMarkup = __webpack_require__(158);
 var emptyFunction = __webpack_require__(11);
 var invariant = __webpack_require__(0);
 
@@ -30972,7 +30963,7 @@ var Danger = {
 module.exports = Danger;
 
 /***/ }),
-/* 182 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31001,7 +30992,7 @@ var DefaultEventPluginOrder = ['ResponderEventPlugin', 'SimpleEventPlugin', 'Tap
 module.exports = DefaultEventPluginOrder;
 
 /***/ }),
-/* 183 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31102,7 +31093,7 @@ var EnterLeaveEventPlugin = {
 module.exports = EnterLeaveEventPlugin;
 
 /***/ }),
-/* 184 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31200,7 +31191,7 @@ PooledClass.addPoolingTo(FallbackCompositionState);
 module.exports = FallbackCompositionState;
 
 /***/ }),
-/* 185 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31440,7 +31431,7 @@ var HTMLDOMPropertyConfig = {
 module.exports = HTMLDOMPropertyConfig;
 
 /***/ }),
-/* 186 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31597,7 +31588,7 @@ module.exports = ReactChildReconciler;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
 
 /***/ }),
-/* 187 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31612,7 +31603,7 @@ module.exports = ReactChildReconciler;
 
 
 var DOMChildrenOperations = __webpack_require__(43);
-var ReactDOMIDOperations = __webpack_require__(194);
+var ReactDOMIDOperations = __webpack_require__(193);
 
 /**
  * Abstracts away all functionality of the reconciler that requires knowledge of
@@ -31628,7 +31619,7 @@ var ReactComponentBrowserEnvironment = {
 module.exports = ReactComponentBrowserEnvironment;
 
 /***/ }),
-/* 188 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31655,7 +31646,7 @@ var ReactNodeTypes = __webpack_require__(90);
 var ReactReconciler = __webpack_require__(22);
 
 if (undefined !== 'production') {
-  var checkReactTypeSpec = __webpack_require__(236);
+  var checkReactTypeSpec = __webpack_require__(235);
 }
 
 var emptyObject = __webpack_require__(32);
@@ -32531,7 +32522,7 @@ var ReactCompositeComponent = {
 module.exports = ReactCompositeComponent;
 
 /***/ }),
-/* 189 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32548,15 +32539,15 @@ module.exports = ReactCompositeComponent;
 
 
 var ReactDOMComponentTree = __webpack_require__(6);
-var ReactDefaultInjection = __webpack_require__(206);
+var ReactDefaultInjection = __webpack_require__(205);
 var ReactMount = __webpack_require__(89);
 var ReactReconciler = __webpack_require__(22);
 var ReactUpdates = __webpack_require__(12);
-var ReactVersion = __webpack_require__(221);
+var ReactVersion = __webpack_require__(220);
 
-var findDOMNode = __webpack_require__(238);
+var findDOMNode = __webpack_require__(237);
 var getHostComponentFromComposite = __webpack_require__(95);
-var renderSubtreeIntoContainer = __webpack_require__(245);
+var renderSubtreeIntoContainer = __webpack_require__(244);
 var warning = __webpack_require__(1);
 
 ReactDefaultInjection.inject();
@@ -32633,9 +32624,9 @@ if (undefined !== 'production') {
 
 if (undefined !== 'production') {
   var ReactInstrumentation = __webpack_require__(10);
-  var ReactDOMUnknownPropertyHook = __webpack_require__(203);
-  var ReactDOMNullInputValuePropHook = __webpack_require__(197);
-  var ReactDOMInvalidARIAHook = __webpack_require__(196);
+  var ReactDOMUnknownPropertyHook = __webpack_require__(202);
+  var ReactDOMNullInputValuePropHook = __webpack_require__(196);
+  var ReactDOMInvalidARIAHook = __webpack_require__(195);
 
   ReactInstrumentation.debugTool.addHook(ReactDOMUnknownPropertyHook);
   ReactInstrumentation.debugTool.addHook(ReactDOMNullInputValuePropHook);
@@ -32645,7 +32636,7 @@ if (undefined !== 'production') {
 module.exports = ReactDOM;
 
 /***/ }),
-/* 190 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32664,8 +32655,8 @@ module.exports = ReactDOM;
 var _prodInvariant = __webpack_require__(3),
     _assign = __webpack_require__(5);
 
-var AutoFocusUtils = __webpack_require__(177);
-var CSSPropertyOperations = __webpack_require__(179);
+var AutoFocusUtils = __webpack_require__(176);
+var CSSPropertyOperations = __webpack_require__(178);
 var DOMLazyTree = __webpack_require__(21);
 var DOMNamespaces = __webpack_require__(44);
 var DOMProperty = __webpack_require__(15);
@@ -32675,13 +32666,13 @@ var EventPluginRegistry = __webpack_require__(34);
 var ReactBrowserEventEmitter = __webpack_require__(35);
 var ReactDOMComponentFlags = __webpack_require__(83);
 var ReactDOMComponentTree = __webpack_require__(6);
-var ReactDOMInput = __webpack_require__(195);
-var ReactDOMOption = __webpack_require__(198);
+var ReactDOMInput = __webpack_require__(194);
+var ReactDOMOption = __webpack_require__(197);
 var ReactDOMSelect = __webpack_require__(84);
-var ReactDOMTextarea = __webpack_require__(201);
+var ReactDOMTextarea = __webpack_require__(200);
 var ReactInstrumentation = __webpack_require__(10);
-var ReactMultiChild = __webpack_require__(214);
-var ReactServerRenderingTransaction = __webpack_require__(219);
+var ReactMultiChild = __webpack_require__(213);
+var ReactServerRenderingTransaction = __webpack_require__(218);
 
 var emptyFunction = __webpack_require__(11);
 var escapeTextContentForBrowser = __webpack_require__(38);
@@ -33662,7 +33653,7 @@ _assign(ReactDOMComponent.prototype, ReactDOMComponent.Mixin, ReactMultiChild.Mi
 module.exports = ReactDOMComponent;
 
 /***/ }),
-/* 191 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33698,7 +33689,7 @@ function ReactDOMContainerInfo(topLevelWrapper, node) {
 module.exports = ReactDOMContainerInfo;
 
 /***/ }),
-/* 192 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33761,7 +33752,7 @@ _assign(ReactDOMEmptyComponent.prototype, {
 module.exports = ReactDOMEmptyComponent;
 
 /***/ }),
-/* 193 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33783,7 +33774,7 @@ var ReactDOMFeatureFlags = {
 module.exports = ReactDOMFeatureFlags;
 
 /***/ }),
-/* 194 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33819,7 +33810,7 @@ var ReactDOMIDOperations = {
 module.exports = ReactDOMIDOperations;
 
 /***/ }),
-/* 195 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34109,7 +34100,7 @@ function _handleChange(event) {
 module.exports = ReactDOMInput;
 
 /***/ }),
-/* 196 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34205,7 +34196,7 @@ var ReactDOMInvalidARIAHook = {
 module.exports = ReactDOMInvalidARIAHook;
 
 /***/ }),
-/* 197 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34251,7 +34242,7 @@ var ReactDOMNullInputValuePropHook = {
 module.exports = ReactDOMNullInputValuePropHook;
 
 /***/ }),
-/* 198 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34376,7 +34367,7 @@ var ReactDOMOption = {
 module.exports = ReactDOMOption;
 
 /***/ }),
-/* 199 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34392,7 +34383,7 @@ module.exports = ReactDOMOption;
 
 var ExecutionEnvironment = __webpack_require__(8);
 
-var getNodeForCharacterOffset = __webpack_require__(242);
+var getNodeForCharacterOffset = __webpack_require__(241);
 var getTextContentAccessor = __webpack_require__(96);
 
 /**
@@ -34591,7 +34582,7 @@ var ReactDOMSelection = {
 module.exports = ReactDOMSelection;
 
 /***/ }),
-/* 200 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34756,7 +34747,7 @@ _assign(ReactDOMTextComponent.prototype, {
 module.exports = ReactDOMTextComponent;
 
 /***/ }),
-/* 201 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34919,7 +34910,7 @@ function _handleChange(event) {
 module.exports = ReactDOMTextarea;
 
 /***/ }),
-/* 202 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35058,7 +35049,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 203 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35173,7 +35164,7 @@ var ReactDOMUnknownPropertyHook = {
 module.exports = ReactDOMUnknownPropertyHook;
 
 /***/ }),
-/* 204 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35188,12 +35179,12 @@ module.exports = ReactDOMUnknownPropertyHook;
 
 
 
-var ReactInvalidSetStateWarningHook = __webpack_require__(212);
-var ReactHostOperationHistoryHook = __webpack_require__(210);
+var ReactInvalidSetStateWarningHook = __webpack_require__(211);
+var ReactHostOperationHistoryHook = __webpack_require__(209);
 var ReactComponentTreeHook = __webpack_require__(9);
 var ExecutionEnvironment = __webpack_require__(8);
 
-var performanceNow = __webpack_require__(168);
+var performanceNow = __webpack_require__(167);
 var warning = __webpack_require__(1);
 
 var hooks = [];
@@ -35537,7 +35528,7 @@ if (/[?&]react_perf\b/.test(url)) {
 module.exports = ReactDebugTool;
 
 /***/ }),
-/* 205 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35608,7 +35599,7 @@ var ReactDefaultBatchingStrategy = {
 module.exports = ReactDefaultBatchingStrategy;
 
 /***/ }),
-/* 206 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35622,25 +35613,25 @@ module.exports = ReactDefaultBatchingStrategy;
 
 
 
-var ARIADOMPropertyConfig = __webpack_require__(176);
-var BeforeInputEventPlugin = __webpack_require__(178);
-var ChangeEventPlugin = __webpack_require__(180);
-var DefaultEventPluginOrder = __webpack_require__(182);
-var EnterLeaveEventPlugin = __webpack_require__(183);
-var HTMLDOMPropertyConfig = __webpack_require__(185);
-var ReactComponentBrowserEnvironment = __webpack_require__(187);
-var ReactDOMComponent = __webpack_require__(190);
+var ARIADOMPropertyConfig = __webpack_require__(175);
+var BeforeInputEventPlugin = __webpack_require__(177);
+var ChangeEventPlugin = __webpack_require__(179);
+var DefaultEventPluginOrder = __webpack_require__(181);
+var EnterLeaveEventPlugin = __webpack_require__(182);
+var HTMLDOMPropertyConfig = __webpack_require__(184);
+var ReactComponentBrowserEnvironment = __webpack_require__(186);
+var ReactDOMComponent = __webpack_require__(189);
 var ReactDOMComponentTree = __webpack_require__(6);
-var ReactDOMEmptyComponent = __webpack_require__(192);
-var ReactDOMTreeTraversal = __webpack_require__(202);
-var ReactDOMTextComponent = __webpack_require__(200);
-var ReactDefaultBatchingStrategy = __webpack_require__(205);
-var ReactEventListener = __webpack_require__(209);
-var ReactInjection = __webpack_require__(211);
-var ReactReconcileTransaction = __webpack_require__(217);
-var SVGDOMPropertyConfig = __webpack_require__(222);
-var SelectEventPlugin = __webpack_require__(223);
-var SimpleEventPlugin = __webpack_require__(224);
+var ReactDOMEmptyComponent = __webpack_require__(191);
+var ReactDOMTreeTraversal = __webpack_require__(201);
+var ReactDOMTextComponent = __webpack_require__(199);
+var ReactDefaultBatchingStrategy = __webpack_require__(204);
+var ReactEventListener = __webpack_require__(208);
+var ReactInjection = __webpack_require__(210);
+var ReactReconcileTransaction = __webpack_require__(216);
+var SVGDOMPropertyConfig = __webpack_require__(221);
+var SelectEventPlugin = __webpack_require__(222);
+var SimpleEventPlugin = __webpack_require__(223);
 
 var alreadyInjected = false;
 
@@ -35697,7 +35688,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 207 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35720,7 +35711,7 @@ var REACT_ELEMENT_TYPE = typeof Symbol === 'function' && Symbol['for'] && Symbol
 module.exports = REACT_ELEMENT_TYPE;
 
 /***/ }),
-/* 208 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35755,7 +35746,7 @@ var ReactEventEmitterMixin = {
 module.exports = ReactEventEmitterMixin;
 
 /***/ }),
-/* 209 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35778,7 +35769,7 @@ var ReactDOMComponentTree = __webpack_require__(6);
 var ReactUpdates = __webpack_require__(12);
 
 var getEventTarget = __webpack_require__(54);
-var getUnboundedScrollPosition = __webpack_require__(161);
+var getUnboundedScrollPosition = __webpack_require__(160);
 
 /**
  * Find the deepest React component completely containing the root of the
@@ -35913,7 +35904,7 @@ var ReactEventListener = {
 module.exports = ReactEventListener;
 
 /***/ }),
-/* 210 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35950,7 +35941,7 @@ var ReactHostOperationHistoryHook = {
 module.exports = ReactHostOperationHistoryHook;
 
 /***/ }),
-/* 211 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35987,7 +35978,7 @@ var ReactInjection = {
 module.exports = ReactInjection;
 
 /***/ }),
-/* 212 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36027,7 +36018,7 @@ var ReactInvalidSetStateWarningHook = {
 module.exports = ReactInvalidSetStateWarningHook;
 
 /***/ }),
-/* 213 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36041,7 +36032,7 @@ module.exports = ReactInvalidSetStateWarningHook;
 
 
 
-var adler32 = __webpack_require__(235);
+var adler32 = __webpack_require__(234);
 
 var TAG_END = /\/?>/;
 var COMMENT_START = /^<\!\-\-/;
@@ -36080,7 +36071,7 @@ var ReactMarkupChecksum = {
 module.exports = ReactMarkupChecksum;
 
 /***/ }),
-/* 214 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36102,10 +36093,10 @@ var ReactInstrumentation = __webpack_require__(10);
 
 var ReactCurrentOwner = __webpack_require__(13);
 var ReactReconciler = __webpack_require__(22);
-var ReactChildReconciler = __webpack_require__(186);
+var ReactChildReconciler = __webpack_require__(185);
 
 var emptyFunction = __webpack_require__(11);
-var flattenChildren = __webpack_require__(239);
+var flattenChildren = __webpack_require__(238);
 var invariant = __webpack_require__(0);
 
 /**
@@ -36529,7 +36520,7 @@ var ReactMultiChild = {
 module.exports = ReactMultiChild;
 
 /***/ }),
-/* 215 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36625,7 +36616,7 @@ var ReactOwner = {
 module.exports = ReactOwner;
 
 /***/ }),
-/* 216 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36653,7 +36644,7 @@ if (undefined !== 'production') {
 module.exports = ReactPropTypeLocationNames;
 
 /***/ }),
-/* 217 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36834,7 +36825,7 @@ PooledClass.addPoolingTo(ReactReconcileTransaction);
 module.exports = ReactReconcileTransaction;
 
 /***/ }),
-/* 218 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36849,7 +36840,7 @@ module.exports = ReactReconcileTransaction;
 
 
 
-var ReactOwner = __webpack_require__(215);
+var ReactOwner = __webpack_require__(214);
 
 var ReactRef = {};
 
@@ -36926,7 +36917,7 @@ ReactRef.detachRefs = function (instance, element) {
 module.exports = ReactRef;
 
 /***/ }),
-/* 219 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36945,7 +36936,7 @@ var _assign = __webpack_require__(5);
 var PooledClass = __webpack_require__(18);
 var Transaction = __webpack_require__(37);
 var ReactInstrumentation = __webpack_require__(10);
-var ReactServerUpdateQueue = __webpack_require__(220);
+var ReactServerUpdateQueue = __webpack_require__(219);
 
 /**
  * Executed within the scope of the `Transaction` instance. Consider these as
@@ -37019,7 +37010,7 @@ PooledClass.addPoolingTo(ReactServerRenderingTransaction);
 module.exports = ReactServerRenderingTransaction;
 
 /***/ }),
-/* 220 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37161,7 +37152,7 @@ var ReactServerUpdateQueue = function () {
 module.exports = ReactServerUpdateQueue;
 
 /***/ }),
-/* 221 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37178,7 +37169,7 @@ module.exports = ReactServerUpdateQueue;
 module.exports = '15.6.2';
 
 /***/ }),
-/* 222 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37483,7 +37474,7 @@ Object.keys(ATTRS).forEach(function (key) {
 module.exports = SVGDOMPropertyConfig;
 
 /***/ }),
-/* 223 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37674,7 +37665,7 @@ var SelectEventPlugin = {
 module.exports = SelectEventPlugin;
 
 /***/ }),
-/* 224 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37694,17 +37685,17 @@ var _prodInvariant = __webpack_require__(3);
 var EventListener = __webpack_require__(75);
 var EventPropagators = __webpack_require__(29);
 var ReactDOMComponentTree = __webpack_require__(6);
-var SyntheticAnimationEvent = __webpack_require__(225);
-var SyntheticClipboardEvent = __webpack_require__(226);
+var SyntheticAnimationEvent = __webpack_require__(224);
+var SyntheticClipboardEvent = __webpack_require__(225);
 var SyntheticEvent = __webpack_require__(14);
-var SyntheticFocusEvent = __webpack_require__(229);
-var SyntheticKeyboardEvent = __webpack_require__(231);
+var SyntheticFocusEvent = __webpack_require__(228);
+var SyntheticKeyboardEvent = __webpack_require__(230);
 var SyntheticMouseEvent = __webpack_require__(36);
-var SyntheticDragEvent = __webpack_require__(228);
-var SyntheticTouchEvent = __webpack_require__(232);
-var SyntheticTransitionEvent = __webpack_require__(233);
+var SyntheticDragEvent = __webpack_require__(227);
+var SyntheticTouchEvent = __webpack_require__(231);
+var SyntheticTransitionEvent = __webpack_require__(232);
 var SyntheticUIEvent = __webpack_require__(31);
-var SyntheticWheelEvent = __webpack_require__(234);
+var SyntheticWheelEvent = __webpack_require__(233);
 
 var emptyFunction = __webpack_require__(11);
 var getEventCharCode = __webpack_require__(52);
@@ -37903,7 +37894,7 @@ var SimpleEventPlugin = {
 module.exports = SimpleEventPlugin;
 
 /***/ }),
-/* 225 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37945,7 +37936,7 @@ SyntheticEvent.augmentClass(SyntheticAnimationEvent, AnimationEventInterface);
 module.exports = SyntheticAnimationEvent;
 
 /***/ }),
-/* 226 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37986,7 +37977,7 @@ SyntheticEvent.augmentClass(SyntheticClipboardEvent, ClipboardEventInterface);
 module.exports = SyntheticClipboardEvent;
 
 /***/ }),
-/* 227 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38025,7 +38016,7 @@ SyntheticEvent.augmentClass(SyntheticCompositionEvent, CompositionEventInterface
 module.exports = SyntheticCompositionEvent;
 
 /***/ }),
-/* 228 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38064,7 +38055,7 @@ SyntheticMouseEvent.augmentClass(SyntheticDragEvent, DragEventInterface);
 module.exports = SyntheticDragEvent;
 
 /***/ }),
-/* 229 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38103,7 +38094,7 @@ SyntheticUIEvent.augmentClass(SyntheticFocusEvent, FocusEventInterface);
 module.exports = SyntheticFocusEvent;
 
 /***/ }),
-/* 230 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38143,7 +38134,7 @@ SyntheticEvent.augmentClass(SyntheticInputEvent, InputEventInterface);
 module.exports = SyntheticInputEvent;
 
 /***/ }),
-/* 231 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38160,7 +38151,7 @@ module.exports = SyntheticInputEvent;
 var SyntheticUIEvent = __webpack_require__(31);
 
 var getEventCharCode = __webpack_require__(52);
-var getEventKey = __webpack_require__(240);
+var getEventKey = __webpack_require__(239);
 var getEventModifierState = __webpack_require__(53);
 
 /**
@@ -38230,7 +38221,7 @@ SyntheticUIEvent.augmentClass(SyntheticKeyboardEvent, KeyboardEventInterface);
 module.exports = SyntheticKeyboardEvent;
 
 /***/ }),
-/* 232 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38278,7 +38269,7 @@ SyntheticUIEvent.augmentClass(SyntheticTouchEvent, TouchEventInterface);
 module.exports = SyntheticTouchEvent;
 
 /***/ }),
-/* 233 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38320,7 +38311,7 @@ SyntheticEvent.augmentClass(SyntheticTransitionEvent, TransitionEventInterface);
 module.exports = SyntheticTransitionEvent;
 
 /***/ }),
-/* 234 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38374,7 +38365,7 @@ SyntheticMouseEvent.augmentClass(SyntheticWheelEvent, WheelEventInterface);
 module.exports = SyntheticWheelEvent;
 
 /***/ }),
-/* 235 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38421,7 +38412,7 @@ function adler32(data) {
 module.exports = adler32;
 
 /***/ }),
-/* 236 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38437,7 +38428,7 @@ module.exports = adler32;
 
 var _prodInvariant = __webpack_require__(3);
 
-var ReactPropTypeLocationNames = __webpack_require__(216);
+var ReactPropTypeLocationNames = __webpack_require__(215);
 var ReactPropTypesSecret = __webpack_require__(91);
 
 var invariant = __webpack_require__(0);
@@ -38512,7 +38503,7 @@ module.exports = checkReactTypeSpec;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
 
 /***/ }),
-/* 237 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38594,7 +38585,7 @@ function dangerousStyleValue(name, value, component, isCustomProperty) {
 module.exports = dangerousStyleValue;
 
 /***/ }),
-/* 238 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38657,7 +38648,7 @@ function findDOMNode(componentOrElement) {
 module.exports = findDOMNode;
 
 /***/ }),
-/* 239 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38737,7 +38728,7 @@ module.exports = flattenChildren;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
 
 /***/ }),
-/* 240 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38852,7 +38843,7 @@ function getEventKey(nativeEvent) {
 module.exports = getEventKey;
 
 /***/ }),
-/* 241 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38896,7 +38887,7 @@ function getIteratorFn(maybeIterable) {
 module.exports = getIteratorFn;
 
 /***/ }),
-/* 242 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -38973,7 +38964,7 @@ function getNodeForCharacterOffset(root, offset) {
 module.exports = getNodeForCharacterOffset;
 
 /***/ }),
-/* 243 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39077,7 +39068,7 @@ function getVendorPrefixedEventName(eventName) {
 module.exports = getVendorPrefixedEventName;
 
 /***/ }),
-/* 244 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39106,7 +39097,7 @@ function quoteAttributeValueForBrowser(value) {
 module.exports = quoteAttributeValueForBrowser;
 
 /***/ }),
-/* 245 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39125,7 +39116,7 @@ var ReactMount = __webpack_require__(89);
 module.exports = ReactMount.renderSubtreeIntoContainer;
 
 /***/ }),
-/* 246 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39399,7 +39390,7 @@ AutosizeInput.defaultProps = {
 exports.default = AutosizeInput;
 
 /***/ }),
-/* 247 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39410,9 +39401,9 @@ exports.default = void 0;
 
 var PropTypes = _interopRequireWildcard(__webpack_require__(4));
 
-var _addClass = _interopRequireDefault(__webpack_require__(151));
+var _addClass = _interopRequireDefault(__webpack_require__(150));
 
-var _removeClass = _interopRequireDefault(__webpack_require__(153));
+var _removeClass = _interopRequireDefault(__webpack_require__(152));
 
 var _react = _interopRequireDefault(__webpack_require__(2));
 
@@ -39702,7 +39693,7 @@ exports.default = _default;
 module.exports = exports["default"];
 
 /***/ }),
-/* 248 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39860,15 +39851,15 @@ exports.default = _default;
 module.exports = exports["default"];
 
 /***/ }),
-/* 249 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _CSSTransition = _interopRequireDefault(__webpack_require__(247));
+var _CSSTransition = _interopRequireDefault(__webpack_require__(246));
 
-var _ReplaceTransition = _interopRequireDefault(__webpack_require__(248));
+var _ReplaceTransition = _interopRequireDefault(__webpack_require__(247));
 
 var _TransitionGroup = _interopRequireDefault(__webpack_require__(104));
 
@@ -39884,7 +39875,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 250 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40040,7 +40031,7 @@ function getNextChildMapping(nextProps, prevChildMapping, onExited) {
 }
 
 /***/ }),
-/* 251 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40102,7 +40093,7 @@ var KeyEscapeUtils = {
 module.exports = KeyEscapeUtils;
 
 /***/ }),
-/* 252 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40217,7 +40208,7 @@ var PooledClass = {
 module.exports = PooledClass;
 
 /***/ }),
-/* 253 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40231,11 +40222,11 @@ module.exports = PooledClass;
 
 
 
-var PooledClass = __webpack_require__(252);
+var PooledClass = __webpack_require__(251);
 var ReactElement = __webpack_require__(19);
 
 var emptyFunction = __webpack_require__(11);
-var traverseAllChildren = __webpack_require__(263);
+var traverseAllChildren = __webpack_require__(262);
 
 var twoArgumentPooler = PooledClass.twoArgumentPooler;
 var fourArgumentPooler = PooledClass.fourArgumentPooler;
@@ -40411,7 +40402,7 @@ var ReactChildren = {
 module.exports = ReactChildren;
 
 /***/ }),
-/* 254 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40583,7 +40574,7 @@ var ReactDOMFactories = {
 module.exports = ReactDOMFactories;
 
 /***/ }),
-/* 255 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40611,7 +40602,7 @@ if (undefined !== 'production') {
 module.exports = ReactPropTypeLocationNames;
 
 /***/ }),
-/* 256 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40633,7 +40624,7 @@ var factory = __webpack_require__(78);
 module.exports = factory(isValidElement);
 
 /***/ }),
-/* 257 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40653,7 +40644,7 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 module.exports = ReactPropTypesSecret;
 
 /***/ }),
-/* 258 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40670,7 +40661,7 @@ module.exports = ReactPropTypesSecret;
 module.exports = '15.6.2';
 
 /***/ }),
-/* 259 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40686,8 +40677,8 @@ module.exports = '15.6.2';
 
 var _prodInvariant = __webpack_require__(24);
 
-var ReactPropTypeLocationNames = __webpack_require__(255);
-var ReactPropTypesSecret = __webpack_require__(257);
+var ReactPropTypeLocationNames = __webpack_require__(254);
+var ReactPropTypesSecret = __webpack_require__(256);
 
 var invariant = __webpack_require__(0);
 var warning = __webpack_require__(1);
@@ -40761,7 +40752,7 @@ module.exports = checkReactTypeSpec;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
 
 /***/ }),
-/* 260 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40782,12 +40773,12 @@ var _require2 = __webpack_require__(19),
     isValidElement = _require2.isValidElement;
 
 var ReactNoopUpdateQueue = __webpack_require__(109);
-var factory = __webpack_require__(146);
+var factory = __webpack_require__(145);
 
 module.exports = factory(Component, isValidElement, ReactNoopUpdateQueue);
 
 /***/ }),
-/* 261 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40811,7 +40802,7 @@ function getNextDebugID() {
 module.exports = getNextDebugID;
 
 /***/ }),
-/* 262 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40852,7 +40843,7 @@ function onlyChild(children) {
 module.exports = onlyChild;
 
 /***/ }),
-/* 263 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40873,7 +40864,7 @@ var REACT_ELEMENT_TYPE = __webpack_require__(107);
 
 var getIteratorFn = __webpack_require__(110);
 var invariant = __webpack_require__(0);
-var KeyEscapeUtils = __webpack_require__(251);
+var KeyEscapeUtils = __webpack_require__(250);
 var warning = __webpack_require__(1);
 
 var SEPARATOR = '.';
@@ -41031,7 +41022,7 @@ function traverseAllChildren(children, callback, traverseContext) {
 module.exports = traverseAllChildren;
 
 /***/ }),
-/* 264 */
+/* 263 */
 /***/ (function(module, exports) {
 
 function select(element) {
@@ -41080,7 +41071,7 @@ module.exports = select;
 
 
 /***/ }),
-/* 265 */
+/* 264 */
 /***/ (function(module, exports) {
 
 /*
@@ -41332,16 +41323,16 @@ function updateLink(linkElement, obj) {
 
 
 /***/ }),
-/* 266 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(147);
+var content = __webpack_require__(146);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(265)(content, {});
+var update = __webpack_require__(264)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -41358,7 +41349,7 @@ if(false) {
 }
 
 /***/ }),
-/* 267 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (factory) {
@@ -41412,7 +41403,7 @@ if(false) {
 
 
 /***/ }),
-/* 268 */
+/* 267 */
 /***/ (function(module, exports) {
 
 function E () {
@@ -41484,7 +41475,7 @@ module.exports = E;
 
 
 /***/ }),
-/* 269 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(111);
