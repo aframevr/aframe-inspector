@@ -41,9 +41,14 @@ export default class ModalHelp extends React.Component {
         { key: ['supr | backspace'], description: 'Delete selected entity' }
       ],
       [
-        { key: ['1'], description: 'Toggle scenegraph panel' },
-        { key: ['2'], description: 'Toggle components panel' },
-        { key: ['tab'], description: 'Toggle scenegraph and components panel' },
+        { key: ['0'], description: 'Toggle panels' },
+        { key: ['1'], description: 'Perspective view' },
+        { key: ['2'], description: 'Left view' },
+        { key: ['3'], description: 'Right view' },
+        { key: ['4'], description: 'Top view' },
+        { key: ['5'], description: 'Bottom view' },
+        { key: ['6'], description: 'Back view' },
+        { key: ['7'], description: 'Front view' },
 
         { key: ['ctrl | cmd', 'x'], description: 'Cut selected entity' },
         { key: ['ctrl | cmd', 'c'], description: 'Copy selected entity' },
