@@ -13,7 +13,7 @@ import ViewportHUD from './viewport/ViewportHUD';
 import { injectCSS } from '../lib/utils';
 
 // Megahack to include font-awesome.
-injectCSS('https://use.fontawesome.com/releases/v5.5.0/css/all.css');
+injectCSS('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
 injectCSS('https://fonts.googleapis.com/css?family=Roboto:400,300,500');
 
 export default class Main extends React.Component {
