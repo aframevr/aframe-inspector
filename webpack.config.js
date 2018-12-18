@@ -41,7 +41,7 @@ var plugins = [
   }),
   new webpack.EnvironmentPlugin(['NODE_ENV'])
 ];
-if (process.env.NODE_ENV === 'production') {
+if (process.env.MINIFY === 'true') {
   plugins.push(new webpack.optimize.UglifyJsPlugin({
     compress: {warnings: false}
   }));
@@ -52,7 +52,7 @@ var filename = 'aframe-inspector.js';
 var outPath = 'dist';
 if (process.env.AFRAME_DIST) {
   outPath = 'dist';
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.MINIFY) {
     filename = 'aframe-inspector.min.js';
   }
 }
