@@ -139,11 +139,10 @@ export default class Component extends React.Component {
         <div className="componentHeader collapsible-header">
           <span
             className="componentTitle"
-            title={subComponentName || componentName}
-          >
+            title={subComponentName || componentName}>
             <span>{subComponentName || componentName}</span>
           </span>
-          <div>
+          <div className="componentHeaderActions">
             <a
               title="Copy to clipboard"
               data-action="copy-component-to-clipboard"
