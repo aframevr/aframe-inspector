@@ -54,7 +54,6 @@ div.vec4
   vertical-align middle
 
 .collapsible
-  background-color $white
   &.collapsed
     background-color $grayalt
     .static,
@@ -63,11 +62,12 @@ div.vec4
     &:hover
       background-color $grayhover
   &:not(.collapsed)
+    background-color $lightgray
     .static,
     .fa
       color $gray
       &:hover
-        background-color lighten($white, 10%)
+        background-color lighten($lightgray, 10%)
 
 .collapsible .menu
   text-align right
@@ -206,6 +206,7 @@ a.help-linkhover
 
 #componentEntityHeader
   .collapsible-header
+
     bottom 4px
     position relative
   .collapse-button
