@@ -112,9 +112,9 @@ function Viewport(inspector) {
   controls.rotationSpeed = 0.0035;
   controls.zoomSpeed = 0.05;
 
-  Events.on('cameratoggle', camera => {
-    controls.setCamera(camera);
-    transformControls.setCamera(camera);
+  Events.on('cameratoggle', data => {
+    controls.setCamera(data.camera);
+    transformControls.setCamera(data.camera);
   });
 
   function disableControls() {
