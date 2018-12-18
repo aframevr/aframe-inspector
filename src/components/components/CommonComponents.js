@@ -126,7 +126,7 @@ export default class CommonComponents extends React.Component {
         </div>
         <div className="collapsible-content">
           <div className="propertyRow">
-            <label for="id" className="text">ID</label>
+            <label htmlFor="id" className="text">ID</label>
             <InputWidget
               onChange={changeId}
               entity={entity}
