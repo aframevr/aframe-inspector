@@ -36,13 +36,9 @@ var Shortcuts = {
 
     // esc: close inspector
     if (keyCode === 27) {
-      // unselect first.
       if (this.inspector.selectedEntity) {
         this.inspector.selectEntity(null);
-        return;
       }
-      this.inspector.close();
-      return;
     }
 
     // w: translate
@@ -58,6 +54,11 @@ var Shortcuts = {
     // r: scale
     if (keyCode === 82) {
       Events.emit('transformmodechange', 'scale');
+    }
+
+    // o: transform space
+    if (keyCode === 79) {
+      Events.emit('transformspacechange');
     }
 
     // g: toggle grid

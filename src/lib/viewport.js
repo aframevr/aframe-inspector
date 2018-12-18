@@ -135,7 +135,7 @@ function Viewport(inspector) {
     transformControls.setTranslationSnap(dist);
   });
 
-  Events.on('transformspacechange', space => {
+  Events.on('transformspacechanged', space => {
     transformControls.setSpace(space);
   });
 

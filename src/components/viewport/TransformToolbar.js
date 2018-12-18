@@ -21,6 +21,11 @@ export default class TransformToolbar extends React.Component {
     Events.on('transformmodechange', mode => {
       this.setState({ selectedTransform: mode });
     });
+
+    Events.on('transformspacechange', () => {
+      Events.emit('transformspacechanged', this.state.localSpace ? 'world' : 'local');
+      this.setState({ localSpace: !this.state.localSpace });
+    });
   }
 
   changeTransformMode = mode => {
@@ -32,8 +37,7 @@ export default class TransformToolbar extends React.Component {
   onLocalChange = e => {
     const local = e.target.checked;
     this.setState({ localSpace: local });
-    Events.emit('transformspacechange', local ? 'local' : 'world');
-    ga('send', 'event', 'Toolbar', 'toggleLocal', local);
+    Events.emit('transformspacechanged', local ? 'local' : 'world');
   };
 
   renderTransformButtons = () => {
