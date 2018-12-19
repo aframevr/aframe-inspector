@@ -71,23 +71,6 @@ Inspector.prototype = {
 
     this.selected = null;
 
-    // Some Web font thing.
- /*
-    injectJS(
-      'https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js',
-      () => {
-        const webFontLoader = document.createElement('script');
-        webFontLoader.setAttribute('data-aframe-inspector', 'webfont');
-        webFontLoader.innerHTML =
-          'WebFont.load({google: {families: ["Roboto", "Roboto Mono"]}});';
-        document.head.appendChild(webFontLoader);
-      },
-      () => {
-        console.warn('Could not load WebFont script:', webFont.src);
-      }
-    );
-*/
-
     // Init React.
     const div = document.createElement('div');
     div.id = 'aframeInspector';
