@@ -22608,6 +22608,11 @@ THREE.EditorControls = function (_object, domElement) {
     scope.dispatchChange();
   };
 
+  var ratio = 1;
+  this.setAspectRatio = function (_ratio) {
+    ratio = _ratio;
+  };
+
   this.zoom = function (delta) {
     var distance = object.position.distanceTo(center);
 
@@ -22624,9 +22629,9 @@ THREE.EditorControls = function (_object, domElement) {
         factor = -1;
       }
       delta = distance * scope.zoomSpeed * factor;
-      object.left -= delta;
+      object.left -= delta * ratio;
       object.bottom -= delta;
-      object.right += delta;
+      object.right += delta * ratio;
       object.top += delta;
       if (object.left >= -0.0001) {
         return;
@@ -23861,7 +23866,9 @@ var orthoCameraMemory = {
  * Initialize various cameras, store original one.
  */
 function initCameras(inspector) {
-  var originalCamera = inspector.currentCameraEl = inspector.sceneEl.camera.el;
+  var sceneEl = inspector.sceneEl;
+
+  var originalCamera = inspector.currentCameraEl = sceneEl.camera.el;
   inspector.currentCameraEl.setAttribute('data-aframe-inspector-original-camera', '');
 
   // If the current camera is the default, we should prevent AFRAME from
@@ -23880,11 +23887,12 @@ function initCameras(inspector) {
   perspectiveCamera.position.set(0, 1.6, 2);
   perspectiveCamera.lookAt(new THREE.Vector3(0, 1.6, -1));
   perspectiveCamera.updateMatrixWorld();
-  inspector.sceneEl.object3D.add(perspectiveCamera);
-  inspector.sceneEl.camera = perspectiveCamera;
+  sceneEl.object3D.add(perspectiveCamera);
+  sceneEl.camera = perspectiveCamera;
 
-  var orthoCamera = new THREE.OrthographicCamera(-10, 10, 10, -10);
-  inspector.sceneEl.object3D.add(orthoCamera);
+  var ratio = sceneEl.canvas.width / sceneEl.canvas.height;
+  var orthoCamera = new THREE.OrthographicCamera(-10 * ratio, 10 * ratio, 10, -10);
+  sceneEl.object3D.add(orthoCamera);
 
   var cameras = inspector.cameras = {
     perspective: perspectiveCamera,
@@ -23892,17 +23900,19 @@ function initCameras(inspector) {
     ortho: orthoCamera
   };
 
+  // Command to switch to perspective.
   _Events2.default.on('cameraperspectivetoggle', function () {
     saveOrthoCamera(inspector.camera, currentOrthoDir);
-    inspector.sceneEl.camera = inspector.camera = cameras.perspective;
+    sceneEl.camera = inspector.camera = cameras.perspective;
     _Events2.default.emit('cameratoggle', { camera: inspector.camera, value: 'perspective' });
   });
 
+  // Command to switch to ortographic.
   _Events2.default.on('cameraorthographictoggle', function (dir) {
     saveOrthoCamera(inspector.camera, currentOrthoDir);
-    inspector.sceneEl.camera = inspector.camera = cameras.ortho;
+    sceneEl.camera = inspector.camera = cameras.ortho;
     currentOrthoDir = dir;
-    setOrthoCamera(cameras.ortho, dir);
+    setOrthoCamera(cameras.ortho, dir, ratio);
 
     // Set initial rotation for the respective orthographic camera.
     if (cameras.ortho.rotation.x === 0 && cameras.ortho.rotation.y === 0 && cameras.ortho.rotation.z === 0) {
@@ -23927,10 +23937,10 @@ function saveOrthoCamera(camera, dir) {
   info.bottom = camera.bottom;
 }
 
-function setOrthoCamera(camera, dir) {
+function setOrthoCamera(camera, dir, ratio) {
   var info = orthoCameraMemory[dir];
-  camera.left = info.left || -10;
-  camera.right = info.right || 10;
+  camera.left = info.left || -10 * ratio;
+  camera.right = info.right || 10 * ratio;
   camera.top = info.top || 10;
   camera.bottom = info.bottom || -10;
   camera.position.copy(info.position);
@@ -24372,9 +24382,10 @@ var Events = __webpack_require__(6);
 function Viewport(inspector) {
   // Initialize raycaster and picking in differentpmodule.
   var mouseCursor = (0, _raycaster.initRaycaster)(inspector);
+  var sceneEl = inspector.sceneEl;
 
   var originalCamera = inspector.cameras.original;
-  inspector.sceneEl.addEventListener('camera-set-active', function (event) {
+  sceneEl.addEventListener('camera-set-active', function (event) {
     // If we're in edit mode, save the newly active camera and activate when exiting.
     if (inspector.opened) {
       originalCamera = event.detail.cameraEl;
@@ -24461,6 +24472,7 @@ function Viewport(inspector) {
   controls.center.set(0, 1.6, 0);
   controls.rotationSpeed = 0.0035;
   controls.zoomSpeed = 0.05;
+  controls.setAspectRatio(sceneEl.canvas.width / sceneEl.canvas.height);
 
   Events.on('cameratoggle', function (data) {
     controls.setCamera(data.camera);
