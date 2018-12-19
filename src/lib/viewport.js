@@ -220,8 +220,8 @@ function Viewport(inspector) {
         });
     } else {
       disableControls();
-      prevActiveCameraEl.setAttribute('camera', 'active', 'true');
-      AFRAME.scenes[0].camera = prevActiveCameraEl.getObject3D('camera');
+      inspector.cameras.original.setAttribute('camera', 'active', 'true');
+      AFRAME.scenes[0].camera = inspector.cameras.original.getObject3D('camera');
       Array.prototype.slice
         .call(document.querySelectorAll('.a-enter-vr,.rs-base'))
         .forEach(element => {
