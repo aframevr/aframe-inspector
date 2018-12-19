@@ -72,6 +72,7 @@ Inspector.prototype = {
     this.selected = null;
 
     // Some Web font thing.
+ /*
     injectJS(
       'https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js',
       () => {
@@ -85,6 +86,7 @@ Inspector.prototype = {
         console.warn('Could not load WebFont script:', webFont.src);
       }
     );
+*/
 
     // Init React.
     const div = document.createElement('div');

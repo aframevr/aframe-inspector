@@ -2,11 +2,12 @@
 
 #viewportBar
   align-items center
-  background-color $grayalt
+  background-color $bg
   color $white
   display flex
   flex-grow 2
   height 32px
+  font-size 14px
   justify-content space-between
   left 0
   margin 0 auto
@@ -23,16 +24,15 @@
 
   a.button
     margin 0 6px 0 0
-    transition background-color .1s
     &:not(.active):hover
       background-color $grayhover
 
   .active
     background-color $primary
-    color $white
+    color #fff
 
   .active:hover
-    color $white !important
+    color #fff !important
 
 .local-transform
   padding-left 10px
@@ -52,7 +52,14 @@
     padding-right 3px
 
 #cameraToolbar
+  margin-left 5px
   align-items center
   display flex
   a
     margin-right 10px
+  .select__control
+    background none
+  .select__single-value
+    color $white
+    &:hover
+      color $primary

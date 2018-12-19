@@ -1,7 +1,7 @@
 @import './lib';
 
 #toolbar
-  background-color #333
+  background-color $bg
 
   .toolbarActions
     padding 0 0 5px
@@ -11,7 +11,7 @@
       cursor default
 
 #scenegraph
-  background #2b2b2b
+  background $bg
   border-top 1px solid #111
   display flex
   flex-direction column
@@ -20,20 +20,19 @@
   width 230px
 
   .entity
-    background #2b2b2b
+    background $bg
     cursor pointer
     display flex
     justify-content space-between
-    padding 4px
+    padding 3px
     width 100%
     white-space nowrap
-    transition background .1s
 
     &:hover
-      background #444
+      background #1d2f39
 
     &.active
-      background-color #1faaf2
+      background-color #155373
       color #fff
       .component:hover
         color #1888c1
@@ -46,14 +45,14 @@
         .fa,
         .collapsespace,
         .id
-          color #AAA
+          color #999
 
       &:not(.active)
         span,
         .fa,
         .collapsespace,
         .id
-          color #575757
+          color #626262
 
   .component:hover
     color #1faaf2
@@ -63,9 +62,7 @@
 
   .entityActions
     display none
-    margin 0 14px 0 14px
-    position relative
-    top 2px
+    margin 0 14px
 
     .button
       color #fff
@@ -100,12 +97,12 @@
 
   .search
     padding 5px
-    color #aaa
     font-size 16px
     position relative
 
     input
-      background #222
+      color $white
+      background $bgdark
       border-radius 5px
       height 22px
       text-indent 10px
@@ -122,11 +119,11 @@
       top 9px
 
   .outliner
-    background #2b2b2b
-    color #868686
+    background $bg
+    color $white
     cursor default
     flex 1 1 auto
-    font-size 12px
+    font-size 13px
     height calc(100% - 98px)
     outline none
     overflow-y auto

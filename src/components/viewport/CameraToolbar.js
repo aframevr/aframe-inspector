@@ -47,7 +47,6 @@ export default class CameraToolbar extends React.Component {
   render() {
     return (
       <div id="cameraToolbar">
-        <a href="#" className="button fa fa-camera" />
         <Select
           id="cameraSelect"
           classNamePrefix="select"

@@ -5,6 +5,8 @@
   border-radius 0
   cursor pointer
   min-height 26px
+  font-family $monospace
+  font-size 13px
 
 .select__indicator
   height 26px
@@ -14,12 +16,20 @@
 
 .select__control,
 .select__menu
-  background $black
+  background $bgdark
+
+.select__option
+  padding 5px 10px
 
 .select__placeholder,
-.select__menu,
-.select__single-value
+.select__menu
   color $white
+
+.select__single-value
+  color $primary
+
+.select__control--is-focused
+  box-shadow none !important
 
 .select__option
   cursor pointer
@@ -31,23 +41,28 @@
   font-size 11px
 
 .select__option--is-focused
-  background $gray
+  background #155373
 
 .select__value-container
   height 26px
   position static
   &.select__value-container--is-multi
     height auto
+    padding 6px
 
 .select__dropdown-indicator
   padding 3px 8px
 
 .select__multi-value
-  background $gray
-  color $white
+  background $bg
+  color $primary
 
 .select__multi-value__label
-  color $white
+  color $primary
 
 .select__value-container--is-multi > :last-child
   display none
+
+.select__multi-value__remove:hover
+  color #fff
+  background $bg
