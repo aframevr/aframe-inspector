@@ -1,7 +1,7 @@
 @import './lib';
 
 .entityPrint
-  font-family $monospace
+  font-family $normalfont
 
 .entityName
   display inline-block
@@ -11,12 +11,11 @@
   top 3px
   white-space nowrap
 
-.entityTagName,
-.entityCloseTag
-  color $white
-
 [data-entity-name-type="id"]
-  color $red
+  color $blue
+
+.active [data-entity-name-type="id"]
+  color $blueactive
 
 [data-entity-name-type="class"]
   color $green

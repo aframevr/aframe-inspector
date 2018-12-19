@@ -7,7 +7,7 @@ propertyRowDefined() {
 }
 
 .components
-  background-color $grayalt
+  background-color $bg
   color $white
   height 100%
   overflow auto
@@ -30,6 +30,11 @@ div.vec4
   align-items center
   display flex
   justify-content space-between
+  .entityPrint
+    color #fff
+
+.collapsible-content
+  padding 5px 0
 
 .componentTitle span
   max-width 200px
@@ -37,25 +42,30 @@ div.vec4
   text-overflow ellipsis
   text-transform uppercase
   white-space nowrap
+  color #fff
+  font-weight 600
+  vertical-align bottom !important
 
 .collapsible .static
-  border-bottom 1px solid $gray
-  border-top 1px solid $gray
+  background $bglight
+  border-bottom 2px solid $bg
   cursor pointer
   height 16px
-  padding 10px
-  transition background-color .05s
-  vertical-align middle
-
+  padding 8px 10px 12px 10px
+  vertical-align bottom
+  font-size 13px
+  &:hover
+    background $bglighter
+/*
 .collapsible
   &.collapsed
     background-color $grayalt
     .static,
     .componentHeaderActions
-      color $white
+      color #dedede
     &:hover
       background-color $grayhover
-
+*/
 .collapsible .menu
   text-align right
 
@@ -74,26 +84,23 @@ div.vec4
   float left
   height 0
   margin-right 10px
-  margin-top 2px
+  margin-left 2px
   width 0
 
 .collapsible.collapsed .static .collapse-button
-  border-left-color $gray
-  margin-top 2px
+  border-left-color $white
+  margin-top 4px
 
 .collapsible:not(.collapsed) .static .collapse-button
-  border-top-color $gray
-  margin-top 6px
-
-.collapsible .content
-  background-color $gray
+  border-top-color $white
+  margin-top 7px
 
 .propertyRow
   align-items center
   display flex
-  font-size 12px
+  font-size 13px
   min-height 20px
-  padding 6px 15px
+  padding 2px 15px
 
   .text
     cursor default
@@ -123,19 +130,26 @@ div.vec4
   input[type=number],
   input.string,
   input.number
-    background #222
+    background $bgdark
     color #1faaf2
     min-height 26px
     padding-left 5px
     padding-right 5px
+    &:last-child
+      padding-right 0
+
+  input[type="checkbox"]
+    margin-top 10px
 
   input.string
+    padding-left 8px
     box-sizing border-box
     width 165px
 
   .color_value
     margin 0 0 0 5px
     width 68px
+    letter-spacing 1px
 
 .propertyRowDefined .text
   font-weight 500
@@ -157,20 +171,30 @@ a.help-linkhover
 
 #addComponentContainer
   align-items center
-  background-color $gray
   display flex
   flex-direction column
   justify-content center
-  padding 15px 10px 10px 10px
+  padding 20px 10px
+  background $bgdark
 
   #addComponent
     text-align left
     width 200px
+    .select__control
+      background #161616
+      height 35px
+      color $primary
     .option
       display flex
       justify-content space-between
       span
-        color #1faaf2
+        color $primary
+
+
+
+  #addComponentHeader
+    font-size 15px
+    margin 5px 0 10px 0
 
 .Select-menu-outer .is-focused span
   color #fff
@@ -181,16 +205,14 @@ a.help-linkhover
 
 #componentEntityHeader
   .collapsible-header
-
     bottom 4px
     position relative
   .collapse-button
     display none
   .static
-    background #222
-    height 10px
+    height 13px
   .entityPrint
-    font-size 14px
+    font-size 15px
     padding-left 5px
   .entityName
     max-width 160px
@@ -204,9 +226,14 @@ a.help-linkhover
 .propertyRow .texture
   display flex
   input
-    padding-left 0
     margin-left 0
     width 120px
 
 #componentEntityHeader .gltfIcon img
   top 0
+
+
+.fa
+  color $white
+  &:hover
+    color $primary

@@ -6,7 +6,7 @@ body.aframe-inspector-opened,
 
 .wf-roboto-n4-active body.aframe-inspector-opened,
 .wf-roboto-n4-active .toggle-edit
-  font-family Roboto, BlinkMacSystemFont, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif
+  font-family BlinkMacSystemFont, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif
 
 body.aframe-inspector-opened
   color #fff
@@ -30,7 +30,8 @@ body.aframe-inspector-opened
   input,
   textarea,
   select
-    font-family Consolas, Andale Mono, Monaco, Courier New, monospace
+    font-family $monospace
+    font-size 13px
 
   .wf-robotomono-n4-active .Select,
   .wf-robotomono-n4-active code,
@@ -90,7 +91,7 @@ body.aframe-inspector-opened
   .toggle-edit
     background-color #ed3160
     color #fff
-    font-size 12px
+    font-size 13px
     left 3px
     margin 0
     padding 6px 10px
@@ -129,9 +130,9 @@ body.aframe-inspector-opened
   input.number
     background-color transparent !important
     border 0
-    color #20b1fb !important
+    color #2cb7ff !important
     cursor col-resize
-    font-size 12px
+    font-size 13px
     padding 2px
 
   input.stringfocus,
@@ -144,7 +145,7 @@ body.aframe-inspector-opened
     border 1px solid #a00
 
   #sidebar
-    background #2b2b2b
+    background $bg
     width 331px
 
   #sidebar *
@@ -157,16 +158,20 @@ body.aframe-inspector-opened
     border 1px solid transparent
     color #888
 
+  select
+    background $bglighter
+
   input[type=color]
     background-color #333
     border 1px solid #111
+    height 28px
     cursor pointer
 
   input[type=color]
     cursor pointer
-    height 16px
+    height 25px
     padding 0
-    width 64px
+    width 50px
 
   /* Note these vendor-prefixed selectors cannot be grouped! */
   input[type=color]-webkit-color-swatch
