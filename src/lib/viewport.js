@@ -17,9 +17,10 @@ const Events = require('./Events');
 function Viewport(inspector) {
   // Initialize raycaster and picking in differentpmodule.
   const mouseCursor = initRaycaster(inspector);
+  const sceneEl = inspector.sceneEl;
 
   let originalCamera = inspector.cameras.original;
-  inspector.sceneEl.addEventListener('camera-set-active', event => {
+  sceneEl.addEventListener('camera-set-active', event => {
     // If we're in edit mode, save the newly active camera and activate when exiting.
     if (inspector.opened) {
       originalCamera = event.detail.cameraEl;
@@ -111,6 +112,7 @@ function Viewport(inspector) {
   controls.center.set(0, 1.6, 0);
   controls.rotationSpeed = 0.0035;
   controls.zoomSpeed = 0.05;
+  controls.setAspectRatio(sceneEl.canvas.width / sceneEl.canvas.height);
 
   Events.on('cameratoggle', data => {
     controls.setCamera(data.camera);

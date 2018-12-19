@@ -146,6 +146,11 @@ THREE.EditorControls = function(_object, domElement) {
     scope.dispatchChange();
   };
 
+  var ratio = 1;
+  this.setAspectRatio = function (_ratio) {
+    ratio = _ratio;
+  }
+
   this.zoom = function(delta) {
     var distance = object.position.distanceTo(center);
 
@@ -162,9 +167,9 @@ THREE.EditorControls = function(_object, domElement) {
         factor = -1;
       }
       delta = distance * scope.zoomSpeed * factor;
-      object.left -= delta;
+      object.left -= delta * ratio;
       object.bottom -= delta;
-      object.right += delta;
+      object.right += delta * ratio;
       object.top += delta;
       if (object.left >= -0.0001) { return; }
       object.updateProjectionMatrix();
