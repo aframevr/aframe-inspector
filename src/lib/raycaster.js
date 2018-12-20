@@ -11,6 +11,23 @@ function initRaycaster(inspector) {
     interval: 100,
     objects: 'a-scene :not([data-aframe-inspector])'
   });
+
+  // Only visible objects.
+  const raycaster = mouseCursor.components.raycaster;
+  const refreshObjects = raycaster.refreshObjects;
+  const overrideRefresh = () => {
+    refreshObjects.call(raycaster);
+    const objects = raycaster.objects;
+    raycaster.objects = objects.filter(node => {
+      while (node) {
+        if (!node.visible) { return false; }
+        node = node.parent;
+      }
+      return true;
+    });
+  };
+  raycaster.refreshObjects = overrideRefresh;
+
   inspector.sceneEl.appendChild(mouseCursor);
   inspector.cursor = mouseCursor;
 
