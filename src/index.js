@@ -253,7 +253,13 @@ Inspector.prototype = {
 
     document.body.classList.add('aframe-inspector-opened');
     this.sceneEl.resize();
+    this.sceneEl.pause();
+    this.sceneEl.exitVR();
+
     Shortcuts.enable();
+
+    // Trick scene to run the cursor tick.
+    this.sceneEl.isPlaying = true;
     this.cursor.play();
 
     if (
