@@ -41,6 +41,7 @@ export default class Toolbar extends React.Component {
     super(props);
 
     this.state = {
+      isPlaying: false,
       watcherActive: false
     };
 
@@ -92,6 +93,19 @@ export default class Toolbar extends React.Component {
     xhr.send();
   };
 
+  toggleScenePlaying = () => {
+    if (this.state.isPlaying) {
+      AFRAME.scenes[0].pause();
+      this.setState({isPlaying: false});
+      AFRAME.scenes[0].isPlaying = true;
+      document.getElementById('aframeInspectorMouseCursor').play();
+      return;
+    }
+    AFRAME.scenes[0].isPlaying = false;
+    AFRAME.scenes[0].play();
+    this.setState({isPlaying: true});
+  }
+
   render() {
     const watcherClassNames = classnames({
       button: true,
@@ -115,6 +129,12 @@ export default class Toolbar extends React.Component {
             title="Add a new entity"
             onClick={this.addEntity}
           />
+          <a
+            id="playPauseScene"
+            className={'button fa ' + (this.state.isPlaying ? 'fa-pause' : 'fa-play')}
+            title={this.state.isPlaying ? 'Pause scene' : 'Resume scene'}
+            onClick={this.toggleScenePlaying}>
+          </a>
           <a
             className="gltfIcon"
             title="Export to GLTF"
