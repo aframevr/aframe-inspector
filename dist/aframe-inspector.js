@@ -22065,7 +22065,21 @@ var Toolbar = function (_React$Component) {
       xhr.send();
     };
 
+    _this.toggleScenePlaying = function () {
+      if (_this.state.isPlaying) {
+        AFRAME.scenes[0].pause();
+        _this.setState({ isPlaying: false });
+        AFRAME.scenes[0].isPlaying = true;
+        document.getElementById('aframeInspectorMouseCursor').play();
+        return;
+      }
+      AFRAME.scenes[0].isPlaying = false;
+      AFRAME.scenes[0].play();
+      _this.setState({ isPlaying: true });
+    };
+
     _this.state = {
+      isPlaying: false,
       watcherActive: false
     };
 
@@ -22126,6 +22140,11 @@ var Toolbar = function (_React$Component) {
             title: 'Add a new entity',
             onClick: this.addEntity
           }),
+          _react2.default.createElement('a', {
+            id: 'playPauseScene',
+            className: 'button fa ' + (this.state.isPlaying ? 'fa-pause' : 'fa-play'),
+            title: this.state.isPlaying ? 'Pause scene' : 'Resume scene',
+            onClick: this.toggleScenePlaying }),
           _react2.default.createElement(
             'a',
             {
