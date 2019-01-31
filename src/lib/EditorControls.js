@@ -135,7 +135,12 @@ THREE.EditorControls = function(_object, domElement) {
   };
 
   this.pan = function(delta) {
-    var distance = object.position.distanceTo(center);
+     var distance;
+    if (this.isOrthographic) {
+      distance = Math.abs(object.right);
+    } else {
+      distance = object.position.distanceTo(center);
+    }
 
     delta.multiplyScalar(distance * scope.panSpeed);
     delta.applyMatrix3(normalMatrix.getNormalMatrix(object.matrix));
