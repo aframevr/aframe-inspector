@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
-import Events from '../../lib/events';
+import Events from '../../lib/Events';
 
 import BooleanWidget from '../widgets/BooleanWidget';
 import ColorWidget from '../widgets/ColorWidget';

@@ -1,7 +1,5 @@
-'use strict';
-
-var Emitter = require('events').EventEmitter;
-var emitter = new Emitter();
+const EventEmitter = require('events').EventEmitter;
+const emitter = new EventEmitter();
 emitter.setMaxListeners(0);
 
 function Events() {}

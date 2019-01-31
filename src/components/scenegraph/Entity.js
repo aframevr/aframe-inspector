@@ -5,13 +5,6 @@ import { printEntity, removeEntity, cloneEntity } from '../../lib/entity';
 
 const Events = require('../../lib/Events.js');
 
-const ICONS = {
-  camera: 'fa-camera',
-  mesh: 'fa-cube',
-  light: 'fa-lightbulb',
-  text: 'fa-font'
-};
-
 export default class Entity extends React.Component {
   static propTypes = {
     depth: PropTypes.number,

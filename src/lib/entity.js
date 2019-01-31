@@ -529,7 +529,7 @@ function isEmpty(string) {
 const ICONS = {
   camera: 'fa-camera',
   mesh: 'fa-cube',
-  light: 'fa-lightbulb',
+  light: 'fa-lightbulb-o',
   text: 'fa-font'
 };
 export function printEntity(entity, onDoubleClick) {
