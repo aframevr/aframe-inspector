@@ -41,14 +41,8 @@ export default class Toolbar extends React.Component {
     super(props);
 
     this.state = {
-      isPlaying: false,
-      watcherActive: false
+      isPlaying: false
     };
-
-    this.checkWatcherActive();
-    setInterval(() => {
-      this.checkWatcherActive();
-    }, 5000);
   }
 
   exportSceneToGLTF() {
@@ -75,22 +69,13 @@ export default class Toolbar extends React.Component {
    * Try to write changes with aframe-inspector-watcher.
    */
   writeChanges = () => {
-    if (!this.state.watcherActive) {
-      return;
-    }
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:51234/save');
+    xhr.onerror = () => {
+      alert('aframe-watcher not running. This feature requires a companion service running locally. npm install aframe-watcher to save changes back to file. Read more at supermedium.com/aframe-watcher');
+    };
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(AFRAME.INSPECTOR.history.updates));
-  };
-
-  checkWatcherActive = () => {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:51234/');
-    xhr.addEventListener('load', () => {
-      this.setState({ watcherActive: xhr.status === 200 });
-    });
-    xhr.send();
   };
 
   toggleScenePlaying = () => {
@@ -110,16 +95,9 @@ export default class Toolbar extends React.Component {
     const watcherClassNames = classnames({
       button: true,
       fa: true,
-      'fa-save': true,
-      disabled: !this.state.watcherActive
+      'fa-save': true
     });
-    let watcherTitle;
-    if (this.state.watcherActive) {
-      watcherTitle = 'Write changes with aframe-watcher.';
-    } else {
-      watcherTitle =
-        'aframe-watcher not running. npm install aframe-watcher to save changes back to file. supermedium.com/aframe-watcher';
-    }
+    const watcherTitle = 'Write changes with aframe-watcher.';
 
     return (
       <div id="toolbar">
