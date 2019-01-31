@@ -55,8 +55,8 @@ function initRaycaster(inspector) {
   const onUpPosition = new THREE.Vector2();
   const onDoubleClickPosition = new THREE.Vector2();
 
-  function onMouseEnter(evt) {
-    Events.emit('raycastermouseenter', evt.detail.intersectedEl);
+  function onMouseEnter() {
+    Events.emit('raycastermouseenter', mouseCursor.components.cursor.intersectedEl);
   }
 
   function onMouseLeave() {
