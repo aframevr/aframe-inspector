@@ -18770,8 +18770,13 @@ Inspector.prototype = {
   close: function close() {
     this.opened = false;
     Events.emit('inspectortoggle', false);
+
+    // Untrick scene when we enabled this to run the cursor tick.
+    this.sceneEl.isPlaying = false;
+
     this.sceneEl.play();
     this.cursor.pause();
+
     if (this.sceneEl.hasAttribute('aframe-inspector-removed-embedded')) {
       this.sceneEl.setAttribute('embedded', '');
       this.sceneEl.removeAttribute('aframe-inspector-removed-embedded');
