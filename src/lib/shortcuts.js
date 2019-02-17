@@ -24,7 +24,7 @@ var Shortcuts = {
     modules: {}
   },
   onKeyUp: function(event) {
-    if (!shouldCaptureKeyEvent(event)) {
+    if (!shouldCaptureKeyEvent(event) || !AFRAME.INSPECTOR.opened) {
       return;
     }
 
@@ -124,7 +124,7 @@ var Shortcuts = {
     }
   },
   onKeyDown: function(event) {
-    if (!shouldCaptureKeyEvent(event)) {
+    if (!shouldCaptureKeyEvent(event) || !AFRAME.INSPECTOR.opened) {
       return;
     }
 
