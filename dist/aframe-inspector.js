@@ -21517,6 +21517,7 @@ var SceneGraph = function (_React$Component) {
 
     _this.clearFilter = function () {
       _this.setState({ filter: '' });
+      _this.updateFilteredEntities('');
     };
 
     _this.renderEntities = function () {
@@ -21611,7 +21612,8 @@ var SceneGraph = function (_React$Component) {
               id: 'filter',
               placeholder: 'Search...',
               onChange: this.onChangeFilter,
-              onKeyUp: this.onFilterKeyUp
+              onKeyUp: this.onFilterKeyUp,
+              value: this.state.filter
             }),
             clearFilter,
             !this.state.filter && _react2.default.createElement('span', { className: 'fa fa-search' })
@@ -23858,7 +23860,7 @@ var Shortcuts = {
     modules: {}
   },
   onKeyUp: function onKeyUp(event) {
-    if (!shouldCaptureKeyEvent(event)) {
+    if (!shouldCaptureKeyEvent(event) || !AFRAME.INSPECTOR.opened) {
       return;
     }
 
@@ -23953,7 +23955,7 @@ var Shortcuts = {
     }
   },
   onKeyDown: function onKeyDown(event) {
-    if (!shouldCaptureKeyEvent(event)) {
+    if (!shouldCaptureKeyEvent(event) || !AFRAME.INSPECTOR.opened) {
       return;
     }
 
