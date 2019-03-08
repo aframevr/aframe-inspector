@@ -244,6 +244,7 @@ export default class SceneGraph extends React.Component {
 
   clearFilter = () => {
     this.setState({ filter: '' });
+    this.updateFilteredEntities('');
   };
 
   renderEntities = () => {
@@ -288,6 +289,7 @@ export default class SceneGraph extends React.Component {
               placeholder="Search..."
               onChange={this.onChangeFilter}
               onKeyUp={this.onFilterKeyUp}
+              value={this.state.filter}
             />
             {clearFilter}
             {!this.state.filter && <span className="fa fa-search" />}
