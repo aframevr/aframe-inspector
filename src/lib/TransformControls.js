@@ -2,10 +2,10 @@
  * @author arodic / https://github.com/arodic
  */
 
-(function() {
+(function () {
   'use strict';
 
-  var GizmoMaterial = function(parameters) {
+  var GizmoMaterial = function (parameters) {
     THREE.MeshBasicMaterial.call(this);
 
     this.depthTest = false;
@@ -19,7 +19,7 @@
     this.oldColor = this.color.clone();
     this.oldOpacity = this.opacity;
 
-    this.highlight = function(highlighted) {
+    this.highlight = function (highlighted) {
       if (highlighted) {
         this.color.setRGB(1, 1, 0);
         this.opacity = 1;
@@ -33,7 +33,7 @@
   GizmoMaterial.prototype = Object.create(THREE.MeshBasicMaterial.prototype);
   GizmoMaterial.prototype.constructor = GizmoMaterial;
 
-  var GizmoLineMaterial = function(parameters) {
+  var GizmoLineMaterial = function (parameters) {
     THREE.LineBasicMaterial.call(this);
 
     this.depthTest = false;
@@ -47,7 +47,7 @@
     this.oldColor = this.color.clone();
     this.oldOpacity = this.opacity;
 
-    this.highlight = function(highlighted) {
+    this.highlight = function (highlighted) {
       if (highlighted) {
         this.color.setRGB(1, 1, 0);
         this.opacity = 1;
@@ -68,8 +68,8 @@
     transparent: false
   });
 
-  THREE.TransformGizmo = function() {
-    this.init = function() {
+  THREE.TransformGizmo = function () {
+    this.init = function () {
       THREE.Object3D.call(this);
 
       this.handles = new THREE.Object3D();
@@ -80,7 +80,7 @@
       this.add(this.pickers);
       this.add(this.planes);
 
-      //// PLANES
+      // // PLANES
 
       var planeGeometry = new THREE.PlaneBufferGeometry(50, 50, 2, 2);
       var planeMaterial = new THREE.MeshBasicMaterial({
@@ -106,11 +106,11 @@
         this.planes[i] = planes[i];
       }
 
-      //// HANDLES AND PICKERS
+      // // HANDLES AND PICKERS
 
-      var setupGizmos = function(gizmoMap, parent) {
+      var setupGizmos = function (gizmoMap, parent) {
         for (var name in gizmoMap) {
-          for (i = gizmoMap[name].length; i--; ) {
+          for (i = gizmoMap[name].length; i--;) {
             var object = gizmoMap[name][i][0];
             var position = gizmoMap[name][i][1];
             var rotation = gizmoMap[name][i][2];
@@ -134,7 +134,7 @@
 
       // reset Transformations
 
-      this.traverse(function(child) {
+      this.traverse(function (child) {
         if (child instanceof THREE.Mesh) {
           child.updateMatrix();
 
@@ -149,8 +149,8 @@
       });
     };
 
-    this.highlight = function(axis) {
-      this.traverse(function(child) {
+    this.highlight = function (axis) {
+      this.traverse(function (child) {
         if (child.material && child.material.highlight) {
           if (child.name === axis) {
             child.material.highlight(true);
@@ -165,12 +165,12 @@
   THREE.TransformGizmo.prototype = Object.create(THREE.Object3D.prototype);
   THREE.TransformGizmo.prototype.constructor = THREE.TransformGizmo;
 
-  THREE.TransformGizmo.prototype.update = function(rotation, eye) {
+  THREE.TransformGizmo.prototype.update = function (rotation, eye) {
     var vec1 = new THREE.Vector3(0, 0, 0);
     var vec2 = new THREE.Vector3(0, 1, 0);
     var lookAtMatrix = new THREE.Matrix4();
 
-    this.traverse(function(child) {
+    this.traverse(function (child) {
       if (child.name.search('E') !== -1) {
         child.quaternion.setFromRotationMatrix(
           lookAtMatrix.lookAt(eye, vec1, vec2)
@@ -185,7 +185,7 @@
     });
   };
 
-  THREE.TransformGizmoTranslate = function() {
+  THREE.TransformGizmoTranslate = function () {
     THREE.TransformGizmo.call(this);
 
     var arrowGeometry = new THREE.ConeBufferGeometry(0.05, 0.2, 12, 1, false);
@@ -365,7 +365,7 @@
       ]
     };
 
-    this.setActivePlane = function(axis, eye) {
+    this.setActivePlane = function (axis, eye) {
       var tempMatrix = new THREE.Matrix4();
       eye.applyMatrix4(
         tempMatrix.getInverse(
@@ -412,10 +412,10 @@
   THREE.TransformGizmoTranslate.prototype.constructor =
     THREE.TransformGizmoTranslate;
 
-  THREE.TransformGizmoRotate = function() {
+  THREE.TransformGizmoRotate = function () {
     THREE.TransformGizmo.call(this);
 
-    var CircleGeometry = function(radius, facing, arc) {
+    var CircleGeometry = function (radius, facing, arc) {
       var geometry = new THREE.BufferGeometry();
       var vertices = [];
       arc = arc ? arc : 1;
@@ -550,7 +550,7 @@
 
     this.pickerGizmos.XYZE[0][0].visible = false; // disable XYZE picker gizmo
 
-    this.setActivePlane = function(axis) {
+    this.setActivePlane = function (axis) {
       if (axis === 'E') this.activePlane = this.planes['XYZE'];
 
       if (axis === 'X') this.activePlane = this.planes['YZ'];
@@ -560,7 +560,7 @@
       if (axis === 'Z') this.activePlane = this.planes['XY'];
     };
 
-    this.update = function(rotation, eye2) {
+    this.update = function (rotation, eye2) {
       THREE.TransformGizmo.prototype.update.apply(this, arguments);
 
       var tempMatrix = new THREE.Matrix4();
@@ -582,7 +582,7 @@
         .getInverse(tempMatrix);
       eye.applyMatrix4(tempMatrix);
 
-      this.traverse(function(child) {
+      this.traverse(function (child) {
         tempQuaternion.setFromEuler(worldRotation);
 
         if (child.name === 'X') {
@@ -613,7 +613,7 @@
   );
   THREE.TransformGizmoRotate.prototype.constructor = THREE.TransformGizmoRotate;
 
-  THREE.TransformGizmoScale = function() {
+  THREE.TransformGizmoScale = function () {
     THREE.TransformGizmo.call(this);
 
     var arrowGeometry = new THREE.BoxBufferGeometry(0.125, 0.125, 0.125);
@@ -732,7 +732,7 @@
       ]
     };
 
-    this.setActivePlane = function(axis, eye) {
+    this.setActivePlane = function (axis, eye) {
       var tempMatrix = new THREE.Matrix4();
       eye.applyMatrix4(
         tempMatrix.getInverse(
@@ -769,7 +769,7 @@
   );
   THREE.TransformGizmoScale.prototype.constructor = THREE.TransformGizmoScale;
 
-  THREE.TransformControls = function(_camera, domElement) {
+  THREE.TransformControls = function (_camera, domElement) {
     // TODO: Make non-uniform scale and rotate play nice in hierarchies
     // TODO: ADD RXYZ contol
 
@@ -849,9 +849,9 @@
 
     this.setCamera = function (_camera) {
       camera = _camera;
-    }
+    };
 
-    this.activate = function() {
+    this.activate = function () {
       domElement.addEventListener('mousedown', onPointerDown, false);
       domElement.addEventListener('touchstart', onPointerDown, false);
 
@@ -870,7 +870,7 @@
 
     this.activate();
 
-    this.dispose = function() {
+    this.dispose = function () {
       domElement.removeEventListener('mousedown', onPointerDown);
       domElement.removeEventListener('touchstart', onPointerDown);
 
@@ -887,23 +887,23 @@
       domElement.removeEventListener('touchleave', onPointerUp);
     };
 
-    this.attach = function(object) {
+    this.attach = function (object) {
       this.object = object;
       this.visible = true;
       this.update(true);
     };
 
-    this.detach = function() {
+    this.detach = function () {
       this.object = undefined;
       this.visible = false;
       this.axis = null;
     };
 
-    this.getMode = function() {
+    this.getMode = function () {
       return _mode;
     };
 
-    this.setMode = function(mode) {
+    this.setMode = function (mode) {
       _mode = mode ? mode : _mode;
 
       if (_mode === 'scale') scope.space = 'local';
@@ -914,27 +914,27 @@
       scope.dispatchEvent(changeEvent);
     };
 
-    this.setTranslationSnap = function(translationSnap) {
+    this.setTranslationSnap = function (translationSnap) {
       scope.translationSnap = translationSnap;
     };
 
-    this.setRotationSnap = function(rotationSnap) {
+    this.setRotationSnap = function (rotationSnap) {
       scope.rotationSnap = rotationSnap;
     };
 
-    this.setSize = function(size) {
+    this.setSize = function (size) {
       scope.size = size;
       this.update(true);
       scope.dispatchEvent(changeEvent);
     };
 
-    this.setSpace = function(space) {
+    this.setSpace = function (space) {
       scope.space = space;
       this.update();
       scope.dispatchEvent(changeEvent);
     };
 
-    this.update = function(updateScale) {
+    this.update = function (updateScale) {
       if (scope.object === undefined) return;
 
       scope.object.updateMatrixWorld();
@@ -973,7 +973,7 @@
       _gizmo[_mode].highlight(scope.axis);
     };
 
-    function onPointerHover(event) {
+    function onPointerHover (event) {
       if (
         scope.object === undefined ||
         _dragging === true ||
@@ -1000,7 +1000,7 @@
       }
     }
 
-    function onPointerDown(event) {
+    function onPointerDown (event) {
       if (
         scope.object === undefined ||
         _dragging === true ||
@@ -1059,7 +1059,7 @@
       _dragging = true;
     }
 
-    function onPointerMove(event) {
+    function onPointerMove (event) {
       if (
         scope.object === undefined ||
         scope.axis === null ||
@@ -1342,7 +1342,7 @@
       scope.dispatchEvent(objectChangeEvent);
     }
 
-    function onPointerUp(event) {
+    function onPointerUp (event) {
       event.preventDefault(); // Prevent MouseEvent on mobile
 
       if (event.button !== undefined && event.button !== 0) return;
@@ -1365,7 +1365,7 @@
       }
     }
 
-    function intersectObjects(pointer, objects) {
+    function intersectObjects (pointer, objects) {
       var rect = domElement.getBoundingClientRect();
       var x = (pointer.clientX - rect.left) / rect.width;
       var y = (pointer.clientY - rect.top) / rect.height;

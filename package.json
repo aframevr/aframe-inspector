@@ -17,6 +17,7 @@
     "prepublish": "npm run dist",
     "prettier": "prettier --single-quote es5 --write 'src/**/*.js'",
     "start": "cross-env NODE_ENV=dev webpack-dev-server --progress --colors -d --host 0.0.0.0",
+    "fix-code": "prettier-eslint --write 'src/**/*.{js,jsx}' ",
     "test": "jest --watch",
     "test:ci": "jest"
   },
@@ -79,6 +80,14 @@
     "wysiwyg"
   ],
   "devDependencies": {
-    "postcss-import": "^8.0.2"
+    "husky": "^1.3.1",
+    "postcss-import": "^8.0.2",
+    "prettier-eslint": "^8.8.2",
+    "prettier-eslint-cli": "^4.7.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run fix-code"
+    }
   }
 }

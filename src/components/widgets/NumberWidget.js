@@ -22,7 +22,7 @@ export default class NumberWidget extends React.Component {
     step: 1
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       value: this.props.value,
@@ -33,7 +33,7 @@ export default class NumberWidget extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.distance = 0;
     this.onMouseDownValue = 0;
     this.prevPointer = [0, 0];
@@ -81,7 +81,7 @@ export default class NumberWidget extends React.Component {
     }
   };
 
-  setValue(value) {
+  setValue (value) {
     if (value === this.state.value) return;
 
     if (value !== undefined) {
@@ -109,7 +109,7 @@ export default class NumberWidget extends React.Component {
     }
   }
 
-  componentWillReceiveProps(newProps) {
+  componentWillReceiveProps (newProps) {
     // This will be triggered typically when the element is changed directly with
     // element.setAttribute.
     if (newProps.value !== this.state.value) {
@@ -152,7 +152,7 @@ export default class NumberWidget extends React.Component {
     }
   };
 
-  render() {
+  render () {
     return (
       <input
         ref="input"

@@ -23,7 +23,7 @@ export default class PropertyRow extends React.Component {
     schema: PropTypes.object.isRequired
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.id = props.componentname + ':' + props.name;
 
@@ -41,7 +41,7 @@ export default class PropertyRow extends React.Component {
     }
   }
 
-  getWidget() {
+  getWidget () {
     const props = this.props;
     const isMap =
       props.componentname === 'material' &&
@@ -59,7 +59,7 @@ export default class PropertyRow extends React.Component {
       isSingle: props.isSingle,
       name: props.name,
       // Wrap updateEntity for tracking.
-      onChange: function(name, value) {
+      onChange: function (name, value) {
         var propertyName = props.componentname;
         if (!props.isSingle) {
           propertyName += '.' + props.name;
@@ -111,7 +111,7 @@ export default class PropertyRow extends React.Component {
     }
   }
 
-  render() {
+  render () {
     const props = this.props;
     const value =
       props.schema.type === 'selector'

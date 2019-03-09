@@ -16,7 +16,7 @@ export default class Entity extends React.Component {
     toggleExpandedCollapsed: PropTypes.func
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {};
   }
@@ -34,7 +34,7 @@ export default class Entity extends React.Component {
     entity.setAttribute('visible', !visible);
   };
 
-  render() {
+  render () {
     const isFiltering = this.props.isFiltering;
     const isExpanded = this.props.isExpanded;
     const entity = this.props.entity;

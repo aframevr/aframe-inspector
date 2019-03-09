@@ -16,7 +16,7 @@ import { GLTFExporter } from '../vendor/GLTFExporter'; // eslint-disable-line no
 
 require('./style/index.styl');
 
-function Inspector() {
+function Inspector () {
   this.assetsLoader = new AssetsLoader();
   this.exporters = { gltf: new THREE.GLTFExporter() };
   this.history = require('./lib/history');
@@ -47,7 +47,7 @@ function Inspector() {
 }
 
 Inspector.prototype = {
-  init: function() {
+  init: function () {
     // Wait for camera.
     if (!this.sceneEl.camera) {
       this.sceneEl.addEventListener(
@@ -65,7 +65,7 @@ Inspector.prototype = {
     this.initUI();
   },
 
-  initUI: function() {
+  initUI: function () {
     Shortcuts.init(this);
     this.initEvents();
 
@@ -96,20 +96,20 @@ Inspector.prototype = {
     this.open();
   },
 
-  removeObject: function(object) {
+  removeObject: function (object) {
     // Remove just the helper as the object will be deleted by A-Frame
     this.removeHelpers(object);
     Events.emit('objectremove', object);
   },
 
-  addHelper: (function() {
+  addHelper: (function () {
     const geometry = new THREE.SphereBufferGeometry(2, 4, 2);
     const material = new THREE.MeshBasicMaterial({
       color: 0xff0000,
       visible: false
     });
 
-    return function(object) {
+    return function (object) {
       let helper;
 
       if (object instanceof THREE.Camera) {
@@ -136,7 +136,7 @@ Inspector.prototype = {
     };
   })(),
 
-  removeHelpers: function(object) {
+  removeHelpers: function (object) {
     object.traverse(node => {
       const helper = this.helpers[node.uuid];
       if (helper) {
@@ -147,7 +147,7 @@ Inspector.prototype = {
     });
   },
 
-  selectEntity: function(entity, emit) {
+  selectEntity: function (entity, emit) {
     this.selectedEntity = entity;
     if (entity) {
       this.select(entity.object3D);
@@ -174,7 +174,7 @@ Inspector.prototype = {
     });
   },
 
-  initEvents: function() {
+  initEvents: function () {
     window.addEventListener('keydown', evt => {
       // Alt + Ctrl + i: Shorcut to toggle the inspector
       var shortcutPressed = evt.keyCode === 73 && evt.ctrlKey && evt.altKey;
@@ -204,7 +204,7 @@ Inspector.prototype = {
     });
   },
 
-  selectById: function(id) {
+  selectById: function (id) {
     if (id === this.camera.id) {
       this.select(this.camera);
       return;
@@ -215,7 +215,7 @@ Inspector.prototype = {
   /**
    * Change to select object.
    */
-  select: function(object3D) {
+  select: function (object3D) {
     if (this.selected === object3D) {
       return;
     }
@@ -223,14 +223,14 @@ Inspector.prototype = {
     Events.emit('objectselect', object3D);
   },
 
-  deselect: function() {
+  deselect: function () {
     this.select(null);
   },
 
   /**
    * Toggle the editor
    */
-  toggle: function() {
+  toggle: function () {
     if (this.opened) {
       this.close();
     } else {
@@ -241,7 +241,7 @@ Inspector.prototype = {
   /**
    * Open the editor UI
    */
-  open: function(focusEl) {
+  open: function (focusEl) {
     this.opened = true;
     Events.emit('inspectortoggle', true);
 
@@ -283,7 +283,7 @@ Inspector.prototype = {
    * Closes the editor and gives the control back to the scene
    * @return {[type]} [description]
    */
-  close: function() {
+  close: function () {
     this.opened = false;
     Events.emit('inspectortoggle', false);
 

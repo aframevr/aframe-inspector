@@ -10,7 +10,7 @@ export default class InputWidget extends React.Component {
     value: PropTypes.any
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = { value: this.props.value || '' };
   }
@@ -23,13 +23,13 @@ export default class InputWidget extends React.Component {
     }
   };
 
-  componentWillReceiveProps(newProps) {
+  componentWillReceiveProps (newProps) {
     if (newProps.value !== this.state.value) {
       this.setState({ value: newProps.value });
     }
   }
 
-  render() {
+  render () {
     return (
       <input
         type="text"

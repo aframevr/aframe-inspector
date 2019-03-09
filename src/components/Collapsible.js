@@ -14,7 +14,7 @@ export default class Collapsible extends React.Component {
     collapsed: false
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       collapsed: this.props.collapsed
@@ -26,7 +26,7 @@ export default class Collapsible extends React.Component {
     ga('send', 'event', 'Components', 'collapse');
   };
 
-  render() {
+  render () {
     const rootClassNames = {
       collapsible: true,
       component: true,

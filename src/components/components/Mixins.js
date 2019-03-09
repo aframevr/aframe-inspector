@@ -4,7 +4,7 @@ import Select from 'react-select';
 
 const Events = require('../../lib/Events.js');
 
-function trim(s) {
+function trim (s) {
   s = s.replace(/(^\s*)|(\s*$)/gi, '');
   s = s.replace(/[ ]{2,}/gi, ' ');
   s = s.replace(/\n /, '\n');
@@ -16,19 +16,19 @@ export default class Mixin extends React.Component {
     entity: PropTypes.object.isRequired
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = { mixins: this.getMixinValue() };
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate (prevProps, prevState) {
     if (this.props.entity === prevProps.entity) {
       return;
     }
     this.setState({ mixins: this.getMixinValue() });
   }
 
-  getMixinValue() {
+  getMixinValue () {
     return (this.props.entity.getAttribute('mixin') || '')
       .split(/\s+/g)
       .filter(v => !!v)
@@ -36,17 +36,17 @@ export default class Mixin extends React.Component {
   }
 
   getMixinOptions = () => {
-    const mixinIds = this.props.entity.mixinEls.map(function(mixin) {
+    const mixinIds = this.props.entity.mixinEls.map(function (mixin) {
       return mixin.id;
     });
 
     return Array.prototype.slice
       .call(document.querySelectorAll('a-mixin'))
-      .filter(function(mixin) {
+      .filter(function (mixin) {
         return mixinIds.indexOf(mixin.id) === -1;
       })
       .sort()
-      .map(function(mixin) {
+      .map(function (mixin) {
         return { value: mixin.id, label: mixin.id };
       });
   };
@@ -68,7 +68,7 @@ export default class Mixin extends React.Component {
     ga('send', 'event', 'Components', 'addMixin');
   };
 
-  render() {
+  render () {
     return (
       <div className="mixinOptions">
         <div className="propertyRow">

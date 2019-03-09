@@ -7,7 +7,7 @@ import {
 } from '../lib/entity';
 import { os } from '../lib/utils.js';
 
-function shouldCaptureKeyEvent(event) {
+function shouldCaptureKeyEvent (event) {
   if (event.metaKey) {
     return false;
   }
@@ -23,7 +23,7 @@ var Shortcuts = {
     default: {},
     modules: {}
   },
-  onKeyUp: function(event) {
+  onKeyUp: function (event) {
     if (!shouldCaptureKeyEvent(event) || !AFRAME.INSPECTOR.opened) {
       return;
     }
@@ -123,7 +123,7 @@ var Shortcuts = {
       }
     }
   },
-  onKeyDown: function(event) {
+  onKeyDown: function (event) {
     if (!shouldCaptureKeyEvent(event) || !AFRAME.INSPECTOR.opened) {
       return;
     }
@@ -168,7 +168,7 @@ var Shortcuts = {
       event.stopPropagation();
     }
   },
-  enable: function() {
+  enable: function () {
     if (this.enabled) {
       this.disable();
     }
@@ -177,12 +177,12 @@ var Shortcuts = {
     window.addEventListener('keyup', this.onKeyUp.bind(this), false);
     this.enabled = true;
   },
-  disable: function() {
+  disable: function () {
     window.removeEventListener('keydown', this.onKeyDown);
     window.removeEventListener('keyup', this.onKeyUp);
     this.enabled = false;
   },
-  checkModuleShortcutCollision: function(keyCode, moduleName, mustBeActive) {
+  checkModuleShortcutCollision: function (keyCode, moduleName, mustBeActive) {
     if (
       this.shortcuts.modules[moduleName] &&
       this.shortcuts.modules[moduleName][keyCode]
@@ -193,7 +193,7 @@ var Shortcuts = {
       );
     }
   },
-  registerModuleShortcut: function(
+  registerModuleShortcut: function (
     keyCode,
     callback,
     moduleName,
@@ -216,7 +216,7 @@ var Shortcuts = {
       mustBeActive
     };
   },
-  init: function(inspector) {
+  init: function (inspector) {
     this.inspector = inspector;
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);

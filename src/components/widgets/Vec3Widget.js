@@ -11,7 +11,7 @@ export default class Vec3Widget extends React.Component {
     value: PropTypes.object.isRequired
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       x: props.value.x,
@@ -28,11 +28,11 @@ export default class Vec3Widget extends React.Component {
     });
   };
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     this.setState(nextProps.value);
   }
 
-  render() {
+  render () {
     const widgetProps = {
       componentname: this.props.componentname,
       entity: this.props.entity,

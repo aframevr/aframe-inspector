@@ -17,12 +17,12 @@ export default class Modal extends React.Component {
     closeOnClickOutside: true
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = { isOpen: this.props.isOpen };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     document.addEventListener('keyup', this.handleGlobalKeydown);
     document.addEventListener('mousedown', this.handleGlobalMousedown);
   }
@@ -65,12 +65,12 @@ export default class Modal extends React.Component {
     }
   };
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     document.removeEventListener('keyup', this.handleGlobalKeydown);
     document.removeEventListener('mousedown', this.handleGlobalMousedown);
   }
 
-  componentWillReceiveProps(newProps) {
+  componentWillReceiveProps (newProps) {
     if (this.state.isOpen !== newProps.isOpen) {
       this.setState({ isOpen: newProps.isOpen });
     }
@@ -83,7 +83,7 @@ export default class Modal extends React.Component {
     }
   };
 
-  render() {
+  render () {
     return (
       <div
         id={this.props.id}

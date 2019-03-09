@@ -3,7 +3,7 @@ var Events = require('../../lib/Events.js');
 import { printEntity } from '../../lib/entity';
 
 export default class ViewportHUD extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       hoveredEntity: null,
@@ -11,7 +11,7 @@ export default class ViewportHUD extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     Events.on('raycastermouseenter', el => {
       this.setState({ hoveredEntity: el });
     });
@@ -21,7 +21,7 @@ export default class ViewportHUD extends React.Component {
     });
   }
 
-  render() {
+  render () {
     return (
       <div id="viewportHud">
         <p>{printEntity(this.state.hoveredEntity)}</p>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 var Events = require('../../lib/Events.js');
 
-function getUrlFromId(assetId) {
+function getUrlFromId (assetId) {
   return (
     assetId.length > 1 &&
     document.querySelector(assetId) &&
@@ -11,7 +11,7 @@ function getUrlFromId(assetId) {
   );
 }
 
-function GetFilename(url) {
+function GetFilename (url) {
   if (url) {
     var m = url.toString().match(/.*\/(.+?)\./);
     if (m && m.length > 1) {
@@ -21,7 +21,7 @@ function GetFilename(url) {
   return '';
 }
 
-function insertNewAsset(type, id, src) {
+function insertNewAsset (type, id, src) {
   var element = null;
   switch (type) {
     case 'img':
@@ -37,7 +37,7 @@ function insertNewAsset(type, id, src) {
   }
 }
 
-function insertOrGetImageAsset(src) {
+function insertOrGetImageAsset (src) {
   var id = GetFilename(src);
   // Search for already loaded asset by src
   var element = document.querySelector("a-assets > img[src='" + src + "']");
@@ -79,16 +79,16 @@ export default class TextureWidget extends React.Component {
     dataURL: ''
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = { value: this.props.value || '' };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.setValue(this.props.value || '');
   }
 
-  componentWillReceiveProps(newProps) {
+  componentWillReceiveProps (newProps) {
     var component = this.props.entity.components[this.props.componentname];
     if (!component) {
       return;
@@ -101,11 +101,11 @@ export default class TextureWidget extends React.Component {
     }
   }
 
-  setValue(value) {
+  setValue (value) {
     var canvas = this.refs.canvas;
     var context = canvas.getContext('2d');
 
-    function paintPreviewWithImage(image) {
+    function paintPreviewWithImage (image) {
       var filename = image.src.replace(/^.*[\\\/]/, '');
       if (image !== undefined && image.width > 0) {
         canvas.title = filename;
@@ -123,12 +123,12 @@ export default class TextureWidget extends React.Component {
       }
     }
 
-    function paintPreview(texture) {
+    function paintPreview (texture) {
       var image = texture.image;
       paintPreviewWithImage(image);
     }
 
-    function getTextureFromSrc(src) {
+    function getTextureFromSrc (src) {
       for (var hash in AFRAME.INSPECTOR.sceneEl.systems.material.textureCache) {
         if (JSON.parse(hash).src === src) {
           return AFRAME.INSPECTOR.sceneEl.systems.material.textureCache[hash];
@@ -213,7 +213,7 @@ export default class TextureWidget extends React.Component {
     });
   };
 
-  render() {
+  render () {
     let hint = '';
     if (this.state.value) {
       if (this.state.valueType === 'asset') {

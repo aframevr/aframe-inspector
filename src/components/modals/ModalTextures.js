@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Modal from './Modal';
 var insertNewAsset = require('../../lib/assetsUtils').insertNewAsset;
 
-function getFilename(url, converted = false) {
+function getFilename (url, converted = false) {
   var filename = url.split('/').pop();
   if (converted) {
     filename = getValidId(filename);
@@ -12,13 +12,13 @@ function getFilename(url, converted = false) {
   return filename;
 }
 
-function isValidId(id) {
+function isValidId (id) {
   // The correct re should include : and . but A-frame seems to fail while accessing them
   var re = /^[A-Za-z]+[\w\-]*$/;
   return re.test(id);
 }
 
-function getValidId(name) {
+function getValidId (name) {
   // info.name.replace(/\.[^/.]+$/, '').replace(/\s+/g, '')
   return name
     .split('.')
@@ -36,7 +36,7 @@ export default class ModalTextures extends React.Component {
     selectedTexture: PropTypes.string
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       filterText: '',
@@ -60,7 +60,7 @@ export default class ModalTextures extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     Events.on('assetsimagesload', images => {
       this.generateFromRegistry();
     });
@@ -68,13 +68,13 @@ export default class ModalTextures extends React.Component {
     this.generateFromAssets();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate () {
     if (this.state.isOpen && !AFRAME.INSPECTOR.assetsLoader.hasLoaded) {
       AFRAME.INSPECTOR.assetsLoader.load();
     }
   }
 
-  componentWillReceiveProps(newProps) {
+  componentWillReceiveProps (newProps) {
     if (this.state.isOpen !== newProps.isOpen) {
       this.setState({ isOpen: newProps.isOpen });
       if (newProps.isOpen) {
@@ -146,7 +146,7 @@ export default class ModalTextures extends React.Component {
     }
 
     var self = this;
-    function onImageLoaded(img) {
+    function onImageLoaded (img) {
       var src = self.refs.preview.src;
       self.setState({
         preview: {
@@ -185,7 +185,7 @@ export default class ModalTextures extends React.Component {
     this.setState({ addNewDialogOpened: !this.state.addNewDialogOpened });
   };
 
-  clear() {
+  clear () {
     this.setState({
       preview: {
         width: 0,
@@ -206,7 +206,7 @@ export default class ModalTextures extends React.Component {
     this.setState({ newUrl: e.target.value });
   };
 
-  isValidAsset() {
+  isValidAsset () {
     let validUrl = isValidId(this.state.preview.name);
     let validAsset = this.state.preview.loaded && validUrl;
     return validAsset;
@@ -219,7 +219,7 @@ export default class ModalTextures extends React.Component {
       this.state.preview.name,
       this.state.preview.src,
       true,
-      function() {
+      function () {
         self.generateFromAssets();
         self.setState({ addNewDialogOpened: false });
         self.clear();
@@ -231,9 +231,9 @@ export default class ModalTextures extends React.Component {
     this.setState({ filterText: e.target.value });
   };
 
-  renderRegistryImages() {
+  renderRegistryImages () {
     var self = this;
-    let selectSample = function(image) {
+    let selectSample = function (image) {
       self.setState({
         preview: {
           width: image.width,
@@ -260,7 +260,7 @@ export default class ModalTextures extends React.Component {
           image.tags.indexOf(filterText) > -1
         );
       })
-      .map(function(image) {
+      .map(function (image) {
         let imageClick = selectSample.bind(this, image);
         return (
           <li key={image.src} onClick={imageClick}>
@@ -277,7 +277,7 @@ export default class ModalTextures extends React.Component {
       });
   }
 
-  render() {
+  render () {
     let isOpen = this.state.isOpen;
     let loadedTextures = this.state.loadedTextures;
     let preview = this.state.preview;
@@ -370,11 +370,11 @@ export default class ModalTextures extends React.Component {
         <div className={this.state.addNewDialogOpened ? 'hide' : ''}>
           <ul className="gallery">
             {this.state.assetsImages
-              .sort(function(a, b) {
+              .sort(function (a, b) {
                 return a.id > b.id;
               })
               .map(
-                function(image) {
+                function (image) {
                   let textureClick = this.selectTexture.bind(this, image);
                   var selectedClass =
                     this.props.selectedTexture === '#' + image.id
@@ -398,7 +398,7 @@ export default class ModalTextures extends React.Component {
                   );
                 }.bind(this)
               )}
-            {loadedTextures.map(function(texture) {
+            {loadedTextures.map(function (texture) {
               var image = texture.image;
               let textureClick = this.selectTexture.bind(this, texture);
               return (

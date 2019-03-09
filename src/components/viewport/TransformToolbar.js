@@ -9,7 +9,7 @@ var TransformButtons = [
 ];
 
 export default class TransformToolbar extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       selectedTransform: 'translate',
@@ -17,7 +17,7 @@ export default class TransformToolbar extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     Events.on('transformmodechange', mode => {
       this.setState({ selectedTransform: mode });
     });
@@ -45,7 +45,7 @@ export default class TransformToolbar extends React.Component {
 
   renderTransformButtons = () => {
     return TransformButtons.map(
-      function(option, i) {
+      function (option, i) {
         var selected = option.value === this.state.selectedTransform;
         var classes = classNames({
           button: true,
@@ -66,7 +66,7 @@ export default class TransformToolbar extends React.Component {
     );
   };
 
-  render() {
+  render () {
     return (
       <div id="transformToolbar" className="toolbarButtons">
         {this.renderTransformButtons()}

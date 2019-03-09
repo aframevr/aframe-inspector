@@ -20,7 +20,7 @@ export default class Component extends React.Component {
     name: PropTypes.string
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       entity: this.props.entity,
@@ -28,7 +28,7 @@ export default class Component extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     var clipboard = new Clipboard(
       '[data-action="copy-component-to-clipboard"]',
       {
@@ -65,7 +65,7 @@ export default class Component extends React.Component {
     });
   }
 
-  componentWillReceiveProps(newProps) {
+  componentWillReceiveProps (newProps) {
     if (this.state.entity !== newProps.entity) {
       this.setState({ entity: newProps.entity });
     }
@@ -126,7 +126,7 @@ export default class Component extends React.Component {
       ));
   };
 
-  render() {
+  render () {
     let componentName = this.props.name;
     let subComponentName = '';
     if (componentName.indexOf('__') !== -1) {
@@ -139,7 +139,8 @@ export default class Component extends React.Component {
         <div className="componentHeader collapsible-header">
           <span
             className="componentTitle"
-            title={subComponentName || componentName}>
+            title={subComponentName || componentName}
+          >
             <span>{subComponentName || componentName}</span>
           </span>
           <div className="componentHeaderActions">

@@ -13,10 +13,12 @@ import ViewportHUD from './viewport/ViewportHUD';
 import { injectCSS } from '../lib/utils';
 
 // Megahack to include font-awesome.
-injectCSS('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
+injectCSS(
+  'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'
+);
 
 export default class Main extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     this.state = {
@@ -65,10 +67,10 @@ export default class Main extends React.Component {
     });
   }
 
-  componentDidMount() {
+  componentDidMount () {
     Events.on(
       'opentexturesmodal',
-      function(selectedTexture, textureOnClose) {
+      function (selectedTexture, textureOnClose) {
         this.setState({
           selectedTexture: selectedTexture,
           isModalTexturesOpen: true,
@@ -108,7 +110,7 @@ export default class Main extends React.Component {
     }
   };
 
-  renderComponentsToggle() {
+  renderComponentsToggle () {
     if (!this.state.entity || this.state.visible.attributes) {
       return null;
     }
@@ -126,7 +128,7 @@ export default class Main extends React.Component {
     );
   }
 
-  renderSceneGraphToggle() {
+  renderSceneGraphToggle () {
     if (this.state.visible.scenegraph) {
       return null;
     }
@@ -144,7 +146,7 @@ export default class Main extends React.Component {
     );
   }
 
-  render() {
+  render () {
     const scene = this.state.sceneEl;
     const toggleButtonText = this.state.inspectorEnabled
       ? 'Back to Scene'

@@ -7,7 +7,7 @@ const assetsRelativeUrl = { images: 'dist/images.json' };
 /**
  * Asynchronously load and register components from the registry.
  */
-function AssetsLoader() {
+function AssetsLoader () {
   this.images = [];
   this.hasLoaded = false;
 }
@@ -16,7 +16,7 @@ AssetsLoader.prototype = {
   /**
    * XHR the assets JSON.
    */
-  load: function() {
+  load: function () {
     var xhr = new XMLHttpRequest();
     var url = assetsBaseUrl + assetsRelativeUrl['images'];
 

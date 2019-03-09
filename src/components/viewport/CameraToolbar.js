@@ -4,13 +4,48 @@ var classNames = require('classnames');
 import Select from 'react-select';
 
 const options = [
-  { value: 'perspective', event: 'cameraperspectivetoggle', payload: null, label: 'Perspective' },
-  { value: 'ortholeft', event: 'cameraorthographictoggle', payload: 'left', label: 'Left View' },
-  { value: 'orthoright', event: 'cameraorthographictoggle', payload: 'right', label: 'Right View' },
-  { value: 'orthotop', event: 'cameraorthographictoggle', payload: 'top', label: 'Top View' },
-  { value: 'orthobottom', event: 'cameraorthographictoggle', payload: 'bottom', label: 'Bottom View' },
-  { value: 'orthoback', event: 'cameraorthographictoggle', payload: 'back', label: 'Back View' },
-  { value: 'orthofront', event: 'cameraorthographictoggle', payload: 'front', label: 'Front View' },
+  {
+    value: 'perspective',
+    event: 'cameraperspectivetoggle',
+    payload: null,
+    label: 'Perspective'
+  },
+  {
+    value: 'ortholeft',
+    event: 'cameraorthographictoggle',
+    payload: 'left',
+    label: 'Left View'
+  },
+  {
+    value: 'orthoright',
+    event: 'cameraorthographictoggle',
+    payload: 'right',
+    label: 'Right View'
+  },
+  {
+    value: 'orthotop',
+    event: 'cameraorthographictoggle',
+    payload: 'top',
+    label: 'Top View'
+  },
+  {
+    value: 'orthobottom',
+    event: 'cameraorthographictoggle',
+    payload: 'bottom',
+    label: 'Bottom View'
+  },
+  {
+    value: 'orthoback',
+    event: 'cameraorthographictoggle',
+    payload: 'back',
+    label: 'Back View'
+  },
+  {
+    value: 'orthofront',
+    event: 'cameraorthographictoggle',
+    payload: 'front',
+    label: 'Front View'
+  }
 ];
 
 function getOption (value) {
@@ -18,7 +53,7 @@ function getOption (value) {
 }
 
 export default class CameraToolbar extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       selectedCamera: 'perspective'
@@ -26,25 +61,25 @@ export default class CameraToolbar extends React.Component {
     this.justChangedCamera = false;
   }
 
-  componentDidMount() {
+  componentDidMount () {
     Events.on('cameratoggle', data => {
       if (this.justChangedCamera) {
         // Prevent recursion.
         this.justChangedCamera = false;
         return;
       }
-      this.setState({selectedCamera: data.value});
+      this.setState({ selectedCamera: data.value });
     });
   }
 
-  onChange(option) {
+  onChange (option) {
     console.log(option);
     this.justChangedCamera = true;
-    this.setState({selectedCamera: option.value});
+    this.setState({ selectedCamera: option.value });
     Events.emit(option.event, option.payload);
   }
 
-  render() {
+  render () {
     return (
       <div id="cameraToolbar">
         <Select
@@ -54,7 +89,8 @@ export default class CameraToolbar extends React.Component {
           simpleValue
           value={getOption(this.state.selectedCamera)}
           isSearchable={false}
-          onChange={this.onChange.bind(this)} />
+          onChange={this.onChange.bind(this)}
+        />
       </div>
     );
   }

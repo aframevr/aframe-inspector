@@ -14,7 +14,7 @@ export default class ColorWidget extends React.Component {
     value: '#ffffff'
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     var value = this.props.value;
@@ -26,7 +26,7 @@ export default class ColorWidget extends React.Component {
     };
   }
 
-  setValue(value) {
+  setValue (value) {
     var pickerValue = this.getHexString(value);
 
     this.setState({
@@ -39,7 +39,7 @@ export default class ColorWidget extends React.Component {
     }
   }
 
-  componentWillReceiveProps(newProps) {
+  componentWillReceiveProps (newProps) {
     if (newProps.value !== this.state.value) {
       this.setState({
         value: newProps.value,
@@ -48,7 +48,7 @@ export default class ColorWidget extends React.Component {
     }
   }
 
-  getHexString(value) {
+  getHexString (value) {
     return '#' + this.color.set(value).getHexString();
   }
 
@@ -66,7 +66,7 @@ export default class ColorWidget extends React.Component {
     this.setState({ value: e.target.value });
   };
 
-  render() {
+  render () {
     return (
       <span className="color-widget">
         <input

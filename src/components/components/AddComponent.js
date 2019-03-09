@@ -19,7 +19,7 @@ export default class AddComponent extends React.Component {
 
     var entity = this.props.entity;
     var packageName;
-    var selectedOption = this.options.filter(function(option) {
+    var selectedOption = this.options.filter(function (option) {
       return option.value === componentName;
     })[0];
 
@@ -38,27 +38,27 @@ export default class AddComponent extends React.Component {
   /**
    * Component dropdown options.
    */
-  getComponentsOptions() {
+  getComponentsOptions () {
     const usedComponents = Object.keys(this.props.entity.components);
     var commonOptions = Object.keys(AFRAME.components)
-      .filter(function(componentName) {
+      .filter(function (componentName) {
         return (
           AFRAME.components[componentName].multiple ||
           usedComponents.indexOf(componentName) === -1
         );
       })
       .sort()
-      .map(function(value) {
+      .map(function (value) {
         return { value: value, label: value, origin: 'loaded' };
       });
 
     this.options = commonOptions;
-    this.options = this.options.sort(function(a, b) {
+    this.options = this.options.sort(function (a, b) {
       return a.label === b.label ? 0 : a.label < b.label ? -1 : 1;
     });
   }
 
-  renderOption(option) {
+  renderOption (option) {
     var bullet = (
       <span title="Component already loaded in the scene">&#9679;</span>
     );
@@ -69,7 +69,7 @@ export default class AddComponent extends React.Component {
     );
   }
 
-  render() {
+  render () {
     const entity = this.props.entity;
     if (!entity) {
       return <div />;
@@ -103,7 +103,7 @@ export default class AddComponent extends React.Component {
 /**
  * Check if component has multiplicity.
  */
-function isComponentInstanced(entity, componentName) {
+function isComponentInstanced (entity, componentName) {
   for (var component in entity.components) {
     if (component.substr(0, component.indexOf('__')) === componentName) {
       return true;

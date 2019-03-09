@@ -9,12 +9,12 @@ export default class Sidebar extends React.Component {
     visible: PropTypes.bool
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = { open: false };
   }
 
-  componentDidMount() {
+  componentDidMount () {
     Events.on('componentremove', event => {
       this.forceUpdate();
     });
@@ -29,7 +29,7 @@ export default class Sidebar extends React.Component {
     ga('send', 'event', 'Components', 'toggleSidebar');
   };
 
-  render() {
+  render () {
     const entity = this.props.entity;
     const visible = this.props.visible;
     if (entity && visible) {

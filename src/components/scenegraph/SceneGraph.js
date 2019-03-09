@@ -23,7 +23,7 @@ export default class SceneGraph extends React.Component {
     id: 'left-sidebar'
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       entities: [],
@@ -43,7 +43,7 @@ export default class SceneGraph extends React.Component {
     );
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.rebuildEntityOptions();
     Events.on('entityidchange', this.rebuildEntityOptions);
     Events.on('entitycreated', this.rebuildEntityOptions);
@@ -52,7 +52,7 @@ export default class SceneGraph extends React.Component {
   /**
    * Selected entity updated from somewhere else in the app.
    */
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     if (prevProps.selectedEntity !== this.props.selectedEntity) {
       this.selectEntity(this.props.selectedEntity);
     }
@@ -82,7 +82,7 @@ export default class SceneGraph extends React.Component {
   rebuildEntityOptions = () => {
     const entities = [{ depth: 0, entity: this.props.scene }];
 
-    function treeIterate(element, depth) {
+    function treeIterate (element, depth) {
       if (!element) {
         return;
       }
@@ -164,7 +164,7 @@ export default class SceneGraph extends React.Component {
     }
   };
 
-  getFilteredEntities(filter, entities) {
+  getFilteredEntities (filter, entities) {
     entities = entities || this.state.entities;
     if (!filter) {
       return entities;
@@ -236,7 +236,7 @@ export default class SceneGraph extends React.Component {
     this.updateFilteredEntities(filter);
   };
 
-  updateFilteredEntities(filter) {
+  updateFilteredEntities (filter) {
     this.setState({
       filteredEntities: this.getFilteredEntities(filter)
     });
@@ -269,7 +269,7 @@ export default class SceneGraph extends React.Component {
     });
   };
 
-  render() {
+  render () {
     // To hide the SceneGraph we have to hide its parent too (#left-sidebar).
     if (!this.props.visible) {
       return null;
@@ -308,7 +308,7 @@ export default class SceneGraph extends React.Component {
   }
 }
 
-function filterEntity(entity, filter) {
+function filterEntity (entity, filter) {
   if (!filter) {
     return true;
   }

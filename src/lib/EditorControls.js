@@ -1,6 +1,6 @@
 import debounce from 'lodash.debounce';
 
-THREE.Box3.prototype.expandByObject = (function() {
+THREE.Box3.prototype.expandByObject = (function () {
   // Computes the world-axis-aligned bounding box of an object (including its children),
   // accounting for both the object's, and children's, world transforms
 
@@ -8,7 +8,7 @@ THREE.Box3.prototype.expandByObject = (function() {
 
   var v1 = new THREE.Vector3();
 
-  function traverse(node) {
+  function traverse (node) {
     var geometry = node.geometry;
 
     if (geometry !== undefined) {
@@ -41,7 +41,7 @@ THREE.Box3.prototype.expandByObject = (function() {
     }
   }
 
-  return function expandByObject(object) {
+  return function expandByObject (object) {
     scope = this;
 
     object.updateMatrixWorld(true);
@@ -59,7 +59,7 @@ THREE.Box3.prototype.expandByObject = (function() {
  * @author WestLangley / http://github.com/WestLangley
  */
 
-THREE.EditorControls = function(_object, domElement) {
+THREE.EditorControls = function (_object, domElement) {
   domElement = domElement !== undefined ? domElement : document;
 
   // API
@@ -111,7 +111,7 @@ THREE.EditorControls = function(_object, domElement) {
     scope.dispatchEvent(changeEvent);
   }, 100);
 
-  this.focus = function(target) {
+  this.focus = function (target) {
     var distance;
 
     box.setFromObject(target);
@@ -134,8 +134,8 @@ THREE.EditorControls = function(_object, domElement) {
     scope.dispatchEvent(changeEvent);
   };
 
-  this.pan = function(delta) {
-     var distance;
+  this.pan = function (delta) {
+    var distance;
     if (this.isOrthographic) {
       distance = Math.abs(object.right);
     } else {
@@ -154,9 +154,9 @@ THREE.EditorControls = function(_object, domElement) {
   var ratio = 1;
   this.setAspectRatio = function (_ratio) {
     ratio = _ratio;
-  }
+  };
 
-  this.zoom = function(delta) {
+  this.zoom = function (delta) {
     var distance = object.position.distanceTo(center);
 
     delta.multiplyScalar(distance * scope.zoomSpeed);
@@ -168,7 +168,7 @@ THREE.EditorControls = function(_object, domElement) {
     if (this.isOrthographic) {
       // Change FOV for ortho.
       let factor = 1;
-      if ((delta.x + delta.y + delta.z) < 0) {
+      if (delta.x + delta.y + delta.z < 0) {
         factor = -1;
       }
       delta = distance * scope.zoomSpeed * factor;
@@ -176,7 +176,9 @@ THREE.EditorControls = function(_object, domElement) {
       object.bottom -= delta;
       object.right += delta * ratio;
       object.top += delta;
-      if (object.left >= -0.0001) { return; }
+      if (object.left >= -0.0001) {
+        return;
+      }
       object.updateProjectionMatrix();
     } else {
       object.position.add(delta);
@@ -185,8 +187,10 @@ THREE.EditorControls = function(_object, domElement) {
     scope.dispatchChange();
   };
 
-  this.rotate = function(delta) {
-    if (!this.rotationEnabled) { return; }
+  this.rotate = function (delta) {
+    if (!this.rotationEnabled) {
+      return;
+    }
 
     vector.copy(object.position).sub(center);
 
@@ -208,7 +212,7 @@ THREE.EditorControls = function(_object, domElement) {
 
   // mouse
 
-  function onMouseDown(event) {
+  function onMouseDown (event) {
     if (scope.enabled === false) return;
 
     if (event.button === 0) {
@@ -227,7 +231,7 @@ THREE.EditorControls = function(_object, domElement) {
     domElement.addEventListener('dblclick', onMouseUp, false);
   }
 
-  function onMouseMove(event) {
+  function onMouseMove (event) {
     if (scope.enabled === false) return;
 
     pointer.set(event.clientX, event.clientY);
@@ -252,7 +256,7 @@ THREE.EditorControls = function(_object, domElement) {
     pointerOld.set(event.clientX, event.clientY);
   }
 
-  function onMouseUp(event) {
+  function onMouseUp (event) {
     domElement.removeEventListener('mousemove', onMouseMove, false);
     domElement.removeEventListener('mouseup', onMouseUp, false);
     domElement.removeEventListener('mouseout', onMouseUp, false);
@@ -261,18 +265,18 @@ THREE.EditorControls = function(_object, domElement) {
     state = STATE.NONE;
   }
 
-  function onMouseWheel(event) {
+  function onMouseWheel (event) {
     event.preventDefault();
 
     // Normalize deltaY due to https://bugzilla.mozilla.org/show_bug.cgi?id=1392460
     scope.zoom(delta.set(0, 0, event.deltaY > 0 ? 1 : -1));
   }
 
-  function contextmenu(event) {
+  function contextmenu (event) {
     event.preventDefault();
   }
 
-  this.dispose = function() {
+  this.dispose = function () {
     domElement.removeEventListener('contextmenu', contextmenu, false);
     domElement.removeEventListener('mousedown', onMouseDown, false);
     domElement.removeEventListener('wheel', onMouseWheel, false);
@@ -301,7 +305,7 @@ THREE.EditorControls = function(_object, domElement) {
 
   var prevDistance = null;
 
-  function touchStart(event) {
+  function touchStart (event) {
     if (scope.enabled === false) return;
 
     switch (event.touches.length) {
@@ -321,13 +325,13 @@ THREE.EditorControls = function(_object, domElement) {
     prevTouches[1].copy(touches[1]);
   }
 
-  function touchMove(event) {
+  function touchMove (event) {
     if (scope.enabled === false) return;
 
     event.preventDefault();
     event.stopPropagation();
 
-    function getClosest(touch, touches) {
+    function getClosest (touch, touches) {
       var closest = touches[0];
 
       for (var i in touches) {

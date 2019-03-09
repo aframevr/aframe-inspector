@@ -1,8 +1,8 @@
-function getNumber(value) {
+function getNumber (value) {
   return parseFloat(value.toFixed(3));
 }
 
-function getMajorVersion(version) {
+function getMajorVersion (version) {
   var major = version.split('.');
   var clean = false;
   for (var i = 0; i < major.length; i++) {
@@ -15,7 +15,7 @@ function getMajorVersion(version) {
   return major.join('.');
 }
 
-function equal(var1, var2) {
+function equal (var1, var2) {
   var keys1;
   var keys2;
   var type1 = typeof var1;
@@ -39,7 +39,7 @@ function equal(var1, var2) {
   return true;
 }
 
-function getOS() {
+function getOS () {
   var userAgent = window.navigator.userAgent;
   var platform = window.navigator.platform;
   var macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'];
@@ -62,7 +62,7 @@ function getOS() {
   return os;
 }
 
-function injectCSS(url) {
+function injectCSS (url) {
   var link = document.createElement('link');
   link.href = url;
   link.type = 'text/css';
@@ -72,7 +72,7 @@ function injectCSS(url) {
   document.head.appendChild(link);
 }
 
-function injectJS(url, onLoad, onError) {
+function injectJS (url, onLoad, onError) {
   var link = document.createElement('script');
   link.src = url;
   link.charset = 'utf-8';
@@ -89,11 +89,11 @@ function injectJS(url, onLoad, onError) {
   document.head.appendChild(link);
 }
 
-function saveString(text, filename, mimeType) {
+function saveString (text, filename, mimeType) {
   saveBlob(new Blob([text], { type: mimeType }), filename);
 }
 
-function saveBlob(blob, filename) {
+function saveBlob (blob, filename) {
   var link = document.createElement('a');
   link.style.display = 'none';
   document.body.appendChild(link);

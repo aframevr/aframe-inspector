@@ -11,7 +11,7 @@ import { equal } from '../lib/utils.js';
  * @param {string} property - Property name.
  * @param {string|number} value - New value.
  */
-export function updateEntity(entity, propertyName, value) {
+export function updateEntity (entity, propertyName, value) {
   var splitName;
 
   if (propertyName.indexOf('.') !== -1) {
@@ -51,7 +51,7 @@ export function updateEntity(entity, propertyName, value) {
  * @param {Element} entity Entity to remove.
  * @param {boolean} force (Optional) If true it won't ask for confirmation.
  */
-export function removeEntity(entity, force) {
+export function removeEntity (entity, force) {
   if (entity) {
     if (
       force === true ||
@@ -69,7 +69,7 @@ export function removeEntity(entity, force) {
   }
 }
 
-function findClosestEntity(entity) {
+function findClosestEntity (entity) {
   // First we try to find the after the entity
   var nextEntity = entity.nextElementSibling;
   while (nextEntity && (!nextEntity.isEntity || nextEntity.isInspector)) {
@@ -98,7 +98,7 @@ function findClosestEntity(entity) {
  * Remove the selected entity
  * @param  {boolean} force (Optional) If true it won't ask for confirmation
  */
-export function removeSelectedEntity(force) {
+export function removeSelectedEntity (force) {
   if (AFRAME.INSPECTOR.selectedEntity) {
     removeEntity(AFRAME.INSPECTOR.selectedEntity, force);
   }
@@ -109,7 +109,7 @@ export function removeSelectedEntity(force) {
  * @param  {Element} newNode       Node to insert.
  * @param  {Element} referenceNode Node used as reference to insert after it.
  */
-function insertAfter(newNode, referenceNode) {
+function insertAfter (newNode, referenceNode) {
   if (!referenceNode.parentNode) {
     referenceNode = AFRAME.INSPECTOR.selectedEntity;
   }
@@ -125,11 +125,11 @@ function insertAfter(newNode, referenceNode) {
  * Clone an entity, inserting it after the cloned one.
  * @param  {Element} entity Entity to clone
  */
-export function cloneEntity(entity) {
+export function cloneEntity (entity) {
   entity.flushToDOM();
 
   const clone = entity.cloneNode(true);
-  clone.addEventListener('loaded', function(e) {
+  clone.addEventListener('loaded', function (e) {
     AFRAME.INSPECTOR.selectEntity(clone);
     Events.emit('entityclone');
   });
@@ -144,7 +144,7 @@ export function cloneEntity(entity) {
 /**
  * Clone the selected entity
  */
-export function cloneSelectedEntity() {
+export function cloneSelectedEntity () {
   if (AFRAME.INSPECTOR.selectedEntity) {
     cloneEntity(AFRAME.INSPECTOR.selectedEntity);
   }
@@ -155,7 +155,7 @@ export function cloneSelectedEntity() {
  * @param  {Element} entity Entity to copy to clipboard
  * @return {string}        Entity clipboard representation
  */
-export function getEntityClipboardRepresentation(entity) {
+export function getEntityClipboardRepresentation (entity) {
   var clone = prepareForSerialization(entity);
   return clone.outerHTML;
 }
@@ -168,7 +168,7 @@ export function getEntityClipboardRepresentation(entity) {
  * @param {Element} entity Root of the DOM hierarchy.
  * @return {Elment}        Copy of the DOM hierarchy ready for serialization.
  */
-function prepareForSerialization(entity) {
+function prepareForSerialization (entity) {
   var clone = entity.cloneNode(false);
   var children = entity.childNodes;
   for (var i = 0, l = children.length; i < l; i++) {
@@ -193,11 +193,11 @@ function prepareForSerialization(entity) {
  * @param {Element} copy   Destinatary element for the optimization.
  * @param {Element} source Element to be optimized.
  */
-function optimizeComponents(copy, source) {
+function optimizeComponents (copy, source) {
   var removeAttribute = HTMLElement.prototype.removeAttribute;
   var setAttribute = HTMLElement.prototype.setAttribute;
   var components = source.components || {};
-  Object.keys(components).forEach(function(name) {
+  Object.keys(components).forEach(function (name) {
     var component = components[name];
     var result = getImplicitValue(component, source);
     var isInherited = result[1];
@@ -225,20 +225,20 @@ function optimizeComponents(copy, source) {
  * @return {string}        The string representation of data according to the
  *                         passed component's schema.
  */
-function stringifyComponentValue(schema, data) {
+function stringifyComponentValue (schema, data) {
   data = typeof data === 'undefined' ? {} : data;
   if (data === null) {
     return '';
   }
   return (isSingleProperty(schema) ? _single : _multi)();
 
-  function _single() {
+  function _single () {
     return schema.stringify(data);
   }
 
-  function _multi() {
+  function _multi () {
     var propertyBag = {};
-    Object.keys(data).forEach(function(name) {
+    Object.keys(data).forEach(function (name) {
       if (schema[name]) {
         propertyBag[name] = schema[name].stringify(data[name]);
       }
@@ -259,12 +259,12 @@ function stringifyComponentValue(schema, data) {
  * @param {Element}   source    Element owning the component.
  * @return                      A pair with the computed value for the component of source and a flag indicating if the component is completely inherited from other sources (`true`) or genuinely owned by the source entity (`false`).
  */
-function getImplicitValue(component, source) {
+function getImplicitValue (component, source) {
   var isInherited = false;
   var value = (isSingleProperty(component.schema) ? _single : _multi)();
   return [value, isInherited];
 
-  function _single() {
+  function _single () {
     var value = getMixedValue(component, null, source);
     if (value === undefined) {
       value = getInjectedValue(component, null, source);
@@ -281,10 +281,10 @@ function getImplicitValue(component, source) {
     return value;
   }
 
-  function _multi() {
+  function _multi () {
     var value;
 
-    Object.keys(component.schema).forEach(function(propertyName) {
+    Object.keys(component.schema).forEach(function (propertyName) {
       var propertyValue = getFromAttribute(component, propertyName, source);
       if (propertyValue === undefined) {
         propertyValue = getMixedValue(component, propertyName, source);
@@ -324,7 +324,7 @@ function getImplicitValue(component, source) {
  *                                  from the primitive's attribute if any or
  *                                  `undefined`, otherwise.
  */
-function getFromAttribute(component, propertyName, source) {
+function getFromAttribute (component, propertyName, source) {
   var value;
   var mappings = source.mappings || {};
   var route = component.name + '.' + propertyName;
@@ -334,7 +334,7 @@ function getFromAttribute(component, propertyName, source) {
   }
   return value;
 
-  function findAttribute(mappings, route) {
+  function findAttribute (mappings, route) {
     var attributes = Object.keys(mappings);
     for (var i = 0, l = attributes.length; i < l; i++) {
       var attribute = attributes[i];
@@ -360,7 +360,7 @@ function getFromAttribute(component, propertyName, source) {
  * @return                           The value of the component or components'
  *                                   property coming from mixins of the source.
  */
-function getMixedValue(component, propertyName, source) {
+function getMixedValue (component, propertyName, source) {
   var value;
   var reversedMixins = source.mixinEls.reverse();
   for (var i = 0; value === undefined && i < reversedMixins.length; i++) {
@@ -387,7 +387,7 @@ function getMixedValue(component, propertyName, source) {
  * @return                           The component value coming from the
  *                                   injected default components of source.
  */
-function getInjectedValue(component, propertyName, source) {
+function getInjectedValue (component, propertyName, source) {
   var value;
   var primitiveDefaults = source.defaultComponentsFromPrimitive || {};
   var aFrameDefaults = source.defaultComponents || {};
@@ -416,7 +416,7 @@ function getInjectedValue(component, propertyName, source) {
  * @return                           The component value coming from the schema
  *                                   default.
  */
-function getDefaultValue(component, propertyName, source) {
+function getDefaultValue (component, propertyName, source) {
   if (!propertyName) {
     return component.schema.default;
   }
@@ -434,7 +434,7 @@ function getDefaultValue(component, propertyName, source) {
  * @return                      the minimum value making the component to equal
  *                              the reference value.
  */
-function getOptimalUpdate(component, implicit, reference) {
+function getOptimalUpdate (component, implicit, reference) {
   if (equal(implicit, reference)) {
     return null;
   }
@@ -442,7 +442,7 @@ function getOptimalUpdate(component, implicit, reference) {
     return reference;
   }
   var optimal = {};
-  Object.keys(reference).forEach(function(key) {
+  Object.keys(reference).forEach(function (key) {
     var needsUpdate = !equal(reference[key], implicit[key]);
     if (needsUpdate) {
       optimal[key] = reference[key];
@@ -455,7 +455,7 @@ function getOptimalUpdate(component, implicit, reference) {
  * @param {Schema} schema Component's schema to test if it is single property.
  * @return                `true` if component is single property.
  */
-function isSingleProperty(schema) {
+function isSingleProperty (schema) {
   return AFRAME.schema.isSingleProperty(schema);
 }
 
@@ -464,7 +464,7 @@ function isSingleProperty(schema) {
  * @param  {string} baseId Proposed Id
  * @return {string}        Valid Id based on the proposed Id
  */
-function getUniqueId(baseId) {
+function getUniqueId (baseId) {
   if (!document.getElementById(baseId)) {
     return baseId;
   }
@@ -484,14 +484,14 @@ function getUniqueId(baseId) {
   return baseId + '-' + i;
 }
 
-export function getComponentClipboardRepresentation(entity, componentName) {
+export function getComponentClipboardRepresentation (entity, componentName) {
   /**
    * Get the list of modified properties
    * @param  {Element} entity        Entity where the component belongs
    * @param  {string} componentName Component name
    * @return {object}               List of modified properties with their value
    */
-  function getModifiedProperties(entity, componentName) {
+  function getModifiedProperties (entity, componentName) {
     var data = entity.components[componentName].data;
     var defaultData = entity.components[componentName].schema;
     var diff = {};
@@ -519,7 +519,7 @@ export function getComponentClipboardRepresentation(entity, componentName) {
   return `${componentName}="${attributes}"`;
 }
 
-function isEmpty(string) {
+function isEmpty (string) {
   return string === null || string === '';
 }
 
@@ -532,7 +532,7 @@ const ICONS = {
   light: 'fa-lightbulb-o',
   text: 'fa-font'
 };
-export function printEntity(entity, onDoubleClick) {
+export function printEntity (entity, onDoubleClick) {
   if (!entity) {
     return '';
   }
@@ -584,7 +584,7 @@ export function printEntity(entity, onDoubleClick) {
  *   {element: 'a-entity', components: {geometry: 'primitive:box'}}
  * @return {Element} Entity created
  */
-export function createEntity(definition, cb) {
+export function createEntity (definition, cb) {
   const entity = document.createElement(definition.element);
 
   // load default attributes

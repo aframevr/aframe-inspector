@@ -12,7 +12,7 @@ export default class SelectWidget extends React.Component {
     value: PropTypes.string
   };
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     const value = this.props.value || '';
     this.state = { value: { value: value, label: value } };
@@ -25,7 +25,7 @@ export default class SelectWidget extends React.Component {
     }
   };
 
-  componentWillReceiveProps(newProps) {
+  componentWillReceiveProps (newProps) {
     if (newProps.value !== this.state.value.value) {
       this.setState({
         value: { value: newProps.value, label: newProps.value }
@@ -33,7 +33,7 @@ export default class SelectWidget extends React.Component {
     }
   }
 
-  render() {
+  render () {
     const options = this.props.options.map(value => {
       return { value: value, label: value };
     });
