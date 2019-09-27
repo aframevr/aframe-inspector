@@ -8,7 +8,7 @@ import ModalTextures from './modals/ModalTextures';
 import ModalHelp from './modals/ModalHelp';
 import SceneGraph from './scenegraph/SceneGraph';
 import CameraToolbar from './viewport/CameraToolbar';
-import TransformToolBar from './viewport/TransformToolBar';
+import TransformToolbar from './viewport/TransformToolbar';
 import ViewportHUD from './viewport/ViewportHUD';
 import { injectCSS } from '../lib/utils';
 
@@ -172,7 +172,7 @@ export default class Main extends React.Component {
           <div id="viewportBar">
             <CameraToolbar />
             <ViewportHUD />
-            <TransformToolBar />
+            <TransformToolbar />
           </div>
 
           <div id="rightPanel">
