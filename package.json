@@ -4,7 +4,7 @@
   "description": "A visual inspector tool for A-Frame.",
   "main": "dist/aframe-inspector.min.js",
   "scripts": {
-    "build": "NODE_ENV=production cross-env webpack --progress --colors",
+    "build": "cross-env NODE_ENV=production webpack --progress --colors",
     "deploy": "npm run ghpages",
     "dist": "npm run dist:max && npm run dist:min",
     "dist:max": "cross-env AFRAME_DIST=true npm run build",
