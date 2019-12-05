@@ -50,7 +50,7 @@ npm install
 npm start
 ```
 
-Then navigate to __[http://localhost:3333/example/](http://localhost:3333/example/)__
+Then navigate to __[http://localhost:3333/examples/](http://localhost:3333/examples/)__
 
 [travis-image]: https://img.shields.io/travis/aframevr/aframe-inspector.svg?style=flat-square
 [travis-url]: https://travis-ci.org/aframevr/aframe-inspector
