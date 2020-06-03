@@ -47,7 +47,7 @@
     "lodash.debounce": "^4.0.6",
     "object-assign": "^4.1.0",
     "open": "0.0.5",
-    "postcss-loader": "^0.9.1",
+    "postcss-loader": "^3.0.0",
     "prettier": "^1.15.3",
     "prop-types": "^15.6.0",
     "react": "^15.3.2",
@@ -62,7 +62,8 @@
     "stylelint-order": "^0.6.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
-    "webpack": "^2.3.3",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.43.0",
     "webpack-dev-server": "^2.11.2"
   },
   "keywords": [
@@ -79,6 +80,7 @@
     "wysiwyg"
   ],
   "devDependencies": {
-    "postcss-import": "^8.0.2"
+    "postcss-import": "^12.0.1",
+    "webpack-cli": "^3.3.11"
   }
 }

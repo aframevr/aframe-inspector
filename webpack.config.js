@@ -1,8 +1,7 @@
-var autoprefixer = require('autoprefixer');
 var childProcess = require('child_process');
 var path = require('path');
-var postcssImport = require('postcss-import');
 var webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 // Add HMR for development environments only.
 var entry = ['./src/index.js'];
@@ -13,16 +12,16 @@ if (process.env.NODE_ENV === 'dev') {
   ].concat(entry);
 }
 
-function getBuildTimestamp () {
-  function pad2 (value) {
+function getBuildTimestamp() {
+  function pad2(value) {
     return ('0' + value).slice(-2);
   }
   var date = new Date();
   var timestamp = [
     pad2(date.getUTCDate()),
-    pad2(date.getUTCMonth()+1),
+    pad2(date.getUTCMonth() + 1),
     date.getUTCFullYear()
-  ]
+  ];
   return timestamp.join('-');
 }
 
@@ -31,20 +30,24 @@ var commitHash = childProcess.execSync('git rev-parse HEAD').toString();
 // Minification.
 var plugins = [
   new webpack.DefinePlugin({
-    'process.env':{
-      'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    'process.env': {
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV)
     },
     VERSION: JSON.stringify(require('./package.json').version),
     BUILD_TIMESTAMP: JSON.stringify(getBuildTimestamp()),
     COMMIT_HASH: JSON.stringify(commitHash)
-
   }),
   new webpack.EnvironmentPlugin(['NODE_ENV'])
 ];
+
+const minimizers = [];
+
 if (process.env.MINIFY === 'true') {
-  plugins.push(new webpack.optimize.UglifyJsPlugin({
-    compress: {warnings: false}
-  }));
+  minimizers.push(
+    new UglifyJsPlugin({
+      sourceMap: true
+    })
+  );
 }
 
 // dist/
@@ -78,7 +81,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader:'style-loader!css-loader!postcss-loader'
+        loader: 'style-loader!css-loader!postcss-loader'
       },
       {
         test: /\.styl$/,
@@ -87,13 +90,13 @@ module.exports = {
           'style-loader',
           {
             loader: 'css-loader',
-            options: {url: false}
+            options: { url: false }
           },
           {
             loader: 'postcss-loader',
             options: {
               ident: 'postcss',
-              plugins: (loader) => [require('autoprefixer')()]
+              plugins: loader => [require('autoprefixer')()]
             }
           },
           'stylus-loader'
@@ -102,6 +105,9 @@ module.exports = {
     ]
   },
   plugins: plugins,
+  optimization: {
+    minimizer: minimizers
+  },
   resolve: {
     modules: [path.join(__dirname, 'node_modules')]
   }
