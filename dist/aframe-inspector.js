@@ -19278,9 +19278,9 @@ var _CameraToolbar = __webpack_require__(123);
 
 var _CameraToolbar2 = _interopRequireDefault(_CameraToolbar);
 
-var _TransformToolBar = __webpack_require__(124);
+var _TransformToolbar = __webpack_require__(124);
 
-var _TransformToolBar2 = _interopRequireDefault(_TransformToolBar);
+var _TransformToolbar2 = _interopRequireDefault(_TransformToolbar);
 
 var _ViewportHUD = __webpack_require__(125);
 
@@ -19481,7 +19481,7 @@ var Main = function (_React$Component) {
             { id: 'viewportBar' },
             _react2.default.createElement(_CameraToolbar2.default, null),
             _react2.default.createElement(_ViewportHUD2.default, null),
-            _react2.default.createElement(_TransformToolBar2.default, null)
+            _react2.default.createElement(_TransformToolbar2.default, null)
           ),
           _react2.default.createElement(
             'div',
@@ -21517,6 +21517,7 @@ var SceneGraph = function (_React$Component) {
 
     _this.clearFilter = function () {
       _this.setState({ filter: '' });
+      _this.updateFilteredEntities('');
     };
 
     _this.renderEntities = function () {
@@ -21611,7 +21612,8 @@ var SceneGraph = function (_React$Component) {
               id: 'filter',
               placeholder: 'Search...',
               onChange: this.onChangeFilter,
-              onKeyUp: this.onFilterKeyUp
+              onKeyUp: this.onFilterKeyUp,
+              value: this.state.filter
             }),
             clearFilter,
             !this.state.filter && _react2.default.createElement('span', { className: 'fa fa-search' })
@@ -23676,7 +23678,9 @@ Events.on('entityupdate', function (payload) {
   if (component) {
     if (payload.property) {
       updates[entity.id][payload.component] = updates[entity.id][payload.component] || {};
-      value = component.schema[payload.property].stringify(payload.value);
+      if (component.schema[payload.property]) {
+        value = component.schema[payload.property].stringify(payload.value);
+      }
       updates[entity.id][payload.component][payload.property] = value;
     } else {
       value = component.schema.stringify(payload.value);
@@ -23858,7 +23862,7 @@ var Shortcuts = {
     modules: {}
   },
   onKeyUp: function onKeyUp(event) {
-    if (!shouldCaptureKeyEvent(event)) {
+    if (!shouldCaptureKeyEvent(event) || !AFRAME.INSPECTOR.opened) {
       return;
     }
 
@@ -23953,7 +23957,7 @@ var Shortcuts = {
     }
   },
   onKeyDown: function onKeyDown(event) {
-    if (!shouldCaptureKeyEvent(event)) {
+    if (!shouldCaptureKeyEvent(event) || !AFRAME.INSPECTOR.opened) {
       return;
     }
 
