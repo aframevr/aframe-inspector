@@ -139,7 +139,7 @@
           child.updateMatrix();
 
           var tempGeometry = child.geometry.clone();
-          tempGeometry.applyMatrix(child.matrix);
+          tempGeometry.applyMatrix4(child.matrix);
           child.geometry = tempGeometry;
 
           child.position.set(0, 0, 0);
@@ -192,19 +192,19 @@
     arrowGeometry.translate(0, 0.5, 0);
 
     var lineXGeometry = new THREE.BufferGeometry();
-    lineXGeometry.addAttribute(
+    lineXGeometry.setAttribute(
       'position',
       new THREE.Float32BufferAttribute([0, 0, 0, 1, 0, 0], 3)
     );
 
     var lineYGeometry = new THREE.BufferGeometry();
-    lineYGeometry.addAttribute(
+    lineYGeometry.setAttribute(
       'position',
       new THREE.Float32BufferAttribute([0, 0, 0, 0, 1, 0], 3)
     );
 
     var lineZGeometry = new THREE.BufferGeometry();
-    lineZGeometry.addAttribute(
+    lineZGeometry.setAttribute(
       'position',
       new THREE.Float32BufferAttribute([0, 0, 0, 0, 0, 1], 3)
     );
@@ -441,7 +441,7 @@
           );
       }
 
-      geometry.addAttribute(
+      geometry.setAttribute(
         'position',
         new THREE.Float32BufferAttribute(vertices, 3)
       );
@@ -620,19 +620,19 @@
     arrowGeometry.translate(0, 0.5, 0);
 
     var lineXGeometry = new THREE.BufferGeometry();
-    lineXGeometry.addAttribute(
+    lineXGeometry.setAttribute(
       'position',
       new THREE.Float32BufferAttribute([0, 0, 0, 1, 0, 0], 3)
     );
 
     var lineYGeometry = new THREE.BufferGeometry();
-    lineYGeometry.addAttribute(
+    lineYGeometry.setAttribute(
       'position',
       new THREE.Float32BufferAttribute([0, 0, 0, 0, 1, 0], 3)
     );
 
     var lineZGeometry = new THREE.BufferGeometry();
-    lineZGeometry.addAttribute(
+    lineZGeometry.setAttribute(
       'position',
       new THREE.Float32BufferAttribute([0, 0, 0, 0, 0, 1], 3)
     );
