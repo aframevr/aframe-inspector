@@ -2,6 +2,7 @@ var autoprefixer = require('autoprefixer');
 var childProcess = require('child_process');
 var path = require('path');
 var postcssImport = require('postcss-import');
+var TerserPlugin = require('terser-webpack-plugin-legacy');
 var webpack = require('webpack');
 
 // Add HMR for development environments only.
@@ -42,9 +43,7 @@ var plugins = [
   new webpack.EnvironmentPlugin(['NODE_ENV'])
 ];
 if (process.env.MINIFY === 'true') {
-  plugins.push(new webpack.optimize.UglifyJsPlugin({
-    compress: {warnings: false}
-  }));
+  plugins.push(new TerserPlugin());
 }
 
 // dist/
