@@ -73,7 +73,7 @@ function Viewport(inspector) {
       value = `${object.position.x} ${object.position.y} ${object.position.z}`;
     } else if (evt.mode === 'rotate') {
       component = 'rotation';
-      const d = THREE.Math.radToDeg;
+      const d = THREE.MathUtils.radToDeg;
       value = `${d(object.rotation.x)} ${d(object.rotation.y)} ${d(
         object.rotation.z
       )}`;
