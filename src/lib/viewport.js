@@ -59,7 +59,7 @@ function Viewport(inspector) {
       return;
     }
 
-    selectionBox.setFromObject(object).update();
+    selectionBox.setFromObject(object);
 
     updateHelpers(object);
 
@@ -103,7 +103,7 @@ function Viewport(inspector) {
 
   Events.on('entityupdate', detail => {
     if (inspector.selectedEntity.object3DMap['mesh']) {
-      selectionBox.update(inspector.selected);
+      selectionBox.setFromObject(inspector.selected);
     }
   });
 
@@ -153,7 +153,7 @@ function Viewport(inspector) {
     transformControls.detach();
     if (object && object.el) {
       if (object.el.getObject3D('mesh')) {
-        selectionBox.setFromObject(object).update();
+        selectionBox.setFromObject(object);
         selectionBox.visible = true;
       }
 
@@ -168,7 +168,7 @@ function Viewport(inspector) {
 
   Events.on('geometrychanged', object => {
     if (object !== null) {
-      selectionBox.setFromObject(object).update();
+      selectionBox.setFromObject(object);
     }
   });
 
@@ -183,7 +183,7 @@ function Viewport(inspector) {
             object.geometry.attributes.position &&
             object.geometry.attributes.position.array.length))
       ) {
-        selectionBox.setFromObject(object).update();
+        selectionBox.setFromObject(object);
       }
     }
 
