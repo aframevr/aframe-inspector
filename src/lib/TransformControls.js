@@ -807,6 +807,7 @@
       var tempMatrix = new THREE.Matrix4();
       var tempVector = new THREE.Vector3();
       var tempQuaternion = new THREE.Quaternion();
+      var tempEuler = new THREE.Euler();
       var unitX = new THREE.Vector3(1, 0, 0);
       var unitY = new THREE.Vector3(0, 1, 0);
       var unitZ = new THREE.Vector3(0, 0, 1);
@@ -1171,12 +1172,11 @@
 
             scope.object.quaternion.copy(tempQuaternion);
           } else if (scope.axis === 'XYZE') {
-            quaternionE.setFromEuler(
-              point
+            var p = point
                 .clone()
                 .cross(tempVector)
                 .normalize()
-            ); // rotation axis
+            quaternionE.setFromEuler(tempEuler.set(p.x, p.y, p.z)); // rotation axis
 
             tempQuaternion.setFromRotationMatrix(
               tempMatrix.copy(parentRotationMatrix).invert()
