@@ -41,7 +41,7 @@ function Viewport(inspector) {
 
   function updateHelpers(object) {
     object.traverse(node => {
-      if (inspector.helpers[node.uuid]) {
+      if (inspector.helpers[node.uuid] && inspector.helpers[node.uuid].update) {
         inspector.helpers[node.uuid].update();
       }
     });

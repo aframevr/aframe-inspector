@@ -126,7 +126,10 @@ Inspector.prototype = {
       helper.visible = false;
       this.sceneHelpers.add(helper);
       this.helpers[object.uuid] = helper;
-      helper.update();
+      // SkeletonHelper doesn't have an update method
+      if (helper.update) {
+        helper.update();
+      }
     };
   })(),
 
