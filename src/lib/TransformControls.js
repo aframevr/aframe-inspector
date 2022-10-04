@@ -76,7 +76,7 @@
 
       //// PLANES
 
-      var planeGeometry = new THREE.PlaneBufferGeometry(50, 50, 2, 2);
+      var planeGeometry = new THREE.PlaneGeometry(50, 50, 2, 2);
       var planeMaterial = new THREE.MeshBasicMaterial({
         visible: false,
         side: THREE.DoubleSide
@@ -180,7 +180,7 @@
     constructor() {
       super();
 
-      var arrowGeometry = new THREE.ConeBufferGeometry(0.05, 0.2, 12, 1, false);
+      var arrowGeometry = new THREE.ConeGeometry(0.05, 0.2, 12, 1, false);
       arrowGeometry.translate(0, 0.5, 0);
 
       var lineXGeometry = new THREE.BufferGeometry();
@@ -257,7 +257,7 @@
         XY: [
           [
             new THREE.Mesh(
-              new THREE.PlaneBufferGeometry(0.29, 0.29),
+              new THREE.PlaneGeometry(0.29, 0.29),
               new GizmoMaterial({ color: 0xffff00, opacity: 0.25 })
             ),
             [0.15, 0.15, 0]
@@ -267,7 +267,7 @@
         YZ: [
           [
             new THREE.Mesh(
-              new THREE.PlaneBufferGeometry(0.29, 0.29),
+              new THREE.PlaneGeometry(0.29, 0.29),
               new GizmoMaterial({ color: 0x00ffff, opacity: 0.25 })
             ),
             [0, 0.15, 0.15],
@@ -278,7 +278,7 @@
         XZ: [
           [
             new THREE.Mesh(
-              new THREE.PlaneBufferGeometry(0.29, 0.29),
+              new THREE.PlaneGeometry(0.29, 0.29),
               new GizmoMaterial({ color: 0xff00ff, opacity: 0.25 })
             ),
             [0.15, 0, 0.15],
@@ -291,7 +291,7 @@
         X: [
           [
             new THREE.Mesh(
-              new THREE.CylinderBufferGeometry(0.2, 0, 1, 4, 1, false),
+              new THREE.CylinderGeometry(0.2, 0, 1, 4, 1, false),
               pickerMaterial
             ),
             [0.6, 0, 0],
@@ -302,7 +302,7 @@
         Y: [
           [
             new THREE.Mesh(
-              new THREE.CylinderBufferGeometry(0.2, 0, 1, 4, 1, false),
+              new THREE.CylinderGeometry(0.2, 0, 1, 4, 1, false),
               pickerMaterial
             ),
             [0, 0.6, 0]
@@ -312,7 +312,7 @@
         Z: [
           [
             new THREE.Mesh(
-              new THREE.CylinderBufferGeometry(0.2, 0, 1, 4, 1, false),
+              new THREE.CylinderGeometry(0.2, 0, 1, 4, 1, false),
               pickerMaterial
             ),
             [0, 0, 0.6],
@@ -327,7 +327,7 @@
         XY: [
           [
             new THREE.Mesh(
-              new THREE.PlaneBufferGeometry(0.4, 0.4),
+              new THREE.PlaneGeometry(0.4, 0.4),
               pickerMaterial
             ),
             [0.2, 0.2, 0]
@@ -337,7 +337,7 @@
         YZ: [
           [
             new THREE.Mesh(
-              new THREE.PlaneBufferGeometry(0.4, 0.4),
+              new THREE.PlaneGeometry(0.4, 0.4),
               pickerMaterial
             ),
             [0, 0.2, 0.2],
@@ -348,7 +348,7 @@
         XZ: [
           [
             new THREE.Mesh(
-              new THREE.PlaneBufferGeometry(0.4, 0.4),
+              new THREE.PlaneGeometry(0.4, 0.4),
               pickerMaterial
             ),
             [0.2, 0, 0.2],
@@ -487,7 +487,7 @@
         X: [
           [
             new THREE.Mesh(
-              new THREE.TorusBufferGeometry(1, 0.12, 4, 12, Math.PI),
+              new THREE.TorusGeometry(1, 0.12, 4, 12, Math.PI),
               pickerMaterial
             ),
             [0, 0, 0],
@@ -498,7 +498,7 @@
         Y: [
           [
             new THREE.Mesh(
-              new THREE.TorusBufferGeometry(1, 0.12, 4, 12, Math.PI),
+              new THREE.TorusGeometry(1, 0.12, 4, 12, Math.PI),
               pickerMaterial
             ),
             [0, 0, 0],
@@ -509,7 +509,7 @@
         Z: [
           [
             new THREE.Mesh(
-              new THREE.TorusBufferGeometry(1, 0.12, 4, 12, Math.PI),
+              new THREE.TorusGeometry(1, 0.12, 4, 12, Math.PI),
               pickerMaterial
             ),
             [0, 0, 0],
@@ -520,7 +520,7 @@
         E: [
           [
             new THREE.Mesh(
-              new THREE.TorusBufferGeometry(1.25, 0.12, 2, 24),
+              new THREE.TorusGeometry(1.25, 0.12, 2, 24),
               pickerMaterial
             )
           ]
@@ -529,7 +529,7 @@
         XYZE: [
           [
             new THREE.Mesh(
-              new THREE.TorusBufferGeometry(1, 0.12, 2, 24),
+              new THREE.TorusGeometry(1, 0.12, 2, 24),
               pickerMaterial
             )
           ]
@@ -602,7 +602,7 @@
     constructor() {
       super();
 
-      var arrowGeometry = new THREE.BoxBufferGeometry(0.125, 0.125, 0.125);
+      var arrowGeometry = new THREE.BoxGeometry(0.125, 0.125, 0.125);
       arrowGeometry.translate(0, 0.5, 0);
 
       var lineXGeometry = new THREE.BufferGeometry();
@@ -668,7 +668,7 @@
         XYZ: [
           [
             new THREE.Mesh(
-              new THREE.BoxBufferGeometry(0.125, 0.125, 0.125),
+              new THREE.BoxGeometry(0.125, 0.125, 0.125),
               new GizmoMaterial({ color: 0xffffff, opacity: 0.25 })
             )
           ]
@@ -679,7 +679,7 @@
         X: [
           [
             new THREE.Mesh(
-              new THREE.CylinderBufferGeometry(0.2, 0, 1, 4, 1, false),
+              new THREE.CylinderGeometry(0.2, 0, 1, 4, 1, false),
               pickerMaterial
             ),
             [0.6, 0, 0],
@@ -690,7 +690,7 @@
         Y: [
           [
             new THREE.Mesh(
-              new THREE.CylinderBufferGeometry(0.2, 0, 1, 4, 1, false),
+              new THREE.CylinderGeometry(0.2, 0, 1, 4, 1, false),
               pickerMaterial
             ),
             [0, 0.6, 0]
@@ -700,7 +700,7 @@
         Z: [
           [
             new THREE.Mesh(
-              new THREE.CylinderBufferGeometry(0.2, 0, 1, 4, 1, false),
+              new THREE.CylinderGeometry(0.2, 0, 1, 4, 1, false),
               pickerMaterial
             ),
             [0, 0, 0.6],
@@ -711,7 +711,7 @@
         XYZ: [
           [
             new THREE.Mesh(
-              new THREE.BoxBufferGeometry(0.4, 0.4, 0.4),
+              new THREE.BoxGeometry(0.4, 0.4, 0.4),
               pickerMaterial
             )
           ]
@@ -807,6 +807,7 @@
       var tempMatrix = new THREE.Matrix4();
       var tempVector = new THREE.Vector3();
       var tempQuaternion = new THREE.Quaternion();
+      var tempEuler = new THREE.Euler();
       var unitX = new THREE.Vector3(1, 0, 0);
       var unitY = new THREE.Vector3(0, 1, 0);
       var unitZ = new THREE.Vector3(0, 0, 1);
@@ -1171,12 +1172,11 @@
 
             scope.object.quaternion.copy(tempQuaternion);
           } else if (scope.axis === 'XYZE') {
-            quaternionE.setFromEuler(
-              point
+            var p = point
                 .clone()
                 .cross(tempVector)
                 .normalize()
-            ); // rotation axis
+            quaternionE.setFromEuler(tempEuler.set(p.x, p.y, p.z)); // rotation axis
 
             tempQuaternion.setFromRotationMatrix(
               tempMatrix.copy(parentRotationMatrix).invert()

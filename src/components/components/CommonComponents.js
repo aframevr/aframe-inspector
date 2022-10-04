@@ -60,9 +60,9 @@ export default class CommonComponents extends React.Component {
       var data = entity.object3D[componentName];
       if (componentName === 'rotation') {
         data = {
-          x: THREE.Math.radToDeg(entity.object3D.rotation.x),
-          y: THREE.Math.radToDeg(entity.object3D.rotation.y),
-          z: THREE.Math.radToDeg(entity.object3D.rotation.z)
+          x: THREE.MathUtils.radToDeg(entity.object3D.rotation.x),
+          y: THREE.MathUtils.radToDeg(entity.object3D.rotation.y),
+          z: THREE.MathUtils.radToDeg(entity.object3D.rotation.z)
         };
       }
       return (

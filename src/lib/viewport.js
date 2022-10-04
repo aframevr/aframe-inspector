@@ -59,7 +59,7 @@ function Viewport(inspector) {
       return;
     }
 
-    selectionBox.setFromObject(object).update();
+    selectionBox.setFromObject(object);
 
     updateHelpers(object);
 
@@ -73,7 +73,7 @@ function Viewport(inspector) {
       value = `${object.position.x} ${object.position.y} ${object.position.z}`;
     } else if (evt.mode === 'rotate') {
       component = 'rotation';
-      const d = THREE.Math.radToDeg;
+      const d = THREE.MathUtils.radToDeg;
       value = `${d(object.rotation.x)} ${d(object.rotation.y)} ${d(
         object.rotation.z
       )}`;
@@ -103,7 +103,7 @@ function Viewport(inspector) {
 
   Events.on('entityupdate', detail => {
     if (inspector.selectedEntity.object3DMap['mesh']) {
-      selectionBox.update(inspector.selected);
+      selectionBox.setFromObject(inspector.selected);
     }
   });
 
@@ -153,7 +153,7 @@ function Viewport(inspector) {
     transformControls.detach();
     if (object && object.el) {
       if (object.el.getObject3D('mesh')) {
-        selectionBox.setFromObject(object).update();
+        selectionBox.setFromObject(object);
         selectionBox.visible = true;
       }
 
@@ -168,7 +168,7 @@ function Viewport(inspector) {
 
   Events.on('geometrychanged', object => {
     if (object !== null) {
-      selectionBox.setFromObject(object).update();
+      selectionBox.setFromObject(object);
     }
   });
 
@@ -183,7 +183,7 @@ function Viewport(inspector) {
             object.geometry.attributes.position &&
             object.geometry.attributes.position.array.length))
       ) {
-        selectionBox.setFromObject(object).update();
+        selectionBox.setFromObject(object);
       }
     }
 
