@@ -1,8 +1,6 @@
-/* global THREE CustomEvent */
 /* eslint-disable no-unused-vars */
 import TransformControls from './TransformControls.js';
 import EditorControls from './EditorControls.js';
-/* eslint-disable no-unused-vars */
 
 import { initRaycaster } from './raycaster';
 

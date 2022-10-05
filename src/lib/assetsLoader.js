@@ -1,4 +1,3 @@
-/* global XMLHttpRequest JSON */
 import Events from './Events';
 
 const assetsBaseUrl = 'https://aframe.io/sample-assets/';

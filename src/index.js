@@ -1,4 +1,3 @@
-/* global VERSION BUILD_TIMESTAMP COMMIT_HASH webFont */
 require('../vendor/ga');
 
 var Events = require('./lib/Events');

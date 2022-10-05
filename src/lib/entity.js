@@ -129,7 +129,7 @@ export function cloneEntity(entity) {
   entity.flushToDOM();
 
   const clone = entity.cloneNode(true);
-  clone.addEventListener('loaded', function(e) {
+  clone.addEventListener('loaded', function() {
     AFRAME.INSPECTOR.selectEntity(clone);
     Events.emit('entityclone');
   });

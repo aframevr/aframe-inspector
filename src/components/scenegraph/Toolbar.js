@@ -1,3 +1,4 @@
+/* global process */
 import classnames from 'classnames';
 import React from 'react';
 import Events from '../../lib/Events.js';

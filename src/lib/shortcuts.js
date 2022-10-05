@@ -1,4 +1,3 @@
-/* globals AFRAME */
 var Events = require('./Events');
 import {
   removeSelectedEntity,
