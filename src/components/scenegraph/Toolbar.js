@@ -3,8 +3,6 @@ import React from 'react';
 import Events from '../../lib/Events.js';
 import { saveBlob, saveString } from '../../lib/utils';
 
-const LOCALSTORAGE_MOCAP_UI = 'aframeinspectormocapuienabled';
-
 function filterHelpers(scene, visible) {
   scene.traverse(o => {
     if (o.userData.source === 'INSPECTOR') {

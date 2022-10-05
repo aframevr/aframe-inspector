@@ -519,10 +519,6 @@ export function getComponentClipboardRepresentation(entity, componentName) {
   return `${componentName}="${attributes}"`;
 }
 
-function isEmpty(string) {
-  return string === null || string === '';
-}
-
 /**
  * Entity representation.
  */

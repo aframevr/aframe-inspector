@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import Events from '../../lib/Events';
 import Select from 'react-select';
 
-var DELIMITER = ' ';
-
 export default class AddComponent extends React.Component {
   static propTypes = {
     entity: PropTypes.object
@@ -18,10 +16,6 @@ export default class AddComponent extends React.Component {
     let componentName = value.value;
 
     var entity = this.props.entity;
-    var packageName;
-    var selectedOption = this.options.filter(function(option) {
-      return option.value === componentName;
-    })[0];
 
     if (AFRAME.components[componentName].multiple) {
       const id = prompt(
