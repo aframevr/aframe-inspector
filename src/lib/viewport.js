@@ -1,6 +1,4 @@
 /* global THREE CustomEvent */
-import debounce from 'lodash.debounce';
-
 /* eslint-disable no-unused-vars */
 import TransformControls from './TransformControls.js';
 import EditorControls from './EditorControls.js';
@@ -8,7 +6,6 @@ import EditorControls from './EditorControls.js';
 
 import { initRaycaster } from './raycaster';
 
-import { getNumber } from './utils';
 const Events = require('./Events');
 
 /**
