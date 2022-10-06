@@ -1,7 +1,6 @@
-var React = require('react');
-var Events = require('../../lib/Events.js');
-var classNames = require('classnames');
+import React from 'react';
 import Select from 'react-select';
+import Events from '../../lib/Events';
 
 const options = [
   { value: 'perspective', event: 'cameraperspectivetoggle', payload: null, label: 'Perspective' },

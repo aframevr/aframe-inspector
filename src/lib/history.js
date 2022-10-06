@@ -1,6 +1,6 @@
-const Events = require('./Events');
+import Events from './Events';
 
-const updates = {};
+export const updates = {};
 
 /**
  * Store change to export.
@@ -28,7 +28,3 @@ Events.on('entityupdate', payload => {
     }
   }
 });
-
-module.exports = {
-  updates: updates
-};

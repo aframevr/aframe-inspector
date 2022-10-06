@@ -1,6 +1,6 @@
 /* eslint-disable no-prototype-builtins */
 import React from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 import Events from '../../lib/Events';
@@ -121,7 +121,7 @@ export default class PropertyRow extends React.Component {
     const title =
       props.name + '\n - type: ' + props.schema.type + '\n - value: ' + value;
 
-    const className = classnames({
+    const className = classNames({
       propertyRow: true,
       propertyRowDefined: props.isSingle
         ? !!props.entity.getDOMAttribute(props.componentname)

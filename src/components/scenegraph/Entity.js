@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import classNames from 'classnames';
+import Events from '../../lib/Events';
 import { printEntity, removeEntity, cloneEntity } from '../../lib/entity';
-
-const Events = require('../../lib/Events.js');
 
 export default class Entity extends React.Component {
   static propTypes = {
@@ -91,7 +90,7 @@ export default class Entity extends React.Component {
     );
 
     // Class name.
-    const className = classnames({
+    const className = classNames({
       active: this.props.isSelected,
       entity: true,
       novisible: !visible,

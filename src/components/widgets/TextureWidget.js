@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-var Events = require('../../lib/Events.js');
+import Events from '../../lib/Events';
 
 function getUrlFromId(assetId) {
   return (

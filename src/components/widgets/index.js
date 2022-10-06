@@ -1,11 +1,9 @@
-module.exports = {
-  BooleanWidget: require('./BooleanWidget').default,
-  ColorWidget: require('./ColorWidget').default,
-  InputWidget: require('./InputWidget').default,
-  NumberWidget: require('./NumberWidget').default,
-  SelectWidget: require('./SelectWidget').default,
-  TextureWidget: require('./TextureWidget').default,
-  Vec4Widget: require('./Vec4Widget').default,
-  Vec3Widget: require('./Vec3Widget').default,
-  Vec2Widget: require('./Vec2Widget').default
-};
+export { default as BooleanWidget } from './BooleanWidget';
+export { default as ColorWidget } from './ColorWidget';
+export { default as InputWidget } from './InputWidget';
+export { default as NumberWidget } from './NumberWidget';
+export { default as SelectWidget } from './SelectWidget';
+export { default as TextureWidget } from './TextureWidget';
+export { default as Vec4Widget } from './Vec4Widget';
+export { default as Vec3Widget } from './Vec3Widget';
+export { default as Vec2Widget } from './Vec2Widget';

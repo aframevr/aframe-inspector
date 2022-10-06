@@ -3,13 +3,12 @@ import TransformControls from './TransformControls.js';
 import EditorControls from './EditorControls.js';
 
 import { initRaycaster } from './raycaster';
-
-const Events = require('./Events');
+import Events from './Events';
 
 /**
  * Transform controls stuff mostly.
  */
-function Viewport(inspector) {
+export function Viewport(inspector) {
   // Initialize raycaster and picking in differentpmodule.
   const mouseCursor = initRaycaster(inspector);
   const sceneEl = inspector.sceneEl;
@@ -226,5 +225,3 @@ function Viewport(inspector) {
     ga('send', 'event', 'Viewport', 'toggleEditor', active);
   });
 }
-
-module.exports = Viewport;

@@ -1,7 +1,6 @@
 import React from 'react';
-var Events = require('../lib/Events.js');
-
-import { equal } from '../lib/utils.js';
+import Events from './Events';
+import { equal } from './utils';
 
 /**
  * Update a component.

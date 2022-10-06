@@ -1,8 +1,8 @@
 /* global process */
-import classnames from 'classnames';
 import React from 'react';
-import Events from '../../lib/Events.js';
-import { saveBlob, saveString } from '../../lib/utils';
+import classNames from 'classnames';
+import Events from '../../lib/Events';
+import { saveBlob } from '../../lib/utils';
 
 function filterHelpers(scene, visible) {
   scene.traverse(o => {
@@ -91,7 +91,7 @@ export default class Toolbar extends React.Component {
   }
 
   render() {
-    const watcherClassNames = classnames({
+    const watcherClassNames = classNames({
       button: true,
       fa: true,
       'fa-save': true

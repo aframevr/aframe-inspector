@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import classNames from 'classnames';
 
 export default class Collapsible extends React.Component {
   static propTypes = {
@@ -35,9 +35,9 @@ export default class Collapsible extends React.Component {
     if (this.props.className) {
       rootClassNames[this.props.className] = true;
     }
-    const rootClasses = classnames(rootClassNames);
+    const rootClasses = classNames(rootClassNames);
 
-    const contentClasses = classnames({
+    const contentClasses = classNames({
       content: true,
       hide: this.state.collapsed
     });

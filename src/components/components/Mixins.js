@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-
-const Events = require('../../lib/Events.js');
+import Events from '../../lib/Events';
 
 function trim(s) {
   s = s.replace(/(^\s*)|(\s*$)/gi, '');

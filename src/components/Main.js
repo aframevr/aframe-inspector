@@ -2,7 +2,7 @@ import React from 'react';
 
 THREE.ImageUtils.crossOrigin = '';
 
-const Events = require('../lib/Events.js');
+import Events from '../lib/Events';
 import ComponentsSidebar from './components/Sidebar';
 import ModalTextures from './modals/ModalTextures';
 import ModalHelp from './modals/ModalHelp';

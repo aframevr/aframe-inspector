@@ -1,4 +1,10 @@
-function insertNewAsset(type, id, src, anonymousCrossOrigin, onLoadedCallback) {
+export function insertNewAsset(
+  type,
+  id,
+  src,
+  anonymousCrossOrigin,
+  onLoadedCallback
+) {
   var element = null;
   switch (type) {
     case 'img':
@@ -22,7 +28,3 @@ function insertNewAsset(type, id, src, anonymousCrossOrigin, onLoadedCallback) {
     document.getElementsByTagName('a-assets')[0].appendChild(element);
   }
 }
-
-module.exports = {
-  insertNewAsset: insertNewAsset
-};

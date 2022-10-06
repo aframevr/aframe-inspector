@@ -6,7 +6,7 @@ const assetsRelativeUrl = { images: 'dist/images.json' };
 /**
  * Asynchronously load and register components from the registry.
  */
-function AssetsLoader() {
+export function AssetsLoader() {
   this.images = [];
   this.hasLoaded = false;
 }
@@ -40,5 +40,3 @@ AssetsLoader.prototype = {
     this.hasLoaded = true;
   }
 };
-
-module.exports = AssetsLoader;

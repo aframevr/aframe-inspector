@@ -1,4 +1,4 @@
-var React = require('react');
+import React from 'react';
 import PropTypes from 'prop-types';
 
 export default class Modal extends React.Component {

@@ -1,5 +1,5 @@
-var React = require('react');
-var Events = require('../../lib/Events.js');
+import React from 'react';
+import Events from '../../lib/Events';
 import { printEntity } from '../../lib/entity';
 
 export default class ViewportHUD extends React.Component {
