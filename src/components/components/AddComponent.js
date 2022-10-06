@@ -99,7 +99,7 @@ export default class AddComponent extends React.Component {
  */
 function isComponentInstanced(entity, componentName) {
   for (var component in entity.components) {
-    if (component.substr(0, component.indexOf('__')) === componentName) {
+    if (component.substring(0, component.indexOf('__')) === componentName) {
       return true;
     }
   }
