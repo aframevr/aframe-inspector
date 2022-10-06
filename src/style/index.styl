@@ -72,11 +72,14 @@ body.aframe-inspector-opened
     outline none /* osx */
 
   .gltfIcon img
+    box-sizing content-box
+    display inline
     height 20px
     left 5px
     padding 0 5px
     position relative
     top 4px
+    vertical-align baseline
     width 20px
 
   #scenegraph,
@@ -91,9 +94,11 @@ body.aframe-inspector-opened
 
   .toggle-edit
     background-color $red
+    box-sizing content-box
     color #FAFAFA
     font-size 13px
     left 3px
+    line-height normal
     margin 0
     padding 6px 10px
     position fixed
