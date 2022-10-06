@@ -14,7 +14,7 @@ function getFilename(url, converted = false) {
 
 function isValidId(id) {
   // The correct re should include : and . but A-frame seems to fail while accessing them
-  var re = /^[A-Za-z]+[\w\-]*$/;
+  var re = /^[A-Za-z]+[\w-]*$/;
   return re.test(id);
 }
 
