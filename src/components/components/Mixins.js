@@ -56,7 +56,6 @@ export default class Mixin extends React.Component {
 
     this.setState({ mixins: value });
     const mixinStr = value.map(v => v.value).join(' ');
-    console.log(mixinStr);
     entity.setAttribute('mixin', mixinStr);
 
     Events.emit('entityupdate', {
