@@ -9,7 +9,7 @@ const options = [
   { value: 'orthotop', event: 'cameraorthographictoggle', payload: 'top', label: 'Top View' },
   { value: 'orthobottom', event: 'cameraorthographictoggle', payload: 'bottom', label: 'Bottom View' },
   { value: 'orthoback', event: 'cameraorthographictoggle', payload: 'back', label: 'Back View' },
-  { value: 'orthofront', event: 'cameraorthographictoggle', payload: 'front', label: 'Front View' },
+  { value: 'orthofront', event: 'cameraorthographictoggle', payload: 'front', label: 'Front View' }
 ];
 
 function getOption (value) {
