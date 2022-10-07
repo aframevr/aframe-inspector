@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 export default class Collapsible extends React.Component {
   static propTypes = {
+    className: PropTypes.string,
     collapsed: PropTypes.bool,
     children: PropTypes.oneOfType([PropTypes.array, PropTypes.element])
       .isRequired,
