@@ -48,8 +48,9 @@ export default class Modal extends React.Component {
     if (target.tagName === 'INPUT' && target.type === 'file') {
       return false;
     }
-    if (target === this.refs.self || this.refs.self.contains(target))
+    if (target === this.refs.self || this.refs.self.contains(target)) {
       return false;
+    }
     return true;
   };
 
