@@ -19,6 +19,7 @@ import { updateEntity } from '../../lib/entity';
 export default class PropertyRow extends React.Component {
   static propTypes = {
     componentname: PropTypes.string.isRequired,
+    entity: PropTypes.object.isRequired,
     id: PropTypes.string,
     name: PropTypes.string.isRequired,
     schema: PropTypes.object.isRequired
