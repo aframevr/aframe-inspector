@@ -1,13 +1,16 @@
 {
   "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:react/jsx-runtime", "standard"],
   "rules": {
+    "multiline-ternary": "off",
+    "no-console": "off",
+    "no-lone-blocks": "off",
+    "no-var": "off",
+    "object-shorthand": "off",
+    "no-useless-return": "off",
+    "prefer-const": "off",
     "react/jsx-indent-props": [2, 2],
     "semi": [2, "always"],
-    "space-before-function-paren": "off",
-    "no-console": "off",
-    "no-var": "off",
-    "prefer-const": "off",
-    "object-shorthand": "off"
+    "space-before-function-paren": "off"
   },
   "env": {
     "browser": true,
