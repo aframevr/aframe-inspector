@@ -36,13 +36,15 @@ export default class Component extends React.Component {
           var componentName = trigger
             .getAttribute('data-component')
             .toLowerCase();
-          ga(
-            'send',
-            'event',
-            'Components',
-            'copyComponentToClipboard',
-            componentName
-          );
+          if (typeof ga !== 'undefined') {
+            ga(
+              'send',
+              'event',
+              'Components',
+              'copyComponentToClipboard',
+              componentName
+            );
+          }
           return getComponentClipboardRepresentation(
             this.state.entity,
             componentName
@@ -85,7 +87,9 @@ export default class Component extends React.Component {
         entity: this.props.entity,
         component: componentName
       });
-      ga('send', 'event', 'Components', 'removeComponent', componentName);
+      if (typeof ga !== 'undefined') {
+        ga('send', 'event', 'Components', 'removeComponent', componentName);
+      }
     }
   };
 

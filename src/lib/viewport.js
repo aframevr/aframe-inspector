@@ -228,7 +228,9 @@ function Viewport(inspector) {
           element.style.display = 'block';
         });
     }
-    ga('send', 'event', 'Viewport', 'toggleEditor', active);
+    if (typeof ga !== 'undefined') {
+      ga('send', 'event', 'Viewport', 'toggleEditor', active);
+    }
   });
 }
 
