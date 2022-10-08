@@ -5,7 +5,7 @@ import Events from '../../lib/Events';
 import { saveBlob } from '../../lib/utils';
 
 function filterHelpers(scene, visible) {
-  scene.traverse(o => {
+  scene.traverse((o) => {
     if (o.userData.source === 'INSPECTOR') {
       o.visible = visible;
     }
@@ -53,7 +53,7 @@ export default class Toolbar extends React.Component {
     filterHelpers(scene, false);
     AFRAME.INSPECTOR.exporters.gltf.parse(
       scene,
-      function(buffer) {
+      function (buffer) {
         filterHelpers(scene, true);
         const blob = new Blob([buffer], { type: 'application/octet-stream' });
         saveBlob(blob, sceneName + '.glb');
@@ -73,7 +73,9 @@ export default class Toolbar extends React.Component {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:51234/save');
     xhr.onerror = () => {
-      alert('aframe-watcher not running. This feature requires a companion service running locally. npm install aframe-watcher to save changes back to file. Read more at supermedium.com/aframe-watcher');
+      alert(
+        'aframe-watcher not running. This feature requires a companion service running locally. npm install aframe-watcher to save changes back to file. Read more at supermedium.com/aframe-watcher'
+      );
     };
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(AFRAME.INSPECTOR.history.updates));
@@ -82,15 +84,15 @@ export default class Toolbar extends React.Component {
   toggleScenePlaying = () => {
     if (this.state.isPlaying) {
       AFRAME.scenes[0].pause();
-      this.setState({isPlaying: false});
+      this.setState({ isPlaying: false });
       AFRAME.scenes[0].isPlaying = true;
       document.getElementById('aframeInspectorMouseCursor').play();
       return;
     }
     AFRAME.scenes[0].isPlaying = false;
     AFRAME.scenes[0].play();
-    this.setState({isPlaying: true});
-  }
+    this.setState({ isPlaying: true });
+  };
 
   render() {
     const watcherClassNames = classNames({
@@ -110,15 +112,24 @@ export default class Toolbar extends React.Component {
           />
           <a
             id="playPauseScene"
-            className={'button fa ' + (this.state.isPlaying ? 'fa-pause' : 'fa-play')}
+            className={
+              'button fa ' + (this.state.isPlaying ? 'fa-pause' : 'fa-play')
+            }
             title={this.state.isPlaying ? 'Pause scene' : 'Resume scene'}
-            onClick={this.toggleScenePlaying}>
-          </a>
+            onClick={this.toggleScenePlaying}
+          ></a>
           <a
             className="gltfIcon"
             title="Export to GLTF"
-            onClick={this.exportSceneToGLTF}>
-            <img src={process.env.NODE_ENV === 'production' ? 'https://aframe.io/aframe-inspector/assets/gltf.svg' : '../assets/gltf.svg'} />
+            onClick={this.exportSceneToGLTF}
+          >
+            <img
+              src={
+                process.env.NODE_ENV === 'production'
+                  ? 'https://aframe.io/aframe-inspector/assets/gltf.svg'
+                  : '../assets/gltf.svg'
+              }
+            />
           </a>
           <a
             className={watcherClassNames}

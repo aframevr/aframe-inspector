@@ -176,26 +176,26 @@ export default class TextureWidget extends React.Component {
     });
   }
 
-  notifyChanged = value => {
+  notifyChanged = (value) => {
     if (this.props.onChange) {
       this.props.onChange(this.props.name, value);
     }
     this.setState({ value: value });
   };
 
-  onChange = e => {
+  onChange = (e) => {
     var value = e.target.value;
     this.setState({ value: value });
     this.notifyChanged(value);
   };
 
-  removeMap = e => {
+  removeMap = (e) => {
     this.setValue('');
     this.notifyChanged('');
   };
 
   openDialog = () => {
-    Events.emit('opentexturesmodal', this.state.value, image => {
+    Events.emit('opentexturesmodal', this.state.value, (image) => {
       if (!image) {
         return;
       }

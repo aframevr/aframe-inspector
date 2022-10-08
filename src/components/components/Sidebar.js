@@ -15,11 +15,11 @@ export default class Sidebar extends React.Component {
   }
 
   componentDidMount() {
-    Events.on('componentremove', event => {
+    Events.on('componentremove', (event) => {
       this.forceUpdate();
     });
 
-    Events.on('componentadd', event => {
+    Events.on('componentadd', (event) => {
       this.forceUpdate();
     });
   }

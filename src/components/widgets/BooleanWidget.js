@@ -25,7 +25,7 @@ export default class BooleanWidget extends React.Component {
     }
   }
 
-  onChange = e => {
+  onChange = (e) => {
     var value = e.target.checked;
     this.setState({ value: value });
     if (this.props.onChange) {

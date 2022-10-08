@@ -31,7 +31,7 @@ export default class Component extends React.Component {
     var clipboard = new Clipboard(
       '[data-action="copy-component-to-clipboard"]',
       {
-        text: trigger => {
+        text: (trigger) => {
           var componentName = trigger
             .getAttribute('data-component')
             .toLowerCase();
@@ -51,12 +51,12 @@ export default class Component extends React.Component {
         }
       }
     );
-    clipboard.on('error', e => {
+    clipboard.on('error', (e) => {
       // @todo Show the error in the UI
       console.error(e);
     });
 
-    Events.on('entityupdate', detail => {
+    Events.on('entityupdate', (detail) => {
       if (detail.entity !== this.props.entity) {
         return;
       }
@@ -75,7 +75,7 @@ export default class Component extends React.Component {
     }
   }
 
-  removeComponent = event => {
+  removeComponent = (event) => {
     var componentName = this.props.name;
     event.stopPropagation();
     if (
@@ -116,7 +116,7 @@ export default class Component extends React.Component {
 
     return Object.keys(componentData.schema)
       .sort()
-      .map(propertyName => (
+      .map((propertyName) => (
         <PropertyRow
           key={propertyName}
           name={propertyName}
@@ -142,7 +142,8 @@ export default class Component extends React.Component {
         <div className="componentHeader collapsible-header">
           <span
             className="componentTitle"
-            title={subComponentName || componentName}>
+            title={subComponentName || componentName}
+          >
             <span>{subComponentName || componentName}</span>
           </span>
           <div className="componentHeaderActions">
@@ -152,7 +153,7 @@ export default class Component extends React.Component {
               data-component={subComponentName || componentName}
               className="button fa fa-clipboard"
               href="#"
-              onClick={event => {
+              onClick={(event) => {
                 event.preventDefault();
                 event.stopPropagation();
               }}

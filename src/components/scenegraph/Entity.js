@@ -52,7 +52,7 @@ export default class Entity extends React.Component {
     const removeButton =
       tagName === 'a-scene' ? null : (
         <a
-          onClick={event => {
+          onClick={(event) => {
             event.stopPropagation();
             removeEntity(entity);
           }}

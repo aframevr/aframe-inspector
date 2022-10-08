@@ -12,7 +12,7 @@ export default class AddComponent extends React.Component {
    * Add blank component.
    * If component is instanced, generate an ID.
    */
-  addComponent = value => {
+  addComponent = (value) => {
     let componentName = value.value;
 
     var entity = this.props.entity;
@@ -37,19 +37,19 @@ export default class AddComponent extends React.Component {
   getComponentsOptions() {
     const usedComponents = Object.keys(this.props.entity.components);
     var commonOptions = Object.keys(AFRAME.components)
-      .filter(function(componentName) {
+      .filter(function (componentName) {
         return (
           AFRAME.components[componentName].multiple ||
           usedComponents.indexOf(componentName) === -1
         );
       })
       .sort()
-      .map(function(value) {
+      .map(function (value) {
         return { value: value, label: value, origin: 'loaded' };
       });
 
     this.options = commonOptions;
-    this.options = this.options.sort(function(a, b) {
+    this.options = this.options.sort(function (a, b) {
       return a.label === b.label ? 0 : a.label < b.label ? -1 : 1;
     });
   }

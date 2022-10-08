@@ -15,7 +15,7 @@ AssetsLoader.prototype = {
   /**
    * XHR the assets JSON.
    */
-  load: function() {
+  load: function () {
     var xhr = new XMLHttpRequest();
     var url = assetsBaseUrl + assetsRelativeUrl.images;
 
@@ -25,7 +25,7 @@ AssetsLoader.prototype = {
     xhr.onload = () => {
       var data = JSON.parse(xhr.responseText);
       this.images = data.images;
-      this.images.forEach(image => {
+      this.images.forEach((image) => {
         image.fullPath = assetsBaseUrl + data.basepath.images + image.path;
         image.fullThumbPath =
           assetsBaseUrl + data.basepath.images_thumbnails + image.thumbnail;

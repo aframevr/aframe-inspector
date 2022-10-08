@@ -42,7 +42,7 @@ export default class NumberWidget extends React.Component {
     this.onBlur();
   }
 
-  onMouseMove = event => {
+  onMouseMove = (event) => {
     const currentValue = parseFloat(this.state.value);
     const pointer = [event.clientX, event.clientY];
     const delta =
@@ -62,7 +62,7 @@ export default class NumberWidget extends React.Component {
     this.prevPointer = [event.clientX, event.clientY];
   };
 
-  onMouseDown = event => {
+  onMouseDown = (event) => {
     event.preventDefault();
     this.distance = 0;
     this.onMouseDownValue = this.state.value;
@@ -71,7 +71,7 @@ export default class NumberWidget extends React.Component {
     document.addEventListener('mouseup', this.onMouseUp, false);
   };
 
-  onMouseUp = event => {
+  onMouseUp = (event) => {
     document.removeEventListener('mousemove', this.onMouseMove, false);
     document.removeEventListener('mouseup', this.onMouseUp, false);
 
@@ -125,11 +125,11 @@ export default class NumberWidget extends React.Component {
     this.setState({ class: '' });
   };
 
-  onChange = e => {
+  onChange = (e) => {
     this.setState({ value: e.target.value, displayValue: e.target.value });
   };
 
-  onKeyDown = event => {
+  onKeyDown = (event) => {
     event.stopPropagation();
 
     // enter.

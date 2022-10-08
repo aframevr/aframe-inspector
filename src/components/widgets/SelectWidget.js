@@ -18,7 +18,7 @@ export default class SelectWidget extends React.Component {
     this.state = { value: { value: value, label: value } };
   }
 
-  onChange = value => {
+  onChange = (value) => {
     this.setState({ value: value });
     if (this.props.onChange) {
       this.props.onChange(this.props.name, value.value);
@@ -34,7 +34,7 @@ export default class SelectWidget extends React.Component {
   }
 
   render() {
-    const options = this.props.options.map(value => {
+    const options = this.props.options.map((value) => {
       return { value: value, label: value };
     });
 

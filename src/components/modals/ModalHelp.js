@@ -21,7 +21,7 @@ export default class ModalHelp extends React.Component {
     }
   }
 
-  onClose = value => {
+  onClose = (value) => {
     if (this.props.onClose) {
       this.props.onClose();
     }
@@ -67,13 +67,13 @@ export default class ModalHelp extends React.Component {
         extraCloseKeyCode={72}
       >
         <div className="help-lists">
-          {shortcuts.map(function(column, idx) {
+          {shortcuts.map(function (column, idx) {
             return (
               <ul className="help-list" key={idx}>
-                {column.map(function(shortcut) {
+                {column.map(function (shortcut) {
                   return (
                     <li key={shortcut.key} className="help-key-unit">
-                      {shortcut.key.map(function(key) {
+                      {shortcut.key.map(function (key) {
                         return (
                           <kbd key={key} className="help-key">
                             <span>{key}</span>
