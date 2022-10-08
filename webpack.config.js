@@ -28,6 +28,10 @@ module.exports = {
         }
       },
       {
+        test: /\.svg$/,
+        type: 'asset/inline'
+      },
+      {
         test: /\.css$/,
         use: ['style-loader', 'css-loader', 'postcss-loader']
       },
