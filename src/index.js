@@ -1,6 +1,5 @@
 import '../vendor/ga';
 
-import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Events from './lib/Events';
 import { Viewport } from './lib/viewport';
