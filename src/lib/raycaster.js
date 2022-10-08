@@ -101,26 +101,6 @@ export function initRaycaster(inspector) {
     onUpPosition.fromArray(array);
   }
 
-  function onTouchStart(event) {
-    const touch = event.changedTouches[0];
-    const array = getMousePosition(
-      inspector.container,
-      touch.clientX,
-      touch.clientY
-    );
-    onDownPosition.fromArray(array);
-  }
-
-  function onTouchEnd(event) {
-    const touch = event.changedTouches[0];
-    const array = getMousePosition(
-      inspector.container,
-      touch.clientX,
-      touch.clientY
-    );
-    onUpPosition.fromArray(array);
-  }
-
   /**
    * Focus on double click.
    */
