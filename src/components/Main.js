@@ -190,7 +190,6 @@ export default class Main extends React.Component {
           onClose={this.onCloseHelpModal}
         />
         <ModalTextures
-          ref="modaltextures"
           isOpen={this.state.isModalTexturesOpen}
           selectedTexture={this.state.selectedTexture}
           onClose={this.onModalTextureOnClose}

@@ -66,13 +66,14 @@ export default class Component extends React.Component {
     });
   }
 
-  componentWillReceiveProps(newProps) {
-    if (this.state.entity !== newProps.entity) {
-      this.setState({ entity: newProps.entity });
+  static getDerivedStateFromProps(props, state) {
+    if (state.entity !== props.entity) {
+      return { entity: props.entity };
     }
-    if (this.state.name !== newProps.name) {
-      this.setState({ name: newProps.name });
+    if (state.name !== props.name) {
+      return { name: props.name };
     }
+    return null;
   }
 
   removeComponent = (event) => {

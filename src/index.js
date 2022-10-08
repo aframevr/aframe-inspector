@@ -1,12 +1,12 @@
 import '../vendor/ga';
 
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 import Events from './lib/Events';
 import { Viewport } from './lib/viewport';
 import { AssetsLoader } from './lib/assetsLoader';
 import { Shortcuts } from './lib/shortcuts';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
 import Main from './components/Main';
 import { initCameras } from './lib/cameras';
 import { createEntity } from './lib/entity';
@@ -74,7 +74,8 @@ Inspector.prototype = {
     div.id = 'aframeInspector';
     div.setAttribute('data-aframe-inspector', 'app');
     document.body.appendChild(div);
-    ReactDOM.render(<Main />, div);
+    const root = createRoot(div);
+    root.render(<Main />);
 
     this.scene = this.sceneEl.object3D;
     this.helpers = {};

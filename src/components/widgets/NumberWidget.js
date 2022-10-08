@@ -31,6 +31,7 @@ export default class NumberWidget extends React.Component {
           ? this.props.value.toFixed(this.props.precision)
           : ''
     };
+    this.input = React.createRef();
   }
 
   componentDidMount() {
@@ -71,13 +72,13 @@ export default class NumberWidget extends React.Component {
     document.addEventListener('mouseup', this.onMouseUp, false);
   };
 
-  onMouseUp = (event) => {
+  onMouseUp = () => {
     document.removeEventListener('mousemove', this.onMouseMove, false);
     document.removeEventListener('mouseup', this.onMouseUp, false);
 
     if (Math.abs(this.distance) < 2) {
-      this.refs.input.focus();
-      this.refs.input.select();
+      this.input.current.focus();
+      this.input.current.select();
     }
   };
 
@@ -109,19 +110,20 @@ export default class NumberWidget extends React.Component {
     }
   }
 
-  componentWillReceiveProps(newProps) {
+  static getDerivedStateFromProps(props, state) {
     // This will be triggered typically when the element is changed directly with
     // element.setAttribute.
-    if (newProps.value !== this.state.value) {
-      this.setState({
-        value: newProps.value,
-        displayValue: newProps.value.toFixed(this.props.precision)
-      });
+    if (props.value !== state.value) {
+      return {
+        value: props.value,
+        displayValue: props.value.toFixed(props.precision)
+      };
     }
+    return null;
   }
 
   onBlur = () => {
-    this.setValue(parseFloat(this.refs.input.value));
+    this.setValue(parseFloat(this.input.current.value));
     this.setState({ class: '' });
   };
 
@@ -134,8 +136,8 @@ export default class NumberWidget extends React.Component {
 
     // enter.
     if (event.keyCode === 13) {
-      this.setValue(parseFloat(this.refs.input.value));
-      this.refs.input.blur();
+      this.setValue(parseFloat(this.input.current.value));
+      this.input.current.blur();
       return;
     }
 
@@ -155,7 +157,7 @@ export default class NumberWidget extends React.Component {
   render() {
     return (
       <input
-        ref="input"
+        ref={this.input}
         className="number"
         type="text"
         value={this.state.displayValue}

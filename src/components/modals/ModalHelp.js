@@ -15,13 +15,14 @@ export default class ModalHelp extends React.Component {
     };
   }
 
-  componentWillReceiveProps(newProps) {
-    if (this.state.isOpen !== newProps.isOpen) {
-      this.setState({ isOpen: newProps.isOpen });
+  static getDerivedStateFromProps(props, state) {
+    if (state.isOpen !== props.isOpen) {
+      return { isOpen: props.isOpen };
     }
+    return null;
   }
 
-  onClose = (value) => {
+  onClose = () => {
     if (this.props.onClose) {
       this.props.onClose();
     }

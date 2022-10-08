@@ -58,6 +58,9 @@ export default class ModalTextures extends React.Component {
         loaded: false
       }
     };
+    this.imageName = React.createRef();
+    this.preview = React.createRef();
+    this.registryGallery = React.createRef();
   }
 
   componentDidMount() {
@@ -74,13 +77,14 @@ export default class ModalTextures extends React.Component {
     }
   }
 
-  componentWillReceiveProps(newProps) {
-    if (this.state.isOpen !== newProps.isOpen) {
-      this.setState({ isOpen: newProps.isOpen });
-      if (newProps.isOpen) {
+  static getDerivedStateFromProps(props, state) {
+    if (state.isOpen !== props.isOpen) {
+      if (props.isOpen) {
         this.generateFromAssets();
       }
+      return { isOpen: props.isOpen };
     }
+    return null;
   }
 
   onClose = (value) => {
@@ -147,11 +151,11 @@ export default class ModalTextures extends React.Component {
 
     var self = this;
     function onImageLoaded(img) {
-      var src = self.refs.preview.src;
+      var src = self.preview.current.src;
       self.setState({
         preview: {
-          width: self.refs.preview.naturalWidth,
-          height: self.refs.preview.naturalHeight,
+          width: self.preview.current.naturalWidth,
+          height: self.preview.current.naturalHeight,
           src: src,
           id: '',
           name: getFilename(src, true),
@@ -161,12 +165,12 @@ export default class ModalTextures extends React.Component {
           value: 'url(' + src + ')'
         }
       });
-      self.refs.preview.removeEventListener('load', onImageLoaded);
+      self.preview.current.removeEventListener('load', onImageLoaded);
     }
-    this.refs.preview.addEventListener('load', onImageLoaded);
-    this.refs.preview.src = event.target.value;
+    this.preview.current.addEventListener('load', onImageLoaded);
+    this.preview.current.src = event.target.value;
 
-    this.refs.imageName.focus();
+    this.imageName.current.focus();
   };
 
   onNameKeyUp = (event) => {
@@ -247,7 +251,7 @@ export default class ModalTextures extends React.Component {
           value: 'url(' + image.src + ')'
         }
       });
-      self.refs.imageName.focus();
+      self.imageName.current.focus();
     };
 
     var filterText = this.state.filterText.toUpperCase();
@@ -323,7 +327,7 @@ export default class ModalTextures extends React.Component {
                     />
                     <span className="fa fa-search" />
                   </div>
-                  <ul ref="registryGallery" className="gallery">
+                  <ul ref={this.registryGallery} className="gallery">
                     {this.renderRegistryImages()}
                   </ul>
                 </li>
@@ -332,7 +336,7 @@ export default class ModalTextures extends React.Component {
             <div className="preview">
               Name:{' '}
               <input
-                ref="imageName"
+                ref={this.imageName}
                 className={
                   this.state.preview.name.length > 0 && !validUrl ? 'error' : ''
                 }
@@ -342,7 +346,7 @@ export default class ModalTextures extends React.Component {
                 onKeyUp={this.onNameKeyUp}
               />
               <img
-                ref="preview"
+                ref={this.preview}
                 width="155px"
                 height="155px"
                 src={preview.src}

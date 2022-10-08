@@ -81,13 +81,14 @@ export default class TextureWidget extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: this.props.value || '' };
+    this.canvas = React.createRef();
   }
 
   componentDidMount() {
     this.setValue(this.props.value || '');
   }
 
-  componentWillReceiveProps(newProps) {
+  componentDidUpdate() {
     var component = this.props.entity.components[this.props.componentname];
     if (!component) {
       return;
@@ -102,7 +103,7 @@ export default class TextureWidget extends React.Component {
   }
 
   setValue(value) {
-    var canvas = this.refs.canvas;
+    var canvas = this.canvas.current;
     var context = canvas.getContext('2d');
 
     function paintPreviewWithImage(image) {
@@ -189,7 +190,7 @@ export default class TextureWidget extends React.Component {
     this.notifyChanged(value);
   };
 
-  removeMap = (e) => {
+  removeMap = () => {
     this.setValue('');
     this.notifyChanged('');
   };
@@ -233,7 +234,7 @@ export default class TextureWidget extends React.Component {
           onChange={this.onChange}
         />
         <canvas
-          ref="canvas"
+          ref={this.canvas}
           width="32"
           height="16"
           title={hint}
