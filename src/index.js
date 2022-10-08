@@ -301,4 +301,4 @@ Inspector.prototype = {
   }
 };
 
-const inspector = (AFRAME.INSPECTOR = new Inspector());
+AFRAME.INSPECTOR = new Inspector();
