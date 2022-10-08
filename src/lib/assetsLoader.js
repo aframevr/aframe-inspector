@@ -17,7 +17,7 @@ AssetsLoader.prototype = {
    */
   load: function() {
     var xhr = new XMLHttpRequest();
-    var url = assetsBaseUrl + assetsRelativeUrl['images'];
+    var url = assetsBaseUrl + assetsRelativeUrl.images;
 
     // @todo Remove the sync call and use a callback
     xhr.open('GET', url);

@@ -1,4 +1,4 @@
-/* eslint-disable curly */
+/* eslint-disable curly, dot-notation */
 /**
  * @author arodic / https://github.com/arodic
  */
@@ -1174,9 +1174,9 @@
             scope.object.quaternion.copy(tempQuaternion);
           } else if (scope.axis === 'XYZE') {
             var p = point
-                .clone()
-                .cross(tempVector)
-                .normalize();
+              .clone()
+              .cross(tempVector)
+              .normalize();
             quaternionE.setFromEuler(tempEuler.set(p.x, p.y, p.z)); // rotation axis
 
             tempQuaternion.setFromRotationMatrix(

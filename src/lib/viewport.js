@@ -96,7 +96,7 @@ export function Viewport(inspector) {
   sceneHelpers.add(transformControls);
 
   Events.on('entityupdate', detail => {
-    if (inspector.selectedEntity.object3DMap['mesh']) {
+    if (inspector.selectedEntity.object3DMap.mesh) {
       selectionBox.setFromObject(inspector.selected);
     }
   });

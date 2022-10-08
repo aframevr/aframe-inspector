@@ -122,7 +122,7 @@ export default class ModalTextures extends React.Component {
     var self = this;
     Array.prototype.slice
       .call(document.querySelectorAll('a-assets img'))
-      .map(asset => {
+      .forEach(asset => {
         var image = new Image();
         image.addEventListener('load', () => {
           self.state.assetsImages.push({
