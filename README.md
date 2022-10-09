@@ -1,7 +1,5 @@
 # A-Frame Inspector
 
-[![build status][travis-image]][travis-url]
-
 A visual inspector tool for [A-Frame](https://aframe.io) scenes. Just hit
 `<ctrl> + <alt> + i` on any A-Frame scene to open up the Inspector.
 
@@ -51,6 +49,3 @@ npm start
 ```
 
 Then navigate to __[http://localhost:3333/examples/](http://localhost:3333/examples/)__
-
-[travis-image]: https://img.shields.io/travis/aframevr/aframe-inspector.svg?style=flat-square
-[travis-url]: https://travis-ci.org/aframevr/aframe-inspector
