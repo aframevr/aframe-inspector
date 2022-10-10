@@ -107,7 +107,11 @@ export default class Main extends React.Component {
   };
 
   renderComponentsToggle() {
-    if (!this.state.entity || this.state.visible.attributes) {
+    if (
+      !this.state.inspectorEnabled ||
+      !this.state.entity ||
+      this.state.visible.attributes
+    ) {
       return null;
     }
     return (
@@ -124,7 +128,7 @@ export default class Main extends React.Component {
   }
 
   renderSceneGraphToggle() {
-    if (this.state.visible.scenegraph) {
+    if (!this.state.inspectorEnabled || this.state.visible.scenegraph) {
       return null;
     }
     return (
