@@ -173,8 +173,8 @@ var Shortcuts = {
       this.disable();
     }
 
-    window.addEventListener('keydown', this.onKeyDown.bind(this), false);
-    window.addEventListener('keyup', this.onKeyUp.bind(this), false);
+    window.addEventListener('keydown', this.onKeyDown, false);
+    window.addEventListener('keyup', this.onKeyUp, false);
     this.enabled = true;
   },
   disable: function() {
@@ -188,7 +188,7 @@ var Shortcuts = {
       this.shortcuts.modules[moduleName][keyCode]
     ) {
       console.warn(
-        'Keycode <%s> already registered as shorcut within the same module',
+        'Keycode <%s> already registered as shortcut within the same module',
         keyCode
       );
     }
