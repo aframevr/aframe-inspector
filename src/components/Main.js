@@ -50,12 +50,14 @@ export default class Main extends React.Component {
       } else if (event.which === 'attributes') {
         this.setState(prevState => ({
           visible: {
+            ...prevState.visible,
             attributes: !prevState.visible.attributes
           }
         }));
       } else if (event.which === 'scenegraph') {
         this.setState(prevState => ({
           visible: {
+            ...prevState.visible,
             scenegraph: !prevState.visible.scenegraph
           }
         }));
@@ -118,7 +120,7 @@ export default class Main extends React.Component {
       <div className="toggle-sidebar right">
         <a
           onClick={() => {
-            this.setState({ visible: { attributes: true } });
+            Events.emit('togglesidebar', { which: 'attributes' });
           }}
           className="fa fa-plus"
           title="Show components"
@@ -135,7 +137,7 @@ export default class Main extends React.Component {
       <div className="toggle-sidebar left">
         <a
           onClick={() => {
-            this.setState({ visible: { scenegraph: true } });
+            Events.emit('togglesidebar', { which: 'scenegraph' });
           }}
           className="fa fa-plus"
           title="Show scenegraph"
