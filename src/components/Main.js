@@ -60,8 +60,6 @@ export default class Main extends React.Component {
           }
         }));
       }
-
-      this.forceUpdate();
     });
   }
 
@@ -117,7 +115,6 @@ export default class Main extends React.Component {
         <a
           onClick={() => {
             this.setState({ visible: { attributes: true } });
-            this.forceUpdate();
           }}
           className="fa fa-plus"
           title="Show components"
@@ -135,7 +132,6 @@ export default class Main extends React.Component {
         <a
           onClick={() => {
             this.setState({ visible: { scenegraph: true } });
-            this.forceUpdate();
           }}
           className="fa fa-plus"
           title="Show scenegraph"
