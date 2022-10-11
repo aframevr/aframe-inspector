@@ -18,6 +18,10 @@ module.exports = {
       : 'aframe-inspector.js',
     publicPath: '/dist/'
   },
+  externals: {
+    // Stubs out `import ... from 'three'` so it returns `import ... from window.THREE` effectively using THREE global variable that is defined by AFRAME.
+    three: 'THREE'
+  },
   module: {
     rules: [
       {
