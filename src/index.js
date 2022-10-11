@@ -9,13 +9,13 @@ import { Shortcuts } from './lib/shortcuts';
 import Main from './components/Main';
 import { initCameras } from './lib/cameras';
 import { createEntity } from './lib/entity';
-import { GLTFExporter } from '../vendor/GLTFExporter'; // eslint-disable-line no-unused-vars
+import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter';
 
 import './style/index.styl';
 
 function Inspector() {
   this.assetsLoader = new AssetsLoader();
-  this.exporters = { gltf: new THREE.GLTFExporter() };
+  this.exporters = { gltf: new GLTFExporter() };
   this.history = require('./lib/history');
   this.isFirstOpen = true;
   this.modules = {};

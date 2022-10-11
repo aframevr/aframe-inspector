@@ -58,6 +58,9 @@ export default class Toolbar extends React.Component {
         const blob = new Blob([buffer], { type: 'application/octet-stream' });
         saveBlob(blob, sceneName + '.glb');
       },
+      function (error) {
+        console.error(error);
+      },
       { binary: true }
     );
   }

@@ -89,6 +89,9 @@ export default class CommonComponents extends React.Component {
         const blob = new Blob([buffer], { type: 'application/octet-stream' });
         saveBlob(blob, (entity.id || 'entity') + '.glb');
       },
+      function (error) {
+        console.error(error);
+      },
       { binary: true }
     );
   }
