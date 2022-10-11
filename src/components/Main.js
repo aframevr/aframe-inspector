@@ -49,17 +49,15 @@ export default class Main extends React.Component {
         }
       } else if (event.which === 'attributes') {
         this.setState(prevState => ({
-          visible: {
-            ...prevState.visible,
+          visible: Object.assign({}, prevState.visible, {
             attributes: !prevState.visible.attributes
-          }
+          })
         }));
       } else if (event.which === 'scenegraph') {
         this.setState(prevState => ({
-          visible: {
-            ...prevState.visible,
+          visible: Object.assign({}, prevState.visible, {
             scenegraph: !prevState.visible.scenegraph
-          }
+          })
         }));
       }
     });
