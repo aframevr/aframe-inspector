@@ -46,7 +46,11 @@ export default class PropertyRow extends React.Component {
     const isMap =
       props.componentname === 'material' &&
       (props.name === 'envMap' || props.name === 'src');
-    const type = props.schema.type;
+    let type = props.schema.type;
+    if (props.componentname === 'animation' && props.name === 'loop') {
+      // fix wrong number type for animation loop property
+      type = 'boolean';
+    }
 
     const value =
       props.schema.type === 'selector'

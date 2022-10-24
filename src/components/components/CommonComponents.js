@@ -105,6 +105,7 @@ export default class CommonComponents extends React.Component {
           className="gltfIcon"
           onClick={event => {
             this.exportToGLTF();
+            event.preventDefault();
             event.stopPropagation();
           }} >
           <img src={process.env.NODE_ENV === 'production' ? 'https://aframe.io/aframe-inspector/assets/gltf.svg' : '../assets/gltf.svg'} />
@@ -114,7 +115,10 @@ export default class CommonComponents extends React.Component {
           title="Copy entity HTML to clipboard"
           data-action="copy-entity-to-clipboard"
           className="button fa fa-clipboard"
-          onClick={event => event.stopPropagation()}
+          onClick={event => {
+            event.preventDefault();
+            event.stopPropagation();
+          }}
         />
       </div>
     );

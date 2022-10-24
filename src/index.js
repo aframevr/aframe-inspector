@@ -103,12 +103,6 @@ Inspector.prototype = {
   },
 
   addHelper: (function() {
-    const geometry = new THREE.SphereBufferGeometry(2, 4, 2);
-    const material = new THREE.MeshBasicMaterial({
-      color: 0xff0000,
-      visible: false
-    });
-
     return function(object) {
       let helper;
 
@@ -132,7 +126,10 @@ Inspector.prototype = {
       helper.visible = false;
       this.sceneHelpers.add(helper);
       this.helpers[object.uuid] = helper;
-      helper.update();
+      // SkeletonHelper doesn't have an update method
+      if (helper.update) {
+        helper.update();
+      }
     };
   })(),
 
