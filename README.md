@@ -37,7 +37,7 @@ inject by passing a URL. For debugging:
 To use the master branch of the Inspector:
 
 ```html
-<a-scene inspector="https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js">
+<a-scene inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js">
 </a-scene>
 ```
 
