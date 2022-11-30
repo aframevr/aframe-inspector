@@ -1,7 +1,6 @@
-var React = require('react');
-var Events = require('../../lib/Events.js');
-var classNames = require('classnames');
+import React from 'react';
 import Select from 'react-select';
+import Events from '../../lib/Events';
 
 const options = [
   { value: 'perspective', event: 'cameraperspectivetoggle', payload: null, label: 'Perspective' },
@@ -10,7 +9,7 @@ const options = [
   { value: 'orthotop', event: 'cameraorthographictoggle', payload: 'top', label: 'Top View' },
   { value: 'orthobottom', event: 'cameraorthographictoggle', payload: 'bottom', label: 'Bottom View' },
   { value: 'orthoback', event: 'cameraorthographictoggle', payload: 'back', label: 'Back View' },
-  { value: 'orthofront', event: 'cameraorthographictoggle', payload: 'front', label: 'Front View' },
+  { value: 'orthofront', event: 'cameraorthographictoggle', payload: 'front', label: 'Front View' }
 ];
 
 function getOption (value) {

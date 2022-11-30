@@ -1,20 +1,14 @@
-/* global THREE CustomEvent */
-import debounce from 'lodash.debounce';
-
 /* eslint-disable no-unused-vars */
 import TransformControls from './TransformControls.js';
 import EditorControls from './EditorControls.js';
-/* eslint-disable no-unused-vars */
 
 import { initRaycaster } from './raycaster';
-
-import { getNumber } from './utils';
-const Events = require('./Events');
+import Events from './Events';
 
 /**
  * Transform controls stuff mostly.
  */
-function Viewport(inspector) {
+export function Viewport(inspector) {
   // Initialize raycaster and picking in differentpmodule.
   const mouseCursor = initRaycaster(inspector);
   const sceneEl = inspector.sceneEl;
@@ -102,7 +96,7 @@ function Viewport(inspector) {
   sceneHelpers.add(transformControls);
 
   Events.on('entityupdate', detail => {
-    if (inspector.selectedEntity.object3DMap['mesh']) {
+    if (inspector.selectedEntity.object3DMap.mesh) {
       selectionBox.setFromObject(inspector.selected);
     }
   });
@@ -231,5 +225,3 @@ function Viewport(inspector) {
     ga('send', 'event', 'Viewport', 'toggleEditor', active);
   });
 }
-
-module.exports = Viewport;

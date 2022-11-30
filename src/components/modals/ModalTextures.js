@@ -1,8 +1,8 @@
-import Events from '../../lib/Events';
 import React from 'react';
 import PropTypes from 'prop-types';
+import Events from '../../lib/Events';
 import Modal from './Modal';
-var insertNewAsset = require('../../lib/assetsUtils').insertNewAsset;
+import { insertNewAsset } from '../../lib/assetsUtils';
 
 function getFilename(url, converted = false) {
   var filename = url.split('/').pop();
@@ -14,7 +14,7 @@ function getFilename(url, converted = false) {
 
 function isValidId(id) {
   // The correct re should include : and . but A-frame seems to fail while accessing them
-  var re = /^[A-Za-z]+[\w\-]*$/;
+  var re = /^[A-Za-z]+[\w-]*$/;
   return re.test(id);
 }
 
@@ -122,7 +122,7 @@ export default class ModalTextures extends React.Component {
     var self = this;
     Array.prototype.slice
       .call(document.querySelectorAll('a-assets img'))
-      .map(asset => {
+      .forEach(asset => {
         var image = new Image();
         image.addEventListener('load', () => {
           self.state.assetsImages.push({

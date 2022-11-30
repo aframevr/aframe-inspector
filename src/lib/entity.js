@@ -1,7 +1,7 @@
+/* eslint-disable react/no-danger */
 import React from 'react';
-var Events = require('../lib/Events.js');
-
-import { equal } from '../lib/utils.js';
+import Events from './Events';
+import { equal } from './utils';
 
 /**
  * Update a component.
@@ -129,7 +129,7 @@ export function cloneEntity(entity) {
   entity.flushToDOM();
 
   const clone = entity.cloneNode(true);
-  clone.addEventListener('loaded', function(e) {
+  clone.addEventListener('loaded', function() {
     AFRAME.INSPECTOR.selectEntity(clone);
     Events.emit('entityclone');
   });
@@ -517,10 +517,6 @@ export function getComponentClipboardRepresentation(entity, componentName) {
     .stringify(diff)
     .replace(/;|:/g, '$& ');
   return `${componentName}="${attributes}"`;
-}
-
-function isEmpty(string) {
-  return string === null || string === '';
 }
 
 /**

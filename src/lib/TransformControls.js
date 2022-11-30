@@ -1,3 +1,4 @@
+/* eslint-disable curly, dot-notation */
 /**
  * @author arodic / https://github.com/arodic
  */
@@ -74,7 +75,7 @@
       this.add(this.pickers);
       this.add(this.planes);
 
-      //// PLANES
+      // PLANES
 
       var planeGeometry = new THREE.PlaneGeometry(50, 50, 2, 2);
       var planeMaterial = new THREE.MeshBasicMaterial({
@@ -100,11 +101,11 @@
         this.planes[i] = planes[i];
       }
 
-      //// HANDLES AND PICKERS
+      // HANDLES AND PICKERS
 
       var setupGizmos = function(gizmoMap, parent) {
         for (var name in gizmoMap) {
-          for (i = gizmoMap[name].length; i--; ) {
+          for (i = gizmoMap[name].length; i--;) {
             var object = gizmoMap[name][i][0];
             var position = gizmoMap[name][i][1];
             var rotation = gizmoMap[name][i][2];
@@ -406,7 +407,7 @@
       var CircleGeometry = function(radius, facing, arc) {
         var geometry = new THREE.BufferGeometry();
         var vertices = [];
-        arc = arc ? arc : 1;
+        arc = arc || 1;
 
         for (var i = 0; i <= 64 * arc; ++i) {
           if (facing === 'x')
@@ -833,7 +834,7 @@
 
       this.setCamera = function (_camera) {
         camera = _camera;
-      }
+      };
 
       this.activate = function() {
         domElement.addEventListener('mousedown', onPointerDown, false);
@@ -888,7 +889,7 @@
       };
 
       this.setMode = function(mode) {
-        _mode = mode ? mode : _mode;
+        _mode = mode || _mode;
 
         if (_mode === 'scale') scope.space = 'local';
 
@@ -1173,9 +1174,9 @@
             scope.object.quaternion.copy(tempQuaternion);
           } else if (scope.axis === 'XYZE') {
             var p = point
-                .clone()
-                .cross(tempVector)
-                .normalize()
+              .clone()
+              .cross(tempVector)
+              .normalize();
             quaternionE.setFromEuler(tempEuler.set(p.x, p.y, p.z)); // rotation axis
 
             tempQuaternion.setFromRotationMatrix(

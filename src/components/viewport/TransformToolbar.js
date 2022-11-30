@@ -1,6 +1,6 @@
-var React = require('react');
-var Events = require('../../lib/Events.js');
-var classNames = require('classnames');
+import React from 'react';
+import classNames from 'classnames';
+import Events from '../../lib/Events';
 
 var TransformButtons = [
   { value: 'translate', icon: 'fa-arrows-alt' },

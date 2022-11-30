@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-var Events = require('../../lib/Events.js');
+import Events from '../../lib/Events';
 
 function getUrlFromId(assetId) {
   return (
@@ -107,7 +106,7 @@ export default class TextureWidget extends React.Component {
     var context = canvas.getContext('2d');
 
     function paintPreviewWithImage(image) {
-      var filename = image.src.replace(/^.*[\\\/]/, '');
+      var filename = image.src.replace(/^.*[\\/]/, '');
       if (image !== undefined && image.width > 0) {
         canvas.title = filename;
         var scale = canvas.width / image.width;

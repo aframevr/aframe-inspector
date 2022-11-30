@@ -135,7 +135,7 @@ THREE.EditorControls = function(_object, domElement) {
   };
 
   this.pan = function(delta) {
-     var distance;
+    var distance;
     if (this.isOrthographic) {
       distance = Math.abs(object.right);
     } else {
@@ -154,7 +154,7 @@ THREE.EditorControls = function(_object, domElement) {
   var ratio = 1;
   this.setAspectRatio = function (_ratio) {
     ratio = _ratio;
-  }
+  };
 
   this.zoom = function(delta) {
     var distance = object.position.distanceTo(center);
@@ -331,8 +331,9 @@ THREE.EditorControls = function(_object, domElement) {
       var closest = touches[0];
 
       for (var i in touches) {
-        if (closest.distanceTo(touch) > touches[i].distanceTo(touch))
+        if (closest.distanceTo(touch) > touches[i].distanceTo(touch)) {
           closest = touches[i];
+        }
       }
 
       return closest;

@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars, react/no-danger */
 import PropTypes from 'prop-types';
 import React from 'react';
-import classnames from 'classnames';
 import debounce from 'lodash.debounce';
 
 import Entity from './Entity';
 import Toolbar from './Toolbar';
-const Events = require('../../lib/Events.js');
+import Events from '../../lib/Events';
 
 export default class SceneGraph extends React.Component {
   static propTypes = {

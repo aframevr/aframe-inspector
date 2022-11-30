@@ -1,9 +1,8 @@
-import classnames from 'classnames';
+/* global process */
 import React from 'react';
-import Events from '../../lib/Events.js';
-import { saveBlob, saveString } from '../../lib/utils';
-
-const LOCALSTORAGE_MOCAP_UI = 'aframeinspectormocapuienabled';
+import classNames from 'classnames';
+import Events from '../../lib/Events';
+import { saveBlob } from '../../lib/utils';
 
 function filterHelpers(scene, visible) {
   scene.traverse(o => {
@@ -27,8 +26,8 @@ function slugify(text) {
     .toString()
     .toLowerCase()
     .replace(/\s+/g, '-') // Replace spaces with -
-    .replace(/[^\w\-]+/g, '-') // Replace all non-word chars with -
-    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+    .replace(/[^\w-]+/g, '-') // Replace all non-word chars with -
+    .replace(/--+/g, '-') // Replace multiple - with single -
     .replace(/^-+/, '') // Trim - from start of text
     .replace(/-+$/, ''); // Trim - from end of text
 }
@@ -92,7 +91,7 @@ export default class Toolbar extends React.Component {
   }
 
   render() {
-    const watcherClassNames = classnames({
+    const watcherClassNames = classNames({
       button: true,
       fa: true,
       'fa-save': true

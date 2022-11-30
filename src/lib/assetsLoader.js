@@ -1,4 +1,3 @@
-/* global XMLHttpRequest JSON */
 import Events from './Events';
 
 const assetsBaseUrl = 'https://aframe.io/sample-assets/';
@@ -7,7 +6,7 @@ const assetsRelativeUrl = { images: 'dist/images.json' };
 /**
  * Asynchronously load and register components from the registry.
  */
-function AssetsLoader() {
+export function AssetsLoader() {
   this.images = [];
   this.hasLoaded = false;
 }
@@ -18,7 +17,7 @@ AssetsLoader.prototype = {
    */
   load: function() {
     var xhr = new XMLHttpRequest();
-    var url = assetsBaseUrl + assetsRelativeUrl['images'];
+    var url = assetsBaseUrl + assetsRelativeUrl.images;
 
     // @todo Remove the sync call and use a callback
     xhr.open('GET', url);
@@ -41,5 +40,3 @@ AssetsLoader.prototype = {
     this.hasLoaded = true;
   }
 };
-
-module.exports = AssetsLoader;

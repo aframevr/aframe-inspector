@@ -1,11 +1,12 @@
-/* globals AFRAME */
-var Events = require('./Events');
+import Events from './Events';
 import {
   removeSelectedEntity,
   cloneSelectedEntity,
   cloneEntity
-} from '../lib/entity';
-import { os } from '../lib/utils.js';
+} from './entity';
+import { getOS } from './utils';
+
+const os = getOS();
 
 function shouldCaptureKeyEvent(event) {
   if (event.metaKey) {
@@ -17,7 +18,7 @@ function shouldCaptureKeyEvent(event) {
   );
 }
 
-var Shortcuts = {
+export const Shortcuts = {
   enabled: false,
   shortcuts: {
     default: {},
@@ -222,5 +223,3 @@ var Shortcuts = {
     this.onKeyUp = this.onKeyUp.bind(this);
   }
 };
-
-module.exports = Shortcuts;

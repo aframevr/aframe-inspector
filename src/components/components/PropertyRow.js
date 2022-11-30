@@ -1,5 +1,6 @@
+/* eslint-disable no-prototype-builtins */
 import React from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 import Events from '../../lib/Events';
@@ -18,7 +19,16 @@ import { updateEntity } from '../../lib/entity';
 export default class PropertyRow extends React.Component {
   static propTypes = {
     componentname: PropTypes.string.isRequired,
+    data: PropTypes.oneOfType([
+      PropTypes.array.isRequired,
+      PropTypes.bool.isRequired,
+      PropTypes.number.isRequired,
+      PropTypes.object.isRequired,
+      PropTypes.string.isRequired
+    ]),
+    entity: PropTypes.object.isRequired,
     id: PropTypes.string,
+    isSingle: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
     schema: PropTypes.object.isRequired
   };
@@ -124,7 +134,7 @@ export default class PropertyRow extends React.Component {
     const title =
       props.name + '\n - type: ' + props.schema.type + '\n - value: ' + value;
 
-    const className = classnames({
+    const className = classNames({
       propertyRow: true,
       propertyRowDefined: props.isSingle
         ? !!props.entity.getDOMAttribute(props.componentname)
