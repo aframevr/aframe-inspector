@@ -63,7 +63,7 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "webpack": "^3.12.0",
-    "webpack-dev-server": "^2.11.5"
+    "webpack-dev-server": "^4.11.1"
   },
   "keywords": [
     "3d",
