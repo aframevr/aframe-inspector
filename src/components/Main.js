@@ -48,19 +48,17 @@ export default class Main extends React.Component {
         }
       } else if (event.which === 'attributes') {
         this.setState(prevState => ({
-          visible: {
+          visible: Object.assign({}, prevState.visible, {
             attributes: !prevState.visible.attributes
-          }
+          })
         }));
       } else if (event.which === 'scenegraph') {
         this.setState(prevState => ({
-          visible: {
+          visible: Object.assign({}, prevState.visible, {
             scenegraph: !prevState.visible.scenegraph
-          }
+          })
         }));
       }
-
-      this.forceUpdate();
     });
   }
 
@@ -109,15 +107,18 @@ export default class Main extends React.Component {
   };
 
   renderComponentsToggle() {
-    if (!this.state.entity || this.state.visible.attributes) {
+    if (
+      !this.state.inspectorEnabled ||
+      !this.state.entity ||
+      this.state.visible.attributes
+    ) {
       return null;
     }
     return (
       <div className="toggle-sidebar right">
         <a
           onClick={() => {
-            this.setState({ visible: { attributes: true } });
-            this.forceUpdate();
+            Events.emit('togglesidebar', { which: 'attributes' });
           }}
           className="fa fa-plus"
           title="Show components"
@@ -127,15 +128,14 @@ export default class Main extends React.Component {
   }
 
   renderSceneGraphToggle() {
-    if (this.state.visible.scenegraph) {
+    if (!this.state.inspectorEnabled || this.state.visible.scenegraph) {
       return null;
     }
     return (
       <div className="toggle-sidebar left">
         <a
           onClick={() => {
-            this.setState({ visible: { scenegraph: true } });
-            this.forceUpdate();
+            Events.emit('togglesidebar', { which: 'scenegraph' });
           }}
           className="fa fa-plus"
           title="Show scenegraph"
