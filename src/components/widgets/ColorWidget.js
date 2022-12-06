@@ -52,17 +52,17 @@ export default class ColorWidget extends React.Component {
     return '#' + this.color.set(value).getHexString();
   }
 
-  onChange = e => {
+  onChange = (e) => {
     this.setValue(e.target.value);
   };
 
-  onKeyUp = e => {
+  onKeyUp = (e) => {
     e.stopPropagation();
     // if (e.keyCode === 13)
     this.setValue(e.target.value);
   };
 
-  onChangeText = e => {
+  onChangeText = (e) => {
     this.setState({ value: e.target.value });
   };
 

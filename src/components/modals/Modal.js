@@ -27,7 +27,7 @@ export default class Modal extends React.Component {
     document.addEventListener('mousedown', this.handleGlobalMousedown);
   }
 
-  handleGlobalKeydown = event => {
+  handleGlobalKeydown = (event) => {
     if (
       this.state.isOpen &&
       (event.keyCode === 27 ||
@@ -41,7 +41,7 @@ export default class Modal extends React.Component {
     }
   };
 
-  shouldClickDismiss = event => {
+  shouldClickDismiss = (event) => {
     var target = event.target;
     // This piece of code isolates targets which are fake clicked by things
     // like file-drop handlers
@@ -54,7 +54,7 @@ export default class Modal extends React.Component {
     return true;
   };
 
-  handleGlobalMousedown = event => {
+  handleGlobalMousedown = (event) => {
     if (
       this.props.closeOnClickOutside &&
       this.state.isOpen &&

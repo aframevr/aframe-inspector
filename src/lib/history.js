@@ -7,7 +7,7 @@ export const updates = {};
  *
  * payload: entity, component, property, value.
  */
-Events.on('entityupdate', payload => {
+Events.on('entityupdate', (payload) => {
   let value = payload.value;
 
   const entity = payload.entity;

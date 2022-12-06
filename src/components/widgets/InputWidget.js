@@ -15,7 +15,7 @@ export default class InputWidget extends React.Component {
     this.state = { value: this.props.value || '' };
   }
 
-  onChange = e => {
+  onChange = (e) => {
     var value = e.target.value;
     this.setState({ value: value });
     if (this.props.onChange) {

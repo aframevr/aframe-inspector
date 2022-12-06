@@ -12,7 +12,9 @@ import { injectCSS } from '../lib/utils';
 THREE.ImageUtils.crossOrigin = '';
 
 // Megahack to include font-awesome.
-injectCSS('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
+injectCSS(
+  'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'
+);
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -29,7 +31,7 @@ export default class Main extends React.Component {
       }
     };
 
-    Events.on('togglesidebar', event => {
+    Events.on('togglesidebar', (event) => {
       if (event.which === 'all') {
         if (this.state.visible.scenegraph || this.state.visible.attributes) {
           this.setState({
@@ -47,13 +49,13 @@ export default class Main extends React.Component {
           });
         }
       } else if (event.which === 'attributes') {
-        this.setState(prevState => ({
+        this.setState((prevState) => ({
           visible: Object.assign({}, prevState.visible, {
             attributes: !prevState.visible.attributes
           })
         }));
       } else if (event.which === 'scenegraph') {
-        this.setState(prevState => ({
+        this.setState((prevState) => ({
           visible: Object.assign({}, prevState.visible, {
             scenegraph: !prevState.visible.scenegraph
           })
@@ -65,7 +67,7 @@ export default class Main extends React.Component {
   componentDidMount() {
     Events.on(
       'opentexturesmodal',
-      function(selectedTexture, textureOnClose) {
+      function (selectedTexture, textureOnClose) {
         this.setState({
           selectedTexture: selectedTexture,
           isModalTexturesOpen: true,
@@ -74,11 +76,11 @@ export default class Main extends React.Component {
       }.bind(this)
     );
 
-    Events.on('entityselect', entity => {
+    Events.on('entityselect', (entity) => {
       this.setState({ entity: entity });
     });
 
-    Events.on('inspectortoggle', enabled => {
+    Events.on('inspectortoggle', (enabled) => {
       this.setState({ inspectorEnabled: enabled });
     });
 
@@ -87,11 +89,11 @@ export default class Main extends React.Component {
     });
   }
 
-  onCloseHelpModal = value => {
+  onCloseHelpModal = (value) => {
     this.setState({ isHelpOpen: false });
   };
 
-  onModalTextureOnClose = value => {
+  onModalTextureOnClose = (value) => {
     this.setState({ isModalTexturesOpen: false });
     if (this.state.textureOnClose) {
       this.state.textureOnClose(value);

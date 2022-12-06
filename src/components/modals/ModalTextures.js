@@ -61,7 +61,7 @@ export default class ModalTextures extends React.Component {
   }
 
   componentDidMount() {
-    Events.on('assetsimagesload', images => {
+    Events.on('assetsimagesload', (images) => {
       this.generateFromRegistry();
     });
 
@@ -83,13 +83,13 @@ export default class ModalTextures extends React.Component {
     }
   }
 
-  onClose = value => {
+  onClose = (value) => {
     if (this.props.onClose) {
       this.props.onClose();
     }
   };
 
-  selectTexture = value => {
+  selectTexture = (value) => {
     if (this.props.onClose) {
       this.props.onClose(value);
     }
@@ -97,7 +97,7 @@ export default class ModalTextures extends React.Component {
 
   generateFromRegistry = () => {
     var self = this;
-    AFRAME.INSPECTOR.assetsLoader.images.forEach(imageData => {
+    AFRAME.INSPECTOR.assetsLoader.images.forEach((imageData) => {
       var image = new Image();
       image.addEventListener('load', () => {
         self.state.registryImages.push({
@@ -122,7 +122,7 @@ export default class ModalTextures extends React.Component {
     var self = this;
     Array.prototype.slice
       .call(document.querySelectorAll('a-assets img'))
-      .forEach(asset => {
+      .forEach((asset) => {
         var image = new Image();
         image.addEventListener('load', () => {
           self.state.assetsImages.push({
@@ -140,7 +140,7 @@ export default class ModalTextures extends React.Component {
       });
   };
 
-  onNewUrl = event => {
+  onNewUrl = (event) => {
     if (event.keyCode !== 13) {
       return;
     }
@@ -169,13 +169,13 @@ export default class ModalTextures extends React.Component {
     this.refs.imageName.focus();
   };
 
-  onNameKeyUp = event => {
+  onNameKeyUp = (event) => {
     if (event.keyCode === 13 && this.isValidAsset()) {
       this.addNewAsset();
     }
   };
 
-  onNameChanged = event => {
+  onNameChanged = (event) => {
     var state = this.state.preview;
     state.name = event.target.value;
     this.setState({ preview: state });
@@ -202,7 +202,7 @@ export default class ModalTextures extends React.Component {
     });
   }
 
-  onUrlChange = e => {
+  onUrlChange = (e) => {
     this.setState({ newUrl: e.target.value });
   };
 
@@ -219,7 +219,7 @@ export default class ModalTextures extends React.Component {
       this.state.preview.name,
       this.state.preview.src,
       true,
-      function() {
+      function () {
         self.generateFromAssets();
         self.setState({ addNewDialogOpened: false });
         self.clear();
@@ -227,13 +227,13 @@ export default class ModalTextures extends React.Component {
     );
   };
 
-  onChangeFilter = e => {
+  onChangeFilter = (e) => {
     this.setState({ filterText: e.target.value });
   };
 
   renderRegistryImages() {
     var self = this;
-    let selectSample = function(image) {
+    let selectSample = function (image) {
       self.setState({
         preview: {
           width: image.width,
@@ -253,14 +253,14 @@ export default class ModalTextures extends React.Component {
     var filterText = this.state.filterText.toUpperCase();
 
     return this.state.registryImages
-      .filter(image => {
+      .filter((image) => {
         return (
           image.id.toUpperCase().indexOf(filterText) > -1 ||
           image.name.toUpperCase().indexOf(filterText) > -1 ||
           image.tags.indexOf(filterText) > -1
         );
       })
-      .map(function(image) {
+      .map(function (image) {
         let imageClick = selectSample.bind(this, image);
         return (
           <li key={image.src} onClick={imageClick}>
@@ -370,11 +370,11 @@ export default class ModalTextures extends React.Component {
         <div className={this.state.addNewDialogOpened ? 'hide' : ''}>
           <ul className="gallery">
             {this.state.assetsImages
-              .sort(function(a, b) {
+              .sort(function (a, b) {
                 return a.id > b.id;
               })
               .map(
-                function(image) {
+                function (image) {
                   let textureClick = this.selectTexture.bind(this, image);
                   var selectedClass =
                     this.props.selectedTexture === '#' + image.id
@@ -398,7 +398,7 @@ export default class ModalTextures extends React.Component {
                   );
                 }.bind(this)
               )}
-            {loadedTextures.map(function(texture) {
+            {loadedTextures.map(function (texture) {
               var image = texture.image;
               let textureClick = this.selectTexture.bind(this, texture);
               return (

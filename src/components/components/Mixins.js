@@ -23,31 +23,31 @@ export default class Mixin extends React.Component {
   getMixinValue() {
     return (this.props.entity.getAttribute('mixin') || '')
       .split(/\s+/g)
-      .filter(v => !!v)
-      .map(v => ({ label: v, value: v }));
+      .filter((v) => !!v)
+      .map((v) => ({ label: v, value: v }));
   }
 
   getMixinOptions = () => {
-    const mixinIds = this.props.entity.mixinEls.map(function(mixin) {
+    const mixinIds = this.props.entity.mixinEls.map(function (mixin) {
       return mixin.id;
     });
 
     return Array.prototype.slice
       .call(document.querySelectorAll('a-mixin'))
-      .filter(function(mixin) {
+      .filter(function (mixin) {
         return mixinIds.indexOf(mixin.id) === -1;
       })
       .sort()
-      .map(function(mixin) {
+      .map(function (mixin) {
         return { value: mixin.id, label: mixin.id };
       });
   };
 
-  updateMixins = value => {
+  updateMixins = (value) => {
     const entity = this.props.entity;
 
     this.setState({ mixins: value });
-    const mixinStr = value.map(v => v.value).join(' ');
+    const mixinStr = value.map((v) => v.value).join(' ');
     entity.setAttribute('mixin', mixinStr);
 
     Events.emit('entityupdate', {

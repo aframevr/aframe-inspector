@@ -20,7 +20,7 @@ export function insertNewAsset(
   }
 
   if (element) {
-    element.onload = function() {
+    element.onload = function () {
       if (onLoadedCallback) {
         onLoadedCallback();
       }

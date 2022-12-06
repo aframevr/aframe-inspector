@@ -18,9 +18,11 @@ export function initRaycaster(inspector) {
   const overrideRefresh = () => {
     refreshObjects.call(raycaster);
     const objects = raycaster.objects;
-    raycaster.objects = objects.filter(node => {
+    raycaster.objects = objects.filter((node) => {
       while (node) {
-        if (!node.visible) { return false; }
+        if (!node.visible) {
+          return false;
+        }
         node = node.parent;
       }
       return true;
@@ -33,7 +35,7 @@ export function initRaycaster(inspector) {
 
   inspector.sceneEl.addEventListener(
     'child-attached',
-    debounce(function() {
+    debounce(function () {
       mouseCursor.components.raycaster.refreshObjects();
     }, 250)
   );
@@ -56,7 +58,10 @@ export function initRaycaster(inspector) {
   const onDoubleClickPosition = new THREE.Vector2();
 
   function onMouseEnter() {
-    Events.emit('raycastermouseenter', mouseCursor.components.cursor.intersectedEl);
+    Events.emit(
+      'raycastermouseenter',
+      mouseCursor.components.cursor.intersectedEl
+    );
   }
 
   function onMouseLeave() {

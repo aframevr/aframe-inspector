@@ -14,7 +14,7 @@ export function Viewport(inspector) {
   const sceneEl = inspector.sceneEl;
 
   let originalCamera = inspector.cameras.original;
-  sceneEl.addEventListener('camera-set-active', event => {
+  sceneEl.addEventListener('camera-set-active', (event) => {
     // If we're in edit mode, save the newly active camera and activate when exiting.
     if (inspector.opened) {
       originalCamera = event.detail.cameraEl;
@@ -34,7 +34,7 @@ export function Viewport(inspector) {
   sceneHelpers.add(selectionBox);
 
   function updateHelpers(object) {
-    object.traverse(node => {
+    object.traverse((node) => {
       if (inspector.helpers[node.uuid] && inspector.helpers[node.uuid].update) {
         inspector.helpers[node.uuid].update();
       }
@@ -47,7 +47,7 @@ export function Viewport(inspector) {
     inspector.container
   );
   transformControls.size = 0.75;
-  transformControls.addEventListener('objectChange', evt => {
+  transformControls.addEventListener('objectChange', (evt) => {
     const object = transformControls.object;
     if (object === undefined) {
       return;
@@ -95,7 +95,7 @@ export function Viewport(inspector) {
 
   sceneHelpers.add(transformControls);
 
-  Events.on('entityupdate', detail => {
+  Events.on('entityupdate', (detail) => {
     if (inspector.selectedEntity.object3DMap.mesh) {
       selectionBox.setFromObject(inspector.selected);
     }
@@ -108,7 +108,7 @@ export function Viewport(inspector) {
   controls.zoomSpeed = 0.05;
   controls.setAspectRatio(sceneEl.canvas.width / sceneEl.canvas.height);
 
-  Events.on('cameratoggle', data => {
+  Events.on('cameratoggle', (data) => {
     controls.setCamera(data.camera);
     transformControls.setCamera(data.camera);
   });
@@ -130,19 +130,19 @@ export function Viewport(inspector) {
     controls.center.set(0, 0, 0);
   });
 
-  Events.on('transformmodechange', mode => {
+  Events.on('transformmodechange', (mode) => {
     transformControls.setMode(mode);
   });
 
-  Events.on('snapchanged', dist => {
+  Events.on('snapchanged', (dist) => {
     transformControls.setTranslationSnap(dist);
   });
 
-  Events.on('transformspacechanged', space => {
+  Events.on('transformspacechanged', (space) => {
     transformControls.setSpace(space);
   });
 
-  Events.on('objectselect', object => {
+  Events.on('objectselect', (object) => {
     selectionBox.visible = false;
     transformControls.detach();
     if (object && object.el) {
@@ -155,18 +155,18 @@ export function Viewport(inspector) {
     }
   });
 
-  Events.on('objectfocus', object => {
+  Events.on('objectfocus', (object) => {
     controls.focus(object);
     transformControls.update();
   });
 
-  Events.on('geometrychanged', object => {
+  Events.on('geometrychanged', (object) => {
     if (object !== null) {
       selectionBox.setFromObject(object);
     }
   });
 
-  Events.on('entityupdate', detail => {
+  Events.on('entityupdate', (detail) => {
     const object = detail.entity.object3D;
     if (inspector.selected === object) {
       // Hack because object3D always has geometry :(
@@ -195,7 +195,7 @@ export function Viewport(inspector) {
     camera.updateProjectionMatrix();
   });
 
-  Events.on('gridvisibilitychanged', showGrid => {
+  Events.on('gridvisibilitychanged', (showGrid) => {
     grid.visible = showGrid;
   });
 
@@ -203,22 +203,23 @@ export function Viewport(inspector) {
     grid.visible = !grid.visible;
   });
 
-  Events.on('inspectortoggle', active => {
+  Events.on('inspectortoggle', (active) => {
     if (active) {
       enableControls();
       AFRAME.scenes[0].camera = inspector.camera;
       Array.prototype.slice
         .call(document.querySelectorAll('.a-enter-vr,.rs-base'))
-        .forEach(element => {
+        .forEach((element) => {
           element.style.display = 'none';
         });
     } else {
       disableControls();
       inspector.cameras.original.setAttribute('camera', 'active', 'true');
-      AFRAME.scenes[0].camera = inspector.cameras.original.getObject3D('camera');
+      AFRAME.scenes[0].camera =
+        inspector.cameras.original.getObject3D('camera');
       Array.prototype.slice
         .call(document.querySelectorAll('.a-enter-vr,.rs-base'))
-        .forEach(element => {
+        .forEach((element) => {
           element.style.display = 'block';
         });
     }

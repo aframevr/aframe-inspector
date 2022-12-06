@@ -17,11 +17,11 @@ export default class ComponentsContainer extends React.Component {
   render() {
     const entity = this.props.entity;
     const components = entity ? entity.components : {};
-    const definedComponents = Object.keys(components).filter(function(key) {
+    const definedComponents = Object.keys(components).filter(function (key) {
       return DEFAULT_COMPONENTS.indexOf(key) === -1;
     });
 
-    const renderedComponents = definedComponents.sort().map(function(key) {
+    const renderedComponents = definedComponents.sort().map(function (key) {
       return (
         <Component
           isCollapsed={definedComponents.length > 2}

@@ -42,7 +42,7 @@ export default class PropertyRow extends React.Component {
     ) {
       Events.on(
         'entitytransformed',
-        debounce(entity => {
+        debounce((entity) => {
           if (entity === props.entity) {
             this.forceUpdate();
           }
@@ -73,7 +73,7 @@ export default class PropertyRow extends React.Component {
       isSingle: props.isSingle,
       name: props.name,
       // Wrap updateEntity for tracking.
-      onChange: function(name, value) {
+      onChange: function (name, value) {
         var propertyName = props.componentname;
         if (!props.isSingle) {
           propertyName += '.' + props.name;

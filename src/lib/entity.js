@@ -129,7 +129,7 @@ export function cloneEntity(entity) {
   entity.flushToDOM();
 
   const clone = entity.cloneNode(true);
-  clone.addEventListener('loaded', function() {
+  clone.addEventListener('loaded', function () {
     AFRAME.INSPECTOR.selectEntity(clone);
     Events.emit('entityclone');
   });
@@ -197,7 +197,7 @@ function optimizeComponents(copy, source) {
   var removeAttribute = HTMLElement.prototype.removeAttribute;
   var setAttribute = HTMLElement.prototype.setAttribute;
   var components = source.components || {};
-  Object.keys(components).forEach(function(name) {
+  Object.keys(components).forEach(function (name) {
     var component = components[name];
     var result = getImplicitValue(component, source);
     var isInherited = result[1];
@@ -238,7 +238,7 @@ function stringifyComponentValue(schema, data) {
 
   function _multi() {
     var propertyBag = {};
-    Object.keys(data).forEach(function(name) {
+    Object.keys(data).forEach(function (name) {
       if (schema[name]) {
         propertyBag[name] = schema[name].stringify(data[name]);
       }
@@ -284,7 +284,7 @@ function getImplicitValue(component, source) {
   function _multi() {
     var value;
 
-    Object.keys(component.schema).forEach(function(propertyName) {
+    Object.keys(component.schema).forEach(function (propertyName) {
       var propertyValue = getFromAttribute(component, propertyName, source);
       if (propertyValue === undefined) {
         propertyValue = getMixedValue(component, propertyName, source);
@@ -442,7 +442,7 @@ function getOptimalUpdate(component, implicit, reference) {
     return reference;
   }
   var optimal = {};
-  Object.keys(reference).forEach(function(key) {
+  Object.keys(reference).forEach(function (key) {
     var needsUpdate = !equal(reference[key], implicit[key]);
     if (needsUpdate) {
       optimal[key] = reference[key];
