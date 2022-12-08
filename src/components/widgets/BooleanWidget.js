@@ -19,10 +19,11 @@ export default class BooleanWidget extends React.Component {
     this.state = { value: this.props.value };
   }
 
-  componentWillReceiveProps(newProps) {
-    if (newProps.value !== this.state.value) {
-      this.setState({ value: newProps.value });
+  static getDerivedStateFromProps(props, state) {
+    if (props.value !== state.value) {
+      return { value: props.value };
     }
+    return null;
   }
 
   onChange = (e) => {
@@ -39,7 +40,6 @@ export default class BooleanWidget extends React.Component {
     return (
       <input
         id={id}
-        ref="input"
         type="checkbox"
         checked={this.state.value}
         value={this.state.value}

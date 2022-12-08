@@ -80,7 +80,6 @@ export default class AddComponent extends React.Component {
           id="addComponent"
           className="addComponent"
           classNamePrefix="select"
-          ref="select"
           options={this.options}
           simpleValue
           clearable={true}

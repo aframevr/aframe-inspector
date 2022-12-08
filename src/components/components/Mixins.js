@@ -70,7 +70,6 @@ export default class Mixin extends React.Component {
             <Select
               id="mixinSelect"
               classNamePrefix="select"
-              ref="select"
               options={this.getMixinOptions()}
               isMulti={true}
               placeholder="Add mixin..."

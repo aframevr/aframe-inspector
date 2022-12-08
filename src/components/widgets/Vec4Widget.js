@@ -29,8 +29,21 @@ export default class Vec4Widget extends React.Component {
     });
   };
 
-  componentWillReceiveProps(nextProps) {
-    this.setState(nextProps.value);
+  static getDerivedStateFromProps(props, state) {
+    if (
+      state.x !== props.value.x ||
+      state.y !== props.value.y ||
+      state.z !== props.value.z ||
+      state.w !== props.value.w
+    ) {
+      return {
+        x: props.value.x,
+        y: props.value.y,
+        z: props.value.z,
+        w: props.value.w
+      };
+    }
+    return null;
   }
 
   render() {

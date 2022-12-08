@@ -20,6 +20,7 @@ export default class Modal extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isOpen: this.props.isOpen };
+    this.self = React.createRef();
   }
 
   componentDidMount() {
@@ -48,7 +49,7 @@ export default class Modal extends React.Component {
     if (target.tagName === 'INPUT' && target.type === 'file') {
       return false;
     }
-    if (target === this.refs.self || this.refs.self.contains(target)) {
+    if (target === this.self.current || this.self.current.contains(target)) {
       return false;
     }
     return true;
@@ -71,10 +72,11 @@ export default class Modal extends React.Component {
     document.removeEventListener('mousedown', this.handleGlobalMousedown);
   }
 
-  componentWillReceiveProps(newProps) {
-    if (this.state.isOpen !== newProps.isOpen) {
-      this.setState({ isOpen: newProps.isOpen });
+  static getDerivedStateFromProps(props, state) {
+    if (state.isOpen !== props.isOpen) {
+      return { isOpen: props.isOpen };
     }
+    return null;
   }
 
   close = () => {
@@ -90,7 +92,7 @@ export default class Modal extends React.Component {
         id={this.props.id}
         className={this.state.isOpen ? 'modal' : 'modal hide'}
       >
-        <div className="modal-content" ref="self">
+        <div className="modal-content" ref={this.self}>
           <div className="modal-header">
             <span className="close" onClick={this.close}>
               ×

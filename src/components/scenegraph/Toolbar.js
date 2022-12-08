@@ -1,8 +1,8 @@
-/* global process */
 import React from 'react';
 import classNames from 'classnames';
 import Events from '../../lib/Events';
 import { saveBlob } from '../../lib/utils';
+import GLTFIcon from '../../../assets/gltf.svg';
 
 function filterHelpers(scene, visible) {
   scene.traverse((o) => {
@@ -57,6 +57,9 @@ export default class Toolbar extends React.Component {
         filterHelpers(scene, true);
         const blob = new Blob([buffer], { type: 'application/octet-stream' });
         saveBlob(blob, sceneName + '.glb');
+      },
+      function (error) {
+        console.error(error);
       },
       { binary: true }
     );
@@ -123,13 +126,7 @@ export default class Toolbar extends React.Component {
             title="Export to GLTF"
             onClick={this.exportSceneToGLTF}
           >
-            <img
-              src={
-                process.env.NODE_ENV === 'production'
-                  ? 'https://aframe.io/aframe-inspector/assets/gltf.svg'
-                  : '../assets/gltf.svg'
-              }
-            />
+            <img src={GLTFIcon} />
           </a>
           <a
             className={watcherClassNames}

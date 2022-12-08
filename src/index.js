@@ -1,22 +1,21 @@
 import '../vendor/ga';
 
+import { createRoot } from 'react-dom/client';
 import Events from './lib/Events';
 import { Viewport } from './lib/viewport';
 import { AssetsLoader } from './lib/assetsLoader';
 import { Shortcuts } from './lib/shortcuts';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
 import Main from './components/Main';
 import { initCameras } from './lib/cameras';
 import { createEntity } from './lib/entity';
-import { GLTFExporter } from '../vendor/GLTFExporter'; // eslint-disable-line no-unused-vars
+import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter';
 
 import './style/index.styl';
 
 function Inspector() {
   this.assetsLoader = new AssetsLoader();
-  this.exporters = { gltf: new THREE.GLTFExporter() };
+  this.exporters = { gltf: new GLTFExporter() };
   this.history = require('./lib/history');
   this.isFirstOpen = true;
   this.modules = {};
@@ -74,7 +73,8 @@ Inspector.prototype = {
     div.id = 'aframeInspector';
     div.setAttribute('data-aframe-inspector', 'app');
     document.body.appendChild(div);
-    ReactDOM.render(<Main />, div);
+    const root = createRoot(div);
+    root.render(<Main />);
 
     this.scene = this.sceneEl.object3D;
     this.helpers = {};

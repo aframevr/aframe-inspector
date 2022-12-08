@@ -25,12 +25,13 @@ export default class SelectWidget extends React.Component {
     }
   };
 
-  componentWillReceiveProps(newProps) {
-    if (newProps.value !== this.state.value.value) {
-      this.setState({
-        value: { value: newProps.value, label: newProps.value }
-      });
+  static getDerivedStateFromProps(props, state) {
+    if (props.value !== state.value.value) {
+      return {
+        value: { value: props.value, label: props.value }
+      };
     }
+    return null;
   }
 
   render() {

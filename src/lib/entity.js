@@ -1,5 +1,4 @@
 /* eslint-disable react/no-danger */
-import React from 'react';
 import Events from './Events';
 import { equal } from './utils';
 
@@ -365,6 +364,7 @@ function getMixedValue(component, propertyName, source) {
   var reversedMixins = source.mixinEls.reverse();
   for (var i = 0; value === undefined && i < reversedMixins.length; i++) {
     var mixin = reversedMixins[i];
+    /* eslint-disable-next-line no-prototype-builtins */
     if (mixin.attributes.hasOwnProperty(component.name)) {
       if (!propertyName) {
         value = mixin.getAttribute(component.name);
@@ -394,6 +394,7 @@ function getInjectedValue(component, propertyName, source) {
   var defaultSources = [primitiveDefaults, aFrameDefaults];
   for (var i = 0; value === undefined && i < defaultSources.length; i++) {
     var defaults = defaultSources[i];
+    /* eslint-disable-next-line no-prototype-builtins */
     if (defaults.hasOwnProperty(component.name)) {
       if (!propertyName) {
         value = defaults[component.name];

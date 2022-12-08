@@ -1,14 +1,20 @@
 {
-  "extends": ["eslint:recommended", "plugin:react/recommended", "standard"],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:react/jsx-runtime", "standard"],
   "rules": {
+    "multiline-ternary": "off",
+    "no-console": "off",
+    "no-lone-blocks": "off",
+    "no-var": "off",
+    "object-shorthand": "off",
+    "no-useless-return": "off",
+    "prefer-const": "off",
     "react/jsx-indent-props": [2, 2],
     "semi": [2, "always"],
-    "space-before-function-paren": "off",
-    "no-console": "off"
+    "space-before-function-paren": "off"
   },
   "env": {
-    "es6": true,
     "browser": true,
+    "es2021": true,
     "node": true
   },
   "globals": {
@@ -16,17 +22,20 @@
     "ga": true,
     "THREE": true
   },
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
-    "ecmaVersion": 7,
-    "sourceType": "module",
     "ecmaFeatures": {
-      "classes": true,
-      "jsx": true,
-      "experimentalObjectRestSpread": true
-     }
+      "jsx": true
+     },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
   "plugins": [
     "react"
-  ]
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
 }
