@@ -153,11 +153,6 @@ export default class Component extends React.Component {
               data-action="copy-component-to-clipboard"
               data-component={subComponentName || componentName}
               className="button fa fa-clipboard"
-              href="#"
-              onClick={(event) => {
-                event.preventDefault();
-                event.stopPropagation();
-              }}
             />
             <a
               title="Remove component"

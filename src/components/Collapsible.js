@@ -22,7 +22,9 @@ export default class Collapsible extends React.Component {
     };
   }
 
-  toggleVisibility = () => {
+  toggleVisibility = (event) => {
+    // Don't collapse if we click on actions like clipboard
+    if (event.target.nodeName === 'A') return;
     this.setState({ collapsed: !this.state.collapsed });
     if (typeof ga !== 'undefined') {
       ga('send', 'event', 'Components', 'collapse');

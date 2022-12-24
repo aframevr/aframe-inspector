@@ -23,11 +23,10 @@ export default class InputWidget extends React.Component {
     }
   };
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.value !== state.value) {
-      return { value: props.value };
+  componentDidUpdate(prevProps) {
+    if (this.props.value !== prevProps.value) {
+      this.setState({ value: this.props.value });
     }
-    return null;
   }
 
   render() {

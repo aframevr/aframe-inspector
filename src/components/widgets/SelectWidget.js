@@ -19,19 +19,20 @@ export default class SelectWidget extends React.Component {
   }
 
   onChange = (value) => {
-    this.setState({ value: value });
-    if (this.props.onChange) {
-      this.props.onChange(this.props.name, value.value);
-    }
+    this.setState({ value: value }, () => {
+      if (this.props.onChange) {
+        this.props.onChange(this.props.name, value.value);
+      }
+    });
   };
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.value !== state.value.value) {
-      return {
+  componentDidUpdate(prevProps) {
+    const props = this.props;
+    if (props.value !== prevProps.value) {
+      this.setState({
         value: { value: props.value, label: props.value }
-      };
+      });
     }
-    return null;
   }
 
   render() {
