@@ -39,8 +39,8 @@ export default class ColorWidget extends React.Component {
     }
   }
 
-  componentDidUpdate() {
-    if (this.props.value !== this.state.value) {
+  componentDidUpdate(prevProps) {
+    if (this.props.value !== prevProps.value) {
       this.setState({
         value: this.props.value,
         pickerValue: this.getHexString(this.props.value)
