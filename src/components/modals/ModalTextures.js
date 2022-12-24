@@ -71,17 +71,17 @@ export default class ModalTextures extends React.Component {
     this.generateFromAssets();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     if (this.state.isOpen && !AFRAME.INSPECTOR.assetsLoader.hasLoaded) {
       AFRAME.INSPECTOR.assetsLoader.load();
+    }
+    if (this.state.isOpen && this.state.isOpen !== prevProps.isOpen) {
+      this.generateFromAssets();
     }
   }
 
   static getDerivedStateFromProps(props, state) {
     if (state.isOpen !== props.isOpen) {
-      if (props.isOpen) {
-        this.generateFromAssets();
-      }
       return { isOpen: props.isOpen };
     }
     return null;
