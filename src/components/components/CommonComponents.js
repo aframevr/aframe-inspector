@@ -115,14 +115,9 @@ export default class CommonComponents extends React.Component {
           <img src={GLTFIcon} />
         </a>
         <a
-          href="#"
           title="Copy entity HTML to clipboard"
           data-action="copy-entity-to-clipboard"
           className="button fa fa-clipboard"
-          onClick={(event) => {
-            event.preventDefault();
-            event.stopPropagation();
-          }}
         />
       </div>
     );
