@@ -514,9 +514,7 @@ export function getComponentClipboardRepresentation(entity, componentName) {
   }
 
   const diff = getModifiedProperties(entity, componentName);
-  const attributes = AFRAME.utils.styleParser
-    .stringify(diff)
-    .replace(/;|:/g, '$& ');
+  const attributes = AFRAME.utils.styleParser.stringify(diff);
   return `${componentName}="${attributes}"`;
 }
 
