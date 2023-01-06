@@ -13,11 +13,10 @@ export function Viewport(inspector) {
   const mouseCursor = initRaycaster(inspector);
   const sceneEl = inspector.sceneEl;
 
-  let originalCamera = inspector.cameras.original;
   sceneEl.addEventListener('camera-set-active', (event) => {
     // If we're in edit mode, save the newly active camera and activate when exiting.
     if (inspector.opened) {
-      originalCamera = event.detail.cameraEl;
+      inspector.cameras.original = event.detail.cameraEl;
     }
   });
 
