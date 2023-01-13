@@ -3409,36 +3409,36 @@ styleSheet.flush()
           );
         /* harmony import */ var _lib_Events__WEBPACK_IMPORTED_MODULE_1__ =
           __webpack_require__(/*! ../lib/Events */ './src/lib/Events.js');
-        /* harmony import */ var _components_Sidebar__WEBPACK_IMPORTED_MODULE_2__ =
+        /* harmony import */ var _lib_utils__WEBPACK_IMPORTED_MODULE_2__ =
+          __webpack_require__(/*! ../lib/utils */ './src/lib/utils.js');
+        /* harmony import */ var _components_Sidebar__WEBPACK_IMPORTED_MODULE_3__ =
           __webpack_require__(
             /*! ./components/Sidebar */ './src/components/components/Sidebar.js'
-          );
-        /* harmony import */ var _modals_ModalTextures__WEBPACK_IMPORTED_MODULE_3__ =
-          __webpack_require__(
-            /*! ./modals/ModalTextures */ './src/components/modals/ModalTextures.js'
           );
         /* harmony import */ var _modals_ModalHelp__WEBPACK_IMPORTED_MODULE_4__ =
           __webpack_require__(
             /*! ./modals/ModalHelp */ './src/components/modals/ModalHelp.js'
           );
-        /* harmony import */ var _scenegraph_SceneGraph__WEBPACK_IMPORTED_MODULE_5__ =
+        /* harmony import */ var _modals_ModalTextures__WEBPACK_IMPORTED_MODULE_5__ =
+          __webpack_require__(
+            /*! ./modals/ModalTextures */ './src/components/modals/ModalTextures.js'
+          );
+        /* harmony import */ var _scenegraph_SceneGraph__WEBPACK_IMPORTED_MODULE_6__ =
           __webpack_require__(
             /*! ./scenegraph/SceneGraph */ './src/components/scenegraph/SceneGraph.js'
           );
-        /* harmony import */ var _viewport_CameraToolbar__WEBPACK_IMPORTED_MODULE_6__ =
+        /* harmony import */ var _viewport_CameraToolbar__WEBPACK_IMPORTED_MODULE_7__ =
           __webpack_require__(
             /*! ./viewport/CameraToolbar */ './src/components/viewport/CameraToolbar.js'
           );
-        /* harmony import */ var _viewport_TransformToolbar__WEBPACK_IMPORTED_MODULE_7__ =
+        /* harmony import */ var _viewport_TransformToolbar__WEBPACK_IMPORTED_MODULE_8__ =
           __webpack_require__(
             /*! ./viewport/TransformToolbar */ './src/components/viewport/TransformToolbar.js'
           );
-        /* harmony import */ var _viewport_ViewportHUD__WEBPACK_IMPORTED_MODULE_8__ =
+        /* harmony import */ var _viewport_ViewportHUD__WEBPACK_IMPORTED_MODULE_9__ =
           __webpack_require__(
             /*! ./viewport/ViewportHUD */ './src/components/viewport/ViewportHUD.js'
           );
-        /* harmony import */ var _lib_utils__WEBPACK_IMPORTED_MODULE_9__ =
-          __webpack_require__(/*! ../lib/utils */ './src/lib/utils.js');
         /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ =
           __webpack_require__(
             /*! react/jsx-runtime */ './node_modules/react/jsx-runtime.js'
@@ -3637,7 +3637,7 @@ styleSheet.flush()
         THREE.ImageUtils.crossOrigin = '';
 
         // Megahack to include font-awesome.
-        (0, _lib_utils__WEBPACK_IMPORTED_MODULE_9__.injectCSS)(
+        (0, _lib_utils__WEBPACK_IMPORTED_MODULE_2__.injectCSS)(
           'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'
         );
         var Main = /*#__PURE__*/ (function (_React$Component) {
@@ -3849,10 +3849,10 @@ styleSheet.flush()
                 react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)('div', {
                   children: [
                     /*#__PURE__*/ (0,
-                    react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)('a', {
+                    react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)('a', {
                       className: 'toggle-edit',
                       onClick: this.toggleEdit,
-                      children: toggleButtonText
+                      children: [toggleButtonText, ' - Biluzation']
                     }),
                     this.renderSceneGraphToggle(),
                     this.renderComponentsToggle(),
@@ -3865,7 +3865,7 @@ styleSheet.flush()
                         children: [
                           /*#__PURE__*/ (0,
                           react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(
-                            _scenegraph_SceneGraph__WEBPACK_IMPORTED_MODULE_5__[
+                            _scenegraph_SceneGraph__WEBPACK_IMPORTED_MODULE_6__[
                               'default'
                             ],
                             {
@@ -3882,21 +3882,21 @@ styleSheet.flush()
                               children: [
                                 /*#__PURE__*/ (0,
                                 react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(
-                                  _viewport_CameraToolbar__WEBPACK_IMPORTED_MODULE_6__[
+                                  _viewport_CameraToolbar__WEBPACK_IMPORTED_MODULE_7__[
                                     'default'
                                   ],
                                   {}
                                 ),
                                 /*#__PURE__*/ (0,
                                 react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(
-                                  _viewport_ViewportHUD__WEBPACK_IMPORTED_MODULE_8__[
+                                  _viewport_ViewportHUD__WEBPACK_IMPORTED_MODULE_9__[
                                     'default'
                                   ],
                                   {}
                                 ),
                                 /*#__PURE__*/ (0,
                                 react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(
-                                  _viewport_TransformToolbar__WEBPACK_IMPORTED_MODULE_7__[
+                                  _viewport_TransformToolbar__WEBPACK_IMPORTED_MODULE_8__[
                                     'default'
                                   ],
                                   {}
@@ -3911,7 +3911,7 @@ styleSheet.flush()
                               id: 'rightPanel',
                               children: /*#__PURE__*/ (0,
                               react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(
-                                _components_Sidebar__WEBPACK_IMPORTED_MODULE_2__[
+                                _components_Sidebar__WEBPACK_IMPORTED_MODULE_3__[
                                   'default'
                                 ],
                                 {
@@ -3934,7 +3934,7 @@ styleSheet.flush()
                     ),
                     /*#__PURE__*/ (0,
                     react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(
-                      _modals_ModalTextures__WEBPACK_IMPORTED_MODULE_3__[
+                      _modals_ModalTextures__WEBPACK_IMPORTED_MODULE_5__[
                         'default'
                       ],
                       {

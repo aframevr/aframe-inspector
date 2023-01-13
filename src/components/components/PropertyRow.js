@@ -1,20 +1,20 @@
 /* eslint-disable no-prototype-builtins */
-import React from 'react';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Events from '../../lib/Events';
 
+import { updateEntity } from '../../lib/entity';
 import BooleanWidget from '../widgets/BooleanWidget';
 import ColorWidget from '../widgets/ColorWidget';
 import InputWidget from '../widgets/InputWidget';
 import NumberWidget from '../widgets/NumberWidget';
 import SelectWidget from '../widgets/SelectWidget';
 import TextureWidget from '../widgets/TextureWidget';
-import Vec4Widget from '../widgets/Vec4Widget';
-import Vec3Widget from '../widgets/Vec3Widget';
 import Vec2Widget from '../widgets/Vec2Widget';
-import { updateEntity } from '../../lib/entity';
+import Vec3Widget from '../widgets/Vec3Widget';
+import Vec4Widget from '../widgets/Vec4Widget';
 
 export default class PropertyRow extends React.Component {
   static propTypes = {
@@ -127,9 +127,10 @@ export default class PropertyRow extends React.Component {
 
   render() {
     const props = this.props;
+    const domAttribute = props.entity.getDOMAttribute(props.componentname);
     const value =
       props.schema.type === 'selector'
-        ? props.entity.getDOMAttribute(props.componentname)[props.name]
+        ? domAttribute[props.name]
         : JSON.stringify(props.data);
     const title =
       props.name + '\n - type: ' + props.schema.type + '\n - value: ' + value;
@@ -137,9 +138,10 @@ export default class PropertyRow extends React.Component {
     const className = classNames({
       propertyRow: true,
       propertyRowDefined: props.isSingle
-        ? !!props.entity.getDOMAttribute(props.componentname)
-        : props.name in
-          (props.entity.getDOMAttribute(props.componentname) || {})
+        ? !!domAttribute
+        : typeof domAttribute === 'object'
+        ? props.name in props.entity.getDOMAttribute(props.componentname)
+        : {}
     });
 
     return (
