@@ -113,7 +113,7 @@ export default class NumberWidget extends React.Component {
   componentDidUpdate(prevProps) {
     // This will be triggered typically when the element is changed directly with
     // element.setAttribute.
-    if (this.props.value !== prevProps.value) {
+    if (!Object.is(this.props.value, prevProps.value)) {
       this.setState({
         value: this.props.value,
         displayValue: this.props.value.toFixed(this.props.precision)
