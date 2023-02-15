@@ -113,7 +113,10 @@ export default class NumberWidget extends React.Component {
   componentDidUpdate(prevProps) {
     // This will be triggered typically when the element is changed directly with
     // element.setAttribute.
-    if (this.props.value !== prevProps.value) {
+
+    // We use Object.is instead of === for comparison here so that comparing two NaN doesn't trigger an infinite update.
+    // Object.is(NaN, NaN) is true, NaN === NaN is false
+    if (!Object.is(this.props.value, prevProps.value)) {
       this.setState({
         value: this.props.value,
         displayValue: this.props.value.toFixed(this.props.precision)

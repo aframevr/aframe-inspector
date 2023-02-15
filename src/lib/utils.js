@@ -102,3 +102,15 @@ export function saveBlob(blob, filename) {
   link.click();
   // URL.revokeObjectURL(url); breaks Firefox...
 }
+
+// Compares 2 vector objects up to size 4
+// Expect v1 and v2 to take format {x: number, y: number, z: number, w:number}
+// Smaller vectors (ie. vec2) should work as well since their z & w vals will be the same (undefined)
+export function areVectorsEqual(v1, v2) {
+  return (
+    Object.is(v1.x, v2.x) &&
+    Object.is(v1.y, v2.y) &&
+    Object.is(v1.z, v2.z) &&
+    Object.is(v1.w, v2.w)
+  );
+}
