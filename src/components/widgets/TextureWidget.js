@@ -131,7 +131,10 @@ export default class TextureWidget extends React.Component {
 
     function getTextureFromSrc(src) {
       for (var hash in AFRAME.INSPECTOR.sceneEl.systems.material.textureCache) {
-        if (JSON.parse(hash).src === src) {
+        // The key in textureCache is not always a json.
+        // For example <a-videosphere src="#video"> gives a "video" key in textureCache.
+        // So we check for '{' before using JSON.parse here.
+        if (hash[0] === '{' && JSON.parse(hash).src === src) {
           return AFRAME.INSPECTOR.sceneEl.systems.material.textureCache[hash];
         }
       }
@@ -141,8 +144,10 @@ export default class TextureWidget extends React.Component {
     var url;
     var isAssetHash = value[0] === '#';
     var isAssetImg = value instanceof HTMLImageElement;
+    var isAssetVideo = value instanceof HTMLVideoElement;
+    var isAssetImgOrVideo = isAssetImg || isAssetVideo;
 
-    if (isAssetImg) {
+    if (isAssetImgOrVideo) {
       url = value.src;
     } else if (isAssetHash) {
       url = getUrlFromId(value);
@@ -152,10 +157,10 @@ export default class TextureWidget extends React.Component {
 
     var texture = getTextureFromSrc(value);
     var valueType = null;
-    valueType = isAssetImg || isAssetHash ? 'asset' : 'url';
-    if (texture) {
+    valueType = isAssetImgOrVideo || isAssetHash ? 'asset' : 'url';
+    if (!isAssetVideo && texture) {
       texture.then(paintPreview);
-    } else if (url) {
+    } else if (!isAssetVideo && url) {
       // The image still didn't load
       var image = new Image();
       image.addEventListener(
@@ -171,7 +176,7 @@ export default class TextureWidget extends React.Component {
     }
 
     this.setState({
-      value: isAssetImg ? '#' + value.id : value,
+      value: isAssetImgOrVideo ? '#' + value.id : value,
       valueType: valueType,
       url: url
     });
