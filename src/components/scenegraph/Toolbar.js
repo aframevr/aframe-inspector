@@ -77,7 +77,7 @@ export default class Toolbar extends React.Component {
     xhr.open('POST', 'http://localhost:51234/save');
     xhr.onerror = () => {
       alert(
-        'aframe-watcher not running. This feature requires a companion service running locally. npm install aframe-watcher to save changes back to file. Read more at supermedium.com/aframe-watcher'
+        'aframe-watcher not running. This feature requires a companion service running locally. npm install aframe-watcher to save changes back to file. Read more at https://github.com/supermedium/aframe-watcher'
       );
     };
     xhr.setRequestHeader('Content-Type', 'application/json');
