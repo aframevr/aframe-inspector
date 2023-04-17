@@ -162,11 +162,14 @@ Inspector.prototype = {
     if (entity === this.sceneEl) {
       return;
     }
-    entity.object3D.traverse((node) => {
-      if (this.helpers[node.uuid]) {
-        this.helpers[node.uuid].visible = true;
-      }
-    });
+
+    if (entity) {
+      entity.object3D.traverse((node) => {
+        if (this.helpers[node.uuid]) {
+          this.helpers[node.uuid].visible = true;
+        }
+      });
+    }
   },
 
   initEvents: function () {
