@@ -2,8 +2,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import debounce from 'lodash.debounce';
-import Events from '../../lib/Events';
 
 import BooleanWidget from '../widgets/BooleanWidget';
 import ColorWidget from '../widgets/ColorWidget';
@@ -36,19 +34,6 @@ export default class PropertyRow extends React.Component {
   constructor(props) {
     super(props);
     this.id = props.componentname + ':' + props.name;
-
-    if (
-      ['position', 'rotation', 'scale'].indexOf(this.props.componentname) !== -1
-    ) {
-      Events.on(
-        'entitytransformed',
-        debounce((entity) => {
-          if (entity === props.entity) {
-            this.forceUpdate();
-          }
-        }, 250)
-      );
-    }
   }
 
   getWidget() {
