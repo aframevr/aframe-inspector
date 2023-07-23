@@ -127,7 +127,7 @@ function insertAfter(newNode, referenceNode) {
 export function cloneEntity(entity) {
   entity.flushToDOM();
 
-  const clone = entity.cloneNode(true);
+  const clone = prepareForSerialization(entity);
   clone.addEventListener('loaded', function () {
     AFRAME.INSPECTOR.selectEntity(clone);
     Events.emit('entityclone');
