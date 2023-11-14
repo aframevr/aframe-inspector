@@ -1,6 +1,6 @@
 {
   "name": "aframe-inspector",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "A visual inspector tool for A-Frame.",
   "main": "dist/aframe-inspector.min.js",
   "scripts": {
