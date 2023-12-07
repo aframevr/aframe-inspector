@@ -1,5 +1,3 @@
-import '../vendor/ga';
-
 import { createRoot } from 'react-dom/client';
 import Events from './lib/Events';
 import { Viewport } from './lib/viewport';
