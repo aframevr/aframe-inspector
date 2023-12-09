@@ -34,9 +34,6 @@ export default class TransformToolbar extends React.Component {
   changeTransformMode = (mode) => {
     this.setState({ selectedTransform: mode });
     Events.emit('transformmodechange', mode);
-    if (typeof ga !== 'undefined') {
-      ga('send', 'event', 'Toolbar', 'selectHelper', mode);
-    }
   };
 
   onLocalChange = (e) => {

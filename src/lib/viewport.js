@@ -227,8 +227,5 @@ export function Viewport(inspector) {
           element.style.display = 'block';
         });
     }
-    if (typeof ga !== 'undefined') {
-      ga('send', 'event', 'Viewport', 'toggleEditor', active);
-    }
   });
 }
