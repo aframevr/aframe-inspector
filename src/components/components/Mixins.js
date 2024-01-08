@@ -56,9 +56,6 @@ export default class Mixin extends React.Component {
       property: '',
       value: mixinStr
     });
-    if (typeof ga !== 'undefined') {
-      ga('send', 'event', 'Components', 'addMixin');
-    }
   };
 
   render() {

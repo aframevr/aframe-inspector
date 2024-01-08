@@ -19,7 +19,6 @@
   },
   "globals": {
     "AFRAME": true,
-    "ga": true,
     "THREE": true
   },
   "parser": "@babel/eslint-parser",
