@@ -1,6 +1,15 @@
 /* eslint-disable react/no-danger */
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  faCaretDown,
+  faCaretRight,
+  faClone,
+  faEye,
+  faEyeSlash,
+  faTrashAlt
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import Events from '../../lib/Events';
 import { printEntity, removeEntity, cloneEntity } from '../../lib/entity';
@@ -46,8 +55,10 @@ export default class Entity extends React.Component {
         <a
           onClick={() => cloneEntity(entity)}
           title="Clone entity"
-          className="button fa fa-clone"
-        />
+          className="button"
+        >
+          <FontAwesomeIcon icon={faClone} />
+        </a>
       );
     const removeButton =
       tagName === 'a-scene' ? null : (
@@ -57,8 +68,10 @@ export default class Entity extends React.Component {
             removeEntity(entity);
           }}
           title="Remove entity"
-          className="button fa fa-trash"
-        />
+          className="button"
+        >
+          <FontAwesomeIcon icon={faTrashAlt} />
+        </a>
       );
 
     // Add spaces depending on depth.
@@ -68,10 +81,14 @@ export default class Entity extends React.Component {
       collapse = (
         <span
           onClick={() => this.props.toggleExpandedCollapsed(entity)}
-          className={`collapsespace fa ${
-            isExpanded ? 'fa-caret-down' : 'fa-caret-right'
-          }`}
-        />
+          className="collapsespace"
+        >
+          {isExpanded ? (
+            <FontAwesomeIcon icon={faCaretDown} />
+          ) : (
+            <FontAwesomeIcon icon={faCaretRight} />
+          )}
+        </span>
       );
     } else {
       collapse = <span className="collapsespace" />;
@@ -83,11 +100,13 @@ export default class Entity extends React.Component {
         ? entity.object3D.visible
         : entity.getAttribute('visible');
     const visibilityButton = (
-      <i
-        title="Toggle entity visibility"
-        className={'fa ' + (visible ? 'fa-eye' : 'fa-eye-slash')}
-        onClick={this.toggleVisibility}
-      />
+      <i title="Toggle entity visibility" onClick={this.toggleVisibility}>
+        {visible ? (
+          <FontAwesomeIcon icon={faEye} />
+        ) : (
+          <FontAwesomeIcon icon={faEyeSlash} />
+        )}
+      </i>
     );
 
     // Class name.

@@ -42,14 +42,14 @@
     &.novisible
       &.active
         span,
-        .fa,
+        svg,
         .collapsespace,
         .id
           color #999
 
       &:not(.active)
         span,
-        .fa,
+        svg,
         .collapsespace,
         .id
           color #626262
@@ -69,13 +69,13 @@
       font-size 12px
       margin-left 6px
 
-  .fa
+  svg
     color #CCC
 
-  .entityActions .fa:hover
+  .entityActions svg:hover
     color $primary
 
-  .active .fa
+  .active svg
     color #FAFAFA
 
   .id
@@ -109,15 +109,10 @@
       text-indent 10px
       width 216px
 
-    .fa-search
+    svg
       position absolute
       right 14px
-      top 8px
-
-    .fa-times
-      position absolute
-      right 15px
-      top 9px
+      top 10px
 
   .outliner
     background $bg

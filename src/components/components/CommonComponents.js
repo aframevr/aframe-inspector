@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { faClipboard } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputWidget } from '../widgets';
 import DEFAULT_COMPONENTS from './DefaultComponents';
 import PropertyRow from './PropertyRow';
@@ -116,8 +118,10 @@ export default class CommonComponents extends React.Component {
         <a
           title="Copy entity HTML to clipboard"
           data-action="copy-entity-to-clipboard"
-          className="button fa fa-clipboard"
-        />
+          className="button"
+        >
+          <FontAwesomeIcon icon={faClipboard} />
+        </a>
       </div>
     );
 

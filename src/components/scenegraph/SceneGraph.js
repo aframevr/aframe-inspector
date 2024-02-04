@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars, react/no-danger */
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import debounce from 'lodash.debounce';
 
 import Entity from './Entity';
@@ -281,7 +283,9 @@ export default class SceneGraph extends React.Component {
     }
 
     const clearFilter = this.state.filter ? (
-      <a onClick={this.clearFilter} className="button fa fa-times" />
+      <a onClick={this.clearFilter} className="button">
+        <FontAwesomeIcon icon={faTimes} />
+      </a>
     ) : null;
 
     return (
@@ -297,7 +301,7 @@ export default class SceneGraph extends React.Component {
               value={this.state.filter}
             />
             {clearFilter}
-            {!this.state.filter && <span className="fa fa-search" />}
+            {!this.state.filter && <FontAwesomeIcon icon={faSearch} />}
           </div>
         </div>
         <div

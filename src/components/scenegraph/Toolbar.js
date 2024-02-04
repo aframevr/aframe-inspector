@@ -1,4 +1,6 @@
 import React from 'react';
+import { faPlus, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import Events from '../../lib/Events';
 import { saveBlob } from '../../lib/utils';
@@ -106,18 +108,24 @@ export default class Toolbar extends React.Component {
       <div id="toolbar">
         <div className="toolbarActions">
           <a
-            className="button fa fa-plus"
+            className="button"
             title="Add a new entity"
             onClick={this.addEntity}
-          />
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </a>
           <a
             id="playPauseScene"
-            className={
-              'button fa ' + (this.state.isPlaying ? 'fa-pause' : 'fa-play')
-            }
+            className="button"
             title={this.state.isPlaying ? 'Pause scene' : 'Resume scene'}
             onClick={this.toggleScenePlaying}
-          ></a>
+          >
+            {this.state.isPlaying ? (
+              <FontAwesomeIcon icon={faPause} />
+            ) : (
+              <FontAwesomeIcon icon={faPlay} />
+            )}
+          </a>
           <a
             className="gltfIcon"
             title="Export to GLTF"
