@@ -24,6 +24,8 @@
   "repository": "aframevr/aframe-inspector",
   "license": "MIT",
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "classnames": "^2.3.2",
     "clipboard": "^2.0.11",
     "lodash.debounce": "^4.0.8",
