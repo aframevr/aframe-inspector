@@ -92,6 +92,11 @@ export default class NumberWidget extends React.Component {
         value = parseFloat(value);
       }
 
+      // If we inadvertently typed a character in the field, set value to the previous value from props
+      if (isNaN(value)) {
+        value = this.props.value;
+      }
+
       if (value < this.props.min) {
         value = this.props.min;
       }
