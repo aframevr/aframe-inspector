@@ -56,8 +56,6 @@ export function Viewport(inspector) {
 
     updateHelpers(object);
 
-    Events.emit('refreshsidebarobject3d', object);
-
     // Emit update event for watcher.
     let component;
     let value;
@@ -85,8 +83,6 @@ export function Viewport(inspector) {
       property: '',
       value: value
     });
-
-    Events.emit('entitytransformed', transformControls.object.el);
   });
 
   transformControls.addEventListener('mouseDown', () => {

@@ -47,6 +47,11 @@ export default class SceneGraph extends React.Component {
     Events.on('entityidchange', this.rebuildEntityOptions);
     Events.on('entitycreated', this.rebuildEntityOptions);
     Events.on('entityclone', this.rebuildEntityOptions);
+    Events.on('entityupdate', (detail) => {
+      if (detail.component === 'mixin') {
+        this.rebuildEntityOptions();
+      }
+    });
   }
 
   /**

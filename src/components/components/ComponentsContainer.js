@@ -4,15 +4,23 @@ import AddComponent from './AddComponent';
 import Component from './Component';
 import CommonComponents from './CommonComponents';
 import DEFAULT_COMPONENTS from './DefaultComponents';
+import Events from '../../lib/Events';
 
 export default class ComponentsContainer extends React.Component {
   static propTypes = {
     entity: PropTypes.object
   };
 
-  refresh = () => {
-    this.forceUpdate();
-  };
+  componentDidMount() {
+    Events.on('entityupdate', (detail) => {
+      if (detail.entity !== this.props.entity) {
+        return;
+      }
+      if (detail.component === 'mixin') {
+        this.forceUpdate();
+      }
+    });
+  }
 
   render() {
     const entity = this.props.entity;

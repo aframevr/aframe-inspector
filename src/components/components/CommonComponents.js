@@ -34,13 +34,12 @@ export default class CommonComponents extends React.Component {
       if (detail.entity !== this.props.entity) {
         return;
       }
-      if (DEFAULT_COMPONENTS.indexOf(detail.component) !== -1) {
+      if (
+        DEFAULT_COMPONENTS.indexOf(detail.component) !== -1 ||
+        detail.component === 'mixin'
+      ) {
         this.forceUpdate();
       }
-    });
-
-    Events.on('refreshsidebarobject3d', () => {
-      this.forceUpdate();
     });
 
     var clipboard = new Clipboard('[data-action="copy-entity-to-clipboard"]', {
