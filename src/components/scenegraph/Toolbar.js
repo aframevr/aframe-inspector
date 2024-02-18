@@ -1,7 +1,11 @@
 import React from 'react';
-import { faPlus, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPlus,
+  faPause,
+  faPlay,
+  faFloppyDisk
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames';
 import Events from '../../lib/Events';
 import { saveBlob } from '../../lib/utils';
 import GLTFIcon from '../../../assets/gltf.svg';
@@ -97,11 +101,6 @@ export default class Toolbar extends React.Component {
   };
 
   render() {
-    const watcherClassNames = classNames({
-      button: true,
-      fa: true,
-      'fa-save': true
-    });
     const watcherTitle = 'Write changes with aframe-watcher.';
 
     return (
@@ -134,10 +133,12 @@ export default class Toolbar extends React.Component {
             <img src={GLTFIcon} />
           </a>
           <a
-            className={watcherClassNames}
+            className="button"
             title={watcherTitle}
             onClick={this.writeChanges}
-          />
+          >
+            <FontAwesomeIcon icon={faFloppyDisk} />
+          </a>
         </div>
       </div>
     );
