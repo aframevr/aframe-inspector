@@ -11,8 +11,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
+import { removeEntity, cloneEntity } from '../../lib/entity';
+import EntityRepresentation from '../EntityRepresentation';
 import Events from '../../lib/Events';
-import { printEntity, removeEntity, cloneEntity } from '../../lib/entity';
 
 export default class Entity extends React.Component {
   static propTypes = {
@@ -126,7 +127,10 @@ export default class Entity extends React.Component {
             dangerouslySetInnerHTML={{ __html: pad }}
           />
           {collapse}
-          {printEntity(entity, this.onDoubleClick)}
+          <EntityRepresentation
+            entity={entity}
+            onDoubleClick={this.onDoubleClick}
+          />
         </span>
         <span className="entityActions">
           {cloneButton}

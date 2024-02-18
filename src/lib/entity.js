@@ -519,61 +519,6 @@ export function getComponentClipboardRepresentation(entity, componentName) {
 }
 
 /**
- * Entity representation.
- */
-const ICONS = {
-  camera: 'fa-camera',
-  mesh: 'fa-cube',
-  light: 'fa-lightbulb-o',
-  text: 'fa-font'
-};
-export function printEntity(entity, onDoubleClick) {
-  if (!entity) {
-    return '';
-  }
-
-  // Icons.
-  let icons = '';
-  for (let objType in ICONS) {
-    if (!entity.getObject3D(objType)) {
-      continue;
-    }
-    icons += `&nbsp;<i class="fa ${ICONS[objType]}" title="${objType}"></i>`;
-  }
-
-  // Name.
-  let entityName = entity.id;
-  let type = 'id';
-  if (!entity.isScene && !entityName && entity.getAttribute('class')) {
-    entityName = entity.getAttribute('class').split(' ')[0];
-    type = 'class';
-  } else if (!entity.isScene && !entityName && entity.getAttribute('mixin')) {
-    entityName = entity.getAttribute('mixin').split(' ')[0];
-    type = 'mixin';
-  }
-
-  return (
-    <span className="entityPrint" onDoubleClick={onDoubleClick}>
-      <span className="entityTagName">
-        {'<' + entity.tagName.toLowerCase()}
-      </span>
-      {entityName && (
-        <span className="entityName" data-entity-name-type={type}>
-          &nbsp;{entityName}
-        </span>
-      )}
-      {!!icons && (
-        <span
-          className="entityIcons"
-          dangerouslySetInnerHTML={{ __html: icons }}
-        />
-      )}
-      <span className="entityCloseTag">{'>'}</span>
-    </span>
-  );
-}
-
-/**
  * Helper function to add a new entity with a list of components
  * @param  {object} definition Entity definition to add:
  *   {element: 'a-entity', components: {geometry: 'primitive:box'}}
