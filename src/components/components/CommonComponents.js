@@ -13,7 +13,7 @@ import {
   printEntity
 } from '../../lib/entity';
 import Events from '../../lib/Events';
-import Clipboard from 'clipboard';
+import copy from 'clipboard-copy';
 import { saveBlob } from '../../lib/utils';
 import GLTFIcon from '../../../assets/gltf.svg';
 
@@ -42,15 +42,6 @@ export default class CommonComponents extends React.Component {
       ) {
         this.forceUpdate();
       }
-    });
-
-    var clipboard = new Clipboard('[data-action="copy-entity-to-clipboard"]', {
-      text: (trigger) => {
-        return getEntityClipboardRepresentation(this.props.entity);
-      }
-    });
-    clipboard.on('error', (e) => {
-      // @todo Show the error on the UI
     });
   }
 
@@ -117,8 +108,12 @@ export default class CommonComponents extends React.Component {
         </a>
         <a
           title="Copy entity HTML to clipboard"
-          data-action="copy-entity-to-clipboard"
           className="button"
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            copy(getEntityClipboardRepresentation(this.props.entity));
+          }}
         >
           <FontAwesomeIcon icon={faClipboard} />
         </a>

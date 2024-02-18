@@ -4,7 +4,7 @@ import { faClipboard, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropertyRow from './PropertyRow';
 import Collapsible from '../Collapsible';
-import Clipboard from 'clipboard';
+import copy from 'clipboard-copy';
 import { getComponentClipboardRepresentation } from '../../lib/entity';
 import Events from '../../lib/Events';
 
@@ -30,25 +30,6 @@ export default class Component extends React.Component {
   }
 
   componentDidMount() {
-    var clipboard = new Clipboard(
-      '[data-action="copy-component-to-clipboard"]',
-      {
-        text: (trigger) => {
-          var componentName = trigger
-            .getAttribute('data-component')
-            .toLowerCase();
-          return getComponentClipboardRepresentation(
-            this.state.entity,
-            componentName
-          );
-        }
-      }
-    );
-    clipboard.on('error', (e) => {
-      // @todo Show the error in the UI
-      console.error(e);
-    });
-
     Events.on('entityupdate', (detail) => {
       if (detail.entity !== this.props.entity) {
         return;
@@ -140,9 +121,17 @@ export default class Component extends React.Component {
           <div className="componentHeaderActions">
             <a
               title="Copy to clipboard"
-              data-action="copy-component-to-clipboard"
-              data-component={subComponentName || componentName}
               className="button"
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                copy(
+                  getComponentClipboardRepresentation(
+                    this.state.entity,
+                    (subComponentName || componentName).toLowerCase()
+                  )
+                );
+              }}
             >
               <FontAwesomeIcon icon={faClipboard} />
             </a>
