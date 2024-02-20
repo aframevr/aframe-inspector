@@ -15,27 +15,31 @@
   top 0
 
 .toolbarButtons
-  position relative
+  display flex
+  align-items center
+  gap 6px
 
   *
-    margin-left 0
-    padding 8px
+    margin-left 0 !important
     vertical-align middle
 
   a.button
-    margin 0 6px 0 0
-    &:not(.active):hover
+    & svg
+      padding 8px
+
+    &:not(.active) svg:hover
       background-color $grayhover
 
-  .active
+  .active svg
     background-color $primary
     color #fff
 
-  .active:hover
+  .active:hover svg
     color #fff !important
 
 .local-transform
   padding-left 10px
+  padding-right 20px
 
 .local-transform label
   color $lightgray

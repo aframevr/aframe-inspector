@@ -1,5 +1,11 @@
 import React from 'react';
-import classNames from 'classnames';
+import {
+  faPlus,
+  faPause,
+  faPlay,
+  faFloppyDisk
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Events from '../../lib/Events';
 import { saveBlob } from '../../lib/utils';
 import GLTFIcon from '../../../assets/gltf.svg';
@@ -95,29 +101,30 @@ export default class Toolbar extends React.Component {
   };
 
   render() {
-    const watcherClassNames = classNames({
-      button: true,
-      fa: true,
-      'fa-save': true
-    });
     const watcherTitle = 'Write changes with aframe-watcher.';
 
     return (
       <div id="toolbar">
         <div className="toolbarActions">
           <a
-            className="button fa fa-plus"
+            className="button"
             title="Add a new entity"
             onClick={this.addEntity}
-          />
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </a>
           <a
             id="playPauseScene"
-            className={
-              'button fa ' + (this.state.isPlaying ? 'fa-pause' : 'fa-play')
-            }
+            className="button"
             title={this.state.isPlaying ? 'Pause scene' : 'Resume scene'}
             onClick={this.toggleScenePlaying}
-          ></a>
+          >
+            {this.state.isPlaying ? (
+              <FontAwesomeIcon icon={faPause} />
+            ) : (
+              <FontAwesomeIcon icon={faPlay} />
+            )}
+          </a>
           <a
             className="gltfIcon"
             title="Export to GLTF"
@@ -126,10 +133,12 @@ export default class Toolbar extends React.Component {
             <img src={GLTFIcon} />
           </a>
           <a
-            className={watcherClassNames}
+            className="button"
             title={watcherTitle}
             onClick={this.writeChanges}
-          />
+          >
+            <FontAwesomeIcon icon={faFloppyDisk} />
+          </a>
         </div>
       </div>
     );

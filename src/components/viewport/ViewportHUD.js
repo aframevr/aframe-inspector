@@ -1,6 +1,6 @@
 import React from 'react';
+import EntityRepresentation from '../EntityRepresentation';
 import Events from '../../lib/Events';
-import { printEntity } from '../../lib/entity';
 
 export default class ViewportHUD extends React.Component {
   constructor(props) {
@@ -24,7 +24,9 @@ export default class ViewportHUD extends React.Component {
   render() {
     return (
       <div id="viewportHud">
-        <p>{printEntity(this.state.hoveredEntity)}</p>
+        <p>
+          <EntityRepresentation entity={this.state.hoveredEntity} />
+        </p>
       </div>
     );
   }

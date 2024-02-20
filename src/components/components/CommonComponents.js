@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { faClipboard } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { InputWidget } from '../widgets';
 import DEFAULT_COMPONENTS from './DefaultComponents';
 import PropertyRow from './PropertyRow';
@@ -7,11 +9,11 @@ import Collapsible from '../Collapsible';
 import Mixins from './Mixins';
 import {
   updateEntity,
-  getEntityClipboardRepresentation,
-  printEntity
+  getEntityClipboardRepresentation
 } from '../../lib/entity';
+import EntityRepresentation from '../EntityRepresentation';
 import Events from '../../lib/Events';
-import Clipboard from 'clipboard';
+import copy from 'clipboard-copy';
 import { saveBlob } from '../../lib/utils';
 import GLTFIcon from '../../../assets/gltf.svg';
 
@@ -40,15 +42,6 @@ export default class CommonComponents extends React.Component {
       ) {
         this.forceUpdate();
       }
-    });
-
-    var clipboard = new Clipboard('[data-action="copy-entity-to-clipboard"]', {
-      text: (trigger) => {
-        return getEntityClipboardRepresentation(this.props.entity);
-      }
-    });
-    clipboard.on('error', (e) => {
-      // @todo Show the error on the UI
     });
   }
 
@@ -115,16 +108,22 @@ export default class CommonComponents extends React.Component {
         </a>
         <a
           title="Copy entity HTML to clipboard"
-          data-action="copy-entity-to-clipboard"
-          className="button fa fa-clipboard"
-        />
+          className="button"
+          onClick={(event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            copy(getEntityClipboardRepresentation(this.props.entity));
+          }}
+        >
+          <FontAwesomeIcon icon={faClipboard} />
+        </a>
       </div>
     );
 
     return (
       <Collapsible id="componentEntityHeader" className="commonComponents">
         <div className="collapsible-header">
-          {printEntity(entity)}
+          <EntityRepresentation entity={entity} />
           {entityButtons}
         </div>
         <div className="collapsible-content">
