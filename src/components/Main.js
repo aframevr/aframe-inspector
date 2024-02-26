@@ -1,6 +1,6 @@
 import React from 'react';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AwesomeIcon } from './AwesomeIcon';
 import Events from '../lib/Events';
 import ComponentsSidebar from './components/Sidebar';
 import ModalTextures from './modals/ModalTextures';
@@ -122,7 +122,7 @@ export default class Main extends React.Component {
           }}
           title="Show components"
         >
-          <FontAwesomeIcon icon={faPlus} />
+          <AwesomeIcon icon={faPlus} />
         </a>
       </div>
     );
@@ -140,7 +140,7 @@ export default class Main extends React.Component {
           }}
           title="Show scenegraph"
         >
-          <FontAwesomeIcon icon={faPlus} />
+          <AwesomeIcon icon={faPlus} />
         </a>
       </div>
     );

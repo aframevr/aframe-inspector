@@ -5,7 +5,7 @@ import {
   faPlay,
   faFloppyDisk
 } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AwesomeIcon } from '../AwesomeIcon';
 import Events from '../../lib/Events';
 import { saveBlob } from '../../lib/utils';
 import GLTFIcon from '../../../assets/gltf.svg';
@@ -111,7 +111,7 @@ export default class Toolbar extends React.Component {
             title="Add a new entity"
             onClick={this.addEntity}
           >
-            <FontAwesomeIcon icon={faPlus} />
+            <AwesomeIcon icon={faPlus} />
           </a>
           <a
             id="playPauseScene"
@@ -120,9 +120,9 @@ export default class Toolbar extends React.Component {
             onClick={this.toggleScenePlaying}
           >
             {this.state.isPlaying ? (
-              <FontAwesomeIcon icon={faPause} />
+              <AwesomeIcon icon={faPause} />
             ) : (
-              <FontAwesomeIcon icon={faPlay} />
+              <AwesomeIcon icon={faPlay} />
             )}
           </a>
           <a
@@ -137,7 +137,7 @@ export default class Toolbar extends React.Component {
             title={watcherTitle}
             onClick={this.writeChanges}
           >
-            <FontAwesomeIcon icon={faFloppyDisk} />
+            <AwesomeIcon icon={faFloppyDisk} />
           </a>
         </div>
       </div>

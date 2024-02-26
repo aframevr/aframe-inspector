@@ -4,16 +4,16 @@ import {
   faRotateRight,
   faUpRightAndDownLeftFromCenter
 } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AwesomeIcon } from '../AwesomeIcon';
 import classNames from 'classnames';
 import Events from '../../lib/Events';
 
 var TransformButtons = [
-  { value: 'translate', icon: <FontAwesomeIcon icon={faArrowsAlt} /> },
-  { value: 'rotate', icon: <FontAwesomeIcon icon={faRotateRight} /> },
+  { value: 'translate', icon: <AwesomeIcon icon={faArrowsAlt} /> },
+  { value: 'rotate', icon: <AwesomeIcon icon={faRotateRight} /> },
   {
     value: 'scale',
-    icon: <FontAwesomeIcon icon={faUpRightAndDownLeftFromCenter} />
+    icon: <AwesomeIcon icon={faUpRightAndDownLeftFromCenter} />
   }
 ];
 

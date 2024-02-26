@@ -9,7 +9,7 @@ import {
   faEyeSlash,
   faTrashAlt
 } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AwesomeIcon } from '../AwesomeIcon';
 import classNames from 'classnames';
 import { removeEntity, cloneEntity } from '../../lib/entity';
 import EntityRepresentation from '../EntityRepresentation';
@@ -58,7 +58,7 @@ export default class Entity extends React.Component {
           title="Clone entity"
           className="button"
         >
-          <FontAwesomeIcon icon={faClone} />
+          <AwesomeIcon icon={faClone} />
         </a>
       );
     const removeButton =
@@ -71,7 +71,7 @@ export default class Entity extends React.Component {
           title="Remove entity"
           className="button"
         >
-          <FontAwesomeIcon icon={faTrashAlt} />
+          <AwesomeIcon icon={faTrashAlt} />
         </a>
       );
 
@@ -85,9 +85,9 @@ export default class Entity extends React.Component {
           className="collapsespace"
         >
           {isExpanded ? (
-            <FontAwesomeIcon icon={faCaretDown} />
+            <AwesomeIcon icon={faCaretDown} />
           ) : (
-            <FontAwesomeIcon icon={faCaretRight} />
+            <AwesomeIcon icon={faCaretRight} />
           )}
         </span>
       );
@@ -103,9 +103,9 @@ export default class Entity extends React.Component {
     const visibilityButton = (
       <i title="Toggle entity visibility" onClick={this.toggleVisibility}>
         {visible ? (
-          <FontAwesomeIcon icon={faEye} />
+          <AwesomeIcon icon={faEye} />
         ) : (
-          <FontAwesomeIcon icon={faEyeSlash} />
+          <AwesomeIcon icon={faEyeSlash} />
         )}
       </i>
     );
