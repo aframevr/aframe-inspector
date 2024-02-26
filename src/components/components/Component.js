@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { faClipboard, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AwesomeIcon } from '../AwesomeIcon';
 import PropertyRow from './PropertyRow';
 import Collapsible from '../Collapsible';
 import copy from 'clipboard-copy';
@@ -133,14 +133,14 @@ export default class Component extends React.Component {
                 );
               }}
             >
-              <FontAwesomeIcon icon={faClipboard} />
+              <AwesomeIcon icon={faClipboard} />
             </a>
             <a
               title="Remove component"
               className="button"
               onClick={this.removeComponent}
             >
-              <FontAwesomeIcon icon={faTrashAlt} />
+              <AwesomeIcon icon={faTrashAlt} />
             </a>
           </div>
         </div>

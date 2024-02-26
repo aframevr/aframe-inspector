@@ -1,7 +1,7 @@
 /* eslint-disable no-prototype-builtins */
 import React from 'react';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 
 import BooleanWidget from '../widgets/BooleanWidget';
 import ColorWidget from '../widgets/ColorWidget';
@@ -119,7 +119,7 @@ export default class PropertyRow extends React.Component {
     const title =
       props.name + '\n - type: ' + props.schema.type + '\n - value: ' + value;
 
-    const className = classNames({
+    const className = clsx({
       propertyRow: true,
       propertyRowDefined: props.isSingle
         ? !!props.entity.getDOMAttribute(props.componentname)

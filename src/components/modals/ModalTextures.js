@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AwesomeIcon } from '../AwesomeIcon';
 import Events from '../../lib/Events';
 import Modal from './Modal';
 import { insertNewAsset } from '../../lib/assetsUtils';
@@ -327,7 +327,7 @@ export default class ModalTextures extends React.Component {
                       value={this.state.filterText}
                       onChange={this.onChangeFilter}
                     />
-                    <FontAwesomeIcon icon={faSearch} />
+                    <AwesomeIcon icon={faSearch} />
                   </div>
                   <ul ref={this.registryGallery} className="gallery">
                     {this.renderRegistryImages()}

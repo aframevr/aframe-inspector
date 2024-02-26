@@ -6,13 +6,29 @@ import {
   faFont,
   faLightbulb
 } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AwesomeIcon } from './AwesomeIcon';
 
 const ICONS = {
-  camera: <FontAwesomeIcon icon={faCamera} title="camera" />,
-  mesh: <FontAwesomeIcon icon={faCube} title="mesh" />,
-  light: <FontAwesomeIcon icon={faLightbulb} title="light" />,
-  text: <FontAwesomeIcon icon={faFont} title="text" />
+  camera: (
+    <i title="camera">
+      <AwesomeIcon icon={faCamera} />
+    </i>
+  ),
+  mesh: (
+    <i title="mesh">
+      <AwesomeIcon icon={faCube} />
+    </i>
+  ),
+  light: (
+    <i title="light">
+      <AwesomeIcon icon={faLightbulb} />
+    </i>
+  ),
+  text: (
+    <i title="text">
+      <AwesomeIcon icon={faFont} />
+    </i>
+  )
 };
 
 export default class EntityRepresentation extends React.Component {

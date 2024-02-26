@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AwesomeIcon } from '../AwesomeIcon';
 import debounce from 'lodash.debounce';
 
 import Entity from './Entity';
@@ -284,7 +284,7 @@ export default class SceneGraph extends React.Component {
 
     const clearFilter = this.state.filter ? (
       <a onClick={this.clearFilter} className="button">
-        <FontAwesomeIcon icon={faTimes} />
+        <AwesomeIcon icon={faTimes} />
       </a>
     ) : null;
 
@@ -301,7 +301,7 @@ export default class SceneGraph extends React.Component {
               value={this.state.filter}
             />
             {clearFilter}
-            {!this.state.filter && <FontAwesomeIcon icon={faSearch} />}
+            {!this.state.filter && <AwesomeIcon icon={faSearch} />}
           </div>
         </div>
         <div

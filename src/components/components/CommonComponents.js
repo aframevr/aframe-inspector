@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { faClipboard } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AwesomeIcon } from '../AwesomeIcon';
 import { InputWidget } from '../widgets';
 import DEFAULT_COMPONENTS from './DefaultComponents';
 import PropertyRow from './PropertyRow';
@@ -115,7 +115,7 @@ export default class CommonComponents extends React.Component {
             copy(getEntityClipboardRepresentation(this.props.entity));
           }}
         >
-          <FontAwesomeIcon icon={faClipboard} />
+          <AwesomeIcon icon={faClipboard} />
         </a>
       </div>
     );
