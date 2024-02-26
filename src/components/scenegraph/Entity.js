@@ -10,7 +10,7 @@ import {
   faTrashAlt
 } from '@fortawesome/free-solid-svg-icons';
 import { AwesomeIcon } from '../AwesomeIcon';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { removeEntity, cloneEntity } from '../../lib/entity';
 import EntityRepresentation from '../EntityRepresentation';
 import Events from '../../lib/Events';
@@ -111,7 +111,7 @@ export default class Entity extends React.Component {
     );
 
     // Class name.
-    const className = classNames({
+    const className = clsx({
       active: this.props.isSelected,
       entity: true,
       novisible: !visible,

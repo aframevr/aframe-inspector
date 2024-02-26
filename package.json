@@ -25,8 +25,8 @@
   "license": "MIT",
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
-    "classnames": "^2.3.2",
     "clipboard-copy": "^4.0.1",
+    "clsx": "^2.1.0",
     "lodash.debounce": "^4.0.8",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",

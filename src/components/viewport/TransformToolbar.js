@@ -5,7 +5,7 @@ import {
   faUpRightAndDownLeftFromCenter
 } from '@fortawesome/free-solid-svg-icons';
 import { AwesomeIcon } from '../AwesomeIcon';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Events from '../../lib/Events';
 
 var TransformButtons = [
@@ -55,7 +55,7 @@ export default class TransformToolbar extends React.Component {
     return TransformButtons.map(
       function (option, i) {
         var selected = option.value === this.state.selectedTransform;
-        var classes = classNames({
+        var classes = clsx({
           button: true,
           active: selected
         });
