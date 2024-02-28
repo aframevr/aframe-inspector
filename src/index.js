@@ -7,7 +7,7 @@ import { Shortcuts } from './lib/shortcuts';
 import Main from './components/Main';
 import { initCameras } from './lib/cameras';
 import { createEntity } from './lib/entity';
-import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter';
+import { GLTFExporter } from 'three/addons/exporters/GLTFExporter';
 
 import './style/index.styl';
 
