@@ -134,8 +134,12 @@ export function Viewport(inspector) {
     transformControls.setMode(mode);
   });
 
-  Events.on('snapchanged', (dist) => {
+  Events.on('translationsnapchanged', (dist) => {
     transformControls.setTranslationSnap(dist);
+  });
+
+  Events.on('rotationsnapchanged', (dist) => {
+    transformControls.setRotationSnap(dist);
   });
 
   Events.on('transformspacechanged', (space) => {
