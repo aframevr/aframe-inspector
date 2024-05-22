@@ -1,4 +1,3 @@
-/* eslint-disable react/no-danger */
 import Events from './Events';
 import { equal } from './utils';
 
