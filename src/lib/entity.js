@@ -523,12 +523,19 @@ export function getComponentClipboardRepresentation(entity, componentName) {
 
 /**
  * Helper function to add a new entity with a list of components
- * @param  {object} definition Entity definition to add:
- *   {element: 'a-entity', components: {geometry: 'primitive:box'}}
+ * @param  {object} definition Entity definition to add, only components is required:
+ *   {element: 'a-entity', id: "hbiuSdYL2", class: "box", components: {geometry: 'primitive:box'}}
  * @return {Element} Entity created
  */
 export function createEntity(definition, cb) {
-  const entity = document.createElement(definition.element);
+  const entity = document.createElement(definition.element || 'a-entity');
+  if (definition.id) {
+    entity.id = definition.id;
+  }
+
+  if (definition.class) {
+    entity.setAttribute('class', definition.class);
+  }
 
   // load default attributes
   for (let attr in definition.components) {
