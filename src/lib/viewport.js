@@ -149,6 +149,15 @@ export function Viewport(inspector) {
       if (object.el.getObject3D('mesh')) {
         selectionBox.setFromObject(object);
         selectionBox.visible = true;
+      } else if (object.el.hasAttribute('gltf-model')) {
+        object.el.addEventListener(
+          'model-loaded',
+          () => {
+            selectionBox.setFromObject(object);
+            selectionBox.visible = true;
+          },
+          { once: true }
+        );
       }
 
       transformControls.attach(object);
