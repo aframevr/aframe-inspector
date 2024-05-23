@@ -97,10 +97,12 @@ export function saveBlob(blob, filename) {
   var link = document.createElement('a');
   link.style.display = 'none';
   document.body.appendChild(link);
-  link.href = URL.createObjectURL(blob);
+  const url = URL.createObjectURL(blob);
+  link.href = url;
   link.download = filename || 'ascene.html';
   link.click();
-  // URL.revokeObjectURL(url); breaks Firefox...
+  URL.revokeObjectURL(url);
+  link.remove();
 }
 
 // Compares 2 vector objects up to size 4
