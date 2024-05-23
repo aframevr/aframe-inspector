@@ -168,7 +168,7 @@ export function getEntityClipboardRepresentation(entity) {
  * primitive attributes, mixins and defaults.
  *
  * @param {Element} entity Root of the DOM hierarchy.
- * @return {Elment}        Copy of the DOM hierarchy ready for serialization.
+ * @return {Element}        Copy of the DOM hierarchy ready for serialization.
  */
 function prepareForSerialization(entity) {
   var clone = entity.cloneNode(false);
