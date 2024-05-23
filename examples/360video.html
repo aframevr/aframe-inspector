@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>360 Video</title>
+    <meta name="description" content="360 Video — A-Frame">
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@master/dist/aframe-master.min.js"></script>
+    <!--
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@master/examples/js/play-on-click.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@master/examples/js/hide-on-play.js"></script>
+    -->
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <!--
+        SOURCE
+        Author: Bitmovin
+        URL:    https://bitmovin.com/demos/vr-360
+        -->
+        <video id="video"
+               loop
+               crossorigin="anonymous"
+               playsinline webkit-playsinline
+               src="https://bitmovin-a.akamaihd.net/content/playhouse-vr/progressive.mp4">
+        </video>
+      </a-assets>
+      <a-videosphere
+        rotation="0 -90 0" src="#video"
+        play-on-click>
+      </a-videosphere>
+
+      <a-camera>
+        <a-entity
+          position="0 0 -1.5"
+          text="align:center;
+                width:6;
+                wrapCount:100;
+                color: white;
+                value: Click or tap to start video"
+          hide-on-play="#video">
+        </a-entity>
+      </a-camera>
+    </a-scene>
+
+    <script src="../dist/aframe-inspector.js"></script>
+  </body>
+</html>
