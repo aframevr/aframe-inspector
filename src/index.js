@@ -298,6 +298,20 @@ Inspector.prototype = {
     document.body.classList.remove('aframe-inspector-opened');
     this.sceneEl.resize();
     Shortcuts.disable();
+  },
+
+  /**
+   * Emit a custom event inside the inspector
+   */
+  emitEvent: function (eventName, detail) {
+    Events.emit(eventName, detail);
+  },
+
+  /**
+   * Listen to a custom event from the inspector
+   */
+  listenEvent: function (eventName, callback) {
+    Events.on(eventName, callback);
   }
 };
 
