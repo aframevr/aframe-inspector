@@ -18,6 +18,7 @@ function Inspector() {
   this.isFirstOpen = true;
   this.modules = {};
   this.on = Events.on;
+  this.emit = Events.emit;
   this.opened = false;
 
   // Wait for stuff.
