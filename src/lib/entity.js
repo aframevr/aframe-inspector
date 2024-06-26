@@ -5,8 +5,7 @@ import { equal } from './utils';
  * Update a component.
  *
  * @param {Element} entity - Entity to modify.
- * @param {string} component - Name of the component.
- * @param {string} property - Property name.
+ * @param {string} propertyName - component or component.property
  * @param {string|number} value - New value.
  */
 export function updateEntity(entity, propertyName, value) {

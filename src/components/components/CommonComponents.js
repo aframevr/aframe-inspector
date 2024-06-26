@@ -7,10 +7,7 @@ import DEFAULT_COMPONENTS from './DefaultComponents';
 import PropertyRow from './PropertyRow';
 import Collapsible from '../Collapsible';
 import Mixins from './Mixins';
-import {
-  updateEntity,
-  getEntityClipboardRepresentation
-} from '../../lib/entity';
+import { getEntityClipboardRepresentation } from '../../lib/entity';
 import EntityRepresentation from '../EntityRepresentation';
 import Events from '../../lib/Events';
 import copy from 'clipboard-copy';
@@ -59,10 +56,8 @@ export default class CommonComponents extends React.Component {
       }
       return (
         <PropertyRow
-          onChange={updateEntity}
           key={componentName}
           name={componentName}
-          showHelp={true}
           schema={schema}
           data={data}
           isSingle={true}
