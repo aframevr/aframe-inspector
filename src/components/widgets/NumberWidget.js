@@ -38,9 +38,6 @@ export default class NumberWidget extends React.Component {
     this.distance = 0;
     this.onMouseDownValue = 0;
     this.prevPointer = [0, 0];
-
-    this.setValue(this.props.value);
-    this.onBlur();
   }
 
   onMouseMove = (event) => {
@@ -131,7 +128,6 @@ export default class NumberWidget extends React.Component {
 
   onBlur = () => {
     this.setValue(parseFloat(this.input.current.value));
-    this.setState({ class: '' });
   };
 
   onChange = (e) => {
@@ -143,7 +139,6 @@ export default class NumberWidget extends React.Component {
 
     // enter.
     if (event.keyCode === 13) {
-      this.setValue(parseFloat(this.input.current.value));
       this.input.current.blur();
       return;
     }
@@ -171,7 +166,6 @@ export default class NumberWidget extends React.Component {
         onKeyDown={this.onKeyDown}
         onChange={this.onChange}
         onMouseDown={this.onMouseDown}
-        onFocus={this.onFocus}
         onBlur={this.onBlur}
       />
     );
