@@ -130,7 +130,7 @@ export const Shortcuts = {
     }
 
     if (
-      (event.ctrlKey && os === 'windows') ||
+      (event.ctrlKey && os !== 'macos') ||
       (event.metaKey && os === 'macos')
     ) {
       if (
