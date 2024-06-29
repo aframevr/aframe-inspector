@@ -120,3 +120,9 @@ function setOrthoCamera(camera, dir, ratio) {
   camera.rotation.copy(info.rotation);
   camera.updateProjectionMatrix();
 }
+
+export function copyCameraPosition(sourceCamera, targetCamera) {
+  sourceCamera.getWorldPosition(targetCamera.position);
+  sourceCamera.getWorldQuaternion(targetCamera.quaternion);
+  targetCamera.updateMatrixWorld();
+}
