@@ -17,9 +17,7 @@ export function updateEntity(entity, propertyName, value) {
 
     if (value === null || value === undefined) {
       // Remove property.
-      var parameters = entity.getAttribute(splitName[0]);
-      delete parameters[splitName[1]];
-      entity.setAttribute(splitName[0], parameters);
+      entity.removeAttribute(splitName[0], splitName[1]);
     } else {
       // Set property.
       entity.setAttribute(splitName[0], splitName[1], value);
