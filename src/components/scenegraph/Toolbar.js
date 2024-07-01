@@ -3,7 +3,8 @@ import {
   faPlus,
   faPause,
   faPlay,
-  faFloppyDisk
+  faFloppyDisk,
+  faQuestion
 } from '@fortawesome/free-solid-svg-icons';
 import { AwesomeIcon } from '../AwesomeIcon';
 import Events from '../../lib/Events';
@@ -100,6 +101,10 @@ export default class Toolbar extends React.Component {
     this.setState({ isPlaying: true });
   };
 
+  openHelpModal = () => {
+    Events.emit('openhelpmodal');
+  };
+
   render() {
     const watcherTitle = 'Write changes with aframe-watcher.';
 
@@ -139,6 +144,11 @@ export default class Toolbar extends React.Component {
           >
             <AwesomeIcon icon={faFloppyDisk} />
           </a>
+          <div className="helpButtonContainer">
+            <a className="button" title="Help" onClick={this.openHelpModal}>
+              <AwesomeIcon icon={faQuestion} />
+            </a>
+          </div>
         </div>
       </div>
     );
