@@ -136,6 +136,7 @@ Inspector.prototype = {
       const helper = this.helpers[node.uuid];
       if (helper) {
         this.sceneHelpers.remove(helper);
+        helper.dispose();
         delete this.helpers[node.uuid];
         Events.emit('helperremove', this.helpers[node.uuid]);
       }
