@@ -105,7 +105,7 @@ Inspector.prototype = {
       let helper;
 
       if (object instanceof THREE.Camera) {
-        this.cameraHelper = helper = new THREE.CameraHelper(object, 0.1);
+        this.cameraHelper = helper = new THREE.CameraHelper(object);
       } else if (object instanceof THREE.PointLight) {
         helper = new THREE.PointLightHelper(object, 1);
       } else if (object instanceof THREE.DirectionalLight) {
