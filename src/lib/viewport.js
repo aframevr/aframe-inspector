@@ -111,6 +111,7 @@ export function Viewport(inspector) {
   Events.on('cameratoggle', (data) => {
     controls.setCamera(data.camera);
     transformControls.setCamera(data.camera);
+    updateAspectRatio();
   });
 
   function disableControls() {
@@ -202,11 +203,32 @@ export function Viewport(inspector) {
     updateHelpers(object);
   });
 
-  Events.on('windowresize', () => {
-    camera.aspect =
+  function updateAspectRatio() {
+    if (!inspector.opened) return;
+    // Modifying aspect for perspective camera is done by aframe a-scene.resize function
+    // when the perspective camera is the active camera, so we actually do it a second time here,
+    // but we need to modify it ourself when we switch from ortho camera to perspective camera (updateAspectRatio() is called in cameratoggle handler).
+    const camera = inspector.camera;
+    const aspect =
       inspector.container.offsetWidth / inspector.container.offsetHeight;
+    if (camera.isPerspectiveCamera) {
+      camera.aspect = aspect;
+    } else if (camera.isOrthographicCamera) {
+      const frustumSize = camera.top - camera.bottom;
+      camera.left = (-frustumSize * aspect) / 2;
+      camera.right = (frustumSize * aspect) / 2;
+      camera.top = frustumSize / 2;
+      camera.bottom = -frustumSize / 2;
+    }
+
+    controls.setAspectRatio(aspect); // for zoom in/out to work correctly for orthographic camera
     camera.updateProjectionMatrix();
-  });
+
+    const cameraHelper = inspector.helpers[camera.uuid];
+    if (cameraHelper) cameraHelper.update();
+  }
+
+  inspector.sceneEl.addEventListener('rendererresize', updateAspectRatio);
 
   Events.on('gridvisibilitychanged', (showGrid) => {
     grid.visible = showGrid;
