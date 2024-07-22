@@ -73,11 +73,9 @@ export function initRaycaster(inspector) {
 
   function handleClick(evt) {
     // Check to make sure not dragging.
-    const DRAG_THRESHOLD = 0.03;
-    if (onDownPosition.distanceTo(onUpPosition) >= DRAG_THRESHOLD) {
-      return;
+    if (onDownPosition.distanceTo(onUpPosition) === 0) {
+      inspector.selectEntity(evt.detail.intersectedEl);
     }
-    inspector.selectEntity(evt.detail.intersectedEl);
   }
 
   function onMouseDown(event) {
