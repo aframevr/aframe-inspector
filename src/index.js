@@ -105,7 +105,7 @@ Inspector.prototype = {
       let helper;
 
       if (object instanceof THREE.Camera) {
-        this.cameraHelper = helper = new THREE.CameraHelper(object, 0.1);
+        this.cameraHelper = helper = new THREE.CameraHelper(object);
       } else if (object instanceof THREE.PointLight) {
         helper = new THREE.PointLightHelper(object, 1);
       } else if (object instanceof THREE.DirectionalLight) {
@@ -136,6 +136,7 @@ Inspector.prototype = {
       const helper = this.helpers[node.uuid];
       if (helper) {
         this.sceneHelpers.remove(helper);
+        helper.dispose();
         delete this.helpers[node.uuid];
         Events.emit('helperremove', this.helpers[node.uuid]);
       }
