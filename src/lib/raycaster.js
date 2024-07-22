@@ -1,16 +1,15 @@
 import Events from './Events';
-import debounce from 'lodash.debounce';
 
 export function initRaycaster(inspector) {
   // Use cursor="rayOrigin: mouse".
   const mouseCursor = document.createElement('a-entity');
   mouseCursor.setAttribute('id', 'aframeInspectorMouseCursor');
-  mouseCursor.setAttribute('cursor', 'rayOrigin', 'mouse');
-  mouseCursor.setAttribute('data-aframe-inspector', 'true');
   mouseCursor.setAttribute('raycaster', {
     interval: 100,
     objects: 'a-scene :not([data-aframe-inspector])'
   });
+  mouseCursor.setAttribute('cursor', 'rayOrigin', 'mouse');
+  mouseCursor.setAttribute('data-aframe-inspector', 'true');
 
   // Only visible objects.
   const raycaster = mouseCursor.components.raycaster;
@@ -32,13 +31,6 @@ export function initRaycaster(inspector) {
 
   inspector.sceneEl.appendChild(mouseCursor);
   inspector.cursor = mouseCursor;
-
-  inspector.sceneEl.addEventListener(
-    'child-attached',
-    debounce(function () {
-      mouseCursor.components.raycaster.refreshObjects();
-    }, 250)
-  );
 
   mouseCursor.addEventListener('click', handleClick);
   mouseCursor.addEventListener('mouseenter', onMouseEnter);
