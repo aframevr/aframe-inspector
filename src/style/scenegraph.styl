@@ -5,10 +5,17 @@
 
   .toolbarActions
     padding 0 0 5px
+    display flex
+    align-items baseline
 
     a.disabled
       color #666
       cursor default
+
+    .helpButtonContainer
+      flex-grow 1
+      padding-right 10px
+      text-align right
 
 #scenegraph
   background $bg
