@@ -111,6 +111,9 @@ export function Viewport(inspector) {
   controls.rotationSpeed = 0.0035;
   controls.zoomSpeed = 0.05;
   controls.setAspectRatio(sceneEl.canvas.width / sceneEl.canvas.height);
+  controls.addEventListener('change', () => {
+    Events.emit('camerachanged');
+  });
 
   Events.on('cameratoggle', (data) => {
     controls.setCamera(data.camera);

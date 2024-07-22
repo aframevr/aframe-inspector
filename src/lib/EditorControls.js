@@ -1,5 +1,3 @@
-import debounce from 'lodash.debounce';
-
 /**
  * @author qiao / https://github.com/qiao
  * @author mrdoob / http://mrdoob.com
@@ -55,10 +53,6 @@ THREE.EditorControls = function (_object, domElement) {
 
   var changeEvent = { type: 'change' };
 
-  this.dispatchChange = debounce(() => {
-    scope.dispatchEvent(changeEvent);
-  }, 100);
-
   this.focus = function (target) {
     var distance;
 
@@ -96,7 +90,7 @@ THREE.EditorControls = function (_object, domElement) {
     object.position.add(delta);
     center.add(delta);
 
-    scope.dispatchChange();
+    scope.dispatchEvent(changeEvent);
   };
 
   var ratio = 1;
@@ -132,7 +126,7 @@ THREE.EditorControls = function (_object, domElement) {
       object.position.add(delta);
     }
 
-    scope.dispatchChange();
+    scope.dispatchEvent(changeEvent);
   };
 
   this.rotate = function (delta) {
@@ -155,7 +149,7 @@ THREE.EditorControls = function (_object, domElement) {
 
     object.lookAt(center);
 
-    scope.dispatchChange();
+    scope.dispatchEvent(changeEvent);
   };
 
   // mouse
