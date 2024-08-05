@@ -25,7 +25,6 @@ export default class PropertyRow extends React.Component {
       PropTypes.string.isRequired
     ]),
     entity: PropTypes.object.isRequired,
-    id: PropTypes.string,
     isSingle: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
     schema: PropTypes.object.isRequired
