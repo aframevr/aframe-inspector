@@ -48,7 +48,7 @@ export default class PropertyRow extends React.Component {
 
     const value =
       props.schema.type === 'selector'
-        ? props.entity.getDOMAttribute(props.componentname)[props.name]
+        ? props.entity.getDOMAttribute(props.componentname)?.[props.name]
         : props.data;
 
     const widgetProps = {
@@ -113,7 +113,7 @@ export default class PropertyRow extends React.Component {
     const props = this.props;
     const value =
       props.schema.type === 'selector'
-        ? props.entity.getDOMAttribute(props.componentname)[props.name]
+        ? props.entity.getDOMAttribute(props.componentname)?.[props.name]
         : JSON.stringify(props.data);
     const title =
       props.name + '\n - type: ' + props.schema.type + '\n - value: ' + value;
