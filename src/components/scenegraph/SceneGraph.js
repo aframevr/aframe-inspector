@@ -186,7 +186,7 @@ export default class SceneGraph extends React.Component {
     if (!curr) {
       return false;
     }
-    while (curr !== undefined && curr.isEntity) {
+    while (curr?.isEntity) {
       if (!this.isExpanded(curr)) {
         return false;
       }
