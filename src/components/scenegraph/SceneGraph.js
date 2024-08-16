@@ -11,17 +11,13 @@ import Events from '../../lib/Events';
 
 export default class SceneGraph extends React.Component {
   static propTypes = {
-    id: PropTypes.string,
-    onChange: PropTypes.func,
     scene: PropTypes.object,
     selectedEntity: PropTypes.object,
     visible: PropTypes.bool
   };
 
   static defaultProps = {
-    selectedEntity: '',
-    index: -1,
-    id: 'left-sidebar'
+    selectedEntity: ''
   };
 
   constructor(props) {
@@ -75,19 +71,16 @@ export default class SceneGraph extends React.Component {
     for (let i = 0; i < this.state.filteredEntities.length; i++) {
       const entityOption = this.state.filteredEntities[i];
       if (entityOption.entity === entity) {
-        this.setState({ selectedEntity: entity, selectedIndex: i });
+        this.setState({ selectedIndex: i });
         // Make sure selected value is visible in scenegraph
         this.expandToRoot(entity);
-        if (this.props.onChange) {
-          this.props.onChange(entity);
-        }
-        Events.emit('entityselect', entity, true);
+        Events.emit('entityselect', entity);
         found = true;
       }
     }
 
     if (!found) {
-      this.setState({ selectedEntity: null, selectedIndex: -1 });
+      this.setState({ selectedIndex: -1 });
     }
   };
 

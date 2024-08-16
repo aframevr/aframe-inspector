@@ -26,11 +26,6 @@ export default class Entity extends React.Component {
     toggleExpandedCollapsed: PropTypes.func
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   onClick = () => this.props.selectEntity(this.props.entity);
 
   onDoubleClick = () => Events.emit('objectfocus', this.props.entity.object3D);
