@@ -34,13 +34,9 @@ export default class SceneGraph extends React.Component {
       selectedIndex: -1
     };
 
-    this.rebuildEntityOptions = debounce(
-      this.rebuildEntityOptions.bind(this),
-      1000
-    );
     this.updateFilteredEntities = debounce(
       this.updateFilteredEntities.bind(this),
-      500
+      100
     );
   }
 
