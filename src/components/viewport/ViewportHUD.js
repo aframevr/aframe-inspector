@@ -6,8 +6,7 @@ export default class ViewportHUD extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hoveredEntity: null,
-      selectedEntity: null
+      hoveredEntity: null
     };
   }
 
