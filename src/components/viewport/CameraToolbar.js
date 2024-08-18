@@ -78,7 +78,6 @@ export default class CameraToolbar extends React.Component {
   }
 
   onChange(option) {
-    console.log(option);
     this.justChangedCamera = true;
     this.setState({ selectedCamera: option.value });
     Events.emit(option.event, option.payload);
