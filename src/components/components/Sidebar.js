@@ -9,11 +9,6 @@ export default class Sidebar extends React.Component {
     visible: PropTypes.bool
   };
 
-  constructor(props) {
-    super(props);
-    this.state = { open: false };
-  }
-
   onComponentRemove = (detail) => {
     if (detail.entity !== this.props.entity) {
       return;
@@ -37,10 +32,6 @@ export default class Sidebar extends React.Component {
     Events.off('componentremove', this.onComponentRemove);
     Events.off('componentadd', this.onComponentAdd);
   }
-
-  handleToggle = () => {
-    this.setState({ open: !this.state.open });
-  };
 
   render() {
     const entity = this.props.entity;
