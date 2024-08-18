@@ -65,12 +65,17 @@ export default class ModalTextures extends React.Component {
     this.registryGallery = React.createRef();
   }
 
-  componentDidMount() {
-    Events.on('assetsimagesload', (images) => {
-      this.generateFromRegistry();
-    });
+  onAssetsImagesLoad = (images) => {
+    this.generateFromRegistry();
+  };
 
+  componentDidMount() {
+    Events.on('assetsimagesload', this.onAssetsImagesLoad);
     this.generateFromAssets();
+  }
+
+  componentWillUnmount() {
+    Events.off('assetsimagesload', this.onAssetsImagesLoad);
   }
 
   componentDidUpdate(prevProps) {

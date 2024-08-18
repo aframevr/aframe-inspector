@@ -14,14 +14,28 @@ export default class Sidebar extends React.Component {
     this.state = { open: false };
   }
 
-  componentDidMount() {
-    Events.on('componentremove', (event) => {
-      this.forceUpdate();
-    });
+  onComponentRemove = (detail) => {
+    if (detail.entity !== this.props.entity) {
+      return;
+    }
+    this.forceUpdate();
+  };
 
-    Events.on('componentadd', (event) => {
-      this.forceUpdate();
-    });
+  onComponentAdd = (detail) => {
+    if (detail.entity !== this.props.entity) {
+      return;
+    }
+    this.forceUpdate();
+  };
+
+  componentDidMount() {
+    Events.on('componentremove', this.onComponentRemove);
+    Events.on('componentadd', this.onComponentAdd);
+  }
+
+  componentWillUnmount() {
+    Events.off('componentremove', this.onComponentRemove);
+    Events.off('componentadd', this.onComponentAdd);
   }
 
   handleToggle = () => {
