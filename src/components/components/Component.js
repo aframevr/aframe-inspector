@@ -29,15 +29,21 @@ export default class Component extends React.Component {
     };
   }
 
+  onEntityUpdate = (detail) => {
+    if (detail.entity !== this.props.entity) {
+      return;
+    }
+    if (detail.component === this.props.name) {
+      this.forceUpdate();
+    }
+  };
+
   componentDidMount() {
-    Events.on('entityupdate', (detail) => {
-      if (detail.entity !== this.props.entity) {
-        return;
-      }
-      if (detail.component === this.props.name) {
-        this.forceUpdate();
-      }
-    });
+    Events.on('entityupdate', this.onEntityUpdate);
+  }
+
+  componentWillUnmount() {
+    Events.off('entityupdate', this.onEntityUpdate);
   }
 
   static getDerivedStateFromProps(props, state) {

@@ -11,15 +11,21 @@ export default class ComponentsContainer extends React.Component {
     entity: PropTypes.object
   };
 
+  onEntityUpdate = (detail) => {
+    if (detail.entity !== this.props.entity) {
+      return;
+    }
+    if (detail.component === 'mixin') {
+      this.forceUpdate();
+    }
+  };
+
   componentDidMount() {
-    Events.on('entityupdate', (detail) => {
-      if (detail.entity !== this.props.entity) {
-        return;
-      }
-      if (detail.component === 'mixin') {
-        this.forceUpdate();
-      }
-    });
+    Events.on('entityupdate', this.onEntityUpdate);
+  }
+
+  componentWillUnmount() {
+    Events.off('entityupdate', this.onEntityUpdate);
   }
 
   render() {

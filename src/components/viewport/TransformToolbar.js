@@ -26,18 +26,26 @@ export default class TransformToolbar extends React.Component {
     };
   }
 
-  componentDidMount() {
-    Events.on('transformmodechange', (mode) => {
-      this.setState({ selectedTransform: mode });
-    });
+  onTransformModeChange = (mode) => {
+    this.setState({ selectedTransform: mode });
+  };
 
-    Events.on('transformspacechange', () => {
-      Events.emit(
-        'transformspacechanged',
-        this.state.localSpace ? 'world' : 'local'
-      );
-      this.setState({ localSpace: !this.state.localSpace });
-    });
+  onTransformSpaceChange = () => {
+    Events.emit(
+      'transformspacechanged',
+      this.state.localSpace ? 'world' : 'local'
+    );
+    this.setState({ localSpace: !this.state.localSpace });
+  };
+
+  componentDidMount() {
+    Events.on('transformmodechange', this.onTransformModeChange);
+    Events.on('transformspacechange', this.onTransformSpaceChange);
+  }
+
+  componentWillUnmount() {
+    Events.off('transformmodechange', this.onTransformModeChange);
+    Events.off('transformspacechange', this.onTransformSpaceChange);
   }
 
   changeTransformMode = (mode) => {
