@@ -71,7 +71,11 @@ export default class SceneGraph extends React.Component {
     for (let i = 0; i < this.state.filteredEntities.length; i++) {
       const entityOption = this.state.filteredEntities[i];
       if (entityOption.entity === entity) {
-        this.setState({ selectedIndex: i });
+        this.setState({ selectedIndex: i }, () => {
+          document
+            .getElementById('sgnode' + i)
+            ?.scrollIntoView({ behavior: 'smooth' });
+        });
         // Make sure selected value is visible in scenegraph
         this.expandToRoot(entity);
         Events.emit('entityselect', entity);
@@ -105,7 +109,11 @@ export default class SceneGraph extends React.Component {
           continue;
         }
 
-        entities.push({ entity: entity, depth: depth });
+        entities.push({
+          entity: entity,
+          depth: depth,
+          id: 'sgnode' + entities.length
+        });
 
         treeIterate(entity, depth);
       }

@@ -17,6 +17,7 @@ import Events from '../../lib/Events';
 
 export default class Entity extends React.Component {
   static propTypes = {
+    id: PropTypes.string,
     depth: PropTypes.number,
     entity: PropTypes.object,
     isExpanded: PropTypes.bool,
@@ -114,7 +115,7 @@ export default class Entity extends React.Component {
     });
 
     return (
-      <div className={className} onClick={this.onClick}>
+      <div className={className} onClick={this.onClick} id={this.props.id}>
         <span>
           {visibilityButton}
           <span
