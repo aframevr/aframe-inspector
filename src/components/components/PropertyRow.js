@@ -56,14 +56,13 @@ export default class PropertyRow extends React.Component {
       entity: props.entity,
       isSingle: props.isSingle,
       name: props.name,
-      // Wrap updateEntity for tracking.
       onChange: function (name, value) {
-        var propertyName = props.componentname;
-        if (!props.isSingle) {
-          propertyName += '.' + props.name;
-        }
-
-        updateEntity.apply(this, [props.entity, propertyName, value]);
+        updateEntity(
+          props.entity,
+          props.componentname,
+          !props.isSingle ? props.name : '',
+          value
+        );
       },
       value: value
     };

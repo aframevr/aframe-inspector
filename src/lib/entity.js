@@ -5,39 +5,30 @@ import { equal } from './utils';
  * Update a component.
  *
  * @param {Element} entity - Entity to modify.
- * @param {string} propertyName - component or component.property
- * @param {string|number} value - New value.
+ * @param {string} component - component name
+ * @param {string} property - property name, use empty string if component is single property or if value is an object
+ * @param {string|number|object} value - New value.
  */
-export function updateEntity(entity, propertyName, value) {
-  var splitName;
-
-  if (propertyName.indexOf('.') !== -1) {
-    // Multi-prop
-    splitName = propertyName.split('.');
-
+export function updateEntity(entity, component, property, value) {
+  if (property) {
     if (value === null || value === undefined) {
       // Remove property.
-      entity.removeAttribute(splitName[0], splitName[1]);
+      entity.removeAttribute(component, property);
     } else {
       // Set property.
-      entity.setAttribute(splitName[0], splitName[1], value);
+      entity.setAttribute(component, property, value);
     }
   } else {
     if (value === null || value === undefined) {
-      // Remove property.
-      entity.removeAttribute(propertyName);
+      // Remove component.
+      entity.removeAttribute(component);
     } else {
-      // Set property.
-      entity.setAttribute(propertyName, value);
+      // Set component.
+      entity.setAttribute(component, value);
     }
   }
 
-  Events.emit('entityupdate', {
-    component: splitName ? splitName[0] : propertyName,
-    entity: entity,
-    property: splitName ? splitName[1] : '',
-    value: value
-  });
+  Events.emit('entityupdate', { entity, component, property, value });
 }
 
 /**
