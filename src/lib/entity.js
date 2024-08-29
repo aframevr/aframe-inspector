@@ -48,7 +48,6 @@ export function removeEntity(entity, force) {
       )
     ) {
       var closest = findClosestEntity(entity);
-      AFRAME.INSPECTOR.removeObject(entity.object3D);
       entity.parentNode.removeChild(entity);
       AFRAME.INSPECTOR.selectEntity(closest);
     }
