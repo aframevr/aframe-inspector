@@ -96,36 +96,34 @@ Inspector.prototype = {
     Events.emit('objectremove', object);
   },
 
-  addHelper: (function () {
-    return function (object) {
-      let helper;
+  addHelper: function (object) {
+    let helper;
 
-      if (object instanceof THREE.Camera) {
-        this.cameraHelper = helper = new THREE.CameraHelper(object);
-      } else if (object instanceof THREE.PointLight) {
-        helper = new THREE.PointLightHelper(object, 1);
-      } else if (object instanceof THREE.DirectionalLight) {
-        helper = new THREE.DirectionalLightHelper(object, 1);
-      } else if (object instanceof THREE.SpotLight) {
-        helper = new THREE.SpotLightHelper(object, 1);
-      } else if (object instanceof THREE.HemisphereLight) {
-        helper = new THREE.HemisphereLightHelper(object, 1);
-      } else if (object instanceof THREE.SkinnedMesh) {
-        helper = new THREE.SkeletonHelper(object);
-      } else {
-        // no helper for this object type
-        return;
-      }
+    if (object instanceof THREE.Camera) {
+      this.cameraHelper = helper = new THREE.CameraHelper(object);
+    } else if (object instanceof THREE.PointLight) {
+      helper = new THREE.PointLightHelper(object, 1);
+    } else if (object instanceof THREE.DirectionalLight) {
+      helper = new THREE.DirectionalLightHelper(object, 1);
+    } else if (object instanceof THREE.SpotLight) {
+      helper = new THREE.SpotLightHelper(object, 1);
+    } else if (object instanceof THREE.HemisphereLight) {
+      helper = new THREE.HemisphereLightHelper(object, 1);
+    } else if (object instanceof THREE.SkinnedMesh) {
+      helper = new THREE.SkeletonHelper(object);
+    } else {
+      // no helper for this object type
+      return;
+    }
 
-      helper.visible = false;
-      this.sceneHelpers.add(helper);
-      this.helpers[object.uuid] = helper;
-      // SkeletonHelper doesn't have an update method
-      if (helper.update) {
-        helper.update();
-      }
-    };
-  })(),
+    helper.visible = false;
+    this.sceneHelpers.add(helper);
+    this.helpers[object.uuid] = helper;
+    // SkeletonHelper doesn't have an update method
+    if (helper.update) {
+      helper.update();
+    }
+  },
 
   removeHelpers: function (object) {
     object.traverse((node) => {
@@ -152,7 +150,7 @@ Inspector.prototype = {
     }
 
     // Update helper visibilities.
-    for (let id in this.helpers) {
+    for (const id in this.helpers) {
       this.helpers[id].visible = false;
     }
 
@@ -172,7 +170,7 @@ Inspector.prototype = {
   initEvents: function () {
     window.addEventListener('keydown', (evt) => {
       // Alt + Ctrl + i: Shorcut to toggle the inspector
-      var shortcutPressed =
+      const shortcutPressed =
         evt.keyCode === 73 &&
         ((evt.ctrlKey && evt.altKey) || evt.getModifierState('AltGraph'));
       if (shortcutPressed) {
@@ -196,7 +194,7 @@ Inspector.prototype = {
     });
 
     document.addEventListener('child-detached', (event) => {
-      var entity = event.detail.el;
+      const entity = event.detail.el;
       AFRAME.INSPECTOR.removeObject(entity.object3D);
     });
   },
