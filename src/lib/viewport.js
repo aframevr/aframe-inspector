@@ -112,6 +112,7 @@ export function Viewport(inspector) {
   controls.zoomSpeed = 0.05;
   controls.setAspectRatio(sceneEl.canvas.width / sceneEl.canvas.height);
   controls.addEventListener('change', () => {
+    transformControls.update(true); // true is updateScale
     Events.emit('camerachanged');
   });
 
@@ -177,7 +178,6 @@ export function Viewport(inspector) {
 
   Events.on('objectfocus', (object) => {
     controls.focus(object);
-    transformControls.update();
   });
 
   Events.on('geometrychanged', (object) => {
