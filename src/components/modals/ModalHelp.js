@@ -51,7 +51,6 @@ export default class ModalHelp extends React.Component {
         { key: ['6'], description: 'Back view' },
         { key: ['7'], description: 'Front view' },
 
-        { key: ['ctrl | cmd', 'x'], description: 'Cut selected entity' },
         { key: ['ctrl | cmd', 'c'], description: 'Copy selected entity' },
         { key: ['ctrl | cmd', 'v'], description: 'Paste entity' },
         { key: ['h'], description: 'Show this help' },

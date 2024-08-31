@@ -129,12 +129,6 @@ export const Shortcuts = {
         AFRAME.INSPECTOR.selectedEntity &&
         document.activeElement.tagName !== 'INPUT'
       ) {
-        // x: cut selected entity
-        if (event.keyCode === 88) {
-          AFRAME.INSPECTOR.entityToCopy = AFRAME.INSPECTOR.selectedEntity;
-          removeSelectedEntity(true);
-        }
-
         // c: copy selected entity
         if (event.keyCode === 67) {
           AFRAME.INSPECTOR.entityToCopy = AFRAME.INSPECTOR.selectedEntity;
