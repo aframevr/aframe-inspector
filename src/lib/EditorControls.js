@@ -69,9 +69,13 @@ THREE.EditorControls = function (_object, domElement) {
     }
 
     object.position.copy(
-      target.localToWorld(new THREE.Vector3(0, 0, distance * 2))
+      target.localToWorld(
+        new THREE.Vector3(0, center.y + distance * 0.5, distance * 2.5)
+      )
     );
-    object.lookAt(target.getWorldPosition(new THREE.Vector3()));
+    const pos = target.getWorldPosition(new THREE.Vector3());
+    pos.y = center.y;
+    object.lookAt(pos);
 
     scope.dispatchEvent(changeEvent);
   };
