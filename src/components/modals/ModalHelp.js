@@ -54,7 +54,7 @@ export default class ModalHelp extends React.Component {
         { key: ['ctrl | cmd', 'c'], description: 'Copy selected entity' },
         { key: ['ctrl | cmd', 'v'], description: 'Paste entity' },
         { key: ['h'], description: 'Show this help' },
-        { key: ['Esc'], description: 'Unselect entity' },
+        { key: ['esc'], description: 'Unselect entity' },
         { key: ['ctrl', 'alt', 'i'], description: 'Switch Edit and VR Modes' }
       ]
     ];
