@@ -39,7 +39,7 @@ export default class ModalHelp extends React.Component {
         { key: ['g'], description: 'Toggle grid visibility' },
         { key: ['n'], description: 'Add new entity' },
         { key: ['o'], description: 'Toggle local between global transform' },
-        { key: ['supr | backspace'], description: 'Delete selected entity' }
+        { key: ['delete | backspace'], description: 'Delete selected entity' }
       ],
       [
         { key: ['0'], description: 'Toggle panels' },
