@@ -49,3 +49,22 @@ npm start
 ```
 
 Then navigate to __[http://localhost:3333/examples/](http://localhost:3333/examples/)__
+
+## Self-hosting the sample-assets directory
+
+The textures modal is using https://aframe.io/sample-assets/dist/images.json
+to get the available textures.
+The GitHub repository for those assets is https://github.com/aframevr/sample-assets
+
+If you want to self-host this directory, do the following:
+
+```bash
+cd examples
+git clone git@github.com:aframevr/sample-assets.git
+```
+
+edit `index.html` and define before any script tag this global variable:
+
+```html
+<script>window.AFRAME_SAMPLE_ASSETS_ROOT = "./sample-assets/";</script>
+```
