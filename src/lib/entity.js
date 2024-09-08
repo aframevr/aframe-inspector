@@ -205,6 +205,17 @@ function optimizeComponents(copy, source) {
       var value = stringifyComponentValue(schema, optimalUpdate);
       setAttribute.call(copy, name, value);
     }
+
+    // Remove special components if they use the default value
+    if (
+      value === '' &&
+      (name === 'visible' ||
+        name === 'position' ||
+        name === 'rotation' ||
+        name === 'scale')
+    ) {
+      removeAttribute.call(copy, name);
+    }
   });
 }
 
