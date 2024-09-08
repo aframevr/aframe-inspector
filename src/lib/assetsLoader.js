@@ -1,6 +1,7 @@
 import Events from './Events';
 
-const assetsBaseUrl = 'https://aframe.io/sample-assets/';
+const assetsBaseUrl =
+  window.AFRAME_SAMPLE_ASSETS_ROOT || 'https://aframe.io/sample-assets/';
 const assetsRelativeUrl = { images: 'dist/images.json' };
 
 /**
