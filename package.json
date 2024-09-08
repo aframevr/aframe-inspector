@@ -32,7 +32,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-select": "^5.8.0",
-    "three": "0.161.0"
+    "three": "0.168.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
