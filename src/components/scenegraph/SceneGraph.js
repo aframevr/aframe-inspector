@@ -71,11 +71,13 @@ export default class SceneGraph extends React.Component {
     for (let i = 0; i < this.state.filteredEntities.length; i++) {
       const entityOption = this.state.filteredEntities[i];
       if (entityOption.entity === entity) {
-        this.setState({ selectedIndex: i }, () => {
+        this.setState({ selectedIndex: i });
+        setTimeout(() => {
+          // wait 500ms to allow user to double click on entity
           document
             .getElementById('sgnode' + i)
             ?.scrollIntoView({ behavior: 'smooth' });
-        });
+        }, 500);
         // Make sure selected value is visible in scenegraph
         this.expandToRoot(entity);
         Events.emit('entityselect', entity);
