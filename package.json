@@ -37,7 +37,6 @@
   "devDependencies": {
     "@babel/core": "^7.24.0",
     "@babel/eslint-parser": "^7.23.10",
-    "@babel/preset-env": "^7.24.0",
     "@babel/preset-react": "^7.23.3",
     "autoprefixer": "^10.4.17",
     "babel-jest": "^29.7.0",
