@@ -168,6 +168,9 @@ Inspector.prototype = {
   },
 
   initEvents: function () {
+    // Remove inspector component to properly unregister keydown listener when the inspector is loaded via a script tag,
+    // otherwise the listener will be registered twice and we can't toggle the inspector from viewer mode with the shortcut.
+    this.sceneEl.removeAttribute('inspector');
     window.addEventListener('keydown', (evt) => {
       // Alt + Ctrl + i: Shorcut to toggle the inspector
       const shortcutPressed =
