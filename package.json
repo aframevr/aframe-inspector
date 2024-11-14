@@ -18,8 +18,8 @@
     "prepublish": "npm run dist",
     "prettier": "prettier --write 'src/**/*.js'",
     "start": "webpack serve --progress -d eval-source-map",
-    "test": "jest --watch",
-    "test:ci": "jest"
+    "test": "BABEL_ENV=testing jest --watch",
+    "test:ci": "BABEL_ENV=testing jest"
   },
   "repository": "aframevr/aframe-inspector",
   "license": "MIT",
