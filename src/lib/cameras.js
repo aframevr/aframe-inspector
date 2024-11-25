@@ -21,10 +21,6 @@ export function initCameras(inspector) {
   const sceneEl = inspector.sceneEl;
 
   const originalCamera = (inspector.currentCameraEl = sceneEl.camera.el);
-  inspector.currentCameraEl.setAttribute(
-    'data-aframe-inspector-original-camera',
-    ''
-  );
 
   // If the current camera is the default, we should prevent AFRAME from
   // remove it once when we inject the editor's camera.
