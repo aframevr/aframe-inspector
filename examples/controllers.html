@@ -34,9 +34,7 @@
         <a-entity id="aBlueBox" mixin="interactable" geometry="primitive: box; depth: 2; height: 5; width: 1" material="color: #4CC3D9" position="0 8 0"></a-entity>
         <a-entity id="shortOrangeBox" mixin="interactable short orange box" position="-5 2 0"></a-entity>
         <a-entity id="shortYellowBox" mixin="interactable short yellow box" position="5 2 0"></a-entity>
-        <a-entity id="redBox" mixin="interactable" geometry="primitive: box" material="color: #F00" position="-4 1 0">
-          <a-animation attribute="rotation" to="0 360 0" repeat="indefinite" easing="linear" dur="9600"></a-animation>
-        </a-entity>
+        <a-entity id="redBox" mixin="interactable" geometry="primitive: box" material="color: #F00" position="-4 1 0" animation="property: object3D.rotation.y; to: 360; loop: true; easing: linear; dur: 9600"></a-entity>
         <a-entity id="yellowSphere" mixin="interactable" geometry="primitive: sphere" material="color: #ff0; roughness: 1" position="-2 2 -2"></a-entity>
         <a-box id="brickBox" mixin="interactable" src="https://aframe.io/sample-assets/assets/images/bricks/brick_bump.jpg" position="-5 5 -2" width="1" color="#F16745"></a-box>
         <a-box id="aBox" mixin="interactable" position="0 2 0" height="2" color="#FFC65D"></a-box>
