@@ -103,6 +103,14 @@ export default class PropertyRow extends React.Component {
         return <BooleanWidget {...widgetProps} />;
       }
       default: {
+        if (
+          props.schema.type === 'string' &&
+          widgetProps.value &&
+          typeof widgetProps.value !== 'string'
+        ) {
+          // Allow editing a custom type like event-set component schema
+          widgetProps.value = props.schema.stringify(widgetProps.value);
+        }
         return <InputWidget {...widgetProps} />;
       }
     }
