@@ -26,6 +26,10 @@ export function equal(var1, var2) {
   if (type1 !== 'object' || var1 === null || var2 === null) {
     return var1 === var2;
   }
+  if (var1 instanceof HTMLElement || var2 instanceof HTMLElement) {
+    // If we're here, we're comparing a value of a schema property of type selector like movement-controls's camera property
+    return var1 === var2;
+  }
   keys1 = Object.keys(var1);
   keys2 = Object.keys(var2);
   if (keys1.length !== keys2.length) {
