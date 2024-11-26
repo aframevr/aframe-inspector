@@ -289,8 +289,8 @@ function getImplicitValue(component, source) {
     isInherited =
       defaults &&
       /* eslint-disable-next-line no-prototype-builtins */
-      defaults.hasOwnProperty(component.name) &&
-      Object.keys(defaults[component.name]).length === 0;
+      defaults.hasOwnProperty(component.attrName) &&
+      Object.keys(defaults[component.attrName]).length === 0;
     Object.keys(component.schema).forEach(function (propertyName) {
       var propertyValue = getFromAttribute(component, propertyName, source);
       if (propertyValue === undefined) {
@@ -373,11 +373,11 @@ function getMixedValue(component, propertyName, source) {
   for (var i = 0; value === undefined && i < reversedMixins.length; i++) {
     var mixin = reversedMixins[i];
     /* eslint-disable-next-line no-prototype-builtins */
-    if (mixin.attributes.hasOwnProperty(component.name)) {
+    if (mixin.attributes.hasOwnProperty(component.attrName)) {
       if (!propertyName) {
-        value = mixin.getAttribute(component.name);
+        value = mixin.getAttribute(component.attrName);
       } else {
-        value = mixin.getAttribute(component.name)[propertyName];
+        value = mixin.getAttribute(component.attrName)[propertyName];
       }
     }
   }
@@ -398,12 +398,15 @@ function getMixedValue(component, propertyName, source) {
 function getInjectedValue(component, propertyName, source) {
   var value;
   var primitiveDefaults = source.defaultComponentsFromPrimitive;
-  /* eslint-disable-next-line no-prototype-builtins */
-  if (primitiveDefaults && primitiveDefaults.hasOwnProperty(component.name)) {
+  if (
+    primitiveDefaults &&
+    /* eslint-disable-next-line no-prototype-builtins */
+    primitiveDefaults.hasOwnProperty(component.attrName)
+  ) {
     if (!propertyName) {
-      value = primitiveDefaults[component.name];
+      value = primitiveDefaults[component.attrName];
     } else {
-      value = primitiveDefaults[component.name][propertyName];
+      value = primitiveDefaults[component.attrName][propertyName];
     }
   }
   return value;
