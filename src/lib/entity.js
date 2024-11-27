@@ -284,6 +284,13 @@ function getImplicitValue(component, source) {
   function _multi() {
     var value;
 
+    // Set isInherited to true if the component is inherited from primitive defaultComponents and is empty object
+    var defaults = source.defaultComponentsFromPrimitive;
+    isInherited =
+      defaults &&
+      /* eslint-disable-next-line no-prototype-builtins */
+      defaults.hasOwnProperty(component.attrName) &&
+      Object.keys(defaults[component.attrName]).length === 0;
     Object.keys(component.schema).forEach(function (propertyName) {
       var propertyValue = getFromAttribute(component, propertyName, source);
       if (propertyValue === undefined) {
@@ -362,15 +369,15 @@ function getFromAttribute(component, propertyName, source) {
  */
 function getMixedValue(component, propertyName, source) {
   var value;
-  var reversedMixins = source.mixinEls.reverse();
+  var reversedMixins = source.mixinEls.toReversed();
   for (var i = 0; value === undefined && i < reversedMixins.length; i++) {
     var mixin = reversedMixins[i];
     /* eslint-disable-next-line no-prototype-builtins */
-    if (mixin.attributes.hasOwnProperty(component.name)) {
+    if (mixin.attributes.hasOwnProperty(component.attrName)) {
       if (!propertyName) {
-        value = mixin.getAttribute(component.name);
+        value = mixin.getAttribute(component.attrName);
       } else {
-        value = mixin.getAttribute(component.name)[propertyName];
+        value = mixin.getAttribute(component.attrName)[propertyName];
       }
     }
   }
@@ -379,7 +386,7 @@ function getMixedValue(component, propertyName, source) {
 
 /**
  * Gets the value for a component or component's property coming from primitive
- * defaults or a-frame defaults. In this specific order.
+ * defaults.
  *
  * @param {Component} component      Component to be found.
  * @param {string}    [propertyName] If provided, component's property to be
@@ -390,18 +397,16 @@ function getMixedValue(component, propertyName, source) {
  */
 function getInjectedValue(component, propertyName, source) {
   var value;
-  var primitiveDefaults = source.defaultComponentsFromPrimitive || {};
-  var aFrameDefaults = source.defaultComponents || {};
-  var defaultSources = [primitiveDefaults, aFrameDefaults];
-  for (var i = 0; value === undefined && i < defaultSources.length; i++) {
-    var defaults = defaultSources[i];
+  var primitiveDefaults = source.defaultComponentsFromPrimitive;
+  if (
+    primitiveDefaults &&
     /* eslint-disable-next-line no-prototype-builtins */
-    if (defaults.hasOwnProperty(component.name)) {
-      if (!propertyName) {
-        value = defaults[component.name];
-      } else {
-        value = defaults[component.name][propertyName];
-      }
+    primitiveDefaults.hasOwnProperty(component.attrName)
+  ) {
+    if (!propertyName) {
+      value = primitiveDefaults[component.attrName];
+    } else {
+      value = primitiveDefaults[component.attrName][propertyName];
     }
   }
   return value;
