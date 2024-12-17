@@ -145,7 +145,7 @@ Inspector.prototype = {
       this.select(null);
     }
 
-    if (entity && emit === undefined) {
+    if (emit === undefined) {
       Events.emit('entityselect', entity);
     }
 
