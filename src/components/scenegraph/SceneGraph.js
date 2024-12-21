@@ -73,11 +73,21 @@ export default class SceneGraph extends React.Component {
       if (entityOption.entity === entity) {
         this.setState({ selectedIndex: i });
         setTimeout(() => {
-          // wait 500ms to allow user to double click on entity
-          document
-            .getElementById('sgnode' + i)
-            ?.scrollIntoView({ behavior: 'smooth' });
-        }, 500);
+          // wait 100ms to allow React to update the UI and create the node we're interested in
+          const node = document.getElementById('sgnode' + i);
+          const scrollableContainer = document.querySelector(
+            '#scenegraph .outliner'
+          );
+          if (!node || !scrollableContainer) return;
+          const containerRect = scrollableContainer.getBoundingClientRect();
+          const nodeRect = node.getBoundingClientRect();
+          const isVisible =
+            nodeRect.top >= containerRect.top &&
+            nodeRect.bottom <= containerRect.bottom;
+          if (!isVisible) {
+            node.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
         // Make sure selected value is visible in scenegraph
         this.expandToRoot(entity);
         Events.emit('entityselect', entity);
