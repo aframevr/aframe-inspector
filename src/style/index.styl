@@ -1,11 +1,13 @@
 @import './lib';
 
 body.aframe-inspector-opened,
-.toggle-edit
+.toggle-edit,
+.sponsor-btn
   font-family BlinkMacSystemFont, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif
 
 .wf-roboto-n4-active body.aframe-inspector-opened,
-.wf-roboto-n4-active .toggle-edit
+.wf-roboto-n4-active .toggle-edit,
+.wf-roboto-n4-active .sponsor-btn
   font-family BlinkMacSystemFont, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif
 
 body.aframe-inspector-opened
@@ -98,18 +100,64 @@ body.aframe-inspector-opened
     color #FAFAFA
     font-size 13px
     left 3px
-    line-height normal
+    line-height 16px
     margin 0
     padding 6px 10px
     position fixed
     text-align center
     text-decoration none
     top 3px
-    width 204px
+    width 100px
     z-index 999999999
 
   .toggle-edithover
     background-color rgb(228, 43, 90)
+
+  .try-editor-btn
+    background-color $red
+    box-sizing content-box
+    color #FAFAFA
+    font-size 16px
+    line-height 24px
+    margin 0
+    padding 6px 10px
+    text-align center
+    text-decoration none
+    width 200px
+    display flex
+    gap 5px
+    justify-content center
+
+  .try-editor-btn:hover
+    background-color rgb(228, 43, 90)
+    color #FAFAFA
+
+  .sponsor-btn
+    background-color #ffffff
+    box-sizing content-box
+    color #000000
+    font-size 13px
+    left 127px
+    line-height 16px
+    margin 0
+    padding 6px 10px
+    position fixed
+    text-align center
+    text-decoration none
+    top 3px
+    width 80px
+    z-index 999999999
+    display flex
+    gap 5px
+    justify-content center
+
+    svg
+      fill currentColor
+      color rgb(219, 97, 162)
+
+  .sponsor-btn:hover
+    background-color rgb(228, 43, 90)
+    color #FAFAFA
 
   input
     background-color transparent
