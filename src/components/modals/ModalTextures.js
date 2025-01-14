@@ -357,6 +357,7 @@ export default class ModalTextures extends React.Component {
                 width="155px"
                 height="155px"
                 src={preview.src}
+                style={{ visibility: preview.src ? 'visible' : 'hidden' }}
               />
               {this.state.preview.loaded ? (
                 <div className="detail">
