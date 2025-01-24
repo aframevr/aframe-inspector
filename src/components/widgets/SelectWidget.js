@@ -45,13 +45,12 @@ export default class SelectWidget extends React.Component {
         className="select-widget"
         classNamePrefix="select"
         options={options}
-        simpleValue
-        clearable={true}
+        isClearable={false}
+        isSearchable
         placeholder=""
         value={this.state.value}
-        noResultsText="No value found"
+        noOptionsMessage={() => 'No value found'}
         onChange={this.onChange}
-        searchable={true}
       />
     );
   }
