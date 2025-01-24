@@ -8,11 +8,18 @@ export default class AddComponent extends React.Component {
     entity: PropTypes.object
   };
 
+  constructor(props) {
+    super(props);
+    this.state = { value: null };
+  }
+
   /**
    * Add blank component.
    * If component is instanced, generate an ID.
    */
   addComponent = (value) => {
+    this.setState({ value: null });
+
     let componentName = value.value;
 
     var entity = this.props.entity;
@@ -78,27 +85,15 @@ export default class AddComponent extends React.Component {
           className="addComponent"
           classNamePrefix="select"
           options={this.options}
-          simpleValue
-          clearable={true}
+          isClearable={false}
+          isSearchable
           placeholder="Add component..."
-          noResultsText="No components found"
+          noOptionsMessage={() => 'No components found'}
           onChange={this.addComponent}
           optionRenderer={this.renderOption}
-          searchable={true}
+          value={this.state.value}
         />
       </div>
     );
-  }
-}
-
-/* eslint-disable no-unused-vars */
-/**
- * Check if component has multiplicity.
- */
-function isComponentInstanced(entity, componentName) {
-  for (var component in entity.components) {
-    if (component.substring(0, component.indexOf('__')) === componentName) {
-      return true;
-    }
   }
 }

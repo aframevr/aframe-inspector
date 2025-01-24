@@ -68,11 +68,12 @@ export default class Mixin extends React.Component {
               id="mixinSelect"
               classNamePrefix="select"
               options={this.getMixinOptions()}
-              isMulti={true}
+              isMulti
+              isClearable={false}
+              isSearchable
               placeholder="Add mixin..."
-              noResultsText="No mixins found"
+              noOptionsMessage={() => 'No mixins found'}
               onChange={this.updateMixins.bind(this)}
-              simpleValue
               value={this.state.mixins}
             />
           </span>

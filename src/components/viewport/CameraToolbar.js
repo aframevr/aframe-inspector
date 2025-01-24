@@ -90,9 +90,9 @@ export default class CameraToolbar extends React.Component {
           id="cameraSelect"
           classNamePrefix="select"
           options={options}
-          simpleValue
-          value={getOption(this.state.selectedCamera)}
+          isClearable={false}
           isSearchable={false}
+          value={getOption(this.state.selectedCamera)}
           onChange={this.onChange.bind(this)}
         />
       </div>
