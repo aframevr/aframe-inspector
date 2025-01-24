@@ -4,13 +4,11 @@ import Select from 'react-select';
 
 export default class SelectWidget extends React.Component {
   static propTypes = {
-    componentname: PropTypes.string.isRequired,
-    entity: PropTypes.object,
     isMulti: PropTypes.bool,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func,
     options: PropTypes.array.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired
   };
 
   static defaultProps = {
@@ -25,7 +23,7 @@ export default class SelectWidget extends React.Component {
         value: value.map((choice) => ({ value: choice, label: choice }))
       };
     } else {
-      const value = this.props.value || '';
+      const value = this.props.value;
       this.state = { value: { value: value, label: value } };
     }
   }
