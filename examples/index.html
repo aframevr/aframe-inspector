@@ -6,6 +6,13 @@
     <!--<script>window.AFRAME_SAMPLE_ASSETS_ROOT = "./sample-assets/";</script>-->
     <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@master/dist/aframe-master.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.4.0/dist/aframe-environment-component.min.js"></script>
+    <script>
+    AFRAME.registerComponent('models-array', {
+      schema: {
+        models: {type: 'array', oneOf: ['one', 'two', 'three', 'four']}
+      }
+    })
+    </script>
   </head>
   <body>
     <a-scene debug="true">
@@ -30,7 +37,7 @@
       <a-entity id="shortOrangeBox" mixin="short orange box" position="-5 2 0"></a-entity>
       <a-entity id="shortYellowBox" mixin="short yellow box" position="5 2 0"></a-entity>
       <a-entity id="redBox" geometry="primitive: box" material="color: #f00" position="-4 1 0" animation="property: object3D.rotation.y; to: 360; loop: true; easing: linear; dur: 9600"></a-entity>
-      <a-entity id="yellowSphere" geometry="primitive: sphere" material="color: #ff0; roughness: 1" position="-2 2 -2"></a-entity>
+      <a-entity id="yellowSphere" geometry="primitive: sphere" material="color: #ff0; roughness: 1" position="-2 2 -2" models-array="models:one,two"></a-entity>
       <a-box src="https://aframe.io/sample-assets/assets/images/bricks/brick_bump.jpg" position="-5 5 -2" width="1" color="#F16745"></a-box>
       <a-box id="aBox" position="0 2 0" height="2" color="#FFC65D"></a-box>
 

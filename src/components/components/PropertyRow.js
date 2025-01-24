@@ -72,7 +72,13 @@ export default class PropertyRow extends React.Component {
     };
 
     if (props.schema.oneOf && props.schema.oneOf.length > 0) {
-      return <SelectWidget {...widgetProps} options={props.schema.oneOf} />;
+      return (
+        <SelectWidget
+          {...widgetProps}
+          options={props.schema.oneOf}
+          isMulti={props.schema.type === 'array'}
+        />
+      );
     }
     if (type === 'map' || isMap) {
       return <TextureWidget {...widgetProps} />;
