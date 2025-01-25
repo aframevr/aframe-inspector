@@ -106,6 +106,16 @@ function insertAfter(newNode, referenceNode) {
   }
 }
 
+function recursivelyRegenerateId(element) {
+  if (element.id) {
+    element.id = getUniqueId(element.id);
+  }
+
+  for (const child of element.childNodes) {
+    recursivelyRegenerateId(child);
+  }
+}
+
 /**
  * Clone an entity, inserting it after the cloned one.
  * @param  {Element} entity Entity to clone
@@ -123,10 +133,8 @@ export function cloneEntity(entity) {
     { once: true }
   );
 
-  // Get a valid unique ID for the entity
-  if (entity.id) {
-    clone.id = getUniqueId(entity.id);
-  }
+  // Get a valid unique ID for the entity and children
+  recursivelyRegenerateId(clone);
   insertAfter(clone, entity);
 }
 
