@@ -501,35 +501,14 @@ function getUniqueId(baseId) {
 }
 
 export function getComponentClipboardRepresentation(entity, componentName) {
-  /**
-   * Get the list of modified properties
-   * @param  {Element} entity        Entity where the component belongs
-   * @param  {string} componentName Component name
-   * @return {object}               List of modified properties with their value
-   */
-  function getModifiedProperties(entity, componentName) {
-    var data = entity.components[componentName].data;
-    var defaultData = entity.components[componentName].schema;
-    var diff = {};
-    for (var key in data) {
-      // Prevent adding unknown attributes
-      if (!defaultData[key]) {
-        continue;
-      }
-
-      var defaultValue = defaultData[key].default;
-      var currentValue = data[key];
-
-      // Some parameters could be null and '' like mergeTo
-      if ((currentValue || defaultValue) && currentValue !== defaultValue) {
-        diff[key] = data[key];
-      }
-    }
-    return diff;
+  entity.flushToDOM();
+  const data = entity.getDOMAttribute(componentName);
+  if (!data) {
+    return componentName;
   }
 
-  const diff = getModifiedProperties(entity, componentName);
-  const attributes = AFRAME.utils.styleParser.stringify(diff);
+  const schema = entity.components[componentName].schema;
+  const attributes = stringifyComponentValue(schema, data);
   return `${componentName}="${attributes}"`;
 }
 
