@@ -127,6 +127,7 @@ export function cloneEntity(entity) {
   clone.addEventListener(
     'loaded',
     function () {
+      clone.pause();
       AFRAME.INSPECTOR.selectEntity(clone);
       Events.emit('entityclone', clone);
     },
