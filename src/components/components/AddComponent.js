@@ -22,13 +22,36 @@ export default class AddComponent extends React.Component {
 
     let componentName = value.value;
 
-    var entity = this.props.entity;
+    const entity = this.props.entity;
 
     if (AFRAME.components[componentName].multiple) {
-      const id = prompt(
+      let id = prompt(
         `Provide an ID for this component (e.g., 'foo' for ${componentName}__foo).`
       );
-      componentName = id ? `${componentName}__${id}` : componentName;
+      if (id) {
+        id = id
+          .trim()
+          .toLowerCase()
+          .replace(/[^a-z0-9]/g, '');
+        // With the transform, id could be empty string, so we need to check again.
+      }
+      if (id) {
+        componentName = `${componentName}__${id}`;
+      } else {
+        // If components already exist, be sure to suffix with an id,
+        // if it's first one, use the component name without id.
+        const numberOfComponents = Object.keys(
+          this.props.entity.components
+        ).filter(function (name) {
+          return (
+            name === componentName || name.startsWith(`${componentName}__`)
+          );
+        }).length;
+        if (numberOfComponents > 0) {
+          id = numberOfComponents + 1;
+          componentName = `${componentName}__${id}`;
+        }
+      }
     }
 
     entity.setAttribute(componentName, '');
@@ -40,33 +63,19 @@ export default class AddComponent extends React.Component {
    */
   getComponentsOptions() {
     const usedComponents = Object.keys(this.props.entity.components);
-    var commonOptions = Object.keys(AFRAME.components)
+    return Object.keys(AFRAME.components)
       .filter(function (componentName) {
         return (
           AFRAME.components[componentName].multiple ||
           usedComponents.indexOf(componentName) === -1
         );
       })
-      .sort()
       .map(function (value) {
-        return { value: value, label: value, origin: 'loaded' };
+        return { value: value, label: value };
+      })
+      .toSorted(function (a, b) {
+        return a.label === b.label ? 0 : a.label < b.label ? -1 : 1;
       });
-
-    this.options = commonOptions;
-    this.options = this.options.sort(function (a, b) {
-      return a.label === b.label ? 0 : a.label < b.label ? -1 : 1;
-    });
-  }
-
-  renderOption(option) {
-    var bullet = (
-      <span title="Component already loaded in the scene">&#9679;</span>
-    );
-    return (
-      <strong className="option">
-        {option.label} {option.origin === 'loaded' ? bullet : ''}
-      </strong>
-    );
   }
 
   render() {
@@ -75,7 +84,7 @@ export default class AddComponent extends React.Component {
       return <div />;
     }
 
-    this.getComponentsOptions();
+    const options = this.getComponentsOptions();
 
     return (
       <div id="addComponentContainer">
@@ -84,13 +93,12 @@ export default class AddComponent extends React.Component {
           id="addComponent"
           className="addComponent"
           classNamePrefix="select"
-          options={this.options}
+          options={options}
           isClearable={false}
           isSearchable
           placeholder="Add component..."
           noOptionsMessage={() => 'No components found'}
           onChange={this.addComponent}
-          optionRenderer={this.renderOption}
           value={this.state.value}
         />
       </div>
