@@ -122,8 +122,9 @@ function setOrthoCamera(camera, dir, ratio) {
  *
  * @param {Object3D} sourceCamera
  * @param {Camera} targetCamera
+ * @param {EditorControls} controls
  */
-export function copyCameraPosition(sourceCamera, targetCamera) {
+export function copyCameraPosition(sourceCamera, targetCamera, controls) {
   sourceCamera.getWorldPosition(targetCamera.position);
   sourceCamera.getWorldQuaternion(targetCamera.quaternion);
   targetCamera.updateMatrixWorld();
@@ -134,5 +135,5 @@ export function copyCameraPosition(sourceCamera, targetCamera) {
   const center = targetCamera.position
     .clone()
     .addScaledVector(worldDirection, 2);
-  AFRAME.INSPECTOR.controls.center.copy(center);
+  controls.center.copy(center);
 }
