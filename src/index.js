@@ -7,12 +7,14 @@ import { Shortcuts } from './lib/shortcuts';
 import Main from './components/Main';
 import { initCameras } from './lib/cameras';
 import { createEntity } from './lib/entity';
+import { Config } from './lib/config';
 import { GLTFExporter } from 'three/addons/exporters/GLTFExporter';
 
 import './style/index.styl';
 
-function Inspector() {
+function Inspector(configOverrides) {
   this.assetsLoader = new AssetsLoader();
+  this.config = new Config(configOverrides);
   this.exporters = { gltf: new GLTFExporter() };
   this.history = require('./lib/history');
   this.isFirstOpen = true;
@@ -301,4 +303,4 @@ Inspector.prototype = {
   }
 };
 
-AFRAME.INSPECTOR = new Inspector();
+AFRAME.INSPECTOR = new Inspector(window.AFRAME_INSPECTOR_CONFIG);

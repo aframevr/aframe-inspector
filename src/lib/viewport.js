@@ -2,6 +2,7 @@
 import TransformControls from './TransformControls.js';
 import EditorControls from './EditorControls.js';
 
+import { copyCameraPosition } from './cameras';
 import { initRaycaster } from './raycaster';
 import Events from './Events';
 
@@ -253,6 +254,13 @@ export function Viewport(inspector) {
         .forEach((element) => {
           element.style.display = 'none';
         });
+      if (inspector.config.copyCameraPosition) {
+        copyCameraPosition(
+          inspector.cameras.original.object3D,
+          inspector.cameras.perspective,
+          controls
+        );
+      }
     } else {
       disableControls();
       inspector.cameras.original.setAttribute('camera', 'active', 'true');
