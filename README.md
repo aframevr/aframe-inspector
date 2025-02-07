@@ -68,3 +68,15 @@ edit `index.html` and define before any script tag this global variable:
 ```html
 <script>window.AFRAME_SAMPLE_ASSETS_ROOT = "./sample-assets/";</script>
 ```
+
+## Config overrides
+
+Since A-Frame 1.7.0, the inspector perspective camera position is kept in sync with the A-Frame
+active camera. This means you can move around the scene, toggle the inspector and you will be at the same position.
+If you want to disable that behavior, you can do that by defining a global variable like this:
+
+```html
+<script>
+  window.AFRAME_INSPECTOR_CONFIG = { copyCameraPosition: false };
+</script>
+```

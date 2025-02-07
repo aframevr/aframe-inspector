@@ -255,10 +255,12 @@ export function Viewport(inspector) {
         .forEach((element) => {
           element.style.display = 'none';
         });
-      copyCameraPosition(
-        inspector.cameras.original.object3D,
-        inspector.cameras.perspective
-      );
+      if (inspector.config.copyCameraPosition) {
+        copyCameraPosition(
+          inspector.cameras.original.object3D,
+          inspector.cameras.perspective
+        );
+      }
     } else {
       disableControls();
       inspector.cameras.original.setAttribute('camera', 'active', 'true');
