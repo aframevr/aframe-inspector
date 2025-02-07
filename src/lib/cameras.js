@@ -116,8 +116,23 @@ function setOrthoCamera(camera, dir, ratio) {
   camera.rotation.copy(info.rotation);
 }
 
+/**
+ * Copy position and rotation from source aframe camera to target camera.
+ * Also set center for EditorControls 2m in front of camera.
+ *
+ * @param {Object3D} sourceCamera
+ * @param {Camera} targetCamera
+ */
 export function copyCameraPosition(sourceCamera, targetCamera) {
   sourceCamera.getWorldPosition(targetCamera.position);
   sourceCamera.getWorldQuaternion(targetCamera.quaternion);
   targetCamera.updateMatrixWorld();
+
+  // Set center for EditorControls 2m in front of camera.
+  const worldDirection = new THREE.Vector3();
+  targetCamera.getWorldDirection(worldDirection);
+  const center = targetCamera.position
+    .clone()
+    .addScaledVector(worldDirection, 2);
+  AFRAME.INSPECTOR.controls.center.copy(center);
 }

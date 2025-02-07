@@ -108,6 +108,7 @@ export function Viewport(inspector) {
 
   // Controls need to be added *after* main logic.
   const controls = new THREE.EditorControls(camera, inspector.container);
+  inspector.controls = controls; // to be able to change center from camera.js copyCameraPosition function
   controls.center.set(0, 1.6, 0);
   controls.rotationSpeed = 0.0035;
   controls.zoomSpeed = 0.05;
