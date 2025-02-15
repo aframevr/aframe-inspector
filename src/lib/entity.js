@@ -209,12 +209,11 @@ function optimizeComponents(copy, source) {
     var doesNotNeedUpdate = optimalUpdate === null;
     if (isInherited && doesNotNeedUpdate) {
       removeAttribute.call(copy, name);
-    } else {
-      var schema = component.schema;
-      var value = stringifyComponentValue(schema, optimalUpdate);
-      setAttribute.call(copy, name, value);
+      return;
     }
 
+    var schema = component.schema;
+    var value = stringifyComponentValue(schema, optimalUpdate);
     // Remove special components if they use the default value
     if (
       value === '' &&
@@ -224,7 +223,10 @@ function optimizeComponents(copy, source) {
         name === 'scale')
     ) {
       removeAttribute.call(copy, name);
+      return;
     }
+
+    setAttribute.call(copy, name, value);
   });
 }
 
