@@ -1,20 +1,3 @@
-export function getNumber(value) {
-  return parseFloat(value.toFixed(3));
-}
-
-export function getMajorVersion(version) {
-  var major = version.split('.');
-  var clean = false;
-  for (var i = 0; i < major.length; i++) {
-    if (clean) {
-      major[i] = 0;
-    } else if (major[i] !== '0') {
-      clean = true;
-    }
-  }
-  return major.join('.');
-}
-
 export function equal(var1, var2) {
   var keys1;
   var keys2;
