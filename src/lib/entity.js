@@ -283,7 +283,7 @@ function getImplicitValue(component, source) {
     if (value !== undefined) {
       isInherited = true;
     } else {
-      value = getDefaultValue(component, null, source);
+      value = getDefaultValue(component, null);
     }
     if (value !== undefined) {
       // XXX: This assumes parse is idempotent
@@ -313,7 +313,7 @@ function getImplicitValue(component, source) {
       if (propertyValue !== undefined) {
         isInherited = isInherited || true;
       } else {
-        propertyValue = getDefaultValue(component, propertyName, source);
+        propertyValue = getDefaultValue(component, propertyName);
       }
       if (propertyValue !== undefined) {
         var parse = component.schema[propertyName].parse;
@@ -430,11 +430,10 @@ function getInjectedValue(component, propertyName, source) {
  * @param {Component} component      Component to be found.
  * @param {string}    [propertyName] If provided, component's property to be
  *                                   found.
- * @param {Element}   source         Element owning the component.
  * @return                           The component value coming from the schema
  *                                   default.
  */
-function getDefaultValue(component, propertyName, source) {
+function getDefaultValue(component, propertyName) {
   if (!propertyName) {
     return component.schema.default;
   }
