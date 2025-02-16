@@ -209,7 +209,10 @@ Inspector.prototype = {
       this.select(this.camera);
       return;
     }
-    this.select(this.scene.getObjectById(id, true));
+    const object = this.scene.getObjectById(id);
+    if (object) {
+      this.select(object);
+    }
   },
 
   /**
