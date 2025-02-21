@@ -8,7 +8,11 @@ export default class SelectWidget extends React.Component {
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func,
     options: PropTypes.array.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired
+    value: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+      PropTypes.array
+    ]).isRequired
   };
 
   static defaultProps = {
