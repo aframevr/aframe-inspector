@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Inspector Test - Embedded (Bad)</title>
-    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe/dist/aframe-master.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@master/dist/aframe-master.min.js"></script>
     <style>
       html,
       body {
@@ -32,28 +32,26 @@
             <a-mixin id="purple" material="color: #93648D"></a-mixin>
             <a-mixin id="short" scale="1 0.5 1"></a-mixin>
             <a-mixin id="yellow" material="color: #FFC65D"></a-mixin>
-            <img id="crateImg" src="assets/textures/crate.gif">
-            <img id="floorImg" src="assets/textures/grasslight-big.jpg">
+            <img id="crateImg" src="https://aframe.io/sample-assets/assets/images/wood/crate.gif" crossorigin="anonymous">
+            <img id="floorImg" src="https://aframe.io/sample-assets/assets/images/terrain/grasslight-big.jpg" crossorigin="anonymous">
           </a-assets>
 
           <!-- Meshes. -->
-          <a-entity id="blueBox" mixin="blueBox" position="0 8 0"></a-entity>
+          <a-entity id="aBlueBox" mixin="blueBox" position="0 8 0"></a-entity>
           <a-entity id="shortOrangeBox" mixin="short orange box" position="-5 2 0"></a-entity>
           <a-entity id="shortYellowBox" mixin="short yellow box" position="5 2 0"></a-entity>
-          <a-entity id="redBox" geometry="primitive: box" material="color:#f00" position="-4 1 0">
-            <a-animation attribute="rotation" to="0 360 0" repeat="indefinite" easing="linear" dur="9600"></a-animation>
-          </a-entity>
-          <a-entity id="yellowSphere" geometry="primitive: sphere" material="color:#ff0; metalness:0.0; roughness:1.0" position="-2 2 -2"></a-entity>
-          <a-box src="assets/textures/brick_bump.jpg" position="-5 5 -2" width="1" color="#F16745"></a-box>
-          <a-box id="box" position="0 2 0" height="2" color="#FFC65D"></a-box>
+          <a-entity id="redBox" geometry="primitive: box" material="color: #f00" position="-4 1 0" animation="property: object3D.rotation.y; to: 360; loop: true; easing: linear; dur: 9600"></a-entity>
+          <a-entity id="yellowSphere" geometry="primitive: sphere" material="color: #ff0; roughness: 1" position="-2 2 -2"></a-entity>
+          <a-box src="https://aframe.io/sample-assets/assets/images/bricks/brick_bump.jpg" position="-5 5 -2" width="1" color="#F16745"></a-box>
+          <a-box id="aBox" position="0 2 0" height="2" color="#FFC65D"></a-box>
 
           <!-- Models. -->
           <a-entity id="crate" geometry="primitive: box" material="src: #crateImg" position="3 4 0"></a-entity>
           <a-entity id="greenBox" geometry="primitive: box" material="color: #0f0" position="4 2 4"></a-entity>
 
           <!-- Floor. -->
-          <a-entity id="floor" geometry="primitive: cylinder; height: .2; radius: 12"
-                    material="src: #floorImg; color: #fafafa; metalness: .2; repeat: 50 20; roughness: .1"></a-entity>
+          <a-entity id="floor" geometry="primitive: cylinder; height: 0.2; radius: 12"
+                    material="src: #floorImg; color: #fafafa; metalness: 0.2; repeat: 50 20; roughness: 0.1"></a-entity>
 
           <!-- Lights. -->
           <a-entity id="pointLight" light="type: point" position="0 3 3"></a-entity>
