@@ -139,9 +139,12 @@ export default class TextureWidget extends React.Component {
     var isAssetHash = value[0] === '#';
     var isAssetImg = value instanceof HTMLImageElement;
     var isAssetVideo = value instanceof HTMLVideoElement;
-    var isAssetImgOrVideo = isAssetImg || isAssetVideo;
+    var isAssetCanvas = value instanceof HTMLCanvasElement;
+    var isAssetElement = isAssetImg || isAssetVideo || isAssetCanvas;
 
-    if (isAssetImgOrVideo) {
+    if (isAssetCanvas) {
+      url = null;
+    } else if (isAssetImg || isAssetVideo) {
       url = value.src;
     } else if (isAssetHash) {
       url = getUrlFromId(value);
@@ -151,7 +154,7 @@ export default class TextureWidget extends React.Component {
 
     var texture = getTextureFromSrc(value);
     var valueType = null;
-    valueType = isAssetImgOrVideo || isAssetHash ? 'asset' : 'url';
+    valueType = isAssetElement || isAssetHash ? 'asset' : 'url';
     if (!isAssetVideo && texture) {
       texture.then(paintPreview);
     } else if (!isAssetVideo && url) {
@@ -170,7 +173,7 @@ export default class TextureWidget extends React.Component {
     }
 
     this.setState({
-      value: isAssetImgOrVideo ? '#' + value.id : value,
+      value: isAssetElement ? '#' + value.id : value,
       valueType: valueType,
       url: url
     });
@@ -217,7 +220,10 @@ export default class TextureWidget extends React.Component {
     let hint = '';
     if (this.state.value) {
       if (this.state.valueType === 'asset') {
-        hint = 'Asset ID: ' + this.state.value + '\nURL: ' + this.state.url;
+        hint = 'Asset ID: ' + this.state.value;
+        if (this.state.url !== null) {
+          hint += '\nURL: ' + this.state.url;
+        }
       } else {
         hint = 'URL: ' + this.state.value;
       }
