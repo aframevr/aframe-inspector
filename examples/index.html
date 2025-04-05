@@ -12,11 +12,60 @@
         models: {type: 'array', oneOf: ['one', 'two', 'three', 'four']}
       }
     })
+
+    AFRAME.registerComponent('draw-smiley', {
+      schema: {
+        canvas: {type: 'selector'}
+      },
+      init() {
+        var canvas = this.data.canvas;
+        var ctx = canvas.getContext('2d');
+
+        // Clear canvas and fill with white background
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Center point of canvas
+        var centerX = canvas.width / 2;
+        var centerY = canvas.height / 2;
+
+        // Smiley parameters
+        var faceRadius = 200;
+        var eyeRadius = 20;
+        var eyeOffsetX = 60;
+        var eyeOffsetY = 50;
+        var mouthRadius = 120;
+
+        // Draw face
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, faceRadius, 0, Math.PI * 2, true); // Outer circle
+        ctx.fillStyle = 'yellow';
+        ctx.fill();
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 4;
+        ctx.stroke();
+
+        // Draw eyes
+        ctx.beginPath();
+        ctx.arc(centerX - eyeOffsetX, centerY - eyeOffsetY, eyeRadius, 0, Math.PI * 2, true); // Left eye
+        ctx.arc(centerX + eyeOffsetX, centerY - eyeOffsetY, eyeRadius, 0, Math.PI * 2, true); // Right eye
+        ctx.fillStyle = 'black';
+        ctx.fill();
+
+        // Draw smile
+        ctx.beginPath();
+        ctx.arc(centerX, centerY + 30, mouthRadius, 0, Math.PI, false); // Mouth (smile)
+        ctx.lineWidth = 8;
+        ctx.strokeStyle = 'black';
+        ctx.stroke();
+      }
+    })
     </script>
   </head>
   <body>
     <a-scene debug="true">
       <a-assets>
+        <canvas id="canvasTexture" width="512" height="512" />
         <a-mixin id="blue" material="color: #4CC3D9"></a-mixin>
         <a-mixin id="blueBox" geometry="primitive: box; depth: 2; height: 5; width: 1" material="color: #4CC3D9"></a-mixin>
         <a-mixin id="box" geometry="primitive: box; depth: 1; height: 1; width: 1"></a-mixin>
@@ -40,6 +89,7 @@
       <a-entity id="yellowSphere" geometry="primitive: sphere" material="color: #ff0; roughness: 1" position="-2 2 -2" models-array="models:one,two"></a-entity>
       <a-box src="https://aframe.io/sample-assets/assets/images/bricks/brick_bump.jpg" position="-5 5 -2" width="1" color="#F16745"></a-box>
       <a-box id="aBox" position="0 2 0" height="2" color="#FFC65D"></a-box>
+      <a-plane id="smiley" position="2.5 2 0" width="1" height="1" material="src: #canvasTexture" draw-smiley="canvas: #canvasTexture"></a-plane>
 
       <!-- Models. -->
       <a-entity class="boxClass" geometry="primitive: box" material="src: #crateImg" position="3 4 0"></a-entity>
