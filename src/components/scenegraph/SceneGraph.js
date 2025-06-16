@@ -92,6 +92,7 @@ export default class SceneGraph extends React.Component {
         this.expandToRoot(entity);
         Events.emit('entityselect', entity);
         found = true;
+        break;
       }
     }
 
