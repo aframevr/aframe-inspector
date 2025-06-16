@@ -33,10 +33,7 @@ export default class Entity extends React.Component {
 
   toggleVisibility = () => {
     const entity = this.props.entity;
-    const visible =
-      entity.tagName.toLowerCase() === 'a-scene'
-        ? entity.object3D.visible
-        : entity.getAttribute('visible');
+    const visible = entity.object3D.visible;
     entity.setAttribute('visible', !visible);
   };
 
@@ -92,10 +89,7 @@ export default class Entity extends React.Component {
     }
 
     // Visibility button.
-    const visible =
-      tagName === 'a-scene'
-        ? entity.object3D.visible
-        : entity.getAttribute('visible');
+    const visible = entity.object3D.visible;
     const visibilityButton = (
       <i title="Toggle entity visibility" onClick={this.toggleVisibility}>
         {visible ? (
