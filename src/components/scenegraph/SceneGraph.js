@@ -344,7 +344,7 @@ function filterEntity(entity, filter) {
   // Check if the ID, tagName, class, selector includes the filter.
   if (
     entity.id.toUpperCase().indexOf(filter.toUpperCase()) !== -1 ||
-    entity.tagName.toUpperCase().indexOf(filter.toUpperCase()) !== -1 ||
+    entity.tagName.indexOf(filter.toUpperCase()) !== -1 ||
     entity.classList.contains(filter) ||
     entity.matches(filter)
   ) {
