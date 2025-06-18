@@ -30,6 +30,11 @@ export default class SceneGraph extends React.Component {
       selectedIndex: -1
     };
 
+    this.rebuildEntityOptions = debounce(
+      this.rebuildEntityOptions.bind(this),
+      0
+    );
+
     this.updateFilteredEntities = debounce(
       this.updateFilteredEntities.bind(this),
       100
@@ -42,19 +47,31 @@ export default class SceneGraph extends React.Component {
     }
   };
 
+  onChildAttachedDetached = (event) => {
+    if (this.includeInSceneGraph(event.detail.el)) {
+      this.rebuildEntityOptions();
+    }
+  };
+
   componentDidMount() {
     this.rebuildEntityOptions();
     Events.on('entityidchange', this.rebuildEntityOptions);
-    Events.on('entitycreated', this.rebuildEntityOptions);
-    Events.on('entityclone', this.rebuildEntityOptions);
     Events.on('entityupdate', this.onEntityUpdate);
+    document.addEventListener('child-attached', this.onChildAttachedDetached);
+    document.addEventListener('child-detached', this.onChildAttachedDetached);
   }
 
   componentWillUnmount() {
     Events.off('entityidchange', this.rebuildEntityOptions);
-    Events.off('entitycreated', this.rebuildEntityOptions);
-    Events.off('entityclone', this.rebuildEntityOptions);
     Events.off('entityupdate', this.onEntityUpdate);
+    document.removeEventListener(
+      'child-attached',
+      this.onChildAttachedDetached
+    );
+    document.removeEventListener(
+      'child-detached',
+      this.onChildAttachedDetached
+    );
   }
 
   /**
@@ -100,10 +117,19 @@ export default class SceneGraph extends React.Component {
     }
   };
 
+  includeInSceneGraph = (element) => {
+    return !(
+      element.dataset.isInspector ||
+      !element.isEntity ||
+      element.isInspector ||
+      'aframeInspector' in element.dataset
+    );
+  };
+
   rebuildEntityOptions = () => {
     const entities = [{ depth: 0, entity: this.props.scene }];
 
-    function treeIterate(element, depth) {
+    const treeIterate = (element, depth) => {
       if (!element) {
         return;
       }
@@ -112,12 +138,7 @@ export default class SceneGraph extends React.Component {
       for (let i = 0; i < element.children.length; i++) {
         let entity = element.children[i];
 
-        if (
-          entity.dataset.isInspector ||
-          !entity.isEntity ||
-          entity.isInspector ||
-          'aframeInspector' in entity.dataset
-        ) {
+        if (!this.includeInSceneGraph(entity)) {
           continue;
         }
 
@@ -129,7 +150,7 @@ export default class SceneGraph extends React.Component {
 
         treeIterate(entity, depth);
       }
-    }
+    };
     treeIterate(this.props.scene, 0);
 
     this.setState({
