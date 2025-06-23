@@ -64,7 +64,14 @@ export default class AddComponent extends React.Component {
   getComponentsOptions() {
     const usedComponents = Object.keys(this.props.entity.components);
     return Object.keys(AFRAME.components)
-      .filter(function (componentName) {
+      .filter((componentName) => {
+        if (
+          AFRAME.components[componentName].sceneOnly &&
+          !this.props.entity.isScene
+        ) {
+          return false;
+        }
+
         return (
           AFRAME.components[componentName].multiple ||
           usedComponents.indexOf(componentName) === -1
