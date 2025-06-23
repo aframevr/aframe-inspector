@@ -194,6 +194,7 @@ Inspector.prototype = {
 
     Events.on('entitycreate', (definition) => {
       createEntity(definition, (entity) => {
+        entity.pause();
         this.selectEntity(entity);
       });
     });
