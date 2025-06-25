@@ -41,8 +41,15 @@ export default class PropertyRow extends React.Component {
       props.componentname === 'material' &&
       (props.name === 'envMap' || props.name === 'src');
     let type = props.schema.type;
-    if (props.componentname === 'animation' && props.name === 'loop') {
-      // fix wrong number type for animation loop property
+    if (
+      (props.componentname === 'animation' ||
+        props.componentname.startsWith('animation__')) &&
+      props.name === 'loop'
+    ) {
+      // The loop property can be a boolean for an infinite loop or a number to set the number of iterations.
+      // It's auto detected as number because the default value is 0, but for most use case we want an infinite loop
+      // so we're forcing the type to boolean. In the future we could create a custom widget to allow user to choose
+      // between infinite loop and number of iterations.
       type = 'boolean';
     }
 
