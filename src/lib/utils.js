@@ -103,3 +103,44 @@ export function areVectorsEqual(v1, v2) {
     Object.is(v1.w, v2.w)
   );
 }
+
+/**
+ * Check if a property should be shown in the UI based on the `if` object
+ * condition included in the schema for the property.
+ *
+ * When more than one property is used in the object, this applies a logical AND.
+ * When the value is an array, it means one of the entries in this array.
+ *
+ * Example in the light component:
+ * ```js
+ * {
+ *   penumbra: {default: 0, min: 0, max: 1, if: {type: ['spot']}},
+ * }
+ * ```
+ *
+ * @param {string} propertyName - The name of the property
+ * @param {Component} component - The component instance
+ * @returns {boolean} Whether the property should be shown
+ */
+export function shouldShowProperty(propertyName, component) {
+  if (!component.schema[propertyName].if) {
+    return true;
+  }
+  let showProperty = true;
+  for (const [conditionKey, conditionValue] of Object.entries(
+    component.schema[propertyName].if
+  )) {
+    if (Array.isArray(conditionValue)) {
+      if (conditionValue.indexOf(component.data[conditionKey]) === -1) {
+        showProperty = false;
+        break;
+      }
+    } else {
+      if (conditionValue !== component.data[conditionKey]) {
+        showProperty = false;
+        break;
+      }
+    }
+  }
+  return showProperty;
+}

@@ -6,6 +6,7 @@ import PropertyRow from './PropertyRow';
 import Collapsible from '../Collapsible';
 import copy from 'clipboard-copy';
 import { getComponentClipboardRepresentation } from '../../lib/entity';
+import { shouldShowProperty } from '../../lib/utils';
 import Events from '../../lib/Events';
 
 const isSingleProperty = AFRAME.schema.isSingleProperty;
@@ -94,30 +95,7 @@ export default class Component extends React.Component {
 
     return Object.keys(componentData.schema)
       .sort()
-      .filter((propertyName) => {
-        if (!componentData.schema[propertyName].if) {
-          return true;
-        }
-        let showProperty = true;
-        for (const [conditionKey, conditionValue] of Object.entries(
-          componentData.schema[propertyName].if
-        )) {
-          if (Array.isArray(conditionValue)) {
-            if (
-              conditionValue.indexOf(componentData.data[conditionKey]) === -1
-            ) {
-              showProperty = false;
-              break;
-            }
-          } else {
-            if (conditionValue !== componentData.data[conditionKey]) {
-              showProperty = false;
-              break;
-            }
-          }
-        }
-        return showProperty;
-      })
+      .filter((propertyName) => shouldShowProperty(propertyName, componentData))
       .map((propertyName) => (
         <PropertyRow
           key={propertyName}
