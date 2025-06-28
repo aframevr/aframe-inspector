@@ -35,9 +35,9 @@ export function updateEntity(entity, component, property, value) {
  * Remove an entity.
  *
  * @param {Element} entity Entity to remove.
- * @param {boolean} force (Optional) If true it won't ask for confirmation.
+ * @param {boolean} [force=false] If true it won't ask for confirmation.
  */
-export function removeEntity(entity, force) {
+export function removeEntity(entity, force = false) {
   if (entity) {
     if (
       force === true ||
@@ -81,9 +81,9 @@ function findClosestEntity(entity) {
 
 /**
  * Remove the selected entity
- * @param  {boolean} force (Optional) If true it won't ask for confirmation
+ * @param {boolean} [force=false] If true it won't ask for confirmation.
  */
-export function removeSelectedEntity(force) {
+export function removeSelectedEntity(force = false) {
   if (AFRAME.INSPECTOR.selectedEntity) {
     removeEntity(AFRAME.INSPECTOR.selectedEntity, force);
   }
