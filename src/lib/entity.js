@@ -503,14 +503,27 @@ function getUniqueId(baseId) {
 
 export function getComponentClipboardRepresentation(entity, componentName) {
   entity.flushToDOM();
-  const data = entity.getDOMAttribute(componentName);
+  let data = entity.getDOMAttribute(componentName);
   if (!data) {
     return componentName;
   }
 
-  const schema = entity.components[componentName].schema;
-  const attributes = stringifyComponentValue(schema, data);
-  return `${componentName}="${attributes}"`;
+  const component = entity.components[componentName];
+  const schema = component.schema;
+  // If multi-properties component, filter out properties that are the same as their default value
+  if (!isSingleProperty(schema)) {
+    data = { ...data };
+
+    for (const [propertyName, value] of Object.entries(data)) {
+      const defaultValue = getDefaultValue(component, propertyName);
+      if (equal(value, defaultValue)) {
+        delete data[propertyName];
+      }
+    }
+  }
+
+  const properties = stringifyComponentValue(schema, data);
+  return `${componentName}="${properties}"`;
 }
 
 /**
