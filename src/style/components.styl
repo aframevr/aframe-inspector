@@ -1,11 +1,5 @@
 @import './lib';
 
-propertyRowDefined() {
-  .propertyRowDefined {
-    {block}
-  }
-}
-
 .components
   background-color $bg
   color $white
@@ -13,18 +7,6 @@ propertyRowDefined() {
   overflow auto
   position fixed
   width 331px
-
-div.vec2,
-div.vec3,
-div.vec4
-  display inline
-
-.vec2 input.number,
-.vec3 input.number
-  width 40px
-
-.vec4 input.number
-  width 34px
 
 .collapsible-header
   align-items center
@@ -111,6 +93,19 @@ div.vec4
     text-overflow ellipsis
     vertical-align middle
     width 118px
+
+  input.number
+    width 40px
+
+  .vec2 input.number,
+  .vec3 input.number
+    width 40px
+
+  .vec4 input.number
+    width 34px
+
+  .vec2, .vec3, vec4
+    display inline
 
   .map_value
     margin 0 0 0 5px
