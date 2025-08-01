@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 
 export default class ColorWidget extends React.Component {
   static propTypes = {
-    componentname: PropTypes.string.isRequired,
-    entity: PropTypes.object,
+    id: PropTypes.string,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func,
     value: PropTypes.string
@@ -77,6 +76,7 @@ export default class ColorWidget extends React.Component {
           onChange={this.onChange}
         />
         <input
+          id={this.props.id}
           type="text"
           className="color_value"
           value={this.state.value}

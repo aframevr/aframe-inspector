@@ -6,8 +6,6 @@ import { areVectorsEqual } from '../../lib/utils';
 
 export default class Vec2Widget extends React.Component {
   static propTypes = {
-    componentname: PropTypes.string,
-    entity: PropTypes.object,
     onChange: PropTypes.func,
     value: PropTypes.object.isRequired
   };
@@ -39,16 +37,10 @@ export default class Vec2Widget extends React.Component {
   }
 
   render() {
-    const widgetProps = {
-      componentname: this.props.componentname,
-      entity: this.props.entity,
-      onChange: this.onChange
-    };
-
     return (
       <div className="vec2">
-        <NumberWidget name="x" value={this.state.x} {...widgetProps} />
-        <NumberWidget name="y" value={this.state.y} {...widgetProps} />
+        <NumberWidget name="x" value={this.state.x} onChange={this.onChange} />
+        <NumberWidget name="y" value={this.state.y} onChange={this.onChange} />
       </div>
     );
   }

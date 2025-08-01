@@ -64,18 +64,14 @@ function insertOrGetImageAsset(src) {
 
 export default class TextureWidget extends React.Component {
   static propTypes = {
-    componentname: PropTypes.string,
-    entity: PropTypes.object,
-    mapName: PropTypes.string,
+    id: PropTypes.string,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func,
     value: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
   };
 
   static defaultProps = {
-    value: '',
-    mapName: 'nomap',
-    dataURL: ''
+    value: ''
   };
 
   constructor(props) {
@@ -112,7 +108,6 @@ export default class TextureWidget extends React.Component {
           image.width * scale,
           image.height * scale
         );
-        // self.setState({dataURL: canvas.toDataURL()});
       } else {
         context.clearRect(0, 0, canvas.width, canvas.height);
       }
@@ -232,6 +227,7 @@ export default class TextureWidget extends React.Component {
     return (
       <span className="texture">
         <input
+          id={this.props.id}
           className="map_value string"
           type="text"
           title={hint}
