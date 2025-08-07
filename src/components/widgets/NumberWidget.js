@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 
 export default class NumberWidget extends React.Component {
   static propTypes = {
-    componentname: PropTypes.string,
-    entity: PropTypes.object,
+    id: PropTypes.string,
     max: PropTypes.number,
     min: PropTypes.number,
-    name: PropTypes.string,
+    name: PropTypes.string.isRequired,
     onChange: PropTypes.func,
     precision: PropTypes.number,
     step: PropTypes.number,
@@ -159,6 +158,7 @@ export default class NumberWidget extends React.Component {
   render() {
     return (
       <input
+        id={this.props.id}
         ref={this.input}
         className="number"
         type="text"
