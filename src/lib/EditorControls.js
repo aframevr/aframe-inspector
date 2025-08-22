@@ -58,27 +58,27 @@ THREE.EditorControls = function (_object, domElement) {
       return;
     }
     var distance;
+    var localCenterY;
 
     box.setFromObject(target);
 
     if (box.isEmpty() === false && !isNaN(box.min.x)) {
       box.getCenter(center);
       distance = box.getBoundingSphere(sphere).radius;
+      localCenterY = (box.max.y - box.min.y) / 2;
     } else {
-      // Focusing on an Group, AmbientLight, etc
-
+      // Focusing on an AmbientLight, etc
       center.setFromMatrixPosition(target.matrixWorld);
       distance = 0.1;
+      localCenterY = target.position.y;
     }
 
     object.position.copy(
       target.localToWorld(
-        new THREE.Vector3(0, center.y + distance * 0.5, distance * 2.5)
+        new THREE.Vector3(0, localCenterY + distance * 0.5, distance * 2.5)
       )
     );
-    const pos = target.getWorldPosition(new THREE.Vector3());
-    pos.y = center.y;
-    object.lookAt(pos);
+    object.lookAt(center);
 
     scope.dispatchEvent(changeEvent);
   };
