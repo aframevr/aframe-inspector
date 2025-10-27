@@ -32,7 +32,7 @@ export default class AddComponent extends React.Component {
         id = id
           .trim()
           .toLowerCase()
-          .replace(/[^a-z0-9]/g, '');
+          .replace(/[^a-z0-9-]/g, '');
         // With the transform, id could be empty string, so we need to check again.
       }
       if (id) {
