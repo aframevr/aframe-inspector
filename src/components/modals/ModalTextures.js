@@ -4,32 +4,12 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { AwesomeIcon } from '../AwesomeIcon';
 import Events from '../../lib/Events';
 import Modal from './Modal';
-import { insertNewAsset } from '../../lib/assetsUtils';
-
-function getFilename(url, converted = false) {
-  var filename = url.split('/').pop();
-  if (converted) {
-    filename = getValidId(filename);
-  }
-  return filename;
-}
-
-function isValidId(id) {
-  // The correct re should include : and . but A-frame seems to fail while accessing them
-  var re = /^[A-Za-z]+[\w-]*$/;
-  return re.test(id);
-}
-
-function getValidId(name) {
-  // info.name.replace(/\.[^/.]+$/, '').replace(/\s+/g, '')
-  return name
-    .split('.')
-    .shift()
-    .replace(/\s/, '-')
-    .replace(/^\d+\s*/, '')
-    .replace(/[\W]/, '')
-    .toLowerCase();
-}
+import {
+  getFilename,
+  getIdFromUrl,
+  insertNewAsset,
+  isValidId
+} from '../../lib/assetsUtils';
 
 export default class ModalTextures extends React.Component {
   static propTypes = {
@@ -158,15 +138,20 @@ export default class ModalTextures extends React.Component {
     var self = this;
     function onImageLoaded(img) {
       var src = self.preview.current.src;
+      var name = getFilename(src, true);
+      var existingAssetId = getIdFromUrl(src);
+      if (existingAssetId) {
+        name = existingAssetId;
+      }
       self.setState({
         preview: {
           width: self.preview.current.naturalWidth,
           height: self.preview.current.naturalHeight,
           src: src,
           id: '',
-          name: getFilename(src, true),
+          name: name,
           filename: getFilename(src),
-          type: 'new',
+          type: existingAssetId ? 'asset' : 'new',
           loaded: true,
           value: 'url(' + src + ')'
         }
@@ -193,6 +178,7 @@ export default class ModalTextures extends React.Component {
 
   toggleNewDialog = () => {
     this.setState({ addNewDialogOpened: !this.state.addNewDialogOpened });
+    this.clear();
   };
 
   clear() {
@@ -223,16 +209,18 @@ export default class ModalTextures extends React.Component {
   }
 
   addNewAsset = () => {
-    var self = this;
+    if (this.state.preview.type === 'asset') {
+      return;
+    }
+
     insertNewAsset(
       'img',
       this.state.preview.name,
       this.state.preview.src,
-      true,
-      function () {
-        self.generateFromAssets();
-        self.setState({ addNewDialogOpened: false });
-        self.clear();
+      () => {
+        this.generateFromAssets();
+        this.setState({ addNewDialogOpened: false });
+        this.clear();
       }
     );
   };
@@ -244,15 +232,20 @@ export default class ModalTextures extends React.Component {
   renderRegistryImages() {
     var self = this;
     let selectSample = function (image) {
+      let name = getFilename(image.name, true);
+      const existingAssetId = getIdFromUrl(image.src);
+      if (existingAssetId) {
+        name = existingAssetId;
+      }
       self.setState({
         preview: {
           width: image.width,
           height: image.height,
           src: image.src,
           id: '',
-          name: getFilename(image.name, true),
+          name: name,
           filename: getFilename(image.src),
-          type: 'registry',
+          type: existingAssetId ? 'asset' : 'registry',
           loaded: true,
           value: 'url(' + image.src + ')'
         }
@@ -371,9 +364,13 @@ export default class ModalTextures extends React.Component {
                 <span />
               )}
               <br />
-              <button disabled={!validAsset} onClick={this.addNewAsset}>
-                LOAD THIS TEXTURE
-              </button>
+              {preview.type === 'asset' ? (
+                <span>Texture already loaded</span>
+              ) : (
+                <button disabled={!validAsset} onClick={this.addNewAsset}>
+                  LOAD THIS TEXTURE
+                </button>
+              )}
             </div>
           </div>
         </div>
