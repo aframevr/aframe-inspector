@@ -347,11 +347,11 @@ export default class ModalTextures extends React.Component {
               />
               {preview.type !== 'asset' && assetIdTaken && (
                 <div className="iderror">
-                  id already taken by another asset or entity
+                  Name already taken by another asset or entity
                 </div>
               )}
               {this.state.preview.name.length > 0 && !validId && (
-                <div className="iderror">id is not valid</div>
+                <div className="iderror">Name is not valid</div>
               )}
               {preview.type === 'asset' && (
                 <div className="iderror">Texture already loaded</div>
