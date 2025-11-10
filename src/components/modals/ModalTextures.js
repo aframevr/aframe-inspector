@@ -164,12 +164,6 @@ export default class ModalTextures extends React.Component {
     this.imageName.current.focus();
   };
 
-  onNameKeyUp = (event) => {
-    if (event.keyCode === 13 && this.isValidAsset()) {
-      this.addNewAsset();
-    }
-  };
-
   onNameChanged = (event) => {
     var state = this.state.preview;
     state.name = event.target.value;
@@ -201,12 +195,6 @@ export default class ModalTextures extends React.Component {
   onUrlChange = (e) => {
     this.setState({ newUrl: e.target.value });
   };
-
-  isValidAsset() {
-    let validUrl = isValidId(this.state.preview.name);
-    let validAsset = this.state.preview.loaded && validUrl;
-    return validAsset;
-  }
 
   addNewAsset = () => {
     if (this.state.preview.type === 'asset') {
@@ -284,8 +272,12 @@ export default class ModalTextures extends React.Component {
     let isOpen = this.state.isOpen;
     let preview = this.state.preview;
 
-    let validUrl = isValidId(this.state.preview.name);
-    let validAsset = this.isValidAsset();
+    let validId = isValidId(this.state.preview.name);
+    let assetIdTaken =
+      validId &&
+      this.state.preview.type !== 'asset' &&
+      !!document.getElementById(this.state.preview.name);
+    let validAsset = this.state.preview.loaded && !assetIdTaken;
 
     let addNewAssetButton = this.state.addNewDialogOpened
       ? 'BACK'
@@ -336,13 +328,28 @@ export default class ModalTextures extends React.Component {
               <input
                 ref={this.imageName}
                 className={
-                  this.state.preview.name.length > 0 && !validUrl ? 'error' : ''
+                  this.state.preview.name.length > 0 &&
+                  (!validId || assetIdTaken)
+                    ? 'error'
+                    : ''
                 }
                 type="text"
                 value={this.state.preview.name}
                 onChange={this.onNameChanged}
-                onKeyUp={this.onNameKeyUp}
+                onKeyUp={(event) => {
+                  if (event.keyCode === 13 && validAsset) {
+                    this.addNewAsset();
+                  }
+                }}
               />
+              {assetIdTaken && (
+                <div className="iderror">
+                  id already taken by another asset or entity
+                </div>
+              )}
+              {this.state.preview.name.length > 0 && !validId && (
+                <div className="iderror">id is not valid</div>
+              )}
               <img
                 ref={this.preview}
                 width="155px"
