@@ -274,10 +274,12 @@ export default class ModalTextures extends React.Component {
 
     let validId = isValidId(this.state.preview.name);
     let assetIdTaken =
+      validId && !!document.getElementById(this.state.preview.name);
+    let validAsset =
+      this.state.preview.loaded &&
       validId &&
-      this.state.preview.type !== 'asset' &&
-      !!document.getElementById(this.state.preview.name);
-    let validAsset = this.state.preview.loaded && !assetIdTaken;
+      !assetIdTaken &&
+      this.state.preview.type !== 'asset';
 
     let addNewAssetButton = this.state.addNewDialogOpened
       ? 'BACK'
@@ -333,6 +335,7 @@ export default class ModalTextures extends React.Component {
                     ? 'error'
                     : ''
                 }
+                readOnly={preview.type === 'asset'}
                 type="text"
                 value={this.state.preview.name}
                 onChange={this.onNameChanged}
@@ -342,13 +345,16 @@ export default class ModalTextures extends React.Component {
                   }
                 }}
               />
-              {assetIdTaken && (
+              {preview.type !== 'asset' && assetIdTaken && (
                 <div className="iderror">
                   id already taken by another asset or entity
                 </div>
               )}
               {this.state.preview.name.length > 0 && !validId && (
                 <div className="iderror">id is not valid</div>
+              )}
+              {preview.type === 'asset' && (
+                <div className="iderror">Texture already loaded</div>
               )}
               <img
                 ref={this.preview}
@@ -371,13 +377,9 @@ export default class ModalTextures extends React.Component {
                 <span />
               )}
               <br />
-              {preview.type === 'asset' ? (
-                <span>Texture already loaded</span>
-              ) : (
-                <button disabled={!validAsset} onClick={this.addNewAsset}>
-                  LOAD THIS TEXTURE
-                </button>
-              )}
+              <button disabled={!validAsset} onClick={this.addNewAsset}>
+                LOAD THIS TEXTURE
+              </button>
             </div>
           </div>
         </div>
