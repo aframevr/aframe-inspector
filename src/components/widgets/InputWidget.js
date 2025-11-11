@@ -58,6 +58,7 @@ export default class InputWidget extends React.Component {
         onBlur={this.onBlur}
         onChange={this.onChange}
         onKeyDown={this.onKeyDown}
+        spellCheck="false"
       />
     );
   }
