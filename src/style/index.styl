@@ -11,13 +11,48 @@ body.aframe-inspector-opened,
   font-family BlinkMacSystemFont, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif
 
 body.aframe-inspector-opened
-  background $bgdark
-  color #fff
+  background var(--color-base-200)
+  color var(--color-base-content)
   font-size 12px
   margin 0
   overflow hidden
 
+/* :where(:root) has zero specificity compared to :root, so any user defined :root will override the below rule */
+:where(:root) {
+  color-scheme dark
+  --color-base-100: #333;
+  --color-base-200: #242424;
+  --color-base-300: #1d1d1d;
+  --color-base-content: #c3c3c3;
+  --color-primary: #1faaf2;
+  --color-primary-content: #fff;
+  --color-secondary: #92374d;
+  --color-secondary-content: #fafafa;
+  --color-accent: #155373;
+  --color-accent-content: #fff;
+  --color-neutral: #333;
+  --color-neutral-content: #aaa;
+  --color-info: #2cb7ff;
+  --color-info-content: #fff;
+  --color-success: #8b8;
+  --color-success-content: #000;
+  --color-warning: #d66853;
+  --color-warning-content: #000;
+  --color-error: #92374d;
+  --color-error-content: #000;
+}
+
 #aframeInspector
+  --color-base-lighter: unquote("color-mix(in oklab, var(--color-base-100) 90%, white 10%)");
+  --color-primary-hover: unquote("color-mix(in oklab, var(--color-primary) 90%, black 10%)");
+  --color-secondary-hover: unquote("color-mix(in oklab, var(--color-secondary) 90%, black 10%)");
+  --color-accent-hover: unquote("color-mix(in oklab, var(--color-accent) 70%, black 30%)");
+  --color-neutral-hover: unquote("color-mix(in oklab, var(--color-neutral) 90%, black 10%)");
+  --color-property-defined: light-dark(
+    unquote("color-mix(in oklab, var(--color-base-content) 10%, black 90%)"),   /* darker for light theme */
+    unquote("color-mix(in oklab, var(--color-base-content) 10%, white 90%)")    /* lighter for dark theme */
+  )
+
   @import './scenegraph';
   @import './components';
   @import './entity';
@@ -46,7 +81,7 @@ body.aframe-inspector-opened
 
   hr
     border 0
-    border-top 1px solid #ccc
+    border-top 1px solid var(--color-base-content)
 
   a
     cursor pointer
@@ -61,13 +96,6 @@ body.aframe-inspector-opened
     tab-size 4
     white-space pre
     word-wrap normal
-
-  textarea.success
-    border-color #8b8 !important
-
-  textarea.fail
-    background-color rgba(255, 0, 0, 0.05)
-    border-color #f00 !important
 
   textarea,
   input
@@ -93,9 +121,9 @@ body.aframe-inspector-opened
       user-select none
 
   .toggle-edit
-    background-color $red
+    background-color var(--color-secondary)
     box-sizing content-box
-    color #FAFAFA
+    color var(--color-secondary-content)
     font-size 13px
     left 3px
     line-height 16px
@@ -109,12 +137,12 @@ body.aframe-inspector-opened
     z-index 999999999
 
   .toggle-edit:hover
-    background-color rgb(228, 43, 90)
+    background-color var(--color-secondary-hover)
 
   .try-editor-btn
-    background-color $red
+    background-color var(--color-secondary)
     box-sizing content-box
-    color #FAFAFA
+    color var(--color-secondary-content)
     font-size 16px
     line-height 24px
     margin 0
@@ -127,13 +155,13 @@ body.aframe-inspector-opened
     justify-content center
 
   .try-editor-btn:hover
-    background-color rgb(228, 43, 90)
-    color #FAFAFA
+    background-color var(--color-secondary-hover)
+    color var(--color-secondary-content)
 
   .sponsor-btn
-    background-color #ffffff
+    background-color var(--color-neutral)
     box-sizing content-box
-    color #000000
+    color var(--color-neutral-content)
     font-size 13px
     left 127px
     line-height 16px
@@ -154,13 +182,13 @@ body.aframe-inspector-opened
       color rgb(219, 97, 162)
 
   .sponsor-btn:hover
-    background-color rgb(228, 43, 90)
-    color #FAFAFA
+    background-color var(--color-neutral-hover)
+    color var(--color-neutral-content)
 
   input
     background-color transparent
-    border 1px solid #555
-    color #fff
+    border 1px solid var(--color-base-200)
+    color var(--color-base-content)
 
   input,
   .texture canvas
@@ -180,14 +208,14 @@ body.aframe-inspector-opened
     margin 0
     height 18px
     width 18px
-    border 1px solid $white
+    border 1px solid var(--color-base-300)
     border-radius 0
-    background transparent
+    background var(--color-base-300)
     position relative
 
     &:checked
-        border 1px solid $primary
-        background $primary
+        border 1px solid var(--color-base-300)
+        background var(--color-primary)
 
         &::after
             content ''
@@ -206,35 +234,35 @@ body.aframe-inspector-opened
   input.number
     background-color transparent !important
     border 0
-    color #2cb7ff !important
+    color var(--color-primary) !important
     cursor col-resize
     font-size 13px
     padding 2px
 
   input.string:focus,
   input.number:focus
-    border 1px solid $primary
+    border 1px solid var(--color-primary)
 
   input.error
-    border 1px solid #a00
+    border 1px solid var(--color-error)
 
   #sidebar
-    background $bg
+    background var(--color-base-200)
     width 331px
 
   input,
   textarea,
   select
-    background $black
+    background var(--color-base-300)
     border 1px solid transparent
-    color #888
+    color var(--color-base-content)
 
   select
-    background $bglighter
+    background var(--color-base-lighter)
 
   input[type=color]
-    background-color #333
-    border 1px solid #111
+    background-color var(--color-base-100)
+    border 1px solid var(--color-base-300)
     height 28px
     cursor pointer
 
@@ -263,13 +291,13 @@ body.aframe-inspector-opened
     visibility hidden
 
   a.button
-    color #bcbcbc
+    color var(--color-base-content)
     font-size 16px
     line-height 1em
     text-decoration none
 
     &:hover
-      color $primary
+      color var(--color-primary)
 
   @keyframes animateopacity
     from { opacity: 0 }
@@ -314,14 +342,14 @@ body.aframe-inspector-opened
     z-index 9998
 
     a
-      background-color #262626
-      color #bcbcbc
+      background-color var(--color-base-200)
+      color var(--color-base-content)
       padding 5px
       z-index 9998
 
     a.hover
-      background-color #1faaf2
-      color #fff
+      background-color var(--color-primary)
+      color var(--color-primary-content)
 
   .toggle-sidebar.left
     top 0

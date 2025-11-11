@@ -9,6 +9,7 @@
   font-size 13px
 
 .select__indicator
+  color var(--color-base-content)
   height 26px
 
 .select__indicator-separator
@@ -19,17 +20,17 @@
 
 .select__control,
 .select__menu
-  background $bgdark
+  background var(--color-base-300)
 
 .select__option
   padding 5px 10px
 
 .select__placeholder,
 .select__menu
-  color $white
+  color var(--color-base-content)
 
 .select__single-value
-  color $primary
+  color var(--color-primary)
 
 .select__control--is-focused
   box-shadow none !important
@@ -41,11 +42,12 @@
   font-size 11px
 
 .select__option--is-focused
-  background #155373
+  background var(--color-accent-hover)
+  color var(--color-accent-content)
 
 .select__option--is-selected
-  background $primary
-  color $white
+  background var(--color-accent)
+  color var(--color-accent-content)
 
 .select__value-container
   height 26px
@@ -58,12 +60,12 @@
   padding 3px 8px
 
 .select__multi-value
-  background $bg
-  color $primary
+  background var(--color-base-200)
+  color var(--color-primary)
 
 .select__multi-value__label
-  color $primary
+  color var(--color-primary)
 
 .select__multi-value__remove:hover
-  color #fff
-  background $bg
+  color var(--color-base-content)
+  background var(--color-base-200)

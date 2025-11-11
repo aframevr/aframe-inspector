@@ -1,8 +1,8 @@
 @import './lib';
 
 .components
-  background-color $bg
-  color $white
+  background-color var(--color-base-200)
+  color var(--color-base-content)
   height 100%
   overflow auto
   position fixed
@@ -13,7 +13,7 @@
   display flex
   justify-content space-between
   .entityPrint
-    color #fff
+    color var(--color-base-content)
 
 .collapsible-content
   padding 5px 0
@@ -24,7 +24,7 @@
   text-overflow ellipsis
   text-transform uppercase
   white-space nowrap
-  color #fff
+  color var(--color-base-content)
   font-weight 600
   vertical-align bottom !important
 
@@ -34,8 +34,8 @@
   gap 10px
 
 .collapsible .static
-  background $bglight
-  border-bottom 2px solid $bg
+  background var(--color-base-100)
+  border-bottom 2px solid var(--color-base-200)
   box-sizing content-box
   cursor pointer
   height 16px
@@ -43,7 +43,7 @@
   vertical-align bottom
   font-size 13px
   &:hover
-    background $bglighter
+    background var(--color-base-lighter)
 
 .collapsible .static
   margin 0
@@ -57,11 +57,11 @@
   width 0
 
 .collapsible.collapsed .static .collapse-button
-  border-left-color $white
+  border-left-color var(--color-base-content)
   margin-top 4px
 
 .collapsible:not(.collapsed) .static .collapse-button
-  border-top-color $white
+  border-top-color var(--color-base-content)
   margin-top 7px
 
 .propertyRow
@@ -112,8 +112,8 @@
   input[type=number],
   input.string,
   input.number
-    background $bgdark
-    color $primary
+    background var(--color-base-300)
+    color var(--color-primary)
     min-height 26px
     padding-bottom 1px
     padding-left 5px
@@ -140,7 +140,7 @@
     letter-spacing 1px
 
 .propertyRowDefined .text
-  color #FAFAFA
+  color var(--color-property-defined)
   font-weight 600
 
 #addComponentContainer
@@ -149,25 +149,26 @@
   flex-direction column
   justify-content center
   padding 20px 10px
-  background $bgdark
+  background var(--color-base-200)
+  border-top 1px solid var(--color-base-100)
 
   #addComponent
     text-align left
     width 200px
     .select__control
-      background #161616
+      background var(--color-base-300)
       height 35px
-      color $primary
+      color var(--color-primary)
 
   #addComponentHeader
     font-size 15px
-    margin 5px 0 10px 0
+    margin 0 0 10px 0
 
   input[type=text]:focus
     box-shadow none
 
 .Select-menu-outer .is-focused span
-  color #fff
+  color var(--color-base-content)
 
 .component-title
   align-items center
@@ -188,8 +189,6 @@
     padding-left 5px
   .entityName
     max-width 160px
-  .entityIcons
-    color #FAFAFA
 
 #mixinSelect
   width 160px
