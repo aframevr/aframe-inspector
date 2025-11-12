@@ -307,6 +307,7 @@ export default class ModalTextures extends React.Component {
                     value={this.state.newUrl}
                     onChange={this.onUrlChange}
                     onKeyUp={this.onNewUrl}
+                    spellCheck="false"
                   />
                 </li>
                 <li>
@@ -344,6 +345,7 @@ export default class ModalTextures extends React.Component {
                     this.addNewAsset();
                   }
                 }}
+                spellCheck="false"
               />
               {preview.type !== 'asset' && assetIdTaken && (
                 <div className="iderror">
