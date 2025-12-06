@@ -131,11 +131,11 @@ export default class Toolbar extends React.Component {
             )}
           </a>
           <a
-            className="gltfIcon"
+            className="gltfIcon button"
             title="Export to GLTF"
             onClick={this.exportSceneToGLTF}
           >
-            <img src={GLTFIcon} />
+            <GLTFIcon />
           </a>
           <a
             className="button"
