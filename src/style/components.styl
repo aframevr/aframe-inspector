@@ -39,25 +39,6 @@
   font-size 13px
   &:hover
     background $bglighter
-/*
-.collapsible
-  &.collapsed
-    background-color $grayalt
-    .static,
-    .componentHeaderActions
-      color #dedede
-    &:hover
-      background-color $grayhover
-*/
-.collapsible .menu
-  text-align right
-
-.collapsible .menuafter
-  color #bbb
-  content '\2807'
-  font-size 12px
-  padding 5px
-  text-align right
 
 .collapsible .static
   margin 0
@@ -127,7 +108,7 @@
   input.string,
   input.number
     background $bgdark
-    color #1faaf2
+    color $primary
     min-height 26px
     padding-bottom 1px
     padding-left 5px
@@ -145,6 +126,9 @@
   input.string:focus
     box-shadow none
 
+  .color-widget *
+    vertical-align middle
+
   .color_value
     margin 0 0 0 5px
     width 68px
@@ -152,16 +136,7 @@
 
 .propertyRowDefined .text
   color #FAFAFA
-  font-weight 500
-
-.components *
-  vertical-align middle
-
-span.subcomponent
-  color #999
-  float none !important
-  margin-left 10px
-  vertical-align top !important
+  font-weight 600
 
 #addComponentContainer
   align-items center
@@ -195,7 +170,7 @@ span.subcomponent
 
 #componentEntityHeader
   .collapsible-header
-    bottom 4px
+    bottom 5px
     position relative
   .collapse-button
     display none
@@ -206,7 +181,6 @@ span.subcomponent
     padding-left 5px
   .entityName
     max-width 160px
-    top 0
   .entityIcons
     color #FAFAFA
 
@@ -220,4 +194,4 @@ span.subcomponent
     width 120px
 
 #componentEntityHeader .gltfIcon img
-  top 0
+  top 4px
