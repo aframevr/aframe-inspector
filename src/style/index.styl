@@ -177,11 +177,30 @@ body.aframe-inspector-opened
     border-radius 0
 
   input[type="checkbox"]
-    appearance auto
+    appearance none
     cursor pointer
     margin 0
     height 18px
     width 18px
+    border 1px solid $white
+    border-radius 0
+    background transparent
+    position relative
+
+    &:checked
+        border 1px solid $primary
+        background $primary
+
+        &::after
+            content ''
+            position absolute
+            left 5px
+            top 1px
+            width 4px
+            height 9px
+            border solid white
+            border-width 0 2px 2px 0
+            transform rotate(45deg)
 
   input[type="checkbox"]:focus
     box-shadow none
