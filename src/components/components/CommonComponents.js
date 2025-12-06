@@ -98,14 +98,14 @@ export default class CommonComponents extends React.Component {
       <div>
         <a
           title="Export entity to GLTF"
-          className="gltfIcon"
+          className="gltfIcon button"
           onClick={(event) => {
             this.exportToGLTF();
             event.preventDefault();
             event.stopPropagation();
           }}
         >
-          <img src={GLTFIcon} />
+          <GLTFIcon />
         </a>
         <a
           title="Copy entity HTML to clipboard"
