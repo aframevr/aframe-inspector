@@ -28,9 +28,13 @@
 
   .entity
     background $bg
+    box-sizing border-box
     cursor pointer
     display flex
+    gap 6px
     justify-content space-between
+    align-items center
+    line-height 1em
     padding 3px
     width 100%
     white-space nowrap
@@ -41,10 +45,10 @@
     &.active
       background-color #155373
       color #fff
-      .component:hover
-        color #1888c1
       .entityActions
-        display inline
+        align-items center
+        display flex
+        padding-right 2px
 
     &.novisible
       &.active
@@ -69,7 +73,6 @@
 
   .entityActions
     display none
-    margin 0 14px
 
     .button
       color #fff
@@ -80,7 +83,8 @@
     color #CCC
 
   .toolbarActions svg:hover,
-  .entityActions svg:hover
+  .entityActions svg:hover,
+  .search a.button svg:hover
     color $primary
 
   .active svg
@@ -105,14 +109,15 @@
     padding 5px
     font-size 16px
     position relative
+    display flex
 
     input
       color $white
       background $bgdark
-      border-radius 5px
-      height 22px
-      text-indent 10px
-      width 216px
+      border-radius 0
+      box-sizing border-box
+      padding 5px 10px
+      width 100%
 
     >svg, a.button
       position absolute
