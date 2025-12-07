@@ -7,6 +7,7 @@ import {
   faQuestion
 } from '@fortawesome/free-solid-svg-icons';
 import { AwesomeIcon } from '../AwesomeIcon';
+import ThemeSelector from './ThemeSelector';
 import Events from '../../lib/Events';
 import { saveBlob } from '../../lib/utils';
 import GLTFIcon from '../../../assets/gltf.svg';
@@ -144,6 +145,7 @@ export default class Toolbar extends React.Component {
           >
             <AwesomeIcon icon={faFloppyDisk} />
           </a>
+          <ThemeSelector />
           <a className="button" title="Help" onClick={this.openHelpModal}>
             <AwesomeIcon icon={faQuestion} />
           </a>
