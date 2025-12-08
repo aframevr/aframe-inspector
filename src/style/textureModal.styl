@@ -24,39 +24,40 @@
   animation animatetop 0.2s ease-out
   animation-duration 0.2s
   animation-name animatetop
-  background-color #232323
+  background-color var(--color-base-200)
   box-shadow 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5)
   margin auto
   overflow hidden
   padding 0
 
 .close
-  color white
+  color var(--color-base-content)
   float right
   font-size 28px
   font-weight bold
 
 .close:hover,
 .close:focus
-  color #08f
+  color var(--color-primary)
   cursor pointer
   text-decoration none
 
 .modal-header
-  color white
+  color var(--color-base-content)
   padding 2px 16px
 
 .modal-body
+  color var(--color-base-content)
   overflow auto
   padding 16px
 
 .modal-footer
-  color white
+  color var(--color-base-content)
   padding 2px 16px
 
 /* Gallery */
 .gallery
-  background #232323
+  background var(--color-base-200)
   display flex
   flex-wrap wrap
   margin 15px auto 0
@@ -77,10 +78,10 @@
 
 .gallery li.selected,
 .gallery li:hover
-  box-shadow 0 0 0 2px #1eaaf1
+  box-shadow 0 0 0 2px var(--color-primary)
 
 .gallery li .detail
-  background-color #323232
+  background-color var(--color-base-100)
   margin 0
   min-height 60px
   padding 3px 10px
@@ -95,8 +96,10 @@
   width 144px
 
 .preview .iderror
-  background #fff
-  color #a00
+  background unquote("color-mix(in oklab, var(--color-error) 8%, var(--color-base-300))");
+  text-align center
+  color var(--color-error)
+  font-weight 600
   margin-bottom 8px
   padding 3px 5px
   width 148px
@@ -105,7 +108,7 @@
   width 155px
 
 .preview .detail .title
-  color #fff
+  color var(--color-base-content)
   display inline-block
   max-width 155px
   overflow hidden
@@ -114,10 +117,10 @@
 
 .gallery li.selected .detail,
 .gallery li:hover .detail
-  background-color #444
+  background-color var(--color-base-lighter)
 
 .gallery li .detail span
-  color #777
+  color var(--color-base-content)
   display block
   margin-top 4px
   overflow hidden
@@ -127,10 +130,11 @@
 
 .gallery li.selected .detail span,
 .gallery li:hover .detail span
-  color #888
+  color var(--color-base-content)
 
 .gallery li .detail span.title
-  color #fff !important
+  color var(--color-property-defined)
+  font-weight 600
 
 .modal button
   appearance none
@@ -147,27 +151,26 @@
   outline none
 
 .modal button
-  background-color #1eaaf1
+  background-color var(--color-primary)
   border none
-  color #fff
+  color var(--color-primary-content)
 
 .modal button:hover,
 .modal button.hover
-  background-color #346392
-  text-shadow -1px 1px #27496d
+  background-color var(--color-primary-hover)
 
 .modal button:active,
 .modal button.active
-  background-color #27496d
-  text-shadow -1px 1px #193047
+  background-color var(--color-primary-hover)
 
 .modal button:disabled
-  background-color #888
-  cursor none
+  background-color #666
+  color #fff
+  cursor default
 
 .newimage
-  background-color #323232
-  color #bcbcbc
+  background-color var(--color-base-100)
+  color var(--color-base-content)
   display flex
   font-size 13px
   justify-content space-between
@@ -176,7 +179,7 @@
   padding 10px
 
 .newimage input
-  color #1eaaf1
+  color var(--color-primary)
   padding 3px 5px
 
 .texture canvas + input
@@ -213,5 +216,5 @@
   width 350px
 
 .texture canvas
-  border 1px solid $bglight
+  border 1px solid var(--color-base-100)
   cursor pointer

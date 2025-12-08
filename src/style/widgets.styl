@@ -1,21 +1,21 @@
 @import './lib';
 
 .Select-control
-  background-color #222 !important
+  background-color var(--color-base-300) !important
   border none
   border-radius 0
-  color $primary
+  color var(--color-primary)
   font-family $monosapce
 
 .Select-menu-outer
   border none
 
 .Select-menu-outer .is-focused
-  background-color $primary !important
-  color $white
+  background-color var(--color-primary) !important
+  color var(--color-base-content)
 
 .Select-option
-  background-color #222 !important
+  background-color var(--color-base-300) !important
 
 .select-widget
   display inline-block
@@ -23,7 +23,7 @@
 
 .Select-placeholder,
 .Select--single > .Select-control .Select-value
-  color $primary !important
+  color var(--color-primary) !important
 
 .Select-value-label
-  color $primary !important
+  color var(--color-primary) !important

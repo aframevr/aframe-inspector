@@ -2,8 +2,8 @@
 
 #viewportBar
   align-items center
-  background-color $bg
-  color $white
+  background-color var(--color-base-200)
+  color var(--color-base-content)
   display flex
   flex-grow 2
   height 32px
@@ -21,14 +21,14 @@
       padding 8px
 
     &:not(.active) svg:hover
-      background-color $grayhover
+      background-color var(--color-base-lighter)
 
   .active svg
-    background-color $primary
-    color #fff
+    background-color var(--color-primary)
+    color var(--color-primary-content)
 
   .active:hover svg
-    color #fff !important
+    color var(--color-primary-content) !important
 
 .local-transform
   display flex
@@ -37,7 +37,7 @@
   padding 0 10px
 
 .local-transform label
-  color $lightgray
+  color var(--color-base-content)
 
 #cameraSelect
   cursor pointer
@@ -52,9 +52,9 @@
   .select__control
     background none
   .select__single-value
-    color $white
+    color var(--color-base-content)
     &:hover
-      color $primary
+      color var(--color-primary)
 
 #viewportHud
   display none
