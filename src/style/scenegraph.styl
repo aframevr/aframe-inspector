@@ -4,18 +4,14 @@
   background-color $bg
 
   .toolbarActions
-    padding 0 0 5px
+    padding 5px 10px
     display flex
     align-items baseline
+    justify-content space-between
 
     a.disabled
       color #666
       cursor default
-
-    .helpButtonContainer
-      flex-grow 1
-      padding-right 10px
-      text-align right
 
 #scenegraph
   background $bg
@@ -50,6 +46,9 @@
         display flex
         padding-right 2px
 
+        a.button:hover
+          color $primary
+
     &.novisible
       &.active
         span,
@@ -79,17 +78,6 @@
       font-size 12px
       margin-left 6px
 
-  svg
-    color #CCC
-
-  .toolbarActions svg:hover,
-  .entityActions svg:hover,
-  .search a.button svg:hover
-    color $primary
-
-  .active svg
-    color #FAFAFA
-
   .id
     color #ccc
 
@@ -101,9 +89,6 @@
     display inline-block
     text-align center
     width 14px
-
-  .icons a.button
-    color #fff
 
   .search
     padding 5px

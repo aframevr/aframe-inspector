@@ -9,19 +9,12 @@
   height 32px
   font-size 15px
   justify-content space-between
-  left 0
-  margin 0 auto
-  right 0
-  top 0
+  padding 0 5px
 
 .toolbarButtons
   display flex
   align-items center
   gap 6px
-
-  *
-    margin-left 0 !important
-    vertical-align middle
 
   a.button
     & svg
@@ -38,15 +31,13 @@
     color #fff !important
 
 .local-transform
-  padding-left 10px
-  padding-right 20px
+  display flex
+  align-items center
+  gap 5px
+  padding 0 10px
 
 .local-transform label
   color $lightgray
-  padding-left 5px
-
-.local-transform a.button
-  padding-top 0
 
 #cameraSelect
   cursor pointer
@@ -56,11 +47,8 @@
     padding-right 3px
 
 #cameraToolbar
-  margin-left 5px
   align-items center
   display flex
-  a
-    margin-right 10px
   .select__control
     background none
   .select__single-value

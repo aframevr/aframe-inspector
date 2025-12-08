@@ -144,11 +144,9 @@ export default class Toolbar extends React.Component {
           >
             <AwesomeIcon icon={faFloppyDisk} />
           </a>
-          <div className="helpButtonContainer">
-            <a className="button" title="Help" onClick={this.openHelpModal}>
-              <AwesomeIcon icon={faQuestion} />
-            </a>
-          </div>
+          <a className="button" title="Help" onClick={this.openHelpModal}>
+            <AwesomeIcon icon={faQuestion} />
+          </a>
         </div>
       </div>
     );
