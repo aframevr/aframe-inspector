@@ -5,11 +5,6 @@ body.aframe-inspector-opened,
 .sponsor-btn
   font-family var(--font-normal)
 
-.wf-roboto-n4-active body.aframe-inspector-opened,
-.wf-roboto-n4-active .toggle-edit,
-.wf-roboto-n4-active .sponsor-btn
-  font-family var(--font-normal)
-
 body.aframe-inspector-opened
   background var(--color-base-200)
   color var(--color-base-content)
@@ -64,22 +59,18 @@ body.aframe-inspector-opened
   @import './viewport';
   @import './widgets';
 
-  .Select,
+  .select__control,
   code,
   pre,
   input,
   textarea,
   select
-    font-family var(--font-monospace)
     font-size 13px
 
-  .wf-robotomono-n4-active .Select,
-  .wf-robotomono-n4-active code,
-  .wf-robotomono-n4-active pre,
-  .wf-robotomono-n4-active input,
-  .wf-robotomono-n4-active textarea,
-  .wf-robotomono-n4-active select
-    font-family Roboto Mono, Consolas, Andale Mono, Monaco, Courier New, monospace
+  code,
+  pre,
+  textarea
+    font-family var(--font-monospace)
 
   hr
     border 0
@@ -90,9 +81,6 @@ body.aframe-inspector-opened
 
   button
     position relative
-
-  code
-    font-family Consolas, Andale Mono, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace
 
   textarea
     tab-size 4
