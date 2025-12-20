@@ -10,6 +10,7 @@ module.exports = {
     'no-invalid-position-at-import-rule': null,
     'selector-class-pattern': null,
     'selector-id-pattern': null,
+    'selector-not-notation': null,
     'value-keyword-case': null,
     'order/properties-alphabetical-order': true
   },
