@@ -1,6 +1,7 @@
 {
   "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:react/jsx-runtime", "standard"],
   "rules": {
+    "indent": "off",
     "multiline-ternary": "off",
     "no-console": "off",
     "no-lone-blocks": "off",
