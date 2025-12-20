@@ -1,7 +1,7 @@
 .modal
   animation animateopacity 0.2s ease-out
-  background-color rgb(0, 0, 0)
-  background-color rgba(0, 0, 0, 0.6)
+  background-color rgb(0 0 0)
+  background-color rgb(0 0 0 / 60%)
   display flex
   height 100%
   left 0
@@ -25,7 +25,7 @@
   animation-duration 0.2s
   animation-name animatetop
   background-color var(--color-base-200)
-  box-shadow 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5)
+  box-shadow 0 4px 8px 0 rgb(0 0 0 / 50%), 0 6px 20px 0 rgb(0 0 0 / 50%)
   margin auto
   overflow hidden
   padding 0
@@ -70,7 +70,7 @@
 
 .gallery li
   border-radius 2px
-  box-shadow 0 0 6px rgba(0, 0, 0, 0.6)
+  box-shadow 0 0 6px rgb(0 0 0 / 60%)
   cursor pointer
   margin 8px
   overflow hidden
@@ -96,12 +96,12 @@
   width 144px
 
 .preview .iderror
-  background unquote("color-mix(in oklab, var(--color-error) 8%, var(--color-base-300))");
-  text-align center
+  background unquote("color-mix(in oklab, var(--color-error) 8%, var(--color-base-300))")
   color var(--color-error)
   font-weight 600
   margin-bottom 8px
   padding 3px 5px
+  text-align center
   width 148px
 
 .preview button
@@ -190,13 +190,13 @@
   display none
 
 .assets.search
-  position relative
   margin-top 10px
+  position relative
   width 200px
 
 .assets.search svg
   position absolute
-  right 0px
+  right 0
   top 5px
 
 .new_asset_options

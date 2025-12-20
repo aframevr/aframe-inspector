@@ -14,7 +14,8 @@ body.aframe-inspector-opened
 
 /* :where(:root) has zero specificity compared to :root, so any user defined :root will override the below rule */
 :where(:root) {
-  color-scheme dark
+  color-scheme: dark;
+
   --color-base-100: #333;
   --color-base-200: #242424;
   --color-base-300: #1d1d1d;
@@ -83,9 +84,9 @@ body.aframe-inspector-opened
     position relative
 
   textarea
+    overflow-wrap normal
     tab-size 4
     white-space pre
-    word-wrap normal
 
   textarea,
   input
@@ -106,7 +107,7 @@ body.aframe-inspector-opened
 
   #sidebar,
   #scenegraph,
-    .panel
+  .panel
       cursor default
       user-select none
 
@@ -133,16 +134,16 @@ body.aframe-inspector-opened
     background-color var(--color-secondary)
     box-sizing content-box
     color var(--color-secondary-content)
+    display flex
     font-size 16px
+    gap 5px
+    justify-content center
     line-height 24px
     margin 0
     padding 6px 10px
     text-align center
     text-decoration none
     width 200px
-    display flex
-    gap 5px
-    justify-content center
 
   .try-editor-btn:hover
     background-color var(--color-secondary-hover)
@@ -152,7 +153,10 @@ body.aframe-inspector-opened
     background-color var(--color-neutral)
     box-sizing content-box
     color var(--color-neutral-content)
+    display flex
     font-size 13px
+    gap 5px
+    justify-content center
     left 127px
     line-height 16px
     margin 0
@@ -163,13 +167,10 @@ body.aframe-inspector-opened
     top 3px
     width 80px
     z-index 999999999
-    display flex
-    gap 5px
-    justify-content center
 
     svg
+      color rgb(219 97 162)
       fill currentColor
-      color rgb(219, 97, 162)
 
   .sponsor-btn:hover
     background-color var(--color-neutral-hover)
@@ -184,39 +185,39 @@ body.aframe-inspector-opened
   .texture canvas
     transition 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out
 
-  input[type=text],
-  input[type=number],
+  input[type="text"],
+  input[type="number"],
   input.string,
   input.number
+    border-radius 0
     min-height 14px
     outline none
-    border-radius 0
 
   input[type="checkbox"]
     appearance none
-    cursor pointer
-    margin 0
-    height 18px
-    width 18px
+    background var(--color-base-300)
     border 1px solid var(--color-base-300)
     border-radius 0
-    background var(--color-base-300)
+    cursor pointer
+    height 18px
+    margin 0
     position relative
+    width 18px
 
     &:checked
-        border 1px solid var(--color-base-300)
         background var(--color-primary)
+        border 1px solid var(--color-base-300)
 
         &::after
-            content ''
-            position absolute
-            left 5px
-            top 1px
-            width 4px
-            height 9px
             border solid white
             border-width 0 2px 2px 0
+            content ''
+            height 9px
+            left 5px
+            position absolute
+            top 1px
             transform rotate(45deg)
+            width 4px
 
   input[type="checkbox"]:focus
     box-shadow none
@@ -250,26 +251,26 @@ body.aframe-inspector-opened
   select
     background var(--color-base-lighter)
 
-  input[type=color]
+  input[type="color"]
     background-color var(--color-base-100)
     border 1px solid var(--color-base-300)
-    height 26px
     cursor pointer
+    height 26px
     padding 0
     width 50px
 
   /* Note these vendor-prefixed selectors cannot be grouped! */
-  input[type=color]::-webkit-color-swatch
+  input[type="color"]::-webkit-color-swatch
     border 0  /* To remove the gray border. */
 
-  input[type=color]::-webkit-color-swatch-wrapper
-    padding 0  /* To remove the inner padding. */
+  input[type="color"]::-webkit-color-swatch-wrapper
     border-radius 0  /* So it appears as rectangle instead of an ovale in Safari */
+    padding 0  /* To remove the inner padding. */
 
-  input[type=color]::-moz-color-swatch
+  input[type="color"]::-moz-color-swatch
     border 0
 
-  input[type=color]::-moz-focus-inner
+  input[type="color"]::-moz-focus-inner
     border 0  /* To remove the inner border (specific to Firefox). */
     padding 0
 
@@ -302,9 +303,9 @@ body.aframe-inspector-opened
 
   #inspectorContainer
     display flex
+    height 100%
     justify-content space-between
     left 0
-    height 100%
     pointer-events none
     position fixed
     top 0
@@ -338,9 +339,9 @@ body.aframe-inspector-opened
       color var(--color-primary-content)
 
   .toggle-sidebar.left
-    top 0
     left 0
+    top 0
 
   .toggle-sidebar.right
-    top 0
     right 0
+    top 0
