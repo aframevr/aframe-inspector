@@ -4,10 +4,10 @@
   background-color var(--color-base-200)
 
   .toolbarActions
-    padding 5px 10px
-    display flex
     align-items baseline
+    display flex
     justify-content space-between
+    padding 5px 10px
 
     a.disabled
       color #666
@@ -23,17 +23,17 @@
   width 230px
 
   .entity
+    align-items center
     background var(--color-base-200)
     box-sizing border-box
     cursor pointer
     display flex
     gap 6px
     justify-content space-between
-    align-items center
     line-height 1em
     padding 3px
-    width 100%
     white-space nowrap
+    width 100%
 
     &:hover
       background var(--color-accent-hover)
@@ -42,6 +42,7 @@
     &.active
       background-color var(--color-accent)
       color var(--color-accent-content)
+
       .entityActions
         align-items center
         display flex
@@ -95,16 +96,16 @@
     color var(--color-base-content)
 
   .search
-    padding 5px
-    font-size 16px
-    position relative
     display flex
+    font-size 16px
+    padding 5px
+    position relative
 
     input
-      color var(--color-primary)
       background var(--color-base-300)
       border-radius 0
       box-sizing border-box
+      color var(--color-primary)
       padding 5px 10px
       width 100%
 
@@ -136,7 +137,7 @@
     background var(--color-base-300)
     border 1px solid var(--color-base-300)
     border-radius 4px
-    box-shadow 0 4px 12px rgba(0, 0, 0, 0.3)
+    box-shadow 0 4px 12px rgb(0 0 0 / 30%)
     max-height 300px
     overflow-y auto
     position absolute

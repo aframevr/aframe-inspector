@@ -5,8 +5,6 @@
   border-radius 0
   cursor pointer
   min-height 26px
-  font-family $monospace
-  font-size 13px
 
 .select__indicator
   color var(--color-base-content)
@@ -23,6 +21,7 @@
   background var(--color-base-300)
 
 .select__option
+  cursor pointer
   padding 5px 10px
 
 .select__placeholder,
@@ -34,9 +33,6 @@
 
 .select__control--is-focused
   box-shadow none !important
-
-.select__option
-  cursor pointer
 
 .select__label
   font-size 11px
@@ -52,6 +48,7 @@
 .select__value-container
   height 26px
   position static
+
   &.select__value-container--is-multi
     height auto
     padding 6px
@@ -67,5 +64,5 @@
   color var(--color-primary)
 
 .select__multi-value__remove:hover
-  color var(--color-base-content)
   background var(--color-base-200)
+  color var(--color-base-content)

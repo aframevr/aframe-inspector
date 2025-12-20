@@ -12,6 +12,7 @@
   align-items center
   display flex
   justify-content space-between
+
   .entityPrint
     color var(--color-base-content)
 
@@ -19,18 +20,18 @@
   padding 5px 0
 
 .componentTitle span
+  color var(--color-base-content)
+  font-weight 600
   max-width 200px
   overflow hidden
   text-overflow ellipsis
   text-transform uppercase
-  white-space nowrap
-  color var(--color-base-content)
-  font-weight 600
   vertical-align bottom !important
+  white-space nowrap
 
 .componentHeaderActions
-  display flex
   align-items center
+  display flex
   gap 10px
 
 .collapsible .static
@@ -38,22 +39,21 @@
   border-bottom 2px solid var(--color-base-200)
   box-sizing content-box
   cursor pointer
-  height 16px
-  padding 8px 10px 12px 10px
-  vertical-align bottom
   font-size 13px
+  height 16px
+  margin 0
+  padding 8px 10px 12px
+  vertical-align bottom
+
   &:hover
     background var(--color-base-lighter)
-
-.collapsible .static
-  margin 0
 
 .collapsible .static .collapse-button
   border 6px solid transparent
   float left
   height 0
-  margin-right 10px
   margin-left 2px
+  margin-right 10px
   width 0
 
 .collapsible.collapsed .static .collapse-button
@@ -90,44 +90,31 @@
   .vec4 input.number
     width 34px
 
-  .vec2, .vec3, vec4
+  .vec2, .vec3, .vec4
     display inline
 
   .map_value
     margin 0 0 0 5px
     width 68px
 
-  .Select-control
-    font-size 11px
-    height 24px
-
-  .Select-placeholder,
-  .Select--single > .Select-control .Select-value
-    line-height 19px
-
-  .Select-input
-    height 22px
-
-  input[type=text],
-  input[type=number],
+  input[type="text"],
+  input[type="number"],
   input.string,
   input.number
     background var(--color-base-300)
     color var(--color-primary)
     min-height 26px
-    padding-bottom 1px
-    padding-left 5px
-    padding-right 5px
-    padding-top 1px
+    padding 1px 5px
+
     &:last-child
       padding-right 0
 
   input.string
-    padding-left 8px
     box-sizing border-box
+    padding-left 8px
     width 165px
 
-  input[type=text]:focus,
+  input[type="text"]:focus,
   input.string:focus
     box-shadow none
 
@@ -135,9 +122,9 @@
     vertical-align middle
 
   .color_value
+    letter-spacing 1px
     margin 0 0 0 5px
     width 68px
-    letter-spacing 1px
 
 .propertyRowDefined .text
   color var(--color-property-defined)
@@ -145,30 +132,28 @@
 
 #addComponentContainer
   align-items center
+  background var(--color-base-200)
+  border-top 1px solid var(--color-base-100)
   display flex
   flex-direction column
   justify-content center
   padding 20px 10px
-  background var(--color-base-200)
-  border-top 1px solid var(--color-base-100)
 
   #addComponent
     text-align left
     width 200px
+
     .select__control
       background var(--color-base-300)
-      height 35px
       color var(--color-primary)
+      height 35px
 
   #addComponentHeader
     font-size 15px
-    margin 0 0 10px 0
+    margin 0 0 10px
 
-  input[type=text]:focus
+  input[type="text"]:focus
     box-shadow none
-
-.Select-menu-outer .is-focused span
-  color var(--color-base-content)
 
 .component-title
   align-items center
@@ -178,15 +163,20 @@
   .collapsible-header
     bottom 5px
     position relative
+
   a.button
     margin-left 10px
+
   .collapse-button
     display none
+
   .static
     height 13px
+
   .entityPrint
     font-size 15px
     padding-left 5px
+
   .entityName
     max-width 160px
 
@@ -195,6 +185,7 @@
 
 .propertyRow .texture
   display flex
+
   input
     margin-left 0
     width 120px
