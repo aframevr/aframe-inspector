@@ -3,12 +3,12 @@
 body.aframe-inspector-opened,
 .toggle-edit,
 .sponsor-btn
-  font-family BlinkMacSystemFont, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif
+  font-family var(--font-normal)
 
 .wf-roboto-n4-active body.aframe-inspector-opened,
 .wf-roboto-n4-active .toggle-edit,
 .wf-roboto-n4-active .sponsor-btn
-  font-family BlinkMacSystemFont, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif
+  font-family var(--font-normal)
 
 body.aframe-inspector-opened
   background var(--color-base-200)
@@ -40,6 +40,8 @@ body.aframe-inspector-opened
   --color-warning-content: #000;
   --color-error: #92374d;
   --color-error-content: #000;
+  --font-normal: system-ui, BlinkMacSystemFont, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-monospace: Consolas, "Andale Mono", Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace;
 }
 
 #aframeInspector
@@ -68,7 +70,7 @@ body.aframe-inspector-opened
   input,
   textarea,
   select
-    font-family $monospace
+    font-family var(--font-monospace)
     font-size 13px
 
   .wf-robotomono-n4-active .Select,
