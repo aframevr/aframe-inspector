@@ -35,5 +35,8 @@ jobs:
       - name: Check Lint
         run: npm run lint
 
+      - name: Check CSS Lint
+        run: npm run lint:css
+
       - name: Check Build
         run: npm run dist
