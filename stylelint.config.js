@@ -3,6 +3,9 @@ module.exports = {
   plugins: ['stylelint-order'],
   ignoreFiles: ['src/style/themes.css'],
   rules: {
+    'alpha-value-notation': null,
+    'color-function-alias-notation': null,
+    'color-function-notation': null,
     'declaration-property-value-no-unknown': null,
     'import-notation': null,
     'media-feature-range-notation': 'prefix',
