@@ -39,12 +39,10 @@ export function insertNewAsset(type, id, src, onLoadedCallback = undefined) {
   let element;
   switch (type) {
     case 'img':
-      {
-        element = document.createElement('img');
-        element.id = id;
-        element.src = src;
-        element.crossOrigin = 'anonymous';
-      }
+      element = document.createElement('img');
+      element.id = id;
+      element.src = src;
+      element.crossOrigin = 'anonymous';
       break;
   }
 

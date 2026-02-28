@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars, react/no-danger */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';

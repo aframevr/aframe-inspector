@@ -1,4 +1,4 @@
-/* eslint-disable curly, dot-notation */
+/* eslint-disable curly */
 /**
  * @author arodic / https://github.com/arodic
  */

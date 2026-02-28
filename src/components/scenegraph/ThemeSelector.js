@@ -51,16 +51,12 @@ function buildThemeOptions(themes) {
 
 export default function ThemeSelector() {
   const [themeOptions] = useState(() => buildThemeOptions(availableThemes));
-  const [theme, setTheme] = useState('');
+  const [theme, setTheme] = useState(() => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored && availableThemes.includes(stored) ? stored : '';
+  });
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-
-  useEffect(() => {
-    // Validate and set initial theme
-    const stored = localStorage.getItem(STORAGE_KEY);
-    const isValid = stored && themeOptions.some((opt) => opt.value === stored);
-    setTheme(isValid ? stored : '');
-  }, []);
 
   // Apply theme to DOM and localStorage
   useEffect(() => {

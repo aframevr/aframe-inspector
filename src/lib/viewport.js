@@ -1,5 +1,6 @@
-/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-unused-vars
 import TransformControls from './TransformControls.js';
+// eslint-disable-next-line no-unused-vars
 import EditorControls from './EditorControls.js';
 
 import { copyCameraPosition } from './cameras';
