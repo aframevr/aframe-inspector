@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { faClipboard } from '@fortawesome/free-solid-svg-icons';
-import { AwesomeIcon } from '../AwesomeIcon';
+import CopyToClipboardButton from '../CopyToClipboardButton';
 import { InputWidget } from '../widgets';
 import DEFAULT_COMPONENTS from './DefaultComponents';
 import PropertyRow from './PropertyRow';
@@ -10,7 +9,6 @@ import Mixins from './Mixins';
 import { getEntityClipboardRepresentation } from '../../lib/entity';
 import EntityRepresentation from '../EntityRepresentation';
 import Events from '../../lib/Events';
-import copy from 'clipboard-copy';
 import { saveBlob } from '../../lib/utils';
 import GLTFIcon from '../../../assets/gltf.svg';
 
@@ -107,17 +105,11 @@ export default class CommonComponents extends React.Component {
         >
           <GLTFIcon />
         </a>
-        <a
+        <CopyToClipboardButton
           title="Copy entity HTML to clipboard"
-          className="button"
-          onClick={(event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            copy(getEntityClipboardRepresentation(this.props.entity));
-          }}
-        >
-          <AwesomeIcon icon={faClipboard} />
-        </a>
+          message="Copied entity HTML to clipboard"
+          text={() => getEntityClipboardRepresentation(this.props.entity)}
+        />
       </div>
     );
 
