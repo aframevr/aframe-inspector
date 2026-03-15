@@ -69,11 +69,16 @@
   display flex
   font-size 13px
   min-height 30px
-  padding 2px 15px
+  padding 2px 30px 2px 15px
+  position relative
+
+  &:has(.vec3)
+    padding-right 15px
 
   .text
     cursor default
     display inline-block
+    flex-shrink 0
     overflow hidden
     padding-right 10px
     text-overflow ellipsis
@@ -112,7 +117,7 @@
   input.string
     box-sizing border-box
     padding-left 8px
-    width 165px
+    width 150px
 
   input[type="text"]:focus,
   input.string:focus
@@ -129,6 +134,25 @@
 .propertyRowDefined .text
   color var(--color-property-defined)
   font-weight 600
+
+.propertyRowExplicitlySetToDefault .text
+  font-style italic
+  font-weight 600
+
+.propertyRow .reset-button
+  background none
+  border none
+  color var(--color-base-content)
+  cursor pointer
+  opacity 0.6
+  padding 2px
+  position absolute
+  right 8px
+  top 50%
+  transform translateY(-50%)
+
+  &:hover
+    opacity 1
 
 #addComponentContainer
   align-items center

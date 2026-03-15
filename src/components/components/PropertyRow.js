@@ -2,7 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import { faRotateLeft } from '@fortawesome/free-solid-svg-icons';
 
+import { AwesomeIcon } from '../AwesomeIcon';
 import BooleanWidget from '../widgets/BooleanWidget';
 import ColorWidget from '../widgets/ColorWidget';
 import InputWidget from '../widgets/InputWidget';
@@ -36,7 +38,7 @@ export default class PropertyRow extends React.Component {
     this.id = props.componentname + ':' + props.name;
   }
 
-  getWidget() {
+  getType() {
     const props = this.props;
     let type = props.schema.type;
 
@@ -56,6 +58,13 @@ export default class PropertyRow extends React.Component {
       // between infinite loop and number of iterations.
       type = 'boolean';
     }
+
+    return type;
+  }
+
+  getWidget() {
+    const props = this.props;
+    const type = this.getType();
 
     let value =
       type === 'selector'
@@ -152,18 +161,49 @@ export default class PropertyRow extends React.Component {
     }
   }
 
+  isPropertyExplicitlySet() {
+    const props = this.props;
+    if (props.isSingle) {
+      return props.entity.getDOMAttribute(props.componentname) !== null;
+    } else {
+      return (
+        (props.entity.getDOMAttribute(props.componentname) || {})[
+          props.name
+        ] !== undefined
+      );
+    }
+  }
+
   render() {
     const props = this.props;
-    const value =
-      props.schema.type === 'selector'
-        ? props.entity.getDOMAttribute(props.componentname)?.[props.name]
-        : JSON.stringify(props.data);
-    const title =
-      props.name + '\n - type: ' + props.schema.type + '\n - value: ' + value;
+    const type = this.getType();
+    const isPropertyDefined = this.isPropertyDefined();
+    const isPropertyExplicitlySet = this.isPropertyExplicitlySet();
 
+    let title = props.name + '\n - type: ' + type;
+    if (type === 'number' || type === 'int') {
+      const schema = props.schema;
+      if (schema.hasOwnProperty('min') && schema.min !== -Infinity) {
+        title += '\n - min: ' + schema.min;
+      }
+      if (schema.hasOwnProperty('max') && schema.max !== Infinity) {
+        title += '\n - max: ' + schema.max;
+      }
+    }
+    if (!isPropertyDefined) {
+      if (isPropertyExplicitlySet) {
+        title += '\n\nexplicitly set to default value';
+      } else {
+        title += '\n\ndefault value';
+      }
+    } else {
+      title += '\n\nmodified value';
+    }
     const className = clsx({
       propertyRow: true,
-      propertyRowDefined: this.isPropertyDefined()
+      propertyRowDefined: isPropertyDefined,
+      propertyRowExplicitlySetToDefault:
+        !isPropertyDefined && isPropertyExplicitlySet
     });
 
     return (
@@ -172,6 +212,22 @@ export default class PropertyRow extends React.Component {
           {props.name}
         </label>
         {this.getWidget()}
+        {isPropertyExplicitlySet && type !== 'map' && (
+          <button
+            className="reset-button"
+            title="Reset"
+            onClick={() => {
+              updateEntity(
+                props.entity,
+                props.componentname,
+                !props.isSingle ? props.name : '',
+                null
+              );
+            }}
+          >
+            <AwesomeIcon icon={faRotateLeft} />
+          </button>
+        )}
       </div>
     );
   }

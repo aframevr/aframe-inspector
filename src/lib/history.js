@@ -18,13 +18,21 @@ Events.on('entityupdate', (payload) => {
     if (payload.property) {
       updates[entity.id][payload.component] =
         updates[entity.id][payload.component] || {};
-      if (component.schema[payload.property]) {
+      if (value === null) {
+        delete updates[entity.id][payload.component][payload.property];
+      } else if (component.schema[payload.property]) {
         value = component.schema[payload.property].stringify(payload.value);
+        updates[entity.id][payload.component][payload.property] = value;
+      } else {
+        updates[entity.id][payload.component][payload.property] = value;
       }
-      updates[entity.id][payload.component][payload.property] = value;
     } else {
-      value = component.schema.stringify(payload.value);
-      updates[entity.id][payload.component] = value;
+      if (value === null) {
+        delete updates[entity.id][payload.component];
+      } else {
+        value = component.schema.stringify(payload.value);
+        updates[entity.id][payload.component] = value;
+      }
     }
   }
 });
