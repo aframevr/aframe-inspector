@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { faClipboard, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { AwesomeIcon } from '../AwesomeIcon';
 import PropertyRow from './PropertyRow';
 import Collapsible from '../Collapsible';
-import copy from 'clipboard-copy';
+import CopyToClipboardButton from '../CopyToClipboardButton';
 import { getComponentClipboardRepresentation } from '../../lib/entity';
 import { shouldShowProperty } from '../../lib/utils';
 import Events from '../../lib/Events';
@@ -119,22 +119,16 @@ export default class Component extends React.Component {
             <span>{componentName}</span>
           </span>
           <div className="componentHeaderActions">
-            <a
+            <CopyToClipboardButton
               title="Copy to clipboard"
-              className="button"
-              onClick={(event) => {
-                event.preventDefault();
-                event.stopPropagation();
-                copy(
-                  getComponentClipboardRepresentation(
-                    this.state.entity,
-                    componentName.toLowerCase()
-                  )
-                );
-              }}
-            >
-              <AwesomeIcon icon={faClipboard} />
-            </a>
+              message="Copied to clipboard"
+              text={() =>
+                getComponentClipboardRepresentation(
+                  this.state.entity,
+                  componentName.toLowerCase()
+                )
+              }
+            />
             <a
               title="Remove component"
               className="button"
