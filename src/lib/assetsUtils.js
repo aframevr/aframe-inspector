@@ -7,7 +7,8 @@ export function getUrlFromId(assetId) {
 }
 
 export function getIdFromUrl(url) {
-  return document.querySelector("a-assets > [src='" + url + "']")?.id;
+  const escaped = url.replace(/'/g, "\\'");
+  return document.querySelector(`a-assets > [src='${escaped}']`)?.id;
 }
 
 export function getFilename(url, converted = false) {
@@ -20,19 +21,23 @@ export function getFilename(url, converted = false) {
 
 export function isValidId(id) {
   // The correct re should include : and . but A-frame seems to fail while accessing them
-  var re = /^[A-Za-z]+[\w-]*$/;
+  var re = /^[A-Za-z_]+[\w-]*$/;
   return re.test(id);
 }
 
 export function getValidId(name) {
-  // info.name.replace(/\.[^/.]+$/, '').replace(/\s+/g, '')
-  return name
-    .split('.')
-    .shift()
-    .replace(/\s/, '-')
-    .replace(/^\d+\s*/, '')
-    .replace(/[\W]/, '')
-    .toLowerCase();
+  return (
+    name
+      .split('.')
+      .shift()
+      // Replace spaces with hyphens
+      .replace(/\s+/g, '-')
+      // Remove characters that are not letters (A–Z, a–z), numbers (0–9), underscore (_), and hyphen (-)
+      .replace(/[^\w-]+/g, '')
+      // Strip leading hyphens and digits
+      .replace(/^[-\d]+/, '')
+      .toLowerCase()
+  );
 }
 
 export function insertNewAsset(type, id, src, onLoadedCallback = undefined) {
