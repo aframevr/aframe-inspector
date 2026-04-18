@@ -34,6 +34,10 @@ THREE.EditorControls = function (_object, domElement) {
   var pointerOld = new THREE.Vector2();
   var spherical = new THREE.Spherical();
   var sphere = new THREE.Sphere();
+  var focusWorldPos = new THREE.Vector3();
+  var focusWorldQuat = new THREE.Quaternion();
+  var focusWorldScale = new THREE.Vector3();
+  var focusOffset = new THREE.Vector3();
 
   this.isOrthographic = false;
   this.rotationEnabled = true;
@@ -73,11 +77,17 @@ THREE.EditorControls = function (_object, domElement) {
       localCenterY = target.position.y;
     }
 
-    object.position.copy(
-      target.localToWorld(
-        new THREE.Vector3(0, localCenterY + distance * 0.5, distance * 2.5)
-      )
+    // Offset in world units (localCenterY / distance come from the world-space bbox), rotated
+    // by the target's world rotation but NOT multiplied by its world scale.
+    target.matrixWorld.decompose(
+      focusWorldPos,
+      focusWorldQuat,
+      focusWorldScale
     );
+    focusOffset
+      .set(0, localCenterY + distance * 0.5, distance * 2.5)
+      .applyQuaternion(focusWorldQuat);
+    object.position.copy(focusWorldPos).add(focusOffset);
     object.lookAt(center);
 
     scope.dispatchEvent(changeEvent);
