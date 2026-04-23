@@ -70,15 +70,10 @@ export default class PropertyRow extends React.Component {
     const props = this.props;
     const type = this.getType();
 
-    let value =
+    const value =
       type === 'selector'
         ? props.entity.getDOMAttribute(props.componentname)?.[props.name]
         : props.data;
-
-    if (type === 'string' && value && typeof value !== 'string') {
-      // Allow editing a custom type like event-set component schema
-      value = props.schema.stringify(value);
-    }
 
     const widgetProps = {
       name: props.name,
@@ -136,7 +131,7 @@ export default class PropertyRow extends React.Component {
         return <BooleanWidget {...widgetProps} />;
       }
       default: {
-        return <InputWidget {...widgetProps} />;
+        return <InputWidget {...widgetProps} schema={props.schema} />;
       }
     }
   }
