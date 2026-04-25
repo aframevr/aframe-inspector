@@ -69,22 +69,29 @@ export default class PropertyRow extends React.Component {
   getWidget() {
     const props = this.props;
     const type = this.getType();
+    const isSelectorType = type === 'selector' || type === 'selectorAll';
 
-    const value =
-      type === 'selector'
-        ? props.entity.getDOMAttribute(props.componentname)?.[props.name]
-        : props.data;
+    const value = isSelectorType
+      ? props.entity.getDOMAttribute(props.componentname)?.[props.name]
+      : props.data;
 
+    const updateProperty = (name, value) => {
+      updateEntity(
+        props.entity,
+        props.componentname,
+        !props.isSingle ? props.name : '',
+        value
+      );
+    };
+
+    // For selector and selectorAll types, commit on blur only (not on each
+    // keystroke): a partial selector is rarely valid and querying the DOM on
+    // every character is wasteful.
     const widgetProps = {
       name: props.name,
-      onChange: function (name, value) {
-        updateEntity(
-          props.entity,
-          props.componentname,
-          !props.isSingle ? props.name : '',
-          value
-        );
-      },
+      ...(isSelectorType
+        ? { onBlur: updateProperty }
+        : { onChange: updateProperty }),
       value: value,
       id: this.id
     };
@@ -131,7 +138,17 @@ export default class PropertyRow extends React.Component {
         return <BooleanWidget {...widgetProps} />;
       }
       default: {
-        return <InputWidget {...widgetProps} schema={props.schema} />;
+        // For selector and selectorAll types, omit the schema so InputWidget
+        // doesn't parse the string into a DOM element / NodeList. We want the
+        // raw selector string to reach setAttribute — A-Frame preserves it
+        // verbatim in attrValue, even when it doesn't resolve, so the UI
+        // shows what the user typed.
+        return (
+          <InputWidget
+            {...widgetProps}
+            schema={isSelectorType ? undefined : props.schema}
+          />
+        );
       }
     }
   }

@@ -9,7 +9,9 @@
     <script>
     AFRAME.registerComponent('models-array', {
       schema: {
-        models: {type: 'array', oneOf: ['one', 'two', 'three', 'four']}
+        models: {type: 'array', oneOf: ['one', 'two', 'three', 'four']},
+        entity: {type: 'selector'},
+        entities: {type: 'selectorAll'}
       }
     })
 
