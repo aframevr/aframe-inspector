@@ -167,9 +167,10 @@ export function Viewport(inspector) {
       } else if (object.el.hasAttribute('gltf-model')) {
         const listener = (event) => {
           if (event.target !== object.el) return; // we got an event for a child, ignore
+          object.el.removeEventListener('model-loaded', listener);
+          if (object.parent === null) return; // entity was detached before model loaded
           selectionBox.setFromObject(object);
           selectionBox.visible = true;
-          object.el.removeEventListener('model-loaded', listener);
         };
         object.el.addEventListener('model-loaded', listener);
       }
