@@ -117,7 +117,7 @@
   input.string
     box-sizing border-box
     padding-left 8px
-    width 150px
+    width 142px
 
   input[type="text"]:focus,
   input.string:focus
@@ -131,6 +131,12 @@
     margin 0 0 0 5px
     width 68px
 
+.commonComponents .propertyRow
+  padding-right 45px
+
+  .text
+    width 90px
+
 .propertyRowDefined .text
   color var(--color-property-defined)
   font-weight 600
@@ -139,20 +145,26 @@
   font-style italic
   font-weight 600
 
+.propertyRow .propertyRow-actions
+  align-items baseline
+  display flex
+  gap 4px
+  position absolute
+  right 8px
+
+.propertyRow .propertyRow-actions a.button
+  font-size 13px
+  line-height 1
+
 .propertyRow .reset-button
   background none
   border none
   color var(--color-base-content)
   cursor pointer
-  opacity 0.6
   padding 2px
-  position absolute
-  right 8px
-  top 50%
-  transform translateY(-50%)
 
   &:hover
-    opacity 1
+    color var(--color-primary)
 
 #addComponentContainer
   align-items center

@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { faRotateLeft } from '@fortawesome/free-solid-svg-icons';
 
 import { AwesomeIcon } from '../AwesomeIcon';
+import CopyToClipboardButton from '../CopyToClipboardButton';
 import BooleanWidget from '../widgets/BooleanWidget';
 import ColorWidget from '../widgets/ColorWidget';
 import InputWidget from '../widgets/InputWidget';
@@ -16,6 +17,9 @@ import Vec3Widget from '../widgets/Vec3Widget';
 import Vec2Widget from '../widgets/Vec2Widget';
 import { updateEntity } from '../../lib/entity';
 import { equal } from '../../lib/utils';
+import { getComponentClipboardRepresentation } from '../../lib/entity';
+
+const COPYABLE_COMPONENTS = ['position', 'rotation', 'scale'];
 
 export default class PropertyRow extends React.Component {
   static propTypes = {
@@ -65,27 +69,29 @@ export default class PropertyRow extends React.Component {
   getWidget() {
     const props = this.props;
     const type = this.getType();
+    const isSelectorType = type === 'selector' || type === 'selectorAll';
 
-    let value =
-      type === 'selector'
-        ? props.entity.getDOMAttribute(props.componentname)?.[props.name]
-        : props.data;
+    const value = isSelectorType
+      ? props.entity.getDOMAttribute(props.componentname)?.[props.name]
+      : props.data;
 
-    if (type === 'string' && value && typeof value !== 'string') {
-      // Allow editing a custom type like event-set component schema
-      value = props.schema.stringify(value);
-    }
+    const updateProperty = (name, value) => {
+      updateEntity(
+        props.entity,
+        props.componentname,
+        !props.isSingle ? props.name : '',
+        value
+      );
+    };
 
+    // For selector and selectorAll types, commit on blur only (not on each
+    // keystroke): a partial selector is rarely valid and querying the DOM on
+    // every character is wasteful.
     const widgetProps = {
       name: props.name,
-      onChange: function (name, value) {
-        updateEntity(
-          props.entity,
-          props.componentname,
-          !props.isSingle ? props.name : '',
-          value
-        );
-      },
+      ...(isSelectorType
+        ? { onBlur: updateProperty }
+        : { onChange: updateProperty }),
       value: value,
       id: this.id
     };
@@ -132,7 +138,17 @@ export default class PropertyRow extends React.Component {
         return <BooleanWidget {...widgetProps} />;
       }
       default: {
-        return <InputWidget {...widgetProps} />;
+        // For selector and selectorAll types, omit the schema so InputWidget
+        // doesn't parse the string into a DOM element / NodeList. We want the
+        // raw selector string to reach setAttribute — A-Frame preserves it
+        // verbatim in attrValue, even when it doesn't resolve, so the UI
+        // shows what the user typed.
+        return (
+          <InputWidget
+            {...widgetProps}
+            schema={isSelectorType ? undefined : props.schema}
+          />
+        );
       }
     }
   }
@@ -212,10 +228,28 @@ export default class PropertyRow extends React.Component {
           {props.name}
         </label>
         {this.getWidget()}
-        {isPropertyExplicitlySet && type !== 'map' && (
+        <div className="propertyRow-actions">
+          {type === 'vec3' &&
+            COPYABLE_COMPONENTS.includes(props.componentname) && (
+              <CopyToClipboardButton
+                title="Copy to clipboard"
+                message="Copied to clipboard"
+                text={() =>
+                  getComponentClipboardRepresentation(
+                    props.entity,
+                    props.componentname
+                  )
+                }
+              />
+            )}
           <button
             className="reset-button"
             title="Reset"
+            style={
+              !(isPropertyExplicitlySet && type !== 'map')
+                ? { visibility: 'hidden' }
+                : null
+            }
             onClick={() => {
               updateEntity(
                 props.entity,
@@ -227,7 +261,7 @@ export default class PropertyRow extends React.Component {
           >
             <AwesomeIcon icon={faRotateLeft} />
           </button>
-        )}
+        </div>
       </div>
     );
   }
