@@ -79,7 +79,7 @@ export default class Toolbar extends React.Component {
    */
   writeChanges = () => {
     const xhr = new XMLHttpRequest();
-    const watcherUrl = window.AFRAME_WATCHER_URL || 'http://localhost:51234/save';
+    const watcherUrl = window.AFRAME.INSPECTOR.config.saveEndpoint;
     xhr.open('POST', watcherUrl);
     xhr.onerror = () => {
       alert(
