@@ -1,7 +1,7 @@
 {
   "name": "aframe-inspector",
   "version": "1.7.1",
-  "description": "A visual inspector tool for A-Frame - patched to support custom A-Frame Watcher endpoints.",
+  "description": "A visual inspector tool for A-Frame.",
   "main": "dist/aframe-inspector.min.js",
   "scripts": {
     "build": "webpack --progress",
