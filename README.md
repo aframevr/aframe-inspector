@@ -82,11 +82,9 @@ If you want to disable that behavior, you can do that by defining a global varia
 ```
 ## Customizing the A-Frame Watcher save endpoint
 
-If you run the A-Frame Watcher from a different host or port, you can use the Window level variable ``AFRAME_INSPECTOR_CONFIG`` to specify a custom endpoint location, for instance if you use :
+If you run the A-Frame Watcher from a different host or port, you can set `AFRAME_INSPECTOR_CONFIG` to specify a custom endpoint like this:
 
 ```html
 <script>
-  window.AFRAME_INSPECTOR_CONFIG = {saveEndpoint = "http://my-custom-host.org:1234/save"};
+  window.AFRAME_INSPECTOR_CONFIG = {saveEndpoint: "http://my-custom-host.org:1234/save"};
 </script>
-```
-The ``save`` endpoint must comply with the ``aframe-watcher`` implementation.
