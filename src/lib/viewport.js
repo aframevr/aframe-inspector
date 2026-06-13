@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import TransformControls from './TransformControls.js';
+import { TransformControls } from 'three/addons/controls/TransformControls.js';
 // eslint-disable-next-line no-unused-vars
 import EditorControls from './EditorControls.js';
 
@@ -43,15 +42,35 @@ export function Viewport(inspector) {
   }
 
   const camera = inspector.camera;
-  const transformControls = new THREE.TransformControls(
-    camera,
-    inspector.container
-  );
+  const transformControls = new TransformControls(camera, inspector.container);
   transformControls.size = 0.75;
-  transformControls.addEventListener('objectChange', (evt) => {
+  transformControls.addEventListener('objectChange', () => {
     const object = transformControls.object;
     if (object === undefined) {
       return;
+    }
+
+    const mode = transformControls.mode;
+
+    // Trim to 3 decimals.
+    if (mode === 'translate') {
+      object.position.set(
+        parseFloat(object.position.x.toFixed(3)),
+        parseFloat(object.position.y.toFixed(3)),
+        parseFloat(object.position.z.toFixed(3))
+      );
+    } else if (mode === 'rotate') {
+      object.rotation.set(
+        parseFloat(object.rotation.x.toFixed(3)),
+        parseFloat(object.rotation.y.toFixed(3)),
+        parseFloat(object.rotation.z.toFixed(3))
+      );
+    } else if (mode === 'scale') {
+      object.scale.set(
+        parseFloat(object.scale.x.toFixed(3)),
+        parseFloat(object.scale.y.toFixed(3)),
+        parseFloat(object.scale.z.toFixed(3))
+      );
     }
 
     selectionBox.setFromObject(object);
@@ -61,16 +80,16 @@ export function Viewport(inspector) {
     // Emit update event for watcher.
     let component;
     let value;
-    if (evt.mode === 'translate') {
+    if (mode === 'translate') {
       component = 'position';
       value = `${object.position.x} ${object.position.y} ${object.position.z}`;
-    } else if (evt.mode === 'rotate') {
+    } else if (mode === 'rotate') {
       component = 'rotation';
       const d = THREE.MathUtils.radToDeg;
       value = `${d(object.rotation.x)} ${d(object.rotation.y)} ${d(
         object.rotation.z
       )}`;
-    } else if (evt.mode === 'scale') {
+    } else if (mode === 'scale') {
       component = 'scale';
       value = `${object.scale.x} ${object.scale.y} ${object.scale.z}`;
     }
@@ -95,7 +114,7 @@ export function Viewport(inspector) {
     controls.enabled = true;
   });
 
-  sceneHelpers.add(transformControls);
+  sceneHelpers.add(transformControls.getHelper());
 
   Events.on('entityupdate', (detail) => {
     const object = detail.entity.object3D;
@@ -114,25 +133,24 @@ export function Viewport(inspector) {
   controls.zoomSpeed = 0.05;
   controls.setAspectRatio(sceneEl.canvas.width / sceneEl.canvas.height);
   controls.addEventListener('change', () => {
-    transformControls.update(true); // true is updateScale
     Events.emit('camerachanged');
   });
 
   Events.on('cameratoggle', (data) => {
     controls.setCamera(data.camera);
-    transformControls.setCamera(data.camera);
+    transformControls.camera = data.camera;
     updateAspectRatio();
   });
 
   function disableControls() {
     mouseCursor.disable();
-    transformControls.dispose();
+    transformControls.enabled = false;
     controls.enabled = false;
   }
 
   function enableControls() {
     mouseCursor.enable();
-    transformControls.activate();
+    transformControls.enabled = true;
     controls.enabled = true;
   }
   enableControls();
@@ -204,7 +222,6 @@ export function Viewport(inspector) {
       }
     }
 
-    transformControls.update();
     if (object instanceof THREE.PerspectiveCamera) {
       object.updateProjectionMatrix();
     }
