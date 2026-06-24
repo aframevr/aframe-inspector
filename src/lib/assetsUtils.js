@@ -7,8 +7,13 @@ export function getUrlFromId(assetId) {
 }
 
 export function getIdFromUrl(url) {
-  const escaped = url.replace(/'/g, "\\'");
-  return document.querySelector(`a-assets > [src='${escaped}']`)?.id;
+  const assets = document.querySelectorAll('a-assets > *');
+  for (const asset of assets) {
+    if (asset.getAttribute('src') === url) {
+      return asset.id;
+    }
+  }
+  return undefined;
 }
 
 export function getFilename(url, converted = false) {
