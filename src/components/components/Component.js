@@ -93,9 +93,18 @@ export default class Component extends React.Component {
       );
     }
 
+    // When the material component uses a material asset (material property set),
+    // every other property is ignored, entirely defined by the <a-material>; only
+    // show the material property.
+    const usesMaterialAsset =
+      this.props.name === 'material' && !!componentData.data.material;
+
     return Object.keys(componentData.schema)
       .sort()
       .filter((propertyName) => shouldShowProperty(propertyName, componentData))
+      .filter(
+        (propertyName) => !usesMaterialAsset || propertyName === 'material'
+      )
       .map((propertyName) => (
         <PropertyRow
           key={propertyName}
