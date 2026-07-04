@@ -4,6 +4,7 @@ import { AwesomeIcon } from './AwesomeIcon';
 import Events from '../lib/Events';
 import ComponentsSidebar from './components/Sidebar';
 import ModalTextures from './modals/ModalTextures';
+import ModalMaterials from './modals/ModalMaterials';
 import ModalHelp from './modals/ModalHelp';
 import ModalSponsor from './modals/ModalSponsor';
 import SceneGraph from './scenegraph/SceneGraph';
@@ -21,6 +22,7 @@ export default class Main extends React.Component {
       isHelpOpen: false,
       isModalSponsorOpen: false,
       isModalTexturesOpen: false,
+      isModalMaterialsOpen: false,
       sceneEl: AFRAME.scenes[0],
       visible: {
         scenegraph: true,
@@ -75,6 +77,17 @@ export default class Main extends React.Component {
       }.bind(this)
     );
 
+    Events.on(
+      'openmaterialsmodal',
+      function (selectedMaterial, materialOnClose) {
+        this.setState({
+          selectedMaterial: selectedMaterial,
+          isModalMaterialsOpen: true,
+          materialOnClose: materialOnClose
+        });
+      }.bind(this)
+    );
+
     Events.on('entityselect', (entity) => {
       this.setState({ entity: entity });
     });
@@ -96,6 +109,13 @@ export default class Main extends React.Component {
     this.setState({ isModalTexturesOpen: false });
     if (this.state.textureOnClose) {
       this.state.textureOnClose(value);
+    }
+  };
+
+  onModalMaterialsClose = (value) => {
+    this.setState({ isModalMaterialsOpen: false });
+    if (this.state.materialOnClose) {
+      this.state.materialOnClose(value);
     }
   };
 
@@ -220,6 +240,12 @@ export default class Main extends React.Component {
           isOpen={this.state.isModalTexturesOpen}
           selectedTexture={this.state.selectedTexture}
           onClose={this.onModalTextureOnClose}
+        />
+        <ModalMaterials
+          isOpen={this.state.isModalMaterialsOpen}
+          selectedMaterial={this.state.selectedMaterial}
+          pickEnabled={!!this.state.materialOnClose}
+          onClose={this.onModalMaterialsClose}
         />
       </div>
     );

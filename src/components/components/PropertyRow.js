@@ -9,6 +9,7 @@ import CopyToClipboardButton from '../CopyToClipboardButton';
 import BooleanWidget from '../widgets/BooleanWidget';
 import ColorWidget from '../widgets/ColorWidget';
 import InputWidget from '../widgets/InputWidget';
+import MaterialWidget from '../widgets/MaterialWidget';
 import NumberWidget from '../widgets/NumberWidget';
 import SelectWidget from '../widgets/SelectWidget';
 import TextureWidget from '../widgets/TextureWidget';
@@ -116,6 +117,10 @@ export default class PropertyRow extends React.Component {
     }
     if (type === 'map') {
       return <TextureWidget {...widgetProps} />;
+    }
+    if (type === 'material') {
+      // widgetProps contains onBlur (material is a selector-like type).
+      return <MaterialWidget {...widgetProps} />;
     }
 
     switch (type) {
