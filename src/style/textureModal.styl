@@ -70,6 +70,7 @@
   cursor pointer
   margin 8px
   overflow hidden
+  position relative
   width 155px
 
 .gallery li.selected,
@@ -217,3 +218,13 @@
 .texture canvas
   border 1px solid var(--color-base-100)
   cursor pointer
+
+.gallery li .delete-asset
+  bottom 6px
+  color var(--color-base-content)
+  cursor pointer
+  position absolute
+  right 8px
+
+.gallery li .delete-asset:hover
+  color var(--color-primary)

@@ -112,6 +112,32 @@ export default class ModalMaterials extends React.Component {
     });
   };
 
+  removeMaterial = () => {
+    const el = this.state.selectedEl;
+    // Inline materials are owned by their `material(...)` definitions.
+    if (!el || !el.id) return;
+    const material = el.getMaterial();
+    const users = Array.from(
+      document.querySelectorAll('a-scene [material]')
+    ).filter(
+      (entity) =>
+        entity.isEntity && entity.components?.material?.material === material
+    );
+    const message = users.length
+      ? 'Material `#' +
+        el.id +
+        '` is used by ' +
+        users.length +
+        ' entit' +
+        (users.length === 1 ? 'y' : 'ies') +
+        '. Do you really want to remove it?'
+      : 'Do you really want to remove material `#' + el.id + '`?';
+    if (!confirm(message)) return;
+    el.parentNode.removeChild(el);
+    const materials = Array.from(document.querySelectorAll('a-material'));
+    this.setState({ materials, selectedEl: materials[0] || null });
+  };
+
   updateProperty = (name, value) => {
     const el = this.state.selectedEl;
     const propDef = el.schema[name];
@@ -278,6 +304,17 @@ export default class ModalMaterials extends React.Component {
                   USE SELECTED
                 </button>
               )}
+              <button
+                onClick={this.removeMaterial}
+                disabled={!this.state.selectedEl || !this.state.selectedEl.id}
+                title={
+                  this.state.selectedEl && !this.state.selectedEl.id
+                    ? 'Inline materials are owned by their material(...) definition'
+                    : 'Remove the selected material asset'
+                }
+              >
+                DELETE
+              </button>
             </div>
           </div>
           <div className="materialsEditor">{this.renderEditor()}</div>
