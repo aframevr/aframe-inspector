@@ -7,6 +7,7 @@ import ColorWidget from '../widgets/ColorWidget';
 import InputWidget from '../widgets/InputWidget';
 import NumberWidget from '../widgets/NumberWidget';
 import SelectWidget from '../widgets/SelectWidget';
+import TextureWidget from '../widgets/TextureWidget';
 import Vec2Widget from '../widgets/Vec2Widget';
 
 /**
@@ -40,6 +41,21 @@ export default class ModalMaterials extends React.Component {
     }
     return null;
   }
+
+  componentDidMount() {
+    // Textures load asynchronously; refresh swatches and widgets when they do.
+    document.addEventListener('materialtextureloaded', this.onTextureLoaded);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('materialtextureloaded', this.onTextureLoaded);
+  }
+
+  onTextureLoaded = () => {
+    if (this.state.isOpen) {
+      this.forceUpdate();
+    }
+  };
 
   componentDidUpdate(prevProps) {
     if (this.props.isOpen && !prevProps.isOpen) {
@@ -174,16 +190,8 @@ export default class ModalMaterials extends React.Component {
     } else if (propDef.oneOf && propDef.oneOf.length > 0) {
       widget = <SelectWidget {...widgetProps} options={propDef.oneOf} />;
     } else if (propDef.type === 'map') {
-      // Commit on blur; a partial URL or selector is not worth loading.
-      widget = (
-        <InputWidget
-          id={id}
-          name={key}
-          onBlur={onChange}
-          value={value}
-          schema={propDef}
-        />
-      );
+      // Opens the textures modal, stacked on top of this one.
+      widget = <TextureWidget {...widgetProps} />;
     } else {
       switch (propDef.type) {
         case 'number': {

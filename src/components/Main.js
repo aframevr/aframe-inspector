@@ -236,16 +236,18 @@ export default class Main extends React.Component {
           isOpen={this.state.isModalSponsorOpen}
           onClose={this.onCloseModalSponsor}
         />
-        <ModalTextures
-          isOpen={this.state.isModalTexturesOpen}
-          selectedTexture={this.state.selectedTexture}
-          onClose={this.onModalTextureOnClose}
-        />
         <ModalMaterials
           isOpen={this.state.isModalMaterialsOpen}
           selectedMaterial={this.state.selectedMaterial}
           pickEnabled={!!this.state.materialOnClose}
           onClose={this.onModalMaterialsClose}
+        />
+        {/* Rendered after ModalMaterials so it stacks on top when the textures
+            modal is opened from a map property in the materials modal. */}
+        <ModalTextures
+          isOpen={this.state.isModalTexturesOpen}
+          selectedTexture={this.state.selectedTexture}
+          onClose={this.onModalTextureOnClose}
         />
       </div>
     );

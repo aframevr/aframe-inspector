@@ -31,6 +31,7 @@ export default class Modal extends React.Component {
   handleGlobalKeydown = (event) => {
     if (
       this.state.isOpen &&
+      this.isTopmostModal() &&
       (event.keyCode === 27 ||
         (this.props.extraCloseKeyCode &&
           event.keyCode === this.props.extraCloseKeyCode))
@@ -42,6 +43,16 @@ export default class Modal extends React.Component {
     }
   };
 
+  // Modals can be stacked (e.g., the textures modal opened from the materials
+  // modal); only the topmost open modal should react to ESC or outside clicks.
+  isTopmostModal = () => {
+    const openModals = document.querySelectorAll('.modal:not(.hide)');
+    return (
+      openModals.length > 0 &&
+      openModals[openModals.length - 1].contains(this.self.current)
+    );
+  };
+
   shouldClickDismiss = (event) => {
     var target = event.target;
     // This piece of code isolates targets which are fake clicked by things
@@ -50,6 +61,10 @@ export default class Modal extends React.Component {
       return false;
     }
     if (target === this.self.current || this.self.current.contains(target)) {
+      return false;
+    }
+    // Don't dismiss when interacting with another modal stacked on top.
+    if (!this.isTopmostModal()) {
       return false;
     }
     return true;
