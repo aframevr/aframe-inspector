@@ -69,7 +69,12 @@ export default class PropertyRow extends React.Component {
   getWidget() {
     const props = this.props;
     const type = this.getType();
-    const isSelectorType = type === 'selector' || type === 'selectorAll';
+    // The material type behaves like a selector (`#myMaterial` or an inline
+    // `material(...)` definition): edit the raw string and commit on blur so
+    // partial selectors typed by the user are not committed keystroke by
+    // keystroke (which would detach the entity from its shared material).
+    const isSelectorType =
+      type === 'selector' || type === 'selectorAll' || type === 'material';
 
     const value = isSelectorType
       ? props.entity.getDOMAttribute(props.componentname)?.[props.name]
