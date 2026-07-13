@@ -12,19 +12,43 @@ import Events from '../../lib/Events';
 import { saveBlob } from '../../lib/utils';
 import GLTFIcon from '../../../assets/gltf.svg';
 
-// @todo Take this out and use updateEntity?
-function changeId(componentName, value) {
-  var entity = AFRAME.INSPECTOR.selectedEntity;
-  if (entity.id !== value) {
-    entity.id = value;
-    Events.emit('entityidchange', entity);
-  }
-}
-
 export default class CommonComponents extends React.Component {
   static propTypes = {
     entity: PropTypes.object
   };
+
+  state = {
+    duplicateId: null,
+    idInputKey: 0
+  };
+
+  changeId = (componentName, value) => {
+    var entity = AFRAME.INSPECTOR.selectedEntity;
+    if (entity.id !== value) {
+      // Ids must be unique; committing a duplicate id breaks entity lookups
+      // done with getElementById or querySelector in components. Refuse the
+      // value, show a message and remount the input so it displays the
+      // entity's current id again.
+      if (value && document.getElementById(value)) {
+        this.setState((state) => ({
+          duplicateId: value,
+          idInputKey: state.idInputKey + 1
+        }));
+        return;
+      }
+      this.setState({ duplicateId: null });
+      entity.id = value;
+      Events.emit('entityidchange', entity);
+    } else {
+      this.setState({ duplicateId: null });
+    }
+  };
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.entity !== this.props.entity && this.state.duplicateId) {
+      this.setState({ duplicateId: null });
+    }
+  }
 
   onEntityUpdate = (detail) => {
     if (detail.entity !== this.props.entity) {
@@ -125,12 +149,19 @@ export default class CommonComponents extends React.Component {
               ID
             </label>
             <InputWidget
-              onBlur={changeId}
+              key={this.state.idInputKey}
+              onBlur={this.changeId}
               entity={entity}
               name="id"
               value={entity.id}
             />
           </div>
+          {this.state.duplicateId !== null && (
+            <div className="propertyRowError">
+              The id &quot;{this.state.duplicateId}&quot; is already used by
+              another element, the previous id was restored.
+            </div>
+          )}
           <div className="propertyRow">
             <label className="text">class</label>
             <span>{entity.getAttribute('class')}</span>

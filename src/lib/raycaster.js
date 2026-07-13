@@ -73,7 +73,14 @@ export function initRaycaster(inspector) {
     if (event instanceof CustomEvent) {
       return;
     }
-    event.preventDefault();
+    // Don't preventDefault on left click: it would suppress the browser's
+    // default focus transfer, leaving a focused panel input (e.g. the id
+    // field) focused while the selection changes underneath it, so its blur
+    // handler would later commit a stale value to the newly selected entity.
+    if (event.button !== 0) {
+      // Middle click: prevent autoscroll so it can be used for zoom.
+      event.preventDefault();
+    }
     const array = getMousePosition(
       inspector.container,
       event.clientX,

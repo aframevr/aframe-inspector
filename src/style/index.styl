@@ -12,6 +12,11 @@ body.aframe-inspector-opened
   margin 0
   overflow hidden
 
+  a-scene .a-canvas
+    // mousedown default action is no longer prevented (see raycaster.js), so
+    // block drag-started text selection from anchoring on the canvas
+    user-select none
+
 /* :where(:root) has zero specificity compared to :root, so any user defined :root will override the below rule */
 :where(:root) {
   color-scheme: dark;
