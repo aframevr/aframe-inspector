@@ -77,6 +77,8 @@
         <a-mixin id="purple" material="color: #93648D"></a-mixin>
         <a-mixin id="short" scale="1 0.5 1"></a-mixin>
         <a-mixin id="yellow" material="color: #FFC65D"></a-mixin>
+        <a-material id="gold" color="#FFC65D" metalness="0.9" roughness="0.2"></a-material>
+        <a-material id="crateMat" src="#crateImg" roughness="0.9"></a-material>
         <img id="crateImg" src="https://aframe.io/sample-assets/assets/images/wood/crate.gif" crossorigin="true">
         <img id="floorImg" src="https://aframe.io/sample-assets/assets/images/terrain/grasslight-big.jpg" crossorigin="true">
       </a-assets>
@@ -92,6 +94,12 @@
       <a-box src="https://aframe.io/sample-assets/assets/images/bricks/brick_bump.jpg" position="-5 5 -2" width="1" color="#F16745"></a-box>
       <a-box id="aBox" position="0 2 0" height="2" color="#FFC65D"></a-box>
       <a-plane id="smiley" position="2.5 2 0" width="1" height="1" material="src: #canvasTexture" draw-smiley="canvas: #canvasTexture"></a-plane>
+
+      <!-- Shared material assets. -->
+      <a-entity id="goldBox" geometry="primitive: box" material="material: #gold" position="0 5 -2"></a-entity>
+      <a-entity id="goldSphere" geometry="primitive: sphere; radius: 0.5" material="material: #gold" position="1.5 5 -2"></a-entity>
+      <a-entity id="crateBox" geometry="primitive: box" material="material: #crateMat" position="-1.5 5 -2"></a-entity>
+      <a-entity id="inlineBox" geometry="primitive: box" material="material: material(shader: flat; color: #EF2D5E)" position="-3 5 -2"></a-entity>
 
       <!-- Models. -->
       <a-entity class="boxClass" geometry="primitive: box" material="src: #crateImg" position="3 4 0"></a-entity>

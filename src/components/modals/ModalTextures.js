@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { AwesomeIcon } from '../AwesomeIcon';
 import Events from '../../lib/Events';
 import Modal from './Modal';
@@ -217,6 +217,18 @@ export default class ModalTextures extends React.Component {
     this.setState({ filterText: e.target.value });
   };
 
+  deleteAsset = (image, event) => {
+    event.stopPropagation();
+    if (!confirm('Do you really want to remove asset `#' + image.id + '`?')) {
+      return;
+    }
+    const assetEl = document.getElementById(image.id);
+    if (assetEl && assetEl.parentNode) {
+      assetEl.parentNode.removeChild(assetEl);
+    }
+    this.generateFromAssets();
+  };
+
   renderRegistryImages() {
     var self = this;
     let selectSample = function (image) {
@@ -411,6 +423,13 @@ export default class ModalTextures extends React.Component {
                         <span>
                           {image.width} x {image.height}
                         </span>
+                        <a
+                          className="button delete-asset"
+                          title="Remove asset"
+                          onClick={this.deleteAsset.bind(this, image)}
+                        >
+                          <AwesomeIcon icon={faTrashAlt} />
+                        </a>
                       </div>
                     </li>
                   );
